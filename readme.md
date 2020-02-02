@@ -14,7 +14,9 @@ Developed on home PC Windows 10 64 bit and Apache web server. Some details are t
 3. My blog : http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
      
 ### Download and install code from here
-https://github.com/slavkoss/fwphp - PHP code here is good for (more) large sites. Unpack zip (3 subfolders : **fwphp,  vendor and zinc**) in webserver doc root - my is J:\awww\www       
+1. https://github.com/slavkoss/fwphp - PHP code here is good for (more) large sites
+2. In webserver doc root - my is J:\xampp\htdocs  or virtual host  J:\awww\www
+3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**        
 
 
 <br />        
