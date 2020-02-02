@@ -72,7 +72,7 @@ So only last commit remains and it is first commit :
 Save your .git/config before, and restore it after. (I delete it in recycle bin).
 1. delete .git/   (< 10 MB) - without this command : git remote add origin... issues error : fatal: remote origin already exists !!
 2. git init   (< 20 kb)
-3. git add .
+3. git add .  (< 3 MB)
 4. git commit -am "ver 6.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
 5. git remote add origin https://github.com/slavkoss/fwphp.git
 6. git push --mirror --force
