@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2019 at 11:31 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.7
+-- Generation Time: Feb 02, 2020 at 01:33 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.3.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -17,13 +17,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-/*
+
 --
 -- Database: `z_blogcms`
---create database IF NOT EXISTS z_blogcms;
---use z_blogcms;
 --
-*/
+
 -- --------------------------------------------------------
 
 --
@@ -145,7 +143,7 @@ INSERT INTO `posts` (`id`, `datetime`, `title`, `category`, `author`, `image`, `
 (16, '2015-06-10 12:20:29', 'altervista007.txt ', 'B12phpfw', 'Tom', '3.jpg', '                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, qu              ', '7. ORACLE 11g XE PERSISTENT DB CONNECTION POOLED (ESTABLISHED WITH PHP PDO OR E.Rangelâ€™s PDOOCI)', '                                ', NULL, NULL, NULL),
 (18, '2015-08-16 12:20:29', 'altervista009.txt ', 'B12phpfw', 'Tom', '_102968357_diverse_politics.jpg', '    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u', '                9. Main development, test and production menu (& 3 sites) - PHP 7 RC5, Oracle 11g on Windows 10 all 64 bit', '                                                ', NULL, NULL, NULL),
 (19, '2015-04-13 12:20:29', 'altervista004.txt ', 'B12phpfw', 'Zoe333', 'safe_image.jpg', '', '                4. Multiple files upload OOP, namespaces & How to recognize mobile device - OOP, SPA, MVC domain style, PHP outside web doc root ', '                                ', NULL, NULL, NULL),
-(20, '2011-11-11 12:20:29', 'Losing_weight.txt', 'Fitness', 'Zoe333', 'fit.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ', 'Losing weight is a thing of Past', '                ', NULL, NULL, NULL),
+(20, '2020-01-27 18:20:29', 'Prijedlozi_za_Nacrt_NPDTG_20.12.2019.txt', 'Politics', 'Zoe333', 'fit.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ', 'Konkretni koraci koje bi trebalo dodati u Nacrt NPDTG od 20.12.2019 :\r\n\r\n1. Zakon ili pravilnik ili... za \"Identificiranje tvrtki koje su ZAISTA na tržištu\". FINA i APIS to sigurno nisu.\r\n2. Tvrtke koje nisu na tržištu su državni činovnici kojima država određuje plaće : koeficijente, vrijednost boda... i prati isplate plaća.\r\n3. Pojedini naizgled detalji koji ako se ne propišu i riješe čine (velike ?) nepotrebne troškove gospodarstvu. Na primjer Web stranice FINE i ostalih za e-račun za korisnike-informatičare programere programa za robno i materijalno knjigovodstvo za krajnje korisnike su izrazito loše (kao i web stranice za krajnje korisnike). Npr za e-račun (20 do 30 podataka sa dosta varijanti kako se formiraju) ima nekoliko (desetaka) hiljada stranica uputa za za korisnike-informatičare. \r\n4. Novac: Prema Prilog 2. Nacrta  Popis mjera i projekata/aktivnosti za Mjeru 1 : bi plan bio 782.553.333,33 kuna (nejasno je zašto nije 782,6 miliona) dio bi trebalo uložiti u osposobljavanje FINE, APISA i ostalih za telefonsku komunikaciju sa korisnicima-informatičarima koja bi bila skoro nepotrebna da su Web stranice pod 3. kvalitetne.\r\nTrenutno je korisnicima-informatičarima skoro nemoguće zajedno sa informatičarima FINE, APISA i ostalih razgovorom a ne samo emailovima unapređivati elektroničko dijeljenje informacija.', 'Hrvatska 2019 g.  zaostaje za EU prosjekom u sljedećem\r\n\r\n- poslovni modeli za male i srednje poduzetnike \r\n- dijeljenje pozitivnih iskustava i primjera primjene dobrih poslovnih praksi i novih modela.\r\n- informacije o dostupnim izvorima financiranja : pojednostavniti procese i učiniti ih razumljivijim korisnicima.\r\n- elektroničko dijeljenje informacija\r\n- digitalne javne usluge za poduzeća\r\n- korištenje unaprijed ispunjenih obrazaca\r\n- kompletnost usluga dostupnih na internetu\r\n- Hrvatska ima 4,7% osoba s diplomom iz područja IKT (EU prosjek 3,5%) ali aposleni stručnjaci u području IKT-a su ispod EU prosjeka :   muškarci 3,3% (EU prosjek 3,7%),  žene 0,9% (EU prosjek 1,4%)           ', NULL, NULL, NULL),
 (21, '2015-04-14 11:20:29', 'altervista005.txt ', 'B12phpfw', 'Zoe333', 'safe_image.jpg', '', '                5. CRUD simple table (ID, some data columns) PDO SQLite      ', '                                ', NULL, NULL, NULL),
 (22, '2015-04-14 12:20:29', 'altervista006.txt ', 'B12phpfw', 'Zoe333', 'HTML5 CSS3.jpg', '', '6. CRUD selfjoin table forum â€“ message board PDO SQLite        ', '                                                ', NULL, NULL, NULL),
 (23, '2011-11-11 12:20:29', 'Kids_play.txt', 'Fitness', 'Xerox121', 'children-running-t.jpg', 'Sarah Palen a famous physician says letting kids play the way they want make them happy, active and healthy. Parent advice on thing which they can do or dont leave a bad effect on children, she maintained. ', 'Fun Exercises for Kids : Sarah Palen a famous physician says letting kids play the way they want make them happy, active and healthy. Parent advice on thing which they can do or dont leave a bad effect on children, she maintained. ', '                                ', NULL, NULL, NULL),
