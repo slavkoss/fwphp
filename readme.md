@@ -135,60 +135,6 @@ Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/
 
 
 
-<br /><br />
-> // https://community.notepad-plus-plus.org/topic/17366/how-to-install-emmet-plugin/2
-
-Meta Chuh 26 Mar 2019, 15:45  
-@Alexander–Rudenko
-
-#### Old notepad++ plugin manager is not compatible with notepad++ 7.6 and above.
- -it will write files to wrong locations.
-first revert all changes you made to your notepad++ installation, by uninstalling plugin manager and removing everything you might have installed with plugin manager.
-make sure you do not see any error messages at notepad++ startup, and make sure you do not see plugin manager at your plugins menu anymore.
-
-next, follow the >>> Guide: 
-### I do not use this: How to install the PythonScript plugin and emmet plugin on Notepad++ 7.6.3, 7.6.4 and above 
-<<<, to install pythonscript manually :
-https://community.notepad-plus-plus.org/topic/17256/guide-how-to-install-the-pythonscript-plugin-on-notepad-7-6-3-7-6-4-and-above
-
-for notepad++ 7.6.4, 64 bit (installed version):
-
-download and extract PythonScript_Full_1.3.0.0_x64.zip from >>> here <<< to your desktop.
-note: do not use any other available release type, except this zip.
-1. https://github.com/bruderstein/PythonScript/releases/download/v1.3.0/PythonScript_Full_1.3.0.0_x64.zip
-
-2. open %ProgramFiles%\Notepad++\plugins\ in windows explorer and create a folder called PythonScript.
-
-3. copy PythonScript.dll from the plugins folder of this extracted zip to:
-%ProgramFiles%\Notepad++\plugins\PythonScript\PythonScript.dll
-
-4. copy python27.dll from this extracted zip to:
-%ProgramFiles%\Notepad++\python27.dll
-
-5. copy the folders scripts containing machine level scripts and lib containing python libraries, from the zip’s plugins\PythonScript folder to:
-%ProgramFiles%\Notepad++\plugins\PythonScript\
-
-
-for notepad++ 7.6.4, 32 bit (installed version):
-...
-
-
-6. then download the emmet plugin emmet-npp.zip from >>> here <<< and extract it.
-http://download.emmet.io/npp/emmet-npp.zip
-
-7. go to the notepad++ 7.6.4 menu plugins > open plugins folder to open your plugins folder, and create a new folder called EmmetNPP.
-
-8. copy EmmetNPP.dll from the extracted emmet-npp.zip into the EmmetNPP folder you have created.
-
-9. copy all files and folders from the folder EmmetNPP within the extracted emmet-npp.zip into the EmmetNPP folder you have created.
-note: your plugins\EmmetNPP folder should now contain 
-EmmetNPP.dll, _PyV8.pyd, editor.js, npp_emmet.py, PyV8.py and a folder called emmet.
-
-now restart notepad++ and you will see both at your plugins menu :
-    the emmet plugin 
-    and the python script plugin
-
-
   
   # 3\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
 May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX .
@@ -840,6 +786,63 @@ if ($r) {
 exit(0) ;
 
 ```
+
+
+
+
+<br /><br />
+> // https://community.notepad-plus-plus.org/topic/17366/how-to-install-emmet-plugin/2
+
+Meta Chuh 26 Mar 2019, 15:45  
+@Alexander–Rudenko
+
+#### Old notepad++ plugin manager is not compatible with notepad++ 7.6 and above.
+ -it will write files to wrong locations.
+first revert all changes you made to your notepad++ installation, by uninstalling plugin manager and removing everything you might have installed with plugin manager.
+make sure you do not see any error messages at notepad++ startup, and make sure you do not see plugin manager at your plugins menu anymore.
+
+next, follow the >>> Guide: 
+### I do not use this: How to install the PythonScript plugin and emmet plugin on Notepad++ 7.6.3, 7.6.4 and above 
+<<<, to install pythonscript manually :
+https://community.notepad-plus-plus.org/topic/17256/guide-how-to-install-the-pythonscript-plugin-on-notepad-7-6-3-7-6-4-and-above
+
+for notepad++ 7.6.4, 64 bit (installed version):
+
+download and extract PythonScript_Full_1.3.0.0_x64.zip from >>> here <<< to your desktop.
+note: do not use any other available release type, except this zip.
+1. https://github.com/bruderstein/PythonScript/releases/download/v1.3.0/PythonScript_Full_1.3.0.0_x64.zip
+
+2. open %ProgramFiles%\Notepad++\plugins\ in windows explorer and create a folder called PythonScript.
+
+3. copy PythonScript.dll from the plugins folder of this extracted zip to:
+%ProgramFiles%\Notepad++\plugins\PythonScript\PythonScript.dll
+
+4. copy python27.dll from this extracted zip to:
+%ProgramFiles%\Notepad++\python27.dll
+
+5. copy the folders scripts containing machine level scripts and lib containing python libraries, from the zip’s plugins\PythonScript folder to:
+%ProgramFiles%\Notepad++\plugins\PythonScript\
+
+
+for notepad++ 7.6.4, 32 bit (installed version):
+...
+
+
+6. then download the emmet plugin emmet-npp.zip from >>> here <<< and extract it.
+http://download.emmet.io/npp/emmet-npp.zip
+
+7. go to the notepad++ 7.6.4 menu plugins > open plugins folder to open your plugins folder, and create a new folder called EmmetNPP.
+
+8. copy EmmetNPP.dll from the extracted emmet-npp.zip into the EmmetNPP folder you have created.
+
+9. copy all files and folders from the folder EmmetNPP within the extracted emmet-npp.zip into the EmmetNPP folder you have created.
+note: your plugins\EmmetNPP folder should now contain 
+EmmetNPP.dll, _PyV8.pyd, editor.js, npp_emmet.py, PyV8.py and a folder called emmet.
+
+now restart notepad++ and you will see both at your plugins menu :
+    the emmet plugin 
+    and the python script plugin
+
 
 
 
