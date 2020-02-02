@@ -1,0 +1,395 @@
+---
+Title: MD cheatsheet and SimpleMDE JS based Markdown Editor  
+Published: 2018-03-20  
+Author: phporacle  
+Template: blog  
+Tag: Help, Markdown 
+`---`
+
+# 1. Content
+
+#### [About SimpleMDE](#SimpleMDE)    https://github.com/sparksuite/simplemde-markdown-editor
+
+1. H1, H2... (hash, 2xhash... at beginning), H2 with equal signs in next line is H1, H2 with minus signs in next line is H3.
+    Underlined `-` or `=` text is header.
+    Ignoring Markdown formatting: by using \ before the Markdown character. Eg
+    Let's rename \*our-new-project\* to \*our-old-project\*. Same without \ :   
+    Let's rename *our-new-project* to *our-old-project*. 
+1. [Emphasis (bold...)](#Emphasis)
+1. [Lists](#Lists)
+1. [Links](#Links)  `[**inline-style** https://google.hr link](https://google.hr)`
+   [**inline-style** https://google.hr link](https://google.hr)  
+   Anchors new : jumps to anchor `[Lists](){:name='Lists'}`  - not working for me
+   old  `[Emphasis](#Emphasis)` jumps to `<a name="Emphasis"></a>2. Emphasis`  
+1. [Images](#Images)
+1. [Code](#Code) and Syntax Highlighting: 
+   code inline: backticks (`altgr+7`) around string
+   or block: eg three `altgr+7`php ...SOME CODE...  three `altgr+7`,    or four blanks at line beginning (in this list does not work)
+1. [Tables](#Tables)
+1. [Blockquotes](#Blockquotes)
+1. Inline HTML: raw HTML mostly works
+1. HR (Horizontal Rule): Three or more hypens `---` or 3 asterisks `***` or 3 underscores `___`
+1. Line Breaks: two blanks at line end or ENTER KEY twice  
+Blank line : `\HTML space character ANDnbsp; followed by 2 spaces or <br /> or ANDNewLine;`  
+1. [Videos](#Videos)  (Youtube)
+[--more--]   
+
+
+     
+     
+# <a name="Emphasis"></a>2. Emphasis
+
+**Italics** (Emphasis):       *asterisks* or _underscores_ 
+`*asterisks*` or `_underscores_` (backticks = print as is)
+
+**Bold** (Strong emphasis), with **asterisks** or __underscores__:
+`**asterisks**` or `__underscores__`
+
+**Combined** emphasis with **asterisks and _underscores_**:
+`**asterisks and _underscores_**`
+
+**Strikethrough** uses two tildes. ~~Scratch this.~~:
+`~~Scratch this.~~`
+
+
+
+# <a name="Lists"></a>3. Lists
+1. First ordered list item, has 1.BLANK at begginning - others can have same 1. 
+1. Another item - actual numbers don't matter, just that it's a number
+   - **1 (or 2) LEADING SPACES = sub-list**
+   - Unordered list use **asterisk BLANK  or minuses  or pluses** instead 1.BLANK
+1. Third item  
+    * 2 LEADING SPACES = sub-list
+    * 2 LEADING SPACES 
+1. And fourth item
+
+To have a line break within same paragraph, use 2 TRAILING SPACES.  
+   No effect: 3 LEADING SPACES - Note that this line is separate, but within same paragraph.(2 TRAILING SPACES IN PREVIOUS LINE)  
+   This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.  
+   
+    4 LEADING SPACES renders to HTML code (pre) block tag.
+  
+Code inline: backticks (`altgr+7`) around string
+
+## Task lists
+To create a task list, preface list items with a regular space character followed by [ ]. To mark a task as complete, use [x].
+
+ - [x] Finish my changes
+ - [ ] Push my commits to GitHub
+ - [ ] Open a pull request
+   
+   
+# <a name="Links"></a>4. Links
+There are two ways to create links.
+
+[I'm an **inline-style** link](https://www.google.com)
+
+[inline-style link with title](https://www.google.com "Google's Homepage")
+
+[I'm a **reference-style link** ee LINK IS AT SCRIPT END - mozila] [Arbitrary case-insensitive reference text]
+[You can use **numbers for reference-style link** definitions - slashdot][1]
+Or leave it empty and use the [link text] - reddedit.
+
+[I'm a **relative reference** to a repository file](../blob/master/LICENSE)
+
+
+URLs and URLs in angle brackets will automatically get turned into links.   
+http://www.example.com  and sometimes example.com (but not eg on Github).
+
+Some text to show that the reference links can follow later.
+
+**Here are reference-style links AT SCRIPT END**
+[arbitrary case-insensitive reference text]: https://www.mozilla.org
+
+[1]: http://slashdot.org
+
+[link text]: http://www.reddit.com
+
+
+
+
+# <a name="Images"></a>5. Images
+## Using emoji
+You can add emoji to your writing by typing 
+
+:EMOJICODE: @octocat :+1: This PR looks great - it's ready to merge! :shipit:
+
+Markdown logo (hover to see title text):
+
+Inline-style:      `![alt text]( LOGOURL )`
+![alt text]( https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Mkd Logo Title Text 1" )       
+
+Reference-style:        `![alt text][logo]`
+[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Mkd Logo Title Text 2"
+
+
+# <a name="Code"></a>6. Code and Syntax Highlighting
+Code blocks are part of the Markdown spec, but syntax highlighting isn't. However, many renderers -- like Github's and Markdown Here -- support syntax highlighting. Which languages are supported and how those language names should be written will vary from renderer to renderer. Markdown Here supports highlighting for dozens of languages (and not-really-languages, like diffs and HTTP headers); to see the complete list, and how to write the language names, see  highlight.js demo page http://softwaremaniacs.org/media/soft/highlight/test.html.
+
+Inline `code` has `back-ticks around` it (AltGr+7).
+
+Blocks of code are either fenced by lines with three back-ticks ```, or are indented with four spaces. 
+
+I recommend only using the fenced code blocks -- they're easier and only they support syntax highlighting.
+
+```php
+echo MarkdownExtra::defaultTransform(
+      file_get_contents("MarkdownCheatsheet.txt")
+);
+```
+
+```javascript
+var s = "JavaScript syntax highlighting";
+alert(s);
+```
+ 
+```python
+s = "Python syntax highlighting"
+print s
+```
+ 
+```
+No language indicated, so no syntax highlighting. 
+But let's throw in b (bold).
+```
+
+var s = "JavaScript syntax highlighting";
+alert(s);
+
+s = "Python syntax highlighting"
+print s
+
+No language indicated, so no syntax highlighting in Markdown Here (varies on Github). 
+But let's throw in a .
+# <a name="Tables"></a>7. Tables
+
+Tables aren't part of the core Markdown spec, but they are part of GFM and Markdown Here supports them. They are an easy way of adding tables to your email -- a task that would otherwise require copy-pasting from another application.
+
+Colons can be used to align columns.
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+There must be AT LEAST 3 DASHES SEPARATING EACH HEADER CELL.
+The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.
+
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
+
+
+
+# <a name="Bolockquotes"></a>8. Blockquotes
+> Blockquotes are very handy in email to emulate reply text.
+> This line is part of the same quote.
+
+Quote break.
+
+> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote. 
+> 
+> paragraph 2222 aaaaaaaa gggggggg
+
+
+
+
+# <a name="Videos"></a>12. Videos (Youtube)
+
+
+
+Videos can't be added directly, but you can add an image with a link to the video like this:
+
+`<a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
+" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>`
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
+" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+
+Or, in pure Markdown, but LOSING IMAGE SIZING AND BORDER:
+
+`[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)`
+
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+
+
+
+
+
+Link to YOUTUBE_VIDEO_ID : "v=AYNtH7JMlAQ" for :
+**SSL/TLS Deployment Best Practices - Ivan Ristić** :
+
+    <a href="http://www.youtube.com/watch?feature=player_embedded&v=AYNtH7JMlAQ"  
+    target="_blank"><img src="http://img.youtube.com/vi/AYNtH7JMlAQ/0.jpg"  
+    alt="SSL/TLS Deployment Best Practices - Ivan Ristić"  
+    width="240" height="180" border="10" /></a>
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=AYNtH7JMlAQ"  
+   target="_blank"><img src="http://img.youtube.com/vi/AYNtH7JMlAQ/0.jpg"  
+   alt="SSL/TLS Deployment Best Practices - Ivan Ristić"  
+   width="240" height="180" border="10" /></a>
+
+
+
+`[![SSL/TLS Deployment Best Practices - Ivan Ristić](http://img.youtube.com/vi/AYNtH7JMlAQ/0.jpg)](http://www.youtube.com/watch?v=AYNtH7JMlAQ)`
+
+
+[![SSL/TLS Deployment Best Practices - Ivan Ristić](http://img.youtube.com/vi/AYNtH7JMlAQ/0.jpg)](http://www.youtube.com/watch?v=AYNtH7JMlAQ)
+
+
+
+
+
+
+**Tom Odell - Another Love (Zwette Edit)** :  
+[![Tom Odell - Another Love (Zwette Edit)](http://img.youtube.com/vi/4ZHwu0uut3k/0.jpg)](https://www.youtube.com/watch?v=4ZHwu0uut3k)
+
+
+**Passenger - Let Her Go (Kygo Remix)** :  
+[![Passenger - Let Her Go (Kygo Remix)](https://i.ytimg.com/vi/FpQY90M-hww/hqdefault.jpg)](https://www.youtube.com/watch?v=FpQY90M-hww)
+
+# Play here Let Her Go
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/FpQY90M-hww" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+
+
+## <a name="SimpleMDE"></a>SimpleMDE JS based Markdown Editor
+
+SimpleMDE is simple, embeddable, and beautiful and my test works ok. I also  have portable WriteMonkey on my Windows10 64 bit.
+
+Keyboard shortcuts
+SimpleMDE comes with an array of predefined keyboard shortcuts, but they can be altered with a configuration option. The list of default ones is as follows:
+
+Shortcut	Action  
+Cmd-'	"toggleBlockquote"  
+Cmd-B	"toggleBold"  
+Cmd-E	"cleanBlock"  
+Cmd-H	"toggleHeadingSmaller"  
+Cmd-I	"toggleItalic"  
+Cmd-K	"drawLink"  
+Cmd-L	"toggleUnorderedList"  
+Cmd-P	"togglePreview"  
+Cmd-Alt-C	"toggleCodeBlock"  
+Cmd-Alt-I	"drawImage"  
+Cmd-Alt-L	"toggleOrderedList"  
+Shift-Cmd-H	"toggleHeadingBigger"  
+F9	"toggleSideBySide"  
+F11	"toggleFullScreen"  
+
+[View on GitHub](https://github.com/sparksuite/simplemde-markdown-editor)   [Download .zip](https://github.com/sparksuite/simplemde-markdown-editor/zipball/master)    [Download .tar.gz](https://github.com/sparksuite/simplemde-markdown-editor/tarball/master)
+
+### Download
+https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css  11 kB (Jan.2018.)
+https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js  263 kB (Jan.2018.)
+
+### Example editing markdown :  
+#  
+#  
+```php
+
+<?php
+/**
+* J:\awww\www\fwphp\glomodul\mkd\index.php  http://dev1:8083/fwphp/glomodul/mkd/
+* This is module's single enty point meaning all URL's (links in pages) lead here
+*
+* WHO: _ C t r M a i n  is framework core, router, many call it "App" or their fwname. 
+*       My fwname - vendor namespace prefix is B12phpfw, B=crud blocks, 
+*       12=order of code & data flow.
+*       _ C t r M a i n  is functional name because it is main controller 
+*       for all sites and modules (sites subfolders).
+* WHERE: this iscript is in module subdir of web server docroot (or vhost) dir
+* WHEN: user enters URL http://dev1:8083/fwphp/glomodul/mkd/
+* WHAT: _ C t r M a i n  does :
+*   from URL: name of maincontrollerclass, it's actionmethod and actparameters_array
+*   instantite ctr, call actionmethod(actparameters_array)
+* WHY: code/data flow optimized, module's single enty point
+*/
+  require_once __DIR__ .'/_01_bootstrap.php'; //zinc they call app
+
+  $main_ctr = new _CtrMain; //Init Core Library, global for all sites
+  
+  
+  
+  
+ <?php
+ /*
+ * J:\awww\www\zinc\_CtrMain.php
+ * App Core Class MAIN APP CONTROLLER: Create URL array & load ctr & its method(urlqry_ arr)
+ * Line 10:     public f unction __c onstruct(){
+ * URL FORMAT: /QS0=cls/1=method/2=methodparam1/3=methodparam2...
+ */
+  
+  
+  class _CtrMain {
+    
+    public $NrDBqueries;
+
+    public function __construct()
+    {
+      // eg http://dev1:8083/fwphp/glomodul/user_post_fmb/
+      //    http://dev1:8083/fwphp/glomodul/user_post_fmb//?p/about
+      //
+      $this->NrDBqueries = 0;
+                              msg( 'MAIN APP CONTROLLER beginn: Create URL array & load controller and it`s method(urlqry_ arr)', ['','$_POST=',$_POST], __FILE__,__LINE__,__METHOD__);
+      $ctr     = MODULE_DEFAULT_CTR ;
+      $ctr_obj = new $ctr ;
+      $akc     = MODULE_DEFAULT_AKC; //read_all.php or 'index'=read_....php
+      
+      //            1. Create  U R L  array
+      $req_uri = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
+      //extract '/fwphp/glomodul/user_post_fmb/'= module below site, rest is url query :
+      $urlqry_str = ltrim(str_replace( '/'.PATHMODULEBELOWSITE,'', $req_uri), QS) ;
+      $urlqry_arr = explode('/', $urlqry_str);
+      $urlqry_arr['urlqry_str'] = $urlqry_str ;
+      $urlqry_arr['NrDBqueries'] = $this->NrDBqueries ;
+                              msg( 'MAIN APP CONTROLLER before load c t r: '
+                                , [''
+                                    , '$urlqry_str=', $urlqry_str
+                                    , '$urlqry_arr=', $urlqry_arr
+                                  ], __FILE__,__LINE__,__METHOD__);
+      //            2. load c t r   eg new _Ctr_User;
+      if(isset($urlqry_arr[0]) and $urlqry_arr[0])
+      {
+        //$ctr     = $urlqry_arr[0] ;
+        $ctr     = '_Ctr' . ucfirst($urlqry_arr[0]) ; //ucfirst, ucwords
+                         //unset($urlqry_arr[0]); // see below array_ values
+        $ctr_obj = new $ctr ;
+        
+        if(isset($urlqry_arr[1]) and $urlqry_arr[1])
+        {
+          $akc = $urlqry_arr[1] ;
+                        //unset($urlqry_arr[1]); // see below array_ values
+          if(!method_exists($ctr, $akc)) { die( '<h3>'. __METHOD__ . ' SAYS: "'
+            . $akc.'" action method does not exist in class '.$ctr.'</h3>');}
+                                /*if(method_exists($ctr, $akc))
+                                {
+                                  if ($urlqry_arr) { 
+                                    $params = array_values($urlqry_arr) ;
+                                    $params['urlqry_str'] = $urlqry_str ;
+                                    $params['NrDBqueries'] = $this->NrDBqueries ;
+                                  }
+                                } */
+        } //e n d  c t r`s m e t h o d  is in  u r l
+        
+      } //e n d  c t r  is in  u r l
+                              //msg( 'MAIN APP CONTROLLER before call action: '
+                              //      .'$ctr=' . $ctr . ', $akc=' . $akc
+                              //  , [''
+                              //      ,'$urlqry_ arr=',$urlqry_arr
+                              //], __FILE__,__LINE__,__METHOD__);
+      $ctr_obj->$akc($urlqry_arr); //or echo it 
+
+
+    } //e n d  _ _ c o n s t r u c t
+
+
+  } 
+
+```

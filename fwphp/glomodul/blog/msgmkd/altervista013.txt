@@ -1,0 +1,7 @@
+Revised November 2019. 
+
+# 13\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
+see https://github.com/slavkoss/fwphp/  (J:\awww\www\readme.md).
+
+B12phpfw does not use jQuery and AJAX, see examples in
+https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/AJAX

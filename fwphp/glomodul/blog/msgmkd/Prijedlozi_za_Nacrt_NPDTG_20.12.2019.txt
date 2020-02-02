@@ -1,0 +1,176 @@
+Slavko Srakočić, tel +3851 091/586-7299  email slavkoss22@gmail.com
+
+To hgkit@hgk.hr
+Primjedbe/prijedlozi za Prijedlog Nacionalnog plana za digitalnu transformaciju gospodarstva koji smo primili 22 Jan 2020
+**Molim email sa odgovorima - komentarima na sve dolje izneseno !** (Siguran sam da dolje izneseno vrijedi i zanimaju me protuargumenti)
+
+Glede suradnje državnih službi sa korisnicima-informatičarima projektantima/programerima programa za robno i financijsko knjigovodstvo za krajnje korisnike
+treba dodati u Nacrt NPDTG od 20.12.2019 :
+
+1. Projekti : 
+
+    1. Zakon ili pravilnik ili... : **Identificiranje IT programskog koda kojeg treba razvijati centralizirano, a ne u pojedinim tvrtkama korisnika-informatičara i obratno**
+    
+    2. Zakon ili pravilnik ili... :  
+        **"Identificiranje tvrtki koje su na tržištu a trebale bi biti državne službe,  u sustavu obračuna plaća državnih službi i pod kontrolom stručnih ljudi (koja trenutno nije zadovoljavajuća)"**. 
+         Zašto ? Uvjeren sam da FINA, APIS... ne smiju biti na tržištu jer su monopolisti pa za dobrobit gospodarstva treba spriječiti samovolju i nekvalitetu koja je sada prisutna.
+         Tvrtka "Moj eračun" nije konkurencija FINI !?
+
+
+
+Rečeno pod 1.1 i 1.2 mogu detaljno dokazati. Ukratko :
+
+**I.  IT programe razvijati centralizirano a ne u pojedinim tvrtkama korisnika-informatičara**
+    
+2. **Program za slanje xml-a e-računa npr sinkronom servisu FINI bi morala napraviti BESPLATNO FINA (a nije !).**
+            FINA je napravila slične programe za male krajnje  korisnike (nema tehničke razlike, ali ima paušala, a moralo bi biti besplatno !). 
+            Korisnici-informatičari svaki pojedinačno su razvili puno skuplje ono što je **FINI-na-tržištu skupo razviti**, 
+            ** a por. upravi  državnoj službi se nije dalo napraviti napraviti program za fiskalizaciju** - jer ne moraju. 
+            Kad nema mačaka, miševi (činovnici) ne samo jedu nego uništavaju sir - caruju i još i više : bogovi su. 
+            Imamo puno povampirenih Obrovaca (tvornica aluminija iz glinice koje nema) poznatih iz Titovog režima. Crni mrak je u mnogo čemu još crnji.
+3. Por. uprava (tj APIS) morala je, a nije, napravila program za fiskalizaciju, identifikator joppda ("OIB" joppd obrasca)...itd - kao što su nekada napravili program za hash oznaku za RS obrazac ("OIB" RS-a)
+
+1. 2. i 3. je vjerojatno nemoguće postići (rovovske vojske interesa, malo raditi a puno zaraditi - biznis sa projektima i studijama ?). A tek ovo:
+Državne službe razvile su plaće za sve državne službe. Te plaće bi treble služiti i gospodarstvu  - kad može Pupila... 
+Korisnici-informatičari bi download-ali kod, instalirali ga krajnjim korisnicima i posredovali krajnji korisnici - državne službe (za od države propisani paušal). 
+S vremenom bi dorađivali kod po uputamma autora.
+To nisu maštanja naivca nego zaključak nakon 30-ak godina održavanja programa plaća u preko pedeset firmi.
+Slično bi trebalo biti sa kodom za robno i financijsko knjigovodstvo - 20-ak godina održavanja tkvih programa i programa po narudžbi.
+
+
+    
+**II.  Web stranice uputa i telefonska komunikacija**
+    
+4. Nekvalitetne Web stranice uputa (korisnicima-informatičarima i krajnjim korisnicima).
+          Web stranice uputa korisnicima-informatičarima npr FINE sada više liče na **potemkinova sela za neuke managere i političare i nabrajanja tehnologije iza web servisa** 
+          nego na **popis koraka** za npr slanje xml-a e-računa FINI  (koji su trenutno prekomplicirani). 
+           (Kratko slikovito : obučavaju li se piloti aviona tako da proučavaju termodinamiku motora i elektroniku aviona ili uče upravljati avionom ? )
+5. **Trenutno praktički nepostojeća telefonska komunikacija (FINE i ostalih)  sa korisnicima-informatičarima** je nužna, 
+           a bila bi skoro nepotrebna da su Web stranice kvalitetne.
+
+
+
+**III. Iskustva u praksi**
+
+6.   Tragično je rečeno pod 5. Trenutno praktički nepostojeća telefonska komunikacija (FINE i ostalih)  sa korisnicima-informatičarima.
+      A očito je da finini IT ljudi nemaju dovoljno **iskustva u praksi**. Volio bih vidjeti kako testiraju xml e-računa u FINI. 
+      Neka objasne **zašto ignoriraju cijele XML-ove - predloške e-računa** - template - koji su osnovni npr za Bootstrap. 
+      Diskusija pojedinih tagova (varijanti 20 do 30 podataka e-računa)  je, iako korisna, puno manje važna. 
+       Zanimljivo je da su (prije puno godina u "Moj e-račun" !?) počeli sa cijelim XML-ovima - predlošcima e-računa, pa su odustali (i FINA i "Moj e-račun" - ne mogu vjerovati).
+      Za mene je to siguran dokaz nedovoljno iskustva u praksi. Tako je Oracle Forms software lutao u web programirnju pa nitko više ne radi nove projekte sa tim SW. 
+      Ali mi nemamo izbora jer imamo monopoliste.
+
+     Ovdje je zanimljivo i nešto što je problem naših a još više EU činovnika : 
+
+     1. e-račun je kao i račun na papiru tekst sa nazivima podataka u uglatim zagradama <> (XML oblik teksta) . Radi se o  20 do 30 podataka sa puno varijanti kako se formiraju.
+      Imamo  **hiljade stranica uputa za XML e-računa** (nazivi u uglatim zagradama ! - jedina razlika prema računima za kruh i mlijeko) za korisnike-informatičare. 
+      Bilo bi dovoljno par desetaka stranica sa linkovima na tablice. Nitko to nije kvalitetno napravio.
+      
+      2. Zanimljivo je FINA i EU (kao i sve banke kojima smo ikad slali tekstove sa podacima) tvrde da je 
+          XML e-računa sa redundantnim podatcima (sumama koje vidimo na ispisu svih računa) "dokument" a **bez redundantnih podataka nije "dokument"** 
+          - kao kad bi rekli da goli čovjek nije čovjek ako nema (fino) odijelo tj siromašni nisu ljudi, tj ugrožavaju nas tj treba ih pobiti (jer nemaju nepotrebne krpe = sume podataka).
+         Pobiti pošiljatelje podataka (tj ne primati XML-ove) ako ne sadrže nepotrebne sume je apsurd.
+          
+          Sumiranje podataka (u XML-u...i bilo kojih) je u IT kao popiti kavu. Dakle ZABRANITI SUME a podsticati oznake podataka kao u prilozima joppd-a. 
+          **Važna je standardizacija oznaka podataka tj šta je koji iznos**. a trenutno je mutno : šifrarnici-prilozi joppd-a, hiljade stranica uputa za XML e-računa...
+          **Pošiljatelj podataka treba odgovarati isključivo za podatke** 
+             BUSINESS LOGIC tj sumiranja i standardizacija oznaka podataka i tko zna šta će sve raditi sa podacima moraju biti isključivo posao zahtjevatelja podataka. 
+             Treba li se pošiljatelj podataka baviti statistikama, data miningom...tj aplikacijama zahtjevatelja na elementarnim podacima ?
+             Priče pravnika i ekonomista (i primatelja-bogova zabušanata na račun pošiljatelja podataka) o tome šta je dokument **trebaju se odnositi na ispis podataka** 
+             a ne na zagađivanje elementarnih podataka sumama i drugim redundantnim podacima. 
+             Znam da je činovnicima najmilije da netko drugi obavi posao a oni da gospodare, ali za državu (sve nas) to je put u propast.
+
+7.  Zaokruživanje lipa koje Hrvatska i EU još uvijek nisu savladali bi trebalo egzaktno rješiti. Ali EU je na dobrom putu : predvidjeli su podatak (tag) za zaokruživanje lipa
+           koji trenutno zaobilaze dozvoljavajući ako se dobro sjećam 1 kunu razlika i bez taga. Što znači račun od 3 kune može griješiti 1 kunu - je li to uopće račun ? 
+           Plaće nisu primali zbog razlika u lipama za koje nikad nisu dali uputu, a i u robnom i financijskom **nema uputa za zaokruživanje lipa (nije trivijalno) a bile bi nužne**.
+
+Plaće u vezi sa točkom I. :
+
+8. Dokaz zašto ugovori o radu nisu isključivo u netu ?
+9. Dokaz zašto porez i prirez u plaćama ne obračunavamo kao doprinose ? Tj dovoljan je neto1 (nakon doprinosa), neto 2 nakon poreza i prireza ukinuti. 
+10. Dokaz ideje da se u plaćama neka davanja državi obračunavaju na neto1 - sva davanja državi bi se trebala obračunavati na bruto plaću ili možda bolje na neto plaću ?
+
+
+
+Pozdrav, Slavko - Slavko Srakočić dipl ing, tel +3851 091/586-7299  email slavkoss22@gmail.com
+
+
+
+
+
+<br /><br /><br /><br />
+email gore je baziran na :
+U skladu sa Zakonom o sustavu strateškog planiranja i upravljanja razvojem Republike Hrvatske (NN 123/2017) (dalje u tekstu Zakon) :      
+Za **MGPO** (Ministarstvo gospodarstva, poduzetništva i obrta) je 20.12.2019 Ernst & Young Savjetovanje d.o.o. izradio :     
+## Nacrt NPDTG
+NPDTG je Nacionalni plan za digitalnu transformaciju gospodarstva, dalje u tekstu NPDTG ili Nacionalni plan. **Ciljevi NPDTG** su osigurati preduvjete za :
+1. **optimalno iskorištavanje digitalnih kapaciteta** u svim gospodarskim područjima
+2. svim se poduzećima, a posebice malim i srednjim, omogućiti i olakšati **pristup tehnologiji, znanju i iskustvu**
+
+
+## 1. Moj prijedlog konkretnih projekata, aktivnosti i detalja aktivnosti
+Treba dodati u Nacrt NPDTG od 20.12.2019 :
+
+1. Projekt Zakon ili pravilnik ili... (obvezujuće sa kaznama !) za "**Identificiranje tvrtki koje su ZAISTA na tržištu**". FINA, APIS... to sigurno nisu.
+    Tvrtke koje nisu na tržištu (npr porezna uprava) trebaju biti **DRŽAVNE SLUŽBE npr FINA, APIS (koje su trenutno na tržištu)...** kojima država treba određivati plaće : koeficijente, vrijednost boda... i pratiti isplate plaća.
+
+2. Naizgled manje važne aktivnosti koji ako se ne propišu i riješe čine (velike ?) nepotrebne troškove gospodarstvu. Na primjer **nekvalitetne Web stranice uputa FINE i ostalih** za korisnike-informatičare projektante/programere programa za robno i financijsko knjigovodstvo za krajnje korisnike (nekvalitetne su i web stranice za krajnje korisnike). 
+   1. Npr e-račun je kao i račun na papiru tekst sa nazivima podataka u XML obliku u kojem su nazivi u uglatim zagradama. To je  20 do 30 podataka sa dosta varijanti kako se formiraju. Ima nekoliko hiljada stranica uputa za XML prikaz računa (nazivi u uglatim zagradama ! - jedina razlika prema računima za kruh i mlijeko) za korisnike-informatičare
+   2. **Trenutno praktički nepostojeća telefonska komunikacija (FINE i ostalih)  sa korisnicima-informatičarima** je nužna, a bila bi skoro nepotrebna da su Web stranice kvalitetne. Trenutno je korisnicima-informatičarima skoro nemoguće zajedno sa informatičarima FINE, APISA... telefonskim razgovorom a ne samo emailovima unapređivati elektroničko dijeljenje informacija. 
+   3. **Izabrani kvalitetni korisnici-informatičari** bi, sa fininim IT osobljem popravili kvalitetu Web stranica uputa FINE i ostalih koje sada više liče na **potemkinova sela za neuke političare** a i očito je da finini IT ljudi nemaju dovoljno **iskustva u praksi**.
+
+3. Novac: Prema Prilog 2. Nacrta NPDTG "Popis mjera i projekata/aktivnosti" bi plan bio ukupno cca 2 milijarde kn (270 miliona eura) za :
+   1. za Mjeru 1. Poduzetničkie ideje : 783 miliona kuna (nejasno je zašto su napisali 782.553.333,33 kuna, i tako će dobiti najviše polovinu)
+   2. za mjeru 2.  Razvoj novih posl.modela digitalnog gospodarstva 1.208 miliona kn
+   3. za mjeru 3. IT Obrazovanje 373 miliona kn
+   4. za mjeru 4.  Kibernetička sigurnost, zaštita i etično korištenje podataka 126 miliona kn
+   5. za mjeru 5. Digitalizacija i povezivanje usluga javne uprave za poduzetnike i građane te osiguravanje dostupnosti javnih podataka 671 miliona kn
+   
+  Mislim da bi najvažnije bilo popravili kvalitetu Web stranica uputa i ono što bi skoro bilo nepotrebno da su Web stranice kvalitetne obaveznu telefonsku komunikaciju sa izabrani kvalitetnim korisnicima-informatičarima a i sa krajnjim korisnicima.
+
+
+## 2. Objašnjenje prijedloga pod 1. i detalji aktivnosti
+Probleme koje sam naveo u nastavku treba presjeći (naređenjem ako protivni nemaju dokaze tj da se ne ulazi u beskrajne rasprave sofizmima i tipa jači kvači a um klade valja) pa se treba  baviti najvažnijim čime se FINA i EU trebaju baviti a ne bave se dovoljno jer su se zapleli u sve to i u one tisuće stranica uputa za e-račun : 20 do 30 podataka e-računa sa **dosta varijanti** kako se formiraju.
+
+**1. Zašto je važno Identificiranje tvrtki koje su ZAISTA na tržištu**     
+**Primjer FINE :**
+1. Za fiskalizaciju su napravili komercijalni (mjesečni paušal) programčić "XML signer" koji obavlja manji dio posla, umjesto besplatnog programa "fiskalizacija" koji obavlja cijeli posao. Program "fiskalizacija" je morao napraviti svaki gospodarski subjekt koji radi za krajnje korisnike. Još i gore : upute su im bile kao i uvijek nekvalitetne pa da nije neki dobar čovjek objavio programe na inetu naša firma bi vjerojatno propala.
+2. Za e-račun je isto trebao program koji obavlja cijeli posao i bilo je još teže ali smo i tu uspjeli ne propasti. Tu uzimaju mjesečni paušal od certifikata, ali i novi zli izum uz naplatu, a sve bi trebalo biti besplatno : preuzmu XML e-računa pa ga pokazuju korisnicima - tu imamo problem netočnog ispisa količina * cijena. 
+3. XML e-računa bi se trebao 
+   1. **direktno slati kupcu** uz besplatno konzultiranje fininog servisa radi sigurnosti 
+   2. **zatim automatski učitati u ulazni račun** što mogu napraviti samo finini korisnici-informatičari za krajnje korisnike. Fina na svojim web stranicama tu najvažniju aktivnost za e-račun niti ne spominje - ne mogu vjerovati da to uopće ne znaju ?
+   Gledanje računa SAMO na fininom siteu je sporedna  aktivnost jer kupac krajnji korisnik mora ručno unositi ulazni račun.
+   Dakle FINA mora biti državna služba a ne može biti na tržištu i sve finine usluge osim iznimaka (aktivnosti koje ne trebaju svima) bi morale biti besplatne.     
+
+Zanimljivo je da je, koliko se sjećam, porezna uprava svojevremeno napravila programčić za hash niz znakova za RS obrazac kojeg je zamjenio XML jira (taj informatičar je radio u FINI ! i nije mi htio objasniti njihove loše upute za fiskalizaciju - ipak se našao dobar čovjek koji je na inet stavio programe u PHP-u koje sam upogonio). Za XML jira također treba niz znakova = jedinsveni identifikator (kao naš 11 znakovni OIB) ali to im se više nije dalo raditi. Skinuo sam sa ineta java kod za taj GUID i kompajlirao i to radi već godinama. Ali izgubio sam jedan dan jer ne radim u java programskom jeziku puta koliko ima tvrtki korisnika-informatičara u Hrvatskoj - to su izgubljeni čovjek mjeseci samo za sitnicu OIB jira. fiskalizacija i e-račun su puno veći gubitci vremena za gospodarstvo.  Dakle nema mačaka (političari znalci i pošteni) i štakori caruju. U nastavku sam opisao kako vidjeti /spriječiti koliko su mišići gricnuli.
+
+Zanimljivo je FINA i EU (i sve banke kojima smo ikad slali tekstove sa podacima) tvrde da je XML e-računa sa redundantnim podatcima (sumama koje vidimo na ispisu svih računa) "dokument" a **bez redundantnih podataka nije "dokument"** iako je sumiranje podataka u XML-u kao popiti kavu. Treba zabraniti takve ideje (neukih pravnika i ekonomista) koje vode u beskrajna dopisivanja finom zbog loše definiranih tagova i u nauku o zaokruživanju lipa koju Balkan i EU još uvijek nisu savladali. Ali EU je na dobrom putu : predvidjeli su podatak (tag) za zaokruživanje lipa koji ttrenutno zaobilaze dozvoljavajući ako se dobro sjećam 1 kunu razlika i bez taga što znači račun od 3 kune može griješiti 1 kunu - je li to uopće račun ?
+
+Zanimljivo je da postoji tvrdnja da je **nepotreban kompletan XML e-računa tj predložak** i da je dovoljan opis tagova (sa dosta grešaka). Treba zabraniti takve ideje, jer se pokazalo da FINA uopće ne testira kompletne XML-ove niti ih daje korisnicima. Dojava grešaka je izrazito loša. Dovoljno je pogledati Bootstrap site na inetu da se uvidi koliko je to pogrešno.
+
+**2. Identificiranje tvrtki koje su ZAISTA na tržištu i 3. novac: **
+Iako sam informatičar ne mogu razumjeti da IT osoblje npr FINE, APISA treba imati veće plaće nego drugi stručnjaci. Ja sam specijalist za IT obračun plaća koliko je to moguće u našim zbrkama pa ću predložiti ono što mislim da je nezaobilazno.       
+1. Zadužiti Zavod za statistiku da svaki mjesec izlista **popis  plaća na ruke većih od 2 minimalne plaće za rad** u svim strukama i u gospodarstvu i državnim službama (prije kredita, bez dnevnica i slično što bi se posebno propisalo i provjeravalo, imena tih ljudi mogu zadržati za sebe). Iz toga bi se radila statistika državne službe - gospodarstvo i **korigirale plaće Državnih službi u odnosu na gospodarstvo** (na koje se odnosi rad pojedine državne službe)
+2.  Cijene npr ovog Nacrta NPDTG i svih studija bi trebale biti javno objavljene - **link u svakom dokumentu** plaćenom nekom izvan državnih službi. Fiskalizacija je koštala blizu 60 miliona kuna ili više ? Koliko od toga za (koji, od koga) rad, koliko za (koju, od koga) opremu ?
+3. Državne službe bi trebale dokazati zašto se plaće u ugovorima ne iskazuju **OBAVEZNO U IZNOSU NA RUKE** (IZNOS PRIJE KREDITA, neto )
+4. Državne službe bi trebale dokazati zašto su uvedeni porez i prirez na neto nakon doprinosa tj zašto porez i prirez nisu doprinosi (na bruto ili na neto prije kredita) pa bi svi računali trošak plaća kao **suma_neta / (ili * ?) zbroj_stopa** kako je bilo prije poreza i prireza
+5. Državne službe bi trebale napraviti u Visual studiju (C#) **program za obračun plaća koji će besplatno downloadati sve firme u gospodarstvu**, a služit će za obračun SVIH plaća u državi. Tj svi činovnici u svim državnim i ostalim firmama imat će isti obračun (koeficijente) a vrijednost boda mogu povećavati samo oni koji su ZAISTA na tržištu ili **propisane iznimke**. 
+6. Državne službe bi trebale obučiti IT osoblje firmi u gospodarstvu za prethodnu aktivnost - **besplatni inet kursevi **Visual studija (C#) i programa za obračun plaća i dostupnost na telefonu.
+7. Državne službe bi trebale kvalitetnim Web stranicama i inet kursevima **učiniti nepotrebnim RRIF i slične prodavače objašnjenja** šta to piše u (nekvalitetno pisanim) propisima. 
+    Očiti dokaz svega što sam gore naveo o nekvaliteti (ne)suradnje državnih službi sa gospodarstvom su :
+    1. prodavači objašnjenja državnih propisa (kako je moguće da uopče postoje ?)
+    2. praktički nepostojeća telefonska komunikacija sa državnim službana
+    3. nekvalitetne Web stranice državnih službi
+
+
+
+## Prilog 1: Prema Nacrtu NPDTG od 20.12.2019 **Hrvatska 2019 g. zaostaje za EU** prosjekom u sljedećem :
+
+1. poslovni modeli za male i srednje poduzetnike
+1. dijeljenje pozitivnih iskustava i primjera primjene dobrih poslovnih praksi i novih modela.
+1. informacije o dostupnim izvorima financiranja : pojednostavniti procese i učiniti ih razumljivijim korisnicima.
+1. elektroničko dijeljenje informacija
+1. digitalne javne usluge za poduzeća
+1. korištenje unaprijed ispunjenih obrazaca
+1. kompletnost usluga dostupnih na internetu
+1. Hrvatska ima 4,7% osoba s diplomom iz područja IKT (EU prosjek 3,5%) ali aposleni stručnjaci u području IKT-a su ispod EU prosjeka : muškarci 3,3% (EU prosjek 3,7%), žene 0,9% (EU prosjek 1,4%) $tmp_imgpath=J:\awww\www\zinc\img\img_big\fit.jpg

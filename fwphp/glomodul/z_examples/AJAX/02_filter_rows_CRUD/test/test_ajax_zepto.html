@@ -1,0 +1,41 @@
+<!-- http://dev1:8083/fwphp/glomodul4/help_sw/test/AJAX/01_cars_diaz/test/ -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>AJAX ALERT SERVER DATA</title>
+</head><body>
+
+<input id="search_string" type="text" placeholder="search_string" autofocus>
+<!--div id='#container'></div-->
+
+<script src="/zinc/themes/bootstrap/js/zepto.min.js"></script>
+<!--script src="http://code.jquery.com/jquery-1.11.2.min.js"></script-->
+<script>
+$(document).ready(function(){
+    $("#search_string").keyup(function(){
+       //var search_string_value = "Filter tbl rows by search_string" ;
+       var search_string_value = document.getElementById("search_string").value ;
+        $.ajax({
+           //3. s e n d  r e q u e s t  defined in 1. : req. is 2 post variables
+           //1. how send req to server, server script for responseText, refresh page (sinchrones request)
+           //.php is only one line: echo $_POST['search']; : 
+           type: 'POST', url: "test_ajax_zepto.php",  
+           data: {search_string: search_string_value, param2: 'param2_value'},  
+
+            //echo $_POST['search']; is data (can be tbl row by search_string) :
+            success: function(data){
+              if(!data.error){
+                 //2. what to do with  r e s p o n s e :
+                 //output "tbl row by id=search_string" after each entered character, see keyup above :
+                 alert(data);
+              } else {
+                 alert("not receving data");
+              }
+            }
+
+        });
+    });
+});
+</script>
+
+</body>
+</html>

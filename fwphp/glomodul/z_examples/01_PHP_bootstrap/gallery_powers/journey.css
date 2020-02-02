@@ -1,0 +1,300 @@
+<style type="text/css">
+<!--
+/* Styles defined in body remove any default margin or padding on page.
+ * Some browsers add margin, others add padding, so setting them 
+   both to zero means the page offset looks the same in all browsers.
+ * The background rule sets the page background to white with the image of Mount Fuji in the top left.
+ * The background image also contains the main page heading in both Japanese and English.
+ * The text is set to a very dark gray, which is easier on the eyes than black.
+ * The font-family applies to all text on the page, except where specifically overridden by other rules. 
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  overflow-y:scroll;
+  background-color: #EAE2D7;
+}
+
+/* All margins are removed from h1 and h2 t a g s, except for the bottom margin, which is set to 10px.
+ * The main font-family is reset to Verdana, which looks better for titles, and the color is reset to a dark blue.
+ */
+
+h1, h2 {
+    margin: 0 0 10px 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: #036;
+}
+
+h2 {
+    font-size: 140%;
+}
+
+/* Paragraphs have the left and top margins reduced to zero. The auto rule leaves the right margin untouched, 
+ * while the bottom margin is set to 1em. The default font size is reduced, and the spacing between lines increased
+ * for greater readability. */
+
+p {
+    margin: 0 auto 1em 0;
+    padding: 0 20px;
+    font-size: 85%;
+    line-height: 1.4;
+}
+
+/* Because the page heading "Japan Journey" is embedded in 
+   background image, the page needs an HTML heading
+   that won't appear on screen. This makes the page more 
+   user-friendly to search engines and screen readers.
+ * By setting the position as absolute with a top of minus 100px, 
+   the page heading is safely moved offscreen. */
+
+#header {
+    position: absolute;
+    top: -100px;
+}
+
+/* The wrapp er div wraps the rest of the page content and adds a 90px top margin 
+ * so that it clears the "Japan Journey"
+ * page title in the background image. */
+
+#wrapper { /*fmt 444*/
+  padding:40px 0px 45px; /*top margin,  , bottom*/
+  background: #fff 
+        /* url(../img/t2/fuji.jpg) top left no-repeat  */
+  ;  
+  width:1000px; /*900*/
+  margin:0 auto;
+  position:relative;
+  border-left: 1px solid #A4C8D8;
+  border-right: 1px solid #A4C8D8;
+  min-height:490px;
+}
+
+/* N A V I G A T I O N  M E N U  is contained in an absolutely positioned div 
+   140px from the top of the page and 60px from the left margin. */
+#nav { /*fmt 222*/
+    position: absolute;
+    /* margin: 10px 100px 0 0px; */ /* T0 R10% B0 L190 */
+     top: 80px;
+        /* left: 10px; */ 
+    /*right: 40px;*/
+    left: 3px;
+    width: 90px; 
+}
+/* Styles for navigation menu. */
+ul#nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#nav a {
+    display: block;
+    width: 100px;
+    padding-left: 10px;
+    margin: 3px 0;
+    text-decoration: none;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    font-variant: small-caps;
+    font-weight: bold;
+}
+#nav a:link, #nav a:visited {
+    border-left: #00425E solid 10px;
+    color: #00425E;
+}
+#nav a:hover, #nav a:active {
+    border-left-color: #fff;
+    background-color: #00425E;
+    color: #fff;
+}
+
+
+
+
+/* here ID identifies curr page and applies a white stripe to left 
+   as visual indicator. */
+a#here {
+    border-left-color: #fff !important;
+    background-color: transparent !important;
+    color: #0074A5 !important;
+}
+
+/* maincontent div has zero top and bottom margins. 
+   
+   right margin is 10% of page width to give breathing space 
+   on the right.
+   
+   Left margin is set at 190px to make room for navigation menu. 
+   
+   Minimum and maximum widths are set 
+   to keep the layout flexible. */
+
+#maincontent {  /*fmt 111*/
+    margin: 0 5% 0 10px; /* T0 R10% B0 L190 */
+    min-width: 525px;
+    max-width: 800px; /* 640 */
+}
+
+/* Styles for links in the maincontent div. */
+
+#maincontent a {
+    font-weight: bold;
+    text-decoration: none;
+    padding: 2px 4px;
+}
+
+#maincontent a:link, #maincontent a:visited {
+    color: #00425E;
+    border-bottom: #00425E dashed 1px;
+}
+
+#maincontent a:hover, #maincontent a:active {
+    color: #fff;
+    background-color: #00425E;
+    border-bottom: none;
+}
+
+/* pictureWrapper div is for random image on front page. 
+   It floats to the right with a 20px right margin and a 10px left one. */
+
+#pictureWrapper { /*fmt 333*/
+    float: right;
+    margin: 0 5px 0 10px; /* T0 R20 B0 L10 */
+}
+
+/* Border and background color for the random image. */
+
+.picBorder {
+    background-color: #fff;
+    padding: 10px;
+    border: #00425E solid 2px;
+}
+
+/* The caption on the front page is bold and centered. */
+
+p#caption {
+    margin: 0;
+    padding: 3px 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* The footer needs to appear below anything that is floated, 
+   so clear: both is added to rule. */
+
+#footer {
+  clear: both;
+  background-color: #A4C8D8;
+  color: #FFF;
+  padding:12px;
+  width:876px;
+  position:absolute;
+  bottom:0;
+}
+
+#footer p {
+  margin-bottom:0;
+  font-size: 90%;
+  font-weight:bold;
+}
+
+/* Styles for the contact form. */
+
+form {
+    margin: 0 0 0 20px;
+}
+
+form h2 {
+    color: #036;
+    font-size: 80%;
+    font-weight: bold;
+    margin: 0 0 5px 10px;
+}
+
+form p {
+    margin: 0 0 5px 0;
+}
+
+.formbox {
+    width: 250px;
+}
+
+fieldset {
+    border: none;
+}
+
+/* Setting display to block forces the label for each form element onto a line of its own. */
+
+label {
+    font-weight: bold;
+    color: #036;
+    display: block;
+}
+
+/* This needs to be overridden for the subscribe and interests labels, so display is reset to inline. */
+
+#subscribe label, #interests label {
+    display: inline;
+    padding: 0 20px 0 3px;
+}
+
+#interests div {
+    float: left;
+}
+
+/* The warning class makes the error messages on the feedback form bold and red. */
+
+.warning {
+    font-weight: bold;
+    color: #f00;
+}
+
+/* Styles for the image gallery. */
+
+#gallery {
+    width: 525px;
+}
+
+#picCount {
+  color:#00425E;
+  font-weight:bold;
+  }
+
+#thumbs {
+    float: left;
+    margin-top: 10px;
+}
+
+#thumbs td {
+    text-align: center;
+}
+
+#thumbs img {
+    border: none;
+  display:block;
+}
+
+#thumbs a:link, #thumbs a:visited, #thumbs a:hover, #thumbs a:active {
+    border: none;
+    padding: 0;
+}
+
+#main_image {
+    float: right;
+    text-align: center;
+    width: 350px;
+}
+
+#main_image p {
+   color:#00425E;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+#recaptcha_widget_div {
+  padding-left:20px;
+}
+-->
+</style>

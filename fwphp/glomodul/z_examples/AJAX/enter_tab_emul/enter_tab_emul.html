@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="HR">
+<!-- 
+  http://dev1:8083/oraed/enter_tab_emul/enter_tab_emul.html
+  J:\awww\apl\dev1\oraed\enter_tab_emul\enter_tab_emul.html
+  <a href=""></a>
+  <a href="#anchor_name"></a> TO JUMP TO <a name="anchor_name"></a>
+  
+  file:///J:/awww/apl/dev1/my_dev/test/books/predlozak/predlozak02_PgBreak_OpenClose.html
+-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; 
+      charset=UTF-8" />
+
+      <title>enter_tab_emul</title>
+      
+<!-- 
+ HTML5 shiv library is open sourced
+JS generate elements of the new types, which making MS IE prior version 9 recognize, and style them appropriately.
+-->
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"> 
+p </script>
+<![endif]-->
+
+  <link href="/zinc/themes/site/simplest.css" media="all" type="text/css" rel="stylesheet">
+
+<!-- script src="js/key_pressed.js"></script -->
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Begin
+  // JS script in head page tag
+  //nextfield = "box1"; // name of first formfield on page
+  
+  // 1.1 rrgo of browser type indicator in version string :
+  ver = navigator.appVersion;   
+  len = ver.length;
+  notmsie = "";
+  for(rrgobtype = 0; rrgobtype < len; rrgobtype++) 
+     if (ver.charAt(rrgobtype) == "(") break;
+  // in version string first char after first "(" is c for MS IE,
+  // W for other browsers :
+  
+  // 1.2 is ibrowser IE ? :
+  notmsie = (ver.charAt(rrgobtype+1).toUpperCase() != "C");
+
+  function keyDown(DnEvents) { // handles keypress
+    // keypressed code :  
+    //keypressed = DnEvents.which ;       // W: Firefox, 
+    //keypressed = window.event.keyCode ; // c: MS IE
+    keypressed = (notmsie) 
+           ? DnEvents.which        // W: Firefox, 
+           : window.event.keyCode  // c: MS IE
+    ;
+    switch(keypressed) 
+    {
+      // 1. enter key pressed :
+      case 13: 
+          // nextfield we set up in form (LIKE ORACLE FORMS 6i)
+          // if we finished all fields before submit-button-at-bottom :
+          if (nextfield == 'done') return true; // standard ibrowder key pressed processing
+          else { // SEND FOCUS TO NEXT FORM FIELD :
+            eval('document.yourform.' + nextfield + '.focus()');
+            //does not work: eval('document.yourform.nextfield.focus()');
+            //var nextfieldobj = document.getElementsByName(nextfield);
+            //nextfieldobj.focus();
+            return false;
+          }
+      // standard ibrowser key pressed -> standard processing:
+      // 35=end 36=home 33=pgup 34=pgdn 45=ins 46=del
+      // 83=ctrl+s=alt+s
+      case 121: // F10
+      //case 83: // ctrl+s = alt+s *** open new tab & continue with PHP
+        document.write('<h2>Save page... continue with PHP</h2>');
+        return false;
+      case 116: // F5 ***
+      case 8:   // backspace ***
+      //
+      case 9:   // tab
+      case 16:  // shift
+      case 17:  // ctrl
+      case 18:  // alt
+      //
+        return true; // standard ibrowder key pressed processing
+        //break;
+      default: // 116=F5...
+        return true; // standard ibrowder key pressed processing
+        // FOR TESTING WHICH KEY IS PRESSED : comment above statement !!
+        document.write('<h3>Ova tipka još nije omogućena u ovom programu (javite informatičaru ako ju trebate za uobičajene browserove aktivnosti). </h3>'
+        +'<h3>--Kod (šifra) tipke je : ' + keypressed + '</h3>'
+        +'<h3>Kliknite tipku "Backspace" za povratak u prethodnu stranicu' + '</h3>'
+        );
+        //eval('document.yourform.' + nextfield + '.value ='.keypressed);
+        return false; 
+    }; // e n d  s w i t c h  key pressed
+  ///////////////
+  } // e n d  f n
+
+  document.onkeydown = keyDown; // work together to analyze keystrokes
+  if (notmsie) document.captureEvents(Event.KEYDOWN|Event.KEYUP);
+ 
+/*
+  function getNextElement(field) {
+      var form = field.form;
+      // e is ordinary number of form element :
+      for ( var e = 0; e < form.elements.length; e++) {
+          if (field == form.elements[e]) {
+              break;
+          }
+      }
+      // next form element name :
+      return form.elements[++e % form.elements.length];
+  }
+
+  
+   // SLOW ? :
+  function myKeyAction(field, evt) 
+  {
+    if (evt.keyCode === 13) 
+    {
+       // keypressed is ***enter key : goto next form field*** :
+       if (evt.preventDefault) {
+           evt.preventDefault();
+       } else if (evt.stopPropagation) {
+           evt.stopPropagation();
+       } else {
+           evt.returnValue = false;
+       }
+   
+       var nxtfname = getNextElement(field).name;
+       var nxtf     = getNextElement(field);
+       switch (nxtfname) {
+          case 'b1':
+          case 'b2':
+          case 'b3':
+            document.write('<hr />2. JS SAYS: ' 
+              +'field='+field.name+'<br/>'
+               +' nxtfname='+nxtfname+'<br/>' );
+            nxtf.focus();
+            return false; // ignore keypressed
+            //break;
+          default:
+            return false; // ignore keypressed
+            //break;
+      }
+    //
+    }  else {
+       // keypressed is ***not enter key*** :
+       return true; // standard browser processing of keypressed
+    }
+  }
+    
+*/
+ 
+  
+// End -->
+</script>
+
+</head>
+
+<body>
+<noscript>Your browser does not support JavaScript!</noscript>
+<table>
+  <tr>
+<td>
+<center>
+
+<h3>Emulation: Tab -> Enter, version 1</h3>
+
+<!-- novalidate = disable HTML5 automatic form validation,
+                  so JS can do validation
+-->
+<form name=yourform  id="testform" action="file:///J:\awww\apl\dev1\my_dev\enter_tab_emul\enter_tab_emul.html"
+novalidate>
+ <fieldset><legend>f o r m  name=yourform  id="testform" </legend>
+ 
+  <div><label for=box1>Box 1 </label><input type=text 
+     name=box1 id="box1" onFocus="nextfield ='box2';"
+     autofocus /></div>
+  
+  <div><label for=box2>Box 2 </label><input type=text 
+      name=box2 id="box2" onFocus="nextfield ='box3';"
+  /></div>
+
+  <div><label for=box1>Box 3 </label><input type=text 
+     name=box3 id="box3" onFocus="nextfield ='box1';" 
+     required /></div>
+  
+   
+  
+  <div><label for=submit>Spremi bla, bla </label><input type=submit name=done id="done" value="Spremi (F10)" accesskey="s" title="Klik za bla, bla [F10]"  onFocus="nextfield ='box1';" /></div>
+
+
+    <!--input type=submit 
+       name=done value="Submit"
+       accesskey="c" title="Klik za prijavu [alt+c]"
+  -->
+
+  </fieldset>
+          <SCRIPT LANGUAGE="JavaScript">
+          <!-- Begin
+          // SEE autofocus to set cursor to some form field:
+          //eval('document.yourform.box1.focus()');
+          // End -->
+          </script>
+</form>
+</center>
+
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Begin
+  //done in head tag: ver = navigator.appVersion;  // ibrowser version
+           //len = ver.length; // ver.charAt(rrgobtype+1)
+  document.write(
+       '<hr />JS SAYS: '+'<br/>'
+     + 'navigator.appVersion = "'
+     + ver
+     + ' <-- '
+     + ver.charAt(rrgobtype+1)
+     +' = first character after first "(" = ver.charAt(rrgobtype+1)'
+     +
+        '<center>'
+        +'<font face="arial, helvetica" size="+1">Free JavaScripts provided '
+        +'by <a href="http://javascriptsource.com">http://javascriptsource.com</a>'
+        +' or by <a href="http://javascript.internet.com">'
+        +'http://javascript.internet.com</a>'
+        +'</font>'
+        +'</center>'
+  );
+//  End -->
+</script>
+
+
+<a href="http://dev1:8083/oraed/enter_tab_emul/enter_tab_emul.html">This page URL</a>
+ is script on disk: 
+  J:\\awww\\apl\\dev1\\oraed\\enter_tab_emul\\enter_tab_emul.html'
+<h2>Souce code version 1
+</h2>
+<p> JS approaches of unobtrusive JavaScript, progressive enhancement, 
+  and object detection.</p>
+<pre>&lt;!DOCTYPE html&gt;<br>&lt;html lang="HR"&gt;<br>&lt;!-- <br>  http://dev1:8083/oraed/enter_tab_emul/enter_tab_emul.html<br>  J:\awww\apl\dev1\oraed\enter_tab_emul\enter_tab_emul.html<br>  &lt;a href=""&gt;&lt;/a&gt;<br>  &lt;a href="#anchor_name"&gt;&lt;/a&gt; <br>         TO JUMP TO &lt;a name="anchor_name"&gt;&lt;/a&gt;<br>--&gt;<br>&lt;head&gt;<br>&lt;meta http-equiv="Content-Type" content="text/html; <br>      charset=utf-8" /&gt;<br><br>      &lt;title&gt;enter_tab_emul&lt;/title&gt;<br>      <br>&lt;!-- <br> <strong>HTML5 shiv library</strong> is open sourced<br> JS generate elements of the new types, which making MS IE <br> prior version 9 recognize, and style them appropriately.<br>--&gt;<br>&lt;!--[if lt IE 9]&gt;<br>&lt;script src=&rdquo;http://html5shiv.googlecode.com/svn/trunk/html5.js&rdquo;&gt; <br>p &lt;/script&gt;<br>&lt;![endif]--&gt;<br><br>      &lt;link rel="stylesheet" href="./css/style01.css"&gt;<br>      &lt;link rel="stylesheet" href="./css/xxstyle02_tabs.css"&gt;<br>      &lt;link rel="stylesheet" href="./css/xxstyle02.css"&gt;<br><br>&lt;!-- script src=&rdquo;js/key_pressed.js&rdquo;&gt;&lt;/script --&gt;<br>&lt;SCRIPT LANGUAGE="JavaScript"&gt;<br>&lt;!-- Begin<br>  // <strong>JS script in head page tag</strong><br>  nextfield = "box1"; // name of first formfield on page<br>  <br>  // 1.1 rrgo of browser type indicator in version string :<br>  ver = navigator.appVersion;   <br>  len = ver.length;<br>  notmsie = "";<br>  for(rrgobtype = 0; rrgobtype &lt; len; rrgobtype++) <br>     if (ver.charAt(rrgobtype) == "(") break;<br>  // in version string first char after first "(" is c for MS IE,<br>  // W for other browsers :<br>  <br>  // 1.2 is ibrowser IE ? :<br>  notmsie = (ver.charAt(rrgobtype+1).toUpperCase() != "C");<br><br>  function keyDown(DnEvents) { // handles keypress<br>    // keypressed code :  <br>    keypressed = (notmsie) <br>           ? DnEvents.which        // W: Firefox, <br>           : window.event.keyCode  // c: MS IE<br>    ;<br>    switch(keypressed) <br>    {<br>      // 1. enter key pressed :<br>      case 13: <br>          // nextfield we set up in form (LIKE ORACLE FORMS 6i)<br>          // if we finished all fields before submit-button-at-bottom :<br>          if (nextfield == 'done') return true; // standard ibrowder key pressed processing<br>          else { // SEND FOCUS TO NEXT FORM FIELD :<br>            eval('document.yourform.' + nextfield + '.focus()');<br>            //does not work: eval('document.yourform.nextfield.focus()');<br>            return false;<br>          }<br>      // standard ibrowser key pressed -&gt; standard processing:<br>      // 35=end 36=home 33=pgup 34=pgdn 45=ins 46=del<br>      // 83=ctrl+s=alt+s<br>      case 83: // ctrl+s = alt+s *** open new tab &amp; continue with PHP<br>        document.write('&lt;h2&gt;New tab is opened to continue with PHP&lt;/h2&gt;');<br>        return false;<br>      case 116: // F5 ***<br>      case 8:   // backspace ***<br>      //<br>      case 9:   // tab<br>      case 16:  // shift<br>      case 17:  // ctrl<br>      case 18:  // alt<br>      //<br>        return true; // standard ibrowder key pressed processing<br>        //break;<br>      case 121: // F10<br>      default: // 116=F5...<br>        return true; // standard ibrowder key pressed processing<br>        // FOR TESTING WHICH KEY IS PRESSED : comment above statement !!<br>        document.write('&lt;h3&gt;Ova tipka još nije omogućena u ovom programu 
+        (javite informatičaru ako ju trebate za uobičajene 
+         browserove aktivnosti). &lt;/h3&gt;'<br>        +'&lt;h3&gt;--Kod (šifra) tipke je : ' + keypressed + '&lt;/h3&gt;'<br>        +'&lt;h3&gt;Kliknite tipku "Backspace" za povratak u prethodnu stranicu' + '&lt;/h3&gt;'<br>        );<br>        //eval('document.yourform.' + nextfield + '.value ='.keypressed);<br>        return false; <br>    }; // e n d  s w i t c h  key pressed<br>  ///////////////<br>  } // e n d  f n<br><br>  document.onkeydown = keyDown; // work together to analyze keystrokes<br>  if (notmsie) document.captureEvents(Event.KEYDOWN|Event.KEYUP);<br>  <br>  <br>// End --&gt;<br>&lt;/script&gt;<br><br>&lt;/head&gt;<br><br>&lt;body&gt;<br>&lt;noscript&gt;Your browser does not support JavaScript!&lt;/noscript&gt;<br>&lt;table&gt;<br>  &lt;tr&gt;<br>&lt;td&gt;<br>&lt;center&gt;<br><br>&lt;h3&gt;Emulation: Tab -&gt; Enter, version 1&lt;/h3&gt;<br><br>&lt;!-- <strong>novalidate</strong> = disable HTML5 automatic form validation,<br>                  so JS can do validation<br>--&gt;<br>&lt;form name=yourform  id=&rdquo;testform&rdquo; 
+      action="file:///J:\awww\apl\dev1\my_dev\enter_tab_emul\enter_tab_emul.html"<br>novalidate&gt;<br> &lt;fieldset&gt;&lt;legend&gt;f o r m  name=yourform  id=&rdquo;testform&rdquo; &lt;/legend&gt;<br> <br>  &lt;div&gt;&lt;label for=<strong>box1</strong>&gt;Box 1 &lt;/label&gt;&lt;input type=text 
+        name=box1 id="box1" onFocus="nextfield ='box2';"/&gt;&lt;/div&gt;<br>  <br>  &lt;div&gt;&lt;label for=<strong>box2</strong>&gt;Box 2 &lt;/label&gt;&lt;input type=text 
+        name=box2 id="box2" onFocus="nextfield ='box3';" /&gt;&lt;/div&gt;<br><br>  &lt;div&gt;&lt;label for=box1&gt;Box 3 &lt;/label&gt;&lt;input type=text 
+         name=box3 id="box3" onFocus="nextfield ='box1';" required /&gt;&lt;/div&gt;<br>    <br>  <br>  &lt;div&gt;&lt;label for=<strong>submit</strong>&gt;Spremi bla, bla &lt;/label&gt;&lt;input type=submit 
+      name=done id="done" value="Spremi (ctrl+s)" accesskey="s" 
+      title="Klik za bla, bla [strl+s ili alt+s]"  onFocus="nextfield ='box1';" /&gt;&lt;/div&gt;<br><br><br>    &lt;!--input type=submit <br>       name=done value="Submit"<br>       accesskey="c" title="Klik za prijavu [alt+c]"<br>  --&gt;<br><br>  &lt;/fieldset&gt;<br>          &lt;SCRIPT LANGUAGE="JavaScript"&gt;<br>          &lt;!-- Begin<br>          // set cursor to some form field:<br>          //eval('document.'.this.form.'.box1.focus()');<br>          eval('document.yourform.box1.focus()');<br>          // End --&gt;<br>          &lt;/script&gt;<br>&lt;/form&gt;<br>&lt;/center&gt;<br><br><br><br>&lt;SCRIPT LANGUAGE="JavaScript"&gt;<br>&lt;!-- Begin<br>  //done in head tag: ver = navigator.appVersion;  // ibrowser version<br>           //len = ver.length; // ver.charAt(rrgobtype+1)<br>  document.write(<br>       '&lt;hr /&gt;JS SAYS: '+'&lt;br/&gt;'<br>     + 'navigator.appVersion = "'<br>     + ver<br>     + ' &lt;-- '<br>     + ver.charAt(rrgobtype+1)<br>     +' = first character after first "(" = ver.charAt(rrgobtype+1)'<br>     +<br>        '&lt;center&gt;'<br>        +'&lt;font face="arial, helvetica" size="+1"&gt;Free JavaScripts provided '<br>        +'by &lt;a href="http://javascriptsource.com"&gt;http://javascriptsource.com&lt;/a&gt;'<br>        +' or by &lt;a href="http://javascript.internet.com"&gt;'<br>        +'http://javascript.internet.com&lt;/a&gt;'<br>        +'&lt;/font&gt;'<br>        +'&lt;/center&gt;'<br>  );<br>//  End --&gt;<br>&lt;/script&gt;<br><br></pre>
+<p>
+<p>
+<p>
+<p><a href="http://stackoverflow.com/questions/5347857/how-do-i-convert-enter-to-tab-with-focus-change-in-ie9-it-worked-in-ie8">Ronnie T. Moore, Web Site:  The JavaScript Source </a>:
+<h2>Version&nbsp; &nbsp;2</h2>
+<pre>
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;<br>&lt;!-- Begin
+function getNextElement(<strong>field</strong>) {
+      <strong>var form = field.form;</strong>
+      // e is ordinary number of form element :
+      for ( var e = 0; e &lt; form.elements.length; e++) {
+          if (field == form.elements[e]) {
+              break;
+          }
+      }
+      // next form element name :
+      return form.elements[++e % form.elements.length];
+  }
+
+function myKeyAction(<strong>field</strong>, evt) {
+  if (<strong>evt.keyCode === 13</strong>) {
+     // keypressed is ***<strong>enter key : goto next form field</strong>*** :
+     if (evt.preventDefault) {
+         evt.preventDefault();
+     } else if (evt.stopPropagation) {
+         evt.stopPropagation();
+     } else {
+         evt.returnValue = false;
+     }
+     <strong>getNextElement(field).focus();</strong>
+     return false; // ignore keypressed
+  } 
+  else {
+     // keypressed is <strong>***not enter key</strong>*** :
+     return true; // <strong>standard browser processing of keypressed</strong>
+  }
+}
+
+
+// End --&gt;<br>&lt;/script&gt;</p>
+</pre>
+<p>And then you should just create your input texts or whatever</p>
+<pre>&lt;input type="text" id="1" <strong>onkeydown="return myKeyAction(this,event)"</strong>/&gt;
+&lt;input type="text" id="2" onkeydown="return myKeyAction(this,event)"/&gt;
+&lt;input type="text" id="3" onkeydown="return myKeyAction(this,event)"/&gt;
+&lt;input type="text" id="4" onkeydown="return myKeyAction(this,event)"/&gt;  </pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Here is a DIFFERENT IDEA: </p>
+<ol>
+  <li> change <strong>on submit so that it calls fn</strong> instead of processing form </li>
+  <li> in function <strong>check all the fields to see if they are blank</strong></li>
+  <li> <strong>focus on  next blank field</strong> (that doesn't have a value)</li>
+  <li> 1 to 3 when script runs (in runtime) behaves so :<br>
+    user types a value into field1 -&gt;
+    hit enter -&gt; function runs<br>
+    -&gt; Fn sees that field1 is full, 2 isnt, so focus on field 2 <br>
+    -&gt; when all fields are full, submit form for processing </li>
+</ol>
+<p>If form has fields that can be blank, you could use a boolean array 
+  that would keep track of which fields received focus using onfocus() event. </p>
+  
+  </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,4 @@
+You'll need to install Smarty in a "smarty" directory for the blog scripts.
+
+The card scripts require PHPmailer installed in the "phpmailer" directory.
+

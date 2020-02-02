@@ -1,0 +1,1718 @@
+7\. ORACLE 11g XE PERSISTENT DB CONNECTION POOLED (ESTABLISHED WITH PHP PDO OR E.Rangel’s PDOOCI)
+=================================================================================================
+
+### [HOME](http://phporacle.altervista.org/php-oracle-main-menu/ "HOME")
+
+4.Mart 2017
+===========
+
+Two scripts below (dbconn and tbl) are basic skeleton for any CRUD (PHP PDO) program.
+
+Here is only**R**\=Read (with filter and sort) of PDO C**R**UD, no JS.  
+Later I shall upload OOP MVC version with CUD of**C**R**UD**and JS msg and yesno dialog, but :  
+code  here is**first MUST LEARN about PHP PDO CRUD**.
+
+You can use any your suitable table for testing and Oracle 11g as I did or MySQL or SQLite.  
+Code changes are not difficult and are minimal because PDO syntax is used.
+
+I think Mini3 is best learning code for learning OOP MVC.  
+Simplest JS msg code (from OOP MVC version with CUD which I am testing based on  
+**[https://github.com/panique/mini3](https://github.com/panique/mini3)**which has no JS),  
+generated in PHP on server side (eg for delete confirmation or debugging as code below) :
+
+// snippet from J:\\awww\\apl\\dev1\\papl1\\mini3fw\\application\\Core\\Application.php
+// see **[https://github.com/panique/mini3](https://github.com/panique/mini3)**
+if (TEST)
+{ 
+**\>**<SCRIPT LANGUAGE="JavaScript"><!-- Begin
+    //alert(t1+"\\n"+t2+"\\n"+t3+"\\n"+t4+"\\n"+t5+"\\n"+t6+"\\n"+txt\_srvgen); 
+    **alert**( '**<php** echo str\_replace('<br>','\\n',str\_replace('<br>','\\n',
+                'ctr='.$this->**url\_controller**
+               .'<br>akc='.$this->**url\_action**
+               .'<br>akc.params='.json\_encode($this->**url\_params**)
+               ));**\>**'
+   );
+  // End --></SCRIPT>
+**<php** }
+
+<php
+// J:\\awww\\apl\\dev1\\inc\\db\\**dbconn\_PDOOCI\_mer.php**
+use PDOOCI\\PDO as PDO;
+
+define("DSN", "sspc1/XE:pooled;charset=UTF8"); // UTF8 EE8MSWIN1250
+define("USR", "uuu");  define("PSW", "uu");
+**//require\_once $\_SERVER\['DOCUMENT\_ROOT'\].'/vendor/autoload.php'; //E.Rangel's pdooci in ROOTDIR**
+**require\_once $\_SERVER\['DOCUMENT\_ROOT'\].'/inc/db/PDO.php';  //or put it in same dir as tbl script**
+$options = array(PDO::ATTR\_PERSISTENT => true);
+try{
+  $db = new PDO(DSN, USR, PSW, $options);
+  $db->setAttribute(PDO::ATTR\_ERRMODE, PDO::ERRMODE\_EXCEPTION);
+                if(TEST) {echo '<b>'.\_\_FILE\_\_.' SAYS:</b><pre>';
+                  echo 'PDOOCIonOCI8 connection successful, DSN='.DSN.', USR='.USR.', PSW='.PSW;
+                  echo '</pre>'; }
+}catch (PDOException $ex){
+  echo '<b>'.'\*\*\*ERROR dbconn DSN='.DSN.' '.$ex->getMessage().'</b>';
+}
+
+<php
+// J:\\awww\\apl\\dev1\\pdev1\\01info\\**02izdatnica\_tbl.php**
+
+//                     **IZDATNICA = INVOICE**
+
+defined('TEST') or define('TEST', '1');
+defined('DS') or define('DS', DIRECTORY\_SEPARATOR);
+defined('ROOTURL') or define('ROOTURL', 
+            //$\_SERVER\['REQUEST\_SCHEME'\] . ':'. 
+            '//'
+            . $\_SERVER\['SERVER\_NAME'\] //WEBADRESA sspc1, localhost, dev1
+            .':'.$\_SERVER\['SERVER\_PORT'\] );
+defined('CSSURL') or define('CSSURL', ROOTURL.'/'.'inc/'.'css/sitemoj.css');
+
+require\_once $\_SERVER\['DOCUMENT\_ROOT'\].'/inc/db/dbconn\_PDOOCI\_mer.php';
+//require\_once 'z\_local\_dbconn\_PDOOCI\_mer.php';
+
+ **// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+ **// P a r a m e t e r s**
+ **// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+  
+// Filters are sticky values :
+$p\_imekup = ''; if (isset($\_GET\['imekup'\])) $p\_imekup = $\_GET\['imekup'\];
+$p\_tipd = 9999; if (isset($\_GET\['tipd'\])) $p\_tipd = $\_GET\['tipd'\];
+
+// S o r t  clause is sticky value :
+$p\_sortdml = 'i.SIFRA\_TIP\_DOC,length(i.BROJ\_IZDATNICE) desc,i.BROJ\_IZDATNICE desc';
+$p\_sort = 'SIFRA\_TIP\_DOC'; // default
+if (isset($\_GET\['sort'\])) $p\_sort = $p\_sortdml = $\_GET\['sort'\];
+
+    switch ($p\_sort)
+    {
+    case 'BROJ\_IZDATNICE':
+      $p\_sortdml = 'length(i.BROJ\_IZDATNICE) desc,i.BROJ\_IZDATNICE desc';
+      break;
+    case 'IME\_KUPCA':
+      $p\_sortdml = 'k.IME\_KUPCA,length(i.BROJ\_IZDATNICE) desc,i.BROJ\_IZDATNICE desc';
+      break;
+    case 'SIFRA\_TIP\_DOC':
+      default:
+$p\_sortdml = 'i.SIFRA\_TIP\_DOC,length(i.BROJ\_IZDATNICE) desc,i.BROJ\_IZDATNICE desc';
+      break;
+    } // e n d  s w i t c h
+
+
+if (isset($\_GET\['search'\])) 
+{
+ **// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+ **// M o d e l** 
+ **// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+  try
+  {
+        //require\_once $\_SERVER\['DOCUMENT\_ROOT'\].'/inc/db/dbconn\_PDOOCI\_mer.php';
+        //require\_once 'z\_local\_dbconn\_PDOOCI\_mer.php';
+        $sql = '
+          SELECT i.BROJ\_IZDATNICE, i.datum
+               , to\_char(i.datum,'.'\\'RRRR.MM.DD\\''.') DATUM\_FMT, i.SIFRA\_TIP\_DOC
+               , k.ime\_kupca ime\_kupca, tipd.opis OPIS\_DOK
+          FROM t\_izdatnica i, t\_kupac k, t\_tip\_doc tipd
+          WHERE i.SIFRA\_KUPCA   = k.SIFRA\_KUPCA
+            AND i.SIFRA\_TIP\_DOC = tipd.SIFRA\_TIP\_DOC
+            AND upper(k.ime\_kupca) LIKE upper(:imekup) 
+            AND i.SIFRA\_TIP\_DOC = decode(:tipd, '.'9999'.',i.SIFRA\_TIP\_DOC, :tipd)
+          ORDER BY '.$p\_sortdml ; // , i.napomena
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':imekup', '%'.$p\_imekup.'%');
+        $stmt->bindParam(':tipd', $p\_tipd, PDO::PARAM\_INT);
+        
+                  if(TEST) {echo '<b>'.\_\_FILE\_\_.' SAYS:</b><pre>';
+                    echo '$sql='; print\_r(
+                    str\_replace(':tipd', $p\_tipd,
+                      str\_replace(':imekup','%'.$p\_imekup.'%', $sql))
+                    ); echo '</pre>'; 
+                  }
+        
+        $stmt->execute();
+        
+        // Each call to PDOStatement::fetch() or PDOStatement::fetchAll() will 
+        // update all the variables that are bound to columns. 
+        $stmt->bindColumn('BROJ\_IZDATNICE', $BROJ\_IZDATNICE);
+        $stmt->bindColumn('DATUM\_FMT', $DATUM\_FMT);
+        $stmt->bindColumn('IME\_KUPCA', $imekup);
+        //$stmt->bindColumn(3, $imekup);
+        $stmt->bindColumn('SIFRA\_TIP\_DOC', $tipd);
+
+        $errorInfo = $stmt->errorInfo();
+        if (isset($errorInfo\[2\])) {
+            $error = $errorInfo\[2\];
+        }
+  } catch (Exception $e) {
+        $error = $e->getMessage();
+  }
+}
+$title\_tab = 'tblIZDATNICA';
+include($\_SERVER\['DOCUMENT\_ROOT'\].'/inc/hdr.php');
+//include('z\_local\_hdr.php');
+>
+</head>
+<body>
+<h1>Tablica izdatnica</h1>
+<!--h1>PDO Prepared Statement: Binding Output Parameters</h1-->
+<php if (isset($error)) {
+    echo "<p>$error</p>";
+} 
+
+ **// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+ **// View  P a r a m e t e r s  f o r m**
+ **//       (s e a r c h  f o r m)**
+ **// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+>
+<form method="get" action="<php echo $\_SERVER\['PHP\_SELF'\]; >">
+    <fieldset>
+      <legend>Filter redaka: utipkajte nekoliko znakova pa tipka ENTER
+      ili gumb "Upit"</legend>
+      <p>
+        <label for="imekup">Ime kupca </label>
+        <input type="text" name="imekup" id="imekup" 
+               value="<= $p\_imekup >" autofocus  
+               placeholder="Filter redaka upita...">
+        
+        <label for="tipd">Tip izdatnice </label>
+        <select name="tipd" id="tipd" value="<= $p\_tipd >">
+            <php
+              echo "<option value='9999'"; if ($p\_tipd == '9999') echo ' selected';
+              echo '>' . 'SVI TIPOVI IZDATNICA' . '</option>';
+              echo "<option value='4'"; if ($p\_tipd == '4') echo ' selected';
+              echo '>'.'Izdatnice'.'</option>';
+              echo "<option value='8'"; if ($p\_tipd == '8') echo ' selected';
+              echo '>'.'MP zakluèci'.'</option>';
+              /\*
+              for ($p = 1; $p <= 11; $p+=1) {
+                echo "<option value='$p'";
+                if ($p == 4) { echo ' selected'; }
+                echo '>' . number\_format($p) . '</option>';
+              } 
+              \*/
+            >
+        </select>
+        <input type="submit" name="search" value="Upit">
+      </p>
+      <php if (TEST) echo 'Redosljed '.$p\_sortdml; >
+    </fieldset>
+</form>
+
+
+
+<php
+if (isset($\_GET\['search'\])) 
+{
+ **// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+ **// View  t a b l e**
+ **// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\***
+  $stmt->fetch(PDO::FETCH\_BOUND);
+  if ($imekup) 
+  {
+    // http://dev1:8083/z30GB/02\_test/08pdo/01dpowers/02izdatnica\_tbl.php
+    //    search=Upit&imekup&tipd=9999&sort=BROJ\_IZDATNICE
+    
+    >
+    <table>
+      <tr>
+          <th>RBR</th>
+          <th><a href="<php $p\_sort = 'SIFRA\_TIP\_DOC';
+                  echo $\_SERVER\['PHP\_SELF'\]
+                      .'search=Upit'
+                      .'&imekup='.$p\_imekup
+                      .'&tipd='.$p\_tipd
+                      .'&sort='.$p\_sort;
+              >">TIP</a>
+          </th>
+          <th><a href="<php $p\_sort = 'BROJ\_IZDATNICE';
+                  echo $\_SERVER\['PHP\_SELF'\]
+                      .'search=Upit'
+                      .'&imekup='.$p\_imekup
+                      .'&tipd='.$p\_tipd
+                      .'&sort='.$p\_sort;
+              >">BR.IZD.</a>
+          </th>
+          <th>DATUM</th>
+          <th><a href="<php $p\_sort = 'IME\_KUPCA';
+                  echo $\_SERVER\['PHP\_SELF'\]
+                      .'search=Upit'
+                      .'&imekup='.$p\_imekup
+                      .'&tipd='.$p\_tipd
+                      .'&sort='.$p\_sort;
+              >">IME KUPCA</a>
+          </th>
+      </tr>
+      
+      
+      <php
+      $ii = 1;
+      do 
+      { >
+        <tr>
+            <td><= $ii++; ></td>
+            <td><= number\_format($tipd); ></td>
+            <td><b><= $BROJ\_IZDATNICE; ></b></td>
+            <td><= $DATUM\_FMT; ></td>
+            <td><= $imekup; ></td>
+        </tr>
+        <php 
+      } while ($stmt->fetch(PDO::FETCH\_BOUND)); 
+      >
+      
+      
+    </table>
+    <php 
+  } else {
+       echo '<p>No results found.</p>';
+    } 
+} 
+>
+</body>
+</html>
+
+**2.Sept.2015 Download : click HOME link on this page top and see site\_ver2.rar from my article 9.**
+=====================================================================================================
+
+I. Testing is possible with code below :  
+– uncomment lines // PHP PDO  
+– comment lines // E.Rangel’s PDOOCI and code beginning with  
+use chcons as cnf; (before $c1 = DB\_DSN;)
+
+E.Rangel’s PDOOCI works ok same as PHP PDO which is experimental.  
+PDO OCI is PDO sintax with OCI8 DBI interface.
+
+1.  <php
+    // http://dev1:8083/test/t\_oci8/undergr/pdo.php
+    // H:\\dev\_web\\htdocs\\test\\t\_oci8\\undergr\\pdo.php
+    
+    // \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+    use chcons as cnf;
+    $confglob\_dir = realpath($\_SERVER\['DOCUMENT\_ROOT'\].'/../inc'); 
+    if (!defined('DS')) define('DS',DIRECTORY\_SEPARATOR);
+     //require\_once($confglob\_dir.DS.'confglob.php');
+    // 1. v a r i a b l e s & f n s :
+    require\_once($confglob\_dir.DS.'utl'.DS.'utls.php');
+    cnf\\chcons::ini(\_\_FILE\_\_ // $idxfle
+     ,dirname(dirname(\_\_DIR\_\_)) . DS.'index.php'); // $aplfle=test dir
+    // 2. d b c o n n p a r a m s :
+    require\_once(CONFGLOB\_DIR.DS.'confglobcondb.php');
+    // \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+    
+    $c1 = DB\_DSN; 
+    //$c1 = 'oci:dbname=sspc/XE:pooled'; 
+    //$c1 = 'oci:dbname=localhost/XE:pooled'; 
+    //$c1 = 'oci:dbname=127.0.0.1/XE:pooled'; 
+    $c2 = SCHEMA; 
+    //$c2 = 'hr'; 
+    $c3 = PASSWORD;
+    //$c3 = 'hr';
+    $opt = array(PDOP1.' => '.PDOP1VAL) ; // PDO parameter 1
+    //$opt = array(PDO::ATTR\_PERSISTENT => TRUE) ;
+    >
+    
+    <!DOCTYPE html>
+    <!-- saved from url=(0075)http://www.oracle.com/technetwork/articles/dsl/php-web-auditing-171451.html -->
+    <html>
+    
+    <head><meta http-equiv="Content-Type" content="text/html;
+     charset=UTF-8">
+    
+    
+    <style type="text/css">
+    <!--
+    /\* 
+     J:\\awww\\apl\\inc\\cssfmt\\style01.css
+     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif; 
+     font-style: normal; "Trebuchet MS"
+    \*/
+    body {
+     padding: 10px;
+     color:black; background-color: #F0F0F0;
+     font-size: 16px;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+     font-weight: normal; text-align: justify;
+    }
+    /\* p, li {
+     font-size: 16px;
+    }\*/
+    
+    p.group {color:#3366cc}
+    
+    p#pla {color:blue} /\* <-- ZADNJI P R E G A Z I
+     p r ethodne istoimene \*/
+    
+    p#lju {color:magenta}
+    
+    p#zel {color:green}
+    
+    img {
+     float:right;
+     margin-right:10px
+    }
+    
+    table {
+     margin: auto;
+     /\* background-color: #FFFFFF; \*/
+     border-collapse: collapse;
+     border-style: solid; border-color: lightblue;
+     border-width: 1px 3px 3px 1px; /\* T,R,D,L smedja= #936709\*/
+     /\* border-color: #000000; border: 0; \*/
+     margin: 5px;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    td, th {
+     /\* border: solid #000000 1px; \*/
+     /\* text-align: left; \*/
+     padding: 2px;
+     height: 20px;
+     /\* max-width: 300px; \*/
+    }
+    
+    .maintable {
+     border: 2px solid #376EAB;
+    }
+    .parameter {
+     font-weight: bold; color: #6586AC;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    h1 {
+     font-size: 20px;
+     color: #A5663D; /\* 7A7272=siva \*/
+     font-weight: normal;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    h2 {
+     font-size: 18px;
+     font-weight: bold;
+     color: #303030;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    h3 {
+     font-size: 16px;
+     font-weight: bold;
+     color: #2B5885;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    div {
+     margin: 5px;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    div.settings {
+     margin-right: 0;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    a:link, a:visited, a:active {
+     color: #294F75;
+     text-decoration: none;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    a:hover {
+     color: #182634;
+     text-decoration: underline;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    .txtBody {
+     font-size: 16px;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+     font-style: normal; font-weight: normal;
+    }
+    .txtBody18px {
+     font-size: large; font-style: normal; font-weight: normal;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    
+    
+    
+    .mainTitle {
+     font-family: Impact;
+     font-size: 24px;
+    }
+    .mnuMainH {
+     text-align: center;
+     cursor: pointer;
+     cursor: hand;
+     color: #294F75;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    .imgPlusMinus {
+     float : left
+     /\* cursor: pointer;
+     cursor: hand;
+     height: 14px; \*/
+    }
+    .NotDisp {
+     display: none;
+    }
+    .hdr\_open\_close\_section {
+     color: #000;
+     background-color:#E8E8E8; /\* CCC=svjetlosiva E8E8E8=jos vise svjetlosiva \*/
+     font-weight: bold;
+     font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    }
+    .pgBreakAfter {
+     cursor: text;
+     filter: Gray;
+     page-break-after: always;
+    }
+    .pgBreakBefore {
+     cursor: text;
+     filter: Gray;
+     page-break-before: always;
+    }
+    /\* <span class="pgBreakAfter"> </span> \*/
+    
+    
+    
+    -->
+    </style>
+    
+    </head>
+    
+    <body>
+    
+     <table border="0" align="center" 
+     cellpadding="3" cellspacing="1">
+     <tr>
+     <td width="700px" colspan="1" valign="top">
+     
+     
+     
+    <php
+    
+    // -------------------------------------------------
+    echo '<h1>I. ORACLE 11g XE PERSISTENT DB CONNECTION POOLED 
+    <br />&nbsp;&nbsp;&nbsp;(ESTABLISHED WITH PHP PDO OR E.Rangel\\'s PDOOCI) </h1>';
+    // -------------------------------------------------
+    //$c1 = 'oci:dbname=localhost/XE:pooled'; $c2 = 'hr'; $c3 = 'hr';
+    //$c2 = 'mercedes'; $c3 = 'm1';
+    try {
+     $dbh = new PDO($c1, $c2, $c3);
+    } catch (PDOException $e) {
+     echo "\*\*\*\*\*Error, naredba:<br /><br /> \\$dbh = new PDO('$c1', '$c2', '$c3');"
+     , '<br /><br />', $e->getMessage()
+     ;
+     exit;
+    }
+    echo '<ol>';
+    echo '<li><pre>';
+    echo <<< 'EOTXT'
+    // \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+    use chcons as cnf;
+    $confglob\_dir = realpath($\_SERVER\['DOCUMENT\_ROOT'\].'/../inc'); 
+    if (!defined('DS')) define('DS',DIRECTORY\_SEPARATOR);
+     //require\_once($confglob\_dir.DS.'confglob.php');
+     
+    // 1. v a r i a b l e s & f n s :
+    require\_once($confglob\_dir.DS.'utl'.DS.'utls.php');
+    cnf\\chcons::ini(\_\_FILE\_\_ // $idxfle
+     ,dirname(dirname(\_\_DIR\_\_)) . DS.'index.php'); // $aplfle=test dir
+    // 2. d b c o n n p a r a m s :
+    
+    require\_once(CONFGLOB\_DIR.DS.'confglobcondb.php');
+    // \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+    
+    $c1 = DB\_DSN; // E.Rangel's PDOOCI
+    //$c1 = 'oci:dbname=sspc/XE:pooled'; // PHP PDO
+    //$c1 = 'oci:dbname=localhost/XE:pooled'; 
+    //$c1 = 'oci:dbname=127.0.0.1/XE:pooled'; 
+    
+    $c2 = SCHEMA; // E.Rangel's PDOOCI
+    //$c2 = 'hr'; // PHP PDO
+    
+    $c3 = PASSWORD; // E.Rangel's PDOOCI
+    //$c3 = 'hr'; // PHP PDO
+    
+    $opt = array(PDOP1.' => '.PDOP1VAL) ; // PDO parameter 1 // E.Rangel's PDOOCI
+    //$opt = array(PDO::ATTR\_PERSISTENT => TRUE) ; // PHP PDO
+    EOTXT;
+    echo '</pre>';
+    
+    
+    echo '<li>';
+    echo "Connected to user: \*\*\*\*\*\*\*\*\*\*\*\* \\$dbh = 
+     <br />new PDO('$c1', '$c2', '$c3');";
+    
+    
+    //$c1 = 'oci:dbname=localhost/XE'; //$c2 = 'mercedes'; $c3 = 'm1';
+    try {
+     $dbh = new PDO($c1, $c2, $c3, $opt);
+    } catch (PDOException $e) {
+     echo "\*\*\*\*\*Error, naredba:<br /><br /> \\$dbh = new PDO('$c1', '$c2', '$c3', '\\$opt');"
+     , '<br /><br />', $e->getMessage()
+     ;
+     exit;
+    } // ."\\n"
+    
+    echo "<li> PERSISTENT Connected to user: \*\*\*\*\*\*\*\*\*\*\*\*\\$dbh = 
+     <br />new PDO('$c1', '$c2', '$c3', array(PDO::ATTR\_PERSISTENT => TRUE));";
+    echo '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp $opt = array(PDO::ATTR\_PERSISTENT => TRUE) = '; 
+     print\_r($opt); //echo '</pre>'; 
+    echo '</ol>';
+    
+    
+    
+    
+    
+    //
+    echo '<br/>';
+    echo '<ol>';
+    echo '<li>';
+    $pdodriver = $dbh->getAttribute(PDO::ATTR\_DRIVER\_NAME);
+    if ($pdodriver == 'mysql') {
+     echo "Running on mysql; doing something mysql specific here\\n";
+    } else echo 'PDO driver: $dbh->getAttribute(PDO::ATTR\_DRIVER\_NAME) = ' 
+     . $pdodriver;
+    echo '<li>';
+    echo ''.'not supported for OCI PDO: '
+     . '$dbh->getAttribute(PDO::ATTR\_CONNECTION\_STATUS);';
+    //echo 'Connection Status ' . $dbh->getAttribute(PDO::ATTR\_CONNECTION\_STATUS);
+    echo '<li>';
+    echo 'DB Server Version $dbh->getAttribute(PDO::ATTR\_SERVER\_VERSION) = <br />' 
+     . $dbh->getAttribute(PDO::ATTR\_SERVER\_VERSION);
+    echo '<li>';
+    echo '$dbh->getAttribute(PDO::ATTR\_SERVER\_INFO) = <br />' 
+     . $dbh->getAttribute(PDO::ATTR\_SERVER\_INFO);
+    echo '<li>';
+    echo 'Client Library Server Ver. $dbh->getAttribute(PDO::ATTR\_CLIENT\_VERSION) = ' 
+     . $dbh->getAttribute(PDO::ATTR\_CLIENT\_VERSION);
+    echo '</ol>';
+    //
+    
+    $dbh->setAttribute(
+     PDO::ATTR\_ERRMODE, 
+     PDO::ERRMODE\_EXCEPTION 
+    );
+    
+    
+    
+    function nextidrec($dbh, $query) {
+     $sth = $dbh->prepare($query);
+     $sth->execute();
+     $row = $sth->fetch(PDO::FETCH\_NUM);
+     return $row\[0\] + 1;
+    }
+    function countrec($dbh, $query) {
+     $sth = $dbh->prepare($query);
+     $sth->execute(array('usr2'));
+     $row = $sth->fetch(PDO::FETCH\_NUM);
+     return $row\[0\];
+    }
+    echo '<br/>';
+    // -------------------------------------------------
+    echo '<h1>II. PDO CRUD DML (QUERY)</h1>';
+    // -------------------------------------------------
+    //$db = new PDO("DSN");
+    // -------------------------------------------------
+    echo '<h3>II.1 max ID & C R E A T E with bind variables - prepare, execute, fetch</h3>';
+    // -------------------------------------------------
+    echo '<ol>';
+    
+    // 11111111111
+    echo '<li>';
+    $sth = $dbh->prepare("DELETE T\_WEBUSER");
+    $sth->execute();
+     print 'DELETE T\_WEBUSER table';
+    
+    // 22222222222
+    echo '<li>';
+     $countrec = countrec($dbh, "SELECT count(\*) from T\_WEBUSER");
+     print 'SELECT count(\*) from T\_WEBUSER, $row = array with NUMERIC KEYS ';
+     echo '<br />$countrec in table = '. $countrec; 
+    
+    if($countrec == 0) $nextidrec = 1;
+    else {
+     $nextidrec = nextidrec($dbh, "SELECT max(MEMBER\_ID) from T\_WEBUSER");
+    }
+    
+    // 3333333333333
+    echo '<li>';
+    echo '$nextidrec (from DB records, if=1 this is first record in table - unknown sequence) = '. $nextidrec;
+    
+    // 444444444444
+    echo '<li>';
+    echo '$sth = $dbh->prepare(\\'INSERT INTO T\_WEBUSER 
+    (UNAME, PASSWORD) 
+    VALUES(,)\\'
+    ) <br />// and same for usr2, BUT NOT MEMBER\_ID - TRIGGER !!'; ; 
+    
+    $sth = $dbh->prepare('INSERT INTO T\_WEBUSER 
+    (UNAME, PASSWORD) 
+    VALUES(,)'
+    ); 
+    $sth->execute(array('usr1','pswusr1'));
+    
+    $sth = $dbh->prepare("INSERT INTO T\_WEBUSER 
+    (UNAME, PASSWORD) 
+    VALUES(,)"); 
+    $sth->execute(array('usr2','pswusr2'));
+     
+    echo '</ol>';
+    
+    
+    
+    // -------------------------------------------------
+    echo '<h3>II.2 U P D A T E with bind variable</h3>';
+    // -------------------------------------------------
+    echo '<ol>';
+    
+    // 11111111111
+    echo '<li>';
+    echo 'UPDATE T\_WEBUSER SET FORENAME = \\'FORENAME\\' where UNAME = ';
+     $sth = $dbh->prepare("UPDATE T\_WEBUSER SET FORENAME = 'FORENAME' where UNAME = "); 
+     $sth->execute(array('usr1'));
+    
+    // 2222222222222
+    echo '<li>';
+    echo 'All rows: SELECT \* FROM T\_WEBUSER';
+    
+    $sth = $dbh->prepare( "SELECT \* FROM T\_WEBUSER" );
+    $sth->execute();
+    
+    echo "<table border='1'>\\n";
+    while (($row = $sth->fetch(PDO::FETCH\_ASSOC)) != false) {
+     echo " <tr>";
+     echo " <td>".htmlentities($row\['MEMBER\_ID'\])."</td>";
+     echo " <td>".htmlentities($row\['UNAME'\])."</td>";
+     echo " <td>".htmlentities($row\['PASSWORD'\])."</td>";
+     echo " <td>".htmlentities($row\['FORENAME'\])."</td>";
+     echo " </tr>";
+    }
+    echo "</table>\\n";
+     
+    echo '</ol>';
+    
+    
+    
+    // -------------------------------------------------
+    echo '<h3>II.3 D E L E T E with bind variable</h3>';
+    // -------------------------------------------------
+    echo '<ol>';
+    
+    // 11111111111
+    echo '<li>';
+    echo 'DELETE T\_WEBUSER where UNAME = ';
+     $sth = $dbh->prepare('DELETE T\_WEBUSER where UNAME = ');
+     $sth->execute(array('usr2'));
+    
+    echo '</ol>';
+    
+    
+    // -------------------------------------------------
+    echo '<h3>II.4 R E T R I V E with bind variable</h3>';
+    // -------------------------------------------------
+    echo '<ol>';
+    
+    // 11111111111
+    echo '<li>';
+    echo 'All rows: SELECT \* FROM T\_WEBUSER WHERE UNAME= ( means bind variable value)';
+    
+    $sth = $dbh->prepare( "SELECT \* FROM T\_WEBUSER WHERE UNAME= or UNAME=" );
+    $sth->execute(array('usr1', 'usr2'));
+    
+    //$row = $sth->fetch(PDO::FETCH\_ASSOC);
+    //echo '<pre>'; print\_r($row); echo '</pre>';
+    
+    echo "<table border='1'>\\n";
+    while (($row = $sth->fetch(PDO::FETCH\_ASSOC)) != false) {
+     echo " <tr>";
+     echo " <td>".htmlentities($row\['MEMBER\_ID'\])."</td>";
+     echo " <td>".htmlentities($row\['UNAME'\])."</td>";
+     echo " <td>".htmlentities($row\['PASSWORD'\])."</td>";
+     echo " <td>".htmlentities($row\['FORENAME'\])."</td>";
+     echo " </tr>";
+    }
+    echo "</table>\\n";
+    
+    // 2222222222
+    echo '<li>';
+    echo 'One row: SELECT \* FROM T\_WEBUSER WHERE UNAME= ( means bind variable value)';
+    
+    $sth = $dbh->prepare( "SELECT \* FROM T\_WEBUSER WHERE UNAME=" );
+    $sth->execute(array('usr1'));
+    $row = $sth->fetch(PDO::FETCH\_ASSOC);
+    echo '<pre>'; print\_r($row); echo '</pre>';
+    
+    echo '</ol>';
+    
+    
+    
+    /\*
+    $dbh->exec("INSERT INTO T\_WEBUSER (MEMBER\_ID, UNAME, PASSWORD)
+    VALUES(null,'usr1','usr1')");
+    
+    echo '<pre>2. $dbh->exec("UPDATE T\_WEBUSER SET FORENAME = \\'FORENAME\\' where MEMBER\_ID = 1");</pre>';
+    $dbh->exec("UPDATE T\_WEBUSER SET FORENAME = 'FORENAME' where MEMBER\_ID = 1");
+    
+    
+    echo "<br/>3. SELECT \* FROM T\_WEBUSER where MEMBER\_ID in (1)<br/>";
+    echo '<pre>3.1 Array Fetching
+    ==============';
+    $sth = $dbh->prepare("SELECT \* FROM T\_WEBUSER order by MEMBER\_ID desc");
+    $sth->execute();
+    //moze i ovako: $sth = $dbh->query("SELECT \* FROM T\_WEBUSER order by MEMBER\_ID desc");
+    //while 
+    ($row = $sth->fetch(PDO::FETCH\_NUM));
+     print '<br/>1. FETCH\_NUM $row == array with NUMERIC KEYS ';
+     print\_r($row);
+    
+    //while 
+    ($row = $sth->fetch(PDO::FETCH\_ASSOC));
+     print '3.2 FETCH\_ASSOC $row == array with associated (STRING) KEYS ';
+     print\_r($row);
+    
+    //while 
+    ($row = $sth->fetch(PDO::FETCH\_BOTH));
+     print '3.3 FETCH\_BOTH row == array with ASSOCIATED & NUMERIC KEYS ';
+     print\_r($row);
+     
+    echo '<pre>2. Fetch as String - column
+    ===============';
+    //$sth = $dbh->prepare("SELECT opis FROM T\_WEBUSER order by MEMBER\_ID desc");
+    //$sth->execute();
+    if ($opis = $sth->fetchColumn(0) . ' i ' . $sth->fetchColumn(1)) { 
+     print '$sth->fetchColumn(0) i $sth->fetchColumn(1) vrati string:<br/>';
+     print\_r($opis); }
+    // fetch data contained within single column.
+    //$u = $db->query("SELECT users WHERE login='login' AND //password='password'");
+    // // fetch(PDO::FETCH\_COLUMN)
+    //if ($u->fetchColumn()) { // returns a string
+    // // login OK
+    //} else { //authentication failure 
+    //}
+    
+    echo '<pre>3. Fetch as Standard Object
+    ========================';
+    //while 
+    ($row = $sth->fetch(PDO::FETCH\_OBJ));
+     print 'FETCH\_OBJ fetch row as instance of stdClass 
+     where column name == property name $row->MEMBER\_ID=' . $row->MEMBER\_ID .'<br/>';
+     print\_r($row);
+     
+    \*/
+    
+    
+    
+     
+    //echo '<pre>4. Fetch Into a Class
+    //==================';
+    //  PDO allows the sthult to be fetched into a class type of your choice.
+    //
+    //$sth = $db->query("SELECT \* FROM foo");
+    //$sth->setFetchMode(
+    // PDO::FETCH\_CLASS,
+    // "className",
+    // array('optional'='Constructor Params')
+    //);
+    //while ($obj = $sth->fetch()) {
+    // // $obj == instance of className
+    //}
+    //
+    // PDO allows query result to be used to determine destination class.
+    //
+    //$sth = $db->query("SELECT \* FROM foo");
+    //$sth->setFetchMode(
+    // PDO::FETCH\_CLASS |
+    // PDO::FETCH\_CLASSTYPE
+    //);
+    //while ($obj = $sth->fetch()) {
+    // // $obj == instance of class who's name is
+    // // found in the value of the 1 st column
+    //}
+    
+    
+    
+    
+    //echo '<pre>5. Fetch Into an Object
+    //====================';
+    //
+    // PDO even allows retrieval of data into existing object.
+    //
+    //$u = new userObject;
+    //$sth = $db->query("SELECT \* FROM users");
+    //$sth->setFetchMode(PDO::FETCH\_INTO, $u); 
+    //while ($sth->fetch()) {
+    // // will re-populate $u with row values
+    //}
+    //
+    //echo '<pre>6. Result Iteration
+    //=================';
+    //
+    // PDOStatement implements Iterator interface, which allows for 
+    // a method-less result iteration. 
+    // 
+    //$sth = $db->query(
+    // "SELECT \* FROM users", 
+    // PDO::FETCH\_ASSOC
+    //);
+    //foreach ($sth as $row) {
+    // // $row == associated array representing row's values.
+    //}
+    //
+    //
+    //
+    //
+    //echo '<pre>7. Lazy Fetching
+    //=============';
+    //
+    // Lazy fetches returns a result in a form object, 
+    // but HOLDS OF POPULATING PROPERTIES UNTIL THEY ARE ACTUALLY USED. 
+    //$sth = $db->query(
+    // "SELECT \* FROM users", 
+    // PDO::FETCH\_LAZY
+    //);
+    //foreach ($sth as $row) {
+    // echo $row\['name'\]; // only fetch name column
+    //}
+    //
+    
+    
+    
+    //echo '<pre>8. fetchAll()
+    //===========';
+    // retrieval of all results from query right away (handy for templates) 
+    // Can be memory intensive for large results sets!
+    //
+    //$qry = "SELECT \* FROM users";
+    //$sth = $db->query($qry)->fetchAll(PDO::FETCH\_ASSOC);
+     // $sth == array of all result rows, where each row is an associated array.
+    
+    //echo '<pre>9. Callback Function
+    //==================';
+    //
+    // fetch mode where each result is processed via a callback function. 
+    //
+    //function draw\_message($subject,$email) { \_ }
+    //
+    //$sth = $db->query("SELECT \* FROM msg");
+    //$sth->fetchAll(PDO::FETCH\_FUNC, "draw\_message");
+    
+    
+    
+    /\*
+    echo '<pre>$dbh->exec("DELETE T\_WEBUSER where MEMBER\_ID in(1,2)");</pre>';
+    $dbh->exec("DELETE T\_WEBUSER where MEMBER\_ID in(1,2)");
+    \*/
+    
+    
+    echo '<br/>'.'<br/>'.'<br/>'.'<br/>';
+    echo <<<'EOTXT'
+    <pre>
+    
+    
+    </pre>
+    EOTXT;
+    >
+    <h1>III. PHP Data Objects Layer (PDO) - Ilia Alshanetsky</h1>
+    <p> Written in C - FAST! Designed to make use of all PHP 5.1 features </p>
+    <p>What Databases are Supported<br>
+      At time ~ PHP 5.1 PDO offered following drivers:<br>
+      MySQL 3,4,5 (depends on client libs) <br>
+      PostgreSQL<br>
+      SQLite 2 &amp; 3 <br>
+      ODBC<br>
+      DB2<br>
+     <strong> Oracle - 2015 year still experimental</strong><br>
+      Firebird<br>
+      FreeTDS/Sybase/MSSQL</p>
+    <h2>Installing PDO</h2>
+    <p>  PDO is divided into two components <br>
+      CORE (provides the interface) <br>
+      DRIVERS (access to particular database) - Example: pdo\_mysql<br>
+      The CORE is enabled by default, <br>
+     drivers with the exception of pdo\_sqlite are not. <br>
+     Actual Install Steps :<br>
+      PECL Way<br>
+      pecl install pdo\_\[driver\_name\] <br>
+      Update php.ini and add<br>
+     extension=pdo\_\[driver\_name\].so (or .dll on win32) <br>
+      Built into PHP Built<br>
+      ./configure -with-pdo-\[driver\_name\]<br>
+      For Win32 dlls for each driver are available.</p>
+    <h2>Using PDO - connection<br>
+    </h2>
+    <p><strong>// Oracle <br>
+     $dbh = 
+     new PDO('oci:dbname=sspc/XE:pooled', 'hr', 'hr', array(PDO::ATTR\_PERSISTENT =&gt; TRUE));</strong></p>
+    <p> // MySQL <br>
+     new PDO('mysql:host=localhost;dbname=testdb', $login, $passwd);</p>
+    <p>// PostgreSQL<br>
+     new PDO('pgsql:host=localhost port=5432 dbname=testdb user=john password=mypass');</p>
+    <p>// SQLite<br>
+     new PDO('sqlite:/path/to/database\_file');</p>
+    <h2>What if the Connection Fails</h2>
+    <p>  As is the case with most native PHP objects, <br>
+     instantiation failure lead to an exception being thrown.<br>
+     try {<br>
+     $db = new PDO(\_);<br>
+     } catch (PDOException $e) {<br>
+     echo $e-&gt;getMessage();<br>
+     }<br>
+    </p>
+    <h2>Persistent Connections</h2>
+    <p>  Connecting to complex DB like Oracle is a slow process, <br>
+     it would be nice to re-use a previously opened connection.</p>
+    <p>$opt = array(PDO::ATTR\_PERSISTENT =&gt; TRUE) ;<br>
+     try {<br>
+     $db = new PDO(&quot;dsn&quot;, $l, $p, $opt);<br>
+     } catch (PDOException $e) {<br>
+     echo $e-&gt;getMessage();<br>
+     }</p>
+    <h2>DSN INI Tricks<br>
+    </h2>
+    <p>  The DSN string can be an INI setting <br>
+     you can &quot;name&quot; as many DSNs are you like.<br>
+     <br>
+     ini\_set(&quot;pdo.dsn.ilia&quot;, &quot;sqlite::memory&quot;);<br>
+     try {<br>
+     $db = new PDO(&quot;ilia&quot;);<br>
+     } catch (PDOException $e) {<br>
+     echo $e-&gt;getMessage();<br>
+     }<br>
+    </p>
+    <h1>Queries</h1>
+    <p> Query execution in PDO can be done in two ways :</p>
+    <p><strong> Prepared Statements (recommended for speed &amp; security) - bind variables</strong><br>
+      Direct Query Execution</p>
+    <h1>Prepared Statements - prepare, execute, fetch</h1>
+    <p> Compile once, execute as many times as you want.<br>
+      Clear SEPARATION BETWEEN STRUCTURE AND INPUT, which prevents SQL injection. <br>
+      Often faster then query()/exec() even for single runs.</p>
+    <p>$stmt = $db-&gt;prepare( &quot;SELECT \* FROM users WHERE id=&quot; );<br>
+     $stmt-&gt;execute(array($\_GET\['id'\]));<br>
+     $stmt-&gt;fetch(PDO::FETCH\_ASSOC);</p>
+    <p>Bound Parameters<br>
+     ================<br>
+      Prepared statements parameters can be given names and bound to variables. </p>
+    <p>$stmt = $db-&gt;prepare(&quot;INSERT INTO users VALUES(:name,:pass,:mail)&quot;);<br>
+     foreach (array('name','pass','mail') as $v)<br>
+     $stmt-&gt;bindParam(':'.$v, $$v);<br>
+     $fp = fopen(&quot;./users&quot;, &quot;r&quot;);<br>
+     while (list($name,$pass,$mail) = fgetcsv($fp,4096)) {<br>
+     $stmt-&gt;execute();<br>
+     }</p>
+    <p>Bound Result Columns<br>
+     ====================<br>
+      Result columns can be bound to variables as well.</p>
+    <p>$qry = &quot;SELECT :type, :data FROM images LIMIT 1&quot;;<br>
+     $stmt = $db-&gt;prepare($qry);<br>
+     $stmt-&gt;bindColumn(':type',$type);<br>
+     $stmt-&gt;bindColumn(':type',STDOUT,PDO::PARAM\_LOB);<br>
+     $stmt-&gt;execute(PDO::FETCH\_BOUND);<br>
+     header(&quot;Content-Type: &quot;.$type);</p>
+    <p>Partial Data Retrieval<br>
+     ======================<br>
+      you only want part of the data on the cursor. <br>
+     To properly end the cursor use closeCursor() method. <br>
+     <br>
+     $res = $db-&gt;query(&quot;SELECT \* FROM users&quot;);<br>
+     foreach ($res as $v) {<br>
+     if ($res\['name'\] == 'end') {<br>
+     $res-&gt;closeCursor();<br>
+     break;<br>
+     }<br>
+     }</p>
+    <p>Transactions<br>
+     ============<br>
+      Nearly all PDO drivers talk with transactional DBs, so PDO provides <br>
+     handy methods for this purpose.</p>
+    <p>$db-&gt;beginTransaction();<br>
+     if ($db-&gt;exec($qry) === FALSE) { $db-&gt;rollback(); }<br>
+     $db-&gt;commit();</p>
+    <p>Metadata<br>
+     =========<br>
+      Like most native db interfaces PDO can access query metadata.</p>
+    <p>$res = $db-&gt;query($qry);<br>
+     $ncols = $res-&gt;columnCount();<br>
+     for ($i=0; $i &lt; $ncols; $i++) {<br>
+     $meta\_data = $stmt-&gt;getColumnMeta($i);<br>
+     }</p>
+    <p>getColumnMeta() Result<br>
+     ======================<br>
+      native\_type - PHP data type<br>
+      driver:decl\_type - data type of the column according to DB.<br>
+      flags - will return any flags particular to this column in array.<br>
+      name - of the column as returned by DB without any normalization.<br>
+      len - maximum length of a string column, may not always be available,<br>
+     will be set to -1 if it isn't.<br>
+      precision - numeric precision of this column. <br>
+      pdo\_type - column type according to PDO as one of <br>
+     pdo\_type PDO\_PARAM constants.</p>
+    <p>lastInsertId()<br>
+     ==============<br>
+      Many db have unique identifier assigned to each newly inserted row. <br>
+     PDO provides to each newly inserted row. access to this value <br>
+     via lastInsertId() method.<br>
+      Can take optional sequence name as parameter.<br>
+      Useful for PostgreSQL</p>
+    <p>if ($db-&gt;exec(&quot;INSERT INTO \_&quot;)) {<br>
+     $id = $db-&gt;lastInsertId();<br>
+     }</p>
+    <p>Connection Information<br>
+     ======================<br>
+      Some connection information can be obtained via <strong>getAttribute() 
+     PDO method</strong>. </p>
+    <p>$db-&gt;getAttribute(PDO::ATTR\_SERVER\_VERSION);<br>
+     &nbsp;&nbsp;&nbsp; // Database Server Version</p>
+    <p> $db-&gt;getAttribute(PDO::ATTR\_CLIENT\_VERSION);<br>
+     &nbsp;&nbsp;&nbsp;&nbsp; // Client Library Server Version</p>
+    <p> $db-&gt;getAttribute(PDO::ATTR\_SERVER\_INFO);<br>
+     &nbsp;&nbsp;&nbsp;&nbsp; // Misc Server information</p>
+    <p> $db-&gt;getAttribute(PDO::ATTR\_CONNECTION\_STATUS);<br>
+     &nbsp;&nbsp;&nbsp;&nbsp; // Connection Status</p>
+    <p>Extending PDO <br>
+     =============<br>
+     class DB extends PDO {<br>
+     function query($qry, $mode=NULL) {<br>
+     &nbsp;&nbsp;&nbsp;&nbsp; $res = parent::query($qry, $mode);<br>
+     &nbsp;&nbsp;&nbsp;&nbsp; if (!$res) {<br>
+     &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; var\_dump($qry, $this-&gt;errorInfo());<br>
+     &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return null;<br>
+     &nbsp; &nbsp;&nbsp; } else { return $res; }<br>
+     }<br>
+     }<br>
+    </p>
+    <p>&nbsp;</p>
+    <h1>Direct Query Execution - exec - standard: do not use</h1>
+    <p>  Queries that modify information need to be run via exec() method.</p>
+    <p> RETURN VALUE IS NUMBER OF ROWS AFFECTED BY OPERATION OR FALSE ON ERROR. </p>
+    <p>$db = new PDO(&quot;DSN&quot;);<br>
+     $db-&gt;exec(&quot;INSERT INTO foo (id) VALUES('bar')&quot;);<br>
+     $db-&gt;exec(&quot;UPDATE foo SET id='bar'&quot;);</p>
+    <p> In some cases &quot;change&quot; queries may not affect any rows and return 0,<br>
+     so TYPE-SENSITIVE COMPARE TO AVOID FALSE POSITIVES! </p>
+    <p>$res = $db-&gt;exec(&quot;UPDATE foo SET id='bar'&quot;);</p>
+    <p>if (!$res) // Wrong<br>
+     <strong>if ($res !== FALSE) // Correct</strong></p>
+    <p>Retrieving Error Information<br>
+     =======================<br>
+      PDO Provides 2 methods of getting error info:</p>
+    <p> errorCode() - SQLSTATE <br>
+      Example:&nbsp; 42000 == Syntax Error </p>
+    <p> errorInfo() - Detailed error information <br>
+      Ex. array( <br>
+     \[0\] =&gt; 42000,<br>
+     \[1\] =&gt; 1064<br>
+     \[2\] =&gt; You have an error in your SQL syntax; <br>
+     ))</p>
+    <p>Better Error Handling<br>
+     =====================<br>
+      Being an OO extension PDO would allow error handling via Exceptions.<br>
+      Any query failure will throw an Exception. </p>
+    <p>$db-&gt;setAttribute(<br>
+     PDO::ATTR\_ERRMODE, <br>
+     PDO::ERRMODE\_EXCEPTION <br>
+     );</p>
+    <p> When executing queries that retrieve query() method <br>
+     needs to be used. <br>
+      On error FALSE is returned </p>
+    <p>$res = $db-&gt;query(&quot;SELECT \* FROM foo&quot;);<br>
+     // $res == PDOStatement Object</p>
+    <p>Fetch Query Results<br>
+     ====================<br>
+      One of the biggest features of PDO is its flexibility <br>
+     in how data is to be fetched. <br>
+      Array (Numeric or Associated Indexes)<br>
+      Strings (for single column result sets) <br>
+      Objects: stdClass, <br>
+     of given class <br>
+     or into an existing object<br>
+      Callback function<br>
+      Lazy fetching<br>
+      Iterators<br>
+      And more!</p>
+    <p>Array Fetching<br>
+     ==============</p>
+    <p>$res = $db-&gt;query(&quot;SELECT \* FROM foo&quot;);</p>
+    <p>while ($row = $res-&gt;fetch(PDO::FETCH\_NUM)){<br>
+     // $row == array with NUMERIC KEYS<br>
+     }<br>
+     while ($row = $res-&gt;fetch(PDO::FETCH\_ASSOC)){<br>
+     // $row == array with associated (STRING) KEYS<br>
+     }<br>
+     while ($row = $res-&gt;fetch(PDO::FETCH\_BOTH)){<br>
+     // $row == array with ASSOCIATED &amp; NUMERIC KEYS<br>
+     }</p>
+    <p>Fetch as String<br>
+     ===============<br>
+      fetch data contained within single column.</p>
+    <p>$u = $db-&gt;query(&quot;SELECT users WHERE login='login' AND password='password'&quot;);<br>
+     // fetch(PDO::FETCH\_COLUMN)<br>
+     if ($u-&gt;fetchColumn()) { // returns a string<br>
+     // login OK<br>
+     } else { /\* authentication failure \*/ }</p>
+    <p>Fetch as Standard Object<br>
+     ========================<br>
+      You can fetch a row as an instance of stdClass <br>
+     where column name == property name. <br>
+     <br>
+     $res = $db-&gt;query(&quot;SELECT \* FROM foo&quot;);<br>
+     while ($obj = $res-&gt;fetch(PDO::FETCH\_OBJ)) {<br>
+     // $obj == instance of stdClass<br>
+     }</p>
+    <p>Fetch Into a Class<br>
+     ==================<br>
+      PDO allows the result to be fetched into a class type of your choice.</p>
+    <p>$res = $db-&gt;query(&quot;SELECT \* FROM foo&quot;);<br>
+     $res-&gt;setFetchMode(<br>
+     PDO::FETCH\_CLASS,<br>
+     &quot;className&quot;,<br>
+     array('optional'='Constructor Params')<br>
+     );<br>
+     while ($obj = $res-&gt;fetch()) {<br>
+     // $obj == instance of className<br>
+     }</p>
+    <p>Fetch Into a Class Cont.<br>
+     =========================<br>
+      PDO allows query result to be used to determine destination class.</p>
+    <p>$res = $db-&gt;query(&quot;SELECT \* FROM foo&quot;);<br>
+     $res-&gt;setFetchMode(<br>
+     PDO::FETCH\_CLASS |<br>
+     PDO::FETCH\_CLASSTYPE<br>
+     );<br>
+     while ($obj = $res-&gt;fetch()) {<br>
+     // $obj == instance of class who's name is<br>
+     // found in the value of the 1 st column<br>
+     }</p>
+    <p>Fetch Into an Object<br>
+     ====================<br>
+      PDO even allows retrieval of data into existing object.</p>
+    <p>$u = new userObject;<br>
+     $res = $db-&gt;query(&quot;SELECT \* FROM users&quot;);<br>
+     $res-&gt;setFetchMode(PDO::FETCH\_INTO, $u); <br>
+     while ($res-&gt;fetch()) {<br>
+     // will re-populate $u with row values<br>
+     }<br>
+    </p>
+    <p>Result Iteration<br>
+     =================<br>
+      PDOStatement implements Iterator interface, which allows for <br>
+     a method-less result iteration. <br>
+     <br>
+     $res = $db-&gt;query(<br>
+     &quot;SELECT \* FROM users&quot;, <br>
+     PDO::FETCH\_ASSOC<br>
+     );<br>
+     foreach ($res as $row) {<br>
+     // $row == associated array representing row's values.<br>
+     }</p>
+    <p>Lazy Fetching<br>
+     =============<br>
+      Lazy fetches returns a result in a form object, <br>
+     but HOLDS OF POPULATING PROPERTIES UNTIL THEY ARE ACTUALLY USED. <br>
+     $res = $db-&gt;query(<br>
+     &quot;SELECT \* FROM users&quot;, <br>
+     PDO::FETCH\_LAZY<br>
+     );<br>
+     foreach ($res as $row) {<br>
+     echo $row\['name'\]; // only fetch name column<br>
+     }</p>
+    <p>fetchAll()<br>
+     ===========<br>
+      retrieval of all results from query right away (handy for templates) <br>
+      Can be memory intensive for large results sets!</p>
+    <p>$qry = &quot;SELECT \* FROM users&quot;;<br>
+     $res = $db-&gt;query($qry)-&gt;fetchAll(PDO::FETCH\_ASSOC);<br>
+     // $res == array of all result rows, where each row is an associated array.</p>
+    <p>Callback Function<br>
+     ==================<br>
+      fetch mode where each result is processed via a callback function. </p>
+    <p>function draw\_message($subject,$email) { \_ }</p>
+    <p>$res = $db-&gt;query(&quot;SELECT \* FROM msg&quot;);<br>
+     $res-&gt;fetchAll(PDO::FETCH\_FUNC, &quot;draw\_message&quot;);</p>
+    <p>Direct Query Problems<br>
+     =====================<br>
+      Query interpreted on each execution - slow FREQUENTLY REPEATED queries.<br>
+      Security issues, un-escaped user input can contain special elements<br>
+     leading to SQL injection.</p>
+    <p>Escaping in PDO<br>
+     ===============<br>
+      Escaping of special characters is handled via the quote() method. </p>
+    <p>$qry = &quot;SELECT \* FROM users <br>
+     WHERE login=&quot;.$db-&gt;quote($\_POST\['login'\]).&quot;<br>
+     AND passwd=&quot;.$db-&gt;quote($\_POST\['pass'\])<br>
+     ;</p></td>
+    </tr>
+     <tr>
+     <td colspan="1" valign="top">&nbsp;</td>
+     </tr>
+     </table>
+    </body>
+    
+    </html>
+    
+2.  Connected to user: \*\*\*\*\*\*\*\*\*\*\*\* $dbh =  
+    new PDO(‘oci:host=sspc/XE:pooled;charset=EE8MSWIN1250’, ‘hr’, ‘hr’);
+3.  PERSISTENT Connected to user: \*\*\*\*\*\*\*\*\*\*\*\*$dbh =  
+    new PDO(‘oci:host=sspc/XE:pooled;charset=EE8MSWIN1250’, ‘hr’, ‘hr’, array(PDO::ATTR\_PERSISTENT => TRUE));  
+    $opt = array(PDO::ATTR\_PERSISTENT => TRUE) = Array ( \[0\] => 0 )
+
+1.  PDO driver: $dbh->getAttribute(PDO::ATTR\_DRIVER\_NAME) = oci
+2.  not supported for OCI PDO: $dbh->getAttribute(PDO::ATTR\_CONNECTION\_STATUS);
+3.  DB Server Version $dbh->getAttribute(PDO::ATTR\_SERVER\_VERSION) =  
+    11.2.0.2.0
+4.  $dbh->getAttribute(PDO::ATTR\_SERVER\_INFO) =  
+    Oracle Database 11g Express Edition Release 11.2.0.2.0 – 64bit Production
+5.  Client Library Server Ver. $dbh->getAttribute(PDO::ATTR\_CLIENT\_VERSION) = 11.2.0.2.0
+
+II. PDO CRUD DML (QUERY)
+========================
+
+### II.1 max ID & C R E A T E with bind variables – prepare, execute, fetch
+
+1.  DELETE T\_WEBUSER table
+2.  SELECT count(\*) from T\_WEBUSER, $row = array with NUMERIC KEYS  
+    $countrec in table =
+3.  $nextidrec (from DB records, if=1 this is first record in table – unknown sequence) = 1
+4.  $sth = $dbh->prepare(‘INSERT INTO T\_WEBUSER (UNAME, PASSWORD) VALUES(,)’ )  
+    // and same for usr2, BUT NOT MEMBER\_ID – TRIGGER !!
+
+### II.2 U P D A T E with bind variable
+
+1.  UPDATE T\_WEBUSER SET FORENAME = ‘FORENAME’ where UNAME =
+2.  All rows: SELECT \* FROM T\_WEBUSER  
+    
+    142
+    
+    usr1
+    
+    pswusr1
+    
+    FORENAME
+    
+    143
+    
+    usr2
+    
+    pswusr2
+    
+
+### II.3 D E L E T E with bind variable
+
+1.  DELETE T\_WEBUSER where UNAME =
+
+### II.4 R E T R I V E with bind variable
+
+1.  All rows: SELECT \* FROM T\_WEBUSER WHERE UNAME= ( means bind variable value)  
+    
+    142
+    
+    usr1
+    
+    pswusr1
+    
+    FORENAME
+    
+2.  One row: SELECT \* FROM T\_WEBUSER WHERE UNAME= ( means bind variable value)
+    
+    Array ( \[MEMBER\_ID\] => 142 \[IS\_ADMIN\] => 0 \[ACTIVATION\_TOKEN\] => 0 \[FORENAME\] => FORENAME \[LASTNAME\] => \[UNAME\] => usr1 \[EMAIL\] => \[PASSWORD\] => pswusr1 \[ACTIVE\] => \[DATE\_REGISTER\] => \[DATE\_MOD\] => \[DATE\_EXPIRES\] => \[MEMBER\_LEVEL\] => \[TIP\] => \[DESCRIPTION1\] => \[DESCRIPTION2\] => \[DESCRIPTION3\] => )
+    
+
+III. PHP Data Objects Layer (PDO) – Ilia Alshanetsky
+====================================================
+
+Written in C – FAST! Designed to make use of all PHP 5.1 features
+
+What Databases are Supported  
+At time ~ PHP 5.1 PDO offered following drivers:  
+MySQL 3,4,5 (depends on client libs)  
+PostgreSQL  
+SQLite 2 & 3  
+ODBC  
+DB2  
+Oracle – 2015 year still experimental  
+Firebird  
+FreeTDS/Sybase/MSSQL
+
+Installing PDO
+--------------
+
+PDO is divided into two components  
+CORE (provides the interface)  
+DRIVERS (access to particular database) – Example: pdo\_mysql  
+The CORE is enabled by default,  
+drivers with the exception of pdo\_sqlite are not.  
+Actual Install Steps :  
+PECL Way  
+pecl install pdo\_\[driver\_name\]  
+Update php.ini and add  
+extension=pdo\_\[driver\_name\].so (or .dll on win32)  
+Built into PHP Built  
+./configure -with-pdo-\[driver\_name\]  
+For Win32 dlls for each driver are available.
+
+Using PDO – connection
+----------------------
+
+// Oracle  
+$dbh =  new PDO(‘oci:dbname=sspc/XE:pooled’, ‘hr’, ‘hr’, array(PDO::ATTR\_PERSISTENT => TRUE));
+
+// MySQL  
+new PDO(‘mysql:host=localhost;dbname=testdb’, $login, $passwd);
+
+// PostgreSQL  
+new PDO(‘pgsql:host=localhost port=5432 dbname=testdb user=john password=mypass’);
+
+// SQLite  
+new PDO(‘sqlite:/path/to/database\_file’);
+
+What if the Connection Fails
+----------------------------
+
+As is the case with most native PHP objects,  
+instantiation failure lead to an exception being thrown.  
+try {  
+$db = new PDO(\_);  
+} catch (PDOException $e) {  
+echo $e->getMessage();  
+}
+
+Persistent Connections
+----------------------
+
+Connecting to complex DB like Oracle is a slow process,  
+it would be nice to re-use a previously opened connection.
+
+$opt = array(PDO::ATTR\_PERSISTENT => TRUE) ;  
+try {  
+$db = new PDO(“dsn”, $l, $p, $opt);  
+} catch (PDOException $e) {  
+echo $e->getMessage();  
+}
+
+DSN INI Tricks
+--------------
+
+The DSN string can be an INI setting  
+you can “name” as many DSNs are you like.
+
+ini\_set(“pdo.dsn.ilia”, “sqlite::memory”);  
+try {  
+$db = new PDO(“ilia”);  
+} catch (PDOException $e) {  
+echo $e->getMessage();  
+}
+
+Queries
+=======
+
+Query execution in PDO can be done in two ways :
+
+Prepared Statements (recommended for speed & security) – bind variables  
+Direct Query Execution
+
+Prepared Statements – prepare, execute, fetch
+=============================================
+
+Compile once, execute as many times as you want.  
+Clear SEPARATION BETWEEN STRUCTURE AND INPUT, which prevents SQL injection.  
+Often faster then query()/exec() even for single runs.
+
+$stmt = $db->prepare( “SELECT \* FROM users WHERE id=” );  
+$stmt->execute(array($\_GET\[‘id’\]));  
+$stmt->fetch(PDO::FETCH\_ASSOC);
+
+Bound Parameters  
+\================  
+Prepared statements parameters can be given names and bound to variables.
+
+$stmt = $db->prepare(“INSERT INTO users VALUES(:name,:pass,:mail)”);  
+foreach (array(‘name’,’pass’,’mail’) as $v)  
+$stmt->bindParam(‘:’.$v, $$v);  
+$fp = fopen(“./users”, “r”);  
+while (list($name,$pass,$mail) = fgetcsv($fp,4096)) {  
+$stmt->execute();  
+}
+
+Bound Result Columns  
+\====================  
+Result columns can be bound to variables as well.
+
+$qry = “SELECT :type, :data FROM images LIMIT 1”;  
+$stmt = $db->prepare($qry);  
+$stmt->bindColumn(‘:type’,$type);  
+$stmt->bindColumn(‘:type’,STDOUT,PDO::PARAM\_LOB);  
+$stmt->execute(PDO::FETCH\_BOUND);  
+header(“Content-Type: “.$type);
+
+Partial Data Retrieval  
+\======================  
+you only want part of the data on the cursor.  
+To properly end the cursor use closeCursor() method.
+
+$res = $db->query(“SELECT \* FROM users”);  
+foreach ($res as $v) {  
+if ($res\[‘name’\] == ‘end’) {  
+$res->closeCursor();  
+break;  
+}  
+}
+
+Transactions  
+\============  
+Nearly all PDO drivers talk with transactional DBs, so PDO provides  
+handy methods for this purpose.
+
+$db->beginTransaction();  
+if ($db->exec($qry) === FALSE) { $db->rollback(); }  
+$db->commit();
+
+Metadata  
+\=========  
+Like most native db interfaces PDO can access query metadata.
+
+$res = $db->query($qry);  
+$ncols = $res->columnCount();  
+for ($i=0; $i < $ncols; $i++) {  
+$meta\_data = $stmt->getColumnMeta($i);  
+}
+
+getColumnMeta() Result  
+\======================  
+native\_type – PHP data type  
+driver:decl\_type – data type of the column according to DB.  
+flags – will return any flags particular to this column in array.  
+name – of the column as returned by DB without any normalization.  
+len – maximum length of a string column, may not always be available,  
+will be set to -1 if it isn’t.  
+precision – numeric precision of this column.  
+pdo\_type – column type according to PDO as one of  
+pdo\_type PDO\_PARAM constants.
+
+lastInsertId()  
+\==============  
+Many db have unique identifier assigned to each newly inserted row.  
+PDO provides to each newly inserted row. access to this value  
+via lastInsertId() method.  
+Can take optional sequence name as parameter.  
+Useful for PostgreSQL
+
+if ($db->exec(“INSERT INTO \_”)) {  
+$id = $db->lastInsertId();  
+}
+
+Connection Information  
+\======================  
+Some connection information can be obtained via getAttribute() PDO method.
+
+$db->getAttribute(PDO::ATTR\_SERVER\_VERSION);  
+// Database Server Version
+
+$db->getAttribute(PDO::ATTR\_CLIENT\_VERSION);  
+// Client Library Server Version
+
+$db->getAttribute(PDO::ATTR\_SERVER\_INFO);  
+// Misc Server information
+
+$db->getAttribute(PDO::ATTR\_CONNECTION\_STATUS);  
+// Connection Status
+
+Extending PDO  
+\=============  
+class DB extends PDO {  
+function query($qry, $mode=NULL) {  
+$res = parent::query($qry, $mode);  
+if (!$res) {  
+var\_dump($qry, $this->errorInfo());  
+return null;  
+} else { return $res; }  
+}  
+}
+
+Direct Query Execution – exec – standard: do not use
+====================================================
+
+Queries that modify information need to be run via exec() method.
+
+RETURN VALUE IS NUMBER OF ROWS AFFECTED BY OPERATION OR FALSE ON ERROR.
+
+$db = new PDO(“DSN”);  
+$db->exec(“INSERT INTO foo (id) VALUES(‘bar’)”);  
+$db->exec(“UPDATE foo SET id=’bar'”);
+
+In some cases “change” queries may not affect any rows and return 0,  
+so TYPE-SENSITIVE COMPARE TO AVOID FALSE POSITIVES!
+
+$res = $db->exec(“UPDATE foo SET id=’bar'”);
+
+if (!$res) // Wrong  
+if ($res !== FALSE) // Correct
+
+Retrieving Error Information  
+\=======================  
+PDO Provides 2 methods of getting error info:
+
+errorCode() – SQLSTATE  
+Example:  42000 == Syntax Error
+
+errorInfo() – Detailed error information  
+Ex. array(  
+\[0\] => 42000,  
+\[1\] => 1064  
+\[2\] => You have an error in your SQL syntax;  
+))
+
+Better Error Handling  
+\=====================  
+Being an OO extension PDO would allow error handling via Exceptions.  
+Any query failure will throw an Exception.
+
+$db->setAttribute(  
+PDO::ATTR\_ERRMODE,  
+PDO::ERRMODE\_EXCEPTION  
+);
+
+When executing queries that retrieve query() method  
+needs to be used.  
+On error FALSE is returned
+
+$res = $db->query(“SELECT \* FROM foo”);  
+// $res == PDOStatement Object
+
+Fetch Query Results  
+\====================  
+One of the biggest features of PDO is its flexibility  
+in how data is to be fetched.  
+Array (Numeric or Associated Indexes)  
+Strings (for single column result sets)  
+Objects: stdClass,  
+of given class  
+or into an existing object  
+Callback function  
+Lazy fetching  
+Iterators  
+And more!
+
+Array Fetching  
+\==============
+
+$res = $db->query(“SELECT \* FROM foo”);
+
+while ($row = $res->fetch(PDO::FETCH\_NUM)){  
+// $row == array with NUMERIC KEYS  
+}  
+while ($row = $res->fetch(PDO::FETCH\_ASSOC)){  
+// $row == array with associated (STRING) KEYS  
+}  
+while ($row = $res->fetch(PDO::FETCH\_BOTH)){  
+// $row == array with ASSOCIATED & NUMERIC KEYS  
+}
+
+Fetch as String  
+\===============  
+fetch data contained within single column.
+
+$u = $db->query(“SELECT users WHERE login=’login’ AND password=’password'”);  
+// fetch(PDO::FETCH\_COLUMN)  
+if ($u->fetchColumn()) { // returns a string  
+// login OK  
+} else { /\* authentication failure \*/ }
+
+Fetch as Standard Object  
+\========================  
+You can fetch a row as an instance of stdClass  
+where column name == property name.
+
+$res = $db->query(“SELECT \* FROM foo”);  
+while ($obj = $res->fetch(PDO::FETCH\_OBJ)) {  
+// $obj == instance of stdClass  
+}
+
+Fetch Into a Class  
+\==================  
+PDO allows the result to be fetched into a class type of your choice.
+
+$res = $db->query(“SELECT \* FROM foo”);  
+$res->setFetchMode(  
+PDO::FETCH\_CLASS,  
+“className”,  
+array(‘optional’=’Constructor Params’)  
+);  
+while ($obj = $res->fetch()) {  
+// $obj == instance of className  
+}
+
+Fetch Into a Class Cont.  
+\=========================  
+PDO allows query result to be used to determine destination class.
+
+$res = $db->query(“SELECT \* FROM foo”);  
+$res->setFetchMode(  
+PDO::FETCH\_CLASS |  
+PDO::FETCH\_CLASSTYPE  
+);  
+while ($obj = $res->fetch()) {  
+// $obj == instance of class who’s name is  
+// found in the value of the 1 st column  
+}
+
+Fetch Into an Object  
+\====================  
+PDO even allows retrieval of data into existing object.
+
+$u = new userObject;  
+$res = $db->query(“SELECT \* FROM users”);  
+$res->setFetchMode(PDO::FETCH\_INTO, $u);  
+while ($res->fetch()) {  
+// will re-populate $u with row values  
+}
+
+Result Iteration  
+\=================  
+PDOStatement implements Iterator interface, which allows for  
+a method-less result iteration.
+
+$res = $db->query(  
+“SELECT \* FROM users”,  
+PDO::FETCH\_ASSOC  
+);  
+foreach ($res as $row) {  
+// $row == associated array representing row’s values.  
+}
+
+Lazy Fetching  
+\=============  
+Lazy fetches returns a result in a form object,  
+but HOLDS OF POPULATING PROPERTIES UNTIL THEY ARE ACTUALLY USED.  
+$res = $db->query(  
+“SELECT \* FROM users”,  
+PDO::FETCH\_LAZY  
+);  
+foreach ($res as $row) {  
+echo $row\[‘name’\]; // only fetch name column  
+}
+
+fetchAll()  
+\===========  
+retrieval of all results from query right away (handy for templates)  
+Can be memory intensive for large results sets!
+
+$qry = “SELECT \* FROM users”;  
+$res = $db->query($qry)->fetchAll(PDO::FETCH\_ASSOC);  
+// $res == array of all result rows, where each row is an associated array.
+
+Callback Function  
+\==================  
+fetch mode where each result is processed via a callback function.
+
+function draw\_message($subject,$email) { \_ }
+
+$res = $db->query(“SELECT \* FROM msg”);  
+$res->fetchAll(PDO::FETCH\_FUNC, “draw\_message”);
+
+Direct Query Problems  
+\=====================  
+Query interpreted on each execution – slow FREQUENTLY REPEATED queries.  
+Security issues, un-escaped user input can contain special elements  
+leading to SQL injection.
+
+Escaping in PDO  
+\===============  
+Escaping of special characters is handled via the quote() method.
+
+$qry = “SELECT \* FROM users  
+WHERE login=”.$db->quote($\_POST\[‘login’\]).”  
+AND passwd=”.$db->quote($\_POST\[‘pass’\])  
+;
+
+ kod[ edit]($web_docroot_url/inc/utl/edservertxt.php)[ phpinfo]($web_docroot_url/phpinfo_inc.php) EOKOD; /\* call it so: kod\_edit\_run( $idx // script\_dir\_path , $idxscript // script\_name , MDURL); // web\_docroot\_url = (Apache) web server URL \*/ }

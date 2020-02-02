@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS `poll`;
+DROP TABLE IF EXISTS `answer`;
+DROP TABLE IF EXISTS `vote`;
+
+CREATE TABLE `poll` (
+`ID` INT NOT NULL AUTO_INCREMENT ,
+`question` MEDIUMTEXT NOT NULL ,
+PRIMARY KEY ( `ID` )
+) TYPE = MYISAM ;
+
+CREATE TABLE `answer` (
+`answer_ID` INT NOT NULL AUTO_INCREMENT ,
+`ID` INT NOT NULL ,
+`answer` MEDIUMTEXT NOT NULL ,
+PRIMARY KEY ( `answer_ID` )
+) TYPE = MYISAM ;
+
+CREATE TABLE `vote` (
+`ID` INT NOT NULL ,
+`answer_ID` INT NOT NULL ,
+`ip_address` VARCHAR( 20 ) NOT NULL ,
+INDEX ( `ID` )
+) TYPE = MYISAM ;
+
+INSERT INTO poll (question) VALUES ("Would you like a cheeseburger?");
+INSERT INTO answer (ID, answer) VALUES (1, "Yes.");
+INSERT INTO answer (ID, answer) VALUES (1, "No.");
+INSERT INTO answer (ID, answer) VALUES (1, "Maybe.");
+

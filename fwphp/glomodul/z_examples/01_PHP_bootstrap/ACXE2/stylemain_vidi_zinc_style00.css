@@ -1,0 +1,284 @@
+body {
+    background-color: #fff;
+    color: #1b1b1b;
+    font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;
+    margin: 2% 5% 0;
+}
+p {
+    font-size: 1.25em;
+}
+select, input {
+    font-size: 0.875em;
+}
+table {
+    max-width: 1000px;
+    border-collapse: collapse;
+    border: 1px solid #c9c9c9;
+    margin: 0 auto 20px 50px;
+}
+th {
+    background-color: #ddd;
+    color: #555;
+    padding: 0.5em 1em;
+    text-align: left;
+}
+td {
+    vertical-align: top;
+    padding: 0.25em 1em;
+}
+
+tr {
+    border-bottom: 1px solid #c9c9c9;
+}
+
+tr:nth-child(even) {
+    background-color: #e7edf6;
+}
+/* ~~~ I added : ~~~ */
+tr.row1 {
+    background-color: lightgray;
+}
+
+tr.row2 {
+    background-color: white;
+}
+
+
+
+fieldset {
+    border: none;
+    margin-left: 50px;
+    padding: 1px 0;
+}
+fieldset p {
+    margin: 0.5em 0 0.5em 30px;
+}
+legend {
+    font-variant: small-caps;
+    font-size: 1.5em;
+}
+/*
+h2 {
+    margin: 0.5em 0;
+}
+h2 + p {
+    margin: 0 0 0 40px;
+}
+*/
+
+/* ~~~ I added : ~~~ */
+h2{ 
+  font-size: 1.4em;
+  Background-Color:#eee; /* lightgray  #E0DDE6 */
+  text-align:center;
+  line-height: 1.5em;
+  /* color: gray; #c61c6f = red*/
+  margin: 0px 2px 0px 2px;  /* T,R,D,L */
+  /* max-width: 900px; */
+}
+
+pre, code, kbd, samp {
+white-space: pre-wrap;
+  border-style: solid; border-color: lightblue;
+  border-width: 1px 3px 3px 1px; /* T,R,D,L smedja= #936709*/
+  padding: 1px 8px;
+  background: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  color:black;
+  font-family: courier-prime, 'Courier New',Courier,monospace;
+  font-size: 1.25em;
+  display: block;
+   /* width: 700px; */
+  max-width: 850px;
+  /* text-align:justify; */	
+  /* text-justify:none; */
+}
+
+  
+#Content>p {margin:0px; text-indent:30px;}
+
+a {
+	color:#09c;
+	text-decoration:none;
+	font-weight:600; /*normal 300 600*/
+	font-family:Corbel, verdana, arial, helvetica;
+  font-size: 1.25em;
+	}
+	
+a:link {color:darkgreen; font-size: 1.25em;} /*#09c*/
+a:visited {color:#07a; font-size: 1.25em;}
+a:hover {background-color:#eee; font-size: 1.25em;}
+
+.btn {
+    display: inline-block;
+    padding: 3px 5px;
+    margin-bottom: 0;
+    font-family:Corbel, verdana, arial, helvetica;
+    font-size: 1,25em;
+    font-weight:600; /*normal300 600*/
+    /*line-height: 1.25em;*/
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: lightgray; /* #C61C6F */
+    color: darkgreen; /* #FCF4DC white */
+    /* -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+         -o-user-select: none;
+            user-select: none; */
+}
+
+.btn .btn-left {
+  float: left;
+  font-size: 1.25em;
+  color: darkgreen; /* #FCF4DC */
+}
+
+.btn .btn-right {
+  float: right;
+  font-size: 1.25em;
+  color: darkgreen; /* #FCF4DC */
+}
+
+.btn:hover {
+    background: #09576D;
+    color: white; /* #FCF4DC */
+}
+
+
+
+#Header {
+	/* font-size:1.8em; */
+  font-family:Corbel, verdana, arial, helvetica;;
+	margin: 10px  0px 10px 5px; /* T,R,D,L smedja= #936709*/
+  /*height:3.6em; */
+  width:100%; /* float:left ; */
+	margin:0px 10px 20px 10px; /* T,R,D,L margin-left */
+	padding:0px 5px 5px 10px;
+	/* For IE5/Win's benefit height = [correct height] + [top padding] + [top and bottom border widths] */
+	/*height:33px; */ /* 14px + 17px + 2px = 33px */
+  border-style:solid; border-color:gray; border-width:0px 1px 1px 0px;
+	/* border-width:1px 0px ; top and bottom borders: 1px; left and right borders: 0px */
+	/*line-height:3.6em;*/
+	color: gray; background-color:#eee;
+}
+/* Here is the ugly brilliant hack that protects IE5/Win from its own stupidity. 
+Thanks to Tantek Celik for the hack and to Eric Costello for publicizing it. 
+IE5/Win incorrectly parses the "\"}"" value, prematurely closing the style 
+declaration. The incorrect IE5/Win value is above, while the correct value is 
+below. See http://glish.com/css/hacks.asp for details. */
+	/* voice-family: "\"}\"";
+	voice-family:inherit; */
+	/* height:14px; */ /* the correct height */
+	
+/* I've heard this called the "be nice to Opera 5" rule. Basically, it feeds correct 
+length values to user agents that exhibit the parsing error exploited above yet get 
+the CSS box model right and understand the CSS2 parent-child selector. ALWAYS include
+a "be nice to Opera 5" rule every time you use the Tantek Celik hack (above). */
+body>#Header { 
+   height:2.8em; 
+  /*width:74%;*/ /* float:left ; */
+	/*margin:0px 10px 50px 10px;*/ /* T,R,D,L margin-left */
+	/*padding:1em;*/
+  /*border:1px solid #999;*/ /*solid dotted dashed border-left*/
+   }
+
+
+#Content {
+  width:74%; /* float:left ; */
+	font-family:Corbel, verdana, arial, helvetica;;
+	margin:0px 10px 50px 10px; /* T,R,D,L margin-left */
+	padding:1em;
+  border:1px solid #999; /*solid dotted dashed border-left*/
+	}
+#Contentcenter {
+  /*width:74%; float:left ; */
+	font-family:Corbel, verdana, arial, helvetica;;
+	margin:0px 10% 50px 10%; /* T,R,D,L margin-left */
+	padding:1em;
+  border:1px solid #999; /*solid dotted dashed border-left*/
+	}
+
+#Menu {
+  /*text-align:right;*/
+  /*float:right;*/
+	font-family: Corbel, Constantia, verdana, arial, helvetica, sans-serif;
+	position:absolute;
+	top:80px;
+	right:30px;
+	width:20%;	/*width:200px;*/
+	padding:10px;
+	background-color:#eee;
+	border:1px dotted #999; /* solid dotted dashed */
+	/* line-height:17px; */
+/* Again, the ugly brilliant hack. */
+	/* voice-family: "\"}\""; 
+	voice-family:inherit; */
+	}
+/* Again, "be nice to Opera 5". */
+body>#Menu {width:20%;}
+
+#forma 
+{
+	font-family: Corbel, Constantia, verdana, arial, helvetica, sans-serif;
+	position:absolute;
+	top:140px;
+	right:10px;
+	width:450px;
+	padding:10px;
+	background-color:#eee;
+	border:1px dashed #999;
+	/* line-height:17px; */
+/* Again, the ugly brilliant hack. */
+	/* voice-family: "\"}\""; 
+	voice-family:inherit; */
+}
+/* Again, "be nice to Opera 5". */
+body>#form {width:450px;}
+
+/* top right: */
+#msgtr 
+{
+	font-family: Corbel, Constantia, verdana, arial, helvetica, sans-serif;
+	position:absolute;
+	top:40px;
+	right:10px;
+	width:450px; 
+  line-height:1.2em;
+	padding:10px;
+	background-color:white;
+	border:1px dashed #999;
+}
+
+.error {
+	color:#FF0033;
+	font-size:1.25em;
+	}
+  
+  
+.pgBreakAfter {
+  cursor: text;
+  /*filter: Gray;*/
+  page-break-after: always;
+}
+.pgBreakBefore {
+  cursor: text;
+  /*filter: Gray;*/
+  page-break-before: always;
+}
+
+
+.ljubic {color:magenta}
+.crven {
+   /*font-size: xx-large;    zelena: #30A308*/
+   color: red;
+}
+.zelen {color: green;}
+.smedj {color: brown;}
+.plav {color: blue;}

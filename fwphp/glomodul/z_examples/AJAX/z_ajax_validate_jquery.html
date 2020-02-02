@@ -1,0 +1,95 @@
+<!doctype htm1>
+<html>
+<head>
+  <title>AJAX form Check</title>
+  <meta charset="UTF-8">
+  
+<style>
+  .error{display:none; color:red;}
+</style>
+</head>
+
+<body>
+
+
+<form action="validator.php" method="POST" name="myform"  id="myform"><!-- -->
+
+  <table>
+  <tr>
+    <td>Name:</td><td><input type="text" class="form-group" name="name">
+      <span class="error-name error">Missing Name</span>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Email:</td><td><input type="email" class="form-group" name="email">
+    <span class="error-email error">Missing Email</span>
+    </td>
+  </tr>
+  </table>
+  
+  <button type="submit">Submit</button>
+
+</form>
+<span id="message"></span>
+
+
+<script src="/zinc/themes/bootstrap/js/zepto.min.js"></script>
+<!--script src="/zinc/themes/bootstrap/js/jquery.min.js"></script-->
+
+<script>
+
+
+    $(document).ready(function(){
+      $('form').submit(function(e){
+        
+        e.preventDefault() ;
+        $('.error').hide() ;
+        
+        //serilize (for pick up) form data :
+        var data = $('#myform').serialize();
+                        //console.log(data); // name=vvvvvvv&email=a%40a.a
+        $('#message').html('Sending...') ;
+
+        $.ajax({
+            type:'POST'
+          , url:'validator.php'
+          , data: data
+          //response acceptable only in json format, if line dataType commented :
+          //   echo 'hello'; in url php script displays hello 
+          , dataType: 'json'
+          , success: function(d){
+              //console.log(d.errors) ; // Array [] or Object { name: "Name is needed!" }
+                      //console.log(d) ;      // Object { hello: "world" }
+                      //console.log(d.hello); // world string
+              $('#message').html(d.message) ;
+              
+              if(d.success){
+                $('#message').html(d.message + ' ' + d.post.name + ' ' + d.post.email) ;
+                //error: $('#message').html(d) ;
+                //$('#message').html(d.errors.name) ;
+                //$('#myform').append('<div>'+d.message+'</div>') ;
+              }else{
+                if(d.errors.name){
+                   $('.error-name').show() ;
+                   $('.error-name').html(d.errors.name) ;
+                }
+                if(d.errors.email){
+                  $('.error-email').show() ;
+                  $('.error-email').html(d.errors.email) ;
+                }
+              }
+
+
+            }
+
+
+        })
+
+      })
+    })
+    
+</script>
+
+</body></html>
+

@@ -1,0 +1,139 @@
+.left-area{
+  background-color: #fff;
+  padding:15px;
+  position: relative;
+  overflow: hidden;
+}
+.left-area::before{
+  position: absolute;
+  content: "Profile";
+  top: 0;
+  left: -35px;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  transform: rotate(-30deg);
+  background-color: #f93d67;
+  color:#fff;
+}
+.right-area{
+  background-color: #fff;
+  padding: 15px;
+  overflow: hidden;
+  position: relative;
+}
+.right-area::before{
+  position: absolute;
+  content: "Details";
+  top: 0;
+  right: -35px;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  transform: rotate(30deg);
+  background-color: #7047d7;
+  color:#fff;
+}
+.contents{
+  margin-top: 50px;
+}
+.user_img{
+  width: 100px;
+  height: 100px;
+  margin:0 auto;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  border:3px inset rgba(0,0,0,0.4);
+}
+.first-li{
+  margin-top: 20px;
+}
+.list-group-item:hover{
+  background-color: #7047d7;
+}
+.list-group-item:hover a{
+  color:#fff;
+  text-decoration: none;
+}
+.logout-btn{
+  background-color: rgba(0,0,0,.0);
+  border:1px solid #fff;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  border-radius: 30px;
+}
+.logout-btn:hover{
+  background-color: rgba(0,0,0,.0);
+  border:1px solid #fff;
+}
+.success-msg{
+  background-color: #7ed56f;
+  border:0px;
+}
+.profile-input{
+  /*border-color: #ced4da;*/
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border:1px solid #ced4da;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.user-info{
+  margin-top: 25px;
+}
+.user-info span{
+  color:#999;
+  font-weight: 500;
+}
+.green-per{
+  color:#2CE519;
+  font-size: 20px;
+  font-weight: 600;
+}
+.orange-per{
+  color:orange;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.image_upload {
+  display: none;
+}
+
+#picture_upload_label {
+  width: 100%;
+  height: 40px;
+  background-color: #F3F3F2;
+  line-height: 32px;
+  color: #666;
+  padding: 4px 10px;
+  font-size: 14px;
+  position: relative;
+}
+
+#picture_upload_label::after {
+  position: absolute;
+  content: "Choose image";
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  background-color: #f93d67;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+}
+
+#picture_upload_label:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,34 @@
+body { margin: 0; padding: 0; background: #f9f7f5; font-family: Calibri, Tahoma, Arial; }
+a { margin: 0; color: #3b608a; }
+a:hover { color: #443b31;}
+p { color: #443b31; }
+
+.wrapper { width: 1000px; margin: 0 auto 0; }
+
+#header { min-height: 120px; background: #0664DE; }
+#header h1 { color: #f9f7f5; margin: 0;padding-top:35px;padding-left:75px }
+
+#navigation { min-height: 40px; background: #9DFE74; overflow: hidden; }
+.navbar { margin: 10px 0 0 0; list-style-type: none; padding: 0; }
+.navbar li { display: inline; margin: 0; }
+.navbar li a { color: #0664DE; text-decoration: none; padding: 12px;}
+.navbar li a:hover { background: #e89440; color: #f9f7f5; padding: 12px; }
+
+#content { width: 1000px; margin: 0 auto; overflow: auto; }
+#contentleft { width: 630px; float: left; margin-right: 20px; }
+#contentleft h2 { margin: 15px 0 10px 0; color: #3b608a; }
+#contentleft p { }
+
+#sidebar { width: 330px; float: left; overflow: auto; }
+#sidebar h3 { color: #3b608a; }
+
+.testimonal { }
+.testimonial-title {color:blue;}
+.testimonial-body {background-color:#f4f974de;}
+.testimonial-meta {color:#2bbb72;}
+
+#footer { min-height: 150px; background: #e7e1de; padding: 15px; }
+#footer ul { width: 560px; margin: 0 auto; padding: 0; list-style-type: none; }
+#footer ul li { display: inline; }
+#footer ul li a { padding: 0 15px; }
+#footer p { color: #443b31; width: 360px; margin: 15px auto; }

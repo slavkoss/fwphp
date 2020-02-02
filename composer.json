@@ -1,0 +1,16 @@
+{
+    "name": "slavkoss/fwphp",
+    "description": "Modern, small, simple, fast and I hope well explained PHP framework",
+    "keywords": ["CMS", "CRUD", "PHP", "framework", "markdown"],
+    "license": "MIT",
+    "type": "project",
+  "autoload": {
+    "psr-4": {
+      "B12phpfw\\": ["", "zinc/", "fwphp/"]
+    }
+  },
+  "require": {
+      "php2wsdl/php2wsdl": "^0.6"
+    , "erusev/parsedown": "^1.7"
+  }
+}

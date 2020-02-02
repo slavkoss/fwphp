@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>010 Source Code HTML</title>
+</head>
+<body>
+<div class="asset-container">
+    <div class="asset-container__padding article-view">
+        <div class="w3c-default">
+            <!doctype html>
+            <html>
+            <head>
+              <title>AJAX PHP server side validation JSON response form Check</title>
+                <style>
+                  .error{display:none; color:red;}
+                </style>
+            </head>
+
+<body>
+  <!-- 1. F O R M -->
+  <form action="validator.php" method="POST" id="myform">
+
+    Name: <input type="text" value="" class="form-group" name="name">
+    <span class="error-name error">Missing Name</span>
+
+<br> Email: <input type="email" value="" class="form-group" name="email">
+    <span class="error-email error">Missing Email</span>
+
+    <br><button type="submit">Submit</button>
+  </form>
+  
+  <!-- 2. M E S S A G E  BELOW  F O R M -->
+  <div id="message"></div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <!-- 3. S E N D  F O R M  D A T A  to server code -->
+  <script>
+    $(document).ready(function(){
+
+        $('form').submit(function(e){
+            e.preventDefault();
+            $('.error').hide();
+            var data = $('#myform').serialize();
+            console.log('Request: '+data);
+            $('#message').html('sending.....');
+            $.ajax({
+                type:'POST'
+                , url:'validator.php'
+                , data: data
+                , dataType: 'json'
+                , success: function(d){
+                    console.log(d);
+                    console.log('Response message='+d.message);
+                    console.log('Response errors.name='+d.errors.name);
+                    console.log('Response errors.email='+d.errors.email);
+                    if(d.success){
+                        //$('#myform').append('<div>'+d.message+'</div>');
+                        $('#message').html(d.message);
+                      }else{
+                          if(d.errors.name){
+                              $('.error-name').show();
+                              $('.error-name').html(d.errors.name);
+                            }
+                            if(d.errors.email){
+                                $('.error-email').show();
+                                $('.error-email').html(d.errors.email);
+                              }
+                            }
+
+                    }
+        })
+      })
+
+    })
+  </script>
+</body>
+</html>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

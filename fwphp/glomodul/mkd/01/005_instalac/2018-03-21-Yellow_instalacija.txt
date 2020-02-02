@@ -1,0 +1,280 @@
+---
+Title: Yellow CMS installation  
+Published: 2018-03-21 
+Author: phporacle  
+Template: blog  
+Tag: Help, Install, Markdown
+---
+You can edit this page [edit - here] (asks log in) or use your text editor (Winows, Linux Wine : Notepad++, RJ TextEd ).
+
+
+
+## Install blog
+
+Datenstrom Yellow, Markdown txt editor (SimpleMDE rich text markdown editor is not part of Yellow).
+
+[https://developers.datenstrom.se/help/how-to-make-a-blog](https://developers.datenstrom.se/help/how-to-make-a-blog) --- [https://developers.datenstrom.se/help/support](https://developers.datenstrom.se/help/support)
+
+**content folder**  is blog folder with all your blog pages. Open file 2018-03-21-blog-example.txt. You'll see **settings and text** of the page. You can change Title and other settings at the top of a page :  
+\---  
+Title: Blog example  
+Published: 2018-03-21 
+Author: phporacle  
+Template: blog  
+Tag: Help, Markdown  
+\---  
+You can edit this page \[edit - here] (asks log in) or use your text editor (Winows, Linux Wine : Notepad++, RJ TextEd ).  
+[--more--]
+To create a new blog page, add a new file to blog folder. Set Published and more settings at the top of a page. Dates should be written in the format YYYY-MM-DD. **Publishing date is used to sort blog pages**. You can use Tag to group similar pages together. 
+
+To add a video with the Youtube plugin:  
+\---  
+Title: Fika is good for you  
+Published: 2013-06-01  
+Author: Datenstrom  
+Template: blog  
+Tag: Example, Coffee, Video  
+\---  
+It's a social coffee break... Fika is such an important part of life in Sweden that it is both a verb and a noun.  
+Let's show the video when a visitor clicks on the blog page. You can add \[--more--] where your want the page break:  
+How often do you fika?  
+
+[youtube c7J6AXX3otA]  
+
+
+
+
+### Showing a sidebar - not visible on smallest screens
+
+Add file sidebar.txt to your blog folder. Sidebar will be shown on all pages in the same folder. You can decide if you like to have a sidebar or not. Here's an example sidebar:
+
+\---  
+Title: Sidebar  
+Status: hidden  
+\---  
+Links  
+* [Twitter](https://twitter.com/datenstromse)  
+* [GitHub](https://github.com/datenstrom)  
+* [Datenstrom](https://datenstrom.se)  
+
+You can use shortcuts to show information about the blog on sidebar :
+
+New  
+    `[blogchanges /blog/ 5]`  
+
+Tags  
+    `[blogtags /blog/ 5]`  
+
+Here is the same sidebar, if the blog is located on the home page:
+
+New  
+    `[blogchanges / 5]`  
+
+Tags  
+    `[blogtags / 5]`  
+
+## More features
+
+[How to add a search to your blog](https://github.com/datenstrom/yellow-plugins/tree/master/search)
+
+
+[**How to add comments to your blog**](https://github.com/wunderfeyd/yellow-comments)
+or  [disqus](https://github.com/datenstrom/yellow-plugins/tree/master/disqus)
+
+
+# YellowComments
+
+```
+"Just an idea of a comment-system for yellow. 
+ Feel free to transfrom it in something good!" 
+
+ Nasendackel/2016
+```
+
+This plugin uses stuff from the [yellow](https://github.com/datenstrom/yellow) flat-file cms system.
+
+## Installation
+
+1. [Download and install Yellow](https://github.com/datenstrom/yellow/).
+2. Delete `content-blogpages.php` and `content-blog.php` in your `system/themes/snippets` directory.
+3. [Download plugin](https://github.com/nasendackel/yellow-comments/archive/master.zip) to the `system/plugins` folder.
+4. Make sure your `content` folder is writable. (It probably already is.)
+5. Add `commentsEmail` to your settings file `system/config/config.ini`.
+6. Check and tweak the settings until everything is as you need.  :)
+
+## Configuration/Settings
+
+The plugin is using the settings system of Yellow with `system/config/config.ini`. This is where you can change or add settings. 
+
+A short overview over the settings so far:
+
+* `commentsEmail`
+
+  This setting has to be set at the moment. All comments entered are mailed to this address.
+
+* `commentsDir` (default: `` (empty))
+
+  The location where your comment files are stored, if empty the files are stored within the content directory by using the `commentsExtension` setting.
+
+* `commentsExtension` (default: `-comments`)  
+
+  If your comments are stored within the content files, it's needed to distinguish between normal content and comments. If a comment is stored the base file path is needed and extended with the extension given. For example `test.txt` would become `test-comments.txt`.
+
+* `commentsTemplate` (default: `system/config/comments-template.txt`)  
+
+  When a new comment file is created, one could set a default content for the head of the file. Maybe we can display it later. At the moment it's used to hide the comments from the page visitor and for better webinterface integration.
+
+* `commentsSeparator` (default: `----`)
+
+  When having multiple comments, the separator is used to split the comment file into separate comments.
+
+* `commentsAutoAppend` (default: `0`)
+
+  If this flag is set to `1`, entered comments are automatically added to the comment file. No need to do it by yourself.
+
+* `commentsAutoPublish` (default: `0`)
+
+  If a comment is added automatically, you may wish the comment is published immediately. If you set this to `1` you have to remove new comments instead of adding them.
+
+* `commentsMaxSize` (default: `10000`)
+
+  In case someone tries to overflow your webspace you can limit the comment files to the needed maximum size.
+
+* `commentsSpamFilter` (default: `href=|url=`)
+
+  The message/comment input field is checked against this filter, to ensure no unwanted content is within this message.
+
+* `commentsTimeout` (default: `7`)
+
+  If a comment isn't published it will be deleted several days after its creation.
+
+* `commentsIconBackgroundColor` (default: `ffffff`)
+
+  [RGB hex value](http://www.colorspire.com/rgb-color-wheel/) of the avatar/icons background in front of the comments.
+
+* `commentsIconForegroundColors` (default: `ff0000,cf0000,00ff00,00cf00,0000ff,0000cf,ffcf000,cfff00,00ffcf,00cfff,cf00ff,ff00cf`)
+
+  [RGB hex value](http://www.colorspire.com/rgb-color-wheel/) of the avatar/icons foreground in front of the comments. The images are individual to every mail/username combination.
+
+* `commentsIconSize` (default: `2`)
+
+  Scaling factor of such an image. Usally not needed, but if artefacts are displayed you should increase this value. NOTE: This works only if `commentsIconGravatar` is `0`.
+
+* `commentsIconGravatar` (default: `0`)
+
+  Use [Gravatar](https://en.gravatar.com/) images instead of the internal image creator.
+
+* `commentsIconGravatarOptions` (default: `s=80&d=mm&r=g`)
+
+  Set the [Gravatar](https://en.gravatar.com/) image options. Please consult the service website.
+
+* `commentsBlacklist` (default: `system/config/comments-blacklist.ini`)
+
+  A file which contains all mail addresses to blacklist. Comments with these addresses are not shown in the output any longer.
+
+
+
+[How to add a feed to your blog](https://github.com/datenstrom/yellow-plugins/tree/master/feed)
+
+
+[How to make a draft page](https://github.com/datenstrom/yellow-plugins/tree/master/draft)
+
+
+[How to make a static blog](https://developers.datenstrom.se/help/server-configuration#static-website)
+
+
+## Search plugin 0.7.2
+
+1. [https://github.com/datenstrom/yellow-plugins/tree/master/search](https://github.com/datenstrom/yellow-plugins/tree/master/search)
+
+2. Copy search.zip into your system/plugins folder
+
+3. J:\zwamp64\vdrive\web\fwphp\glomodul\yellowcms\system\themes\snippets\footer.php
+
+```
+    <div class="footer">
+      <div class="siteinfo">
+      
+      <a href="<?=$yellow->page->base."/"?>" title="<?=__FILE__?>"
+      >© 2018-... 
+      
+      <?php echo $yellow->page->getHtml("sitename") ?></a>
+      
+          <a href="<?php echo $yellow->page->base.'/search/'; 
+          // or [search] or [search /en/search/] at any page bottom
+      ?>"><b>Search</b></a>
+      
+          PHP JS MD CMS <a href="<?php echo $yellow->text->get("yellowUrl") ?>">Yellow</a>
+      
+      </div>
+    </div>
+  </div>
+  <?php echo $yellow->page->getExtra("footer") ?>
+</body>
+</html>
+```
+
+
+## Server configuration
+[https://developers.datenstrom.se/help/server-configuration](https://developers.datenstrom.se/help/server-configuration) :
+
+**Selfhosted Apache web server** : you have to enable the rewrite module and configure AllowOverride All in the web server settings.
+````
+#J:\awww\apl\dev1\afw1blog\.htaccess  
+#see : http://wiki.apache.org/httpd/DirectoryListings
+#Options Indexes  
+#J:\awww\apl\dev1\zz\mkd\yellow\.htaccess :  
+<IfModule mod_rewrite.c>  
+RewriteEngine on  
+
+#example for a **subfolder** :  
+#relative path is not working : RewriteBase ../../../zz/mkd/yellow/  
+#if sitedocroot is J:\awww\apl\dev1\ and afw1blog dir is below it then :  
+RewriteBase /afw1blog/  
+
+#example for a **subdomain** :  
+#RewriteBase /  
+
+DirectoryIndex index.html yellow.php  
+RewriteRule ^(cache|content|system)/ error [L]  
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f  
+RewriteCond %{REQUEST_FILENAME} !-d  
+# otherwise forward it to index.php (here yellow.php)
+RewriteRule ^ yellow.php [L]  
+</IfModule>  
+````
+You can create a **static website** that works on any web server from command line:
+
+1. Open a terminal window.
+1. Go to your installation folder, where the yellow.php is.
+1. Type the following line: php yellow.php build /var/www/website
+
+This will build a static website in folder /var/www/website. Upload the folder to your web hosting and build a new version when needed. The URL can be defined in system settings (J:\awww\apl\dev1\zz\mkd\yellow\system\config\config.ini), for example  
+StaticUrl: http://website/.
+
+As an alternative to a static website you can **build a cache**. This will speed up your website, but the cache has to be updated repeatedly. Here's an example:    php yellow.php build. To clean the cache type the following line:    php yellow.php clean.
+
+system/config/page-error-404.txt defines how **missing file** looks like:  
+\---  
+Title: File not found  
+\---  
+The requested file was not found. Oh no...  
+
+If you use Datenstrom Yellow as a flat-file CMS there's nothing more to do. If you create a **static website** there's one additional step. Configure your web server to display your custom error page instead of its default 404 page.
+
+For Apache add the following line to your configuration file:
+
+ErrorDocument 404 /404.html
+
+
+
+
+AjaxCMS (no PHP) installation 
+-----------------------------
+Javascript based front-end CMS with static file backend.
+
+Demo and documentation at http://ajaxcms.org
+
+Contact brandon.hoult@softwyre.com for more information.
+

@@ -1,0 +1,4 @@
+# will redirect visitor to index.php. Notice that we store the parameter (p=$1).
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png)$ [NC]
+RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?p=$1

@@ -1,0 +1,29 @@
+### 10. Real life application Messages - PHP PDO, AJAX+jQuery CRUD&filter (thema, blog, forum, CMS, builetinboard, Skype replacement)
+
+Revised in November 2019.    
+
+This old B12phpfw version 3. is more complicated but if you like it could be simplified. I think version 6 is best, simplest.     
+
+EVERY FORM MODULE HAS OWN DIRECTORY (AND SUBDIRS).     
+
+
+#### **J:\\awww\\apl\\dev1\\tests\\.htaccess** - I do not use it
+1. commented: LoadModule rewrite\_module modules/mod\_rewrite.so
+
+
+Large scripts are not clear !
+
+#### CMS DEVELOPING STEPS
+
+
+Kae Verens published 2010 year nice book -CMS Design Using PHP and jQuery-. It has  **same problem as 90% WEB learning resources**  :  **smarty, and rich text ckeditor do not work**  and I did not found easy way to use newer version (**Kae did not explain**  such problem). -Path science- is very poor - based on -all is in site-s document root dir.-. What if we do not have more virtual hosts (sites)  It is very strange that this basics (and some other) are unfinished because this book is based on 10 years real CMS development.
+
+**4.august 2016** -Messages- real life application added  **nicEdit**  rich text editor (after testing ~10 RTE) : 1\_temaorapdo\_ver\_1\_2rte.rar - see  [HOME](http://phporacle.altervista.org/php-oracle-main-menu/ "Main menu")  page for  **downloads**. Own RTE ver\_1\_1 is only a toy - I removed it from downloads.  
+Also added  **tbl rows AJAX filter**.
+
+
+All my previous articles (including this) are learning code snippets mostly to complicated for real life applications.
+
+I STILL USE PHP 5.5.30 AND APACHE 2.4.16. Newest php 7.0.8 64 bit, corresponding apache 2.4.20 and pecl oci8-2.1.1 extension for php 7.0.8 on Windows 10 64 bit, all Build with MS Visual Studio- 2015 x64, ARE NOT USABLE for oracle db 11gXE (ee for E. Rangel pdooci - pdo sintax program layer on oci8 program layer), because oci8 has error binding sql anonymous and named parameters to their values.
+
+kod [edit]($web_docroot_url/inc/utl/edservertxt.php) [phpinfo]($web_docroot_url/phpinfo_inc.php) EOKOD; /\* call it so: kod\_edit\_run( $idx // script\_dir\_path , $idxscript // script\_name , MDURL); // web\_docroot\_url = (Apache) web server URL \*/ }

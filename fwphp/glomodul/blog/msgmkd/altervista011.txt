@@ -1,0 +1,297 @@
+## 11. PHP CMS - flat files CRud database (WYSIWYG SimleMDE or Summernote) or relational DB tblrows CRUD
+
+### Code download :  [**https://github.com/slavkoss/fwphp**](https://github.com/slavkoss/fwphp)
+
+Conclusion for this and my previous 10 posts
+--------------------------------------------
+
+2018.10.29 I made  **main module ver.4 code skeleton :  
+[https://github.com/slavkoss/fwphp/tree/master/fwphp/www4](https://github.com/slavkoss/fwphp/tree/master/fwphp/www4)**  
+based on ver.3  [https://github.com/slavkoss/fwphp/tree/master/fwphp/www](https://github.com/slavkoss/fwphp/tree/master/fwphp/www)  but :
+
+Faster: Page rendered in 0.184 mili seconds (0.5 to 5 mseconds !!), using 0 MB (=2 � 2).
+
+Much simpler coding because menu tree has harcoded function Display with parameters in mnu classes tree, so routing should find in URL only class name. So this module should be (if proves itself in praxis) :  
+1st step in learning good code skeleton (beside many test examples in  
+[https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/help\_sw/test](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/help_sw/test)),  
+2nd step is  [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/mkd](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/mkd),  
+3rd step  [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/msg](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/msg).
+
+#### 5W OF EVERY ACTIVITY EG JOURNALISM REPORTING (HIGHEST IDEAS, CATEGORIES):`  
+WHO`: SITE �MESSAGES�,  `WHERE`,  `WHEN`,  `WHAT-HOW`,  `WHY`
+
+`where`: AllSites Globals, Modules Globals, Menu classes, Config classes, Crud classes.
+
+`when`: Clear visible programming steps � data flow (see Learn -> Flow article) & code flow (see breadcrumbs top toolbar created by TREE OF INHERITED MENU CLASSES)
+
+`what`: Basic Menu & CRUD code skeleton for (who) Messages (Poruke): CMS/Blog, Todo/Done, Socnet application type  
+`how`:
+
+1.  FUNCTIONAL (DECLARATIVE) NAMING � descriptions of WHAT, NOT HOW STEPS -eg programming steps M,V,C. In dir name invoice\_fmb, fmb means bussiness proces, not how steps M,V,C !
+2.  index.php is MAIN MODULE�S SINGLE ENTRY POINT ee all (submenus) calls go through this script. Here is  **configuration minimized, CONVENTIONS maximized**. Same all other modules.
+3.  **simpler OWN DEBUGGING**  and XDEBUG.
+4.  CLASSES FOR: Config,  **Inherited menus with breadcrumbs**  (Controllers), Models (CRUD), Views ~everything is class.
+5.  namespaces & own autoloading class scripts or Composer�s PSR-4
+6.  pagination (todo)
+7.  beautiful urls without web server url rewritting (see QS constant in autoloading/config script autoload\_moj.php)
+8.  search/filtering/sort in pages (todo)
+9.  password\_verify and password\_hash functions explained (CRUD still unfinished but code skeleton is here)
+10.  RTE (Rich Text Edit) markdown (SimpleMDE & Parsedown MD to HTML) or HTML (Summernote)
+
+`why`: Not found hows above in learning sources :  
+Simplest possible code skeleton, newest PHP coding style, good code explanations � code help.
+
+Main (Root) module contains main index.php
+------------------------------------------
+
+[www](https://github.com/slavkoss/fwphp/tree/master/www "www")  dir in fwphp dir contains root module, it is site index.php. Has links on many test-learn examples � more about PHP fw, CRUD PDO than any inet first steps learning source or php book.
+
+[Mkd](https://github.com/slavkoss/fwphp/tree/master/glomodul/mkd "mkd")  module is Dreamweaver replacement
+----------------------------------------------------------------------------------------------------------
+
+Can WYSIWYG edit:
+
+1.  markdown using SimpleMDE or other
+2.  or html using Summernote or other.
+
+No relational database CRUD (so code is simpler) but based on same fw (program skeleton) as  [**Msg**](https://github.com/slavkoss/fwphp/tree/master/glomodul/msg/www "This path skips through empty directories")  realational DB tables rows PDO CRUD module, so is excellent for learning framework skeleton coding. Now better is :
+
+**[users\_msgs](https://github.com/slavkoss/fwphp/tree/master/users_msgs "users_msgs")**  \= SocNet PHP framework template example
+----------------------------------------------------------------------------------------------------------------------------------
+
+**2018.09.03**  I think it is best-simplest core framework, so simple (for framework haters which also am I partially: it is not framework, it is  **standardized basic code skeleton**) .
+
+**I intend to rewrite (refactoring) my B12phpfw framework core based on it**.
+
+It is good example how small changes in my previous version basic code skeleton cause:
+
+1.  lot of work
+2.  and when done much simpler use of basic code skeleton.
+
+### Directory and scripts functional naming
+
+**J:\\awww\\www\\fwphp\\users\_msgs**
+   1\_user\_post\_moj.**nppses** very useful Notepad++ list of scripts to open
+   **app** - some scripts or code partials=snippets below should be in 
+         subdir of **J:\\awww\\www\\fwphp\\zinc
+**    \_\_\_\_\_\_\_\_\_\_app\_\_\_\_\_\_\_\_\_\_.txt - good for nppses above and for notes
+    \_01\_bootstrap.php  01,02 is order of calling (code flow)
+    \_02\_config.php
+    \_03\_helpers.php
+    \_04\_Core.php
+    \_05\_Ctr\_Page.php
+    Database.php
+    pg\_about\_tpl.php - **native PHP view template**
+    pg\_ftr.php
+    pg\_hdr.php
+    pg\_index\_tpl.php
+    pg\_navbar.php
+    z\_Controller.php - to extend, not needed ?
+  **post\_fmb** - dir corresponds to Oracle Forms module eg **invoice.fmb
+               = FUNCTIONAL, DECLARATIVE NAMING - see below Minuses.**
+       \_\_\_\_\_\_\_\_\_\_post\_fmb\_\_\_\_\_\_\_\_\_\_.txt
+       \_Ctr\_Post.php
+       \_Mdl\_Post.php
+       cre\_post\_frm.php
+       index.php
+       read\_posts.php
+       upd\_post\_frm.php
+  **user\_fmb**
+       \_\_\_\_\_\_\_\_\_\_user\_fmb\_\_\_\_\_\_\_\_\_\_.txt
+       scripts names same as in post\_fmb dir with user instead post
+  **www**
+    \_\_\_\_\_\_\_\_\_\_www\_\_\_\_\_\_\_\_\_\_.txt
+    **index.php** - only two statements :
+       **require\_once dirname(\_\_DIR\_\_).'/app/\_01\_bootstrap.php';**
+                    //if DBG constant = '1' :
+                    msg( 'Title here',\['
+
+$\_POST=',$\_POST, '
+
+' \]
+                       ,\_\_FILE\_\_,\_\_LINE\_\_,\_\_METHOD\_\_);
+       // Init Core Library :
+       **$init = new \_04\_Core; // script in app dir**
+
+users\_msgs example fw is based on  [https://github.com/**Aivirth**/**TraversyMVC**](https://github.com/Aivirth/TraversyMVC)  (Udemy video), I think it is to basic, I improve :
+
+### Minuses
+
+1.  No namespaces (Composer PSR-4 autoloading). To simple cls\`s scripts autoloading � only core classes.
+2.  Dirs names by programming steps M, V, C �  **bad like in most frameworks**. Why bad: we do not name our car travel by engine combustion steps (HOW) which are clearly not related to where we travel (WHAT WE DO).  
+    Same is :  **bussiness processes (WHAT WE DO) are not related with programming steps M, V, C  (=HOW WE DO can change � best example is my fw versions 3 or 4 main until sep.2018)**  � but dirs names by programming steps M, V, C can be coded (bad way).  
+    DIRS NAMES SHOULD BE BY BUSSINES PROCESSES **(FUNCTIONAL, DECLARATIVE NAMING � DESCRIPTIONS OF WHAT, NOT HOW STEPS) :**  
+    eg dir name  **invoice\_fmb**, fmb means bussiness proces not M,V, C steps in code flow.  **invoice\_fmb dir**  is bussiness proces module like in Oracle Forms  **invoice.fmb**.  
+    Simmilar is  **functional programming**  (declarative like SQL in contrast to  
+    imperative programming), only functions calls, no (state) variables (not practical, so most functional languages allow you to have variables, often immutable = constants).
+3.  To many directories and not clearly diffrent  **scripts names**. My convention prefixes and suffixes :  
+    \_01, \_02\_, **ini & all (all levels) globals scripts  
+    **\_Ctr\_, \_Mdl\_, **Controller & Model scripts**  
+    cre\_, read, upd\_, del\_, **CRUD scripts**  
+    pg\_, \_hdr, \_ftr, \_frm, \_rep, \_tpl **View scripts**
+4.  no debugging messages
+5.  I do not see why we need Controller classes extending Controller, so I commented it. Can be added if needed. Ctr or whatever is simplest part of MVC code structure,  **Model is where everything happens**. Views are also simple (when we learn them).
+6.  posted login form does not work � $\_POST is empty !? (my bug ?)
+
+[cms](https://github.com/slavkoss/fwphp/tree/master/glomodul/cms "cms")  global module
+======================================================================================
+
+**2018.07.30**  I updated github code with cms module. Routing is simplest possible, based on directory structure convention below.
+
+    J:\wam64\www is test site document root on home PC
+    or J:\awww\www is development virtual host site document root on home PC
+       fwphp  
+         glomodul - makes big app clearer
+           cms  (cms global module)
+    
+
+Global modules can be used from any application (from eg material bookkeeping, financ. bookkeeping, salary�which are same level dirs as glomodul dir). cms dir is below glomodul dir which is not required,  `cms dir could be below fwphp,`  but modules grouping makes big site clearer.
+
+cms is not based on B12phpfw framework like mkd and msg global modules.
+
+cms global module is based on newest Bootstrap 4.1.3 blog template with simplest CRUD classes.
+
+For les experienced developers frameworks are difficult to learn and cms is best-simplest program skeleton template. Besides, I am not shure, may be we do not need framework.  
+Below is framework code description. Such programming is may be ( I am not shure) best for gigant applications � hunderts modules.
+
+2018.09.03 PREREQUISITES FOR PHP WEB DEVELOPMENT
+------------------------------------------------
+
+1\. WAMPSERVER
+
+64 bit wampserver3.1.3\_x64.exe March 2018. does not like php in PATH variable.  
+addon: wampserver3\_x64\_addon\_php7.2.9.exe � MSVC15 (Visual C++ 2017)� download  
+or with/without ZWAMP 64 bit 2013 year and newest :  
+PHP (for Windows thread safe) download Apache Lounge download
+
+2\. CONFIG SCRIPTS see 00info\_php2.php � all config scripts are here
+
+J:\\wamp64\\bin\\apache\\apache2.4.33\\conf\\httpd.conf  
+J:\\wamp64\\bin\\apache\\apache2.4.33\\conf\\extra\\httpd-vhosts.conf  
+C:\\Windows\\System32\\drivers\\etc\\hosts
+
+J:\\wamp64\\bin\\php\\php7.2.9\\phpForApache.ini
+
+OPTIONAL :
+
+3\. ORACLE 11g OCI8 EXTENSION
+
+J:\\wamp64\\bin\\php\\php7.2.9\\phpForApache.ini extension=php\_oci8\_11g.dll from https://pecl.php.net/package/oci8, oci8 ver. 2.1.8 2017-10-18  
+copy to J:\\wamp64\\bin\\php\\php7.2.9\\ext  
+CLI PHP : J:\\wamp64\\bin\\php\\php7.2.9\\php.exe
+
+ORACLE 11g OCI8 EXTENSION ON NETWORK :  
+OR for PC on on network ? : Feb 6 2018 Christopher Jones : ORACLE CLIENT LIBRARIES of same 32-bit or 64-bit architecture as PHP and are first in PATH. If you use Instant Client you need to have the correct VS Redistributable, see http://www.oracle.com/technetwork/topics/winx64soft-089540.html or http://www.oracle.com/technetwork/topics/winsoft-085727.html
+
+4\. COMPOSER DEPENDENCY MANAGER FOR PHP (CODE DOWNLOADER)
+
+WAMP does not like php in PATH variable. So composer update does not work.
+
+\[\*master\] J:\\awww\\w\\fwphp> J:\\wamp64\\bin\\php\\php7.2.9\\php.exe C:\\composer\\composer.phar update (1)
+
+or better C:\\composer\\composer7.bat : Save the file along with the originally installed composer.bat
+
+@echo OFF  
+:: in case DelayedExpansion is on and a path contains !  
+setlocal DISABLEDELAYEDEXPANSION  
+J:\\wamp64\\bin\\php\\php7.2.9\\php.exe �%~dp0composer.phar� %\*
+
+Now call php7 composer with the new command:
+
+\[\*master\] J:\\awww\\w\\fwphp>  
+composer7 selfupdate (1.7.2, Use composer self-update �rollback to return to version 1.7.1)
+
+composer7 update (2) is same as (1)
+
+5\. GIT MULTIUSER SCRIPTS SYNCHRONIZER see book
+
+git status
+
+git commit -am �ver 2.2.3 final site index.php, more examples�
+
+git push -u origin master  
+or git pull (if eg readme.md changed in Github site) (copy from Git repo to local repo)
+
+or J:\\wamp64\\www>git clone https://github.com/slavkoss/fwphp.git  
+we can delete .git/ and local synchronize (eg SyMenu portable : SyncFolders, FreeFileSync, or install Allway Sync) dirs:  
+test J:\\wamp64\\www\\fwphp  
+development J:\\awww\\www\\fwphp  
+or worse :  
+J:\\awww\\www\\fwphp>git init . �> Initialized empty Git (local) repository in J:/awww/www/fwphp/.git/
+
+J:\\awww\\apl\\dev1\\fwphp> git pull https://github.com/slavkoss/fwphp  
+\= copy files from Github site�s my git repo to PC local dir & repo
+
+There is nothing new compared with my previous posts (same ideas), but code is refactored and much simpler.
+
+I use newest WAMP Version 3.1.3 � 64bit on Windows 10 64 bit, seems everything works (Composer works � must be composer.phar, not exe installed).  
+ZWAMP requires more time for setup. So for now I use WAMP but I do not like that WAMP is not completly portable.
+
+    // _B12phpfw.php is fw core script, run its  __construct()  :
+    $fw = new core\_B12phpfw($rps); //only $this->rps = $rps ; = DI property palette  
+    //ROUTER 1. CALLS $this->url2arr(), 2. new $controller($this->rps)  
+    $fw->run();  
+    exit(0);  
+
+Mkd\`s Content directory and directories structure
+--------------------------------------------------
+
+In bootstrap script (Mkd module�s single entry point) fwphp\\glomodul\\mkd\\www\\index.php change to your values :  
+$upto\_rootm\_str = �../../..�; and $content\_dir = �help\_fw�;
+
+**$upto\_rootm\_str**  is PHP frameworks standard for �path science� eg in Yii. Means fwphp = third dir above www dir in fwphp\\glomodul\\mkd\\www\\index.php. Usually there is no need to change $upto\_rootm\_str because :  
+1.  **fwphp = sub doc root = subsite**  \= our dir at internet provider site which is  **server doc root**  
+2\. global module Mkd (mkd directory for help texts in markdown format) should be where it is.
+
+In fwphp/www is  **root module**  \= home page = our fwphp subsite�s main menu (**WEB SITE ROOT IS ABOVE fwphp dir !! �** because it can be inet providers doc root).  
+Below fwphp are our groups of modules : glomodul group, materialbookkeeping group�  
+Module is like Oracle Forms module eg invoice.fmb (master-detail form).
+
+**$content\_dir**  is help\_fw in fwphp\\glomodul\\mkd\\help\_fw. Beside help\_fw can be help\_appx, help\_mydog, help\_help\_mywomen or� In their  **subdirs (no level limit)**  are  **.md or .mkd or .txt**  files.
+
+TODO : It is not difficult to write code for user to select $content\_dir value or to enter it in page title, but is not needed because brings not much user time saving (same as creating and deleting mardown text files and other CMS features in module PHP code).
+
+So Mkd is flat files �DB� SimpleMDE cRUd module (Read and Update we do in module PHP code SimpleMDE, creating and deleting we do in operating system).  **Mkd PHP module is Dreamweaver replacement for help files cRUd**. Database tables rows CRUD (Msg module) is much more complicated than Mkd nodule, so to learn code and data flow Mkd module is best way.
+
+WAMP 64 bit 2018\-05\-25  on Windows 10 64 bit
+==============================================
+
+Seems simpler than ZWAMP � no entries in PATH variable. Composer works after reinstal (asks php.exe dir) � see below.
+
+### CONNECT PHP 7.2.4 TO OracleXE 11.2
+
+download: [https://pecl.php.net/package/oci8/2.1.8/windows](https://pecl.php.net/package/oci8/2.1.8/windows)  
+Thread Safe (TS) x64 1\_php\_oci8-2.1.8-7.2-ts-vc15-x64.zip\\ 2018.05.27 737 kB  
+extract  **php\_oci8\_11g.dll**  in J:\\**wamp64**\\bin\\php\\php7.2.4\\ext
+
+j:\\wamp64\\bin\\apache\\apache2.4.33\\bin\\php.ini :
+
+extension=php\_oci8\_11g.dll  
+oci8.statement\_cache\_size = 20 ?  
+oci8.default\_prefetch = 100
+
+Composer manual Command-line installation
+-----------------------------------------
+
+[https://getcomposer.org/download/](https://getcomposer.org/download/) : To automate the installation **on Linux only**, use [the guide on installing Composer programmatically](https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md).
+
+1.  **Deinstall Composer if installed**
+2.  **cd J:\\wamp64\\www\\fwphp**  
+    J:\\wamp64\\bin\\php\\php5.6.35\\php.exe  \-v  
+    PHP 5.6.35 (cli) (built: Mar 29 2018 14:27:15)  Copyright (c) 1997-2016 The PHP Group  Zend Engine v2.6.0, Copyright (c) 1998-2016 Zend Technologies
+3.  J:\\wamp64\\bin\\php\\php5.6.35\\php.exe \-r �copy(�https://getcomposer.org/installer�, �composer-setup.php�);�J:\\wamp64\\bin\\php\\php5.6.35\\php.exe  \-r �if (hash\_file(�SHA384�, �composer-setup.php�) === �544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061�) { echo �Installer verified�; } else { echo �Installer corrupt�; unlink(�composer-setup.php�); } echo PHP\_EOL;� outputs : Installer verifiedJ:\\wamp64\\bin\\php\\php5.6.35\\php.exe  composer-setup.phpoutputs : Composer (version 1.6.5) successfully installed to: J:\\wamp64\\www\\fwphp\\composer.phar  
+    Use it: php composer.pharJ:\\wamp64\\bin\\php\\php5.6.35\\php.exe  \-r �unlink(�composer-setup.php�);�The 4 lines above will, in order:
+    
+    1.  Download the installer to the current directory
+    2.  Verify the installer SHA-384 which you can also cross-check here [https://composer.github.io/pubkeys.html](https://composer.github.io/pubkeys.html)
+    3.  Run the installer � will check some php.ini settings, warn you if they are set incorrectly, and then download the latest composer.phar in the current directory
+    4.  Remove the installer
+4.  Create a new composer.bat file alongside composer.phar:  
+    J:\\wamp64\\www\\fwphp\>echo @J:\\wamp64\\bin\\php\\php5.6.35\\php.exe  �%~dp0composer.phar� %\*>composer.bat
+5.  **Add directory  J:\\wamp64\\www\\fwphp to your PATH environment variable if it isn�t already.**  
+    For information on changing your PATH variable, please see this article  [https://www.computerhope.com/issues/ch000549.htm](https://www.computerhope.com/issues/ch000549.htm)  and/or use Google.
+6.  Close your current terminal. Test usage with a new terminal:  
+    C:\\Windows\\System32>**composer -V**  
+    Composer version 1.6.5 2018-05-04 11:44:59
+
+kod [edit](?$web_docroot_url/inc/utl/edservertxt.php) [phpinfo](?$web_docroot_url/phpinfo_inc.php) EOKOD; /\* call it so: kod\_edit\_run( $idx // script\_dir\_path , $idxscript // script\_name , MDURL); // web\_docroot\_url = (Apache) web server URL \*/ }

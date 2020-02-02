@@ -1,0 +1,64 @@
+ <br /><hr /> 
+ <?php echo __FILE__ . ' says:'; ?>&nbsp;&nbsp; 14.8.2014 Install MongoDB 2.6.4 on win 8.1.1 64 bit,
+ &nbsp;<i>Ver. 2.2+ does not support Windows XP. </i>
+ <h2><strong><a href="http://www.mongodb.org">http://www.mongodb.org</a></strong></h2>
+ <p>
+   Download portable zip <a href='http://www.mongodb.org/dr//fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-2.6.4.zip/download' >
+   <i> http://www.mongodb.org/dr//fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-2.6.4.zip/download</i>
+   </a>
+
+    <br /> Upute za instalaciju <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/">
+   <i> http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/</i>
+   </a>
+                
+   <i><br />
+Do not make mongod.exe DB daemon visible on public networks without running in "Secure Mode" with auth setting. MongoDB is designed to be run in trusted environments, and DB does not enable “Secure Mode” by default."
+   </i></p>
+<ol>
+  <li><strong> You can run portable MongoDB from any folder</strong>
+    <br />
+    rename j:&#92;mongodb-win32-x86_64-2008plus-2.6.4 J:&#92;mdb
+    
+    <br />
+    <strong>*** cd J:&#92;mdb ***</strong>
+    <br />
+  </li>
+  <li>md data&#92;db <strong> moja mapa za podatke nije ispd root mape diska</strong></li>
+  <li>    J:&#92;mdb><strong>bin&#92;mongo.exe --help </strong>
+    <br />MongoDB shell version: 2.6.4 usage: 
+    <br />bin&#92;mongo.exe [options] [db address] [file names (ending in .js)]
+    <br />db address can be:
+    <br />
+    foo                   foo DB on local machine<br />
+    192.169.0.5/foo       foo DB on 192.168.0.5 machine<br />
+    192.169.0.5:9999/foo  foo DB on 192.168.0.5 machine on port 9999
+    
+    <br /><br />
+  </li>
+  <li>J:&#92;mdb>bin&#92;mongod.exe ako je default data dir. (ispod J:),
+    a meni nije, pa:
+    <br />
+  <strong>bin&#92;mongod.exe --dbpath j:&#92;mdb&#92;data</strong>
+    <br />MongoDB starting : 
+    <br />pid=6552 port=27017 dbpath=&#92;data 64-bit host=sspc
+    <br />journal dir=j:&#92;mdb&#92;data&#92;journal
+    <br />allocating new datafile j:&#92;mdb&#92;data&#92;local.ns, filling with zeroes...
+    
+    <br /><br />
+  </li>
+  <li> md "log"
+    <br />echo logpath="J:&#92;mdb&#92;log&#92;mongo.log" > "mongod.cfg"
+    
+    <br /><br />
+  </li>
+  <li> Install MongoDB service<br />"bin&#92;mongod.exe" --config "mongod.cfg" --install'
+    <br />To use an alternate dbpath, specify path in config. file <br />(e.g. J:&#92;mdb&#92;mongod.cfg) or on command line with --dbpath option. <br />If dbpath directory does not exist, mongod.exe will not start.
+    
+    <br />
+    <br />net start MongoDB
+    <br />net stop MongoDB
+    <br />"J:&#92;mdb&#92;bin&#92;mongod.exe" --remove
+    <br />bin&#92;sc.exe delete MongoDB
+  </li>
+</ol>
+<p>&nbsp;</p>

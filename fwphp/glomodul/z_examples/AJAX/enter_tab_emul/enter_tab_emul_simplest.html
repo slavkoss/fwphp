@@ -1,0 +1,97 @@
+<!doctype htm1>
+<html>
+<head>
+  <title>AJAX form Check</title>
+  <meta charset="UTF-8">
+  
+<style>
+
+  /* input,
+  select,
+  textarea {
+    box-sizing: border-box;
+    margin: .5em 0;
+    width: 100%;
+  } */
+</style>
+</head>
+
+<body>
+
+
+<span>Press 'enter' inside text to act like tab button</span>
+<form name="myform">
+  <input type="text">
+  <input type="text">
+  <input type="text">
+</form>
+
+
+
+
+
+<div id="message"></div>
+<!--script src="/zinc/themes/bootstrap/js/jquery.min.js"></script-->
+<!--script src="/zinc/themes/bootstrap/js/zepto.min.js"></script-->
+
+<script>
+    //function EnterToTab(e) {
+      //alert('e.keyCode='+e.keyCode);
+      var ii = 0;
+      var els = myform.getElementsByTagName('input').length ; // =3 input flds
+      document.onkeydown = function(e) 
+      {
+        e = e || window.event;
+        alert('e.keyCode='+e.keyCode+', els='+els);
+        /* if (e.keyCode == 13) {
+          ii++;
+          ii > els - 1 ? ii = 0 : ii = ii; //ii = 1; // 0,1,2
+          document.myform[ii].focus();
+          //eval('document.'+'myform'+'[ii]' + '.focus()');
+          //eval('document.myform.' + nextfield + '.focus()');
+        } */
+        switch(e.keyCode) 
+        {
+          // 1. enter key pressed :
+          case 13: 
+              ii++;
+              ii > els - 1 ? ii = 0 : ii = ii; //ii = 1; // 0,1,2
+              document.myform[ii].focus();
+              //eval('document.'+'myform'+'[ii]' + '.focus()');
+              //eval('document.myform.' + nextfield + '.focus()');
+          // standard ibrowser key pressed -> standard processing:
+          // 35=end 36=home 33=pgup 34=pgdn 45=ins 46=del
+          // 83=ctrl+s=alt+s
+          case 121: // F10
+          //case 83: // ctrl+s = alt+s *** open new tab & continue with PHP
+            document.write('<h2>Save page... continue with PHP</h2>');
+          return false; //ignore keypressed ee RETURN KEY IS NOT SAME AS CLICK SAVE BUTTON
+
+
+          case 116: // F5 ***
+          case 8:   // backspace ***
+          case 9:   // tab
+          case 16:  // shift
+          case 17:  // ctrl
+          case 18:  // alt
+            return true; // standard ibrowder key pressed processing
+            //break;
+
+
+          default: // 116=F5...
+            //return true; // standard ibrowder key pressed processing
+            // FOR TESTING WHICH KEY IS PRESSED : comment above statement !!
+            document.write('<h3>Tipka '+e.keyCode+'još nije omoguæena u ovom programu (javite informatièaru ako ju trebate za uobièajene browserove aktivnosti). </h3>'
+            +'<h3>Kliknite tipku "Backspace" za povratak u prethodnu stranicu' + '</h3>'
+            );
+            //eval('document.yourform.' + nextfield + '.value ='.keypressed);
+            return false; 
+        }; // e n d  s w i t c h  key pressed
+      }
+    //}
+    //idea is wrong: Don't change enter to tab. Tackle this problem by intercepting the enter key, set the focus on next element and cancel the event. jQuery solution:
+    // id="myform"    onkeydown='EnterToTab(event)'
+</script>
+
+</body></html>
+

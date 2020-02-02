@@ -1,0 +1,35 @@
+        .section {
+            min-height: 1000px;
+            overflow: hidden;
+            position: relative;
+            padding: 90px 10px 0px;
+            background-size: cover;
+        }
+        
+        .section:nth-child(even) {
+            background-color: #ccc;
+        }
+        
+        #home {
+            /* background: url(http://via.placeholder.com/1200x800/FF0000/FFFFFF/?text=Image+1) no-repeat center center fixed; */
+            /* to small img - ugly :
+            */
+            background: url(/zinc/img/header.jpg) no-repeat center center fixed;
+        }
+        
+        #about {
+            /* background: url(http://via.placeholder.com/1200x800/00FF00/FFFFFF/?text=Image+2) no-repeat center center fixed; */
+            background: url(/zinc/img/03_multiple_V_submodules_for_different_displ_envir.jpg) no-repeat center center fixed;
+        }
+        
+        #home > div,
+        #about > div {
+            background-color: rgba(255, 255, 0, 0.5);
+            border-radius: 10px;
+        }
+        
+        #contact > div {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+        }

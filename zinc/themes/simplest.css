@@ -1,0 +1,511 @@
+body {
+  font-family: "Century Gothic", Verdana, Helvetica, sans-serif;
+  /* width: 100%; */
+      /* white-space: pre-wrap; */
+      /* word-wrap: break-word; */
+  font-size: 100%;
+  color: #000;
+  margin: 20px;
+  background: #E6E8EA;
+  text-align: left; /* center */
+}
+
+a {
+  color: darkgreen ;  /*#3c3c3c;*/
+  /*font-weight: bold;*/
+}
+a:link {
+}
+a:visited {
+}
+a:active {
+}
+a:hover {
+  color: #000000;
+}
+h1, h2, h3, h4, h5, h6 {
+  /* font-family: Arial, sans-serif; */
+  font-weight: normal;
+}
+h1 {
+  color: #3c3c3c;
+  font-weight: bold;
+  letter-spacing: -2px;
+  font-size: 2.2em;
+  border-bottom: 2px solid silver;
+  padding-bottom: 5px;
+}
+h2 {
+  font-size: 1.5em;
+  border-bottom: 1px solid silver;
+  padding-bottom: 3px;
+  clear: both;
+}
+h3 {
+  font-size: 1.2em;
+}
+h4 {
+  font-size: 1.1em;
+}
+h5 {
+  font-size: 1.0em;
+}
+h6 {
+  font-size: 0.8em;
+}
+img {
+  border: 0;
+}
+ol, ul, li {
+  font-size: 1.0em;
+}
+ol ol {
+  list-style-type: lower-alpha;
+}
+p, table, tr, td, th {
+  font-size: 1.0em;
+}
+/*pre {
+  font-family: Courier New, Courier, monospace;
+  font-size: 1.0em;
+} */
+strong, b {
+  font-weight: bold;
+}
+table, tr, td {
+  font-size: 1.0em;
+  border-collapse: collapse;
+}
+td, th {
+  border: 1px solid #aaaaaa;
+  border-collapse: collapse;
+  padding: 3px;
+  font-weight: normal;
+}
+th {
+  background: #3667A8;
+  color: #fff;
+}
+
+
+
+
+/* L O G O, C O N T E N T, F O O T E R  T R D L*/
+.content {
+  width: 80%;
+  background-color: #FFFFFF;
+  text-align: left;
+  /*margin-top: 40px;*/
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+  /* width: 780px; */
+  
+  border-right: 1px solid Black;
+  border-left: 1px solid Black;
+  padding: 3px 7px 50px 7px;
+  line-height: 150%;
+}
+/* TOP PG TITLES GREEN BCK */
+.pghdr {
+  font-size: 0.8em;
+  /*text-align: center;*/
+  width: 80%;
+  color: white;
+  background: #567C14; /* url("images/help_background_header.png") repeat-x; */
+  text-align: left;
+  /* width: 840px; */
+  /*height: 60px;*/
+  /*margin-top: 40px;*/
+  margin-right: auto;
+  margin-left: auto;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  /*padding: 12px 30px;*/
+  padding: 3px 7px 10px 7px;
+  /*line-height: 150%;*/
+}
+.pgftr {
+  font-size: 0.8em;
+  width: 80%;
+  color: white;
+  background: gray; /* #4B6407 url("images/help_background_f ooter.png") repeat-x; */
+  text-align: left;
+  /*height: 256px;*/
+  margin-right: auto;
+  margin-left: auto;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  /*padding: 12px 30px;*/
+  padding: 3px 7px 20px 7px;
+  /*line-height: 150%;*/
+}
+.pghdr img {
+  padding-left: 0px;
+  border: none;
+  position: relative;
+  top: -4px;
+}
+
+
+
+
+/* T O P  B U T T O N S  M E N U  (ROW 2) */
+#hMenu {
+  border-style: none;
+  /*
+  border-style: solid;
+  border-color: #545454;
+  border-width: 1px 0; */
+          /*width: 100%;*/
+          /*height: 50px;*/
+  background: #cbd1c3; /*TRDL no-repeat 15px 9px;*/ /* url(menuBullet1.gif) ; */
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  /* ROW 2 FULL WIDTH :*/
+  margin-left: -7px !important;
+  margin-right: -7px !important; 
+          /*margin-right: 0%; */
+          /*margin-right: auto; */
+}
+#hMenu ul {
+  /* -40px - without t h i s all are not centered - right shifted  TRDL */
+  /*margin: 0 0 0 -40px !important;*/
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  /*margin: 0; */
+  width: 100%;
+  list-style: none;
+  text-align: center;
+  /* background: transparent url(menuBullet3.gif) no-repeat 650px 9px !important; */
+  /*background: transparent no-repeat 615px 1px; */ /* url(menuBullet3.gif) ; */
+}
+#hMenu ul li {
+  display: inline;/*padding: 0 0 0 23px;*/
+        /* background: url(menuBullet2.gif) no-repeat 4px 6px !important; */
+        /* background: url(menuBullet2.gif) no-repeat 4px 9px; */
+}
+/* whole row */
+#hMenu ul li#frst {
+  padding: 0;
+  background: none !important;
+}
+#hMenu ul li a {
+  color: darkgreen;
+  font: bold 14px/25px; /* Georgia, Times New Roman, Times, serif*/
+  text-decoration: none;
+  padding: 3px 8px;
+}
+#hMenu ul li a:hover {
+  text-decoration: none;
+  background-color: #e1e5db;
+}
+
+/*
+    * html .content {
+      width: 80%;
+    }
+    * html .pghdr, * html .pgftr {
+      width: 80%;
+    }
+    .content h1 {
+      margin: 0px;
+    }
+    h1.hastagline {
+      border: 0;
+    }
+    h2.tagline {
+      color: silver;
+      clear: none;
+      margin-top: 0em;
+    }
+*/
+
+
+
+
+          /* T O P  DROPDOWN  M E N U  (ROW 1)   TRDL*/
+
+/* for all mnus (dl-s) div */
+#positioner {
+  position: relative;
+  width: 100%;
+  height: 25px;
+  background: #fff;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding: 1px 3px;
+  /* no efect   align: center;*/
+}
+
+
+/* for one mnu (dl) div */
+.holder {
+  position: absolute;
+  /*
+  width: 200px;
+  width: 105px;
+  height: 25px; 
+  */
+  top: 0;
+}
+/* m n u  p o s i t i o n s  (nmu ordinary numbers)*/
+.p1 {
+  left: 0%;
+}
+.p2 {
+  left: 14.2%;
+}
+.p3 {
+  left: 28.4%;
+}
+.p4 {
+  left: 42.6%;
+}
+.p5 {
+  left: 56.8%;
+}
+.p6 {
+  left: 71%;
+}
+.p7 {
+  left: 85.2%;
+}
+
+
+dl.menu {
+  width: 250px;
+  float: left;
+  margin: -32000px 0 0 -9999px;
+}
+dl.menu a {
+  display: block;
+  height: 25px;
+  font: normal 11px/25px; /*verdana, sans-serif*/
+  text-decoration: none;
+  text-indent: 10px;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+dl.menu dt {
+  float: left;
+  padding: 0;
+  position: relative;
+  left: 9999px;
+  z-index: 50;
+  margin: 32000px 0 0 0;
+}
+dl.menu dt a {
+  width: 124px;
+  background: #aaa;
+  float: left;
+  color: #fff;
+}
+dl.menu dt a.sub {
+  background: #888; /*url(dl-pullup/arrow.gif) no-repeat 110px center;*/
+  color: #fff;
+}
+dl.menu dt a:hover,  dl.menu dt a:focus,  dl.menu dt a:active {
+  margin-right: 1px;
+  text-decoration: none;
+  background-color: #888;
+  color: #fc0;
+}
+
+
+dl.menu dd {
+  float: left;
+  padding: 0;
+  margin: 0;
+  /*width: 200px;*/
+}
+/*
+dl.menu dd.dd3 {
+  height: 104px;
+}
+dl.menu dd.dd4 {
+  height: 130px;
+}
+dl.menu dd.dd5 {
+  height: 156px;
+}
+*/
+
+
+dl.menu dd:hover {
+  clear: both;
+}
+dl.menu dd a {
+  position: relative;
+  height: 25px;
+  background: #aaa;
+  width: 124px;
+  color: #fff;
+  left: 9999px;
+  top: -100%;
+  z-index: 60;
+}
+dl.menu dd a:hover,  dl.menu dd a:focus,  dl.menu dd a:active {
+  margin-right: 1px;
+  background: #888;
+  color: #fc0;
+}
+/*dd {
+  width: 200px;
+} */
+
+
+
+
+
+
+
+
+/* --  Links t h a t have been visited are DeepPink  -- */
+/* a:visited { color: DeepPink !important; }  */
+ 
+/* --  Links t h a t need javascript are green  -- */
+/*
+a[href^="javascript:"] { color: SandyBrown !important; font-weight: bold !important; }
+*/
+
+/* T,R,D,L smedja= #936709*/
+pre, code, kbd, samp {
+  text-align:left;
+  white-space: pre-wrap;
+  border-style: solid; border-color: lightblue; border-width: 1px 3px 3px 1px; 
+  padding: 1px 8px;
+  background: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  color:black;
+  font-family: courier-prime,'Courier New',Courier,monospace;
+  font-size: 1em;
+  display: block;
+  max-width: 100%;
+}
+   /* width: 700px; */
+  /* text-align:justify; */  
+  /* text-justify:none; */
+  
+
+#rightCol .box300.tad {padding:5px 40px; margin:2px 0; background:#ddd;}
+.tad p {padding:0; margin:0; font-size:14px !important;}
+.tad p a {color:#069; text-decoration:none;}
+#cse-search-box input.search {padding:0 10px; height:38px; border:0; border-radius:5px 0 0 5px;
+   width:150px; float:left; font:normal 15px/37px;} /* 'latomedium', arial, sans-serif*/
+
+.h2_csscls {
+  text-align: left;
+  background-color: #DDDDDD;
+  /* height:83px; position:relative; */
+  width:100%; 
+  word-wrap: break-word;
+}
+
+
+
+    /* Responsive Table with horizontal scrollbar 
+       HOR.SCROLLBAR DOES NOT WORK WITH CSS USED IN SOME PAGES !!!
+    */
+
+    .w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,
+      .w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,
+      .w3-cell-row:before,.w3-cell-row:after,.w3-clear:after,.w3-clear:before,
+      .w3-bar:before,.w3-bar:after{content:"";display:table;clear:both}
+
+    .w3-container,.w3-panel{padding:0.01em 16px}
+
+    .w3-responsive{display:block;overflow-x:auto} 
+    .w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;
+        width:100%;display:table}
+    .w3-table-all{border:1px solid #ccc}
+    .w3-bordered tr,.w3-table-all tr{border-bottom:1px solid #ddd}
+    .w3-table-all tr:nth-child(odd){background-color:#fff}
+    .w3-table-all tr:nth-child(even){background-color:#f1f1f1}
+    .w3-table td,.w3-table th,.w3-table-all td,.w3-table-all th{
+       padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+    .w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{padding-left:16px}
+
+.r5pct {
+ margin-left: 50px;
+}
+
+
+.pgBreakAfter {
+  cursor: text;
+  filter: Gray;
+  page-break-after: always;
+}
+.pgBreakBefore {
+  cursor: text;
+  filter: Gray;
+  page-break-before: always;
+}
+
+/* PRINTER STYLES */
+@media print {
+body, .content {
+  margin: 0;
+  padding: 0;
+}
+.navigation, .locator, .pgftr a, .message, .pgftr-links {
+  display: none;
+}
+.pgftr, .content, .header {
+  border: none;
+}
+a {
+  text-decoration: none;
+  font-weight: normal;
+  color: black;
+}
+}
+
+
+
+
+/* Style form - display items horizontally */
+.form-inline { 
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Add some margins for each label */
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style input fields */
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+/* Style submit button */
+.form-inline button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.form-inline button:hover {
+  background-color: royalblue;
+}
+
+/* Add responsiveness - display form controls vertically instead of horizontally on screens t h a t are less t h a n 800px wide */
+@media (max-width: 800px) {
+  .form-inline input {
+    margin: 10px 0;
+  }
+
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
