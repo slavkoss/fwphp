@@ -1,13 +1,12 @@
 # PHP menu & CRUD code skeleton (I named it B12phpfw)
-
-├── **fwphp** (app)................# Main MVC dirs structure, my J:\awww\www\fwphp\ = Apache_docroot\fwphp        
-│   │                             ................#contains **module groups eg glomodul, www (main menu) ...**. Namespace is only one: B12phpfw.           
+├── **fwphp** (app)...............# Main MVC dirs structure, my J:\awww\www\fwphp\ = Apache_docroot\fwphp.        
+│   │                            ................# Contains **module groups eg glomodul, www (main menu) ...**. Namespace is only one: B12phpfw           
 │   ├── Controllers...............# **NO M,V,C dirs but dirs are like Oracle FORMS form module .fmb !** ee NO Controllers directory       
 │   │   └── example.php.........# Example Controller with functionality explanation       
 │   ├── Models.....................# **NO M,V,C dirs** ee NO Models directory       
 │   │   └── example.php........# Example Model with functionality explanation       
 │   └── Views.......................# **NO M,V,C dirs** ee NO Views directory, no template engines, PHP is template language        
-├── **zinc** (core)...................# Basically mvc engine directory (zinc is good for search  -:) ). Here is class Autoload.       
+├── **zinc** (core)...................# Basically mvc engine directory (zinc is good for search  -:) ). Here is class **Autoload**.       
 │   │                            ...............# Namespace is only one: B12phpfw.               
 │   ├── app.php....................# **NO** Main fw file. $app = new App();  $app->autoload(); $app->config(); $app->start();       
 │   │               ........# is nice abstraction but with questionable value in real life programming. Where is UML diagram for this beauty ?        
@@ -21,7 +20,7 @@
 │   │   └── session.php          
 │   └── helpers....................# **NO** helpers dir, but in zinc dir abstract class **Config_allsites  (level 3)** extends Db_allsites       
 │       └── examplehelper.php      
-├── index.php...................# redirects to main menu url fwphp/www/index.php        
+├── **index.php**...................# redirects to main menu url fwphp/www/index.php        
 ├── **vendor** (public) .........# dir for all public resources, javascript files, stylesheets and vendor plugins.            
 │   │                                 ...........#  B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
 │   ├── javascripts               
@@ -30,8 +29,11 @@
 └── .htaccess...................# **NO** htaccess rewriting (Apache mod_rewrite) all requests to MVC endpoint /index.php.            
                       .....................# B12phpfw has **QS** constant.       
 
-**Common fw dir structure - items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites. See https://github.com/DawidYerginyan/simple-php-mvc/ (has no namespaces !).      
-Using B12phpfw is much diferent than all other PHP frameworks (because of dirs are like Oracle FORMS form module .fmb and other mentioned above).      
+**Common fw dir structure - items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites.      
+See Mini3 PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good coding). My **routing using key-values** is different but dispatching using home class methods is based on Mini3. 
+See to simple examples and have no namespaces  : very good coding : https://github.com/ngrt/MVC_todo or https://github.com/DawidYerginyan/simple-php-mvc/ or mani others.      
+
+B12phpfw is very diferent than all other PHP frameworks because dirs are like Oracle FORMS form module .fmb and other mentioned above.      
 
 <br /><br />
 ![B12phpfw core UML diagram](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
@@ -567,7 +569,7 @@ Most important modules are :
 
 3.  **blog = msg module** See readme.md in  [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/blog](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/blog) 
 See first easier to understand:
- **adrs module based on Mini3** PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good work). My **routing using key-values** is different but **dispatching using home class methods** is based on mini3. This is CRUD of one table songs - ee of URL-s (adresses) of youtube songs. Songs can be played clickong on link. [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/adrs](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/adrs)               
+ **adrs module based on Mini3** PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good work). My **routing using key-values** is different but **dispatching using home class methods** is based on mini3. This is CRUD of one table songs - ee of URL-s (adresses) of youtube songs. Songs can be played clicking on link. [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/adrs](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/adrs)               
 
 4.  **mkd module** is used in msg (blog) module to dispatch (include) html display of post in markdown file. [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/mkd](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/mkd) = markdown WYSIWYG editor (SimpleMDE & Parsedown) Parsedown sintax highlighting [https://highlightjs.org/download/](https://highlightjs.org/download/) : \`\`\`css hljs.initHighlightingOnLoad(); \`\`\` mkd module is good to learn OOP programming (commented in index.php because for simple view scripts we do not need OOP). Simmilar small code is for Summernote HTML text WYSIWYG editor as for Markdown WYSIWYG markdown text editor which I use .         
 

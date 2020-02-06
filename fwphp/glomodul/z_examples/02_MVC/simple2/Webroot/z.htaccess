@@ -1,0 +1,9 @@
+# J:\awww\www\fwphp\glomodul\z_examples\02_MVC\simple2\Webroot\.htaccess
+<IfModule mod_rewrite.c>
+  RewriteBase /fwphp/glomodul/z_examples/02_MVC/simple2/Webroot/
+  # http://dev1:8083/fwphp/glomodul/z_examples/02_MVC/simple2/Webroot/
+  # http://dev1:8083/Webroot/
+  RewriteEngine on
+  RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png)$ [NC]
+  RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?p=$1
+</IfModule>

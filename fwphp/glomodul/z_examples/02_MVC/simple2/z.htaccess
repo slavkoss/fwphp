@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+  RewriteBase /fwphp/glomodul/z_examples/02_MVC/simple2/Webroot/
+  # so instead http://dev1:8083/fwphp/glomodul/z_examples/02_MVC/simple2/Webroot/
+  # http://dev1:8083/Webroot/
+  RewriteEngine on
+  RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ Webroot/$1
+</IfModule>
