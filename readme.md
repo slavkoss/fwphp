@@ -11,10 +11,11 @@
 │   │                            ...............# Namespace is only one: B12phpfw.               
 │   ├── app.php....................# **NO** Main framework file       
 │   ├── classes.....................# **NO** classes directory for autoloading.         
-│   │                 .....................#B12phpfw global classes are in zinc dir, module clses are in module dir.       
-│   │   ├── controller.php......# **NO** but in module dir class **Home_ctr  (level 4)** extends Config_allsites           
+│   │   │            .....................#B12phpfw global classes are in zinc dir, module clses are in module dir.       
+│   │   ├── controller.php......# **NO** but in module dir DISPATCHER class **Home_ctr  (level 4)** extends Config_allsites           
 │   │   └── model.php............# **NO** but in zinc dir global abstract class **Db_allsites  (level 2)** extends Dbconn_allsites             
-│   ├── config......................# **NO** config dir but in zinc dir abstract class **Config_allsites** extends Db_allsites (see core UML diagram)        
+│   ├── config......................# **NO** config dir but in zinc dir abstract class **Config_allsites** extends Db_allsites            
+│   │   │               ..................# (see core UML diagram). Here is property palette and R O U T I N G.         
 │   │   ├── database.php........# **NO** but in zinc dirabstract class **Dbconn_allsites  (level 1)**        
 │   │   └── session.php          
 │   └── helpers....................# **NO** helpers dir, but in zinc dir abstract class **Config_allsites  (level 3)** extends Db_allsites       
