@@ -6,24 +6,27 @@
 │   │   └── example.php.........# Example Controller with functionality explanation       
 │   ├── Models.....................# **NO M,V,C dirs** ee NO Models directory       
 │   │   └── example.php........# Example Model with functionality explanation       
-│   └── Views.......................# **NO M,V,C dirs** ee NO Views directory, no template engines, PHP is template language      
-├── **zinc** (core)...................# Basically mvc engine directory (zinc is good for search  -:) ). Here is class Autoload. Namespace is only one: B12phpfw.               
+│   └── Views.......................# **NO M,V,C dirs** ee NO Views directory, no template engines, PHP is template language        
+├── **zinc** (core)...................# Basically mvc engine directory (zinc is good for search  -:) ). Here is class Autoload.       
+│   │                            ...............# Namespace is only one: B12phpfw.               
 │   ├── app.php....................# **NO** Main framework file       
-│   ├── classes.....................# **NO** classes directory for autoloading. B12phpfw global classes are in zinc dir, module clses are in module dir.       
-│   │   ├── controller.php......# **NO** but in module dir class **Home_ctr  (level 4)** extends Config_allsites    
+│   ├── classes.....................# **NO** classes directory for autoloading.         
+│   │                 .....................#B12phpfw global classes are in zinc dir, module clses are in module dir.       
+│   │   ├── controller.php......# **NO** but in module dir class **Home_ctr  (level 4)** extends Config_allsites           
 │   │   └── model.php............# **NO** but in zinc dir global abstract class **Db_allsites  (level 2)** extends Dbconn_allsites             
-│   ├── config......................# **NO** configuration directory but in zinc dir abstract class **Config_allsites** extends Db_allsites in zinc dir (see core UML diagram)       
-│   │   ├── database.php........# **NO** but in zinc dirabstract class **Dbconn_allsites  (level 1)**       
-│   │   └── session.php           
-│   └── helpers....................# **NO** Autoloaded helpers directory, but in zinc dir abstract class **Config_allsites  (level 3)** extends Db_allsites       
-│       └── examplehelper.php     
-├── index.php...................# redirects to main menu url fwphp/www/index.php       
+│   ├── config......................# **NO** config dir but in zinc dir abstract class **Config_allsites** extends Db_allsites (see core UML diagram)        
+│   │   ├── database.php........# **NO** but in zinc dirabstract class **Dbconn_allsites  (level 1)**        
+│   │   └── session.php          
+│   └── helpers....................# **NO** helpers dir, but in zinc dir abstract class **Config_allsites  (level 3)** extends Db_allsites       
+│       └── examplehelper.php      
+├── index.php...................# redirects to main menu url fwphp/www/index.php        
 ├── **vendor** (public) .........# dir for all public resources, javascript files, stylesheets and vendor plugins.            
-│   │                                 ...........#  B12phpfw has own (internal) resources in zinc dir, external in vendor dir.  
+│   │                                 ...........#  B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
 │   ├── javascripts               
-│   ├── stylesheets               
-│   └── vendor                    
-└── .htaccess...................# **NO** htaccess rewriting (Apache mod_rewrite) all requests to MVC endpoint /index.php. B12phpfw has **QS** constant.       
+│   ├── stylesheets                
+│   └── vendor           
+└── .htaccess...................# **NO** htaccess rewriting (Apache mod_rewrite) all requests to MVC endpoint /index.php.            
+                      .....................# B12phpfw has **QS** constant.       
 
 **Common fw dir structure - items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites. See https://github.com/DawidYerginyan/simple-php-mvc/ (has no namespaces !).      
 Using B12phpfw is much diferent than all other PHP frameworks (because of dirs are like Oracle FORMS form module .fmb and other mentioned above).      
