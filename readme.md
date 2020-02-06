@@ -25,12 +25,11 @@
 │   └── vendor                    
 └── .htaccess...................# **NO** htaccess rewriting (Apache mod_rewrite) all requests to MVC endpoint /index.php. B12phpfw has **QS** constant.       
 
-**Common fw dir structure - items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites.        
-See https://github.com/DawidYerginyan/simple-php-mvc/ (has no namespaces !)     
+**Common fw dir structure - items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites. See https://github.com/DawidYerginyan/simple-php-mvc/ (has no namespaces !).      
 Using B12phpfw is much diferent than all other PHP frameworks (because of dirs are like Oracle FORMS form module .fmb and other mentioned above).      
 
 <br /><br />
-![B12phpfw_UMLdiagram.png](B12phpfw core UMLdiagram "B12phpfw_UMLdiagram.png")    
+![B12phpfw core UML diagram](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
 <br /><br />
 
 Developed on home PC Windows 10 64 bit and Apache web server. Some details are to do in version 6.1 but all important is visible in current version 6.0. 
