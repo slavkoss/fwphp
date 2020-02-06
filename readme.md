@@ -10,7 +10,7 @@
 ├── **zinc** (core)...................# Basically mvc engine directory (zinc is good for search  -:) ). Here is class Autoload.       
 │   │                            ...............# Namespace is only one: B12phpfw.               
 │   ├── app.php....................# **NO** Main fw file. $app = new App();  $app->autoload(); $app->config(); $app->start();       
-│   │               ........# is nice abstraction but with questionable value in real life programming. Where is UML diagram for this beauty ?
+│   │               ........# is nice abstraction but with questionable value in real life programming. Where is UML diagram for this beauty ?        
 │   ├── classes.....................# **NO** classes directory for autoloading.         
 │   │   │            .....................#B12phpfw global classes are in zinc dir, module clses are in module dir.       
 │   │   ├── controller.php......# **NO** but in module dir DISPATCHER class **Home_ctr  (level 4)** extends Config_allsites           
