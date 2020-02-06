@@ -1,4 +1,38 @@
 # PHP menu & CRUD code skeleton (I named it B12phpfw)
+
+├── **fwphp** (app)................# Main MVC dirs structure, my J:\awww\www\fwphp\ = Apache_docroot\fwphp        
+│   │                             ................#contains **module groups eg glomodul, www (main menu) ...**. Namespace is only one: B12phpfw.           
+│   ├── Controllers...............# **NO M,V,C dirs but dirs are like Oracle FORMS form module .fmb !** ee NO Controllers directory       
+│   │   └── example.php.........# Example Controller with functionality explanation       
+│   ├── Models.....................# **NO M,V,C dirs** ee NO Models directory       
+│   │   └── example.php........# Example Model with functionality explanation       
+│   └── Views.......................# **NO M,V,C dirs** ee NO Views directory, no template engines, PHP is template language      
+├── **zinc** (core)...................# Basically mvc engine directory (zinc is good for search  -:) ). Here is class Autoload. Namespace is only one: B12phpfw.               
+│   ├── app.php....................# **NO** Main framework file       
+│   ├── classes.....................# **NO** classes directory for autoloading. B12phpfw global classes are in zinc dir, module clses are in module dir.       
+│   │   ├── controller.php......# **NO** but in module dir class **Home_ctr  (level 4)** extends Config_allsites    
+│   │   └── model.php............# **NO** but in zinc dir global abstract class **Db_allsites  (level 2)** extends Dbconn_allsites             
+│   ├── config......................# **NO** configuration directory but in zinc dir abstract class **Config_allsites** extends Db_allsites in zinc dir (see core UML diagram)       
+│   │   ├── database.php........# **NO** but in zinc dirabstract class **Dbconn_allsites  (level 1)**       
+│   │   └── session.php           
+│   └── helpers....................# **NO** Autoloaded helpers directory, but in zinc dir abstract class **Config_allsites  (level 3)** extends Db_allsites       
+│       └── examplehelper.php     
+├── index.php...................# redirects to main menu url fwphp/www/index.php       
+├── **vendor** (public) .........# dir for all public resources, javascript files, stylesheets and vendor plugins.            
+│   │                                 ...........#  B12phpfw has own (internal) resources in zinc dir, external in vendor dir.  
+│   ├── javascripts               
+│   ├── stylesheets               
+│   └── vendor                    
+└── .htaccess...................# **NO** htaccess rewriting (Apache mod_rewrite) all requests to MVC endpoint /index.php. B12phpfw has **QS** constant.       
+
+**Common fw dir structure - items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites.        
+See https://github.com/DawidYerginyan/simple-php-mvc/ (has no namespaces !)     
+Using B12phpfw is much diferent than all other PHP frameworks (because of dirs are like Oracle FORMS form module .fmb and other mentioned above).      
+
+<br /><br />
+![B12phpfw_UMLdiagram.png](B12phpfw core UMLdiagram "B12phpfw_UMLdiagram.png")    
+<br /><br />
+
 Developed on home PC Windows 10 64 bit and Apache web server. Some details are to do in version 6.1 but all important is visible in current version 6.0. 
 
 1. Menus (Mnu module) are not based - no need, but can be based on B12phpfw which is best for CRUD modules like Oracle Forms form. 
@@ -144,13 +178,7 @@ May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best 
 CRUD db tables rows modules like my msg (blog) should be based on code skeleton shown in  UML diagram below. Non CRUD modules like my mnu and msg : without such code skeleton **may be code is simpler ?** If mnu module (which is links to pages / modules) needs CRUD functionality (I think never needs), we should base it on code skeleton shown in  UML diagram below. Both global db classes are ~400 lines, global config class is ~400 lines - they are so small that may be included in any module. Msg (blog) module has no problem, but in Mnu module global ftr.php displays: Fatal error: Uncaught Error: Using $this when not in object context in J:\awww\www\zinc\ftr.php       
 
 
-
 <br /><br />
-![B12phpfw_UMLdiagram.png](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")      
-<br /><br />
-
-
-
 $do_pgntion attribute in class Dbconn_allsites is used in **module msg ee blog**  fwphp\glomodul\blog, in home.php, home_side_area.php and dashboard.php eg so :     
 ```
 self::$do_pgntion = '1'; //command for all tables global read fn "rr" to read paginated ee to read rows block (recordset)
