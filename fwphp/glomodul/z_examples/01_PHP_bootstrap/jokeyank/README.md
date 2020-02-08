@@ -1,3 +1,3 @@
 # PHP Novice to Ninja
 
-Must be in web doc. root
+Use the "Change Branch" above to select the relevant code sample. 

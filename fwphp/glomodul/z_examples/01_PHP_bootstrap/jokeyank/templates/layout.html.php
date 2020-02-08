@@ -1,7 +1,6 @@
-<?php
-$modulereldir = 'jokeyank/public'
-//J:\awww\apl\dev1\jokeyank\classes\Ijdb\Controllers\Joke.php
-?>
+<!--
+J:\awww\www\fwphp\glomodul\z_examples\01_PHP_bootstrap\jokeyank\templates\layout.html.php
+-->
 <!doctype html>
 <html>
   <head>
@@ -9,17 +8,14 @@ $modulereldir = 'jokeyank/public'
     <link rel="stylesheet" href="/jokes.css">
     <title><?=$title?></title>
   </head>
-  
-  
   <body>
   <nav>
     <header>
       <h1>Internet Joke Database</h1>
     </header>
     <ul>
-      <li><a href="/<?=$modulereldir.'/'?>">Home</a></li>
-      <!-- $modulereldir.'/' -->
-      <li><a href="/<?=''?>joke/list">Jokes List</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/joke/list">Jokes List</a></li>
       <li><a href="/joke/edit">Add a new Joke</a></li>
       <?php if ($loggedIn): ?>
       <li><a href="/logout">Log out</a></li>

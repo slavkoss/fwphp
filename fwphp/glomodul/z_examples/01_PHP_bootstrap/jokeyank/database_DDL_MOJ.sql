@@ -1,6 +1,6 @@
 -- MySQL dump 10.16  Distrib 10.1.25-MariaDB, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: joke   original : ijdb_sample
+-- Host: 127.0.0.1    Database: z_joke   original : ijdb_sample
 -- ------------------------------------------------------
 -- Server version 5.7.16-0ubuntu0.16.04.1
 

@@ -6,13 +6,12 @@ class EntryPoint {
   private $method;
   private $routes;
 
-  public function __construct(
-       string $route, string $method, \Ninja\Routes $routes
-  ) {
-    //$this->route = $route;
-    $this->route = str_replace('jokeyank/public/','',$route);
-    $this->routes = $routes;
-    $this->method = $method;
+  public function __construct(string $route, string $method, \Ninja\Routes $routes)
+  {
+    // module_relpath :
+    $this->route = $route; //fwphp/glomodul/z_examples/01_php_bootstrap/jokeyank/public/
+    $this->method = $method; //GET
+    $this->routes = $routes; //new \Ijdb\IjdbRoutes()
     $this->checkUrl();
   }
 
@@ -23,32 +22,25 @@ class EntryPoint {
     }
   }
 
-  private function loadTemplate($templateFileName, $variables = []) {
-    extract($variables);
-
-    ob_start();
-    include  __DIR__ . '/../../templates/' . $templateFileName;
-
-    return ob_get_clean();
-  }
-
-  public function run() {
-
+  public function run() 
+  {
     $routes = $this->routes->getRoutes();  
-
+          //echo '<pre>$routes[\'joke/delete\']='; print_r($routes['joke/delete']); echo '</pre>';
+          echo '<pre>$routes[\'\']='; print_r($routes['']); echo '</pre>';
     $authentication = $this->routes->getAuthentication();
 
-    if ( isset($routes[$this->route]['login']) 
-         && !$authentication->isLoggedIn()) {
+    if (isset($routes[$this->route]['login']) && !$authentication->isLoggedIn())
+    {
       header('location: /login/error');
     }
     else if ( isset($routes[$this->route]['permissions']) 
-      && !$this->routes->checkPermission($routes[$this->route]['permissions'])) {
+              && !$this->routes->checkPermission($routes[$this->route]['permissions'])) 
+    {
       header('location: /login/permissionserror');  
     }
     else {
+      //Undefined index: fwphp/glomodul/z_examples/01_php_bootstrap/jokeyank/public/ :
       $controller = $routes[$this->route][$this->method]['controller'];
-      //Notice: Undefined index: fwphp/glomodul/help_sw/test/ or jokeyank/public/ in J:\awww\apl\dev1\jokeyank\classes\Ninja\EntryPoint.php on prev.line
       $action = $routes[$this->route][$this->method]['action'];
       $page = $controller->$action();
 
@@ -69,4 +61,18 @@ class EntryPoint {
     }
 
   }
+
+
+  private function loadTemplate($templateFileName, $variables = []) {
+    extract($variables);
+
+    ob_start();
+    include  __DIR__ . '/../../templates/' . $templateFileName;
+
+    return ob_get_clean();
+  }
+
+
+
+
 }

@@ -1,4 +1,17 @@
 # PHP menu & CRUD code skeleton (I named it B12phpfw)
+### Demo site - free hosting with free Mysql
+1. On Linux : http://phporacle.eu5.net/ (freehostingeu- fast, stable) 
+2. or  http://phporacle.heliohost.org/ (heliohost - slow, stable)
+3. My blog : http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
+     
+### Download and install code from here
+1. https://github.com/slavkoss/fwphp - PHP code here is good for (more) large sites
+2. In webserver doc root - my is J:\xampp\htdocs  or virtual host  J:\awww\www
+3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**        
+
+
+<br />        
+
 ├── **fwphp** (app)...............# Main MVC dirs structure, my J:\awww\www\fwphp\ = Apache_docroot\fwphp.        
 │   │                            ................# Contains **module groups eg glomodul, www (main menu) ...**. Namespace is only one: B12phpfw           
 │   ├── Controllers...............# **NO M,V,C dirs but dirs are like Oracle FORMS form module .fmb !** ee NO Controllers directory       
@@ -47,16 +60,6 @@ Developed on home PC Windows 10 64 bit and Apache web server. Some details are t
     1. oper. system files - practicaly unlimited size
     2. or in MySQL/Oracle/or any DB : post (4000 characters I commented this in code), summary (4000 characters) and banner_img description (4000 characters) 
 
-
-### Demo site - free hosting with free Mysql
-1. On Linux : http://phporacle.eu5.net/ (freehostingeu- fast, stable) 
-2. or  http://phporacle.heliohost.org/ (heliohost - slow, stable)
-3. My blog : http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
-     
-### Download and install code from here
-1. https://github.com/slavkoss/fwphp - PHP code here is good for (more) large sites
-2. In webserver doc root - my is J:\xampp\htdocs  or virtual host  J:\awww\www
-3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**        
 
 
 <br />        
@@ -878,7 +881,9 @@ now restart notepad++ and you will see both at your plugins menu :
     and the python script plugin
 
 
+https://dev.to/jorgecc/a-minimalist-mvc-project-using-php-and-without-a-framework-4pd8
 
+https://github.com/TRPB/ImmutableMVC
 
 
 
