@@ -89,6 +89,8 @@ Go to your working directory or project folder (if not git status says: "fatal: 
 
 git config --global user.name 'yourname'         
 git config --global --replace-all user.email 'youremail'         
+following in the command line will store your credentials:     
+git config --global credential.helper wincred       
 
 ### git status
 
