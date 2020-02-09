@@ -69,7 +69,6 @@ for ($j=0; $j<count($findit); $j++) {
                 $_SERVER['REQUEST_METHOD']   GET
                 $_SERVER['REQUEST_URI']   /fwphp/glomodul/z_examples/01_phpinfo.php?aaa/111
                 $_SERVER['SCRIPT_NAME']   /fwphp/glomodul/z_examples/01_phpinfo.php 
-
                 $_SERVER['QUERY_STRING']   aaa/111
 
                 $_SERVER['REQUEST_SCHEME']   http 

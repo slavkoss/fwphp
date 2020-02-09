@@ -4,13 +4,13 @@
 try {
   include __DIR__ . '/../includes/autoload.php';
   
+  //REQUEST_METHOD=GET
+  //$route=module_relpath=fwphp/glomodul/z_examples/01_PHP_bootstrap/jokeyank/public/
+  //REQUEST_URI=/fwphp/glomodul/z_examples/01_PHP_bootstrap/jokeyank/public/?aaa
   $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
-          //   REQUEST_METHOD=GET
           echo '<pre>';
           echo '<br />REQUEST_METHOD='; print_r($_SERVER['REQUEST_METHOD']); 
-          //REQUEST_URI=/fwphp/glomodul/z_examples/01_PHP_bootstrap/jokeyank/public/?aaa
           echo '<br />REQUEST_URI='; print_r($_SERVER['REQUEST_URI']); 
-          //module_relpath=$route=fwphp/glomodul/z_examples/01_PHP_bootstrap/jokeyank/public/
           echo '<br />$route     ='; print_r($route); 
           echo '</pre>';
   $entryPoint = new \Ninja\EntryPoint(

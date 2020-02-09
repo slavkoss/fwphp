@@ -80,13 +80,17 @@ Explanations below are far less important than demo site and code download menti
 
 ## 1\. [Git SCM distributed version control system](https://git-scm.com/downloads)
 
-### In Windows Symenu Cmder as administrator (or CLI or Git Bash CLI)
+see  https://git-scm.com/book/en/v2   or eg  https://git-scm.com/docs/git-checkout         
 
-J:\\aplp\\aplp\\0\_symenu\\ProgramFiles\\SPSSuite\\SyMenuSuite\\Cmder\_sps
+### In Windows Symenu Cmder as administrator (or CLI or Git Bash CLI)
+J:\\aplp\\aplp\\0\_symenu\\ProgramFiles\\SPSSuite\\SyMenuSuite\\Cmder\_sps       
+
+Go to your working directory or project folder (if not git status says: "fatal: not a git repository (or any of the parent directories): .git").      
+
+git config --global user.name 'yourname'         
+git config --global --replace-all user.email 'youremail'         
 
 ### git status
-
-fatal: not a git repository (or any of the parent directories): .git
 
 ### cd j:\\awww\\www
 
@@ -94,20 +98,39 @@ fatal: not a git repository (or any of the parent directories): .git
 
 ### git status
 
-### git add fwphp\\ (or whatever git asks)
+### git add .
+or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
 
 ### git commit -am "ver 6.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
+We stored our project files within our system hard drive.      
 If Cmder shows error  "fatal: unable to auto-detect email address" :      
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       
 to set your account's default identity.    Omit --global to set the identity only in this repository.       
 
 ### git push -u origin master
+We stored our project files within our Github site.      
+
+You want to restore an old revision of a file:
+git checkout 8a7b201 index.html
+If you specify "HEAD" as the revision, you will restore the last committed version of the file, effectively undoing any local changes that you current have in that file:       
+git checkout HEAD index.html     
+
+We can roll back our deleted files in working directory using command:      
+**git checkout -- .**    
+or git checkout -- <file>...         
+
+
 
 Git is program and [Github](https://github.com/) is site - deploy ( [book](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) ) [Tutorial](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
 
 Git we use eg to syncronize our scripts :     
 1.  to your local repository (git commit to .git dir on local PC)     
 2.  and from local repository to remote repository on Github site (git push)      
+
+Track the history of the changes where, when, who and why made. git SW stores or host the versions of project within our hard drive. From where we can backup our project history.  GitHub  site is like hosting to store our versions of projects (case HD crash !).       
+Staging is like a queue, add drops modified files here for push.      
+Push (commit) is method to send the files from working directory to repository.         
+Pull is method to fetch the record from repository to our working directory.   
 
 
 ## To purge remote repository
@@ -208,7 +231,7 @@ R O U T I N G  T A B L E  is in array $this->pp1 assigned in class Home_ctr whic
 After **i/** is method in this->Home_ctr which **includes/calls** same named (or not) script/method or calls some (global method) or...     
 **QS=?**=url adress Query separator (url query is key-value pairs). Without QS we must use Apache mod-rewrite and Composer auto loading classes instead own simple-fast auto loading.        
 
-DISPATCHER  includes, calls and **http jumps only to other module**.
+DISPATCHER  includes, calls and **http jumps only to other module**. So **we may not use constants but module property palette $pp1 which contains globals !**
 
 **cc, rr, uu, dd** rows CRUD methods are used for all tables !!
 
