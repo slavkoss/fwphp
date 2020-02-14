@@ -380,6 +380,8 @@ class Lsweb
 
       if ( $href !== 'do_not_print')
       {
+                //<td  width="10%%" align="left">%s</td>
+                //<td  width="10%%" align="left">%s</td>
         printf
         (
           '<tr>
@@ -387,8 +389,6 @@ class Lsweb
                 <td width="12%%" align="left">%s</td>
                 <td width="13%%"  align="right">%s</td>
                 <td  width="9%%"  align="left">%s</td>
-                <td  width="10%%" align="left">%s</td>
-                <td  width="10%%" align="left">%s</td>
           </tr>'
           //t d 1   $href  :   height="207"  width="280"
           ,( $mode[0] == 'd' ) ? $href : '<strong>'.$href  .'</strong>' 
@@ -397,8 +397,15 @@ class Lsweb
           //t d 3  file size (or device  numbers)
           , ( $itmtype == 'dir' ? '' : ( $itmtype == 'aupdir' ? '' : $size ) )
           ,  $mode //  t d 4 formatted mode string
-          ,  ( is_null($user_info['name']) ) ?  'owner' : $user_info['name'] //t d 5  owner's user name
-          ,  ( is_null($group_info['name']) )?  'gr'    : $group_info['name'] //t d 6 group name
+          /*
+          //PHP Version 7.4.1 Notice: Trying to access array offset on value of type int
+          //    'owner'
+          ,  ( !is_array($user_info) or is_null($user_info['name']) ) 
+                  ?  print_r($user_info) : $user_info['name'] //t d 5  owner's user name
+          //    'gr'
+          ,  ( !is_array($group_info) or is_null($group_info['name']) )
+                  ?  print_r($group_info)    : $group_info['name'] //t d 6 group name
+          */
         ); // link to browse or download
       }
       $itm_ordno++;

@@ -14,8 +14,8 @@ $pp1 = (object) //=properties global array (like Oracle Forms property palette)
   //1.3
   , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
         str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path (CONVENTION!!)
-      , $dirup_tmp.'/user/', $dirup_tmp.'/post_category/', $dirup_tmp.'/post/'
-      , $dirup_tmp.'/post_comment/'
+      , $dirup_tmp.'/user/', $dirup_tmp.'/post_category/' //two master modules (tbls)
+      , $dirup_tmp.'/post/', $dirup_tmp.'/post_comment/'  //detail & subdet modules (tbls)
   ]
 ] ;
 
@@ -26,7 +26,7 @@ $autoloader = new Autoload($pp1);
                    .', line '. __LINE__ .' SAYS'=>' '
                    ,'where am I'=>'AFTER  A u t o l o a d'
                 ] ) ; }
-//3.
+//3. process request from ibrowser & send response to ibrowser :
 $db = new Home_ctr($pp1) ; // "inherits" index.php ee inherits $pp1
 
 exit(0);
@@ -45,31 +45,14 @@ exit(0);
 *
 * http://phporacle.eu5.net/fwphp/www/
 * http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/20
-* http://dev1:8083/fwphp/glomodul/mkd/?edit=J:/awww/www/fwphp/glomodul/blog/msgmkd/Prijedlozi_za_Nacrt_NPDTG_20.12.2019.txt
-* http://localhost:8083/socnetbig/Script/
-*/
+* 
 
-
-
-//        MODULES ARE IN 4 LEVELS (module is like Oracle Forms .fmb)
-//J:\awww\www=WEBSERVER_DOC_ROOT_DIR.   '../../../' means 4 LEVELS OF MODULES DIRS:
-//1.module (dir blog) 2.mdlegroup (glomodul), 3.site (fwphp), doc_root (www)
-//      MODULE CODE in execution order, eg Blog IS IN 5 OR 6 CODE LEVELS :
-// 1.LEVEL5 index.php 2.L3 new Home_ctr($pp1) (3.L4 Home_mdl if needed) extends 4.
-// 4.L2 Config_allsites extends 5.L1 Db_allsites, 6.L6: home.php, zinc/hdr.php and ftr
-//see http://localhost:8083/pdogridbig_original/demo/pages/
-//    http://dev1:8083/fwphp/glomodul/z_examples/05_flex01_2col.php
-
-/* (***1)
-unset($array[$i]); then Re-index: $array = array_values($array);
-$idxtmp = array_search ('p', $module_ arr['ctr akc par_ arr']);
-
-works $$obj->{$akc}($$params_arr_adress) ; // eg f unction upd_ comments_ stat($db)
-works $$obj->{$akc}($db) ; or $this->{$akc}($db) ;
-
-count (sizeof) works on arr & custom object that implements the Countable interface
-casting obj as arr is ok for simple stdClass object (won`t always work)
-if (count((array)$this->uriq)) {...
-foreach($module_ arr['ctr akc par_ arr'] as $k=>$v) { 
-   if ($v=='p') { $page_ from_url = $module_ arr['ctr akc par_ arr'][$k+1]; } ...
+*         MODULES ARE IN 4 LEVELS (module is like Oracle Forms .fmb)
+* J:\awww\www=WEBSERVER_DOC_ROOT_DIR.   '../../../' means 4 LEVELS OF MODULES DIRS:
+* 1.module (dir blog) 2.mdlegroup (glomodul), 3.site (fwphp), doc_root (www)
+*       MODULE CODE in execution order, eg Blog IS IN 5 OR 6 CODE LEVELS :
+*  1.LEVEL5 index.php 2.L3 new Home_ctr($pp1) (3.L4 Home_mdl if needed) extends 4.
+*  4.L2 Config_allsites extends 5.L1 Db_allsites, 6.L6: home.php, zinc/hdr.php and ftr
+* see http://localhost:8083/pdogridbig_original/demo/pages/
+*     http://dev1:8083/fwphp/glomodul/z_examples/05_flex01_2col.php
 */

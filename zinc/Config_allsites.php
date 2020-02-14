@@ -107,6 +107,8 @@ abstract class Config_allsites extends Db_allsites
                 $_SERVER['REQUEST_URI']   /fwphp/glomodul/z_examples/01_phpinfo.php?aaa/111
                 $_SERVER['SCRIPT_NAME']   /fwphp/glomodul/z_examples/01_phpinfo.php 
 
+                $_SERVER['PHP_SELF']
+
                 $_SERVER['QUERY_STRING']   aaa/111
 
                 $_SERVER['REQUEST_SCHEME']   http 
