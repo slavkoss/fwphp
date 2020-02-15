@@ -12,7 +12,8 @@
 
 ## 1\.3 B12phpfw directory structure compared to (all ?) other PHP fw-s
 
-├── **1. fwphp** (app)...............# **or SITE1, or APLications** = Main MVC site dirs structure, my J:\awww\www\fwphp\ = Apache_docroot\fwphp.        
+├── **1. fwphp** (app)...............# **or SITE1, or APLications** = Main MVC site dirs structure,               
+│   │                            ................# my J:\awww\www\fwphp\ = Apache_docroot\fwphp.         
 │   │                            ................# Contains **MODULE GROUPS** eg APLication1, 2..  eg glomodul, www (main menu), finance, material...       
 │   │                          ..................#  fwphp is optional name. Namespace is only one: B12phpfw.            
 │   ├── Controllers................# **NO M,V,C dirs (ee NO Controllers dir) but dirs are like Oracle FORMS form module .fmb  !**         
@@ -27,9 +28,11 @@
 │        
 │        
 ├── **2. zinc** (core)...................# Basically mvc engine directory. zinc is for search more selective than core  -:).                  
-│   │                ......................# Here are **class Autoload and other all sites global classes** and some public resources (some are in vendor dir).            
+│   │                ......................# Here are **class Autoload and other all sites global classes** and some public resources                 
+│   │                ......................# (some are in vendor dir).            
 │   ├── app.php....................# **NO** Main fw file. **$app = new App();  $app->autoload(); $app->config(); $app->start();**       
-│   │                .......................# is nice abstraction but with questionable value in real life programming. Where is UML diagram for this beauty ?        
+│   │                .......................# is nice abstraction but with questionable value in real life programming.                 
+│   │                .......................# Where is UML diagram for this beauty ?        
 │   │                .......................# I think much better is **new Home\_ctr($pp1) ** // Home\_ ctr "inherits" index.php ee "inherits" $pp1,      
 │   │                ......................# (global & module prroperties palette array) but also inherits see B12phpfw core UML diagram below.      
 │   │             
@@ -37,18 +40,20 @@
 │   │   │            .....................#B12phpfw global classes are in zinc dir, module clses are in module dir.       
 │   │   ├── controller.php......# **NO** but **in module dir global abstract DISPATCHER (RESPONSE) class**             
 │   │   │           ........# **Home\_ctr  (<span style="color:blue;">level 4<span>)** extends Config\_allsites         
-│   │   └── model.php............# **NO, no model class for each table** but **in zinc dir global abstract CRUD class Db_allsites  (<span style="color:blue;">level 2<span>)** extends Dbconn_allsites             
+│   │   └── model.php............# **NO, no model class for each table** but **in zinc dir global abstract CRUD class               
+│   │                          ................# Db_allsites  (<span style="color:blue;">level 2<span>)** extends Dbconn_allsites             
 │   │                       ..................# In Db_allsites are **cc, rr, uu, dd methods** instead model class for each table !        
-│   │                       ..................# cc, rr, uu, dd methods are like Oracle Forms pre-insert, pre- and execute- query, pre-update instead model class for each table !         
+│   │                       ..................# cc, rr, uu, dd methods are like Oracle Forms           
+│   │                         ................# pre-insert, pre- and execute- query, pre-update instead model class for each table !         
 │   │                       ..................# To me seem model class for each table and ORM-s, active records not needed.         
 │   │       
 │   ├── config......................# **NO** config dir but **in zinc dir global abstract CONFIG & ROUTING (REQUEST) class**            
 │   │   │          .......................# **Config_allsites  (level 3)** extends Db_allsites (see core UML diagram). Here is property palette array.           
 │   │   ├── database.php........# **NO** but in zinc dirabstract class **Dbconn_allsites  (<span style="color:blue;">level 1<span>)**        
-│   │   └── session.php 
-│   │
-│   └── helpers....................# **NO** helpers dir, but in zinc dir global abstract class **Config_allsites  (<span style="color:blue;">level 3<span>)** extends Db_allsites       
-│       └── examplehelper.php      
+│   │   └── session.php            
+│   │                     
+│   └── helpers....................# **NO** helpers dir, but in zinc dir global abstract classes Db_allsites and Config_allsites.          
+│       └── examplehelper.php.....# **NO** but own debugging and Xdebug php extension.              
 │      
 │       
 ├── **3. index.php**...................# redirects to main menu url fwphp/www/index.php        
@@ -61,8 +66,8 @@
 │   └── vendor           
 │     
 │         
-└── .htaccess...................# **NO** .htaccess (Apache mod_rewrite) URL rewriting all requests to MVC endpoint (single module entry point) index.php.            
-                      .....................# B12phpfw has **QS=?** constant instead.       
+└── .htaccess...................# **NO** .htaccess (Apache mod_rewrite) URL rewriting all requests to MVC endpoint index.php            
+                      .....................# (single module entry point). B12phpfw has **QS=?** constant instead.       
 
 **Common fw dir structure are items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites.      
 See Mini3 PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good coding). My **routing using key-values** is different but dispatching using home class methods is based on Mini3. 
