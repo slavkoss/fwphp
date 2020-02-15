@@ -10,7 +10,7 @@
 3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**        
 
 
-## 1\.3 B12phpfw directory structure compared to (all ?) other PHP fw-s
+## 1\.3 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
 
 **(Apache) WEB SERVER DOCROOT**, my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/         
 │  or **TEST DOCROOT** J:\\xampp\\htdocs ee http://localhost:8083/, or  **PRODUCTION (DEMO) DOCROOT**      
@@ -82,7 +82,7 @@ B12phpfw is very diferent than all other PHP frameworks because dirs are like Or
 
 
 
-## 1\.4 B12phpfw core UML diagram
+## 1\.4 B12phpfw core UML diagram - classes structure
 
 ![B12phpfw core UML diagram](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
 <br /><br />
