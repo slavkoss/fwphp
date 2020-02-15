@@ -9,7 +9,6 @@ if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 $dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ; 
 $pp1 = (object) //=properties global array (like Oracle Forms property palette)
 [   'dbg'=>'1', 'caller'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
-  , 'vendor_namesp_prefix' => 'B12phpfw'
   //1.1
   , 'module_towsroot'=>'../../../../../' //to web server doc root or our doc root by ISP
   //1.2

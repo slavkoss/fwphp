@@ -27,7 +27,7 @@ $autoloader = new Autoload($pp1);
                    ,'where am I'=>'AFTER  A u t o l o a d'
                 ] ) ; }
 //3. process request from ibrowser & send response to ibrowser :
-$db = new Home_ctr($pp1) ; // "inherits" index.php ee inherits $pp1
+$db = new Home_ctr($pp1) ; // Home_ ctr "inherits" index.php ee inherits $pp1
 
 exit(0);
 

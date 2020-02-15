@@ -152,13 +152,21 @@ abstract class Config_allsites extends Db_allsites
       {
         if (isset($uri_qrystring_arr[$ii + 1])) {
           $uriq[$uri_qrystring_arr[$ii]] = $uri_qrystring_arr[++$ii] ;
-        } else {
+        }
+        else {
           if (!isset($uri_qrystring_arr[0]) or !$uri_qrystring_arr[0] ) 
-             {$uriq = ['i' => 'home'] ; } //means url is module utl
+             {$uriq = ['i' => 'home'] ; } //means url is module`s url
         }
       } endfor;
       $this->uriq = (object)$uriq ;
       // **************************** E N D  R O U T I N G
+
+      /**
+      *           **** 2. D I S P A T C H I N G
+      * is in module`s Home_ctr because code here is global for all sites
+      */
+
+
 
         $pp1 = (array)$pp1 ;
         $pp1 += [ 

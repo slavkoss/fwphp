@@ -1,54 +1,79 @@
-# PHP menu & CRUD code skeleton (I named it B12phpfw)
-### Demo site - free hosting with free Mysql
+# 1. PHP menu & CRUD code skeleton (I named it B12phpfw)
+## 1\.1 Demo site - free hosting with free Mysql
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu- fast, stable) 
 2. or  http://phporacle.heliohost.org/ (heliohost - slow, stable)
 3. My blog : http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
      
-### Download and install code from here
+## 1\.2 Download and install code from here
 1. https://github.com/slavkoss/fwphp - PHP code here is good for (more) large sites
 2. In webserver doc root - my is J:\xampp\htdocs  or virtual host  J:\awww\www
 3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**        
 
 
-<br />        
+## 1\.3 B12phpfw directory structure compared to (all ?) other PHP fw-s
 
-├── **fwphp** (app)...............# Main MVC dirs structure, my J:\awww\www\fwphp\ = Apache_docroot\fwphp.        
-│   │                            ................# Contains **module groups eg glomodul, www (main menu) ...**. Namespace is only one: B12phpfw           
-│   ├── Controllers...............# **NO M,V,C dirs but dirs are like Oracle FORMS form module .fmb !** ee NO Controllers directory       
-│   │   └── example.php.........# Example Controller with functionality explanation       
-│   ├── Models.....................# **NO M,V,C dirs** ee NO Models directory       
+├── **1. fwphp** (app)...............# **or SITE1, or APLications** = Main MVC site dirs structure, my J:\awww\www\fwphp\ = Apache_docroot\fwphp.        
+│   │                            ................# Contains **MODULE GROUPS** eg APLication1, 2..  eg glomodul, www (main menu), finance, material...       
+│   │                          ..................#  fwphp is optional name. Namespace is only one: B12phpfw.            
+│   ├── Controllers................# **NO M,V,C dirs (ee NO Controllers dir) but dirs are like Oracle FORMS form module .fmb  !**         
+│   │   └── example.php.........# Example Controller with basic functionality explanation. Start here learning !         
+│   │                               ...........#  My is https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/01vanilla       
+│   │         
+│   ├── Models......................# **NO M,V,C dirs** ee NO Models directory       
 │   │   └── example.php........# Example Model with functionality explanation       
+│   │                               ...........#  My is https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/01vanilla       
+│   │         
 │   └── Views.......................# **NO M,V,C dirs** ee NO Views directory, no template engines, PHP is template language        
-├── **zinc** (core)...................# Basically mvc engine directory (zinc is good for search  -:) ). Here is class **Autoload**.       
-│   │                            ...............# Namespace is only one: B12phpfw.               
-│   ├── app.php....................# **NO** Main fw file. $app = new App();  $app->autoload(); $app->config(); $app->start();       
-│   │               ........# is nice abstraction but with questionable value in real life programming. Where is UML diagram for this beauty ?        
+│        
+│        
+├── **2. zinc** (core)...................# Basically mvc engine directory. zinc is for search more selective than core  -:).                  
+│   │                ......................# Here are **class Autoload and other all sites global classes** and some public resources (some are in vendor dir).            
+│   ├── app.php....................# **NO** Main fw file. **$app = new App();  $app->autoload(); $app->config(); $app->start();**       
+│   │                .......................# is nice abstraction but with questionable value in real life programming. Where is UML diagram for this beauty ?        
+│   │                .......................# I think much better is **new Home\_ctr($pp1) ** // Home\_ ctr "inherits" index.php ee "inherits" $pp1,      
+│   │                ......................# (global & module prroperties palette array) but also inherits see B12phpfw core UML diagram below.      
+│   │             
 │   ├── classes.....................# **NO** classes directory for autoloading.         
 │   │   │            .....................#B12phpfw global classes are in zinc dir, module clses are in module dir.       
-│   │   ├── controller.php......# **NO** but in module dir DISPATCHER class **Home_ctr  (level 4)** extends Config_allsites           
-│   │   └── model.php............# **NO** but in zinc dir global abstract class **Db_allsites  (level 2)** extends Dbconn_allsites             
-│   ├── config......................# **NO** config dir but in zinc dir abstract class **Config_allsites** extends Db_allsites            
-│   │   │               ..................# (see core UML diagram). Here is property palette and R O U T I N G.         
-│   │   ├── database.php........# **NO** but in zinc dirabstract class **Dbconn_allsites  (level 1)**        
-│   │   └── session.php          
-│   └── helpers....................# **NO** helpers dir, but in zinc dir abstract class **Config_allsites  (level 3)** extends Db_allsites       
+│   │   ├── controller.php......# **NO** but **in module dir global abstract DISPATCHER (RESPONSE) class**             
+│   │   │           ........# **Home\_ctr  (<span style="color:blue;">level 4<span>)** extends Config\_allsites         
+│   │   └── model.php............# **NO, no model class for each table** but **in zinc dir global abstract CRUD class Db_allsites  (<span style="color:blue;">level 2<span>)** extends Dbconn_allsites             
+│   │                       ..................# In Db_allsites are **cc, rr, uu, dd methods** instead model class for each table !        
+│   │                       ..................# cc, rr, uu, dd methods are like Oracle Forms pre-insert, pre- and execute- query, pre-update instead model class for each table !         
+│   │                       ..................# To me seem model class for each table and ORM-s, active records not needed.         
+│   │       
+│   ├── config......................# **NO** config dir but **in zinc dir global abstract CONFIG & ROUTING (REQUEST) class**            
+│   │   │          .......................# **Config_allsites  (level 3)** extends Db_allsites (see core UML diagram). Here is property palette array.           
+│   │   ├── database.php........# **NO** but in zinc dirabstract class **Dbconn_allsites  (<span style="color:blue;">level 1<span>)**        
+│   │   └── session.php 
+│   │
+│   └── helpers....................# **NO** helpers dir, but in zinc dir global abstract class **Config_allsites  (<span style="color:blue;">level 3<span>)** extends Db_allsites       
 │       └── examplehelper.php      
-├── **index.php**...................# redirects to main menu url fwphp/www/index.php        
-├── **vendor** (public) .........# dir for all public resources, javascript files, stylesheets and vendor plugins.            
+│      
+│       
+├── **3. index.php**...................# redirects to main menu url fwphp/www/index.php        
+│      
+│         
+├── **4. vendor** (public) .........# dir for public resources, javascript files, stylesheets and vendor plugins.            
 │   │                                 ...........#  B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
 │   ├── javascripts               
 │   ├── stylesheets                
 │   └── vendor           
-└── .htaccess...................# **NO** htaccess rewriting (Apache mod_rewrite) all requests to MVC endpoint /index.php.            
-                      .....................# B12phpfw has **QS** constant.       
+│     
+│         
+└── .htaccess...................# **NO** .htaccess (Apache mod_rewrite) URL rewriting all requests to MVC endpoint (single module entry point) index.php.            
+                      .....................# B12phpfw has **QS=?** constant instead.       
 
-**Common fw dir structure - items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites.      
+**Common fw dir structure are items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites.      
 See Mini3 PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good coding). My **routing using key-values** is different but dispatching using home class methods is based on Mini3. 
 See to simple examples and have no namespaces  : very good coding : https://github.com/ngrt/MVC_todo or https://github.com/DawidYerginyan/simple-php-mvc/ or mani others.      
 
 B12phpfw is very diferent than all other PHP frameworks because dirs are like Oracle FORMS form module .fmb and other mentioned above.      
 
-<br /><br />
+
+
+## 1\.4 B12phpfw core UML diagram
+
 ![B12phpfw core UML diagram](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
 <br /><br />
 
@@ -78,7 +103,18 @@ Explanations below are far less important than demo site and code download menti
          '-._____.-' 
 
 
-## 1\. [Git SCM distributed version control system](https://git-scm.com/downloads)
+
+
+
+
+
+
+# 2\. My developing environment (IDE)
+
+
+
+
+## 2\.1 [Git SCM distributed version control system](https://git-scm.com/downloads)
 
 see  https://git-scm.com/book/en/v2   or eg  https://git-scm.com/docs/git-checkout         
 
@@ -148,7 +184,7 @@ Save your .git/config before, and restore it after. (I delete it in recycle bin)
 
   
   
-# 2\. Development environment & source code
+## 2\.2 Development environment & source code
 
 My PHP IDE is **Symenu** as launcher for all SW (portable if possible) below :
 
@@ -161,8 +197,7 @@ My PHP IDE is **Symenu** as launcher for all SW (portable if possible) below :
 4.  **DEPLOY (INSTALL)**: Composer  
     Git and Github
 
-[Composer](https://getcomposer.org/download/)
----------------------------------------------
+##  2\.3 [Composer](https://getcomposer.org/download/)
 
 I use newest XAMPP 64 bit xampp-portable-windows-x64-7.3.7-1-VC15.7z on newest Windows 10, 64 bit. WAMP not any more because is not fully portable and Composer needs coding displayed below and it is only for Windows. It seems WAMP is not giving newest/simplest solutions as XAMPP does.
 
@@ -185,7 +220,7 @@ I use newest XAMPP 64 bit xampp-portable-windows-x64-7.3.7-1-VC15.7z on newest W
         ```
 
 
-## Free hosting with free MySql (or Mariadb) DB
+## 2\.4 Free hosting with free MySql (or Mariadb) DB
 **Demo site** free hosting where blog (msg) module is installed **http://phporacle.eu5.net/ (freehostingeu) or  http://phporacle.heliohost.org/ (heliohost) **. Some details are to do in version 6.1 but all important is visible in version 6.0.      
 I do not like heliohost activity requirement: "you must visit your site each month" or will be suspended for inactivity after 30 days. They should allow for ever free sites useful for sharing knowledge. I like heliohost simple, clever, very useful pages. I do not like freehostingeu feature "upload zip files not allowed".   
 
@@ -203,16 +238,16 @@ Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/
 
 
   
-  # 3\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
-May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX .
+# 3\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
+May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX . Only Javascript I need is dialog yes or no.
 
-# B12phpfw code snippets
+## B12phpfw code snippets
 ### B12phpfw core UML diagram - classes attributes & methods (made with Symenu yEd)
-CRUD db tables rows modules like my msg (blog) should be based on code skeleton shown in  UML diagram below. Non CRUD modules like my mnu and msg : without such code skeleton **may be code is simpler ?** If mnu module (which is links to pages / modules) needs CRUD functionality (I think never needs), we should base it on code skeleton shown in  UML diagram below. Both global db classes are ~400 lines, global config class is ~400 lines - they are so small that may be included in any module. Msg (blog) module has no problem, but in Mnu module global ftr.php displays: Fatal error: Uncaught Error: Using $this when not in object context in J:\awww\www\zinc\ftr.php       
+CRUD db tables rows modules like my msg (blog) should be based on code skeleton shown in  UML diagram. Non CRUD modules like my mnu and mkd : without such code skeleton **may be code is simpler ?** If mnu module (which is links to pages / modules) needs CRUD functionality (I think never needs), we should base it on code skeleton shown in  UML diagram. Both global db classes are ~400 lines, global config class is ~400 lines - they are so small that may be included in any module. Interesting detail: Msg (blog) module has no problem, but in Mnu module global ftr.php displays: Fatal error: Uncaught Error: Using $this when not in object context in J:\awww\www\zinc\ftr.php       
 
 
 <br /><br />
-$do_pgntion attribute in class Dbconn_allsites is used in **module msg ee blog**  fwphp\glomodul\blog, in home.php, home_side_area.php and dashboard.php eg so :     
+$do\_pgntion attribute in class Dbconn\_allsites is used in **module msg ee blog**  fwphp\glomodul\blog, in home.php, home_side_area.php and dashboard.php eg so :     
 ```
 self::$do_pgntion = '1'; //command for all tables global read fn "rr" to read paginated ee to read rows block (recordset)
 $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
@@ -236,7 +271,7 @@ DISPATCHER  includes, calls and **http jumps only to other module**. So **we may
 
 **cc, rr, uu, dd** rows CRUD methods are used for all tables !!
 
-## B12phpfw module code snippets - module bootstrap, configuration, router, dispatcher
+# 3\. 1 B12phpfw module code snippets - module bootstrap, configuration, router, dispatcher
 Two module scripts and four scripts global for all sites are  B12phpfw (programming **skeleton** for links =menus and CRUD). Like any good programing **templates** (**framework**) it is not easy to understand them but is very useful !!
 
 ### BLOG (MSG) MODULE SCRIPT 1:   index.php
@@ -369,7 +404,7 @@ private function del_row_do() //used for all  t a b l e s !!
 ...
 ```
 
-## B12phpfw core code snippets
+# 3\.2 B12phpfw core code snippets
 
 
 
@@ -911,7 +946,9 @@ https://github.com/TRPB/ImmutableMVC
 
 
 
-> B12phpfw means: B=table rows blocks for CRUD like in Oracle Forms eg invoice.fmb master (B1) and detail rows (B2).  
-> 12 = steps of code flow must be clear, good explained.  **cs01 means code flow step 1.**
-> phpfw = PHP framework = code skeleton for menus & CRUD (and many other functionalities, I never understood fw authors explanations which is one of reasons why I do not believe them).  
-> (font **Century Gothic 16**)
+> B12phpfw means: B=table rows blocks for CRUD like in Oracle Forms eg invoice.fmb master (B1) and detail rows (B2).     
+> 12 = steps of code flow must be clear, good explained.  **cs01 means code flow step 1.**       
+> phpfw = PHP framework = code skeleton for menus & CRUD (and many other functionalities,      
+
+I never understood enough fw authors explanations which is one of reasons why I do not believe them).   (font Century Gothic 16)      
+

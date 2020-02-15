@@ -20,8 +20,8 @@ class Home_ctr
                 'email' => 'john@example.com',
                 'age' => 29,
                 'country' => 'USA'
-            ],
-            (object) [
+            ]
+          , (object) [
                 'first_name' => 'Mary',
                 'last_name' => 'Moe',
                 'email' => 'mary@example.com',
@@ -34,6 +34,7 @@ class Home_ctr
         echo View::render('home.php', ['users' => $users]);
     }
 
+    // rr
     public function get_user()
     {
         $users = array();
@@ -42,6 +43,7 @@ class Home_ctr
         return View::render('home.php', ['users' => $users]);
     }
 
+    // cc
     // public function create_user()
     // {
     //     $user = (object) [
@@ -54,5 +56,9 @@ class Home_ctr
 
     //     User::create($user);
     // }
+
+    // uu
+
+    // dd
 
 }

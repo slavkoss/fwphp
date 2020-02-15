@@ -55,8 +55,8 @@ class Request_response //Route
       /**
       *           **** 2. D I S P A T C H I N G
       */
-      $obj = new $ctr();
-      $obj->$akc($uriq) ; //uriq = URL query array
+      $obj = new $ctr();  //eg Home_ctr
+      $obj->$akc($uriq) ; //eg index, uriq = URL query array
       // **************************** E N D  D I S P A T C H I N G
                               if ('1') { echo __METHOD__ .', line '. __LINE__ .' SAYS: REQUESTED ROUTE ';
                                 echo '<br />self::$dbg_htm=' . self::$dbg_htm ; 
