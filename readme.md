@@ -11,10 +11,12 @@
 
 
 ## 1\.3 B12phpfw directory structure compared to (all ?) other PHP fw-s
-
-├── **1. fwphp** (app)...............# **or SITE1, or APLications** = Main MVC site dirs structure,               
+** (Apache) web server docroot, my J:\awww\www ee http://localhost:8083/ or http://dev1:8083/**        
+│      ...... see https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php           
+│       
+├── **1. fwphp** (app)...............# **or SITE1, or APLications1** = Main MVC site dirs structure,               
 │   │                            ................# my J:\awww\www\fwphp\ = Apache_docroot\fwphp.         
-│   │                            ................# Contains **MODULE GROUPS** eg APLication1, 2..  eg glomodul, www (main menu), finance, material...       
+│   │                            ................# Contains **MODULE GROUPS** eg APLication1, 2..  eg  **www** (main menu), **glomodul**, **finance**, **material**...       
 │   │                          ..................#  fwphp is optional name. Namespace is only one: B12phpfw.            
 │   ├── Controllers................# **NO M,V,C dirs (ee NO Controllers dir) but dirs are like Oracle FORMS form module .fmb  !**         
 │   │   └── example.php.........# Example Controller with basic functionality explanation. Start here learning !         
@@ -59,7 +61,7 @@
 ├── **3. index.php**...................# redirects to main menu url fwphp/www/index.php        
 │      
 │         
-├── **4. vendor** (public) .........# dir for public resources, javascript files, stylesheets and vendor plugins.            
+├── **4. vendor** (public) .........# dir for external code (vendor's plugins) & resources :  javascript files, stylesheets.            
 │   │                                 ...........#  B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
 │   ├── javascripts               
 │   ├── stylesheets                
