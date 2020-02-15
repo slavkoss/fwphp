@@ -12,9 +12,9 @@
 
 ## 1\.3 B12phpfw directory structure compared to (all ?) other PHP fw-s
 
-** (Apache) web server docroot, my development site J:\\awww\\www ee http://dev1:8083/  **        
-│  **or test site J:\\xampp\\htdocs ee http://localhost:8083/**, see       
-│ http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php
+**(Apache) WEB SERVER DOCROOT**, my **DEVELOPMENT SITE** J:\\awww\\www ee http://dev1:8083/         
+│  or **TEST SITE** J:\\xampp\\htdocs ee http://localhost:8083/, or  **PRODUCTION (DEMO) SITE**      
+│ http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php or **code**           
 │ https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php           
 │       
 ├── **1. fwphp** (app)...............# **or SITE1, or APLications1** = Main MVC site dirs structure,               
