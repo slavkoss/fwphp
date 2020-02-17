@@ -2,7 +2,8 @@
 ## 1\.1 Demo site - free hosting with free Mysql
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu- fast, stable) 
 2. or  http://phporacle.heliohost.org/ (heliohost - slow, stable)
-3. My blog : http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
+3. My blog :  http://phporacle.altervista.org/13-php-7-4-2-bootstrap-4-3-1-laravel-6-12-crud-tutorial/  
+    and  http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
      
 ## 1\.2 Download and install code from here
 1. https://github.com/slavkoss/fwphp - PHP code here is good for (more) large sites
@@ -70,7 +71,7 @@ https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_
 |      
 |         
 |-- **4. vendor** (public)   # dir for external code (vendor's plugins) & resources :  javascript files, stylesheets.            
-|   |                        #  B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
+|   |                        # B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
 |   |-- javascripts          
 |   |-- stylesheets          
 |   |__ vendor           

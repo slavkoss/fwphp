@@ -10,6 +10,7 @@ https://appdividend.com/2019/09/12/laravel-6-crud-example-laravel-6-tutorial-for
 
 https://github.com/KrunalLathiya/Laravel6CRUDExample     
 
+My blog : http://phporacle.altervista.org/13-php-7-4-2-bootstrap-4-3-1-laravel-6-12-crud-tutorial/
 http://dev1:8083/fwphp/glomodul/blog/?i/read_post/id/43#crequest  is URL to show this article in my Blog (Msg module).         
 
 
@@ -20,7 +21,10 @@ http://dev1:8083/fwphp/glomodul/blog/?i/read_post/id/43#crequest  is URL to show
 #### [7. RvDisplayresponse](#vresponse)      [8. CUD](#upd)     [9. D](#del) 
 ## Install Laravel 6.12
 #### **composer create-project --prefer-dist laravel/laravel laravel6**          
-~ 130 MB      
+~ 130 MB - one of reasons **why I do not like such developing SW (included is Oracle Forms)**. If error - how debug 130 MB ?        
+B12phpfw has 20-30 kB code to debug (few hundert lines) using own debugging and Xdebug which both work excellent.      
+If there were somebody who guaranties support (for many years) then huge developing SW would be better.
+Stories about security... are not true - we only need good help about implement security and some features (which is difficult to find).
 
 cd J:\\xampp\\htdocs\\laravel6\\       
 install the frontend dependencies :         
@@ -621,3 +625,8 @@ Laravel 6 continues the improvements made in Laravel 5.8 by introducing the foll
 7. The extraction of frontend scaffolding to the laravel/ui Composer package
 
 https://appdividend.com/2018/10/31/how-to-use-php-in-visual-studio-code/  - For PHP Developers.      
+
+See https://github.com/slavkoss/fwphp/ (J:\awww\www\readme.md).
+
+B12phpfw does not use jQuery and AJAX, see examples in
+https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/AJAX
