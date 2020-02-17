@@ -1,9 +1,0 @@
-
-/.idea
-**/.DS_Store
-/Vendor/*
-!Vendor/composer
-!Vendor/autoload.php
-/Logs/*
-/Webroot/uploads/*
-!**/.gitkeep

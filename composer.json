@@ -1,16 +1,21 @@
 {
     "name": "slavkoss/fwphp",
-    "description": "Modern, small, simple, fast and I hope well explained PHP framework",
-    "keywords": ["CMS", "CRUD", "PHP", "framework", "markdown"],
+    "description": "Modern, small, simple, fast, well explained PHP framework",
+    "keywords": ["blog", "CMS", "CRUD", "PHP", "framework", "markdown"],
     "license": "MIT",
     "type": "project",
-  "autoload": {
+    "authors": [
+        {"name": "Slavko Srakocic, Zagreb Croatia"},
+        {"name": "The Community"}
+    ],
+    "autoload": {
     "psr-4": {
       "B12phpfw\\": ["", "zinc/", "fwphp/"]
     }
   },
   "require": {
-      "php2wsdl/php2wsdl": "^0.6"
+      "php": "^5.6 || ~7.4.0"
     , "erusev/parsedown": "^1.7"
+    , "php2wsdl/php2wsdl": "^0.6"
   }
 }
