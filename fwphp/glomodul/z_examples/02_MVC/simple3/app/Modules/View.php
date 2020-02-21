@@ -1,4 +1,5 @@
-<?php namespace app\Modules;
+<?php
+namespace app\Modules;
 
 class View 
 {

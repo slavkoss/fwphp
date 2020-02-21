@@ -7,13 +7,21 @@
   class Core {
     // Set Defaults
     protected $currentController = 'Pages'; // Default controller
-    protected $currentMethod = 'index'; // Default method
-    protected $params = []; // Set initial empty params array
+    protected $currentMethod = 'index';     // Default method
+    protected $params = [];                 // Set initial empty params array
 
-    public function __construct(){
+    public function __construct()
+    {
       $url = $this->getUrl();
       // Look in controllers folder for controller
-      if(file_exists('../app/controllers/'.ucwords($url[0]).'.php')){
+      if ( isset($url[0])
+           and file_exists(
+            '../app/controllers/'.ucwords($url[0]).'.php'
+          )
+      )
+      {
+        //Notice: Trying to access array offset on value of type null in \shareposts\app\libraries\Core.php on line 16
+        
         // If exists, set as controller
         $this->currentController = ucwords($url[0]);
         // Unset 0 index

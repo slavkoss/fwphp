@@ -1,4 +1,6 @@
 <?php
+
+//       NO NAMESPACES !!!!!!!!!
 define('WEBROOT', str_replace("Webroot/index.php", "", $_SERVER["SCRIPT_NAME"]));
 define('ROOT', str_replace("Webroot/index.php", "", $_SERVER["SCRIPT_FILENAME"]));
 if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR); //dirname, basename

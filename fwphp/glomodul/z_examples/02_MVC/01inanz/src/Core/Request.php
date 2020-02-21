@@ -90,16 +90,16 @@ class Request
  
     private function getUrlParts()
     {
-        $url = str_replace(APP_INNER_DIRECTORY, null, $this->getServer('REQUEST_URI'));
+        $url = str_replace(MODULE_RELPATH, null, $this->getServer('REQUEST_URI'));
         $urlParts = explode('/', $url);
         $urlParts = array_filter($urlParts);
         $urlParts = array_values($urlParts);
                           if ('1') { echo '<pre>'.__FILE__ .', lin='. __LINE__
                           //if ($module_arr['dbg']) { echo '<pre>'.__FILE__ .', lin='. __LINE__
                           .'<br />     <b>*** '.__METHOD__ .'  SAYS *** šđčćž</b> '
-                          .'APP_INNER_DIRECTORY is module relative path (below web server doc root) eg /mix/mvc'
+                          .'MODULE_RELPATH is module relative path (below web server doc root) eg /mix/mvc'
                           ;
-                          print '<br />APP_INNER_DIRECTORY='; print_r(APP_INNER_DIRECTORY);
+                          print '<br />MODULE_RELPATH='; print_r(MODULE_RELPATH);
                           print '<br />$this->getServer(\'REQUEST_URI\') ='; print_r($this->getServer('REQUEST_URI'));
                           print '<br />$url ='; print_r($url);
                           print '<br />$urlParts ='; print_r($urlParts);

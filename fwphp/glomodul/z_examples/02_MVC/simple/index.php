@@ -5,6 +5,7 @@
  * Author: Dawid Yerginyan
  */
 
+//       NO NAMESPACES !!!!!!!!!
 require __DIR__ . '/core/app.php';
 
 $app = new App();

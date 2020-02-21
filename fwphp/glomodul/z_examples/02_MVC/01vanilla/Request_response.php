@@ -58,17 +58,17 @@ class Request_response //Route
       $obj = new $ctr();  //eg Home_ctr
       $obj->$akc($uriq) ; //eg index, uriq = URL query array
       // **************************** E N D  D I S P A T C H I N G
-                              if ('1') { echo __METHOD__ .', line '. __LINE__ .' SAYS: REQUESTED ROUTE ';
-                                echo '<br />self::$dbg_htm=' . self::$dbg_htm ; 
-                                echo '<pre>' ;
-                                echo '<br />$_SERVER[\'REQUEST_URI\']=$REQUEST_URI='; print_r($REQUEST_URI) ;
-                                echo '<br />$uri_qrystring='; print_r($uri_qrystring) ;
-                                echo '<br />$uri_qrystring_arr='; print_r($uri_qrystring_arr) ;
-                                echo '<br />$this->uriq='; print_r($uriq) ;
-                                echo '<br />$ctr='; print_r($ctr) ;
-                                echo '<br />$akc='; print_r($akc) ;
-                                echo '</pre>';
-                              }
+            if ('1') { echo __METHOD__ .', line '. __LINE__ .' SAYS: REQUESTED ROUTE ';
+              echo '<br />self::$dbg_htm=' . self::$dbg_htm ; 
+              echo '<pre>' ;
+              echo '<br />$_SERVER[\'REQUEST_URI\']=$REQUEST_URI='; print_r($REQUEST_URI) ;
+              echo '<br />$uri_qrystring='; print_r($uri_qrystring) ;
+              echo '<br />$uri_qrystring_arr='; print_r($uri_qrystring_arr) ;
+              echo '<br />$this->uriq='; print_r($uriq) ;
+              echo '<br />$ctr='; print_r($ctr) ;
+              echo '<br />$akc='; print_r($akc) ;
+              echo '</pre>';
+            }
     }
 }
 

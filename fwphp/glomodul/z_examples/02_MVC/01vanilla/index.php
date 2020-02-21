@@ -8,11 +8,13 @@ if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 //1.
 $dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ; 
 $pp1 = (object) //=properties global array (like Oracle Forms property palette)
-[   'dbg'=>'1', 'caller'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+[   'dbg'=>'1'
+  , 'caller'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
   //1.1
   , 'module_towsroot'=>'../../../../../' //to web server doc root or our doc root by ISP
   //1.2
-  , 'module_version'=>'1.0.0.0 Vanilla php fw', 'vendor_namesp_prefix'=>'B12phpfw'
+  , 'module_version'=>'1.0.0.0 Vanilla php fw'
+  , 'vendor_namesp_prefix'=>'B12phpfw'
   //1.3
   , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
         str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path (CONVENTION!!)
