@@ -15,7 +15,7 @@ class League extends AbstractController
         return parent::getView(
             __METHOD__ ,
             [
-                'title' => APP_NAME.' - Home',
+                'title' => MODULE_NAME.' - Home',
                 'header' => 'League list',
                 'league_list' => 'A B C',
             ]

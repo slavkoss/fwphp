@@ -17,9 +17,9 @@ class Request
         array $files = []
     ) {
         $this->server = $server;
-        $this->post = $post;
-        $this->get = $get;
-        $this->files = $files;
+        $this->post   = $post;
+        $this->get    = $get;
+        $this->files  = $files;
     }
  
     public function getServer($index = null)
@@ -49,17 +49,17 @@ class Request
  
         // If controller name is not set in URL return default one
         if (!isset($urlParts[0])) {
-            return APP_CONTROLLER_NAMESPACE.APP_DEFAULT_CONTROLLER;
+            return MODULE_CTR_NAMESPACE.MODULE_CTR_DEFAULT;
         }
  
         // If controller exists in system then return it
-        if (class_exists(APP_CONTROLLER_NAMESPACE.$urlParts[0])) {
-            return APP_CONTROLLER_NAMESPACE.$urlParts[0];
+        if (class_exists(MODULE_CTR_NAMESPACE.$urlParts[0])) {
+            return MODULE_CTR_NAMESPACE.$urlParts[0];
         }
  
         // Otherwise
         http_response_code(404);
-        throw new Exception(sprintf('Controller cannot be found: [%s]', APP_CONTROLLER_NAMESPACE.$urlParts[0]), 404);
+        throw new Exception(sprintf('Controller cannot be found: [%s]', MODULE_CTR_NAMESPACE.$urlParts[0]), 404);
     }
  
     public function getMethod($controller)
@@ -68,7 +68,7 @@ class Request
  
         // If controller method is not set in URL return default one
         if (!isset($urlParts[1])) {
-            return APP_DEFAULT_CONTROLLER_METHOD.APP_CONTROLLER_METHOD_SUFFIX;
+            return MODULE_CTR_DEFAULT_METHOD.MODULE_CTR_METHOD_SUFFIX;
         }
  
         // If controller method name pattern is invalid
@@ -122,6 +122,6 @@ class Request
             }
         }
  
-        return $method.APP_CONTROLLER_METHOD_SUFFIX;
+        return $method.MODULE_CTR_METHOD_SUFFIX;
     }
 }

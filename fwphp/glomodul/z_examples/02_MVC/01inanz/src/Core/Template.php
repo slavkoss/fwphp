@@ -11,7 +11,7 @@ class Template
  
     public function __construct()
     {
-        $this->viewPath = sprintf($this->viewPath, APP_ROOT);
+        $this->viewPath = sprintf($this->viewPath, MODULE_PATH);
     }
  
     public function getView($controller, array $variables = [])
@@ -50,7 +50,7 @@ class Template
             }
         }
  
-        $variables['application_name'] = APP_NAME;
+        $variables['application_name'] = MODULE_NAME;
  
         return $variables;
     }
@@ -64,6 +64,6 @@ class Template
  
     private function getFile($controller)
     {
-        return str_replace(APP_CONTROLLER_METHOD_SUFFIX, null, $controller);
+        return str_replace(MODULE_CTR_METHOD_SUFFIX, null, $controller);
     }
 }
