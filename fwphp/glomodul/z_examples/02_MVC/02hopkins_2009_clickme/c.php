@@ -16,8 +16,11 @@ class c
 
   public function clicked() {
     $this->m->data = (object)
-    [   'lnk_txt' => 'CLICK ME AGAIN '
-      , 'txtdata' => '- DATA FLOW STEP 2: ctr fn c.clicked() has updated mdl $data based on url get parameter "action" (which is ctrakcmethod name) and SAYS :<br />  CLICK ME AGAIN. <br />URL for this page is :  http://dev1:8083/aplw/tests/L1hopkins_2009_clickme/?action=clicked'
+    [
+       'lnk_txt' => 'CLICK ME AGAIN '
+
+      , 'txtdata' => '<b>DATA FLOW STEP 2 (in c): ctr fn c.clicked() has updated mdl $data based on url get parameter "action"</b> (which is ctrakcmethod name) and SAYS :<br />  CLICK ME AGAIN.
+      <br />URL of this page (relative to web server doc root) is : ' . $_SERVER['REQUEST_URI']
     ] ;
   }
  

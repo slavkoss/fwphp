@@ -25,7 +25,7 @@
     <!-- Title, Custom css -->
 
     <!-- get attrib. APP_ NAME (short), APP_ TITLE (long)
-         VENDOR_ NS = VENDOR NAMESPACE PREFIX, NOT DIR 
+         VENDOR_ NS = VENDOR NAME SPACE PREFIX, NOT DIR 
          pp = array of iniparams
     -->    
     <title>Clickme</title>
@@ -51,10 +51,10 @@
         data-toggle="collapse" data-target="#topFixedNavbar1" 
         aria-expanded="false">
       <span class="sr-only">Toggle navigation</span>
-Menu<span class="glyphicon glyphicon-chevron-down"></span>
+        Menu in <?=basename(__FILE__)?> <span class="glyphicon glyphicon-chevron-down"></span>
       </button>
         
-        <a class="navbar-brand" href="#">B12phpfw</a>
+        &nbsp;<a class="navbar-brand" href="#">B12phpfw</a>
       </div>
       
       
@@ -79,7 +79,7 @@ Activities<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">Camping</a></li>
               <li><a href="#">Hiking</a></li>
-              <li><a href="#">Birdwatching</a></li>
+              <li><a href="#">Walking &amp; Nature watching</a></li>
               </ul>
             </li>
             
@@ -119,9 +119,10 @@ About</a></li>
     
 <?=__FILE__.' SAYS:<br />'?>
     
-     <p><b>1. Hello World example</b> We don't have any Controller-specific functionality if we don't have any USER INTERACTIONS defined with our app ($_GET(), $_POST) - View holds all of the functionality as the example is purely for display purposes. </p>
+     	  <p><br>1. if we don't have any USER INTERACTIONS defined with $_GET(), $_POST&nbsp; 
+	 than we don't have any Controller-specific functionality - View holds all of the functionality as the example is purely for display purposes. </p>
      
-     <p><b>2. Clickme example</b> added functionality to the controller, thereby adding INTERACTIVITY to the app. </p>
+     <p><b>2. This Clickme example</b> added functionality to the controller, thereby adding INTERACTIVITY to the app. </p>
      
      
 
@@ -346,8 +347,8 @@ class v
 // 4. index.php
 // J:\awww\www\fwphp\glomodul4\help_sw\test\01_MVC_learn\02hopkins_2009_clickme\index.php
 
-namespace B12phpfw\clickmeModule ; //FUNCTIONAL NAMESPACING (not dir names ee positional)
-// USE is not needed if all scripts have same namespace !
+namespace B12phpfw\clickmeModule ; //FUNCTIONAL NAME SPACING (not dir names ee positional)
+// USE is not needed if all scripts have same name space !
 
 //Instead  require 'm.php'; require 'v.php';  require 'c.php'; :
 
@@ -432,6 +433,312 @@ echo $v->out($ctrakcmethod);</pre>
           jquery-2.1.1.min.js
   --> 
   <script src="/zinc/themes/bootstrap/js/bootstrap.min.js"></script>
+ 
+ 
+</div>
+<h1>Building a Basic Blog Domain Model</h1>
+<p>Defining the relationships between domain objects, as well as their own 
+rules, data, and behavior is up to the developer.<br>Good OOP practices : 
+involved objects have just a few, well-defined responsibilities, and <strong>
+model</strong> doesn't get its pristine (clean, pure) ecosystem <strong>polluted 
+with database logic</strong>. Add to this that shifting the model from one 
+infrastructure to another can be done in a fairly painless fashion, and you'll 
+get to see why this approach is very appealing when developing applications that 
+must scale well.</p>
+<p>************************* 11111 **********************<br>
+http://www.sitepoint.com/building-a-domain-model/ February 24, 2012 By Alejandro 
+Gervasio<br><br>//HOW TO CONSUME MODEL - Putting the Domain Model to Work<br>
+//blog domain model : underlying INTERFACES AND CLASSES living in happy 
+ignorance about the existence of any type of persistence mechanism that may be 
+implemented down the line, be it a database, a web service, or anything else<br>
+//network of rules and rich relationships with each other<br>//current domain 
+object implementations can be replaced with custom ones without much fuss<br>
+<br>In this case each object graph is spawned by using plain Dependency 
+Injection, which is sufficient for demonstrative purposes.<br><br>If the 
+situation warrants, however, object graph creation should be delegated to more 
+versatile structures, such as a Dependency Injection Container or a Service 
+Locator. In either case, at this point the model is already doing its business 
+as expected.<br><br><br>************************* 22222 **********************<br>
+https://www.sitepoint.com/integrating-the-data-mappers/ March 16, 2012 By 
+Alejandro Gervasio<br><br>Basic mapping module which will allow you to move data 
+easily between the blog's model and a MySQL database, all while keeping them 
+neatly isolated from one other.<br><br>We'll be trying to connect a batch of 
+mapping classes to a blog's domain model.<br><br>1. Idea is to set up from 
+scratch a basic Data Access Layer (DAL) so that domain objects can easily be 
+persisted in a MySQL database, and in turn, retrieved on request through some 
+generic finders.<br><br>DAL in question will be made up of just a couple of 
+components: the first one will be a simple database adapter interface, whose 
+contract is interface DatabaseAdapterInterface. Contract allows us to create 
+different database adapters at runtime and perform a few common tasks, such as 
+connecting to the database and running CRUD operations without much fuss.<br>
+<br>2. Now we need at least one implementer of the interface that does all these 
+cool things. The proud cavalier that will assume this responsibility will be a 
+non-canonical class PdoAdapter implements DatabaseAdapterInterface.<br><br><br>
+3.<br></p>
+<pre>ALTER TABLE `admins` ADD `email` VARCHAR(60) NULL AFTER `username`; 
+CREATE TABLE posts (
+id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+title VARCHAR(100) DEFAULT NULL,
+content TEXT,
+
+PRIMARY KEY (id)
+);
+
+CREATE TABLE users (
+id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+name VARCHAR(45) DEFAULT NULL,
+email VARCHAR(45) DEFAULT NULL,
+
+PRIMARY KEY (id)
+);
+
+CREATE TABLE comments (
+id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+content TEXT,
+user_id INTEGER DEFAULT NULL,
+post_id INTEGER DEFAULT NULL,
+
+PRIMARY KEY (id),
+FOREIGN KEY (user_id) REFERENCES users(id),
+FOREGIN KEY (post_id) REFERENCES posts(id)
+);</pre>
+<p>At this point we've implemented a simple DAL which we can use for persisting 
+the blog's domain model in MySQL without sweating too much during the process. 
+Now we need to add the middle men to the picture, that is data mappers, so any 
+impedance mismatches can be handled quietly behind the scenes.<br><br>
+Implementing a Bi-directional Mapping Layer - relational mappers<br>
+*******************************************<br>Quite a ways away from being 
+trivial. That's why ORM libraries like Doctrine live.<br><br>4. Encapsulating as 
+much mapping logic as possible within abstract class AbstractDataMapper<br>- 
+couple of generic finders, all of the logic required for pulling in data from a 
+specified table, which is then used for reconstituting domain objects in a valid 
+state. Because reconstitutions should be delegated down the hierarchy to refined 
+implementations, the createEntity() method has been declared abstract.<br><br>5. 
+Set of concrete mappers that will deal with blog posts, comments, and u sers :<br>
+1. PostMapperInterface and class PostMapper extends AbstractDataMapper 
+implements PostMapperInterface <br>2. CommentMapperInterface and class 
+CommentMapper extends AbstractDataMapper implements CommentMapperInterface<br>3. 
+UserMapperInterface and class UserMapper extends AbstractDataMapper implements 
+UserMapperInterface<br><br>PostMapper extends its abstract parent and injects in 
+the constructor a comment mapper (still undefined), in order to handle in sync 
+both posts and comments without revealing to the outside world the complexities 
+of creating the whole object graph.<br><br>CommentMapper class behaves quite 
+similar to its sibling PostMapper. In short, it asks for a user mapper in the 
+constructor, so that a specific comment can be tied up to the corresponding 
+commenter.<br><br>We build up from scratch an easy-to-manage mapping layer, 
+capable of moving data back and forward between a simplistic blog domain model 
+and MySQL.<br><br>Mapping the Blog's Domain Objects to and from the DAL<br>
+*****************************************************<br>Mappers' APIs do the 
+actual hard work and HIDE UNDERLYING DB FROM MODEL. This ability, though, is 
+best appreciated from app. layer's perspective. Let's wire up all the mapper 
+graphs together:<br><br><br><br>************************* 33333 
+**********************<br>
+https://www.sitepoint.com/community/t/would-you-agree-this-is-the-definition-of-a-php-framework/191138<br>
+If you have to write your own code to call the framework components, then it is 
+not a framework, it is a library. A &quot;true&quot; FRAMEWORK IS MINI-APPLICATION TO 
+GENERATE AND RUN YOUR APP COMPONENTS.<br><br>Eg templating libraries to deal 
+with creating markup, image libraries...<br><br>Framework brings together all 
+(or most) of the common functionality needed to build an app<br>- usually 
+providing a more consistent API <br>- and often some of the boilerplate code to 
+wire components together<br>- GENERATE AND RUN YOUR APP COMPONENTS fw definition 
+is more definition of a Rapid Application Development (likely where Radicore 
+gets its name) RAD framework, which is a PARTICULAR KIND OF FRAMEWORK, some of 
+which allow u sers to build (or, more accurately, customize) an application via 
+a GUI WITHOUT HAVING TO KNOW HOW TO PROGRAM. Of course, the apps you can build 
+with such a framework are limited by the supplied components. I doubt you would 
+be able to build an online image editing app, for example, using Radicore.<br>
+<br>--------------------------------------------<br>What is SW fw (Software 
+framework)<br>--------------------------------------------<br><br>- provides a 
+STANDARD WAY TO BUILD and deploy applications<br><br>- is abstraction in which 
+SW providing GENERIC FUNCTIONALITY can be selectively applied / changed<br>by 
+additional user-written code, thus providing application-specific SW <br><br>- 
+is universal, REUSABLE SW environment that provides particular functionality as 
+part of a larger SW platform to facilitate development of SW applications<br>
+<br>- key distinguishing features that separate SW fw from SW libraries<br>
+-----------------------------------------------------------------<br>- IoC 
+(INVERSION OF CONTROL) is key difference to a library:<br>IoC is about who 
+initiates control messages - DOES YOUR CODE CALL INTO A FW,<br>or does it plug 
+something into a framework, and then the framework calls back?<br>Hollywood 
+principle &quot;Don't call us, we'll call you (details).&quot;<br>Eg game knows when a 
+player can make decisions and prompts the player <br>accordingly, rather than 
+the player making the decision.<br><br>Unlike in (set of) libraries intended to 
+provide reuse<br>or in normal user apps, CODE FLOW (OF CONTROL MESSAGES) IN SW 
+FW<br>IS DICTATED BY SW FW, not by the caller method<br><br>If you're using a 
+library, objects and methods implemented by the library<br>are instantiated and 
+invoked by your custom app.<br>You need to know which objects to instantiate / 
+call. <br><br>If you're using a framework, you implement objects and methods <br>
+that are custom to your app and they are instantiated and invoked by fw.<br>Fw 
+defines the flow of control for app - embodies some abstract design,<br>with 
+more behavior built in. In order to use it you need to insert <br>your behavior 
+into various places in the framework either by subclassing <br>or by plugging in 
+your own classes. Fw code then calls your code at these points.<br><br>Term IoC 
+was getting overloaded with different meanings - was the reason<br>Fowler coined 
+the term DIP (DEPENDENCY INVERSION PRINCIPLE - EARLY '90s).<br>About libraries 
+vs fws, inversion he's talking about is Hollywood principle<br>&quot;Don't call us, 
+we'll call you (details).&quot;<br>
+https://martinfowler.com/articles/dipInTheWild.html 21 May 2013<br>Inversion is 
+BOTTOMS UP DESIGN - reversal of direction in TOP-DOWN DESIGN : <br>high-level 
+design described by smaller parts <br>and therefore it directly depends on them.<br>
+Eg business requirement of reporting on energy savings depends on <br>gathering 
+data, which depends on executing Sql. Dependencies follow<br>how the problem is 
+decomposed. The more detailed something is, <br>the more likely it will change. 
+We have a high-level idea depending <br>on something that is likely to change.<br>
+<br>In 2004, Martin Fowler published an article on Dependency Injection (DI) <br>
+and Inversion of Control (IoC) . Is the DIP the same as DI, or IoC?<br>No, but 
+they play nice together. When Robert Martin first discussed DIP,<br>he equated 
+it a first-class combination of the Open Closed Principle<br>and Liskov 
+Substitution Principle, important enough to warrant its own name.<br><br>DI is 
+about wiring, IoC is about direction, and DIP is about shape.<br><br>Dependency 
+Injection is about how one object knows about another, dependent object<br>
+(master table does not know about its details which have FK - knowlege about 
+master).<br>DI is about how one object acquires a dependency.<br><br>IoC is 
+about who initiates the call. If your code initiates a call, it is not IoC, if 
+the container/system/library calls back into code that you provided it, is it 
+IoC.<br><br>DIP is about the level of the abstraction in messages sent from your 
+code<br>to the thing it is calling. To be sure, using DI or IoC with DIP<br>
+tends to be more expressive, powerful and domain-aligned,<br>but they are about 
+different dimensions, or forces, in an overall problem.<br><br>Several examples 
+that all share common thread: raising abstraction level<br>of a dependency to be 
+closer to the domain, as limited by system needs.<br><br>Hide DB Behind 
+Something Domain-related<br>A repository is a gateway to a conceptual (maybe 
+actual) potentially<br>large collection of durable objects. Typical interface 
+might include<br>basic CRUD operations (assuming the domain calls for them) but 
+then we'll<br>add methods that make sense for the needs of the system.<br><br>
+<br><br><br>Domain analysis is a form of Modeling. A key thing about modeling,<br>
+is that you are only considering details that are important.<br>Domain here is 
+limited by some feature set rather than <br>a mythical domain that exists 
+outside of such context.<br>In a sense, this is YAGNI applied to domain 
+analysis.<br><br>Not &quot;best practices&quot;, but good ideas for a given context<br>
+Design principles<br>Should be &quot;violated&quot; sometimes<br>Are often conflicting (at 
+odds) with each other<br>Often mix together for something even better than when 
+used in isolation<br>Often overlap with other ones<br>There are no free lunches, 
+all abstractions have a cost<br><br>Like the term &quot;best practices&quot; I wonder if 
+&quot;design principles&quot; even makes <br>sense as a nikname (moniker = often a 
+shortened name). <br>In the case of the SOLID principles, I think of them more 
+as up front ideas<br>that I often come back to due to familiarity. I often fall 
+back into<br>the basics like COHESION and COUPLING, adding another level of 
+indirection.<br>By calling something a principle, when I'm pragmatic I will 
+probably <br>Preferable is to REPLACE &quot;PRINCIPLE&quot; WITH GUIDELINE.<br><br>Whether 
+we call something a principle or a guideline, the ability to make<br>an informed 
+decision to disregard a design principle (a so-called Journeyman<br>behavior 
+according to The Seven Stages of Expertise in Software<br>
+http://www.wayland-informatics.com/The%20Seven%20Stages%20of%20Expertise%20in%20Software.htm),<br>
+is a good place to strive towards.<br><br><br><br><br>DIP like SOLID (five 
+design principles intended to make software designs more<br>understandable, 
+flexible and maintainable) is simple to state but deep<br>in its application. 
+SOLID is subset of many principles stated by Robert C. Martin.<br>1. Single 
+responsibility principle - class should only have single r.<br>that is, only 
+changes to one part of the software's specification<br>should be able to affect 
+the specification of the class.<br>2. Open-closed principle SW entities... 
+should be open for extension,<br>but closed for modification.<br>3. Liskov 
+substitution principle - Objects in a program should be <br>replaceable with 
+instances of their subtypes without altering<br>the correctness of that program. 
+See also design by contract.<br>4. Interface segregation principle - Many 
+client-specific interfaces<br>are better than one general-purpose interface.<br>
+5. Dependency inversion principle - One should &quot;depend upon abstractions,<br>
+[not] concretions<br><br>See also https://en.wikipedia.org/wiki/SOLID :<br>Code 
+reuse<br>Inheritance (object-oriented programming)<br>Package principles<br>DRY 
+Don't repeat yourself<br>GRASP (object-oriented design, not related to the SOLID 
+design principle)<br>General Responsibility Assignment Software Patterns (or 
+Principles).<br>Guidelines for assigning responsibility to classes and objects 
+in OO Design.<br>KISS principle (keep it simple, stupid - minimalist concept)<br>
+YAGNI (You aren't gonna need it - šta æe vam to npr excell a ne pdf izvještaji)<br>
+- preprogramiravanje i preprojektiranje.<br>Always implement things when you 
+actually need them,<br>never when you just foresee that you need them.<br>YAGNI 
+is a principle of XP (extreme programming),<br>type of agile software 
+development.<br>https://en.wikipedia.org/wiki/Extreme_programming<br><br><br>- 
+HAS DEFAULT BEHAVIOR: must be some useful behavior and not a series of no-ops.<br>
+<br>- NON-MODIFIABLE FW CODE: u sers should not modify SW fw code but can extend 
+it<br><br>- EXTENSIBILITY: can be extended by the user usually by selective 
+overriding<br>or specialized by user code to provide specific functionality<br>
+<br>Component = Module like Oracle Forms .fmb<br>---------<br>- tight group of 
+related classes tasked with accomplishing a single task.<br>- components should 
+be independent<br>- should SHARE A NAME SPACE so their classes don't need to 
+make use statements<br>to address each other.<br>A task too small for a 
+component is likely going to fall to a single class.<br><br>Symfony's 
+HttpFoundation is a good example - providing a basic I/O framework.<br>It's not 
+just used by Symfony, but also by Drupal 8, Laravel and Silex (that I know of).<br>
+<br>Packages or Bundles<br>-------------------<br>Packages are groups of related 
+components. Twig is one example. Unlike a component<br>which is usually a more 
+or less drop it in decision, Packages tend to have more<br>far reaching effects 
+on the application since taking advantage of them will<br>require some 
+forethought and outside code will need to be aware of their API.<br><br>The 
+smallest frameworks and the largest packages is a very blurry line,<br>
+frameworks style themselves to be more complete solutions than packages tend to 
+be.<br><br>Frameworks<br>----------<br>Frameworks provide a road map to solving 
+a particular type of problem. There are<br>- general purpose frameworks - 
+Symfony<br>- frameworks devoted to small scale websites - Silex<br>- and 
+everywhere in between<br><br>What makes Frameworks distinct from packages is 
+they:<br><br>Have a distinct over arching paradigm, either Model-View-Controller 
+or Model-View-Presenter<br>Have components and packages to implement the areas 
+of that paradigm.<br>Have a configuration methodology set up in PHP or non-PHP 
+files, usually XML or INI or YAML.<br><br>Largest frameworks are almost 
+indistinguishable from apps and are ready to go from install,<br>but the 
+distinguishing line here is whether a non-programmer can be expected<br>to set 
+the code up and get it running. If not then, no matter how large <br>and 
+featured it is, it's still a framework, not an app.<br><br>More framework can 
+do, harder it is to customize it. This isn't always true though,<br>and it also 
+depends on what area of the app is being customized.<br>The best frameworks 
+tolerate having their components and packages switched out<br>though the 
+incoming packages will usually need a wrapper of some sort especially<br>if the 
+interface in that area hasn't been standardized.<br><br>Apps<br>----<br>If a 
+non-programmer can be expected to install and configure the app<br>without 
+touching a single line of code then it's an App.<br><br>Drupal 8 is one example, 
+and a rather huge one at that.<br>Apps may or may not have further customization 
+possible, most popular ones have.<br>The smaller apps out there can be smaller 
+than some frameworks.<br><br>The distinctive feature of an app is INSTALLER CODE 
+that<br>- creates DB<br>- writes config file<br>- overall automates the setup 
+process for a non-programmer user<br>Frameworks don't have these though they 
+might have tools for handling some parts<br>of the install process, like 
+creating blank model classes, route files or the like.<br><br>Increasingly in 
+the PHP world the leading applications bring together<br>components and packages 
+from various vendors.<br>The only major PHP project that doesn't anymore is 
+WordPress which can get away<br>with this largely due to its marketshare - even 
+then I've seen Wordpress plugins<br>make use of component libraries. Given time 
+even Wordpress will probably evolve<br>over, though it's going to have to get 
+rid of its horrid &quot;The Loop&quot; to do so.<br><br><br><br>************************* 
+44444 **********************<br>
+http://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html<br>
+08 May 2014 by Robert C. Martin (Uncle Bob)<br><br>Breaking up a large piece of 
+code<br>=================================<br>into snippets : &quot;sections&quot; 
+&quot;modules&quot; or &quot;classes&quot;.<br><br>Code is not responsible for bug fixes or 
+refactoring but programmer is.<br><br>To isolate your modules from the 
+complexities of the organization,<br>ee design your systems such that each 
+module is responsible (responds to)<br>the needs of just that one business 
+function. :<br><br>SRP (SINGLE RESPONSIBILITY PRINCIPLE) is about people<br>
+(single person or tightly coupled group of people<br>representing a single 
+narrowly defined business function)<br>who request method changes (many cooks 
+spoil soup).<br><br>Uncle Bob is saying that SRP has replaced SoC (SEPARATION OF 
+CONCERNS) <br>because SRP now includes ideas of Coupling and Cohesion which SoC 
+did not.<br><br>Ee:<br>Gather together the things that CHANGE FOR THE SAME 
+REASONS (PEOPLE !).<br>Separate those things that change for different reasons.<br>
+This is just another way to define cohesion and coupling. <br>We want to 
+increase the cohesion between things that change for the same reasons,<br>and we 
+want to decrease the coupling between those things that change for different 
+reasons.<br><br>Remember that the reasons for change are people. It is people 
+who request changes.<br>And you don't want to confuse those people, or yourself, 
+by mixing together <br>code that many different people care about for different 
+reasons.<br><br>This is the reason we SEPARATE CONCERNS (relevant things - 
+responsibilities).<br>Concern can be as general as details of HW the code is 
+being <br>optimized for, or as specific as name of a class to instantiate.<br>- 
+we do not put SQL in JSPs<br>- we do not generate HTML in the modules that 
+compute results<br>- business rules should not know the database schema<br><br>
+Eg :<br>public class Employee {<br>public Money calculatePay(); //how much 
+particular employee should be paid<br>public void savePay(); //stores data 
+managed by Employee object onto enterprise DB<br>public String reportHours(); 
+//returns string worked_number_of_hours<br>}<br>CEO = chief executive officer = 
+chief operating officer = managing director<br>=corporate&nbsp;executive 
+responsible&nbsp;for the operations of the firm; reports to a board&nbsp;of&nbsp;directors; may 
+appoint other managers (including a president)<br>Reporting to that CEO are 
+C-level executives eg : <br>CFO = responsible for controlling the FINANCES of 
+the company eg for calculatePay()<br>COO = responsible for managing the 
+OPERATIONS of the company eg for reportHours()<br>CTO = responsible for the 
+TECHNOLOGY infrastructure and development eg for savePay()<br><br>3-Tier 
+Architecture - separating GUI logic, business logic and database logic<br>is 
+sufficient to satisfy SRP. <br><br><br>Classes contain one method each, and each 
+method contains one line of code :<br>- broken encapsulation<br>- low cohesion<br>
+- high coupling<br>SRP == SoC + Coupling + Cohesion<br><br><br><br><br><br>
+http://github.com/webengfhnw/WE-CRM<br></p>
  
  
 </body>  
