@@ -29,12 +29,14 @@ class Autoload
 
      $caller        = $this->pp1->caller ; //$ctr = $this->autoload_ arr['controller'] ;
 
+     //NOT INCLUDED CANDIDATE C L S  S C R I P T S
+     //$cls_script_path_toinc 
 
      // *******************************************
      //1. C L S SCRIPT IN MODULE DIR MUST BE FIRST (inheritance - instantiates also parent) :
      // *******************************************
      $modulecls_script_path = str_replace(
-           $vendornsp.'\\'
+           $vendornsp .'\\'
          , $this->pp1->module_path_arr[0]
                //, str_replace(DIRECTORY_SEPARATOR,'/', $this->pp1->module_path_arr[0])
          , $nsclsname 

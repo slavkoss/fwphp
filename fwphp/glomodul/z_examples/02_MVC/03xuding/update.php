@@ -1,9 +1,4 @@
 <?php
-//defined('ROOTDIR') or define('ROOTDIR',$_SERVER['DOCUMENT_ROOT']);
-//require_once(ROOTDIR.'/inc/confglo.php');
-require_once(__DIR__.'/confglo.php');
-require_once __DIR__.'/database.php';
- 
     $id = null;
     if ( !empty($_GET['id'])) {
         $id = $_REQUEST['id'];
@@ -20,9 +15,9 @@ require_once __DIR__.'/database.php';
         $mobileError = null;
          
         // keep track post values
-        $name = $_POST['user_name'];
-        $email = $_POST['user_email'];
-        $mobile = $_POST['user_telefon'];
+        $name = $_POST['username'];
+        $email = $_POST['email'];
+        $mobile = ''; //$_POST['user_telefon'];
          
         // validate input
         $valid = true;
@@ -39,52 +34,31 @@ require_once __DIR__.'/database.php';
             $valid = false;
         }
          
-        if (empty($mobile)) {
+        /* if (empty($mobile)) {
             $mobileError = 'Please enter Mobile Number';
             $valid = false;
-        }
+        } */
          
-        // update data
+        // update data   , user_telefon =?
         if ($valid) {
-            $pdo = Database::connect();
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE users set user_name = ?, user_email = ?
-                    , user_telefon =? WHERE user_id = ?";
+            $sql = "UPDATE admins set username = ?, email = ? WHERE id = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($name,$email,$mobile,$id));
+            $q->execute(array($name,$email,$id)); //,$mobile
             Database::disconnect();
             header("Location: index.php");
         }
     } else {
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM users where user_id = ?";
+        $sql = "SELECT * FROM admins where id = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
-        $name = $data['user_name'];
-        $email = $data['user_email'];
-        $mobile = $data['user_telefon'];
+        $name = $data['username'];
+        $email = $data['email'];
+        $mobile = ''; //$data['user_telefon'];
         Database::disconnect();
     }
 ?>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    
-    <!--link   href="css/bootstrap.min.css" rel="stylesheet"-->
-      <link href="<?= CSSURL.'/bootstrap.min.css' ?>" 
-            rel="stylesheet" type="text/css">
-    <!--script src="js/bootstrap.min.js"></script-->
-    <script src="<?= JSURL.'/bootstrap.min.js' ?>"></script>
-    
-</head>
- 
-<body>
     <div class="container">
      
       <div class="span10 offset1">
@@ -93,12 +67,12 @@ require_once __DIR__.'/database.php';
           </div>
    
           <form class="form-horizontal"  method="post"
-                action="update.php?id=<?php echo $id?>">
+                action="index.php?u&id=<?php echo $id?>">
             
             <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
               <label class="control-label">Name</label>
               <div class="controls">
-                  <input name="user_name" type="text"  placeholder="Name" value="<?php echo !empty($name)?$name:'';?>">
+                  <input name="username" type="text"  placeholder="Name" value="<?php echo !empty($name)?$name:'';?>">
                   <?php if (!empty($nameError)): ?>
                       <span class="help-inline"><?php echo $nameError;?></span>
                   <?php endif; ?>
@@ -108,7 +82,7 @@ require_once __DIR__.'/database.php';
             <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
               <label class="control-label">Email Address</label>
               <div class="controls">
-                  <input name="user_email" type="text" placeholder="Email Address" value="<?php echo !empty($email)?$email:'';?>">
+                  <input name="email" type="text" placeholder="Email Address" value="<?php echo !empty($email)?$email:'';?>">
                   <?php if (!empty($emailError)): ?>
                       <span class="help-inline"><?php echo $emailError;?></span>
                   <?php endif;?>
@@ -133,5 +107,3 @@ require_once __DIR__.'/database.php';
       </div>
                  
     </div> <!-- /container -->
-  </body>
-</html>

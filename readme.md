@@ -11,41 +11,110 @@
 3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**        
 
 
-## 1\.3 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
-
- ## (Apache) WEB SERVER DOCROOT-s
+## 1\.3 B12phpfw directories (modules) structure
 See **info code :**        
 http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php       
 https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php        
 
-![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/         
- ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\xampp\\htdocs ee   http://localhost:8083/fwphp/www/        
+![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/   OR       
+ ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\xampp\\htdocs ee   http://localhost:8083/  OR       
  ![B12phpfw favicon PRODUCTION DOCROOT](B12phpfw_3PRODUCTION_DOCROOT.ico "B12phpfw_3PRODUCTION_DOCROOT.ico") **PRODUCTION (DEMO) DOCROOT** http://phporacle.eu5.net/       
 ```
 |       
+|-- **1. fwphp/** (app)      # Apache_docroot\fwphp. fwphp is optional name **or SITE1, or APLications1**
+|   |                        # my is J:\awww\www\fwphp\ . Namespace is only one: B12phpfw.         
+|   |                        # Contains **MODULE GROUPS** eg APLication1, 2, 3      
+|   |                        # **NO Models, Views, Controllers dirs**          
+|   |                        # but dirs are like Oracle FORMS form module.fmb !         
+|   |-- 01mater/ (or APPLication1) # modules group - material book keeping (not made here)      
+|   |-- 02financ/ (or apl2)  # modules group - financial book keeping (not made here)      
+|   |-- 03salary/  (or apl3) # modules group - not made here      
+|   |       
+|   |-- glomodul/  (or apl4) # module group - not application but group of appl not in 01, 02...     
+|   |   |-- lsweb/           # module - web server dirs navigation and run .html and .php scripts in ibrowser
+|   |   |-- mkd/             # module - WYSIWYG web editor, 
+|   |   |                    # NOT ON B12PHPFW CODE SKELETON, BUT SIMILAR
+|   |   |       
+|   |   |-- blog/            # module (subgroup). It is LIKE ORACLE FORMS .FMB :         
+|   |   |    |-- class Home_ctr in class script Home_ctr.php = CONTROLLER   
+|   |   |    |-- VIEW scripts (not view classes !) to be included in Home_ctr
+|   |   |                    # 2 masters, detail, subdetail :
+|   |   |-- user/            # module - master 1 - Home_ctr.php and VIEW scripts like blog module
+|   |   |-- post_category/   # module - master 2 - Home_ctr.php and VIEW scripts
+|   |   |-- post/            # module - detail - relations M : 1 user,  M : 1 post_category
+|   |   |-- post_comment/    # module - subdetail - relation M : 1 post.
+|   |   |
+|   |   |-- z_examples/      # module (subgroup) - LEARNING EXAMPLES. Eg :
+|   |   |   |-- 02_MVC/      #  OOP and MVC learn
+|   |   |       |-- 03xuding/.. # **STEP BY STEP SHOWS WHY AND HOW TO USE B12PHPFW**
+|   |   |       |            # Simple, small, elegant code. I improved it (?) in step 1 and 2.
+|   |   |       |            # https://www.startutorial.com/articles/view/php-crud-tutorial-part-1, 2, 3
+|   |   |       |-- Mini3 PHP fw # ...\fwphp\glomodul\adrs  https://github.com/panique/mini3
+|   |   |                    # Excellent rare not to simple MVC example (lot of good coding). 
+|   |   |                    # My **routing using key-values** is different but dispatching 
+|   |   |                    # using home class methods is based on Mini3. 
+|   |   |
+|   |   |-- z_help/          # module (subgroup) - (static) pages
+|   |         
+|   |-- www/  (old apl5/)    # main menu - (static) pages, 
+|                            # NOT ON B12PHPFW CODE SKELETON, BUT SIMILAR
+|        
+|        
+|-- **2. zinc/** (core)      # MVC engine directory.  zinc is for search more selective than core  -:).                  
+|   |    |                   # Here are dirs img, lang, theme,  global classes (for all sites)**,                  
+|   |    |-- img/           
+|   |    |-- lang/           
+|   |    |-- themes/         # some public resources (some are in vendor dir - optional, as we wish).         
+|   |    |-- class Autoload in class script Autoload.php           
+|   |    |-- class Dbconn_allsites in class script Dbconn_allsites.php
+|   |    |-- class Db_allsites in class script Db_allsites.php   
+|   |    |-- class Config_allsites in class script Config_allsites.php   
+|   |    |-- class Pgn in class script Pgn.php - PAGINATION   
+|   |    |-- hdr.php, ftr.php
+|   |    |-- showsource.php
+|   |        
+|   |             
+|-- **3. index.php**         # redirects to main menu url fwphp/www/index.php        
+|      
+|         
+|-- **4. vendor** (public)   # dir for external code (vendor's plugins) & resources :  javascript files, stylesheets.            
+|   |                        # B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
+|   |-- erusev (parsedown markdown to html)         
+|   |-- php2wsdl          
+|   |-- simplemde WYSIWYG editor for markdown (or Summernote for html)         
+|     
+```
+
+## 1\.4 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
+```
+One of (Apache) WEB SERVER DOCROOT-s (see B12phpfw directories (modules) structure)
+|       
+|       
 |-- **1. fwphp** (app)       # **or SITE1, or APLications1** = Main MVC site dirs structure,               
 |   |                        # my J:\awww\www\fwphp\ = Apache_docroot\fwphp         
-|   |                        # Contains **MODULE GROUPS** eg APLication1, 2.  eg  **www** (main menu), **glomodul**, **finance**, **material**          
-|   |                                            #  fwphp is optional name. Namespace is only one: B12phpfw.            
-|   |-- Controllers          # **NO M,V,C dirs (ee NO Controllers dir) but dirs are like Oracle FORMS form module .fmb  !**         
+|   |                        # Contains **MODULE GROUPS** eg APLication1, 2.  eg  **www** (main menu), **glomodul**,       
+|   |                        # **finance**, **material**. fwphp is optional name. Namespace is only one: B12phpfw.            
+|   |-- Controllers          # **NO M,V,C dirs (ee Controllers) but dirs are like Oracle FORMS form module.fmb  !**         
 |   |   └── example.php      # Example Controller with basic functionality explanation. Start here learning !         
-|   |                        #  My is https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/01vanilla       
-|   |         
+|   |                        # My is https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/       
+|   |                        # (03xuding, 01vanilla...)
+|   |       
 |   |-- Models               # **NO M,V,C dirs** ee NO Models directory       
 |   |   └── example.php      # Example Model with functionality explanation       
-|   |                        #  My is https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/01vanilla       
+|   |                        #  My is .../fwphp/glomodul/z_examples/02_MVC/01vanilla       
 |   |         
-|   |__ Views                # **NO M,V,C dirs** ee NO Views directory, no template engines, PHP is template language        
+|   |__ Views                # **NO M,V,C dirs** ee NO Views directory, no template engines (PHP is template language)        
 |        
 |        
 |-- **2. zinc** (core)       # Basically mvc engine directory. zinc is for search more selective than core  -:).                  
 |   |                        # Here are **class Autoload and other all sites global classes** and some public resources                 
 |   |                        # (some are in vendor dir).            
-|   |-- app.php              # **NO** Main fw file. **$app = new App();  $app->autoload(); $app->config(); $app->start();**       
-|   |                        # is nice abstraction but with questionable value in real life programming.                 
+|   |-- app.php              # **NO** Main fw file. nice abstraction (questionable value in real life programming) :       
+|   |                        # **$app = new App();  $app->autoload(); $app->config(); $app->start();**       
 |   |                        # Where is UML diagram for this beauty ?        
-|   |                        # I think much better is **new Home\_ctr($pp1) ** // Home\_ ctr "inherits" index.php ee "inherits" $pp1,      
-|   |                        # (global & module prroperties palette array) but also inherits see B12phpfw core UML diagram below.      
+|   |                        # I think much better is **new Home\_ctr($pp1) ** // Home\_ ctr "inherits" index.php       
+|   |                        # ee "inherits" $pp1, (global & module prroperties palette array),       
+|   |                        # but also inherits see B12phpfw core UML diagram below.      .      
 |   |             
 |   |-- classes              # **NO** classes directory for autoloading.         
 |   |   |                    # B12phpfw global classes are in zinc dir, module clses are in module dir.       
@@ -59,7 +128,8 @@ https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_
 |   |                        # To me seem model class for each table and ORM-s, active records not needed.         
 |   |       
 |   |-- config               # **NO** config dir but **in zinc dir global abstract CONFIG & ROUTING (REQUEST) class**            
-|   |   |                    # **Config_allsites  (level 3)** extends Db_allsites (see core UML diagram). Here is property palette array.           
+|   |   |                    # **Config_allsites  (level 3)** extends Db_allsites (see core UML diagram). 
+|   |   |                    # Here is property palette array.           
 |   |   |-- database.php     # **NO** but in zinc dirabstract class **Dbconn_allsites  (<span style="color:blue;">level 1<span>)**        
 |   |   |__ session.php            
 |   |                     
@@ -91,7 +161,9 @@ B12phpfw is very diferent than all other PHP frameworks because dirs are like Or
 
 
 
-## 1\.4 B12phpfw core UML diagram - classes structure
+## 1\.5 B12phpfw core UML diagram - classes structure
+For programmer this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ?     
+Because of **reuse code in 3 classes (globals)** above Home_ctr, ee we must not write in each Home_ctr class code in 3 classes above.
 
 ![B12phpfw core UML diagram](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
 <br /><br />

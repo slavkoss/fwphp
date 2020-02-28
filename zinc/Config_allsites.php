@@ -452,6 +452,36 @@ $navbar .= " <a class='button'
       //??? $this->i nisetses();
   }
 
+
+  public function print_objvars($obj)
+  {
+    foreach (get_object_vars($obj) as $prop => $val) {
+        echo "\t$prop = $val\n";
+    }
+  }
+
+  public function print_clsmethods($obj)
+  {
+    $arr = get_class_methods(get_class($obj));
+    foreach ($arr as $method) {
+        echo "\tfunction $method()\n";
+    }
+  }
+
+  public function class_parentage($obj, $class)
+  {
+    //To avoid "Undefined variable" error :
+    global $$obj;
+
+    if (is_subclass_of($GLOBALS[$obj], $class)) {
+        echo "Object $obj belongs to class " . get_class($GLOBALS[$obj]);
+        echo ", a subclass of $class\n";
+    } else {
+        echo "Object $obj does not belong to a subclass of $class\n";
+    }
+  }
+
+
   public function uname2clsses($username) { //was auth
     switch ($username) {
       case 'admin': //break;

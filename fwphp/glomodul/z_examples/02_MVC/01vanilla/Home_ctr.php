@@ -12,23 +12,22 @@ class Home_ctr
     public function index()
     {
         // $users = User::getAll();
-
-        $users = array(
-            (object) [
-                'first_name' => 'John',
-                'last_name' => 'Doe',
-                'email' => 'john@example.com',
-                'age' => 29,
-                'country' => 'USA'
-            ]
-          , (object) [
-                'first_name' => 'Mary',
-                'last_name' => 'Moe',
-                'email' => 'mary@example.com',
-                'age' => 32,
-                'country' => 'UK'
-            ]
-        );
+                      $users = array(
+                          (object) [
+                              'first_name' => 'John',
+                              'last_name' => 'Doe',
+                              'email' => 'john@example.com',
+                              'age' => 29,
+                              'country' => 'USA'
+                          ]
+                        , (object) [
+                              'first_name' => 'Mary',
+                              'last_name' => 'Moe',
+                              'email' => 'mary@example.com',
+                              'age' => 32,
+                              'country' => 'UK'
+                          ]
+                      );
 
         //return View::render('home.php', ['users' => $users]);
         echo View::render('home.php', ['users' => $users]);
@@ -37,8 +36,8 @@ class Home_ctr
     // rr
     public function get_user()
     {
-        $users = array();
         //$users[] = User::find(Params::get('id'));
+        $users = array();
 
         return View::render('home.php', ['users' => $users]);
     }

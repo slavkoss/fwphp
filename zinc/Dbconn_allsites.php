@@ -19,7 +19,7 @@ abstract class Dbconn_allsites
     private function __construct() {
     }
 
-    public static function get_or_new_dball($caller='')
+    public static function get_or_new_dball($caller='') //or connect
     {
       self::$dbi = 'mysql' ;
       if(is_null(self::$instance)) {
@@ -40,5 +40,9 @@ abstract class Dbconn_allsites
       return self::$dbi ;
     }
 
+    public static function disconnect()
+    {
+        self::$instance = null;
+    }
 
 }

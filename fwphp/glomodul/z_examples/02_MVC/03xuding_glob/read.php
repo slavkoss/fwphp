@@ -1,8 +1,4 @@
 <?php
-//defined('ROOTDIR') or define('ROOTDIR',$_SERVER['DOCUMENT_ROOT']);
-//require_once(ROOTDIR.'/inc/confglo.php');
-require_once(__DIR__.'/confglo.php');
-require_once __DIR__.'/database.php';
     $id = null;
     if ( !empty($_GET['id'])) {
         $id = $_GET['id'];
@@ -11,29 +7,14 @@ require_once __DIR__.'/database.php';
     if ( null==$id ) {
         header("Location: index.php");
     } else {
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM users where user_id = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id));
-        $row = $q->fetch(PDO::FETCH_ASSOC);
+                            $sql = "SELECT * FROM admins where id = ?";
+                            $q = $pdo->prepare($sql);
+                            $q->execute(array($id));
+                            $row = $q->fetch(PDO::FETCH_ASSOC);
         Database::disconnect();
     }
 ?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    
-    <!--link   href="css/bootstrap.min.css" rel="stylesheet"-->
-      <link href="<?= CSSURL.'/bootstrap.min.css' ?>" 
-            rel="stylesheet" type="text/css">
-    <!--script src="js/bootstrap.min.js"></script-->
-    <script src="<?= CSSURL.'/bootstrap.min.js' ?>"></script>
-</head>
- 
-<body>
+
     <div class="container">
      
       <div class="span10 offset1">
@@ -47,7 +28,7 @@ require_once __DIR__.'/database.php';
             <label class="control-label">Name</label>
             <div class="controls">
                 <label class="checkbox">
-                    <?php echo $row['user_name'];?>
+                    <?php echo $row['username'];?>
                 </label>
             </div>
           </div>
@@ -56,7 +37,7 @@ require_once __DIR__.'/database.php';
             <label class="control-label">Email Address</label>
             <div class="controls">
                 <label class="checkbox">
-                    <?php echo $row['user_email'];?>
+                    <?php echo $row['email'];?>
                 </label>
             </div>
           </div>
@@ -65,7 +46,7 @@ require_once __DIR__.'/database.php';
             <label class="control-label">Mobile Number</label>
             <div class="controls">
                 <label class="checkbox">
-                    <?php echo $row['user_telefon'];?>
+                    <?php //echo $row['user_telefon'];?>
                 </label>
             </div>
           </div>
@@ -79,5 +60,3 @@ require_once __DIR__.'/database.php';
     </div>
                  
     </div> <!-- /container -->
-  </body>
-</html>
