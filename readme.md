@@ -1,4 +1,6 @@
-# 1. PHP menu & CRUD code skeleton (I named it B12phpfw)
+<a name="top"></a>
+[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+# 1. My PHP menu & CRUD code skeleton (I named it B12phpfw)
 ## 1\.1 Demo site - free hosting with free Mysql
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu- fast, stable) 
 2. or  http://phporacle.heliohost.org/ (heliohost - slow, stable)
@@ -12,9 +14,13 @@
 
 
 ## 1\.3 B12phpfw directories (modules) structure
+<span id="directories"></span>
+[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 See **info code :**        
 http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php       
 https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php        
+
+B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CRUD code skeleton") because dirs are like Oracle FORMS form module .fmb and other mentioned below, see at this text end  [4.  **"What is SW fw"**](#swfw).     
 
 ![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/   OR       
  ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\xampp\\htdocs ee   http://localhost:8083/  OR       
@@ -32,7 +38,7 @@ https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_
 |   |       
 |   |-- glomodul/  (or apl4) # module group - not application but group of appl not in 01, 02...     
 |   |   |-- lsweb/           # module - web server dirs navigation and run .html and .php scripts in ibrowser
-|   |   |-- mkd/             # module - WYSIWYG web editor, 
+|   |   |-- mkd/             # module - plain text (markdown or html) WYSIWYG web editor, 
 |   |   |                    # NOT ON B12PHPFW CODE SKELETON, BUT SIMILAR
 |   |   |       
 |   |   |-- blog/            # module (subgroup). It is LIKE ORACLE FORMS .FMB :         
@@ -61,27 +67,27 @@ https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_
 |        
 |        
 |-- **2. zinc/** (core)      # MVC engine directory.  zinc is for search more selective than core  -:).                  
-|   |    |                   # Here are dirs img, lang, theme,  global classes (for all sites)**,                  
-|   |    |-- img/           
-|   |    |-- lang/           
-|   |    |-- themes/         # some public resources (some are in vendor dir - optional, as we wish).         
-|   |    |-- class Autoload in class script Autoload.php           
-|   |    |-- class Dbconn_allsites in class script Dbconn_allsites.php
-|   |    |-- class Db_allsites in class script Db_allsites.php   
-|   |    |-- class Config_allsites in class script Config_allsites.php   
-|   |    |-- class Pgn in class script Pgn.php - PAGINATION   
-|   |    |-- hdr.php, ftr.php
-|   |    |-- showsource.php
-|   |        
-|   |             
+|   |                        # Here are dirs img, lang, theme,  global classes (for all sites)**,                  
+|   |-- img/           
+|   |-- lang/           
+|   |-- themes/              # some public resources (some are in vendor dir - optional, as we wish).         
+|   |-- class Autoload in class script Autoload.php           
+|   |-- class Dbconn_allsites in class script Dbconn_allsites.php
+|   |-- class Db_allsites in class script Db_allsites.php   
+|   |-- class Config_allsites in class script Config_allsites.php   
+|   |-- class Pgn in class script Pgn.php - PAGINATION   
+|   |-- hdr.php, ftr.php
+|   |-- showsource.php
+|            
+|                
 |-- **3. index.php**         # redirects to main menu url fwphp/www/index.php        
 |      
 |         
-|-- **4. vendor** (public)   # dir for external code (vendor's plugins) & resources :  javascript files, stylesheets.            
+|-- **4. vendor/** (public)   # dir for external code (vendor's plugins) & resources :  JS files, stylesheets.            
 |   |                        # B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
-|   |-- erusev (parsedown markdown to html)         
-|   |-- php2wsdl          
-|   |-- simplemde WYSIWYG editor for markdown (or Summernote for html)         
+|   |-- erusev/ (parsedown markdown to html)         
+|   |-- php2wsdl/        
+|   |-- simplemde/ WYSIWYG editor for markdown (or Summernote for html)         
 |     
 ```
 
@@ -155,15 +161,19 @@ One of (Apache) WEB SERVER DOCROOT-s (see B12phpfw directories (modules) structu
 
 **Common fw dir structure are items in (...) and marked with NO - are not used in B12phpfw but basics are same**. B12phpfw is better for large sites.      
 See Mini3 PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good coding). My **routing using key-values** is different but dispatching using home class methods is based on Mini3. 
-See to simple examples and have no namespaces  : very good coding : https://github.com/ngrt/MVC_todo or https://github.com/DawidYerginyan/simple-php-mvc/ or mani others.      
+See to simple examples and have no namespaces  : very good coding : 
+1. https://github.com/ngrt/MVC_todo 
+2. or https://github.com/DawidYerginyan/simple-php-mvc/ 
+3. or my dir \02_mvc\ (\\fwphp\\glomodul\\z_examples\\02_mvc\\03xuding_glob\\) 
+4. or many others
 
-B12phpfw is very diferent than all other PHP frameworks because dirs are like Oracle FORMS form module .fmb and other mentioned above.      
 
 
+## <a name="uml"></a>1\.5 B12phpfw core UML diagram - classes structure
+[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
-## 1\.5 B12phpfw core UML diagram - classes structure
-For programmer this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ?     
-Because of **reuse code in 3 classes (globals)** above Home_ctr, ee we must not write in each Home_ctr class code in 3 classes above.
+For programmer this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ? Because we do not want write in each Home_ctr class code in 3 classes above.      
+Instead we **reuse code in 3 classes (globals)** above Home_ctr.     
 
 ![B12phpfw core UML diagram](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
 <br /><br />
@@ -200,8 +210,8 @@ Explanations below are far less important than demo site and code download menti
 
 
 
-# 2\. My developing environment (IDE)
-
+# <a name="ide"></a>2\. My developing environment (IDE)
+[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
 
 
@@ -245,7 +255,7 @@ git checkout HEAD index.html
 
 We can roll back our deleted files in working directory using command:      
 **git checkout -- .**    
-or git checkout -- <file>...         
+or git checkout -- filemame...         
 
 
 
@@ -329,7 +339,9 @@ Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/
 
 
   
-# 3\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
+# <a name="crud"></a>3\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
+  [Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+
 May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX . Only Javascript I need is dialog yes or no.
 
 ## B12phpfw code snippets
@@ -1035,6 +1047,40 @@ https://dev.to/jorgecc/a-minimalist-mvc-project-using-php-and-without-a-framewor
 
 https://github.com/TRPB/ImmutableMVC
 
+
+# <a name="swfw"></a>What is SW fw (Software framework)
+[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+
+See "What is SW fw (Software framework)" (using mkd in fwphp/glomodul/mkd/02/01\_fwphp/**PHP_DIP\_DI.txt/**)  which states :        
+
+1. Provides a STANDARD WAY TO BUILD and deploy applications     
+2. Is abstraction in which SW providing GENERIC FUNCTIONALITY can be selectively applied / supplemented (NOT changed!!) by user-written code, providing appl-specific SW.       
+   IoC  (inversion of control) is **key difference fw - library of reusable code** : does your code call into a fw, or does it plug something into fw, and then fw calls back ?      
+   Code flow (of control messages) in sw fw is dictated by sw fw, not by the caller method.
+3. Is universal, REUSABLE SW environment that provides particular functionality as part of a larger SW platform to facilitate development of SW applications     
+
+Code flow terms : DI is about **code flow tie - wiring**, IoC is about **code flow direction**, and DIP is about **code flow shape**.      
+
+1. DI (Dependency Injection) is about how one code object knows about another, dependent object (master table does not know about its details which have FK - knowlege about master).
+   DI is about **how dependent (lower) object acquires a dependency (higher) object**.      
+2. IoC (Inversion of Control) is about **who initiates the call**. If your code initiates a call, it is not IoC.     
+   If  the container/system/library/fw calls back into code that you provided, it is IoC.      
+   In B12phpfw OUR CODE in Home\_ctr extends Config\_allsites \_\_construct($pp1) contains code 
+   **$akc = $this->uriq->i ; $this->$akc() ; **   - it is in fact NOT OUR CODE but fw core code - pure IoC :
+    1. can easily be moved  in framework core (ee in parent constructor)
+    2. but is more clear then if it were (hidden) in parent constructor 
+    3. allows us to also, beside from fw core, call / include something (which will never be needed) 
+3. DIP (Dependency Inversion Principle) is about the **level of the abstraction** in messages sent from your code to the thing it is calling.       
+   Eg high-level module A --- uses ---> low-level module B.      
+   When applying DIP, both modules --- depend ---> on abstraction - interface, so A and B can be built, used, deployed independently    
+   (note that **in UML diagrams all arrows point to dependency**) 
+   Eg High-level module (your business logic) defines DB CRUD interface "ClientRepository" which contains the methods the business logic needs.     
+   Then a "MySQLClientRepository" DB CRUD concretion implements that interface and uses a database library to submit the queries.     
+   Because I did not yet realized ideas above, for now B12phpfw has : cc, rr, uu, dd methods which are global like in Oracle FORMS form module .fmb (using or not on-insert, on-update...)
+   Example in fwphp/glomodul/z_examples/02_mvc/domain_model/ seems to me tipical not enough explained strong talk, week doing (not suitable for each form in own dir) :        
+   http://www.sitepoint.com/building-a-domain-model/  February 24, 2012  By Alejandro Gervasio - last cry in frameworks night      
+   or interesting project : http://github.com/webengfhnw/WE-CRM - last cry in frameworks night
+To be sure, use DI or IoC with DIP.     
 
 
 > B12phpfw means: B=table rows blocks for CRUD like in Oracle Forms eg invoice.fmb master (B1) and detail rows (B2).     

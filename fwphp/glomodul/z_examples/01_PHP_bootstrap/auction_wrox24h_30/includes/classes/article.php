@@ -1,6 +1,6 @@
 <?php
 /**
- * article.php
+ * J:\awww\www\fwphp\glomodul\z_examples\01_PHP_bootstrap\auction_wrox24h_30\includes\classes\article.php
  *
  * Article class file
  *
