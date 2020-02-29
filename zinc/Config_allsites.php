@@ -27,30 +27,9 @@ abstract class Config_allsites extends Db_allsites
 
 
 
-  public function __construct($pp1)
+  public function __construct($pp1, $pp1_module_links)
   {
-
-    //require __DIR__ . '/conn_dbi_obj.php'; //Oracle or MySQL or... (as you wish)
-                  //not here parent::__construct($pp1);
-                  //not here get_ or_new_dball, but only in private fn set_d bobj!!
-
-          // to be called from  J S :
-          //LINUX (not Windows) Warning: Cannot modify header information - headers already sent by (output started at /home/slavkoss/public_html/zinc/Config_allsites.php:35) in /home/slavkoss/public_html/zinc/Config_allsites.php on line 249
-          //SCRIPT LANGUAGE="JavaScript">
-          /*f unction jsmsgyn(p_todo, p_url) {
-            var ret;
-            var r = confirm(p_todo);
-            if (r == true) { 
-               ret = '1';
-               if (p_url) { location.href=p_url; }
-            } else { ret = '0'; }
-            //The button you pressed is displayed in the result window.
-            //document.getElementById("demo").innerHTML = ret;
-            return ret ;
-          } */
-          // /SCRIPT>
-
-
+    // see (**1)
 
       date_default_timezone_set("Europe/Zagreb"); //Asia/Karachi
 
@@ -99,31 +78,8 @@ abstract class Config_allsites extends Db_allsites
       /**
       *           **** R O U T I N G
       */
-                /**
-                http://dev1:8083/fwphp/glomodul/z_examples/01_phpinfo.php?aaa/111
-                $_SERVER['DOCUMENT_ROOT']   J:/awww/www/ 
+      // see (**2)
 
-                $_SERVER['REQUEST_METHOD']   GET
-                $_SERVER['REQUEST_URI']   /fwphp/glomodul/z_examples/01_phpinfo.php?aaa/111
-                $_SERVER['SCRIPT_NAME']   /fwphp/glomodul/z_examples/01_phpinfo.php 
-
-                $_SERVER['PHP_SELF']
-
-                $_SERVER['QUERY_STRING']   aaa/111
-
-                $_SERVER['REQUEST_SCHEME']   http 
-                $_SERVER['SERVER_NAME']      dev1 
-                $_SERVER['SERVER_PORT']      8083
-                $_SERVER['HTTP_HOST']        dev1:8083 
-
-                SERVER_ADDR is the address of the server PHP code is run on. 
-                REMOTE_ADDR = IP address from which the user is viewing the current page
-                            = IP address the request arrived on
-                on localhost REMOTE_ADDR is same as SERVER_ADDR
-
-                On PHP 5.2, one must write
-                $ip = getenv('REMOTE_ADDR', true) ? getenv('REMOTE_ADDR', true) : getenv('REMOTE_ADDR') 
-                */
       $wsroot_path = str_replace('\\','/', realpath($module_towsroot) .'/') ; 
       
       // http://dev1:8083/    //= 1. U R L_P R O T O C O L :
@@ -161,12 +117,6 @@ abstract class Config_allsites extends Db_allsites
       $this->uriq = (object)$uriq ;
       // **************************** E N D  R O U T I N G
 
-      /**
-      *           **** 2. D I S P A T C H I N G
-      * is in module`s Home_ctr because code here is global for all sites
-      */
-
-
 
         $pp1 = (array)$pp1 ;
         $pp1 += [ 
@@ -190,6 +140,8 @@ abstract class Config_allsites extends Db_allsites
           //
           , 'ROUTES (LINKS)  IN  M O D U L E  CTR Home_ctr.php' => '~~~~~~~~~~~~~~~~~'
         ] ;
+
+        $pp1 += $pp1_module_links ;
 
       $this->pp1 = (object)$pp1 ;
 
@@ -218,7 +170,28 @@ abstract class Config_allsites extends Db_allsites
                     .'B A D &nbsp;R O U T I N G'
                     .'<br /> See if $uriq is created OK in Config_blog.php.'
                     .'</span>' */
+
+
+      /**
+      *           **** 2. D I S P A T C H I N G
+      * may be in module`s Home_ctr (code here is global for all sites)
+      */
+    /** ************** coding step cs04. *******************
+    *   4. DISPATCHER:  includes or calls or http jumps (only to other module)
+    ***************************************************** */
+        // CONVENTION :
+        // i = ctrakcmethod of  H o m e_c t r  cls which includes view script or calls method (does tblrowCRUD...)
+        $akc = $this->uriq->i ; //uriq = url query string, default = home
+        $this->$akc() ; //dispatching using home class methods is based on Mini3 php fw
+              //include(str_replace('|','/', $this->uriq->i.'.php'));  break;
+
+
   } //e n d  __ c o n s t r u c t
+
+
+
+
+
 
 
 
@@ -506,6 +479,57 @@ $navbar .= " <a class='button'
         break;
     }
   }
+
+
+
+    // (**1)
+    //require __DIR__ . '/conn_dbi_obj.php'; //Oracle or MySQL or... (as you wish)
+                  //not here parent::__construct($pp1);
+                  //not here get_ or_new_dball, but only in private fn set_d bobj!!
+
+          // to be called from  J S :
+          //LINUX (not Windows) Warning: Cannot modify header information - headers already sent by (output started at /home/slavkoss/public_html/zinc/Config_allsites.php:35) in /home/slavkoss/public_html/zinc/Config_allsites.php on line 249
+          //SCRIPT LANGUAGE="JavaScript">
+          /*f unction jsmsgyn(p_todo, p_url) {
+            var ret;
+            var r = confirm(p_todo);
+            if (r == true) { 
+               ret = '1';
+               if (p_url) { location.href=p_url; }
+            } else { ret = '0'; }
+            //The button you pressed is displayed in the result window.
+            //document.getElementById("demo").innerHTML = ret;
+            return ret ;
+          } */
+          // /SCRIPT>
+
+
+      // (**2)
+                /**
+                http://dev1:8083/fwphp/glomodul/z_examples/01_phpinfo.php?aaa/111
+                $_SERVER['DOCUMENT_ROOT']   J:/awww/www/ 
+
+                $_SERVER['REQUEST_METHOD']   GET
+                $_SERVER['REQUEST_URI']   /fwphp/glomodul/z_examples/01_phpinfo.php?aaa/111
+                $_SERVER['SCRIPT_NAME']   /fwphp/glomodul/z_examples/01_phpinfo.php 
+
+                $_SERVER['PHP_SELF']
+
+                $_SERVER['QUERY_STRING']   aaa/111
+
+                $_SERVER['REQUEST_SCHEME']   http 
+                $_SERVER['SERVER_NAME']      dev1 
+                $_SERVER['SERVER_PORT']      8083
+                $_SERVER['HTTP_HOST']        dev1:8083 
+
+                SERVER_ADDR is the address of the server PHP code is run on. 
+                REMOTE_ADDR = IP address from which the user is viewing the current page
+                            = IP address the request arrived on
+                on localhost REMOTE_ADDR is same as SERVER_ADDR
+
+                On PHP 5.2, one must write
+                $ip = getenv('REMOTE_ADDR', true) ? getenv('REMOTE_ADDR', true) : getenv('REMOTE_ADDR') 
+                */
 
 
 

@@ -1,5 +1,5 @@
 <a name="top"></a>
-[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+**Top**      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 # 1. My PHP menu & CRUD code skeleton (I named it B12phpfw)
 ## 1\.1 Demo site - free hosting with free Mysql
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu- fast, stable) 
@@ -13,9 +13,11 @@
 3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**        
 
 
-## 1\.3 B12phpfw directories (modules) structure
+
 <span id="directories"></span>
-[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+## 1\.3 B12phpfw directories (modules) structure
+[Top](#top)     **Directories**     [UML](#uml)     [2. IDE](#ide)     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+
 See **info code :**        
 http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php       
 https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php        
@@ -170,7 +172,7 @@ See to simple examples and have no namespaces  : very good coding :
 
 
 ## <a name="uml"></a>1\.5 B12phpfw core UML diagram - classes structure
-[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     **UML**     [2. IDE](#ide)     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
 For programmer this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ? Because we do not want write in each Home_ctr class code in 3 classes above.      
 Instead we **reuse code in 3 classes (globals)** above Home_ctr.     
@@ -211,7 +213,7 @@ Explanations below are far less important than demo site and code download menti
 
 
 # <a name="ide"></a>2\. My developing environment (IDE)
-[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     **2. IDE**     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
 
 
@@ -340,7 +342,7 @@ Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/
 
   
 # <a name="crud"></a>3\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
-  [Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+  [Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     [2. IDE](#ide)     **3. CRUD**     [4.  SW fw](#swfw)        
 
 May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX . Only Javascript I need is dialog yes or no.
 
@@ -1049,7 +1051,7 @@ https://github.com/TRPB/ImmutableMVC
 
 
 # <a name="swfw"></a>What is SW fw (Software framework)
-[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     [2. IDE](#ide)     [3. CRUD](#crud)    **4.  SW fw**        
 
 See "What is SW fw (Software framework)" (using mkd in fwphp/glomodul/mkd/02/01\_fwphp/**PHP_DIP\_DI.txt/**)  which states :        
 
@@ -1065,7 +1067,7 @@ Code flow terms : DI is about **code flow tie - wiring**, IoC is about **code fl
    DI is about **how dependent (lower) object acquires a dependency (higher) object**.      
 2. IoC (Inversion of Control) is about **who initiates the call**. If your code initiates a call, it is not IoC.     
    If  the container/system/library/fw calls back into code that you provided, it is IoC.      
-   In B12phpfw OUR CODE in Home\_ctr extends Config\_allsites \_\_construct($pp1) contains code 
+   If  B12phpfw OUR CODE in Home\_ctr extends Config\_allsites \_\_construct($pp1) contains code 
    **$akc = $this->uriq->i ; $this->$akc() ; **   - it is in fact NOT OUR CODE but fw core code - pure IoC :
     1. can easily be moved  in framework core (ee in parent constructor)
     2. but is more clear then if it were (hidden) in parent constructor 

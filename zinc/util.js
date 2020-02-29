@@ -1,3 +1,4 @@
+// J:\awww\www\zinc\util.js
 function jsmsgyn(p_todo, p_url) {
   var ret;
   var r = confirm(p_todo);

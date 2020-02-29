@@ -1,19 +1,14 @@
 <?php
-    $id = null;
-    if ( !empty($_GET['id'])) {
-        $id = $_GET['id'];
+    $id = $this->uriq->id ;
+    if ( null==$id ) { header("Location: index.php");} 
+    else {
+      $c_r = $this->rr("SELECT * FROM admins WHERE id=:AdminId" 
+          , [ ['placeh'=>':AdminId', 'valph'=>$id, 'tip'=>'int']
+            ] , __FILE__ .' '.', ln '. __LINE__) ;
+      while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; 
+      self::disconnect();
     }
-     
-    if ( null==$id ) {
-        header("Location: index.php");
-    } else {
-                            $sql = "SELECT * FROM admins where id = ?";
-                            $q = $pdo->prepare($sql);
-                            $q->execute(array($id));
-                            $row = $q->fetch(PDO::FETCH_ASSOC);
-        Database::disconnect();
-    }
-?>
+      ?>
 
     <div class="container">
      
@@ -28,7 +23,7 @@
             <label class="control-label">Name</label>
             <div class="controls">
                 <label class="checkbox">
-                    <?php echo $row['username'];?>
+                    <?php echo $r->username;?>
                 </label>
             </div>
           </div>
@@ -37,16 +32,7 @@
             <label class="control-label">Email Address</label>
             <div class="controls">
                 <label class="checkbox">
-                    <?php echo $row['email'];?>
-                </label>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label">Mobile Number</label>
-            <div class="controls">
-                <label class="checkbox">
-                    <?php //echo $row['user_telefon'];?>
+                    <?php echo $r->email;?>
                 </label>
             </div>
           </div>

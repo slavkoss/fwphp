@@ -1,4 +1,5 @@
 <?php
+// **************** jsmsgyn is instead this script **********
                    if ('') {echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' Before ask delete ? SAYS'.'</h3>' ;
                      echo '<pre>$this->uriq='; print_r($this->uriq); echo '</pre><br />';
                    } ;

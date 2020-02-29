@@ -13,69 +13,76 @@ class Home_ctr extends Config_allsites
 
   public function __construct($pp1)
   {
-    parent::__construct($pp1); //ROUTING ee $this->uriq object and adds elements to $pp1
-      //extends Db_allsites ee cc,rr,uu,dd methods = D B I abstr.layer for PDO D B I abs.l.
-      //extends Dbconn_allsites singleton DB obj
+    /**
+    * *********************************************************
+    * R O U T I N G  T A B L E  (IS OK FOR MODULES IN OWN DIR)
+    * We have two masters (usr, category) and two level of details (posts, comments).
+    * *********************************************************
+    * QS=?=url adress Query Separator. Without QS we must use Apache mod-rewrite and Composer auto loading classes instead own simple-fast auto loading.
+
+    * After KEY i is VALUE methodname which includes/calls samenamed (or not) 
+    * script/method or calls some (global method) or...
+    */
+    if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
+    $pp1_module = [ 
+            'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~' ,
+          //, 'cncts'                 => (object)[] //c o n n e c t  (states) a t t r i b u t e s
+    //  all module links (menu items) should be here :
+    'loginfrm'        => QS.'i/loginfrm/' , 
+    'login'           => QS.'i/login/' , 
+    'logout'          => QS.'i/logout/r/i|loginfrm|' , //logout_me
+    'del_row'         => QS.'i/del_row_do/' , //used for all tables !!
+    'filter_page'     => QS.'p/' , // i/home/
+    //
+    'dashboard'       => QS.'i/dashboard/' ,
+
+    'admins'          => QS.'i/admins/' ,
+       'read_user'       => QS.'i/read_user/' ,
+       'upd_user_loggedin' => QS.'i/upd_user_loggedin/' ,
+
+    'categories'      => QS.'i/categories/' ,
+
+    'posts'           => QS.'i/posts/' ,
+       //in view h ome.php after c/ we add categ. name so :
+       //<a href="<=filter_ postcateg><=h tmlentities($r->c ategory)>">
+       // filter_ postcateg is  m ethod  name in this  c lass
+       'filter_postcateg' => QS.'i/filter_postcateg/c/' ,
+       'addnewpost'      => QS.'i/addnewpost/' ,
+       'read_post'       => QS.'i/read_post/' ,
+       'editpost'        => QS.'i/editpost/' ,
+       'edmkdpost'       => QS.'i/edmkdpost/' ,
+       'readmkdpost'     => QS.'i/readmkdpost/' ,
+
+    'comments'        => QS.'i/comments/' ,
+       'approvecomments' => QS.'i/upd_comment_stat/' ,
+    // V I E W S :
+    'kalendar'        => QS.'i/kalendar/' ,
+    'about_us'        => QS.'i/about/' ,
+    'contact_us'      => QS.'i/contact/' ,
+    'features'        => QS.'i/features/'
+    //e n d  R O U T I N G  T A B L E
+        ] ;
+
+
+
+
+    //ROUTING ee $this->uriq object and adds elements to $pp1
+    //DISPATCHING ee contains code $akc = $this->uriq->i ; $this->$akc() ; :
+    parent::__construct($pp1, $pp1_module); // Config_ allsites
+      //extends Db_ allsites ee cc,rr,uu,dd methods = D B I abstr.layer for PDO D B I abs.l.
+      //Db_ allsites extends Dbconn_ allsites singleton DB obj
                 if ('') {self::jsmsg( [ //basename(__FILE__).
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
                    ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
                    ,'$this->uriq'=>$this->uriq
                 ] ) ; }
 
-    // *********************************************************
-    // R O U T I N G  T A B L E  (IS OK FOR MODULES IN OWN DIR) 
-    //We have two masters (usr, category) and two level of details (posts, comments).
-    // *********************************************************
-    // After i/ is method in this Hom e_ ctr which includes/calls samenamed (or not) script/method or calls some (global method) or...
-    // QS=?=url adress Query Separator. Without QS we must use Apache mod-rewrite and Composer auto loading classes instead own simple-fast auto loading.
 
-    //  all module links (menu items) should be here :
-    $this->pp1->loginfrm        = QS.'i/loginfrm/' ; 
-    $this->pp1->login           = QS.'i/login/' ; 
-    $this->pp1->logout          = QS.'i/logout/r/i|loginfrm|' ; //logout_me
-    $this->pp1->del_row         = QS.'i/del_row_do/' ; //used for all tables !!
-    $this->pp1->filter_page     = QS.'p/' ; // i/home/
-    //
-    $this->pp1->dashboard       = QS.'i/dashboard/' ;
-
-    $this->pp1->admins          = QS.'i/admins/' ;
-       $this->pp1->read_user       = QS.'i/read_user/' ;
-       $this->pp1->upd_user_loggedin = QS.'i/upd_user_loggedin/' ;
-
-    $this->pp1->categories      = QS.'i/categories/' ;
-
-    $this->pp1->posts           = QS.'i/posts/' ;
-       //in view h ome.php after c/ we add categ. name so :
-       //<a href="<=$this->pp1->filter_ postcateg><=h tmlentities($r->c ategory)>">
-       // filter_ postcateg is  m ethod  name in this  c lass
-       $this->pp1->filter_postcateg = QS.'i/filter_postcateg/c/' ;
-       $this->pp1->addnewpost      = QS.'i/addnewpost/' ;
-       $this->pp1->read_post       = QS.'i/read_post/' ;
-       $this->pp1->editpost        = QS.'i/editpost/' ;
-       $this->pp1->edmkdpost       = QS.'i/edmkdpost/' ;
-       $this->pp1->readmkdpost     = QS.'i/readmkdpost/' ;
-
-    $this->pp1->comments        = QS.'i/comments/' ;
-       $this->pp1->approvecomments = QS.'i/upd_comment_stat/' ;
-    // V I E W S :
-    $this->pp1->kalendar        = QS.'i/kalendar/' ;
-    $this->pp1->about_us        = QS.'i/about/' ;
-    $this->pp1->contact_us      = QS.'i/contact/' ;
-    $this->pp1->features        = QS.'i/features/' ;
-    //e n d  R O U T I N G  T A B L E
-                        if ('') {self::jsmsg( [ //basename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE call akc'
-                           ,'$this->pp1->dbi_obj'=>isset($this->pp1->dbi_obj)?$this->pp1->dbi_obj:'NOT SET'
-                           //, '$dsn'=>$dsn
-                           ] ) ; }
-
-    /** ************** coding step cs04. *******************
-    *   4. DISPATCHER:  includes or calls or http jumps (only to other module)
-    ***************************************************** */
-        // i = ctrakcmethod of this cls  (H o m e) which includes view script or calls method (does tblrowCRUD...)
-        $akc = $this->uriq->i ; //uriq = url query string, default = home
-        $this->$akc() ;
-              //include(str_replace('|','/', $this->uriq->i.'.php'));  break;
+                if ('') {self::jsmsg( [ //basename(__FILE__).
+                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE call akc'
+                   ,'$this->pp1->dbi_obj'=>isset($this->pp1->dbi_obj)?$this->pp1->dbi_obj:'NOT SET'
+                   //, '$dsn'=>$dsn
+                   ] ) ; }
 
   } // e n d  f n  __ c o n s t r u c t
 
@@ -85,9 +92,10 @@ class Home_ctr extends Config_allsites
           //******************************************
           //       DISPATCH  M E T H O D S
           // they call other methods or include script
+          //called from Config_ allsites __c onstruct
           //******************************************
 
-  private function home()
+  public function home() //private
   {
       //$_SESSION['filter_posts']['pgordno_from_url'] = 1 ;
       //$_SESSION['filter_posts']['category_from_url'] = '' ;
@@ -107,7 +115,7 @@ class Home_ctr extends Config_allsites
          C R U D  M E T H O D S
   */
 
-  private function del_row_do() //used for all  t a b l e s !!
+  public function del_row_do() //used for all  t a b l e s !! //private
   {
                               if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: '
                               .'<br />U R L  query array ='.'$this->uriq=' ;
@@ -140,7 +148,7 @@ class Home_ctr extends Config_allsites
   */
 
   //        u s e r  r e a d
-  private function loginfrm()
+  public function loginfrm() //private
   {
                 if ('') {self::jsmsg( [ //basename(__FILE__).
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>''
@@ -151,7 +159,7 @@ class Home_ctr extends Config_allsites
       require $this->pp1->wsroot_path . 'zinc/ftr.php';
   }
 
-  private function login()
+  public function login() //private
   {
       $db = $this ;            //this globals for all sites are for CRUD... !!
       $Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
@@ -184,7 +192,7 @@ class Home_ctr extends Config_allsites
 
 
   // C R U D
-    private function dashboard()
+    public function dashboard() //private
     {
       $db = $this ;            //globals for all sites (eg for CRUD...) !!
       //$D b_user = n ew Db_user ; //table m.and attr. use globals for all sites !!
@@ -198,7 +206,7 @@ class Home_ctr extends Config_allsites
     }
 
 
-  private function upd_user_loggedin()
+  public function upd_user_loggedin() //private
   {
       $db = $this ;            //globals for all sites (eg for CRUD...) !!
       //$D b_user = n ew Db_user ; //table m.and attr. use globals for all sites !!
@@ -224,7 +232,7 @@ class Home_ctr extends Config_allsites
     }
 
   //        p o s t s  f i l t e r e d  v i e w  t b l
-  private function filter_postcateg()
+  public function filter_postcateg() //private
   {
     //p=posts or home
     if ( isset($this->uriq->p) and $this->uriq->p == 'posts' ) 
@@ -255,7 +263,7 @@ class Home_ctr extends Config_allsites
 
 
   //        u s e r s  r e a d
-  private function admins()
+  public function admins() //private
   {
     $this->Login_Confirm($this);
 
@@ -268,7 +276,7 @@ class Home_ctr extends Config_allsites
   }
 
   //                 user
-  private function read_user()
+  public function read_user() //private
   {
     $title = 'Profile' ;
     $css1 = 'styles.css' ;
@@ -280,7 +288,7 @@ class Home_ctr extends Config_allsites
 
 
   //        c a t e g o r i e s  t b l
-  private function categories()
+  public function categories() //private
   {
     $db = $this ;            //globals for all sites (eg for CRUD...) !!
     //$D b_user = n ew Db_user ; //table m.and attr. use globals for all sites !!
@@ -294,7 +302,7 @@ class Home_ctr extends Config_allsites
   }
 
 
-  private function addnewpost()
+  public function addnewpost() //private
   {
     // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/
     $db = $this ;            //globals for all sites (eg for CRUD...) !!
@@ -309,7 +317,7 @@ class Home_ctr extends Config_allsites
   }
 
   //        p o s t s  v i e w  t b l
-  private function posts()
+  public function posts() //private
   {
     $db = $this ;            //globals for all sites (eg for CRUD...) !!
     //$D b_user = n ew Db_user ; //table m.and attr. use globals for all sites !!
@@ -323,7 +331,7 @@ class Home_ctr extends Config_allsites
   }
 
   //        r e a d  p o s t  
-  private function read_post()
+  public function read_post() //private
   {
 
     /* not working here :
@@ -340,7 +348,7 @@ class Home_ctr extends Config_allsites
   }
 
   //        e d i t  p o s t 
-  private function editpost()
+  public function editpost() //private
   {
       $db = $this ;            //globals for all sites (eg for CRUD...) !!
       //$D b_user = n ew Db_user ; //table m.and attr. use globals for all sites !!
@@ -355,7 +363,7 @@ class Home_ctr extends Config_allsites
   }
 
   //        e d i t  p o s t  m a r k d o w n
-  private function edmkdpost()
+  public function edmkdpost() //private
   {
     //for now c r e / d e l  op.system file in op.system
     //see read_ post.php  href="<=$this->pp1->ed mkdpost>flename/<=$r->title>/id/<=$r->id>"
@@ -379,7 +387,8 @@ class Home_ctr extends Config_allsites
     );
   }
   //        d i s p l a y  p o s t  m a r k d o w n
-  private function readmkdpost($fle_to_displ_name, $only_help='')
+
+  public function readmkdpost($fle_to_displ_name, $only_help='') //private
   {
     //see read_ post.php  $this->r eadmkdpost($r->title); //means  i n c l u d e  here html
     //$fle_to_displ_name = "J:/awww/www/fwphp/glomodul/blog/msgmkd/001. Menu_CRUD.txt" ;
@@ -457,7 +466,7 @@ class Home_ctr extends Config_allsites
   }
 
 
-  private function kalendar()
+  public function kalendar() //private
   {
     require $this->pp1->wsroot_path . 'zinc/hdr.php';
     require $this->pp1->module_path . '../post/read_msg_tbl_kalendar_flex.php';
@@ -469,7 +478,7 @@ class Home_ctr extends Config_allsites
 
 
   //          p o s t  c o m m e n t s
-  private function comments()
+  public function comments() //private
   {
     //$db = $this ;
     $this->Login_Confirm($this);
@@ -482,7 +491,7 @@ class Home_ctr extends Config_allsites
   }
 
   //         u p d  c o m m e n t _ s t a t
-  private function upd_comment_stat()
+  public function upd_comment_stat() //private
   {
     $db = $this ;
     $Db_post_comment = new Db_post_comment ;
@@ -512,14 +521,14 @@ class Home_ctr extends Config_allsites
 
   // P A G E S  WITHOUT  C R U D
 
-  private function contact()
+  public function contact() //private
   {
       require $this->pp1->wsroot_path . 'zinc/hdr.php';
       require $this->pp1->module_path . 'v_contact_us.php';
       require $this->pp1->wsroot_path . 'zinc/ftr.php';
   }
 
-  private function about()
+  public function about() //private
   {
     //$param1 = $this->uriq->p1 ;
     //$param2 = $this->uriq->p2 ;
@@ -528,7 +537,7 @@ class Home_ctr extends Config_allsites
     require $this->pp1->wsroot_path . 'zinc/ftr.php';
   }
 
-  private function features()
+  public function features() //private
   {
     require $this->pp1->wsroot_path . 'zinc/hdr.php';
     require $this->pp1->module_path . 'v_features.php';
