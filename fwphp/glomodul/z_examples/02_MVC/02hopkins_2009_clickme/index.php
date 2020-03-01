@@ -8,9 +8,7 @@ namespace B12phpfw\clickmeModule ; //FUNCTIONAL NAME SPACING (not dir names ee p
 //use B12phpfw\clickmeModule\Autoloader as Autoloader ;
 
 require_once __DIR__ . "/Autoloader.php";
-//spl_autoload_register('config\Autoloader::autoload');
-spl_autoload_register('B12phpfw\\clickmeModule\\Autoloader::autoload'); //B12phpfw\clickmeModule\
-//spl_autoload_register('Autoloader::autoload');
+spl_autoload_register('B12phpfw\\clickmeModule\\Autoloader::autoload');
 
 $m = new m();
 $c = new c($m); //includes m
@@ -23,8 +21,8 @@ $v = new v($m); //$v = new v($c, $m); // $c is not needed in v ? (bad logic ?)
   */
   $ctrakcmethod = 'clicked';
   if ( isset($_GET['action']) and !empty($_GET['action']) )   {
-    $c->{$_GET['action']}(); //call c.clicked()
-    $ctrakcmethod = '';
+     $c->{$_GET['action']}(); //call c.clicked()
+     $ctrakcmethod = '';
   } 
   // E N D  code STEP 2.
   

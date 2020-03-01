@@ -38,7 +38,7 @@ abstract class AbstractEntity
     public function __get($name) {
         $field = "_" . strtolower($name);
         //$field = strtolower($n ame);
-                echo '<pre>__get $this='; print_r($this); echo '</pre>';
+                echo __METHOD__ .'() method SAYS :<pre>__get $this='; print_r($this); echo '</pre>';
                 echo '<pre>$field='; print_r($field); echo '</pre>';
                         /*$this=Model\User Object
                         (

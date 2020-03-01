@@ -31,7 +31,7 @@ $postMapper    = new PostMapper($adapter, $commentMapper);
 //mappers have been initialized by dropping their collaborators into the corresponding constructors. They’re ready to get some real action. Let’s use post mapper and insert few trivial posts into the DB :
 
 $user = new User("Everchanging Joe", "joe@example.com");
-$userMapper->insert($user);
+//$userMapper->insert($user);
 
 $postMapper->insert(
     new Post(

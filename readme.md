@@ -1080,8 +1080,11 @@ Code flow terms : DI is about **code flow tie - wiring**, IoC is about **code fl
    Then a "MySQLClientRepository" DB CRUD concretion implements that interface and uses a database library to submit the queries.     
    Because I did not yet realized ideas above, for now B12phpfw has : cc, rr, uu, dd methods which are global like in Oracle FORMS form module .fmb (using or not on-insert, on-update...)
    Example in fwphp/glomodul/z_examples/02_mvc/domain_model/ seems to me tipical not enough explained strong talk, week doing (not suitable for each form in own dir) :        
-   http://www.sitepoint.com/building-a-domain-model/  February 24, 2012  By Alejandro Gervasio - last cry in frameworks night      
-   or interesting project : http://github.com/webengfhnw/WE-CRM - last cry in frameworks night
+   1. http://www.sitepoint.com/building-a-domain-model/ February 24, 2012  By Alejandro Gervasio - last cry in frameworks night (unnecessary complicated ?)
+   2. https://www.sitepoint.com/integrating-the-data-mappers/
+   3. https://www.sitepoint.com/handling-collections-of-aggregate-roots/
+   4. https://www.sitepoint.com/an-introduction-to-services/
+
 To be sure, use DI or IoC with DIP.     
 
 

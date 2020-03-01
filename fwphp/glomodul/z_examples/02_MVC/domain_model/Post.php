@@ -7,7 +7,7 @@ class Post extends AbstractEntity implements PostInterface
 {
     protected $_id;
     protected $_title;
-    protected $_content;
+    protected $_summary; // _content
 
     protected $_comments;
 
@@ -60,7 +60,7 @@ class Post extends AbstractEntity implements PostInterface
             throw new \InvalidArgumentException("The post content is invalid.");
         }
  
-        $this->_content = htmlspecialchars(trim($content), ENT_QUOTES);
+        $this->_summary = htmlspecialchars(trim($content), ENT_QUOTES); // _content
         return $this;
     }
     
