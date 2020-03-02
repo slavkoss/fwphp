@@ -1,4 +1,5 @@
 <?php
+
 $id = $this->uriq->id ;
 if ( null==$id ) { header("Location: index.php"); }
 
@@ -11,6 +12,7 @@ if ( !empty($_POST) )
         // keep track post values
         $name = $_POST['username'];
         $email = $_POST['email'];
+        $abio = $_POST['abio'];
 
         // validate input
         $valid = true;
@@ -28,12 +30,13 @@ if ( !empty($_POST) )
         }
 
         if ($valid) {
-          $flds     = "SET aname=:AName, email=:Aemail" ;
+          $flds     = "SET aname=:AName, email=:Aemail, abio=:abio" ;
           $qrywhere = "WHERE id=:AdminId" ;
           $binds = [
             ['placeh'=>':AName',  'valph'=>$name, 'tip'=>'str']
            ,['placeh'=>':Aemail', 'valph'=>$email, 'tip'=>'str']
            ,['placeh'=>':AdminId','valph'=>$id, 'tip'=>'int']
+           ,['placeh'=>':abio', 'valph'=>$abio, 'tip'=>'str']
           ] ;
           $cursor = $this->uu($this,'admins',$flds,$qrywhere,$binds);
           self::disconnect();
@@ -48,6 +51,7 @@ if ( !empty($_POST) )
           self::disconnect();
           $name    = $r->aname ;
           $email   = $r->email ;
+          $abio     = $r->abio ;
 }
     ?>
 
@@ -82,6 +86,18 @@ if ( !empty($_POST) )
                   <?php endif;?>
               </div>
             </div>
+
+            <div class="control-group <?php //echo !empty($abioError)?'error':'';?>">
+              <label class="control-label">Biography</label>
+              <div class="controls">
+                  <input name="abio" type="text" placeholder="Biography" 
+                         value="<?php echo !empty($abio)?$abio:'';?>">
+                  <?php //if (!empty($emailError)): ?>
+                      <span class="help-inline"><?php //echo $emailError;?></span>
+                  <?php //endif;?>
+              </div>
+            </div>
+
 
 
             <div class="form-actions">

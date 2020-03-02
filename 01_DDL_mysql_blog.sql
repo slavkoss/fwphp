@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `z_blogcms`
+-- Database: `z_ blog cms`
 --
 
 -- --------------------------------------------------------
@@ -234,8 +234,8 @@ ALTER TABLE `posts`
 --
 -- Constraints for table `comments`
 --
-ALTER TABLE `comments`
-  ADD CONSTRAINT `Foreign_Relation` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `comments` ADD CONSTRAINT `Foreign_Relation` FOREIGN KEY (`post_id`) 
+     REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

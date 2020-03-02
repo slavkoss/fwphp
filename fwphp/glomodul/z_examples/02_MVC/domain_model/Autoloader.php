@@ -24,7 +24,7 @@ class Autoloader
     $cls_script_path1 = self::get_module_cls_script_path($class, $nsprefix1='Model') ;
     $cls_script_path2 = self::get_module_cls_script_path($class, $nsprefix2='Model\\') ;
     $cls_script_path3 = self::get_module_cls_script_path($class, $nsprefix3='ModelMapper\\') ;
-    $cls_script_path4 = self::get_module_cls_script_path($class, $nsprefix4='LibraryDatabase\\') ;
+    $cls_script_path4 = self::get_module_cls_script_path($class, $nsprefix4='CoreDB\\') ;
 
     // ********** 2. cls_ script_ path_ external_ module **********
     //$cls_script_path = $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';

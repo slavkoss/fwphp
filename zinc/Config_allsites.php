@@ -15,6 +15,7 @@ if (strnatcmp(phpversion(),'5.4.0') >= 0) {
 //"conf is addition to db" - technicaly could be in db (is not for sake of clear code)
 abstract class Config_allsites extends Db_allsites
 {
+  // can be named AbstractEntity
   /** 
   * ****************************************************
   * R O U T I N G  =  I N C L U D E S  OR  METHOD CALLS
@@ -193,7 +194,7 @@ abstract class Config_allsites extends Db_allsites
 
               $app = AppFactory::create();
 
-              $app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
+              $app->get('/hello/{name}', f unction (Request $request, Response $response, array $args) {
                   $name = $args['name'];
                   $response->getBody()->write("Hello, $name");
                   return $response;
@@ -453,7 +454,7 @@ $navbar .= " <a class='button'
   {
     $arr = get_class_methods(get_class($obj));
     foreach ($arr as $method) {
-        echo "\tfunction $method()\n";
+        echo "\tfn $method()\n";
     }
   }
 

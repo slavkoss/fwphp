@@ -1,5 +1,8 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\read_user.php
+//require 'J:\\awww\\www\\vendor\\erusev\\parsedown\\Parsedown.php' ;
+require $this->pp1->wsroot_path .'vendor/erusev/parsedown/Parsedown.php' ;
+$Parsedown = new Parsedown();
 
 //<!-- Fetching Existing Data -->
 $usrname_requested=$this->uriq->username ;
@@ -37,8 +40,7 @@ if (isset($r->username) and $r->username == $usrname_requested) {
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-          <h1><i class="fas fa-user text-success mr-2" style="color:#27aae1;"></i>
-              <?='User`s '.$r->username.' name is '.$r->aname?>
+          <h1><i class="fas fa-user text-success mr-2" style="color:#27aae1;"></i><?='User`s '.$r->username.' name is '.$r->aname?>
           </h1>
           <h3><?php echo $r->aheadline; ?></h3>
           </div>
@@ -54,7 +56,7 @@ if (isset($r->username) and $r->username == $usrname_requested) {
         <div class="col-md-9" style="min-height:400px;">
           <div class="card">
             <div class="card-body">
-              <p class="lead"> Biography: <?=$r->abio?> </p>
+              <p class="lead"> Biography: <?=$Parsedown->text($r->abio)?> </p>
             </div>
 
           </div>

@@ -66,10 +66,19 @@ if(isset($_POST["Submit"]))
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-      <h1>@User: <?=$r->username?>
-          <i class="fas fa-user text-success mr-2"></i>User name: <?=$r->aname?>
+
+      <h1>
+        @User: <span class="text-dark">
+          <a href="<?=$this->pp1->read_user?>username/<?php echo self::escp($r->username); ?>"
+             title="Show profile">
+             <?=self::escp($r->username)?></a>
+                 </span>
+
+        <i class="fas fa-user text-success mr-2"></i>User name: <?=$r->aname?>
       </h1>
+
       <XXXsmall> &nbsp;&nbsp;&nbsp; Usr headline: <?=$r->aheadline?></XXXsmall>
+
       </div>
     </div>
   </div>
@@ -123,7 +132,7 @@ if(isset($_POST["Submit"]))
 
             <div class="form-group">
                <input class="form-control" type="text" name="Headline" id="title" 
-                      title="Your Headline (eg I am boring user)" placeholder="Your Headline" 
+                      title="Headline (eg I am boring user)" placeholder="Headline" 
                       value="<?=$r->aheadline?>">
                   <small class="text-muted">
                   Add a professional headline like, 'Engineer' at XYZ or 'Architect' </small>

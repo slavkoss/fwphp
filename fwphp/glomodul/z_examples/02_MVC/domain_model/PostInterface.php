@@ -1,4 +1,6 @@
 <?php
+//Outlines behavior of msg-s.
+//Contract which allows to define concrete domain object implementations, as if we were using Lego blocks.
 namespace Model;
 
 interface PostInterface

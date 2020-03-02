@@ -1,7 +1,7 @@
 <!--             U S E R  T B L  R E A D -->
 <div class="container">
 <div class="row">
-      <h3>USERS TABLE CRUD PDO MySQL BOOTSTRAP NON OOPMVC</h3>
+      <h3>USERS TABLE CRUD PDO MySQL BOOTSTRAP OOP MVC</h3>
 </div>
 
 <div class="row">
@@ -14,7 +14,7 @@
 
   <tbody>
       <?php
-    $cursor = $this->rr("SELECT * FROM admins ORDER BY aname", [], __FILE__ .' '.', ln '. __LINE__) ;
+    $cursor = $this->rr("SELECT * FROM admins ORDER BY username", [], __FILE__ .' '.', ln '. __LINE__) ;
     $SrNo = 0;
     while ($r = $this->rrnext($cursor))
     {

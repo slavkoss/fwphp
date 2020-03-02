@@ -157,7 +157,7 @@ if(isset($_POST["Submit"])){
                  <a id="erase_row" class="btn btn-danger"
                     onclick="if (jsmsgyn('Erase row ?',''))
                     { location.href= '<?=$this->pp1->del_row?>t/admins/id/<?=$r->id?>/'; }"
-                 >Delete</a>
+                 >Delete <?=$r->id?></a>
               </td>
         <?php
       } ?>

@@ -1,112 +1,55 @@
 <?php
 
-//1st layer is typical bootstrap - include and initialize an autoloader :
+// 1ST LAYER IS TYPICAL BOOTSTRAP - include and initialize an autoloader :
 // ************************************
 require_once __DIR__ . "/Autoloader.php";
             //$autoloader = new Autoloader();  //$autoloader->register();
-spl_autoload_register('Model\Autoloader::autoload');
-//spl_autoload_register('Autoloader::autoload');
+spl_autoload_register('Model\Autoloader::autoload'); //'Autoloader::autoload'
 
-// 2nd layer is home to our domain model
+// 2. TO 4. LAYER IS DATA & Controller :
 // ************************************
-use Model\User
-  , Model\Post
-  , Model\Comment
-  //
-  , LibraryDatabase\PdoAdapter
-  //
-  , ModelMapper\UserMapper
-  , ModelMapper\PostMapper
-  , ModelMapper\CommentMapper
-;
-                //see NO DB - for test
+// 2. domain model of DB (User, Post, Comment entity classes),
+// 3. data (is or is not) persistent - DB, webservice..., 4. module (app) C
 
-// create PDO adapter
-$adapter = new PdoAdapter("mysql:dbname=z_blogcms", "root", ""); //db, usr, psw
- 
-// create mappers
-$userMapper    = new UserMapper($adapter);
-$commentMapper = new CommentMapper($adapter, $userMapper); //child before parent !
-$postMapper    = new PostMapper($adapter, $commentMapper);
-//mappers have been initialized by dropping their collaborators into the corresponding constructors. They’re ready to get some real action. Let’s use post mapper and insert few trivial posts into the DB :
+//COMMENT NEXT NOT DB TEST DATA TO USE PERSISTENCE - DB (or web service...) :
+//include 'get_data_no_db_test.php' ;
+//$posts = no_db_test() ;
 
-$user = new User("Everchanging Joe", "joe@example.com");
-//$userMapper->insert($user);
+// COMMENT NEXT PERSISTENCE DB TO USE NOT PERSISTENCE DATA ee no_db_test() :
+// ***********************persistence mechanism - DB (or web service...) :
+include 'get_data_mysql_blog.php' ;
+$posts = db_test() ; //ins detail is in get_data $Comment_db->insert...
 
-$postMapper->insert(
-    new Post(
-        "Welcome to blog CRUD",
-        "To become yourself a true PHP master, you must first master PHP."));
-
-$postMapper->insert(
-    new Post(
-        "Welcome to blog CRUD (Reprise)",
-        "To become yourself a PHP Master, you must first master... Wait! Did I post that already?"));
-
-
-// Joe's comments for the first post (post ID = 1, user ID = 1)
-$commentMapper->insert(
-    new Comment("I love this post! Looking forward to seeing more of this stuff.",
-        $user),
-    1, 
-    $user->id
-);
-
-$commentMapper->insert(
-    new Comment(
-        "I just changed my mind and dislike this post! Hope not seeing more of this stuff.",
-        $user),
-    1, $user->id);
-
-// Joe's comment for the second post (post ID = 2, user ID = 1)
-$commentMapper->insert(
-    new Comment(
-        "Not quite sure if I like this post or not, so I cannot say anything for now.", 
-        $user),
-    2, $user->id);
-//Notice that the foreign keys used to sustain the bound between comments and u sers have been just picked up at runtime. In production, however, they most likely should be gathered inside the user interface.
-
-//Now that the blog’s DB has been finally hydrated with a couple of posts, comments, and a chatty user’s info, the last thing we should do is pull in all the data and dump it on screen. Here we go:
-$posts = $postMapper->findAll(); //workhorse that creates blog domain object graphs on request from DB and put them in memory for further processing.
-
-//Graphs in question can be easily decomposed back through a skeletal view :
+// 5TH LAYER : PRESENTATION - Graphs in question can be easily decomposed back through a skeletal view :
 include_once 'tbl.php' ;
 
 
-                /*
-                // NO DB - for test :
-                // create a user
-                $user = new User("Everchanging Joe", "joe@hisdomain.com");
+/*
+//Domain Model 5 code layers (tiers) : 1. bootstrap (include and initialize an autoloader), 2. domain model of DB (User, Post, Comment entity classes), 3. data (is or is not) persistent - DB, webservice..., 4. module (app) C, 5. presentation V
 
-                // create some posts
-                $postOne = new Post(
-                  "HOW TO LEARN",
-                  "To become yourself a true PHP master, yeap you must first master PHP.");
-                  // add some comments to the first post
-                  $postOne->comments = array(
-                    new Comment("I love this post! Looking forward to seeing more of this stuff.", $user),
-                    new Comment("I changed my mind and dislike this post!", $user));
-
-                $postTwo = new Post(
-                  "HOW TO LEARN (REPRISE)",
-                  "To become yourself a PHP Master... Wait! Did I post that already?");
-                   // add comment to the second post
-                  $postTwo->comments = array(
-                    new Comment("Not quite sure if I like this post or not.", $user));
-
-                // 3rd layer blog’s application layer (controllers in an MVC stack) 
-                // ************************************
-                //which is responsible for pulling in model data and passing it to the presentational layer.
-                $posts = array($postOne, $postTwo);
-                */
+1. http://www.sitepoint.com/building-a-domain-model/ February 24, 2012  By Alejandro Gervasio 
+   - last cry in frameworks night (unnecessary complicated ?)
+2. https://www.sitepoint.com/integrating-the-data-mappers/
+3. https://www.sitepoint.com/handling-collections-of-aggregate-roots/
+4. https://www.sitepoint.com/an-introduction-to-services/
 
 
+Wed, 10 May 2017
+https://lessthan12ms.com/error-handling-in-php-and-formatting-pretty-error-responses-to-users.html
+https://github.com/Seldaek/monolog  https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md
 
-//Can be done : caching (in any of its multiple forms), lazy-loading, and so forth.
-//Forwarding model data to and from the DAL can be delegated in many cases to a turnkey mapping library or framework (assuming there exists such a thing). 
-//Defining the relationships between domain objects, as well as their own rules, data, and behavior is up to the developer.
-//Good OOP practices : involved objects have just a few, well-defined responsibilities, and model doesn’t get its pristine ecosystem polluted with database logic. Add to this that shifting the model from one infrastructure to another can be done in a fairly painless fashion, and you’ll get to see why this approach is very appealing when developing applications that must scale well.
 
+Can be done : caching (in any of its multiple forms), lazy-loading, and so forth.
+
+Forwarding model data to and from the DAL (Data Access Layer) can be delegated in many cases to a turnkey mapping library or framework (assuming there exists such a thing). 
+
+Defining the relationships between domain objects, as well as their own rules, data, and behavior is up to the developer.
+
+Good OOP practices - approach very appealing when developing applications that must scale well :
+- involved objects have just a few, well-defined responsibilities
+- model doesn’t get its pristine (clean, pure) ecosystem polluted with database logic
+- shifting M from one infrastructure (data source) to another can be done painless
+*/
 
 
 
@@ -114,32 +57,62 @@ include_once 'tbl.php' ;
 /**
 Building a Basic Blog Domain Model
 **********************************
+Domain Model is 
+
+- System of abstractions that describes selected aspects of a sphere of knowledge, influence or activity (a domain). The model can then be used to solve problems related to that domain.
+
+- An object model of the domain that incorporates both behavior and data.
+Creates a web of interconnected objects, where each object represents some meaningful individual, whether as large as a corporation or as small as a single line on an order form.
 
 ************************* 11111 **********************
 http://www.sitepoint.com/building-a-domain-model/  February 24, 2012  By Alejandro Gervasio
 
-//HOW TO CONSUME MODEL - Putting the Domain Model to Work
-//blog domain model : underlying INTERFACES AND CLASSES living in happy ignorance about the existence of any type of persistence mechanism that may be implemented down the line, be it a database, a web service, or anything else
-//network of rules and rich relationships with each other
-//current domain object implementations can be replaced with custom ones without much fuss
+DOMAIN MODEL purpose:
+- M can be ported without much hassle from one infrastructure to another.
+- Relationship between data and behavior of domain objects while infrastructure is out of the picture.
+  Ee avoid pollute with total impunity (immunity) the DOMAIN LOGIC with code for DB access (infrastructure), or with other type of underlying storage.
+- Independent, PERSISTENCE-AGNOSTIC LAYER responsible for defining clearly
+  interactions between entities of a system through DATA AND BEHAVIOR.
+  Persistence is data source : DB, web service...
 
-In this case each object graph is spawned by using plain Dependency Injection, which is sufficient for demonstrative purposes.
+At least one extra layer (code interface) :
+- multiple domain objects with well-defined constraints and rules interact
+- define M from top to bottom
+- implement from scratch or reuse a MAPPING LAYER in order to move data 
+  between  persistence layer ((DBI, web service interface) and M
 
-If the situation warrants, however, object graph creation should be delegated to more versatile structures, such as a Dependency Injection Container or a Service Locator. In either case, at this point the model is already doing its business as expected.
+
+HOW TO CONSUME MODEL - Putting the Domain Model to Work
+
+Blog domain model 
+************************
+Underlying INTERFACES AND CLASSES not knowing about DB, web service...
+Often, simple PHP Domain Models are composed of a few POPOs (Plain Old PHP Objects), which encapsulate rich business logic, like validation and strategy, behind a clean API.
+
+Each object graph is spawned by using plain DEPENDENCY INJECTION, which is sufficient for demonstrative purposes.
+
+If the situation warrants, however, OBJECT GRAPH CREATION should be delegated to more versatile structures, such as 
+       a Dependency Injection Container or a Service Locator.
+In either case, at this point the model is already doing its business as expected.
 
 
 ************************* 22222 **********************
 https://www.sitepoint.com/integrating-the-data-mappers/  March 16, 2012  By Alejandro Gervasio
 
-Basic mapping module which will allow you to move data easily between the blog’s model and a MySQL database, all while keeping them neatly isolated from one other.
+We build up from scratch an easy-to-manage mapping layer (module), capable of moving data back and forward between a simplistic blog DM (domain model classes/objects and MySQL tbls DB, all while keeping DM and DB isolated from one other.
 
-We’ll be trying to connect a batch of mapping classes to a blog’s domain model.
+Connect a batch (lot, plenty, bunch, clutch, deal) of mapping classes to a blog’s domain model.
 
-1. Idea is to set up from scratch a basic Data Access Layer (DAL) so that domain objects can easily be persisted in a MySQL database, and in turn, retrieved on request through some generic finders.
+1. Idea is to set up from scratch a basic DAL (Data Access Layer) so that 
+   1. domain objects can easily be persisted in a MySQL DB
+   2. retrieved on request through some GENERIC FINDERS.
 
-DAL in question will be made up of just a couple of components: the first one will be a simple database adapter interface, whose contract is interface DatabaseAdapterInterface. Contract allows us to create different database adapters at runtime and perform a few common tasks, such as connecting to the database and running CRUD operations without much fuss.
-
-2. Now we need at least one implementer of the interface that does all these cool things. The proud cavalier that will assume this responsibility will be a non-canonical class PdoAdapter implements DatabaseAdapterInterface.
+DAL in question will be made up of just a couple of components: 
+1. Simple database adapter intf (interface) Global_db_intf - contract which allows us
+   to create different DB adapters at runtime and perform common tasks, (assume responsibility)
+   such as connecting to DB and running CRUD operations without much fuss.
+2. At least one implementer of intf that does all these cool things -non-canonical 
+   class Global_db implements Global_db_intf.
 
 
 3.
@@ -172,25 +145,26 @@ CREATE TABLE comments (
 );
 
 
-At this point we’ve implemented a simple DAL which we can use for persisting the blog’s domain model in MySQL without sweating too much during the process. Now we need to add the middle men to the picture, that is data mappers, so any impedance mismatches can be handled quietly behind the scenes.
+At this point we’ve implemented a simple DAL which we can use for persisting the blog’s domain model in MySQL without sweating too much during the process. 
+
+Now we need to add the middle men to the picture, that is DATA MAPPERS, so any impedance mismatches (oppositions to code flow) can be handled quietly behind the scenes.
 
 Implementing a Bi-directional Mapping Layer - relational mappers
 *******************************************
-Quite a ways away from being trivial. That’s why ORM libraries like Doctrine live.
+Quite a ways away from being trivial. That’s why ORM LIBRARIES LIKE DOCTRINE live.
 
 4. Encapsulating as much mapping logic as possible within abstract class AbstractDataMapper
-   - couple of generic finders, all of the logic required for pulling in data from a specified table, which is then used for reconstituting domain objects in a valid state. Because reconstitutions should be delegated down the hierarchy to refined implementations, the createEntity() method has been declared abstract.
+   - couple of generic row object finders, all of the logic required for pulling in data from a specified table, which is then used for reconstituting domain objects in a valid state. Because reconstitutions should be delegated down the hierarchy to refined implementations, the newrow_obj() method has been declared abstract.
 
 5. Set of concrete mappers that will deal with blog posts, comments, and u sers :
-   1. PostMapperInterface and class PostMapper extends AbstractDataMapper implements PostMapperInterface 
-   2. CommentMapperInterface and class CommentMapper extends AbstractDataMapper implements CommentMapperInterface
-   3. UserMapperInterface and class UserMapper extends AbstractDataMapper implements UserMapperInterface
+   1. Post_db_intf and class Post_db extends AbstractDataMapper implements Post_db_intf 
+   2. Comment_db_intf and class Comment_db extends AbstractDataMapper implements Comment_db_intf
+   3. User_db_intf and class User_db extends AbstractDataMapper implements User_db_intf
 
-PostMapper extends its abstract parent and injects in the constructor a comment mapper (still undefined), in order to handle in sync both posts and comments without revealing to the outside world the complexities of creating the whole object graph.
+Post_db extends its abstract parent and injects in the constructor a comment mapper (still undefined), in order to handle in sync both posts and comments without revealing to the outside world the complexities of creating the whole object graph.
 
-CommentMapper class behaves quite similar to its sibling PostMapper. In short, it asks for a user mapper in the constructor, so that a specific comment can be tied up to the corresponding commenter.
+Comment_db class behaves quite similar to its sibling Post_db. In short, it asks for a user mapper in the constructor, so that a specific comment can be tied up to the corresponding commenter.
 
-We build up from scratch an easy-to-manage mapping layer, capable of moving data back and forward between a simplistic blog domain model and MySQL.
 
 Mapping the Blog’s Domain Objects to and from the DAL
 *****************************************************
@@ -505,6 +479,31 @@ SRP == SoC + Coupling + Cohesion
 
 
 
-http://github.com/webengfhnw/WE-CRM
+http://github.com/webengfhnw/WE-CRM - bootstrap 3
+
+
+
+
+
+// How to consume M : If we were going to build a NAIVE BLOG APP (all of its object graphs reside all the time in memory and don’t need to be persisted ee commited in DB, sent to web service...), there would be no need to create mapping layer :
+
+// 5TH LAYER : PRESENTATION - Graphs in question can be easily decomposed back through a skeletal view :
+// ************************
+// ************************
+// Domain Model is most glaring (shining, blinding) example of FAT MODELS/SKINNY CONTROLLERS mantra in action. Having all emphasis (significance) placed on business logic, controllers are diminished to the realm of simple mediators between the model and the user interface.
+
+//Implementation didn’t require to tie up M to any form of persistence infrastructure, therefore M is an easily portable and scalable creature!
+
+//Does this mean that a Domain Model is the panacea (cure, remedy) for all the flaws (imperfection, fault, defect) that DB Model exposes behind the scenes? In a sense it is, even with some caveats (limit, restrict, caution). Biggest caveat is the HASSLE OF HAVING TO MAP DOMAIN OBJECTS BACK AND FORWARD TO THE PERSISTENCE LAYER (DB, WEB SERVICE) - help third-party ORM like Doctrine, RedBeanPHP.
+
+//Choosing between a prepackaged DATA MAPPER or a custom one is matter of personal requirements and taste. Jean Paul Sartre said once, “men are condemned (doomed, sentenced, strong disapproval) to be free”. So, use your freedom consciously and pick up the MAPPING LIBRARY that suits your needs best.
+
+//Layer that dumps the previous blog posts to screen - HTML native template containing few PHP loops:
+include_once 'tbl.php' ;
+//In next article, DEVELOPING A CUSTOM MAPPING LAYER TO DEMONSTRATE HOW TO TRANSFER DATA M <--> DB.
+
+//Symfony 2.x, Aura, and even Zend Framework don't provide users with a BASE MODEL UP FRONT (or worse, provide the INFAMOUS (UNFAVOURABLY) DATABASE MODEL), hopefully we’ll see in the near future more advocates of rich Domain Models. In the interim, it's pretty healthy to take an in-depth look at them and see how to implement a trivial one from scratch.
+
+
 
 */

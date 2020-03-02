@@ -1,13 +1,14 @@
 <?php
-// J:\awww\www\fwphp\glomodul\z_examples\02_mvc\domain_model\Post .php
+// J:\awww\www\fwphp\glomodul\z_examples\02_mvc\domain_model\Post.php
 // https://www.sitepoint.com/building-a-domain-model/
 namespace Model;
-
+//modelling a blog post as a POPO (Plain Old PHP Object)
+//subclassing a parent - subclasses that wrap domain object :
 class Post extends AbstractEntity implements PostInterface
 {
     protected $_id;
     protected $_title;
-    protected $_summary; // _content
+    protected $_summary; // was _content
 
     protected $_comments;
 
@@ -27,8 +28,8 @@ class Post extends AbstractEntity implements PostInterface
                 "The ID for this post has been set already.");
         }
  
-        if (!is_int($id) || $id < 1) {
-            throw new \InvalidArgumentException("The post ID is invalid.");
+        if (!is_int($id) || $id < 0) {
+            throw new \InvalidArgumentException("The post ID $id is invalid.");
         }
  
         $this->_id = $id;
@@ -65,14 +66,14 @@ class Post extends AbstractEntity implements PostInterface
     }
     
     public function getContent() {
-        return $this->_content;
+        return $this->_summary;
     }
     
     public function setComments(array $comments) {
         foreach ($comments as $comment) {
             if (!$comment instanceof CommentInterface) {
                 throw new \InvalidArgumentException(
-                    "One or more comments are invalid.");
+                    "One $comment or more comments are invalid.");
             }
         }
  
@@ -91,9 +92,10 @@ class Post extends AbstractEntity implements PostInterface
 Often, simple PHP Domain Models are composed of a few POPOs (Plain Old PHP Objects), which encapsulate rich business logic, like validation and strategy, behind a clean API.
 
 Modelling a blog post as a POPO 
-1) implementing the methods defined by its associated interface
-2) optionally extending the functionality of the base entity class
-Post is capable of validating itself through its mutators, thus carrying both data and behavior, there’s no need to pollute application logic with scattered validation blocks. This vaccinates the whole model against anemic issues and makes it much cleaner and DRYer. See :
+1) implementing methods defined by its associated interface
+2) optionally extending base entity class functionality
+
+Post is capable of validating itself through its mutators, thus carrying both data and behavior, there’s no need to pollute appl logic with scattered validation blocks. This vaccinates the whole model against anemic issues and makes it much cleaner and DRYer. See :
 https://martinfowler.com/bliki/AnemicDomainModel.html
 
 */

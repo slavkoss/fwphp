@@ -16,6 +16,7 @@ use PDO;
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
 abstract class Db_allsites extends Dbconn_allsites
 {
+    // can be named AbstractEntity
     private $stmt;    //PDO statement handler, I use it only in dd fn
     
     //$this->dbobj=Dbconn_allsites::get_or_new_dball(basename(__FILE__),__LINE__,__METHOD__); 
