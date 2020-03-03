@@ -2,9 +2,19 @@
 // J:\awww\www\fwphp\glomodul\z_examples\02_mvc\domain_model\Post.php
 // https://www.sitepoint.com/building-a-domain-model/
 namespace Model;
-//modelling a blog post as a POPO (Plain Old PHP Object)
-//subclassing a parent - subclasses that wrap domain object :
-class Post extends AbstractEntity implements PostInterface
+// modelling a blog post as a POPO (Plain Old PHP Object)
+// subclassing a parent - subclasses that wrap domain object :
+
+/*use //Model\User
+  //, Model\Post
+   Model\Comment
+  //, CoreDB\Global_db 
+  //, ModelMapper\User_db
+  //, ModelMapper\Post_db
+  , ModelMapper\Comment_db
+; */
+
+class Post extends Global_conf implements PostInterface
 {
     protected $_id;
     protected $_title;
@@ -16,10 +26,7 @@ class Post extends AbstractEntity implements PostInterface
         // map post fields to the corresponding mutators
         $this->setTitle($title);
         $this->setContent($content);
- 
-        if ($comments) {
-            $this->setComments($comments);
-        }
+        $this->setComments($comments);
     }
 
     public function setId($id) {
@@ -69,7 +76,10 @@ class Post extends AbstractEntity implements PostInterface
         return $this->_summary;
     }
     
-    public function setComments(array $comments) {
+    public function setComments(array $comments)
+    {
+        if (!$comments) { goto get_comments ; }
+
         foreach ($comments as $comment) {
             if (!$comment instanceof CommentInterface) {
                 throw new \InvalidArgumentException(
@@ -78,6 +88,19 @@ class Post extends AbstractEntity implements PostInterface
         }
  
         $this->_comments = $comments;
+
+        get_comments:
+
+        $userrobj = new User("EverchangingJoe", "joe@example.com"); //in memory
+        // Joe's comments for post1 (post ID = 1, user ID = 1)
+        $cmntrobj0101 = new Comment("POST1 COMMENT1", $userrobj); //in memory
+                           //$Comment_db->cc($cmntrobj, 1, $userrobj->id);  
+          //$Comment_db->cc($cmntrobj, $postrobj01->id, $userrobj->id); //in dbtblrow (cre id)
+        $cmntrobj0102 = new Comment("POST1 COMMENT2", $userrobj); //in memory
+          //$Comment_db->cc($cmntrobj, $postrobj->id, $userrobj01->id); //in dbtblrow (cre id)
+
+        $this->_comments = [$cmntrobj0101, $cmntrobj0102];
+
         return $this;
     }
     

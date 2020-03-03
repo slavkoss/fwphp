@@ -1,4 +1,5 @@
 <?php
+namespace DMtest; // module name
 
 // 1ST LAYER IS TYPICAL BOOTSTRAP - include and initialize an autoloader :
 // ************************************
@@ -6,22 +7,9 @@ require_once __DIR__ . "/Autoloader.php";
             //$autoloader = new Autoloader();  //$autoloader->register();
 spl_autoload_register('Model\Autoloader::autoload'); //'Autoloader::autoload'
 
-// 2. TO 4. LAYER IS DATA & Controller :
-// ************************************
-// 2. domain model of DB (User, Post, Comment entity classes),
-// 3. data (is or is not) persistent - DB, webservice..., 4. module (app) C
+//Cls_no_db_test::db_test() ;
+Cls_db_test::db_test() ;
 
-//COMMENT NEXT NOT DB TEST DATA TO USE PERSISTENCE - DB (or web service...) :
-//include 'get_data_no_db_test.php' ;
-//$posts = no_db_test() ;
-
-// COMMENT NEXT PERSISTENCE DB TO USE NOT PERSISTENCE DATA ee no_db_test() :
-// ***********************persistence mechanism - DB (or web service...) :
-include 'get_data_mysql_blog.php' ;
-$posts = db_test() ; //ins detail is in get_data $Comment_db->insert...
-
-// 5TH LAYER : PRESENTATION - Graphs in question can be easily decomposed back through a skeletal view :
-include_once 'tbl.php' ;
 
 
 /*
@@ -99,23 +87,51 @@ In either case, at this point the model is already doing its business as expecte
 ************************* 22222 **********************
 https://www.sitepoint.com/integrating-the-data-mappers/  March 16, 2012  By Alejandro Gervasio
 
-We build up from scratch an easy-to-manage mapping layer (module), capable of moving data back and forward between a simplistic blog DM (domain model classes/objects and MySQL tbls DB, all while keeping DM and DB isolated from one other.
+How to put mechanics of the model (article 1) to work in synchrony with
+"real" persistence layer - DB tbl-s.
 
-Connect a batch (lot, plenty, bunch, clutch, deal) of mapping classes to a blog’s domain model.
+Even simplest Domain Model demands definition of
+* constraints
+* rules
+* relationships among its building objects
+* how building objects will behave in a given context
+* what type of data building objects will carry during their life cycle
 
-1. Idea is to set up from scratch a basic DAL (Data Access Layer) so that 
+Plus, process of transferring model data to and from the storage will likely
+require to drop a set of Data Mappers at some point, a fact that highlights
+why Domain Models are often surrounded by a cloud of bullying
+(intimidating a weaker person to make them do something).
+
+
+********************************************************************
+1. Building a Naive DAL (or why my PDO adapter is better than yours)
+********************************************************************
+
+We build up from scratch an easy-to-manage mapping layer (module),
+capable of moving data back and forward between 
+   simplistic blog DM (domain model classes/objects) 
+   and MySQL tbls DB, 
+all while keeping DM and DB isolated from one other.
+
+Connect a batch (lot, plenty, bunch, clutch, deal) of 
+mapping classes to a blog’s domain model - properties not in DB, prefixed with "_".
+
+Idea is to set up from scratch a basic DAL (Data Access Layer) so that 
    1. domain objects can easily be persisted in a MySQL DB
    2. retrieved on request through some GENERIC FINDERS.
 
 DAL in question will be made up of just a couple of components: 
-1. Simple database adapter intf (interface) Global_db_intf - contract which allows us
+1. Simple database adapter intf (interface) G lobal_db_intf - contract which allows us
    to create different DB adapters at runtime and perform common tasks, (assume responsibility)
    such as connecting to DB and running CRUD operations without much fuss.
 2. At least one implementer of intf that does all these cool things -non-canonical 
-   class Global_db implements Global_db_intf.
+   class G lobal_db implements G lobal_db_intf. 
+   (class PdoAdapter implements DatabaseAdapterInterface).
 
 
-3.
+3. DB schema defines a 1:M relationship between posts and comments,
+   and a M:1 relationship between comments and users (the blog’s commentators). 
+
 ALTER TABLE `admins` ADD `email` VARCHAR(60) NULL AFTER `username`; 
 CREATE TABLE posts (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -144,22 +160,68 @@ CREATE TABLE comments (
   FOREGIN KEY (post_id) REFERENCES posts(id)
 );
 
+At this point we’ve implemented a simple DAL which we can use for persisting 
+blog’s domain model in MySQL without sweating too much during the process. 
 
-At this point we’ve implemented a simple DAL which we can use for persisting the blog’s domain model in MySQL without sweating too much during the process. 
+Now we need to add the middle men to the picture, that is DATA MAPPERS,
+so any impedance mismatches (oppositions to code flow) can be handled 
+quietly behind the scenes.
 
-Now we need to add the middle men to the picture, that is DATA MAPPERS, so any impedance mismatches (oppositions to code flow) can be handled quietly behind the scenes.
-
-Implementing a Bi-directional Mapping Layer - relational mappers
-*******************************************
+******************************************************************************
+2. Implementing a Bi-directional Mapping Layer - RELATIONAL DATA MAPPERS
+******************************************************************************
 Quite a ways away from being trivial. That’s why ORM LIBRARIES LIKE DOCTRINE live.
 
-4. Encapsulating as much mapping logic as possible within abstract class AbstractDataMapper
-   - couple of generic row object finders, all of the logic required for pulling in data from a specified table, which is then used for reconstituting domain objects in a valid state. Because reconstitutions should be delegated down the hierarchy to refined implementations, the newrow_obj() method has been declared abstract.
+4. Encapsulating as much mapping logic as possible within abstract class 
+   A bstractDataMapper :
+   - couple of generic row object finders (get record sets)
+   - logic required for pulling in data from a specified table which is then used
+     for reconstituting domain objects in a valid state. Because reconstitutions
+     should be delegated down the hierarchy to refined implementations, 
+     newrow_obj() (createEntity()) method has been declared abstract.
+
+
+namespace ModelMapper;
+use LibraryDatabaseDatabaseAdapterInterface;
+abstract class A bstractDataMapper
+
 
 5. Set of concrete mappers that will deal with blog posts, comments, and u sers :
-   1. Post_db_intf and class Post_db extends AbstractDataMapper implements Post_db_intf 
-   2. Comment_db_intf and class Comment_db extends AbstractDataMapper implements Comment_db_intf
-   3. User_db_intf and class User_db extends AbstractDataMapper implements User_db_intf
+   1. Post_db_intf and class Post_db extends A bstractDataMapper implements Post_db_intf
+      namespace ModelMapper;
+      use ModelPostInterface;
+      interface PostMapperInterface
+
+      namespace ModelMapper;
+      use LibraryDatabaseDatabaseAdapterInterface,
+          ModelPostInterface,
+          ModelPost;
+      class PostMapper extends AbstractDataMapper implements PostMapperInterface
+
+   2. Comment_db_intf and class Comment_db extends A bstractDataMapper implements Comment_db_intf
+      namespace ModelMapper;
+      use ModelCommentInterface;
+      interface CommentMapperInterface
+
+      namespace ModelMapper;
+      use LibraryDatabaseDatabaseAdapterInterface,
+          ModelCommentInterface,
+          ModelComment;
+      class CommentMapper extends A bstractDataMapper implements CommentMapperInterface
+
+      CommentMapper class behaves similar to its sibling PostMapper. It asks for a user mapper in the constructor, so that a specific comment can be tied up to the corresponding commenter. Considering the easy-going nature of CommentMapper, let’s define another which will handle users:
+
+   3. User_db_intf and class User_db extends A bstractDataMapper implements User_db_intf
+      namespace ModelMapper;
+      use ModelUserInterface;
+      interface UserMapperInterface
+
+      namespace ModelMapper;
+      use ModelUserInterface,
+          ModelUser;
+      class UserMapper extends AbstractDataMapper implements UserMapperInterface
+
+
 
 Post_db extends its abstract parent and injects in the constructor a comment mapper (still undefined), in order to handle in sync both posts and comments without revealing to the outside world the complexities of creating the whole object graph.
 

@@ -1,7 +1,8 @@
 <?php
+
 namespace Model;
 
-class Comment extends AbstractEntity implements CommentInterface
+class Comment extends Global_conf implements CommentInterface
 {
     protected $_id;
     protected $_comment;

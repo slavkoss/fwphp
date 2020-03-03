@@ -6,8 +6,10 @@ use Model\PostInterface;
 
 interface Post_db_intf
 {
-   //public function findById($id);
+   //Both in A bstractDataMapper, call G lobal_db methods fetch(), fetchAll() :
+   //public function findById($id); 
    //public function findAll(array $conditions = array());
+   //
 
    public function cc(PostInterface $post);
    public function dd($id);

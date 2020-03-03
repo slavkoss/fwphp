@@ -34,15 +34,6 @@ class Home_ctr extends Config_allsites
   } // e n d  f n
 
 
-  public function home()
-  {
-      $title = 'TEST USER CRUD';
-      require $this->pp1->wsroot_path . 'zinc/hdr.php';
-        //require_once("navbar.php");
-        require $this->pp1->module_path . 'home.php';
-      require $this->pp1->wsroot_path . 'zinc/ftr.php';
-  }
-
   public function c()
   {
       $title = 'TEST USER CREATE';
@@ -52,8 +43,20 @@ class Home_ctr extends Config_allsites
       require $this->pp1->wsroot_path . 'zinc/ftr.php';
   }
 
+  public function home()
+  {
+    //t b l  r e a d
+      $title = 'TEST USER CRUD';
+      require $this->pp1->wsroot_path . 'zinc/hdr.php';
+        //require_once("navbar.php");
+        require $this->pp1->module_path . 'home.php';
+      require $this->pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+
   public function r()
   {
+    //r o w  r e a d
       $title = 'TEST USER READ PROFILE';
       require $this->pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar.php");

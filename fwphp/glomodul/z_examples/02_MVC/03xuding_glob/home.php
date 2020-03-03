@@ -1,7 +1,16 @@
+<?php
+// J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\home.php
+namespace B12phpfw ;
+//User_ crud is ORM class : DM of row in memory to/from DB tbl row
+//where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
+//$cursor = User_crud::rr_all($this);
+$User_crud = new User_crud ;
+$cursor = $User_crud->rr_all($this);
+?>
 <!--             U S E R  T B L  R E A D -->
 <div class="container">
 <div class="row">
-      <h3>USERS TABLE CRUD PDO MySQL BOOTSTRAP OOP MVC</h3>
+      <h3>USERS TABLE CRUD PDO MySQL/Oracle BOOTSTRAP OOP MVC šđčćž</h3>
 </div>
 
 <div class="row">
@@ -14,7 +23,6 @@
 
   <tbody>
       <?php
-    $cursor = $this->rr("SELECT * FROM admins ORDER BY username", [], __FILE__ .' '.', ln '. __LINE__) ;
     $SrNo = 0;
     while ($r = $this->rrnext($cursor))
     {

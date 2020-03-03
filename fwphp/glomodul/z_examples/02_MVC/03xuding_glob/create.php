@@ -1,4 +1,10 @@
 <?php
+// J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\home.php
+namespace B12phpfw ;
+//User_ crud is ORM class : DM of row in memory to/from DB tbl row
+//where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
+
+
 if ( !empty($_POST))
 {
   // keep track validation errors
@@ -26,24 +32,12 @@ if ( !empty($_POST))
       $valid = false;
   }
 
-
-
   // 2. insert data
   if ($valid) {
-    $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-    $flds     = "username,email" ;
-    $qrywhat = "VALUES(:username,:email)" ;
-    $binds = [
-      ['placeh'=>':username',  'valph'=>$name, 'tip'=>'str']
-     ,['placeh'=>':email',  'valph'=>$email, 'tip'=>'str']
-    ] ;
-    $cursor = $this->cc($this,'admins',$flds,$qrywhat,$binds);
-
-    //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
-    //}else { $_SESSION["ErrorMessage"]= "Something went wrong. Try Again !"; }
-    //$this->Redirect_to($this->pp1->admins);
-
-    self::disconnect();
+    $fldvals = [$name, $email] ;
+    $User_crud = new User_crud ;
+    $id = $User_crud->cc($this, $fldvals);
+    echo "<h3>Created id=$id </h3>" ;
     //header("Location: index.php");
   }
 }
@@ -54,7 +48,7 @@ if ( !empty($_POST))
 
       <div class="span10 offset1">
           <div class="row">
-              <h3>Create a Customer</h3>
+              <h4>Create a Customer</h4>
           </div>
 
           <form class="form-horizontal" action="<?=$this->pp1->c?>" method="post">

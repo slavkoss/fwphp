@@ -1,5 +1,5 @@
 <?php
-namespace Model; //FUNCTIONAL NAME SPACING (not dir names ee positional)
+namespace Model; //FUNCTIONAL NAMESPACE (not dir names ee positional)
 //Instead of require 'm.php'; require 'v.php';  require 'c.php'; :
 //    ***** namespaced cls name --> cls script path *****
 class Autoloader
@@ -21,10 +21,11 @@ class Autoloader
   public static function autoload($class) //namespaced className
   {
     // ********** 1. module_ cls_ script_ path **********  eg B12phpfw\\clickmeModule
-    $cls_script_path1 = self::get_module_cls_script_path($class, $nsprefix1='Model') ;
-    $cls_script_path2 = self::get_module_cls_script_path($class, $nsprefix2='Model\\') ;
-    $cls_script_path3 = self::get_module_cls_script_path($class, $nsprefix3='ModelMapper\\') ;
-    $cls_script_path4 = self::get_module_cls_script_path($class, $nsprefix4='CoreDB\\') ;
+    $cls_script_path1 = self::get_module_cls_script_path($class, $nsprefix1='DMtest') ;
+    $cls_script_path2 = self::get_module_cls_script_path($class, $nsprefix1='Model') ;
+    $cls_script_path3 = self::get_module_cls_script_path($class, $nsprefix2='Model\\') ;
+    $cls_script_path4 = self::get_module_cls_script_path($class, $nsprefix3='ModelMapper\\') ;
+    $cls_script_path5 = self::get_module_cls_script_path($class, $nsprefix4='CoreDB\\') ;
 
     // ********** 2. cls_ script_ path_ external_ module **********
     //$cls_script_path = $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
@@ -36,6 +37,7 @@ class Autoloader
         case file_exists($cls_script_path2): include_once $cls_script_path2;  break;
         case file_exists($cls_script_path3): include_once $cls_script_path3;  break;
         case file_exists($cls_script_path4): include_once $cls_script_path4;  break;
+        case file_exists($cls_script_path5): include_once $cls_script_path5;  break;
         //case file_exists($cls_script_path_external_m): include_once $cls_script_path_external_m; break;
         default:
           if ('1') { echo 'For namespaced class '. $class

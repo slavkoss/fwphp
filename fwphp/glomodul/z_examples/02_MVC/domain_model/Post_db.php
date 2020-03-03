@@ -13,10 +13,11 @@ class Post_db extends AbstractDataMapper implements Post_db_intf
     protected $entityTable = "posts";
 
     public function __construct(
-        Global_db_intf $globdb_obj, Comment_db_intf $commendb_obj
+        Global_db_intf $globdb_obj    // extend its abstract parent,
+      , Comment_db_intf $commendb_obj // injects in the constructor a comment mapper, to handle in sync both posts and comments without revealing to the outside world the complexities of creating the whole object graph. SUPPOSING ANONYMOUS USERS MAY NOT COMMENT !
     ) 
     {
-      //params: Global_db_intf $adapter, Comment_db_intf $commenMapper
+      //params: G lobal_db_intf $a dapter, C omment_db_intf $c ommenMapper
         $this->Comment_db = $commendb_obj;
         parent::__construct($globdb_obj);
     }

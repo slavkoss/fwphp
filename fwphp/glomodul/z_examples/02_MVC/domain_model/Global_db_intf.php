@@ -14,7 +14,7 @@ interface Global_db_intf
     //public function fetch($fetchStyle = null, 
     //    $cursorOrientation = null, $cursorOffset = null);
     //public function fetchAll($fetchStyle = null, $column = 0);
-    //      C R U D :
+          // C R U D :
     public function cc($table, array $bind);
     public function rr($table, array $bind, $boolOperator = "AND");
     public function uu($table, array $bind, $where = "");

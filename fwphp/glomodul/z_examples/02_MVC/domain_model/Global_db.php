@@ -111,13 +111,16 @@ class Global_db implements Global_db_intf
           $bind[":" . $col] = $value;
       }
       $sql = "INSERT INTO ". $table ." (". $cols .") VALUES (:". $values .")";
-                        if ('1') { echo ''. __METHOD__ .'() method SAYS : ';
-                          echo '<b>$sql='; print_r($sql); echo '</b>' ;
+
+                        if ('') { echo ''. __METHOD__ .'() method SAYS : ';
+                          //echo '<b>$sql='; print_r($sql); echo '</b>' ;
                           echo '<pre>$bind='; print_r($bind); echo '</pre>';
                         }
+
       return (int) $this->prepareSql($sql)
           ->execute($bind)
           ->getLastInsertId();
+
   }
 
   public function rr($table, array $bind = array(),
@@ -164,7 +167,7 @@ class Global_db implements Global_db_intf
 
 
   /*
-  //Fatal error: Class CoreDB\Global_db contains 3 abstract methods and must therefore be declared abstract or implement the remaining methods (CoreDB\Global_db_intf::prepare, CoreDB\Global_db_intf::fetch, CoreDB\Global_db_intf::fetchAll) in J:\awww\www\fwphp\glomodul\z_examples\02_mvc\domain_model\Global_db.php on line 8
+  //Fatal error: Class CoreDB\G lobal_db contains 3 abstract methods and must therefore be declared abstract or implement the remaining methods (CoreDB\G lobal_db_intf::prepare, CoreDB\G lobal_db_intf::fetch, CoreDB\G lobal_db_intf::fetchAll) in J:\awww\www\fwphp\glomodul\z_examples\02_mvc\domain_model\G lobal_db.php on line 8
 
   public f unction fetch(
     $fetchStyle = null, $cursorOrientation = null, $cursorOffset = null)

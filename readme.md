@@ -183,7 +183,7 @@ Instead we **reuse code in 3 classes (globals)** above Home_ctr.
 Developed on home PC Windows 10 64 bit and Apache web server. Some details are to do in version 6.1 but all important is visible in current version 6.0. 
 
 1. Menus (Mnu module) are not based - no need, but can be based on B12phpfw which is best for CRUD modules like Oracle Forms form. 
-2. Most frequent (best ?) blog design today (I used it in Blog (Msg) module based on B12phpfw code skeleton
+2. Most frequent (best ?) blog design today - Jazeb Akram, Abdul Wali, Edwin Diaz... I used it in Blog (Msg) module based on B12phpfw code skeleton
 3. WYSIWYG Markdown or HTML editing (Mkd module not based - no need, but can be based on B12phpfw is used for blog posts or any txt file). Blog posts may be :
     1. oper. system files - practicaly unlimited size
     2. or in MySQL/Oracle/or any DB : post (4000 characters I commented this in code), summary (4000 characters) and banner_img description (4000 characters) 
