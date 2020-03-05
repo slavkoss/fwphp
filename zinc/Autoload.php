@@ -19,6 +19,7 @@ class Autoload
    public function __construct($pp1) {
      $this->pp1 = $pp1 ;
      spl_autoload_register(array($this, 'loader'));
+     return null ;
    }
 
    private function loader($nsclsname) //namespaced  c l a s s  name

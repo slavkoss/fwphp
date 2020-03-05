@@ -11,17 +11,17 @@ if (strnatcmp(phpversion(),'5.4.0') >= 0) {
 } else { if(session_id() == '') { session_start(); } }
 
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
-//extends  = ISA relation conf-db like vehicle-psgv = not "conf is contained in db" but 
+//extends  = ISA ("is a something") relation = not "conf is contained in db" but 
 //"conf is addition to db" - technicaly could be in db (is not for sake of clear code)
 abstract class Config_allsites extends Db_allsites
 {
   // can be named AbstractEntity
   /** 
   * ****************************************************
-  * R O U T I N G  =  I N C L U D E S  OR  METHOD CALLS
+  * 1. R O U T I N G - IS NOT NEEDED IF NO USER INTERACTIONS (ee links) 
   * ****************************************************
   */
-  public $uriq ; //url parameters after ? (QS) (url query string is key-value pairs)
+  public $uriq ; //url parameters (url query string) after QS='?' are key-value pairs
                  // if using Composer autoloading classes set QS=''.
   public $pp1 ;  //M O D U L E  PROPERTIES PALLETE like Oracle Forms
 
@@ -178,7 +178,8 @@ abstract class Config_allsites extends Db_allsites
       * may be in module`s Home_ctr (code here is global for all sites)
       */
     /** ************** coding step cs04. *******************
-    *   4. DISPATCHER:  includes or calls or http jumps (only to other module)
+    * DISPATCHER: calls Home_ctr cls method which 
+    * calls fns or includes view scripts (http jumps only to other module)
     ***************************************************** */
         // CONVENTION :
         // i = ctrakcmethod of  H o m e_c t r  cls which includes view script or calls method (does tblrowCRUD...)
@@ -201,7 +202,7 @@ abstract class Config_allsites extends Db_allsites
               });
 
               $app->run();
-*/
+              */
 
   } //e n d  __ c o n s t r u c t
 
@@ -232,8 +233,8 @@ abstract class Config_allsites extends Db_allsites
 
     // S E C U R I T Y  M E T H O D S
     //prevent XSS attacks by ESCAPING OUTPUT. XSS = cross-site scripting attack
-    // - hacker injects malicious client-side code into output of your page
-    static public function escp($string)
+    // - XSS attacks hacker injects malicious client-side code into output of your page
+    static public function escp($string) //ESCAPING OUTPUT
     {
       $data = trim($string);
       $data = stripslashes($data);
@@ -261,7 +262,7 @@ abstract class Config_allsites extends Db_allsites
      * Map the setting of non-existing fields to a mutator when
      * possible, otherwise use the matching field
      */
-    public function __set($name, $value) {
+    /* public function __set($name, $value) {
         $field = "_" . strtolower($name);
 
         if (!property_exists($this, $field)) {
@@ -280,13 +281,13 @@ abstract class Config_allsites extends Db_allsites
         }
 
         return $this;
-    }
+    } */
 
     /**
      * Map the getting of non-existing properties to an accessor when 
      * possible, otherwise use the matching field
      */
-    public function __get($name) {
+    /* public function __get($name) {
         $field = "_" . strtolower($name);
 
         if (!property_exists($this, $field)) {
@@ -298,13 +299,13 @@ abstract class Config_allsites extends Db_allsites
         return (method_exists($this, $accessor) &&
             is_callable(array($this, $accessor)))
             ? $this->$accessor() : $this->field;
-    }
+    } */
 
     /**
      * Get the entity fields
      */
-    public function toArray() {
-        return get_object_vars($this);
+    public function toArray($db) {
+        return get_object_vars($db);
     }
 
 

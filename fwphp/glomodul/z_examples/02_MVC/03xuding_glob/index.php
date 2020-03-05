@@ -1,7 +1,12 @@
 <?php
-//     U S E R  T B L  C R U D step 2 on B12phpfw CRUD code skeleton
-// https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
-// for code comments see blog nodule J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
+/**
+* step 1
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
+*        Instantiates Home_ ctr cls - router, dispatcher
+* step 1 in Module  U S E R  T B L  C R U D on B12phpfw CRUD code skeleton. 
+* see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
+* For more code comments see blog module J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
+*/
 namespace B12phpfw ;
 //$dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ; 
 $pp1 = (object)
@@ -16,12 +21,12 @@ $pp1 = (object)
 ] ;
 
 require($pp1->module_towsroot.'zinc/Autoload.php');
-$autoloader = new Autoload($pp1); 
+new Autoload($pp1); //global cls loads classes scripts automatically
                 if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
                    .', line '. __LINE__ .' SAYS'=>' '
                    ,'where am I'=>'AFTER  A u t o l o a d'
                 ] ) ; }
-
+//step 2 (step 3 is parent::__construct : fw core calls method in Home_ctr cls)
 $db = new Home_ctr($pp1) ;
 
 exit(0);
@@ -29,7 +34,7 @@ exit(0);
 
 
 /*
-// module autoloader :
+// Module autoloader (not used here but may be needed in some modules) :
 namespace Model; //FUNCTIONAL NAME SPACING (not dir names ee positional)
 //Instead of require 'm.php'; require 'v.php';  require 'c.php'; :
 //    ***** namespaced cls name --> cls script path *****
@@ -87,7 +92,12 @@ class Autoloader
 */
 
 
-/* //            WAS  in index.php (step 1) :
+
+
+
+
+
+/* //            WAS  in index.php (see 03xuding dir) :
 //      !!!!!!!!! THIS IS NOW IN Home_ctr.php (B12phpfw) !!!!!!!!!!!!
 require_once(__DIR__.'/confglo.php');
 

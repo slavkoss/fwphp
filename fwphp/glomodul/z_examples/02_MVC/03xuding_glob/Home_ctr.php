@@ -1,21 +1,35 @@
 <?php
 namespace B12phpfw ;
 
+/**
+* step 2
+J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Home_ctr.php
+* Instantiated in i ndex.php 
+*
+* Home_ ctr cls is router, dispatcher :
+* 1. Assigns links for user interactions (module routing table) in home.php
+* 2. Calls own method when user clicks link/button in home.php 
+*    or any URL is entered in ibrowser adress field
+* 3. Own method includes view CRUD scripts h ome.php or c reate.php or r ead.php or ... 
+*    (no need for view classes ?) or calls some method or url calls other module i ndex.php
+*/
 class Home_ctr extends Config_allsites
 {
-
   public function __construct($pp1)
   {
     if (!defined('QS')) define('QS', '?');
     $pp1_module_links = [ 
       'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~' ,
-      'h'            => QS.'i/home/' ,
-      'c'            => QS.'i/c/' ,
-      'r'            => QS.'i/r/' ,
-      'u'            => QS.'i/u/' ,
-      'd'            => QS.'i/d/'
+      'h'   => QS.'i/home/' ,
+      'c'   => QS.'i/c/' ,
+      'r'   => QS.'i/r/id/' ,
+      'u'   => QS.'i/u/id/' , //in view script href = $this->pp1->u . $id
+      //$this->uriq->i/home_fn, t/tbl_name, id/idval key/value
+      //in home.php onclick does jsmsgyn dialog,  home_fn "d" calls dd() (no need include script)
+      'd'   => QS.'i/d/t/admins/id/' //in view script href = $this->pp1->d . $id
     ] ;
 
+    //step 3 : fw core calls method in this cls : see home_fn above
     parent::__construct($pp1, $pp1_module_links);
 
                 if ('') { /* self::jsmsg( [ //basename(__FILE__).' '.
@@ -33,6 +47,8 @@ class Home_ctr extends Config_allsites
 
   } // e n d  f n
 
+
+  //Called own methods when user clicks link/button or any URL is entered in ibrowser adress field :
 
   public function c()
   {
@@ -87,7 +103,7 @@ class Home_ctr extends Config_allsites
         case 'admins' : $this->Redirect_to($this->pp1->h) ; break;
         default: 
           echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '.'T a b l e '. $this->uriq->t 
-          .' does not exist (put it home.php, in del link !)'.'</h3>';
+          .' does not exist (put it in home.php, in del link !)'.'</h3>';
           break;
       }
 

@@ -1,5 +1,5 @@
 <a name="top"></a>
-**Top**      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+**Top**      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [DM](#dm)      [2. IDE](#ide)    [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 # 1. My PHP menu & CRUD code skeleton (I named it B12phpfw)
 ## 1\.1 Demo site - free hosting with free Mysql
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu- fast, stable) 
@@ -16,7 +16,7 @@
 
 <span id="directories"></span>
 ## 1\.3 B12phpfw directories (modules) structure
-[Top](#top)     **Directories**     [UML](#uml)     [2. IDE](#ide)     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+[Top](#top)     **Directories**     [UML](#uml)     [DM](#dm)     [2. IDE](#ide)     [DM](#dm)     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
 See **info code :**        
 http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php       
@@ -207,11 +207,736 @@ Explanations below are far less important than demo site and code download menti
 
 
 
+## <a name="dm"></a>1\.6 DM (Domain model)
+[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     ** DM**      [2. IDE](#ide)     [3. CRUD](#crud)     [4.  SW fw](#swfw)     
+
+[UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) should have DM adapter class.     
+
+What are DM is best explained in example :     
+https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/03xuding_glob  (\_glob means "with globals").       
+
+This example is step 2 in learning. Step 1 is dir (module) ...z_examples/02_MVC/03xuding.     
+
+### 1\.6\.1 index.php
+
+```php
+<?php
+/**
+* step 1
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
+*               Instantiates Home_ ctr cls - router, dispatcher
+* step 1 in Module  U S E R  T B L  C R U D on B12phpfw CRUD code skeleton. 
+* see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
+* For more code comments see blog module J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
+*/
+namespace B12phpfw ;
+//$dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ; 
+$pp1 = (object)
+[   'dbg'=>'1', 'module_version'=>'6.0.4.0 Users'
+  , 'module_towsroot'=>'../../../../../'
+  , 'vendor_namesp_prefix'=>'B12phpfw'
+  , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
+        str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path (CONVENTION!!)
+      //, $dirup_tmp.'/user/', $dirup_tmp.'/post_category/' //two master modules (tbls)
+      //, $dirup_tmp.'/post/', $dirup_tmp.'/post_comment/'  //detail & subdet modules (tbls)
+  ] , 'caller'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+] ;
+
+require($pp1->module_towsroot.'zinc/Autoload.php');
+new Autoload($pp1); //global cls loads classes scripts automatically
+                if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
+                   .', line '. __LINE__ .' SAYS'=>' '
+                   ,'where am I'=>'AFTER  A u t o l o a d'
+                ] ) ; }
+//step 2 (step 3 is parent::__construct : fw core calls method in Home_ctr cls)
+$db = new Home_ctr($pp1) ;
+
+exit(0);
 
 
 
+/*
+// Module autoloader (not used here but may be needed in some modules) :
+namespace Model; //FUNCTIONAL NAME SPACING (not dir names ee positional)
+//Instead of require 'm.php'; require 'v.php';  require 'c.php'; :
+//    ***** namespaced cls name --> cls script path *****
+class Autoloader
+{
+  private static function get_module_cls_script_path($class, $nsprefix) {
+    //replace name space backslash to current operating system directory separator
+    $DS = DIRECTORY_SEPARATOR ;
+
+    $cls_script_path = __DIR__ .'/'
+      . str_replace( [$nsprefix,'\\'] //substrings to replace
+                       , ['', '/']    //replacements
+                       , $class       //in string
+        ).'.php'; //append cls script extension and convert (to Windows) backslash :
+   $cls_script_path = str_replace(['/','\\'], [$DS,$DS], $cls_script_path) ;
+
+   return $cls_script_path ;
+  }
+
+  public static function autoload($class) //namespaced className
+  {
+    // ********** 1. module_ cls_ script_ path **********  eg B12phpfw\\clickmeModule
+    $cls_script_path1 = self::get_module_cls_script_path($class, $nsprefix1='Model') ;
+    $cls_script_path2 = self::get_module_cls_script_path($class, $nsprefix2='Model\\') ;
+    $cls_script_path3 = self::get_module_cls_script_path($class, $nsprefix3='ModelMapper\\') ;
+    $cls_script_path4 = self::get_module_cls_script_path($class, $nsprefix4='CoreDB\\') ;
+
+    // ********** 2. cls_ script_ path_ external_ module **********
+    //$cls_script_path = $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 
 
+      // ********** 3. r e q u i r e  cls_ script_ path **********
+      switch (true) {
+        case file_exists($cls_script_path1): include_once $cls_script_path1 ; break;
+        case file_exists($cls_script_path2): include_once $cls_script_path2;  break;
+        case file_exists($cls_script_path3): include_once $cls_script_path3;  break;
+        case file_exists($cls_script_path4): include_once $cls_script_path4;  break;
+        //case file_exists($cls_script_path_external_m): include_once $cls_script_path_external_m; break;
+        default:
+          if ('1') { echo 'For namespaced class '. $class
+            . '<br />Possible CLASS SCRIPTS NAMES derived from functional namespaces,'
+            . '<br />ee from vendor name space prefixes :'
+            . "<br />\"$nsprefix1\" or \"$nsprefix2\" or \"$nsprefix3\" or \"$nsprefix4\" are :"
+            ; 
+            echo '<pre>';
+            print_r([$cls_script_path1, $cls_script_path2, $cls_script_path3, $cls_script_path4]);
+            //print_r('Namespaced class '. $class .' has not class script ?');
+            echo '</pre>';
+          }
+          break;
+      }
+  }
+}
+//spl_autoload_register('config\Autoloader::autoload');
+*/
+```
+
+### 1\.6\.2 Home_ctr.php router, dispatcher
+
+```php
+<?php
+namespace B12phpfw ;
+
+/**
+* step 2
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Home_ctr.php
+* Instantiated in i ndex.php 
+*
+* Home_ ctr cls is router, dispatcher :
+* 1. Assigns links for user interactions (module routing table) in home.php
+* 2. Calls own method when user clicks link/button in home.php 
+*    or any URL is entered in ibrowser adress field
+* 3. Own method includes view CRUD scripts h ome.php or c reate.php or r ead.php or ... 
+*    (no need for view classes ?) or calls some method or url calls other module i ndex.php
+*/
+class Home_ctr extends Config_allsites
+{
+
+  public function __construct($pp1)
+  {
+    if (!defined('QS')) define('QS', '?');
+    $pp1_module_links = [ 
+      'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~' ,
+      'h'   => QS.'i/home/' ,
+      'c'   => QS.'i/c/' ,
+      'r'   => QS.'i/r/id/' ,
+      'u'   => QS.'i/u/id/' , //in view script href = $this->pp1->u . $id
+      //$this->uriq->i/home_fn, t/tbl_name, id/idval key/value
+      //in home.php onclick does jsmsgyn dialog,  home_fn "d" calls dd() (no need include script)
+      'd'   => QS.'i/d/t/admins/id/' //in view script href = $this->pp1->d . $id
+    ] ;
+
+    //step 3 : fw core calls method in this cls : see home_fn above
+    parent::__construct($pp1, $pp1_module_links);
+
+                if ('') { /* self::jsmsg( [ //basename(__FILE__).' '.
+                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
+                   ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
+                   ,'$this->uriq'=>$this->uriq
+                   ] ) ; */
+                   echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                   echo '<pre>$_GET='; print_r($_GET); echo '</pre><br />'; // [d/39] => 
+                   echo '<pre>$_POST='; print_r($_POST); echo '</pre><br />'; // [d/39] => 
+                   echo '<pre>$this->uriq='; print_r($this->uriq); echo '</pre><br />';
+                   // $this->uriq=stdClass Object( [d] => 39 )
+                }
+
+
+  } // e n d  f n
+
+
+  //Called own methods when user clicks link/button or any URL is entered in ibrowser adress field :
+  public function c()
+  {
+      $title = 'TEST USER CREATE';
+      require $this->pp1->wsroot_path . 'zinc/hdr.php';
+        //require_once("navbar.php");
+        require $this->pp1->module_path . 'create.php';
+      require $this->pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+  public function home()
+  {
+    //t b l  r e a d
+      $title = 'TEST USER CRUD';
+      require $this->pp1->wsroot_path . 'zinc/hdr.php';
+        //require_once("navbar.php");
+        require $this->pp1->module_path . 'home.php';
+      require $this->pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+
+  public function r()
+  {
+    //r o w  r e a d
+      $title = 'TEST USER READ PROFILE';
+      require $this->pp1->wsroot_path . 'zinc/hdr.php';
+        //require_once("navbar.php");
+        require $this->pp1->module_path . 'read.php';
+      require $this->pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+  public function u()
+  {
+      $title = 'TEST USER UPDATE';
+      require $this->pp1->wsroot_path . 'zinc/hdr.php';
+        //require_once("navbar.php");
+        require $this->pp1->module_path . 'update.php';
+      require $this->pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+  public function d()
+  {
+                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: '
+                              .'<br />U R L  query array ='.'$this->uriq=' ;
+                              if (isset($this->uriq))
+                                { echo '<pre>'; print_r($this->uriq) ; echo '</pre>'; }
+                              else { echo ' not set' ; } }
+      $this->dd() ;
+      // R e d i r e c t = r e f r e s h  t b l  v i e w :
+      switch ($this->uriq->t)
+      {
+        case 'admins' : $this->Redirect_to($this->pp1->h) ; break;
+        default: 
+          echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '.'T a b l e '. $this->uriq->t 
+          .' does not exist (put it in home.php, in del link !)'.'</h3>';
+          break;
+      }
+
+  }
+
+
+} // e n d  c l s  
+
+```
+
+### 1\.6\.3 home.php - shows links assigned in Home_ctr.php for user interactions
+```php
+<?php
+/**
+* step 3
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\home.php
+* called from Home_ ctr cls method h ome() when usr clicks link/button or any URL is entered in ibrowser  
+* calls Admin_crud cls method rr_all() =pre-query which sets rows filter (default-where), sort... 
+* which calls Db_ allsites method rr() =execute-query which creates cursor for read row by row loop here
+*
+* Adds user request (interaction, event) eg $id at link end, for read user profile or update or delete.
+* 
+* Admin_ crud is ORM (tbl adapter) class, when instantiated is DM object of row in memory to/from DB tbl row
+*     Where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
+* Admin_ crud maps (adapts) model of tbl row in memory to tbl row in DM data source (DB, web service...)
+*/
+namespace B12phpfw ;
+$Admin_crud = new Admin_crud ;
+$cursor = $Admin_crud->rr_all($this);
+?>
+<!--             U S E R  T B L  R E A D -->
+<div class="container">
+<div class="row">
+      <h3>USERS TABLE CRUD PDO MySQL/Oracle BOOTSTRAP OOP MVC šđčćž</h3>
+</div>
+
+<div class="row">
+
+  <p><a href="<?=$this->pp1->c?>" class="btn btn-success">Create</a></p>
+
+  <table class="table table-striped table-bordered">
+
+  <thead><tr><th>Name</th><th>Email Address</th><th>Action</th></tr></thead>
+
+  <tbody>
+      <?php
+    $SrNo = 0;
+    while ($r = $this->rrnext($cursor))
+    {
+      $id = self::escp($r->id) ;
+      ?>
+      <tr>
+
+      <td><a class="btn" href="<?=$this->pp1->u . $id?>"><?=self::escp($r->username)?></a></td>
+
+      <td><?=self::escp($r->email)?></td>
+
+      <!-- $this->pp1->d?>t/admins/id/ . $id 
+        var vodg ; alert('vodg='+vodg) ;
+        vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
+        if (  ) { location.href= '<?=$this->pp1->d . $id?>/'; }
+      -->
+      <td width=9%>
+         <a id="erase_row" class="btn btn-danger"
+            onclick="
+            var vodg ;
+            vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
+            //alert('vodg='+vodg) ; // if OK vodg=1, if CANCEL vodg=0
+            if ( vodg == 1 ) { location.href= '<?=$this->pp1->d . $id?>/'; }
+            "
+         >Del <?=$id?></a>
+      </td>
+
+      <td width=5%><a class="btn" href="<?=$this->pp1->r . $id?>">Profile</a></td>
+
+      </tr> <?php
+    }
+    self::disconnect();
+       ?>
+      </tbody>
+    </table>
+ 
+ </div>
+</div> <!-- /container -->
+
+```
+
+### 1\.6\.4 create.php
+```php
+<?php
+/**
+* step 3
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\create.php
+* called from Home_ ctr cls method  c() when usr clicks link/button or any URL is entered in ibrowser  
+* calls Admin_crud cls method cc()     =pre-insert tbl row
+* which calls Db_ allsites method cc() =on-insert tbl-row
+*/
+namespace B12phpfw ;
+//Admin_ crud is ORM class : DM of row in memory to/from DB tbl row
+//where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
+
+
+if ( !empty($_POST))
+{
+  // keep track validation errors
+  $nameError   = null;
+  $emailError  = null;
+  $mobileError = null;
+
+  // keep track post values
+  $username   = $_POST['username'];
+  $email  = $_POST['email'];
+  $mobile = '' ; //$_POST['user_telefon'];
+
+  // 1. validate input
+  $valid = true;
+  if (empty($username)) {
+      $usernameError = 'Please enter Name';
+      $valid = false;
+  }
+
+  if (empty($email)) {
+      $emailError = 'Please enter Email Address';
+      $valid = false;
+  } else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
+      $emailError = 'Please enter a valid Email Address';
+      $valid = false;
+  }
+
+  // 2. insert data
+  if ($valid) {
+    $fldvals = [$username, $email] ;
+    $Admin_crud = new Admin_crud ;
+    $id = $Admin_crud->cc($this, $fldvals);
+    echo "<h3>Created id=$id </h3>" ;
+    //header("Location: index.php");
+  }
+}
+?>
+
+
+    <div class="container">
+
+      <div class="span10 offset1">
+          <div class="row">
+              <h4>Create a Customer</h4>
+          </div>
+
+          <form class="form-horizontal" action="<?=$this->pp1->c?>" method="post">
+
+            <div class="control-group <?php echo !empty($usernameError)?'error':'';?>">
+              <label class="control-label">Name</label>
+              <div class="controls">
+                  <input name="username" type="text"  placeholder="Name"
+                         value="<?php echo !empty($username)?$username:'';?>">
+                  <?php if (!empty($usernameError)): ?>
+                      <span class="help-inline"><?php echo $usernameError;?></span>
+                  <?php endif; ?>
+              </div>
+            </div>
+
+          <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
+              <label class="control-label">Email Address</label>
+              <div class="controls">
+                  <input name="email" type="text" placeholder="Email Address"
+                         value="<?php echo !empty($email)?$email:'';?>">
+                  <?php if (!empty($emailError)): ?>
+                      <span class="help-inline"><?php echo $emailError;?></span>
+                  <?php endif;?>
+              </div>
+            </div>
+
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success">Create</button>
+
+                <a class="btn" href="index.php">Back</a>
+              </div>
+          </form>
+      </div>
+
+    </div> <!-- /container -->
+```
+
+### 1\.6\.5 read.php - display user profile
+```php
+<?php
+/**
+* step 3  - display user profile
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\read.php
+* called from Home_ ctr cls method  r() when usr clicks link/button or any URL is entered in ibrowser  
+* calls Admin_crud cls method rr() =pre-query which sets rows filter (default-where), sort... 
+* which calls Db_ allsites method rr() =execute-query which creates cursor for read row by row loop here
+*/
+namespace B12phpfw ;
+
+use Parsedown ; //in global namespace (version 1.7.4 stil has no namespace)
+
+//require 'J:\\awww\\www\\vendor\\erusev\\parsedown\\Parsedown.php' ;
+require '../../../../../vendor/erusev/parsedown/Parsedown.php' ;
+$Parsedown = new Parsedown(); //OR NO use : \Parsedown() where "\" means global namespace
+          //echo $Parsedown->text('Hello _Parsedown_!'); # prints: <p>Hello <em>Parsedown</em>!</p>
+          ///////// You can also parse inline markdown only:
+          //echo $Parsedown->line('Hello _Parsedown_!'); # prints: Hello <em>Parsedown</em>!
+
+$id = (int)$this->uriq->id ;
+if ( null==$id ) { header("Location: index.php"); exit(0) ; }
+
+$Admin_crud = new Admin_crud ;
+$cursor = $Admin_crud->rr($this, $id) ;
+while ($row = $this->rrnext($cursor)): {$r = $row ;} endwhile;
+
+?>
+
+    <div class="container">
+
+      <div class="span10 offset1">
+        <div class="row">
+            <h3>Admin <?=$r->aname?>, id <?=$id?> profile</h3>
+        </div>
+
+        <div class="form-horizontal" >
+
+          <div class="control-group">
+            <label class="control-label">User name</label>
+            <div class="controls">
+                <label class="checkbox">
+                    <?php echo $r->username;?>
+                </label>
+            </div>
+          </div>
+
+        <div class="control-group">
+            <label class="control-label">Email Address</label>
+            <div class="controls">
+                <label class="checkbox">
+                    <?php echo $r->email;?>
+                </label>
+            </div>
+          </div>
+
+        <div class="control-group">
+            <label class="control-label">Biography</label>
+            <div class="controls">
+                <label class="checkbox">
+                    <?php echo $Parsedown->text($r->abio);?>
+                </label>
+            </div>
+          </div>
+
+
+
+          <div class="form-actions">
+              <a class="btn" href="index.php">Back</a>
+           </div>
+
+
+        </div>
+    </div>
+
+    </div> <!-- /container -->
+```
+
+### 1\.6\.6 update.php
+```php
+<?php
+/**
+* step 3
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\update.php
+* http://dev1:8083/fwphp/glomodul/z_examples/02_mvc/03xuding_glob/index.php?i/u/id/79
+*
+* called from Home_ ctr cls method  u() when usr clicks link/button or any URL is entered in ibrowser  
+* calls Admin_crud cls method uu()     =pre-update
+* which calls Db_ allsites method uu() =on-update
+*/
+namespace B12phpfw ;
+                if ('') { 
+                  echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                  echo '<pre>URL query array $this->uriq='; print_r($this->uriq); echo '</pre>';
+                        // $this->uriq=stdClass Object( [i] => u  [d] => 79 )
+                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  //exit();
+                }
+$id = (int)$this->uriq->id ;
+if ( null==$id ) { header("Location: index.php"); }
+
+if ( !empty($_POST) ) 
+{
+        // keep track validation errors
+        $anameError = null;
+        $emailError = null;
+
+        // keep track post values
+        $username  = $_POST['username']; //hidden !!
+        $aname     = $_POST['aname'];
+        $email     = $_POST['email'];
+        $abio      = $_POST['abio'];
+
+        // validate input
+        $valid = true;
+        if (empty($aname)) {
+            $anameError = 'Please enter Name';
+            $valid = false;
+        }
+
+        if (empty($email)) {
+            $emailError = 'Please enter Email Address';
+            $valid = false;
+        } else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
+            $emailError = 'Please enter a valid Email Address';
+            $valid = false;
+        }
+
+        if ($valid) {
+          $fldvals = [$aname, $email, $id, $abio] ;
+          $Admin_crud = new Admin_crud ;
+          $Admin_crud->uu($this, $fldvals);
+          //echo "<h3>Updated id=$id </h3>" ;
+        }
+} else {
+          //show row to update
+          $Admin_crud = new Admin_crud ;
+          $cursor = $Admin_crud->rr($this, $id) ;
+          while ($row = $this->rrnext($cursor)): {$r = $row ;} endwhile;
+          $username = $r->username ;
+          $aname    = $r->aname ;
+          $email    = $r->email ;
+          $abio     = $r->abio ;
+}
+    ?>
+
+    <div class="container">
+
+      <div class="span10 offset1">
+          <div class="row">
+            <h3><?php if (isset($_POST['username'])): echo 'UPDATED'; else: echo 'Update';  endif; ?>  
+                  Admin user
+            </h3>
+          </div>
+
+          <form class="form-horizontal"  method="post"
+                action="<?=$this->pp1->u . $id?>">
+
+            <div class="control-group <?php echo !empty($anameError)?'error':'';?>">
+              <label class="control-label">
+                 Admin username=<?=$username?>, id=<?=$id?> name</label>
+              <div class="controls">
+                  <input name="aname" type="text"  placeholder="Admin user name" 
+                         value="<?php echo !empty($aname)?$aname:'';?>">
+                  <?php if (!empty($anameError)): ?>
+                      <span class="help-inline"><?php echo $anameError;?></span>
+                  <?php endif; ?>
+              </div>
+            </div>
+
+            <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
+              <label class="control-label">Email Address</label>
+              <div class="controls">
+                  <input name="email" type="text" placeholder="Email Address" 
+                         value="<?php echo !empty($email)?$email:'';?>">
+                  <?php if (!empty($emailError)): ?>
+                      <span class="help-inline"><?php echo $emailError;?></span>
+                  <?php endif;?>
+              </div>
+            </div>
+
+            <div class="control-group <?php //echo !empty($abioError)?'error':'';?>">
+              <label class="control-label">Biography</label>
+              <div class="controls">
+                  <input name="abio" type="text" placeholder="Biography" 
+                         value="<?php echo !empty($abio)?$abio:'';?>">
+                  <?php //if (!empty($emailError)): ?>
+                      <span class="help-inline"><?php //echo $emailError;?></span>
+                  <?php //endif;?>
+              </div>
+            </div>
+
+            <!-- name="category[id]"   $id ?? '' ...z_examples\01_php_bootstrap\jokeyank\templates\editcategory.html.php
+                   NO NEED FOR THIS :
+            -->
+            <!--input type="hidden" name="id" value="<?=$id?>"-->
+            <input type="hidden" name="username" value="<?=$username?>">
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success">Update</button>
+                <!--  -->
+                <a class="btn" href="index.php">Back</a>
+              </div>
+          </form>
+      </div>
+
+    </div> <!-- /container -->
+```
+
+### 1\.6\.7 Admin_crud.php - ORM, DM (Domain Model) adapter cls - pre CRUD class
+```php
+<?php
+/**
+* step 4 (pre) CRUD class
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Admin_crud.php
+*    or User_db.php, or UserMapper.php
+* called from view CRUD scripts c reate.php, r ead.php... 
+*    when usr clicks link/button or any (CRUD) URL is entered in ibrowser  
+* calls Db_ allsites method cc() (=on-insert tbl-row), rr()...
+*
+* Admin_ crud separates CRUD code skeleton (B12phpfw) from data source (DB or web service or...).
+* Admin_ crud is ORM (TBL ADAPTER) CLASS. When instantiated it is DM object of row in memory
+*    Where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
+* Admin_ crud maps (adapts) model of tbl row in memory to tbl row in DM data source (DB, web service...)
+* Admin_ crud is used to move data to/from data source.
+*
+* REASON WHY EACH DB TBL SHOULD HAVE DM CLASS NAMED EG TblNAME_crud :
+* CRUD code should be separated from C and V code ee should be in TblNAME_crud.
+* TblNAME_crud is FAT MODEL - When business logic is complicated here is lot of code
+* - most importand module code (can not be in global model cls) !!
+* C and V are tiny. HTML in V is eg one of bootstrap templates - PHP CRUD code in it is tiny,
+* only calls TblNAME_crud methods.
+*
+* So this example is not MVC, it is DMVC
+*
+* Domain Model definition 
+* =======================
+* 1. System of abstractions that describes selected aspects of a sphere of knowledge,
+*    influence or activity (a domain). DM can be used to solve problems related to domain.
+* 
+* 2. An object model of the domain that incorporates both behavior and data.
+*    Creates a web of interconnected objects, where each object represents some
+*    meaningful individual, whether as large as a corporation or as small as a 
+*    single line on an order form.
+*/
+
+namespace B12phpfw ; //ModelMapper
+//use Model\UserInterface,
+//    Model\User ;
+
+class Admin_crud //extends AbstractDataMapper implements User_db_intf
+{
+  protected $tbl = "admins";
+
+  // pre-query
+  public function rr_all($db) {
+    // open cursor (execute-query loop is in view script)
+    $cursor = $db->rr("SELECT * FROM $this->tbl ORDER BY username", [], __FILE__ .', ln '. __LINE__ ) ;
+    $db::disconnect();
+    return $cursor ;
+  }
+
+  // pre-query
+  public function rr($db, $id) {
+    // open cursor (execute-query loop is in view script)
+    $cursor = $db->rr("SELECT * FROM admins WHERE id=:AdminId"
+        , [ ['placeh'=>':AdminId', 'valph'=>$id, 'tip'=>'int']
+          ] , __FILE__ .' '.', ln '. __LINE__) ;
+    //while ($row = $db->rrnext($cursor)): {$r = $row ;} endwhile;
+    $db::disconnect();
+    return $cursor ;
+  }
+
+  // on-insert
+  //public function cc(UserInterface $user) {
+  public function cc($db, $vv) {
+    //  1. c r e  r o w   
+    $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+    $flds     = "username,email" ;
+    $qrywhat = "VALUES(:username,:email)" ;
+    $binds = [
+      ['placeh'=>':username', 'valph'=>$vv[0], 'tip'=>'str']
+     ,['placeh'=>':email',    'valph'=>$vv[1], 'tip'=>'str']
+    ] ;
+    $cursor = $db->cc($db, $this->tbl, $flds, $qrywhat, $binds);
+
+    //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
+    //}else { $_SESSION["ErrorMessage"]= "Something went wrong. Try Again !"; }
+    //$db->Redirect_to($db->pp1->admins);
+
+    // 2. g e t  i d
+    $c_r = $db->rr("SELECT max(id) id FROM $this->tbl" 
+        , [] //[ ['placeh'=>':AdminId', 'valph'=>$id, 'tip'=>'int'] ]
+        , __FILE__ .' '.', ln '. __LINE__) ;
+    while ($row = $db->rrnext($c_r)): {$r = $row ;} endwhile; 
+
+    $db::disconnect();
+
+    return $r->id;
+  }
+
+  // on-update
+  public function uu($db, $vv) {
+    //  1. u p d  r o w   
+    $flds     = "SET aname=:AName, email=:Aemail, abio=:abio" ;
+    $qrywhere = "WHERE id=:AdminId" ;
+    $binds = [
+      ['placeh'=>':AName',  'valph'=>$vv[0], 'tip'=>'str']
+     ,['placeh'=>':Aemail', 'valph'=>$vv[1], 'tip'=>'str']
+     ,['placeh'=>':AdminId','valph'=>$vv[2], 'tip'=>'int']
+     ,['placeh'=>':abio',   'valph'=>$vv[3], 'tip'=>'str']
+    ] ;
+    $cursor = $db->uu($db, $this->tbl, $flds, $qrywhere, $binds);
+    $db::disconnect();
+    //header("Location: index.php");
+    return null ;
+  }
+
+
+  //public function dd($id) {  } //no need, 
+  //dd is jsmsgyn dialog in home.php + call dd() in Home_ctr d() method
+
+
+}
+```
+
+
+<br /><br />
 # <a name="ide"></a>2\. My developing environment (IDE)
 [Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     **2. IDE**     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
@@ -342,7 +1067,7 @@ Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/
 
   
 # <a name="crud"></a>3\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
-  [Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     [2. IDE](#ide)     **3. CRUD**     [4.  SW fw](#swfw)        
+  [Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     [DM](#dm)     [2. IDE](#ide)     **3. CRUD**     [4.  SW fw](#swfw)        
 
 May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX . Only Javascript I need is dialog yes or no.
 
@@ -376,170 +1101,93 @@ DISPATCHER  includes, calls and **http jumps only to other module**. So **we may
 
 **cc, rr, uu, dd** rows CRUD methods are used for all tables !!
 
-# 3\. 1 B12phpfw module code snippets - module bootstrap, configuration, router, dispatcher
-Two module scripts and four scripts global for all sites are  B12phpfw (programming **skeleton** for links =menus and CRUD). Like any good programing **templates** (**framework**) it is not easy to understand them but is very useful !!
+# 3\. 1 B12phpfw CRUD module code snippets
+- module bootstrap, configuration, router, dispatcher - see Domain model [DM](#dm).        
+
+Three module scripts and four scripts global for all sites are  B12phpfw (programs **skeleton** for links = menus and CRUD).        
+Like any good programing **templates** (**framework**), it is not easy to understand them but is very useful !!        
 
 ### BLOG (MSG) MODULE SCRIPT 1:   index.php
 ```php
 <?php
 //J:\awww\www\fwphp\glomodul\blog\index.php, J:\awww\www=WEBSERVER_DOC_ROOT_DIR=../../../
-// ?=QS, p=page=1, i=call Home_ctr method 'home()' to include (or call, or jump to) :
-//http://dev1:8083/fwphp/glomodul/blog/?p/1/i/home/ 
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
-//1.
-$dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ; 
-$pp1 = (object) //=properties global array (like Oracle Forms property palette)
-[   'dbg'=>'1', 'caller'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
-  //1.1
-  , 'module_towsroot'=>'../../../' //to web server doc root or our doc root by ISP
-  //1.2
-  , 'module_version'=>'6.0.4.0 Msg', 'vendor_namesp_prefix'=>'B12phpfw'
-  //1.3
-  , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
-        str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path (CONVENTION!!)
-      , $dirup_tmp.'/user/', $dirup_tmp.'/post_category/', $dirup_tmp.'/post/'
-      , $dirup_tmp.'/post_comment/'
-  ]
-] ;
-
-//2.
-require($pp1->module_towsroot.'zinc/Autoload.php'); //or Composer's autoload cls-es
-$autoloader = new Autoload($pp1); 
-                if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
-                   .', line '. __LINE__ .' SAYS'=>' '
-                   ,'where am I'=>'AFTER  A u t o l o a d'
-                ] ) ; }
-//3.
-$db = new Home_ctr($pp1) ; // "inherits" index.php ee inherits $pp1
-
-exit(0);
-
-//1. C O N F I G  coding step cs01.
-//1.1 MODULE_LEVEL Yii style (see other style : ...z_examples\tasks\www\index.php)
-//1.2 version: '1site_ or_ allsites_ver.2ddlver.3dml_ or_ scripts_ver.4errcorrection'
-//1.3 Module dirs: this mdle and other mdle`s = array to autoload module clsscripts
-//    like properties group "autoload" in J:\awww\www\composer.json :
-//2. C O N F I G  coding step cs02. eliminates need to manually include class scripts
-//TODO: (For now) J:\awww\www\zinc\Dbconn_allsites_mysql.php
-//                copy to ...\Dbconn_allsites.php
-//3. C O N F I G  - C R U D  C L A S S E S,  R O U T I N G,  coding step cs03.
-
-
-
-
-//        MODULES ARE IN 4 LEVELS (module is like Oracle Forms .fmb)
-//J:\awww\www=WEBSERVER_DOC_ROOT_DIR.    '../../../' means 4 LEVELS OF MODULES DIRS:
-//1.module (dir blog) 2.mdlegroup (glomodul), 3.site (fwphp), doc_root (www)
-//      MODULE CODE in execution order, eg Blog IS IN 5 OR 6 CODE LEVELS :
-// 1.LEVEL5 index.php 2.L3 new Home_ctr($pp1) (3.L4 Home_mdl if needed) extends 4.
-// 4.L2 Config_allsites extends 5.L1 Db_allsites, 6.L6: home.php, zinc/hdr.php and ftr
-//see http://localhost:8083/pdogridbig_original/demo/pages/
-//    http://dev1:8083/fwphp/glomodul/z_examples/05_flex01_2col.php
-
-/* (***1)
-unset($array[$i]); then Re-index: $array = array_values($array);
-$idxtmp = array_search ('p', $module_ arr['ctr akc par_ arr']);
-
-works $$obj->{$akc}($$params_arr_adress) ; // eg f unction upd_ comments_ stat($db)
-works $$obj->{$akc}($db) ; or $this->{$akc}($db) ;
-
-count (sizeof) works on arr & custom object that implements the Countable interface
-casting obj as arr is ok for simple stdClass object (won`t always work)
-if (count((array)$this->uriq)) {...
-foreach($module_ arr['ctr akc par_ arr'] as $k=>$v) { 
-   if ($v=='p') { $page_ from_url = $module_ arr['ctr akc par_ arr'][$k+1]; } ...
-*/
+...
 ```
+see [DM](#dm).
+
 
 ### BLOG (MSG) MODULE SCRIPT 2:   Home_ctr.php
-20 kB controller code, lot of code, but code is very simple, **few important code lines** are :
-```php
-//J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
-// May be named App, Router_dispatcher... :
-class Home_ctr extends Config_allsites {
-...
-    parent::__construct($pp1); //ROUTING ee $this->uriq object and adds elements to $pp1
-      //extends Db_allsites ee cc,rr,uu,dd methods = DBI abstr.layer for PDO DBI abs.l.
-      //extends Dbconn_allsites singleton DB obj
-...
-// R O U T I N G  T A B L E  (IS OK FOR MODULES IN OWN DIR) 
-// We have two masters (usr, category) and two level of details (posts, comments).
-// After i/ is method in this Home_ctr which includes/calls samenamed (or not) script/method or calls some (global method) or...
-// QS=?=url adress Query Separator. Without QS we must use Apache mod-rewrite and Composer auto loading classes instead own simple-fast auto loading.   
+see [DM](#dm).
 
-... all module links (menu items) should be here      
-$this->pp1->loginfrm        = QS.'i/loginfrm/' ;       
-$this->pp1->del_row         = QS.'i/del_row_do/' ; //used for all tables !!      
 
-// DISPATCHER:  includes or calls or http jumps (only to other module)
-// i = ctrakcmethod of this cls  (H o m e) which includes view script or calls method (does tblrowCRUD...)
-$akc = $this->uriq->i ; //uriq = url query string, default = home         
-$this->$akc() ;       
-...       
-  private function home()        
-  {
-      $title = 'MSG HOME';
-      require $this->pp1->wsroot_path . 'zinc/hdr.php';
-      require_once("navbar.php");
-      require $this->pp1->module_path . 'home.php';
-      require $this->pp1->wsroot_path . 'zinc/ftr.php';
-  }
-...
+### BLOG (MSG) MODULE SCRIPT 3:   Admin_crud.php
+see [DM](#dm).
 
-private function del_row_do() //used for all  t a b l e s !!
-{
-                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: '
-                              .'<br />U R L  query array ='.'$this->uriq=' ;
-                              if (isset($this->uriq))
-                                { echo '<pre>'; print_r($this->uriq) ; echo '</pre>'; }
-                              else { echo ' not set' ; } }
-      $this->dd() ;
-      // R e d i r e c t = r e f r e s h  t b l  v i e w :
-      switch ($this->uriq->t)
-      {
-        case 'admins' : $this->Redirect_to($this->pp1->admins) ; break;
-        case 'category' : $this->Redirect_to($this->pp1->categories) ; break;
-        case 'posts' : $this->Redirect_to($this->pp1->posts) ; break;
-        case 'comments' : $this->Redirect_to($this->pp1->comments) ; break;
-        default: echo '<h2>'.$this->uriq->t .' does not exist' . '</h2>'; break;
-        //default: $this->Redirect_to($this->pp1->filter_page) ; break;
-      }
-
-}
-...
-```
 
 # 3\.2 B12phpfw core code snippets
 
-
-
 ### GLOBAL FOR ALL SITES SCRIPT 1: Config_allsites.php
-17 kB contains global configs class which we change only for new functionality and testing
+17 kB, contains global configs class which we change only for new functionality and testing
 ```php
 // J:\awww\www\zinc\Config_allsites.php
-...
-class Config_allsites extends Db_allsites
+... 
+//abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
+//extends  = ISA ("is a something") relation = not "conf is contained in db" but
+//"conf is addition to db" - technicaly could be in db (is not for sake of clear code)
+
+abstract class Config_allsites extends Db_allsites
 {
-...
-// R O U T I N G
-$uriq = [] ; //url parameters after QS=? (url query string is key-value pairs)
-for ( $ii = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...
-            $ii < count($uri_qrystring_arr) ; //expr2 is evaluated at iteration begin
-            $ii++ ) :              //expr3 is evaluated at iteration end
-{
-        if (isset($uri_qrystring_arr[$ii + 1])) {
-          $uriq[$uri_qrystring_arr[$ii]] = $uri_qrystring_arr[++$ii] ;
-        } else {
-          if (!isset($uri_qrystring_arr[0]) or !$uri_qrystring_arr[0] ) 
-             {$uriq = ['i' => 'home'] ; } //means url is module utl
-        }
-} endfor;
-$this->uriq = (object)$uriq ;
-...
-$this->pp1 = (object)$pp1 ;
+  // can be named AbstractEntity
+  /** 
+  * ****************************************************
+  * 1. R O U T I N G  - IS NOT NEEDED IF NO USER INTERACTIONS (ee links) 
+  * ****************************************************
+  */
+  public $uriq ; //url parameters (url query string) after QS='?' are key-value pairs
+                 // if using Composer autoloading classes set QS=''.
+  public $pp1 ;  //M O D U L E  PROPERTIES PALLETE like Oracle Forms
+
+  public function __construct($pp1, $pp1_module_links)
+  {
+     ...  
+     $this->uriq = (object)$uriq ;
+     ...
+     $this->pp1 = (object)$pp1 ;
+  ...
+      /**
+      *           **** 2. D I S P A T C H I N G
+      * may be in module`s Home_ctr (code here is global for all sites)
+      */
+    /** ************** coding step cs04. *******************
+    * DISPATCHER: calls Home_ctr cls method which 
+    * calls fns or includes view scripts (http jumps only to other module)
+    ***************************************************** */
+        // CONVENTION :
+        // i = ctrakcmethod of  H o m e_c t r  cls which includes view script or calls method (does tblrow CRUD...)
+        $akc = $this->uriq->i ; //uriq = url query string, default = home
+        $this->$akc() ; //dispatching using home class methods is based on Mini3 php fw
+              /*
+              //         Slim does same so :
+              use Psr\Http\Message\ResponseInterface as Response;
+              use Psr\Http\Message\ServerRequestInterface as Request;
+              use Slim\Factory\AppFactory;
+
+              require __DIR__ . '/../vendor/autoload.php';
+
+              $app = AppFactory::create();
+
+              $app->get('/hello/{name}', f unction (Request $request, Response $response, array $args) {
+                  $name = $args['name'];
+                  $response->getBody()->write("Hello, $name");
+                  return $response;
+              });
+
+              $app->run();
+              */
+
 ...
 // also some helper methods :
-static public function escp($string)
+static public function escp($string) //ESCAPING OUTPUT (XSS attacks : hacker injects malicious client-side code into output of your page)
 public function Redirect_to($New_Location){
 public function ErrorMessage(){
 public function SuccessMessage(){
@@ -838,30 +1486,31 @@ Why ?  I do not like proposed solutions in  in best php frameworks (Laravel, Sim
 
 Why I do not like proposed solutions and what I did to (I hope) improve them. <span style="color:red;">Red colored features are main reasons for B12phpfw, but I improved also other features.</span> :      
 
-### Compared B12phpfw Msg (blog) module and TraversyMVC blog module and Mini3 module URLs Youtube songs adresses
+### Compared B12phpfw Msg (blog) module and Mini3 module URLs Youtube songs adresses and TraversyMVC blog module
 TraversyMVC (has video) and Mini3 are simplified, with some (many?) differences compared to Laravel, Simfony, Yii... B12phpfw is much more different - see red colored features. PHP framework authors do not show such fitures table, for me it is hiding fitures (sell cat in bag).
 
-|                                    Feature                                         |                           B12phpfw                                | TraversyMVC and Mini3 MVC PHP fw|
+|                                    Feature                                         |                           B12phpfw                                |  Mini3 MVC PHP fw and TraversyMVC| 
 | ----------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------ |
-|  1.  <span style="color:red;">**Modules in own folder** like Oracle Forms .fmb</span> |  has - it is main reason for B12phpfw !     |   has not like Mini3 -  all forms/reports in 3 dirs: M,V,C <br />|
-|  2.  **Name spaced** classes (functional name spacing)  |   has, but originally this was to simple example, see https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/traversymvc/learn/hello_final_and_autoload_cls.php   |   has not -  no functional, no positional (paths)  name spacing. <br />**Mini3** which is in my opinion better than TraversyMVC : https://github.com/panique/mini3  has name spaced classes. <br />|
-|  3.  **Number of folders** (my opinion)     |  optimal      |  to many like Mini3  <br />|
-|  4.  **Minimal PHP code** to learn (medium) PHP  (my opinion) |  optimal (but we could add additional code) |  good but not enough like Mini3 eg see WYSIWYG, globals... <br />|
+|  1.  <span style="color:red;">**Modules in own folder** like Oracle Forms .fmb</span> |  has - it is one of main reasons for B12phpfw !     |   has not all forms/reports in 3 dirs: M,V,C <br /> |
+|  2.  **Name spaced** classes (functional name spacing)  |   has  |  **Mini3** which is in my opinion better than TraversyMVC : https://github.com/panique/mini3  has name spaced classes. <br />  TraversyMVC blog has not  <br />|
+|  3.  **Number of folders** (my opinion)     |  optimal      |  to many <br />|
+|  4.  **Minimal PHP code** to learn (medium) PHP  (my opinion) |  optimal (but we could add additional code) |  good but not enough eg see WYSIWYG, globals... <br />|
 |  5.  **Functional methods, attr. etc naming** (my opinion)     |  good      |  could be better <br />|
-|  6.  <span style="color:red;">**Global classes, methods etc** (my opinion) </span> |  good  see below CRUD test output |  bad like Mini3 <br />|
-|  7.  (Posts edited with any) **WYSIWYG editor** |  has      |  has not like Mini3 |
-|  8.  Home_ctr or Home_mdl CRUD layer methods <span style="color:red;">**do not know for underlaying Db_allsites layer PDO** methods, MySql, Oracle...</span> |  has much improved |  has not like  Mini3 <br />|
+|  6.  <span style="color:red;">**Global classes, methods etc** (my opinion) </span> |  good  see below CRUD test output |  bad <br />|
+|  7.  (Posts edited with any) **WYSIWYG editor** |  has      |  has not |
+|  8.  Home_ctr or Home_mdl CRUD layer methods <span style="color:red;">**do not know for underlaying Db_allsites layer PDO** methods, MySql, Oracle...</span> |  has much improved |  has not <br />|
 |  9.  **OOP** |  has      |  has like Mini3 <br />|
-| 10.  namespaces (own **PSR-4 (or Composer's) autoloading** classes scripts) |  improved  |  has not, Mini3 has <br />|
-| 11.  <span style="color:red;">**All scripts are included**</span> (ee no http jumps except some jumps in other module) |  has see https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/01_PHP_bootstrap/bootstrap/ |  has not, Mini3 has, B12phpfw took it from Mini3 <br />|
-| 12.  **jQuery** only for Bootstrap 5 |  yes  |  yes, Mini3 has own CSS <br />|
-| 13.  no **AJAX**, no **JSON** |  yes  |  yes, Mini3 has basic jQuery AJAX explained <br />|
-| 14.  server side **validation** |  has |  has like Mini3 <br />|
-| 15. **authentification** (log in / out) |  has |  has, Mini3 has not <br />|
-| 16. **authorization** (only logged in users may execute some code ee CRUD code...) |  has |  has, Mini3 has not <br />|
-| 17. <span style="color:red;">**Own debugging** very simple and useful</span> : msg in pre tag or popup JS msg). **xdebug** also helps. |  has |  has not like Mini3 <br />|
-| 18. <span style="color:red;">PHP code here is good for (more) **large sites**</span>|  yes |  no like Mini3 <br />|
-| 19. **multilanguage pages** |  has, see https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/multilang/ |  has not like Mini3 <br />|
+| 10.  namespaces (own **PSR-4 (or Composer's) autoloading** classes scripts) |  improved  |  Mini3 has, TraversyMVC blog has not <br />|
+| 11.  <span style="color:red;">**All scripts are included**</span> (ee no http jumps except some jumps in other module) |  has  |  Mini3 has, B12phpfw took it from Mini3, TraversyMVC blog has not <br />|
+| 12.  **jQuery** only for Bootstrap 5 |  yes  |  Mini3 has own CSS, TraversyMVC blog has <br />|
+| 13.  AJAX, JSON |  has not  |  Mini3 has basic jQuery AJAX explained, TraversyMVC blog has <br />|
+| 14.  server side **validation** |  has |  has <br />|
+| 15. **authentification** (log in / out) |  has |  has not, TraversyMVC blog has <br />|
+| 16. **authorization** (only logged in users may execute some code ee CRUD code...) |  has |   Mini3 has not, TraversyMVC blog has <br />|
+| 17. <span style="color:red;">**Own debugging** very simple and useful</span> : msg in pre tag or popup JS msg). **xdebug** also helps. |  has |  has not <br />|
+| 18. <span style="color:red;">PHP code here is good for (more) **large sites**</span>|  yes | no <br />|
+| 19. **multilanguage pages** |  has, see https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/multilang/ |  has not <br />|
+| 20. **<span style="color:red;">DM</span> (Domain model)** |  has, simplest possible, no complicated namespaces, interfaces, adapters, data mappers... see https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/03xuding_glob |  has not <br />|
 
 
 ### CRUD test output with PDO DEBUG message (line 65)
@@ -1051,7 +1700,7 @@ https://github.com/TRPB/ImmutableMVC
 
 
 # <a name="swfw"></a>What is SW fw (Software framework)
-[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     [2. IDE](#ide)     [3. CRUD](#crud)    **4.  SW fw**        
+[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     [DM](#dm)     [2. IDE](#ide)     [3. CRUD](#crud)    **4.  SW fw**        
 
 See "What is SW fw (Software framework)" (using mkd in fwphp/glomodul/mkd/02/01\_fwphp/**PHP_DIP\_DI.txt/**)  which states :        
 

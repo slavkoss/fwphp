@@ -1,23 +1,41 @@
 <?php
-
-$id = $this->uriq->id ;
+/**
+* step 3
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\update.php
+* http://dev1:8083/fwphp/glomodul/z_examples/02_mvc/03xuding_glob/index.php?i/u/id/79
+*
+* called from Home_ ctr cls method  u() when usr clicks link/button or any URL is entered in ibrowser  
+* calls Admin_crud cls method uu()     =pre-update
+* which calls Db_ allsites method uu() =on-update
+*/
+namespace B12phpfw ;
+                if ('') { 
+                  echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                  echo '<pre>URL query array $this->uriq='; print_r($this->uriq); echo '</pre>';
+                        // $this->uriq=stdClass Object( [i] => u  [d] => 79 )
+                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  //exit();
+                }
+$id = (int)$this->uriq->id ;
 if ( null==$id ) { header("Location: index.php"); }
 
 if ( !empty($_POST) ) 
 {
         // keep track validation errors
-        $nameError = null;
+        $anameError = null;
         $emailError = null;
 
         // keep track post values
-        $name = $_POST['username'];
-        $email = $_POST['email'];
-        $abio = $_POST['abio'];
+        $username  = $_POST['username']; //hidden !!
+        $aname     = $_POST['aname'];
+        $email     = $_POST['email'];
+        $abio      = $_POST['abio'];
 
         // validate input
         $valid = true;
-        if (empty($name)) {
-            $nameError = 'Please enter Name';
+        if (empty($aname)) {
+            $anameError = 'Please enter Name';
             $valid = false;
         }
 
@@ -30,27 +48,19 @@ if ( !empty($_POST) )
         }
 
         if ($valid) {
-          $flds     = "SET aname=:AName, email=:Aemail, abio=:abio" ;
-          $qrywhere = "WHERE id=:AdminId" ;
-          $binds = [
-            ['placeh'=>':AName',  'valph'=>$name, 'tip'=>'str']
-           ,['placeh'=>':Aemail', 'valph'=>$email, 'tip'=>'str']
-           ,['placeh'=>':AdminId','valph'=>$id, 'tip'=>'int']
-           ,['placeh'=>':abio', 'valph'=>$abio, 'tip'=>'str']
-          ] ;
-          $cursor = $this->uu($this,'admins',$flds,$qrywhere,$binds);
-          self::disconnect();
-          header("Location: index.php");
+          $fldvals = [$aname, $email, $id, $abio] ;
+          $Admin_crud = new Admin_crud ;
+          $Admin_crud->uu($this, $fldvals);
+          //echo "<h3>Updated id=$id </h3>" ;
         }
 } else {
           //show row to update
-          $c_r = $this->rr("SELECT * FROM admins WHERE id=:AdminId" 
-              , [ ['placeh'=>':AdminId', 'valph'=>$id, 'tip'=>'int']
-                ] , __FILE__ .' '.', ln '. __LINE__) ;
-          while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; 
-          self::disconnect();
-          $name    = $r->aname ;
-          $email   = $r->email ;
+          $Admin_crud = new Admin_crud ;
+          $cursor = $Admin_crud->rr($this, $id) ;
+          while ($row = $this->rrnext($cursor)): {$r = $row ;} endwhile;
+          $username = $r->username ;
+          $aname    = $r->aname ;
+          $email    = $r->email ;
           $abio     = $r->abio ;
 }
     ?>
@@ -59,19 +69,22 @@ if ( !empty($_POST) )
 
       <div class="span10 offset1">
           <div class="row">
-              <h3>Update a Customer</h3>
+            <h3><?php if (isset($_POST['username'])): echo 'UPDATED'; else: echo 'Update';  endif; ?>  
+                  Admin user
+            </h3>
           </div>
 
           <form class="form-horizontal"  method="post"
-                action="<?=$this->pp1->u?>id/<?=$id?>">
+                action="<?=$this->pp1->u . $id?>">
 
-            <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
-              <label class="control-label">Name</label>
+            <div class="control-group <?php echo !empty($anameError)?'error':'';?>">
+              <label class="control-label">
+                 Admin username=<?=$username?>, id=<?=$id?> name</label>
               <div class="controls">
-                  <input name="username" type="text"  placeholder="Name" 
-                         value="<?php echo !empty($name)?$name:'';?>">
-                  <?php if (!empty($nameError)): ?>
-                      <span class="help-inline"><?php echo $nameError;?></span>
+                  <input name="aname" type="text"  placeholder="Admin user name" 
+                         value="<?php echo !empty($aname)?$aname:'';?>">
+                  <?php if (!empty($anameError)): ?>
+                      <span class="help-inline"><?php echo $anameError;?></span>
                   <?php endif; ?>
               </div>
             </div>
@@ -98,10 +111,15 @@ if ( !empty($_POST) )
               </div>
             </div>
 
-
+            <!-- name="category[id]"   $id ?? '' ...z_examples\01_php_bootstrap\jokeyank\templates\editcategory.html.php
+                   NO NEED FOR THIS :
+            -->
+            <!--input type="hidden" name="id" value="<?=$id?>"-->
+            <input type="hidden" name="username" value="<?=$username?>">
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-success">Update</button>
+                <!--  -->
                 <a class="btn" href="index.php">Back</a>
               </div>
           </form>

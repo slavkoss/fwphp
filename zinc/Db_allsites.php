@@ -223,6 +223,7 @@ abstract class Db_allsites extends Dbconn_allsites
     if (count($binds) > 0) { // ------------
       foreach ($binds as $idx => $arr) //may be f or array_expression
       {
+          //$arr is eg ['placeh'=>':AName',  'valph'=>$vv[0], 'tip'=>'str']
           $ph_val_arr[ $arr['placeh'] ] = $arr['valph'] ;
           switch ($arr['tip'])
           {
@@ -241,8 +242,25 @@ abstract class Db_allsites extends Dbconn_allsites
           //   see :search1,2...
       }
     } // ----------------------------------
-              //useful f or debugging: you can see SQL behind above construction by using:
-              //echo '[ PDO DEBUG ]: ' . self::debugPDO($sql,$ph_val_arr); exit();
+                if ('') { 
+                  //useful f or debugging: you can see SQL behind above construction by using:
+                  //echo '[ PDO DEBUG ]: ' . self::debugPDO($sql,$ph_val_arr);
+                  /*
+                  self::jsmsg( [ //basename(__FILE__).' '.
+                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
+                   ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
+                   ,'$this->uriq'=>$this->uriq
+                   ] ) ; */
+                   echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                   echo '<pre>$_GET='; print_r($_GET); echo '</pre><br />';
+                   echo '<pre>$_POST='; print_r($_POST); echo '</pre><br />';
+                   echo '<pre>$sql='; print_r($sql); echo '</pre><br />'; 
+                   echo '<pre>$ph_val_arr='; print_r($ph_val_arr); echo '</pre><br />';
+                   echo '<pre>$this->uriq='; print_r($this->uriq); echo '</pre><br />';
+                   // $this->uriq=stdClass Object( [d] => 39 )
+                  exit();
+                }
+
 
     //$Executedsql =
     $cursor->execute(); //$this->e xecute();

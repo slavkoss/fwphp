@@ -1,11 +1,20 @@
 <?php
-// J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\home.php
+/**
+* step 3
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\home.php
+* called from Home_ ctr cls method h ome() when usr clicks link/button or any URL is entered in ibrowser  
+* calls Admin_crud cls method rr_all() =pre-query which sets rows filter (default-where), sort... 
+* which calls Db_ allsites method rr() =execute-query which creates cursor for read row by row loop here
+*
+* Adds user request (interaction, event) eg $id at link end, for read user profile or update or delete.
+* 
+* Admin_ crud is ORM (tbl adapter) class, when instantiated is DM object of row in memory to/from DB tbl row
+*    Where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
+* Admin_ crud maps (adapts) model of tbl row in memory to tbl row in DM data source (DB, web service...)
+*/
 namespace B12phpfw ;
-//User_ crud is ORM class : DM of row in memory to/from DB tbl row
-//where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
-//$cursor = User_crud::rr_all($this);
-$User_crud = new User_crud ;
-$cursor = $User_crud->rr_all($this);
+$Admin_crud = new Admin_crud ;
+$cursor = $Admin_crud->rr_all($this);
 ?>
 <!--             U S E R  T B L  R E A D -->
 <div class="container">
@@ -30,19 +39,28 @@ $cursor = $User_crud->rr_all($this);
       ?>
       <tr>
 
-      <td><a class="btn" href="<?=$this->pp1->u?>id/<?=$id?>"><?=self::escp($r->username)?></a></td>
+      <td><a class="btn" href="<?=$this->pp1->u . $id?>"><?=self::escp($r->username)?></a></td>
 
       <td><?=self::escp($r->email)?></td>
 
+      <!-- $this->pp1->d?>t/admins/id/ . $id 
+        var vodg ; alert('vodg='+vodg) ;
+        vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
+        if (  ) { location.href= '<?=$this->pp1->d . $id?>/'; }
+      -->
       <td width=9%>
          <a id="erase_row" class="btn btn-danger"
-            onclick="if (jsmsgyn('Erase row <?=$id?> ?',''))
-               { location.href= '<?=$this->pp1->d?>t/admins/id/<?=$id?>/'; }"
+            onclick="
+            var vodg ;
+            vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
+            //alert('vodg='+vodg) ; // if OK vodg=1, if CANCEL vodg=0
+            if ( vodg == 1 ) { location.href= '<?=$this->pp1->d . $id?>/'; }
+            "
          >Del <?=$id?></a>
       </td>
-      <td width=5%>
-        <a class="btn" href="<?=$this->pp1->r?>id/<?=$id?>">Profile</a>
-      </td>
+
+      <td width=5%><a class="btn" href="<?=$this->pp1->r . $id?>">Profile</a></td>
+
       </tr> <?php
     }
     self::disconnect();

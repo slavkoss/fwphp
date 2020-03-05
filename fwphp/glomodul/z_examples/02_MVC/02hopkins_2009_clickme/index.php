@@ -17,7 +17,7 @@ $v = new v($m); //$v = new v($c, $m); // $c is not needed in v ? (bad logic ?)
   /**
   * code flow STEP 2. R O U T E R
   * we added functionality (ee link) to C, thereby adding INTERACTIVITY to app. 
-  * NOT NEEDED IF NO USER INTERACTIONS (ee link) :
+  * ROUTING IS NOT NEEDED IF NO USER INTERACTIONS (ee links) :
   */
   $ctrakcmethod = 'clicked';
   if ( isset($_GET['action']) and !empty($_GET['action']) )   {

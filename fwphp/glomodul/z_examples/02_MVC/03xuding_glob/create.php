@@ -1,7 +1,13 @@
 <?php
-// J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\home.php
+/**
+* step 3
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\create.php
+* called from Home_ ctr cls method  c() when usr clicks link/button or any URL is entered in ibrowser  
+* calls Admin_crud cls method cc()     =pre-insert tbl row
+* which calls Db_ allsites method cc() =on-insert tbl-row
+*/
 namespace B12phpfw ;
-//User_ crud is ORM class : DM of row in memory to/from DB tbl row
+//Admin_ crud is ORM class : DM of row in memory to/from DB tbl row
 //where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
 
 
@@ -13,14 +19,14 @@ if ( !empty($_POST))
   $mobileError = null;
 
   // keep track post values
-  $name   = $_POST['username'];
+  $username   = $_POST['username'];
   $email  = $_POST['email'];
   $mobile = '' ; //$_POST['user_telefon'];
 
   // 1. validate input
   $valid = true;
-  if (empty($name)) {
-      $nameError = 'Please enter Name';
+  if (empty($username)) {
+      $usernameError = 'Please enter Name';
       $valid = false;
   }
 
@@ -34,9 +40,9 @@ if ( !empty($_POST))
 
   // 2. insert data
   if ($valid) {
-    $fldvals = [$name, $email] ;
-    $User_crud = new User_crud ;
-    $id = $User_crud->cc($this, $fldvals);
+    $fldvals = [$username, $email] ;
+    $Admin_crud = new Admin_crud ;
+    $id = $Admin_crud->cc($this, $fldvals);
     echo "<h3>Created id=$id </h3>" ;
     //header("Location: index.php");
   }
@@ -53,13 +59,13 @@ if ( !empty($_POST))
 
           <form class="form-horizontal" action="<?=$this->pp1->c?>" method="post">
 
-            <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
+            <div class="control-group <?php echo !empty($usernameError)?'error':'';?>">
               <label class="control-label">Name</label>
               <div class="controls">
                   <input name="username" type="text"  placeholder="Name"
-                         value="<?php echo !empty($name)?$name:'';?>">
-                  <?php if (!empty($nameError)): ?>
-                      <span class="help-inline"><?php echo $nameError;?></span>
+                         value="<?php echo !empty($username)?$username:'';?>">
+                  <?php if (!empty($usernameError)): ?>
+                      <span class="help-inline"><?php echo $usernameError;?></span>
                   <?php endif; ?>
               </div>
             </div>
