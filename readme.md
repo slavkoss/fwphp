@@ -210,9 +210,9 @@ Explanations below are far less important than demo site and code download menti
 ## <a name="dm"></a>1\.6 DM (Domain model)
 [Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     ** DM**      [2. IDE](#ide)     [3. CRUD](#crud)     [4.  SW fw](#swfw)     
 
-[UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) should have DM adapter class.     
+[UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) should have DM adapter class which is **pre CRUD code** like in Oracle Forms **pre-query**, pre-insert, pre-update... In Db_allsites class are **execute-query (here only creates cursor for read row by row loop in view scripts)**, on-insert, on-update... .        
 
-What are DM is best explained in example :     
+What is DM is best explained in example code in **module (folder) 03xuding_glob** which is whole below :     
 https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/03xuding_glob  (\_glob means "with globals").       
 
 This example is step 2 in learning. Step 1 is dir (module) ...z_examples/02_MVC/03xuding.     
@@ -846,7 +846,7 @@ if ( !empty($_POST) )
 *
 * Domain Model definition 
 * =======================
-* 1. System of abstractions that describes selected aspects of a sphere of knowledge,
+* 1. System of abstractions that describe selected aspects of a sphere of knowledge,
 *    influence or activity (a domain). DM can be used to solve problems related to domain.
 * 
 * 2. An object model of the domain that incorporates both behavior and data.
