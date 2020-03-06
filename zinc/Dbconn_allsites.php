@@ -1,7 +1,17 @@
 <?php
-//                   J:\awww\www\zinc\Dbconn_allsites_mysql.php
-//   to be copied to J:\awww\www\zinc\Dbconn_allsites.php
-// single access point to our database (singleton class).
+/*
+* For now (todo refactoring this code) J:\awww\www\zinc\Dbconn_allsites_mysql.php
+*   is copied to J:\awww\www\zinc\Dbconn_allsites.php
+*        SINGLE ACCESS POINT TO OUR DATABASE (SINGLETON CLASS)
+* SINGLETON PATTERN with a class that establishes a database connection, 
+* and restricts the number of instances to only one.
+* https://phpenthusiast.com/blog/the-singleton-design-pattern-in-php
+* All variables point to the same object :
+* $object1 = Singleton::get_ or_new_dball(); $object2 = Singleton::get_ or_new_dball(); ...
+* $instanc e Hold class instance - is private so it won't be changed from outside cls. It is also static so it is shared by all instances
+* How singleton generates global variable : 
+*   STATIC VARIABLE (IF NOT ALSO PRIVATE) CAN BE ACCESSED FROM EVERYWHERE.
+*/
 namespace B12phpfw ;
 use PDO;
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj

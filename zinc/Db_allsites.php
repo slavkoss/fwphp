@@ -1,14 +1,14 @@
 <?php
 /**
-* J:\awww\www\zinc\Db_allsites.php
-* SINGLETON PATTERN with a class that establishes a database connection, 
-* and restricts the number of instances to only one.
-* https://phpenthusiast.com/blog/the-singleton-design-pattern-in-php
-* All variables point to the same object :
-* $object1 = Singleton::get_ or_new_dball(); $object2 = Singleton::get_ or_new_dball(); ...
-* $instanc e Hold class instance - is private so it won't be changed from outside cls. It is also static so it is shared by all instances
-* How singleton generates global variable : 
-*   static variable (if not also private) can be accessed from everywhere.
+* J:\awww\www\zinc\Db_allsites.php - abstract CRUD class
+* may be named abstract class AbstractDataMapper.php
+*   - encapsulates AS MUCH MAPPING LOGIC AS POSSIBLE
+*   - couple of generic row object finders (get cursor, not record sets)
+*   - read row objects is in Tblname_crud domain objects so I do not do so :
+*     logic required for pulling in data from a specified table which is then used
+*     for reconstituting domain objects in a valid state. Because reconstitutions
+*     should be delegated down the hierarchy to refined implementations, 
+*     newrow_obj() (createEntity()) method has been DECLARED ABSTRACT.
 */
 namespace B12phpfw ;
 use PDO;

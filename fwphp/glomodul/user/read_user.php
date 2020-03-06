@@ -6,9 +6,6 @@ $Parsedown = new Parsedown();
 
 //<!-- Fetching Existing Data -->
 $usrname_requested=$this->uriq->username ;
-
-    //$qrywhere = "username=:username" ;
-    //$c_r = $this->r r('1', $this, 'admins', "$qrywhere", '*', [ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str'] ] ) ;
     $c_r = $this->rr("SELECT * FROM admins WHERE username=:username" 
         , [ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str']
           ] 

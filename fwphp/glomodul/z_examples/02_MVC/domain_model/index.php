@@ -54,6 +54,7 @@ Creates a web of interconnected objects, where each object represents some meani
 
 ************************* 11111 **********************
 http://www.sitepoint.com/building-a-domain-model/  February 24, 2012  By Alejandro Gervasio
+https://github.com/dddinphp/blog-cqrs  2016_Buenosvinos_Domain-Driven_Design_in_PHP_blog-cqrs-master.zip
 
 DOMAIN MODEL purpose:
 - M can be ported without much hassle from one infrastructure to another.

@@ -1,5 +1,5 @@
 <?php
-//J:\awww\www\fwphp\glomodul4\blog\upd_user_loggedin_frm.php
+// J:\awww\www\fwphp\glomodul\user\upd_user_loggedin_frm.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 $AdminId = $_SESSION["userid"];

@@ -4,14 +4,16 @@
 <title>
 <?php
 $ds = DIRECTORY_SEPARATOR ;
-// http://dev/inc/utl/showsource.php
-// J:\dev_web\htdocs\inc\utl\showsource.php
+// http://dev1:8083/zinc/showsource.php?file=J:/awww/www/fwphp/glomodul/mkd/02/02_domain_model/DM_Gervasio_part2.txt&line=55&next=171
+// J:\awww\www\zinc\showsource.php
+//http://dev1:8083/fwphp/glomodul/mkd/?showhtml=02/02_domain_model/DM_Gervasio_part2.txt
+
 // ako nema param. datoteka ispise svoj kod:
-$file = (isset($_GET['file'])
-     ? str_replace('/',$ds, $_GET['file'])
-     : str_replace('/',$ds, $_SERVER['SCRIPT_FILENAME']) );
-$file = str_replace($ds.$ds
-                   ,$ds, $file) ;
+$file = ( isset($_GET['file'])
+   ? str_replace('/',$ds, $_GET['file']) : str_replace('/',$ds, $_SERVER['SCRIPT_FILENAME']) 
+);
+
+$file = str_replace($ds.$ds, $ds, $file) ;
 echo $file ; 
 ?>
 </title>
