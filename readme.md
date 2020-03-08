@@ -245,8 +245,8 @@ Graph 4 node (vrh), 7 edge (brid, border, boudary). Graph is simmilar to Euler's
 ```
 Db_allsites, Admin_crud     _.-'(DM)'-._       Domain Model
                           .'/          '.
-                   calls / /DATA         \C includes V, before inc. V can manipulate M (state changes)
-DM updates V           (V) -----URL-----> (C)  Viev (home.php) and Controller (Home_ctr)
+                   calls / /DATA         \C includes V, before inc. C can manipulate M (state changes)
+DM updates V           (V) -----URL-----> (C)  View (home.php) and Controller (Home_ctr)
 V calls DM              |  \              |
 V sees URL              \  \              /U uses C - sends URL (signal) to C through link in V
                        URL'. \HTML      .'
@@ -1004,7 +1004,7 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
 
 <br /><br />
 # <a name="ide"></a>2\. My developing environment (IDE)
-[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml) &nbsp; [DM](#dm) &nbsp; **2. IDE**     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)   [DM](#dm)   **2. IDE**     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
 
 
