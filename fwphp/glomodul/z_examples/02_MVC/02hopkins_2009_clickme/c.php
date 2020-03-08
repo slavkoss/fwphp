@@ -27,7 +27,7 @@ class c
   
   /*
    // Uncoment code below (comment code above)
-   // to se module output WITHOUT USER INTERACTIONS
+   // to see module output WITHOUT USER INTERACTIONS
    c code STEP 1. Hello World example No any Controller-specific functionality if we don\'t have any USER INTERACTIONS defined with our app - VIEW HOLDS ALL OF THE FUNCTIONALITY as the example is purely for display purposes:
    
   //private $m; //NOT NEEDED IF NO USER INTERACTIONS

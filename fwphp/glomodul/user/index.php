@@ -140,7 +140,7 @@ Use custom inputs such as select box/radio box
 */
 
 /*
- Graf s 4 vrha, 7 bridova. Problem kineskog poštara :
+ Graf s 4 vrha (node), 7 bridova(edge, border, boudary). Problem kineskog poštara :
  http://e.math.hr/math_e_article/br14/fosner_kramberger Sedam königsberških mostova
  Kaliningrad izmeðu Poljske i Litve leži na obalama rijeke Pregel.
  Euler dokazao da ne postoji Eulerova šetnja preko svih sedam mostova koji povezuju 

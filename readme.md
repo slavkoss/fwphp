@@ -172,7 +172,7 @@ See to simple examples and have no namespaces  : very good coding :
 
 
 ## <a name="uml"></a>1\.5 B12phpfw core UML diagram - classes structure
-[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     **UML**     [2. IDE](#ide)     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     **UML**    [DM](#dm)     [2. IDE](#ide)     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
 For programmer this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ? Because we do not want write in each Home_ctr class code in 3 classes above.      
 Instead we **reuse code in 3 classes (globals)** above Home_ctr.     
@@ -212,18 +212,47 @@ Explanations below are far less important than demo site and code download menti
 
 [UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) should have DM adapter class which is **pre CRUD code** like in Oracle Forms **pre-query**, pre-insert, pre-update... In Db_allsites class are **execute-query (here only creates cursor for read row by row loop in view scripts)**, on-insert, on-update... .        
 
+### Events flow (E1) --- (E2)... - caseflow through Blog module (CRUD data skeleton)
+```
+(E1) User types URL --- index.php instantiates C (Home_ctr, App...) --- C calls own method, see (T1) - signals flow
+(E2) Home_ctr own method includes (E3) V (home.php) - signals flow  V --URL--> C
+                        |
+                        --  OR --calls--> some method (eg delete row) - signals flow C --parameters -->method
+                        |
+                        -- OR URL jumps in other module - signals flow in _GET (=URL query) or _POST global arrays
+
+(E3) V (home.php view script) --- V calls DM see (T2), ee V calls Admin_crud to <==pull== array (of row objects) from data source (T3) - DATA FLOW
+         |
+         -- if user cliks link or button or types URL --- it is event (E1) - signals flow V --URL--> C - ee user adds INTERACTIVITY (T4) in C which requires ROUTING.
+```
+
+#### Terms
+(T1) Own controller method is Mini3 PHP framework **dispatching** idea using home class methods (My **routing using key-values** is different)      
+
+(T2) **DM** (Domain Model) are classes :
+1. Admin_crud (**users table PdoAdapter**) called by V script - **pre CRUD (PRE-INSERT, PRE-UPDATE...) methods** cc, rr, uu, dd
+2. Db_allsites (**AbstractDataMapper**) called by Admin_crud - same for all tables, contains **CRUD (ON-INSERT, ON-UPDATE...) methods** cc, rr, uu, dd
+
+(T3) **DS (data source)** -  tbl row objects from DB or web service, or.... Only DM classes know about DS. CRUD code skeletons calls DM classes FUNCTIONALY ee WHAT ee "get invoice items", not HOW and from which DS. DS is assigned only once in config class abstract class Config_allsites extends Db_allsites (and class Home_ctr extends Config_allsites). 
+
+(T4)  User **INTERACTIVITY** (cliks link or button or types URL) requires ROUTING in C ee C (Home_ctr) is not needed for Mnu module, even for Mkd module - enough is simple controller code snippet. 
+
+
+<br /><br />
 ### Signals, data and code flow
+Graph 4 node (vrh), 7 edge (brid, border, boudary). Graph is simmilar to Euler's 4 Königsberg  city parts (nodes) and 7 bridges (edges) - Chinese postman **transport problem** - how to Euler walk to cross each  bridge (edge)  only once. Traveler sailsman problem is : how to shortest walk graph to cross each  city part (node)  at least once and return to start node. 
+
 ```
 Db_allsites, Admin_crud     _.-'(DM)'-._       Domain Model
                           .'/          '.
-                   calls / /data         \C includes V, before inc. V can manipulate M (state changes)
+                   calls / /DATA         \C includes V, before inc. V can manipulate M (state changes)
 DM updates V           (V) -----URL-----> (C)  Viev (home.php) and Controller (Home_ctr)
 V calls DM              |  \              |
 V sees URL              \  \              /U uses C - sends URL (signal) to C through link in V
                        URL'. \HTML      .'
-                            '-._(U)_.-'User types URL
-
+                            '-._(U)_.-'User types URL cliks link or button
 ```
+
 Picture shows M-V data flow. Model code is most complicated. **C and V code can be standardized, M only partially** :      
 
 **M in B12phpfw is DM (Domain Model)** meaning eg for users table :     
@@ -975,7 +1004,7 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
 
 <br /><br />
 # <a name="ide"></a>2\. My developing environment (IDE)
-[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     **2. IDE**     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
+[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml) &nbsp; [DM](#dm) &nbsp; **2. IDE**     [3. CRUD](#crud)     [4.  SW fw](#swfw)        
 
 
 
