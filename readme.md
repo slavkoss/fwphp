@@ -212,6 +212,43 @@ Explanations below are far less important than demo site and code download menti
 
 [UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) should have DM adapter class which is **pre CRUD code** like in Oracle Forms **pre-query**, pre-insert, pre-update... In Db_allsites class are **execute-query (here only creates cursor for read row by row loop in view scripts)**, on-insert, on-update... .        
 
+### Signals, data and code flow
+```
+Db_allsites, Admin_crud     _.-'(DM)'-._       Domain Model
+                          .'/          '.
+                   calls / /data         \C includes V, before inc. V can manipulate M (state changes)
+DM updates V           (V) -----URL-----> (C)  Viev (home.php) and Controller (Home_ctr)
+V calls DM              |  \              |
+V sees URL              \  \              /U uses C - sends URL (signal) to C through link in V
+                       URL'. \HTML      .'
+                            '-._(U)_.-'User types URL
+
+```
+Picture shows M-V data flow. Model code is most complicated. **C and V code can be standardized, M only partially** :      
+
+**M in B12phpfw is DM (Domain Model)** meaning eg for users table :     
+
+M consists of :
+1. abstract class Db_allsites which is same for all tables (cc, rr, uu, dd methods are standardized)
+2. and class Admin_crud - **bussines logic** in this M code can not be standardized. This M code is most complicated, it is fat (lot of code)
+
+User`s events are handled in Controller class.
+1. C (class Home_ctr) assigns users orders in URL to array variables telling V what user wants (signals flow) and includes V 
+2. **V pulls data from M data source (DB or web servis or...)** (calls Admin_crud which calls Db_allsites) according C variables (user orders in URL)
+3. V links ee user orders in URL call C method which can do some state changes in M data
+
+V script may contain class but I do not see need for view classes because view script is included in Home_ctr class and can use $this to access methods and attributes in whole class hierarchy : Home_ctr, Config_allsites, Db_allsites. If we do not need CRUD than we do not need class hierarchy Home_ctr, Config_allsites, Db_allsites meaning that simple coding like in Mnu and Mkd modules suffices..
+
+M-C-V data flow - controller instantiates M and pushes M data to V.
+I do not see advantages compared to M-V data flow. Disadvantage are : for pagination M-V data flow is only possible solution, M-C-V data flow makes C fat in large modules (lot of code). C in my Msg (Blog) module has lot of code, but code is very simple.
+
+So view instantiates model and pulls data from M or C instantiates model and pulls data from M.  Both styles work ok, difference is important only for us - for clearer code.
+
+If we have user`s interactions (events) eg filter displayed rows (**pagination is also filtering**), than **M-V data flow is only possible** solution (M-V data flow is original MVC idea). 
+
+  
+
+
 What is DM is best explained in example code in **module (folder) 03xuding_glob** which is whole below :     
 https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/03xuding_glob  (\_glob means "with globals").       
 
@@ -1306,24 +1343,7 @@ class Dbconn_allsites
   
   
   
-# Code flow
-Model code is most complicated. C and V code can be standardized, M only partially : cc, rr, uu, dd methods for all tables but bussines logic in M code can not be standardized.Config_allsites
 
-User`s events are handled in Controller class.
-- C assigns user's orders in URL to variables telling V what user wants and includes V (not showed in picture).
-- V pulls data from M according C variables (user's orders in URL ).
-- V also may call C method for some state changes ordered by user in URL, eg table row updates like approve user comment.
-- V script may contain class but I do not see need for view classes because view script is included in Home_ctr class and can use $this to access methods and attributes in whole class hierarchy : Home_ctr, Config_allsites, Db_allsites. If we do not need CRUD than we do not need class hierarchy : Home_ctr, Config_allsites, Db_allsites meaning that simple structured (not oop) coding like in mnu and mkd modules is enough.
-
-M-C-V data flow - controller instantiates M and pushes M data to V.
-I do not see advantages compared to M-V data flow. Disadvantage are : for pagination M-V data flow is only possible solution, M-C-V data flow makes C fat in large modules (lot of code). C in my msg (blog) module has lot of code, but code is very simple.
-
-So view instantiates model and pulls data from M or C instantiates model and pulls data from M. Difference is important only for us - for clearer code, both styles work ok.
-
-If we have user`s interactions (events) eg filter displayed rows (pagination is also filtering), than M-V data flow is only possible solution. 
-
-
-  
   
   
   

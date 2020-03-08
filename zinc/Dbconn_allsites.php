@@ -55,4 +55,8 @@ abstract class Dbconn_allsites
         self::$instance = null;
     }
 
+    //JS  M s g  dialog IMPLEMENTATION DELEGATED TO CONF & UTILS CLS Config_ allsites
+    //abstract protected function createEntity(array $row);
+    //abstract protected static function jsmsg(array $msg);
+
 }

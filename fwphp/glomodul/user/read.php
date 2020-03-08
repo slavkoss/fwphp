@@ -58,9 +58,11 @@ if (file_exists($img_path . $r->aimage)) { } else {
       <div class="container">
         <div class="row">
           <div class="col-md-6">
+
           <h1><i class="fas fa-user text-success mr-2" style="color:#27aae1;"></i><?='User`s '.$r->username.' name is '.$r->aname?>
           </h1>
-          <h3><?php echo $r->aheadline; ?></h3>
+ 
+           <h3><?php echo $r->aheadline; ?></h3>
           </div>
         </div>
       </div>

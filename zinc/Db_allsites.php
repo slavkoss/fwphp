@@ -42,7 +42,8 @@ abstract class Db_allsites extends Dbconn_allsites
                            ,'self::$d bi'=>self::$dbi
                            //,'$caller'=>$caller
                            //, '$dsn'=>$dsn
-                           ] ) ; }
+                           ] ) ; 
+                        }
 
 
     $cursor = $this->dbobj->prepare($sql);
@@ -330,31 +331,6 @@ abstract class Db_allsites extends Dbconn_allsites
     }
 
 
-    public static function jsmsg($msg) {
-      ?><SCRIPT LANGUAGE="JavaScript">
-          alert( "<?php
-
-            foreach($msg as $k=>$v): {
-              echo "\\n $k=" . 
-              str_replace("{","\\n{", str_replace("}","\\n}"
-                      , str_replace(",","\\n   ,",
-              str_replace('\\','/',   str_replace('&quot;',' '
-                ,htmlspecialchars(json_encode((array)$v), ENT_QUOTES,'UTF-8')
-              )) ."\\n"
-                            )
-                       ))
-
-              ;
-
-            } endforeach ;
-
-              ?>" ) ;
-      </SCRIPT><?php
-    }
-                     //works str_replace("NNN",'\\n', "aaaaaaaaaaaNNNbbbbbbbb")
-                     //str_replace("\\n",'NNN',json_encode((array)$v,JSON_PRETTY_PRINT))
-                     //nl2br(json_encode((array)$v,JSON_PRETTY_PRINT))
-                     //str_replace("<br />",'\\n',json_encode((array)$v,JSON_PRETTY_PRINT))
 
 
 

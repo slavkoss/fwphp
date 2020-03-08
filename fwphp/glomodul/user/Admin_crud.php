@@ -1,15 +1,16 @@
 <?php
-
+// J:\awww\www\fwphp\glomodul\user\Admin_crud.php
 namespace B12phpfw ; //ModelMapper
 //use Model\UserInterface,
-//    Model\User ;
+//    Model\User ; //entity
 
+// 2. PdoAdapter.php (1 is namespace LibraryDatabase; interface DatabaseAdapterInterface)
 class Admin_crud //extends AbstractDataMapper implements User_db_intf
 {
   protected $tbl = "admins";
 
   // pre-query
-  public function rr_all($db) {
+  public function rr_all(object $db) {
     // open cursor (execute-query loop is in view script)
     $cursor = $db->rr("SELECT * FROM $this->tbl ORDER BY username", [], __FILE__ .', ln '. __LINE__ ) ;
     $db::disconnect();
@@ -17,7 +18,7 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
   }
 
   // pre-query
-  public function rr($db, $id) {
+  public function rr(object $db, int $id) {
     // open cursor (execute-query loop is in view script)
     $cursor = $db->rr("SELECT * FROM admins WHERE id=:AdminId ORDER BY aname"
         , [ ['placeh'=>':AdminId', 'valph'=>$id, 'tip'=>'int']
@@ -29,7 +30,7 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
 
   // on-insert
   //public function cc(UserInterface $user) {
-  public function cc($db, $vv) {
+  public function cc(object $db, array $vv) {
                 if ('1') { 
                   echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
                   //echo '<pre>URL query array $this->uriq='; print_r($this->uriq); echo '</pre>';
@@ -72,7 +73,7 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
   }
 
   // on-update
-  public function uu($db, $vv) {
+  public function uu(object $db, array $vv) {
     //  1. u p d  r o w
     $flds     = "SET aname=:AName, email=:Aemail, abio=:abio" ;
     $qrywhere = "WHERE id=:AdminId" ;
@@ -104,7 +105,7 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
   }
 
 
-  public function lout($db){
+  public function lout(object $db){
     //our admins tbl - U serName may or not be  d b  s h e m a  name :
     if (isset($_SESSION['userid']))    $_SESSION['userid']    = null ;
     if (isset($_SESSION['username']))  $_SESSION['username']  = null ;
@@ -121,7 +122,7 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
 
 
 
-  public function l($db) // login
+  public function l(object $db) // login
   {
                 if ('') {$db->jsmsg( [ //basename(__FILE__).
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>''
@@ -230,7 +231,7 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
   } //e nd  f n  l o g i n
 
 
-  public function ChkUsrNameExists($username, $db){
+  public function ChkUsrNameExists(string $username, object $db){
     // called only from this cls which DOES NOT SEE CRUD METHODS
     //$db sees Home_ctr, Config_allsites and Db_allsites objects, 
     $cursor = $db->rr("SELECT username FROM admins WHERE username=:username" 
@@ -250,7 +251,9 @@ class Admin_crud //extends AbstractDataMapper implements User_db_intf
 
 
 /**
-* step 4 (pre) CRUD class
+* step 4 (pre) CRUD class - Data Access Object or mapper, as we affectionately (dearly) call it
+* constructing model objects from data in our DB, and saving data back to DB
+*
 * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Admin_crud.php
 *    or User_db.php, or UserMapper.php :
 *       namespace ModelMapper;  use Model\UserInterface, Model\User;

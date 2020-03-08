@@ -2,7 +2,8 @@
 namespace B12phpfw ;
 
 /**
-* step 2
+* 1=autol STEP_2=CONF 3=view/rout/disp 4=preCRUD 5=onCRUD
+* STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
 J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Home_ctr.php
 * Instantiated in i ndex.php 
 *
@@ -15,23 +16,23 @@ J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Home_ctr.php
 */
 class Home_ctr extends Config_allsites
 {
-  public function __construct($pp1)
+  public function __construct(object $pp1)
   {
     if (!defined('QS')) define('QS', '?');
     //if link in view is not here : Error 403, Access forbidden! Notice Undefined property in URL
-    $pp1_module_links = [ 
-      'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~' ,
-      'h'   => QS.'i/home/' ,        //$this->pp1->h
-      'c'   => QS.'i/c/' ,           //$this->pp1->c
-      'r'   => QS.'i/r/id/' ,        //$this->pp1->r . $id
-      'u'   => QS.'i/u/id/' ,        //$this->pp1->u . $id   in view script href = $this->pp1->u . $id
-      'd'   => QS.'i/d/t/admins/id/' //$this->pp1->d . $id   in view script href = $this->pp1->d . $id
+    $pp1_module_links = [ // r o u t i n g  t a b l e
+      'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~'
+      ,'h'   => QS.'i/home/'         //$this->pp1->h
+      ,'c'   => QS.'i/c/'            //$this->pp1->c
+      ,'r'   => QS.'i/r/id/'         //$this->pp1->r . $id
+      ,'u'   => QS.'i/u/id/'         //$this->pp1->u . $id   in view script href = $this->pp1->u . $id
+      ,'d'   => QS.'i/d/t/admins/id/' //$this->pp1->d . $id   in view script href = $this->pp1->d . $id
       //$this->uriq->i/home_fn, t/tbl_name, id/idval key/value
       //in home.php onclick does jsmsgyn dialog,  home_fn "d" calls dd() (no need include script)
       // -------------------------
-      'lfrm' => QS.'i/lfrm/' ,              // loginfrm
-      'l'    => QS.'i/l/' ,                 // login
-      'lout' => QS.'i/lout/r/i|loginfrm|' , //logout, r=redirect
+      ,'lfrm' => QS.'i/lfrm/'              // loginfrm
+      ,'l'    => QS.'i/l/'                 // login
+      ,'lout' => QS.'i/lout/r/i|loginfrm|' //logout, r=redirect
     ] ;
 
     //step 3 : fw core calls method in this cls : see home_fn above

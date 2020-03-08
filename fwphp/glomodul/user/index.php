@@ -1,6 +1,6 @@
 <?php
 /**
-* step 1
+* STEP_1=AUTOL 2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
 * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
 *        Instantiates Home_ ctr cls - router, dispatcher
 * step 1 in Module  U S E R  T B L  C R U D on B12phpfw CRUD code skeleton. 
@@ -8,6 +8,7 @@
 * For more code comments see blog module J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
 */
 namespace B12phpfw ;
+
 $dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ; 
 $pp1 = (object)
 [   'dbg'=>'1', 'module_version'=>'6.0.4.0 Users'
@@ -18,15 +19,16 @@ $pp1 = (object)
       , $dirup_tmp.'/blog/'
   ] , 'caller'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
 ] ;
-
 require($pp1->module_towsroot.'zinc/Autoload.php');
 new Autoload($pp1); //global cls loads classes scripts automatically
                 if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
                    .', line '. __LINE__ .' SAYS'=>' '
                    ,'where am I'=>'AFTER  A u t o l o a d'
                 ] ) ; }
-//step 2 (step 3 is parent::__construct : fw core calls method in Home_ctr cls)
-$db = new Home_ctr($pp1) ; //also instatiates all higher cls-es :
+
+//1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
+//STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
+$db = new Home_ctr($pp1) ; //also instatiates all higher cls-es : Config_ allsites
             // Db_ allsites.php may be named abstract class AbstractDataMapper.php
             //  - encapsulates AS MUCH MAPPING LOGIC AS POSSIBLE
             //   - couple of generic row object finders (get cursor, not record sets)
@@ -136,3 +138,32 @@ Implement search function                - done in Blog module
 Build image upload                       - done in Blog module
 Use custom inputs such as select box/radio box
 */
+
+/*
+ Graf s 4 vrha, 7 bridova. Problem kineskog poštara :
+ http://e.math.hr/math_e_article/br14/fosner_kramberger Sedam königsberških mostova
+ Kaliningrad izmeðu Poljske i Litve leži na obalama rijeke Pregel.
+ Euler dokazao da ne postoji Eulerova šetnja preko svih sedam mostova koji povezuju 
+ dva otoka (VRHA) na rijeci Pregel s gornjim i donjim gradom (VRHOVIMA) Königsberga
+ takva DA SE SVAKI MOST (BRID) PRIJEÐE TOÈNO JEDANPUT :
+ 
+                              _.-'(S)'-._       Sjever
+             4 mosta        .'/          '.
+             S-J preko     / /             \
+             manjeg       (Z) ------------ (I)  Otoci Mali i Veliki
+             otoka        |  \              |
+                           \  \            /
+                            '. \          .'
+                              '-._(J)_.-'       Jug
+
+Zatvorena Eulerova šetnja se može naæi samo u grafovima u kojima je stupanj 
+- BROJ BRIDOVA SVAKOG VRHA PARAN. Prema tome se grafovi u kojima su svi vrhovi 
+parnog stupnja nazivaju Eulerovim.
+
+Problem trgovaèkog putnika - tražimo šetnju u usmjerenom ili neusmjerenom grafu
+tako DA PROÐEMO SVAKI VRH U GRAFU BAREM JEDNOM i vratimo se u poèetni vrh 
+na najkraæi moguæi naèin.
+
+Usmjerenim grafom može se riješiti problem kineskog poštara i trgovaèkog putnika.
+*/
+

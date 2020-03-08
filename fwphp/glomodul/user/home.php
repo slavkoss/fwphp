@@ -1,4 +1,14 @@
 <?php
+/**
+* J:\awww\www\fwphp\glomodul\user\home.php
+*
+* https://getbootstrap.com/docs/4.0/components/buttons/
+* 1. <button type="button" class="btn btn-primary">Primary</button> BLUE
+* 2. btn-secondary GRAY  3. btn-success GREEN    4. btn-danger RED
+* 5. btn-warning YELLOW  6. btn-info DARK GREEN  7. btn-light WHITE, GRAY TXT
+* 8. btn-dark BLACK      9. btn-link WHITE, BLUE TXT
+*
+*/
 
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
@@ -45,7 +55,7 @@ if(isset($_POST["Submit"])){
 } //E n d Submit Button If-Condition
 
 //Warning: Cannot modify header information :
-    require $this->pp1->wsroot_path . 'zinc/hdr.php';
+require $this->pp1->wsroot_path . 'zinc/hdr.php';
     //require_once('navbar_admin.php');
     //require_once($this->pp1->module_path .'../blog/navbar_admin.php');
     //require_once($this->pp1->module_path_arr[1] .'../blog/navbar_admin.php');
@@ -129,7 +139,7 @@ if(isset($_POST["Submit"])){
       <table class="table table-striped table-hover">
         <thead class="thead-dark">
           <tr>
-            <th>No. </th><th>Date&Time</th><th>Username</th><th>Admin Name</th>
+            <th>No. &nbsp; Delete ID</th><th>Date&Time</th><th>Username</th><th>Admin Name</th>
             <th>Added by</th><th>Action</th>
           </tr>
         </thead>
@@ -140,39 +150,52 @@ if(isset($_POST["Submit"])){
         while ($r = $this->rrnext($cursor))
         {
           $SrNo++;
+          //$SrNo_escaped = self::escp($SrNo) ;//  $SrNo_escaped = self::escp($SrNo) ;
           $id = self::escp($r->id) ;
           //all row fld names lowercase
-          switch ($this->getdbi())
-          {
+          switch ($this->getdbi()) {
             case 'oracle' : $r = $this->rlows($r) ; break; 
-            default: break;
-          }
+            default: break; }
         ?>
             <tr>
-              <td><?=self::escp($SrNo)?></td>
+              <td>
+                 <!--str_pad( $SrNo, 5 - strlen($SrNo), '&nbsp;', STR_PAD_LEFT )-->
+                 <?=str_repeat('&nbsp;', 5 - strlen($SrNo)) . $SrNo ?>
+                 <a id="erase_row" class="btn btn-danger"
+                    onclick="
+                      var vodg ;
+                      vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
+                      //alert('vodg='+vodg) ; // if OK vodg=1, if CANCEL vodg=0
+                      if ( vodg == 1 ) { location.href= '<?=$this->pp1->d . $id?>/'; }
+                    "
+                    title="Delete tbl row ID"
+                 ><?=str_repeat('&nbsp;', 10 - strlen($id)) . $id ?></a>
+              </td>
+
               <td><?=self::escp($r->datetime)?></td>
 
               <td>
                 <!-- https://getbootstrap.com/docs/4.0/components/buttons/ -->
-                <a class="btn btn-link" href="<?=$this->pp1->u . $id?>"><?=self::escp($r->username)?></a>
+                <a class="btn btn-link" href="<?=$this->pp1->u . $id?>"
+                   title="Edit tbl row"
+                ><?=self::escp($r->username)?></a>
               </td>
 
               <td><?=self::escp($r->aname)?></td>
               <td><?=self::escp($r->addedby)?></td>
 
-              <td width=26%>
-                 <a id="erase_row" class="btn btn-danger"
-                    onclick="
-                    var vodg ;
-                    vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
-                    //alert('vodg='+vodg) ; // if OK vodg=1, if CANCEL vodg=0
-                    if ( vodg == 1 ) { location.href= '<?=$this->pp1->d . $id?>/'; }
-                  "
-                 >Del <?=$id?></a>
+              <td width=21%>
 
-                <a class="btn btn-success" href="<?=$this->pp1->r . $id?>">Profile</a>
+                <a class="btn btn-success" href="<?=$this->pp1->r . $id?>"
+                   title="Read - show user profile"
+                >R</a>
 
-                <a class="btn btn-warning" href="<?=$this->pp1->l . $id?>">Login</a>
+                <a class="btn btn-warning" href="<?=$this->pp1->l . $id?>"
+                   title="Login"
+                >Login</a>
+                <a class="btn btn-secondary" href="<?=$this->pp1->lout . $id?>"
+                   title="Logout"
+                >Lout</a>
               </td>
 
 

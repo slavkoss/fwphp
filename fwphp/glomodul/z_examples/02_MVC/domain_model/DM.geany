@@ -26,4 +26,25 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=-1
+current_page=15
+FILE_NAME_0=0;PHP;0;ECP1250;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CGlobal_conf.php;0;2
+FILE_NAME_1=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CGlobal_db.php;0;2
+FILE_NAME_2=0;PHP;0;ECP1250;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CGlobal_db_intf.php;0;2
+FILE_NAME_3=8165;PHP;0;ECP1250;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5Cindex.php;0;2
+FILE_NAME_4=0;PHP;0;ECP1250;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CPost.php;0;2
+FILE_NAME_5=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CPost_db.php;0;2
+FILE_NAME_6=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CPost_db_intf.php;0;2
+FILE_NAME_7=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CPostInterface.php;0;2
+FILE_NAME_8=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5Ctbl.php;0;2
+FILE_NAME_9=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CUser.php;0;2
+FILE_NAME_10=235;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CUser_db.php;0;2
+FILE_NAME_11=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CUser_db_intf.php;0;2
+FILE_NAME_12=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CUserInterface.php;0;2
+FILE_NAME_13=99;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CAbstractDataMapper.php;0;2
+FILE_NAME_14=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CAutoloader.php;0;2
+FILE_NAME_15=0;PHP;0;ECP1250;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CCls_db_test.php;0;2
+FILE_NAME_16=0;PHP;0;ECP1250;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CCls_no_db_test.php;0;2
+FILE_NAME_17=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CComment.php;0;2
+FILE_NAME_18=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CComment_db.php;0;2
+FILE_NAME_19=0;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CComment_db_intf.php;0;2
+FILE_NAME_20=169;PHP;0;EUTF-8;0;1;0;J%3A%5Cawww%5Cwww%5Cfwphp%5Cglomodul%5Cz_examples%5C02_MVC%5Cdomain_model%5CCommentInterface.php;0;2

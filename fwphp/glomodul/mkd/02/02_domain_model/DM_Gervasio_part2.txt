@@ -1,3 +1,4 @@
+<?php ---- for code coloring
 1.  [PHP](https://www.sitepoint.com/php/)
 2.  March 16, 2012
 3.  https://www.sitepoint.com/integrating-the-data-mappers/
@@ -7,17 +8,17 @@
 
 **See DDL at end this article**.
 
-While there's still a huge number of cases where [Domain Models](http://martinfowler.com/eaaCatalog/domainModel.html) are considered an overkill "enterprisey" solution that doesn't jive with the natural pragmatism that proliferates throughout the world of PHP, they're steadily breaching the minds of many developers, even of those who cling to the Database Model paradigm like the last life jacket of a sinking ship.
+While there iss still a huge number of cases where [Domain Models](http://martinfowler.com/eaaCatalog/domainModel.html) are considered an overkill "enterprisey" solution that does not jive with the natural pragmatism that proliferates throughout the world of PHP, they are steadily breaching the minds of many developers, even of those who cling to the Database Model paradigm like the last life jacket of a sinking ship.
 
-There are some reasons that largely justify such a reaction. After all, building even the simplest Domain Model demands definition of the constraints, rules, and relationships among its building objects, how they will behave in a given context, and what type of data they'll carry during their life cycle. Plus, the process of transferring model data to and from the storage will likely require to drop a set of [Data Mappers](http://martinfowler.com/eaaCatalog/dataMapper.html) at some point, a fact that highlights why Domain Models are often surrounded by a cloud of bullying.
+There are some reasons that largely justify such a reaction. After all, building even the simplest Domain Model demands definition of the constraints, rules, and relationships among its building objects, how they will behave in a given context, and what type of data they will carry during their life cycle. Plus, the process of transferring model data to and from the storage will likely require to drop a set of [Data Mappers](http://martinfowler.com/eaaCatalog/dataMapper.html) at some point, a fact that highlights why Domain Models are often surrounded by a cloud of bullying.
 
-Eager prejudgements tend to be misleading, though. The bones of a rich Domain Model will certainly be accommodated more comfortably inside the boundaries of a large application, but it's possible to scale them down and get the most from them in smaller environments too. To demonstrate this, in [my previous article](http://www.sitepoint.com/building-a-domain-model/) I showed you how to implement a simple blog domain model composed of a few posts, comments, and user objects.
+Eager prejudgements tend to be misleading, though. The bones of a rich Domain Model will certainly be accommodated more comfortably inside the boundaries of a large application, but it is possible to scale them down and get the most from them in smaller environments too. To demonstrate this, in [my previous article](http://www.sitepoint.com/building-a-domain-model/) I showed you how to implement a simple blog domain model composed of a few posts, comments, and user objects.
 
-The previous article lacked a true happy ending; it merely showed the mechanics of the model, not how to put it to work in synchrony with a "real" persistence layer. So before you throw me to the lions for such an impolite attitude, in this follow-up we'll be developing a basic mapping module which will allow you to move data easily between the blog's model and a MySQL database, all while keeping them neatly isolated from one other.
+The previous article lacked a true happy ending; it merely showed the mechanics of the model, not how to put it to work in synchrony with a "real" persistence layer. So before you throw me to the lions for such an impolite attitude, in this follow-up we will be developing a basic mapping module which will allow you to move data easily between the blogs model and a MySQL database, all while keeping them neatly isolated from one other.
 
 ## Building a Naive DAL (or why my PDO adapter is better than yours)
 
-The phrase may sound like an cheap cliche, I know, but I'm not particularly interested in reinventing the wheel each time I tackle a software problem (unless I need a nicer and faster wheel, of course). In this case, the situation does warrant some additional effort considering we'll be trying to connect a batch of mapping classes to a blog's domain model. Given the magnitude of the endeavor, the idea is to set up from scratch a basic Data Access Layer (DAL) so that domain objects can easily be persisted in a MySQL database, and in turn, retrieved on request through some generic finders.
+The phrase may sound like an cheap cliche, I know, but I am not particularly interested in reinventing the wheel each time I tackle a software problem (unless I need a nicer and faster wheel, of course). In this case, the situation does warrant some additional effort considering we will be trying to connect a batch of mapping classes to a blogs domain model. Given the magnitude of the endeavor, the idea is to set up from scratch a basic Data Access Layer (DAL) so that domain objects can easily be persisted in a MySQL database, and in turn, retrieved on request through some generic finders.
 
 The DAL in question will be made up of just a couple of components: the first one will be a simple database adapter interface, whose contract looks like this:
 
@@ -33,13 +34,12 @@ interface DatabaseAdapterInterface
     
     public function prepare($sql, array $options = array());
     public function execute(array $parameters = array());
-    
+
+    // C R U D :
     public function fetch($fetchStyle = null, 
         $cursorOrientation = null, $cursorOffset = null);
     public function fetchAll($fetchStyle = null, $column = 0);
-    
-    public function select($table, array $bind, 
-        $boolOperator = "AND");
+    public function select($table, array $bind, $boolOperator = "AND");
     public function insert($table, array $bind);
     public function update($table, array $bind, $where = "");
     public function delete($table, $where = "");
@@ -50,7 +50,7 @@ Undeniably, the above `DatabaseAdapterInterface` is a tameable creature. Its con
 
 Now we need at least one implementer of the interface that does all these cool things. The proud cavalier that will assume this responsibility will be a non-canonical PDO adapter, which looks as follows:
 
-### 2. PdoAdapter.php
+### 2. PdoAdapter.php - Admin_crud.php
 ```php
 <?php
 namespace LibraryDatabase;
@@ -226,15 +226,15 @@ class PdoAdapter implements DatabaseAdapterInterface
 }
 ```
 
-Fat code snippet, but it is necessary evil. What's more, even while `PdoAdapter` class looks somewhat tangled (knotty, confused mass, Highly complex), it's actually a simple wrapper which exploits much of the functionality that PDO offers right out the box without exposing client code to a verbose API.
+Fat code snippet, but it is necessary evil. What is more, even while PdoAdapter class looks somewhat tangled (knotty, confused mass, Highly complex), it is actually a simple wrapper which exploits much of the functionality that PDO offers right out the box without exposing client code to a verbose API.
 
-At this point we've implemented a simple DAL which we can use for persisting the blog's domain model in MySQL without sweating too much during the process. Now we need to add the middle men to the picture, that is the aforementioned data mappers, so any impedance mismatches can be handled quietly behind the scenes.
+At this point we have implemented a simple DAL which we can use for persisting the blogs domain model in MySQL without sweating too much during the process. Now we need to add the middle men to the picture, that is the aforementioned data mappers, so any impedance mismatches can be handled quietly behind the scenes.
 
 ## Implementing a Bi-directional Mapping Layer
 
-It depends on the context of course, but most of the time building a mapping layer (and specifically a bi-directional relational one) is quite a ways away from being trivial. The process doesn't boil down to just say... hey, I'll get these relational mappers up and running during a coffee break. That's why ORM libraries like [Doctrine](http://www.doctrine-project.org/) live and breathe after all. In this case, however, we want to leverage the bold coder living inside of us and create our own set of mappers to l massage the blog's domain objects without facing the learning curve of a third-party package.
+It depends on the context of course, but most of the time building a mapping layer (and specifically a bi-directional relational one) is quite a ways away from being trivial. The process doesn not boil down to just say... hey, I will get these relational mappers up and running during a coffee break. That is why ORM libraries like [Doctrine](http://www.doctrine-project.org/) live and breathe after all. In this case, however, we want to leverage the bold coder living inside of us and create our own set of mappers to l massage the blogs domain objects without facing the learning curve of a third-party package.
 
-Let's begin with encapsulating as much mapping logic as possible [within an abstract class](http://martinfowler.com/refactoring/catalog/extractSuperclass.html), like the below one:
+Let us begin with encapsulating as much mapping logic as possible [within an abstract class](http://martinfowler.com/refactoring/catalog/extractSuperclass.html), like the below one:
 
 window.propertag.cmd.push(function() { proper\_display('sitepoint\_content\_1'); });
 
@@ -242,7 +242,7 @@ window.propertag.cmd.push(function() { proper\_display('sitepoint\_content\_1');
 ```php
 <?php
 namespace ModelMapper;
-use LibraryDatabaseDatabaseAdapterInterface;
+use LibraryDatabase DatabaseAdapterInterface;
 
 abstract class AbstractDataMapper
 {
@@ -284,7 +284,7 @@ abstract class AbstractDataMapper
         return $entities;
     }
 
-    // Create an entity (implementation delegated to concrete mappers)
+    // Create an entity (IMPLEMENTATION DELEGATED TO CONCRETE MAPPERS)
     abstract protected function createEntity(array $row);
 }
 ```
@@ -307,7 +307,10 @@ interface PostMapperInterface
    public function insert(PostInterface $post);
    public function delete($id);
 }
+```
 
+### 5. PostMapper.php
+```php
 <?php
 namespace ModelMapper;
 use LibraryDatabaseDatabaseAdapterInterface,
@@ -351,7 +354,7 @@ class PostMapper extends AbstractDataMapper implements PostMapperInterface
 
 Notice that the implementation of `PostMapper` follows a fairly logical path. Simply put, not only does it extend its abstract parent, but it injects in the constructor a comment mapper (still undefined), in order to handle in sync both posts and comments without revealing to the outside world the complexities of creating the whole object graph. Of course, we shouldn't deny ourselves the joy of seeing how the still veiled comment mapper looks, hence here's its source code, coupled to the corresponding interface:
 
-### 5. CommentMapperInterface.php
+### 6. CommentMapperInterface.php
 ```php
 <?php
 namespace ModelMapper;
@@ -366,7 +369,10 @@ interface CommentMapperInterface
         $userId);
     public function delete($id);
 }
+```
 
+### 7. CommentMapperInterface.php
+```php
 <?php
 namespace ModelMapper;
 use LibraryDatabaseDatabaseAdapterInterface,
@@ -409,9 +415,9 @@ class CommentMapper extends AbstractDataMapper implements CommentMapperInterface
 }
 ```
 
-CommentMapper class behaves quite similar to its sibling `PostMapper`. In short, it asks for a user mapper in the constructor, so that a specific comment can be tied up to the corresponding commenter. Considering the easy-going nature of `CommentMapper`, let's make a final effort and define another which will handle users:
+CommentMapper class behaves quite similar to its sibling `PostMapper`. In short, it asks for a user mapper in the constructor, so that a specific comment can be tied up to the corresponding commenter. Considering the easy-going nature of `CommentMapper`, let us make a final effort and define another which will handle users:
 
-### 6. UserMapperInterface.php
+### 8. UserMapperInterface.php
 ```php
 <?php
 namespace ModelMapper;
@@ -425,7 +431,10 @@ interface UserMapperInterface
     public function insert(UserInterface $user);
     public function delete($id);
 }
+```
 
+### 9. UserMapper.php
+```php
 <?php
 namespace ModelMapper;
 use ModelUserInterface,
@@ -457,13 +466,15 @@ class UserMapper extends AbstractDataMapper implements UserMapperInterface
 }
 ```
 
-Now that the `UserMapper` class is set, we've finally reached the goal we were committed to from the very start: build up from scratch an easy-to-massage mapping layer, capable of moving data back and forward between a simplistic blog domain model and MySQL. But let's not pat ourselves in the back yet, as the best way to see if the mappers are as functional as they look at first blush is by example.
+Now that the UserMapper class is set, we have finally reached the goal we were committed to from the very start: build up from scratch an easy-to-massage mapping layer, capable of moving data back and forward between a simplistic blog domain model and MySQL. But let us not pat ourselves in the back yet, as the best way to see if the mappers are as functional as they look at first blush is by example.
 
-## Mapping the Blog's Domain Objects to and from the DAL
 
-As you might expect, consuming the blog domain model in an efficient manner is pretty straightforward, as the mappers' APIs do the actual hard work and hide the underlying database from the model itself. This ability, though, is best appreciated from the application layer's perspective. Let's wire up all the mapper graphs together:
 
-### 7. Cls_db_test.php
+## Mapping Blogs Domain Objects to and from the DAL
+
+As you might expect, consuming the blog domain model in an efficient manner is pretty straightforward, as the mappers APIs do the actual hard work and hide the underlying database from the model itself. This ability, though, is best appreciated from the application layers perspective. Let us wire up all the mapper graphs together:
+
+### 10. Cls_db_test.php
 ```php
 <?php
 use LibraryLoaderAutoloader;
@@ -481,7 +492,7 @@ $commentMapper = new CommentMapper($adapter, $userMapper);
 $postMapper = new PostMapper($adapter, $commentMapper);
 ```
 
-So far, so good. At this point, the mappers have been initialized by dropping their collaborators into the corresponding constructors. Considering that they're ready to get some real action, now let's use the post mapper and insert a few trivial posts into the database:
+So far, so good. At this point, the mappers have been initialized by dropping their collaborators into the corresponding constructors. Considering that they are ready to get some real action, now let us use the post mapper and insert a few trivial posts into the database:
 
 ```php
 $postMapper->insert(
@@ -495,7 +506,7 @@ $postMapper->insert(
         "To become yourself a PHP Master, you must first master... Wait! Did I post that already?"));
 ```
 
-If all works as expected, the `posts` table should be nicely populated with the previous entries. But, is it just me or do they look a little lonely? Let's fix that add a few comments:
+If all works as expected, the `posts` table should be nicely populated with the previous entries. But, is it just me or do they look a little lonely? Let us fix that add a few comments:
 
 ```php
 $user = new User("Everchanging Joe", "joe@example.com");
@@ -522,17 +533,17 @@ $commentMapper->insert(
     2, $user->id);
 ```
 
-Thanks to Joe's remarkable eloquence, the first blog post should have now two comments and second should have one. Notice that the foreign keys used to sustain the bound between comments and users have been just picked up at runtime. In production, however, they most likely should be gathered inside the user interface.
+Thanks to Joes remarkable eloquence, the first blog post should have now two comments and second should have one. Notice that the foreign keys used to sustain the bound between comments and users have been just picked up at runtime. In production, however, they most likely should be gathered inside the user interface.
 
-Now that the blog's database has been finally hydrated with a couple of posts, comments, and a chatty user's info, the last thing we should do is pull in all the data and dump it on screen. Here we go:
+Now that the blogs database has been finally hydrated with a couple of posts, comments, and a chatty users info, the last thing we should do is pull in all the data and dump it on screen. Here we go:
 
-### 8. tbl.php
+### 11. tbl.php
 ```php
 <?php
 $posts = $postMapper->findAll();
 ```
 
-Even when this one-liner is... well just a one-liner, it's actually the workhorse that creates blog domain object graphs on request from the database and put them in memory for further processing. On the other hand, the graphs in question can be easily decomposed back through a skeletal view, as follows:
+Even when this one-liner is... well just a one-liner, it is actually the workhorse that creates blog domain object graphs on request from the database and put them in memory for further processing. On the other hand, the graphs in question can be easily decomposed back through a skeletal view, as follows:
 
 ```html
 <!doctype html>
@@ -581,13 +592,23 @@ foreach ($posts as $post) {
 </html>
 ```
 
-Indeed, looping through a few posts, comments, and users is a boring task that doesn't deserve any further explanation. Of course if you're an insightful, hawk-eye observer, you might have noticed that this seemingly harmless view is in fact a hog eater which blatantly pulls in the entire database and throws it into the user interface's heart. Let's no rush to judgments since there are a few common tricks that can be used for tackling this issue, including caching (in any of its multiple forms), [lazy-loading](http://martinfowler.com/eaaCatalog/lazyLoad.html), and so forth.
 
-Spicing up the data mappers with some of these goodies will be left as homework for you, something that surely will keep you entertained for quite a long time.
+
+
+### Lazy loading eg Doctrine ORM Proxy, Laravel Eloquent
+...\fwphp\glomodul\z_examples\02_mvc\domain_m_lazy_load\index.php   
+https://docs.php.earth/php/ref/oop/design-patterns/lazy-loading/    
+[lazy-loading]( http://martinfowler.com/eaaCatalog/lazyLoad.html )    
+
+An object that does not contain all of the data you need but knows how to get it.
+Software design pattern where the initialization of an object occurs only when it is actually needed and not before to preserve simplicity of usage and improve performance.
+
+The opposite of lazy loading is eager loading where data, resource, and object is created in the time of the initialization.
+
 
 ### Closing Remarks
 
-Very few will disagree that the implementation of a rich Domain Model is far away from being an overnight, high school-like task, even when using an easy-going language like PHP. While it's safe to say that forwarding model data to and from the DAL can be delegated in many cases to a turnkey mapping library or framework (assuming there exists such a thing), defining the relationships between domain objects, as well as their own rules, data, and behavior is up to the developer.
+Very few will disagree that the implementation of a rich Domain Model is far away from being an overnight, high school-like task, even when using an easy-going language like PHP. While it is safe to say that forwarding model data to and from the DAL can be delegated in many cases to a turnkey mapping library or framework (assuming there exists such a thing), defining the relationships between domain objects, as well as their own rules, data, and behavior is up to the developer.
 
 Despite this, the extra effort in general causes a beneficial wave effect, as it helps out in pushing actively the use of a multi-tier design along with good OOP practices where the involved objects have just a few, [well-defined responsibilities](http://en.wikipedia.org/wiki/Single_responsibility_principle), and the model doesn't get its pristine ecosystem polluted with database logic. Add to this that shifting the model from one infrastructure to another can be done in a fairly painless fashion, and you'll get to see why this approach is very appealing when developing applications that must scale well.
 

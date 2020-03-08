@@ -32,13 +32,18 @@ abstract class Config_allsites extends Db_allsites
   {
     // see (**1)
 
+    //1=autol STEP_2=CONF 3=view/rout/disp 4=preCRUD 5=onCRUD
+    //STEP_3=ROUT/DISP is in this parent::__construct : fw core calls method in Home_ctr cls
+    
+    //1.requirements_ok, 2.adresses (no constants), 3.routing, 4.dispatching
+
       date_default_timezone_set("Europe/Zagreb"); //Asia/Karachi
 
       if (strnatcmp(phpversion(),'5.4.0') >= 0) {
             if (session_status() == PHP_SESSION_NONE) { session_start(); }
       } else { if(session_id() == '') { session_start(); } }
 
-           // Check requirements
+           // 1. C H E C K  R E Q U I R E M E N T S
            //$requirements_ok = true;
            $required_version = '5.6.0';
            if (version_compare(phpversion(), $required_version) < 0)
@@ -67,7 +72,7 @@ abstract class Config_allsites extends Db_allsites
              }
 
 
-      //***** DEFINE ADRESSES (CONSTANTS) **********************
+      //***** 2. DEFINE  A D R E S S E S  (NO CONSTANTS) **********************
       if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR); //dirname, basename
       if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
@@ -77,7 +82,7 @@ abstract class Config_allsites extends Db_allsites
             //str_replace('\\','/', $module_dir .'/') ; //rtrim(ltrim(... has error !!
 
       /**
-      *           **** R O U T I N G
+      *           **** 3. R O U T I N G
       */
       // see (**2)
 
@@ -174,7 +179,7 @@ abstract class Config_allsites extends Db_allsites
 
 
       /**
-      *           **** 2. D I S P A T C H I N G
+      *           **** 4. D I S P A T C H I N G
       * may be in module`s Home_ctr (code here is global for all sites)
       */
     /** ************** coding step cs04. *******************
@@ -255,58 +260,6 @@ abstract class Config_allsites extends Db_allsites
       exit;
     }
 
-
-
-
-    /**
-     * Map the setting of non-existing fields to a mutator when
-     * possible, otherwise use the matching field
-     */
-    /* public function __set($name, $value) {
-        $field = "_" . strtolower($name);
-
-        if (!property_exists($this, $field)) {
-            throw new InvalidArgumentException(
-                "Setting the field '$field' is not valid for this entity.");
-        }
-
-        $mutator = "set" . ucfirst(strtolower($name));
-        if ( method_exists($this, $mutator)
-             and is_callable(array($this, $mutator))
-        ) {
-            $this->$mutator($value) ;
-        }
-        else {
-            $this->$field = $value;
-        }
-
-        return $this;
-    } */
-
-    /**
-     * Map the getting of non-existing properties to an accessor when 
-     * possible, otherwise use the matching field
-     */
-    /* public function __get($name) {
-        $field = "_" . strtolower($name);
-
-        if (!property_exists($this, $field)) {
-            throw new InvalidArgumentException(
-                "Getting the field '$field' is not valid for this entity.");
-        }
-
-        $accessor = "get" . ucfirst(strtolower($name));
-        return (method_exists($this, $accessor) &&
-            is_callable(array($this, $accessor)))
-            ? $this->$accessor() : $this->field;
-    } */
-
-    /**
-     * Get the entity fields
-     */
-    public function toArray($db) {
-        return get_object_vars($db);
-    }
 
 
 
@@ -444,6 +397,43 @@ $navbar .= " <a class='button'
   }
 
 
+
+  public static function jsmsg($msg) 
+  {
+      ?><SCRIPT LANGUAGE="JavaScript">
+          alert( "<?php
+
+            foreach($msg as $k=>$v): {
+              echo "\\n $k=" . 
+              str_replace("{","\\n{", str_replace("}","\\n}"
+                      , str_replace(",","\\n   ,",
+              str_replace('\\','/',   str_replace('&quot;',' '
+                ,htmlspecialchars(json_encode((array)$v), ENT_QUOTES,'UTF-8')
+              )) ."\\n"
+                            )
+                       ))
+
+              ;
+
+            } endforeach ;
+
+              ?>" ) ;
+      </SCRIPT><?php
+  }
+                     //works str_replace("NNN",'\\n', "aaaaaaaaaaaNNNbbbbbbbb")
+                     //str_replace("\\n",'NNN',json_encode((array)$v,JSON_PRETTY_PRINT))
+                     //nl2br(json_encode((array)$v,JSON_PRETTY_PRINT))
+                     //str_replace("<br />",'\\n',json_encode((array)$v,JSON_PRETTY_PRINT))
+
+
+    /**
+     * Get the entity fields
+     */
+    public function toArray($cls) {
+        return get_object_vars($cls);
+    }
+
+
   public function print_objvars($obj)
   {
     foreach (get_object_vars($obj) as $prop => $val) {
@@ -497,6 +487,54 @@ $navbar .= " <a class='button'
         break;
     }
   }
+
+
+
+
+
+    /**
+     * Map the setting of non-existing fields to a mutator when
+     * possible, otherwise use the matching field
+     */
+    /* public function __set($name, $value) {
+        $field = "_" . strtolower($name);
+
+        if (!property_exists($this, $field)) {
+            throw new InvalidArgumentException(
+                "Setting the field '$field' is not valid for this entity.");
+        }
+
+        $mutator = "set" . ucfirst(strtolower($name));
+        if ( method_exists($this, $mutator)
+             and is_callable(array($this, $mutator))
+        ) {
+            $this->$mutator($value) ;
+        }
+        else {
+            $this->$field = $value;
+        }
+
+        return $this;
+    } */
+
+    /**
+     * Map the getting of non-existing properties to an accessor when 
+     * possible, otherwise use the matching field
+     */
+    /* public function __get($name) {
+        $field = "_" . strtolower($name);
+
+        if (!property_exists($this, $field)) {
+            throw new InvalidArgumentException(
+                "Getting the field '$field' is not valid for this entity.");
+        }
+
+        $accessor = "get" . ucfirst(strtolower($name));
+        return (method_exists($this, $accessor) &&
+            is_callable(array($this, $accessor)))
+            ? $this->$accessor() : $this->field;
+    } */
+
 
 
 
