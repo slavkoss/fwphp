@@ -1,29 +1,53 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\read_user.php
 //require 'J:\\awww\\www\\vendor\\erusev\\parsedown\\Parsedown.php' ;
-require $this->pp1->wsroot_path .'vendor/erusev/parsedown/Parsedown.php' ;
-$Parsedown = new Parsedown();
-
+                      if ('') {  //if ($module_ arr->dbg) {
+                      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                      echo '<pre>'; echo '$uriq='; print_r($uriq) ; echo '</pre>'; 
+                      //exit(0) ;
+                      }
 //<!-- Fetching Existing Data -->
-$usrname_requested=$this->uriq->username ;
     $c_r = $this->rr("SELECT * FROM admins WHERE username=:username" 
         , [ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str']
           ] 
     , __FILE__ .' '.', ln '. __LINE__) ;
-    while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
+while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
+if (!isset($r)) {  //if ($module_ arr->dbg) {
+echo '<h4>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h4>'
+   .'<span style="color: violet; font-size: large; font-weight: bold;">'
+       .'username '.$usrname_requested.' does not exist in admins table'
+   .'</span>' ; 
+exit(0) ; }
 
-$tmp_img = str_replace('/',DS,$this->pp1->module_path) . 'post'.DS.'Uploads'.DS ;
-if (file_exists($tmp_img.$r->aimage)) { } else {
-  if (file_exists($tmp_img.'avatar.jpg'))  { $r->aimage = 'avatar.jpg' ; }
+
+
+$tmp_img_dir_path = str_replace('/',DS,$pp1->module_path) . 'post'.DS.'Uploads'.DS ;
+if (file_exists($tmp_img_dir_path . $r->aimage)) { } else {
+  if (file_exists($tmp_img_dir_path.'avatar.jpg'))  { $r->aimage = 'avatar.jpg' ; }
 }
-                   //$r->aimage = 'avatar.jpg' ;
-                   //echo '<pre>$tmp_img='; print_r($tmp_img); echo '</pre><br />';
+                   //echo '<pre>$tmp_img_dir_path='; print_r($tmp_img_dir_path); echo '</pre><br />';
                    //echo '<pre>$r->aimage='; print_r($r->aimage); echo '</pre><br />';
+                      if ('') {  //if ($module_ arr->dbg) {
+                      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                      echo '<pre>';
+                      echo '' //'$_SESSION["username"]=' . $_SESSION["username"]
+                      .'<br />'.'$usrname_requested=' .  $usrname_requested
+                      .'<br />'.'$r->aimage=' .  $r->aimage
+                      ;
+                      echo '<br />$r='; print_r($r) ;
+                      //.'<br />'.'$password='.isset($password)?$password:'NOT SET' 
+                      echo '</pre>'; 
+                      //exit(0) ;
+                      }
+                    if ('') { self::jsmsg( [ basename(__FILE__) //. __METHOD__ 
+                               . ', line '. __LINE__ .' SAYS'=>' '
+                       ,'aaaaaaa'=>'bbbbbbb'
+                    ] ) ; }
 
 if (isset($r->username) and $r->username == $usrname_requested) {
 }else {
   $_SESSION["ErrorMessage"]="Bad Request !!";
-  $this->Redirect_to($this->pp1->filter_page."1/i/home/");
+  $this->Redirect_to($pp1->filter_page."1/i/home/");
 }
 
 
@@ -63,7 +87,3 @@ if (isset($r->username) and $r->username == $usrname_requested) {
       </div>
 
     </section>
-
-
-<?php //require_once($this->pp1->wsroot_path.'zinc/ftr.php'); ?>
-

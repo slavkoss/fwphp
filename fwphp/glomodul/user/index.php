@@ -42,8 +42,11 @@ exit(0);
 
 
 
-/*                 // DO NOT DELETE !!!!!!!!!
-// Module autoloader (not used here but may be needed in some modules) :
+/*
+//**********************************************************************
+//         MODULE AUTOLOADER DO NOT DELETE !!!!!!!!!
+// (not used here but may be needed in some modules) 
+//**********************************************************************
 namespace Model; //FUNCTIONAL NAME SPACING (not dir names ee positional)
 //Instead of require 'm.php'; require 'v.php';  require 'c.php'; :
 //    ***** namespaced cls name --> cls script path *****
@@ -102,12 +105,6 @@ class Autoloader
 
 
 
-
-
-
-
-
-
 /* //            WAS  in index.php (see 03xuding dir) :
 //      !!!!!!!!! THIS IS NOW IN Home_ctr.php (B12phpfw) !!!!!!!!!!!!
 require_once(__DIR__.'/confglo.php');
@@ -137,33 +134,5 @@ Add pagination to PHP CRUD grid          - done in Blog module
 Implement search function                - done in Blog module
 Build image upload                       - done in Blog module
 Use custom inputs such as select box/radio box
-*/
-
-/*
- Graf s 4 vrha (node), 7 bridova(edge, border, boudary). Problem kineskog poštara :
- http://e.math.hr/math_e_article/br14/fosner_kramberger Sedam königsberških mostova
- Kaliningrad izmeðu Poljske i Litve leži na obalama rijeke Pregel.
- Euler dokazao da ne postoji Eulerova šetnja preko svih sedam mostova koji povezuju 
- dva otoka (VRHA) na rijeci Pregel s gornjim i donjim gradom (VRHOVIMA) Königsberga
- takva DA SE SVAKI MOST (BRID) PRIJEÐE TOÈNO JEDANPUT :
- 
-                              _.-'(S)'-._       Sjever
-             4 mosta        .'/          '.
-             S-J preko     / /             \
-             manjeg       (Z) ------------ (I)  Otoci Mali i Veliki
-             otoka        |  \              |
-                           \  \            /
-                            '. \          .'
-                              '-._(J)_.-'       Jug
-
-Zatvorena Eulerova šetnja se može naæi samo u grafovima u kojima je stupanj 
-- BROJ BRIDOVA SVAKOG VRHA PARAN. Prema tome se grafovi u kojima su svi vrhovi 
-parnog stupnja nazivaju Eulerovim.
-
-Problem trgovaèkog putnika - tražimo šetnju u usmjerenom ili neusmjerenom grafu
-tako DA PROÐEMO SVAKI VRH U GRAFU BAREM JEDNOM i vratimo se u poèetni vrh 
-na najkraæi moguæi naèin.
-
-Usmjerenim grafom može se riješiti problem kineskog poštara i trgovaèkog putnika.
 */
 

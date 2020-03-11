@@ -1,10 +1,20 @@
 <?php
+if ( isset($pp1) and is_object($pp1) ) { 
+  if ( isset($pp1->wsroot_url) and null !== $pp1->wsroot_url ) { $wsroot_url=$pp1->wsroot_url; }
+  else { $wsroot_url = '/' ; } ;
+} 
+/*
 switch (true) {
-  case isset($wsroot_url)      : NULL ; break;
-  case isset($pp1->wsroot_url) : $wsroot_url = $pp1->wsroot_url ; break;
+  //case isset($wsroot_url) : NULL ; break;
+  //case isset($p p1->wsroot_ url) : $wsroot_ url = $p p1->wsroot_ url ; break;
+  case isset($this->getp('pp1')->wsroot_url) and null !== $this->getp('pp1')->wsroot_url :
+     $wsroot_url=$this->getp('pp1')->wsroot_url; break;
   default: $wsroot_url = '/' ; break;
 }
+*/
 ?>
+
+
 <br>
     <!-- FOOTER -->
     <footer class="bg-dark text-white">
@@ -48,15 +58,15 @@ switch (true) {
 // https://www.php.net/manual/en/language.oop5.basic.php
 //Inside a class definition, $this refers to the current object, while  self  refers to the current class.
 
-//require_once($this->pp1->wsroot_path.'zinc/ftr.php');   class="alert alert-success"
+//require_once($this->p p1->wsroot_path.'zinc/ftr.php');   class="alert alert-success"
 //text-decoration: none;   background:black;
 
 echo '<pre style="color:black; background:white;">'; // style="background:black;"
 if ('1') //if ($autoload_arr['dbg']) 
 {
-  //if (isset($this)) //if (isset($this->uriq)) //if (is_object($this)) 
+  //if (isset($this)) //if (isset($this->u riq)) //if (is_object($this)) 
 
-  echo '<h5>Msg (blog) module has no problem, but Mnu module displays: Fatal error: Uncaught Error: <br />Using $this when not in object context in J:\awww\www\zinc\ftr.php</h5>';
+  //if ( isset($pp1) and is_object($pp1) ) {...  is solution for : echo '<h5>Msg (blog) module has no problem, but Mnu module displays: Fatal error: Uncaught Error: <br />Using $this when not in object context in J:\awww\www\zinc\ftr.php</h5>';
 
   echo 'PHP_OS='. PHP_OS .', php_uname()=' . php_uname() ;
   echo '<br />'.'$_SERVER[\'DOCUMENT_ROOT\']='.$_SERVER['DOCUMENT_ROOT']  ;
@@ -64,32 +74,24 @@ if ('1') //if ($autoload_arr['dbg'])
 
 
 
-      if (isset($this))  //try 
+      //if (isset($this))  //try 
+      if ( isset($pp1) and is_object($pp1) )
       {
-        echo '<br />'.'OS web server doc root $this->pp1->wsroot_path=' . $this->pp1->wsroot_path  ;
-        echo '<br />'.'Same web server doc root as URL $this->pp1->wsroot_url=' . $this->pp1->wsroot_url  ;
-        //echo '<b>$autoload_arr</b>='; print_r($autoload_arr); 
-        echo '<br />'.'<b>Module`s property pallete like in Oracle Forms :<br />$this->pp1</b>='; print_r($this->pp1); 
-        echo '<b>URI`s query string $this->uriq</b>='; print_r($this->uriq); 
-
-
-
-        echo '<b>$_ GET</b>='; print_r($_GET); 
-        echo '<b>$_POST</b>='; print_r($_POST); 
-        echo '<b>$_SESSION</b>='; print_r($_SESSION); 
-        echo '<br />';
+        echo '<br />'.'OS web server doc root $this->p p 1->wsroot_path=' 
+             . $pp1->wsroot_path  ;
+        echo '<br />'.'Same web server doc root as URL $this->p p1->wsroot_url=' . $this->getp('pp1')->wsroot_url  ;
+        echo '<br />'.'<b>Module property pallete like in Oracle Forms :<br />$this->p p 1</b>='; 
+        print_r($pp1); //print_r($this->getp('pp1')); 
+        //echo '<b>URI`s query string $this->u r i q</b>='; print_r($pp1->uriq); 
       } //catch(Exception $e) { echo $e->getMessage(); }
 
 
-      else
-      {
       echo '<b>$_ GET</b>='; print_r($_GET); 
       echo '<b>$_POST</b>='; print_r($_POST); 
       //echo '<b>$_SESSION</b>='; print(json_encode($_SESSION,JSON_PRETTY_PRINT)); 
       echo '<b>$_SESSION</b>='; print_r($_SESSION); 
-      echo '<br />'; 
+      echo '<br />';
       //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
-      }
 
 } ?>
            </div><!-- e n d  p r e -->

@@ -2,7 +2,6 @@
 //J:\awww\www\fwphp\glomodul4\blog\v_contact_us.php
 
  $title = 'Contact us' ;
- //require_once($this->pp1->wsroot_path.'zinc/hdr.php');
  require_once("navbar.php");
 ?>
 <div class="container">
@@ -20,5 +19,3 @@
       <?php require_once("home_side_area.php"); ?>
     </div>
   </div>
-
-<?php //require_once($this->pp1->wsroot_path.'zinc/ftr.php'); ?>

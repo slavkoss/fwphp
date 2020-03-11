@@ -1,10 +1,8 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\posts.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
-                  //echo '<pre>$this->pp1='; print_r($this->pp1); echo '</pre><br />';
+                  //echo '<pre>$p p1='; print_r($pp1); echo '</pre><br />';
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
-
-$category_from_url = (isset($this->uriq->c) ? $this->uriq->c : '') ;
 
 ?>
 <!-- HEADER & n avbar_ admin2 -->
@@ -48,7 +46,6 @@ $category_from_url = (isset($this->uriq->c) ? $this->uriq->c : '') ;
         {
           //3. SQL Query if FILTER BY  C ATEGORY_ FROM_ U R L  is active
           // *******************************************************************
-               //$onerow, $db, $tbl,   $where='1', $flds='COUNT(*) COUNT_ROWS', $binds = []
           $c_r = $this->rr("SELECT * FROM posts WHERE category = :category_from_url ORDER BY datetime desc"
             ,[ ['placeh'=>':category_from_url', 'valph'=>$category_from_url, 'tip'=>'str'] ]
             , __FILE__ .'() '.', ln '. __LINE__  );
@@ -64,9 +61,9 @@ $category_from_url = (isset($this->uriq->c) ? $this->uriq->c : '') ;
         {
           $Sr++;
           //all row fld names lowercase
-          switch ($db->getdbi())
+          switch ($dm->getdbi())
           {
-            case 'oracle' : $r = $db->rlows($r) ; break; 
+            case 'oracle' : $r = $dm->rlows($r) ; break; 
             default: break;
           }
           ?>
@@ -76,13 +73,13 @@ $category_from_url = (isset($this->uriq->c) ? $this->uriq->c : '') ;
             <td>
               <?php
                 if(strlen($r->title)>20) {$r->title= substr($r->title,0,18).'..';}
-              ?><a href="<?=$this->pp1->read_post?>id/<?=$r->id?>" ><span"><?=$r->title?></span></a>
+              ?><a href="<?=$pp1->read_post?>id/<?=$r->id?>" ><span"><?=$r->title?></span></a>
 
           </td>
           <td><?php if(strlen($r->category)>10){$r->category= substr($r->category,0,10).'..';}
                //echo $r->category ; ?>
               <span class="text-dark">
-                 <a href="<?=$this->pp1->filter_postcateg?><?=self::escp($r->category)?>/p/posts">
+                 <a href="<?=$pp1->filter_postcateg?><?=self::escp($r->category)?>/p/posts">
                     <?=self::escp($r->category)?></a></span>
           </td>
           <td><?php if(strlen($r->datetime)>11){$r->datetime= substr($r->datetime,0,11).'..';} 
@@ -120,11 +117,11 @@ $category_from_url = (isset($this->uriq->c) ? $this->uriq->c : '') ;
 
 
           <td>
-            <a href="<?=$this->pp1->editpost?>id/<?=$r->id?>"><span class="btn btn-warning"> Edit</span></a>
+            <a href="<?=$pp1->editpost?>id/<?=$r->id?>"><span class="btn btn-warning"> Edit</span></a>
             <!--   -->
            <a id="erase_row" class="btn btn-danger"
-              onclick="if (jsmsgyn('Erase row ?',''))
-              { location.href= '<?=$this->pp1->del_row?>t/posts/id/<?=$r->id?>/'; }"
+              onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
+              if (yes == '1') { location.href= '<?=$pp1->del_row?>t/posts/id/<?=$r->id?>/'; }"
            >Del <?=$r->id?></a>
           </td>
           <!--td>

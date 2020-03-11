@@ -12,7 +12,8 @@
 * How singleton generates global variable : 
 *   STATIC VARIABLE (IF NOT ALSO PRIVATE) CAN BE ACCESSED FROM EVERYWHERE.
 */
-namespace B12phpfw ;
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\core\zinc ;
 use PDO;
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
 abstract class Dbconn_allsites

@@ -2,7 +2,7 @@
 // J:\awww\www\fwphp\glomodul\user\upd_user_loggedin_frm.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
-$AdminId = $_SESSION["userid"];
+
                          //var_dump($_SESSION);
 
 //    1. S U B M I T E D  A C T I O N S
@@ -17,10 +17,10 @@ if(isset($_POST["Submit"]))
   //   1.1. V A L I D A T I O N
   if (strlen($AHeadline)>30) {
       $_SESSION["ErrorMessage"] = "Headline Should be less than 30 characters";
-      $this->Redirect_to($this->pp1->upd_user_loggedin);
+      $this->Redirect_to($pp1->upd_user_loggedin);
   }elseif (strlen($ABio)>500) {
       $_SESSION["ErrorMessage"] = "Bio should be less than than 500 characters";
-      $this->Redirect_to($this->pp1->upd_user_loggedin);
+      $this->Redirect_to($pp1->upd_user_loggedin);
 
   //  1.2 U P D A T E  D B T B L R O W
   }else{
@@ -45,7 +45,7 @@ if(isset($_POST["Submit"]))
       if($cursor){ $_SESSION["SuccessMessage"]="Details Updated Successfully";
       }else {$_SESSION["ErrorMessage"]= "Something went wrong. Try Again !";}
 
-      $this->Redirect_to($this->pp1->upd_user_loggedin);
+      $this->Redirect_to($pp1->upd_user_loggedin);
     }
 } //Ending of Submit Button If-Condition
 
@@ -53,8 +53,6 @@ if(isset($_POST["Submit"]))
 
 
     //        2. G U I  to get user action
-    //$qrywhere = "id=:AdminId" ;
-    //$c_r = $db->r r('1', $db, 'admins', "$qrywhere", '*', [ ['placeh'=>':AdminId', 'valph'=>$AdminId, 'tip'=>'int'] ] ) ;
     $c_r = $this->rr("SELECT * FROM admins WHERE id=:AdminId" 
         , [ ['placeh'=>':AdminId', 'valph'=>$AdminId, 'tip'=>'int']
           ] 
@@ -69,7 +67,7 @@ if(isset($_POST["Submit"]))
 
       <h1>
         @User: <span class="text-dark">
-          <a href="<?=$this->pp1->read_user?>username/<?php echo self::escp($r->username); ?>"
+          <a href="<?=$pp1->read_user?>username/<?php echo self::escp($r->username); ?>"
              title="Show profile">
              <?=self::escp($r->username)?></a>
                  </span>
@@ -113,7 +111,7 @@ if(isset($_POST["Submit"]))
        echo $this->SuccessMessage();
        ?>
 
-      <form class="" action="<?=$this->pp1->upd_user_loggedin?>" 
+      <form class="" action="<?=$pp1->upd_user_loggedin?>" 
             method="post" enctype="multipart/form-data">
 
 
@@ -156,7 +154,7 @@ if(isset($_POST["Submit"]))
 
             <div class="row">
               <div class="col-lg-6 mb-2">
-                <a href="<?=$this->pp1->dashboard?>" class="btn btn-warning btn-block">
+                <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block">
                    <i class="fas fa-arrow-left"></i> Back To Dashboard</a>
               </div>
 
@@ -177,7 +175,3 @@ if(isset($_POST["Submit"]))
   </div>
 
 </section><!-- End Main Area -->
-
-
-<?php //require_once($this->pp1->wsroot_path.'zinc/ftr.php'); ?>
-

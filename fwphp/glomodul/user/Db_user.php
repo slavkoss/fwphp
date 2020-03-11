@@ -2,7 +2,10 @@
 /**
 *  J:\awww\www\fwphp\glomodul\user\Db_user.php
 */
-namespace B12phpfw ;
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\dbadapter\user ;
+use B12phpfw\module\blog\Home_ctr ;
+//use B12phpfw\core\zinc\Config_ allsites ;
 
 class Db_user //extends Db_allsites
 {
@@ -24,16 +27,16 @@ class Db_user //extends Db_allsites
     }
 
 
-  public function Login_Confirm(){
+  public function Login_Confirm_SesUsrId(){
     if (isset($_SESSION["userid"])) { return true;
     }  else {
       $_SESSION["ErrorMessage"]="You are not logged in, log in is required  f o r  action you want !";
-      //$db->Redirect_to($db->pp1->loginfrm); //ee to 'index.php?i=../user/login.php'
+      //$dm->Redirect_to($dm->pp1->loginfrm); //ee to 'index.php?i=../user/login.php'
     }
   }
 
 
-  public function logout($db){
+  public function logout(object $dm){
     //our admins tbl - U serName may or not be  d b  s h e m a  name :
     if (isset($_SESSION['userid']))    $_SESSION['userid']    = null ;
     if (isset($_SESSION['username']))  $_SESSION['username']  = null ;
@@ -42,7 +45,7 @@ class Db_user //extends Db_allsites
     if (isset($_SESSION['cncts']->username)) $_SESSION['cncts']->username = null ;
     //
     session_destroy() ;
-    $db->Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
+    $dm->Redirect_to(QS.str_replace('|','/',$dm->uriq->r)) ;
   }
   //e n d  S E S S  I O N  M E T H O D S
 
@@ -50,9 +53,9 @@ class Db_user //extends Db_allsites
 
 
 
-  public function login($db)
+  public function login(object $dm, object $pp1)
   {
-                if ('') {$db->jsmsg( [ //basename(__FILE__).
+                if ('') {$dm->jsmsg( [ //basename(__FILE__).
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>''
                    ,'aaa'=>'bbb'
                 ] ) ; }
@@ -61,10 +64,10 @@ class Db_user //extends Db_allsites
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                   echo '<pre>';
                   echo '<b>$_GET</b>='; print_r($_GET); 
-                  echo '<b>$db->uriq</b>='; print_r($db->uriq); 
+                  echo '<b>$dm->uriq</b>='; print_r($dm->uriq); 
                   echo '<b>$_POST</b>='; print_r($_POST); 
                   echo '<b>$_SESSION</b>='; print_r($_SESSION); 
-                  echo '<b>$db->pp1</b>='; print_r($db->pp1); 
+                  echo '<b>$dm->pp1</b>='; print_r($dm->pp1); 
                   echo '</pre><br />'; 
                   //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                   }
@@ -79,7 +82,7 @@ class Db_user //extends Db_allsites
           if (empty($_POST["username"])) { 
              $_SESSION["ErrorMessage"] = "Name is required!";
              goto redirto ;
-          } else { $username = $db->escp($_POST["username"]);
+          } else { $username = $dm->escp($_POST["username"]);
             // check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
               $_SESSION["ErrorMessage"] = "Only letters and white space are allowed in name!";
@@ -90,8 +93,8 @@ class Db_user //extends Db_allsites
         if (empty($_POST["password"])) { 
            $_SESSION["ErrorMessage"] = "Password is required!";
            goto redirto ;
-        } else { $password = $db->escp($_POST["password"]); }
-                    if ('') {$db->jsmsg( [ //basename(__FILE__).
+        } else { $password = $dm->escp($_POST["password"]); }
+                    if ('') {$dm->jsmsg( [ //basename(__FILE__).
                        __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE Config_allsites construct '
                        ,'$_SESSION["username"]'=>isset($_SESSION["username"])?$_SESSION["username"]:'NOT SET'
                        ,'$username'=>isset($username)?$username:'NOT SET'
@@ -108,16 +111,16 @@ class Db_user //extends Db_allsites
       }
       //$qrywhere = "username=:username AND password=:password" ;
       // c u r s o r  of one  r o w :
-      //$c_r = $db->r r( '1', $db, 'admins', "$qrywhere", '*'
-      $c_r = $db->rr("SELECT * FROM admins WHERE username=:username AND password=:password" 
+      //$c_r = $dm->r r( '1', $dm, 'admins', "$qrywhere", '*'
+      $c_r = $dm->rr("SELECT * FROM admins WHERE username=:username AND password=:password" 
         , [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
           , ['placeh'=>':password', 'valph'=>$password, 'tip'=>'str'] ] 
       , __FILE__ .' '.', ln '. __LINE__) ;
-      $r = $db->rrnext($c_r);
+      $r = $dm->rrnext($c_r);
       //all row fld names lowercase
-          switch ($db->getdbi()) 
+          switch ($dm->getdbi()) 
           {
-            case 'oracle' : $r = $db->rlows($r) ; break; 
+            case 'oracle' : $r = $dm->rlows($r) ; break; 
             default: break;
           }
                     if ('') {  //if ($module_ arr['dbg']) {
@@ -137,7 +140,7 @@ class Db_user //extends Db_allsites
       switch (true) 
       {
         case isset($_SESSION["userid"]) and $_SESSION["userid"] : 
-          $db->Redirect_to($db->pp1->dashboard) ;
+          $dm->Redirect_to($pp1->dashboard) ;
           break ;
         case $r : 
           $_SESSION["userid"]     =$r->id;
@@ -145,13 +148,14 @@ class Db_user //extends Db_allsites
           $_SESSION["adminname"]  =$r->aname;
           $_SESSION["SuccessMessage"] = "Wellcome ".$_SESSION["adminname"]."!";
 
-          $db->Redirect_to($db->pp1->dashboard);
+          //Notice: Undefined property: B12phpfw\module\blog\Home_ctr::$pp1 :
+          $dm->Redirect_to($pp1->dashboard);
           break;
         default:
           $_SESSION["username"]     = $username;
           //$_SESSION["ErrorMessage"] ="Incorrect username/password";
-          $db->Redirect_to($db->pp1->loginfrm);
-          //$db->R edirect_to($db->pp1->l oginfrm); //$db->R edirect_ to("l ogin.php");
+          $dm->Redirect_to($pp1->loginfrm);
+          //$dm->R edirect_to($dm->pp1->l oginfrm); //$dm->R edirect_ to("l ogin.php");
           break;
       }
 
@@ -159,16 +163,16 @@ class Db_user //extends Db_allsites
   } //e nd  f n  l o g i n
 
 
-  public function ChkUsrNameExists($username, $db){
+  public function ChkUsrNameExists(string $username, object $dm){
     // called only from a d m i n s.p h p where is instantiated :
-    // $this = $Db_user which DOES NOT SEE CRUD METHODS
-    //$db sees Home_ctr, Config_allsites and Db_allsites objects, 
-    $c_r = $db->rr("SELECT username FROM admins WHERE username=:username" 
+    // $this = $db_user which DOES NOT SEE CRUD METHODS
+    //$dm sees Home_ctr, Config_allsites and Db_allsites objects, 
+    $c_r = $dm->rr("SELECT username FROM admins WHERE username=:username" 
         , [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
           ] 
     , __FILE__ .' '.', ln '. __LINE__) ;
 
-    while ($row = $db->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
+    while ($row = $dm->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
     if (isset($r->username) and $r->username == $username) {return true;}
     else {return false;}
   }

@@ -23,7 +23,9 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
            echo $this->ErrorMessage();
            echo $this->SuccessMessage();
            ?>
-          <h2>Un-Approved Comments</h2>
+
+                     <h2>Un-Approved Comments</h2>
+
           <table class="table table-striped table-hover">
             <thead class="thead-dark">
               <tr>
@@ -54,28 +56,39 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
                   default: echo self::escp($r->comment); break; }
                 ?>
               </td>
+
               <td>
               <a title="Set status=ON" 
-                 href="<?=$this->pp1->approvecomments?>id/<?=$r->id?>/stat/ON/"
+                 href="<?=$pp1->upd_comment_stat?>id/<?=$r->id?>/stat/ON/"
                  class="btn btn-success">Approve</a>
               </td>
+
               <td>
-                 <a id="erase_row" class="btn btn-danger"
-                    onclick="if (jsmsgyn('Erase row ?',''))
-                    { location.href= '<?=$this->pp1->del_row?>t/comments/id/<?=$r->id?>/'; }"
-                 >Delete</a>
+                <a id="erase_row" class="btn btn-danger"
+                   title = "Delete row id <?=$r->id?>"
+                   onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
+                    if (yes == '1') { location.href= '<?=$pp1->del_row?>t/comments/id/<?=$r->id?>/'; }"
+                ><?=$r->id?></a>
               </td>
 
               <td style="min-width:140px;"> <a class="btn btn-primary"
-                href="<?=$this->pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
-                Preview <?=$r->post_id?></a>
+                  title = "Show post id <?=$r->post_id?>"
+                  href="<?=$pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
+                Post id <?=$r->post_id?></a>
               </td>
             </tr>
           </tbody>
           <?php
         } ?>
+
+
+
+
+
           </table>
-          <h2>Approved Comments</h2>
+
+                           <h2>Approved Comments</h2>
+
           <table class="table table-striped table-hover">
             <thead class="thead-dark">
               <tr>
@@ -110,14 +123,16 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
               <td><?php echo self::escp($r->approvedby); ?></td>
               <td style="min-width:140px;"> 
                  <a title="Set status=OFF" 
-                    href="<?=$this->pp1->approvecomments?>id/<?=$r->id?>/stat/OFF/"
-                    class="btn btn-warning">Dis-Approve</a>
+                    href="<?=$pp1->upd_comment_stat?>id/<?=$r->id?>/stat/OFF/"
+                    class="btn btn-warning">
+                    Dis-Appr. <?=$r->id?> </a>
               </td>
               <td>
 
               </td>
               <td style="min-width:140px;"> <a class="btn btn-primary"
-                 href="<?=$this->pp1->read_post?>id/<?=$r->post_id?>" target="_blank">Preview <?=$r->post_id?></a> </td>
+                 href="<?=$pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
+                 Post <?=$r->post_id?></a> </td>
             </tr>
             </tbody>
           <?php
@@ -135,6 +150,3 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
                         //$this->p repareSQL($sql); $this->e xecute();;
                         //while ($r = $this->f etchNext()) 
 -->
-
-
-<?php //require_once($this->pp1->wsroot_path.'zinc/ftr.php'); ?>

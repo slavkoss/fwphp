@@ -2,8 +2,6 @@
 //J:\awww\www\fwphp\glomodul4\blog\read_post.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
-$IdFromURL = $this->uriq->id ; 
-
 //    1. S U B M I T E D  A C T I O N S
 // mostly M O D E L  C O D E (why M-V data flow : if this code is in  c t r  we have fat c t r)
 if(isset($_POST["Submit"])){
@@ -14,10 +12,10 @@ if(isset($_POST["Submit"])){
   //   1.1. V A L I D A T I O N
   if(empty($Name)||empty($Email)||empty($Comment)){
     $_SESSION["ErrorMessage"]= "All fields must be filled out";
-    $this->Redirect_to($this->pp1->read_post."id/{$IdFromURL}");
+    $this->Redirect_to($pp1->read_post."id/{$IdFromURL}");
   }elseif (strlen($Comment)>500) {
     $_SESSION["ErrorMessage"]= "Comment length should be less than 500 characters";
-    $this->Redirect_to($this->pp1->read_post."id/{$IdFromURL}");
+    $this->Redirect_to($pp1->read_post."id/{$IdFromURL}");
   }else{
 
     //  1.2 I N S E R T  D B T B L R O W
@@ -39,7 +37,7 @@ if(isset($_POST["Submit"])){
     if($cursor){ $_SESSION["SuccessMessage"]="Comment Submitted Successfully";
     }else { $_SESSION["ErrorMessage"]="Something went wrong. Try Again !"; }
 
-    $this->Redirect_to($this->pp1->read_post."id/{$IdFromURL}");
+    $this->Redirect_to($pp1->read_post."id/{$IdFromURL}");
   }
 } //Ending of Submit Button If-Condition
 
@@ -52,7 +50,7 @@ if(isset($_POST["Submit"])){
 *  ****************************************************** --> 
 */
 // $title = 'Full Post Page' ;
- //require_once($this->pp1->wsroot_path.'zinc/hdr.php');
+ //require_once($pp1->wsroot_path.'zinc/hdr.php');
 // require_once("navbar.php");
 ?>
 <!-- HEADER -->
@@ -78,7 +76,7 @@ if(isset($_POST["Submit"])){
               OR img_desc LIKE :search4
               OR summary LIKE :search5
               " ; //OR post LIKE :search
-             //$onerow, $db, $tbl,   $where='1', $flds='COUNT(*) COUNT_ROWS', $binds = []
+
         $cursor = $this->rr("SELECT * FROM posts WHERE $qrywhere ORDER BY datetime desc"
         , [
            ['placeh'=>':search1', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
@@ -93,7 +91,7 @@ if(isset($_POST["Submit"])){
       else{
         if (!isset($IdFromURL)) {
           $_SESSION["ErrorMessage"]="Bad Request !";
-          $this->Redirect_to($this->pp1->filter_page."1/i/home/");
+          $this->Redirect_to($pp1->filter_page."1/i/home/");
         }
 
         $qrywhere = "id=:IdFromURL" ;
@@ -127,7 +125,7 @@ if(isset($_POST["Submit"])){
             <?php
           } 
 
-          $tmp_imgpath = str_replace('/',DS, $this->pp1->wsroot_path)
+          $tmp_imgpath = str_replace('/',DS, $pp1->wsroot_path)
                . 'zinc'.DS.'img'.DS.'img_big'.DS.self::escp($r->image) ;
           $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($r->image) ;
                         if ('') {self::jsmsg( [ //basename(__FILE__).
@@ -151,7 +149,7 @@ if(isset($_POST["Submit"])){
                //echo '<br />('.__DIR__ .DS.'Uploads'.DS.$r->image.')' ;
                ?>
               <!--style="float:right;" -->
-              <a href="<?=$this->pp1->editpost?>id/<?=$r->id?>" 
+              <a href="<?=$pp1->editpost?>id/<?=$r->id?>" 
                  class="btn btn-primary btn-block"  
                  title = "Edit database table row"
               > <span class="btn btn-info">Edit post data in database table row &rang;&rang; </span> </a>
@@ -159,7 +157,7 @@ if(isset($_POST["Submit"])){
 
             <div><p class="card-title">
               <!--style="float:right;" -->
-              <a href="<?=$this->pp1->edmkdpost?>flename/<?=$r->title?>/id/<?=$r->id?>" 
+              <a href="<?=$pp1->edmkdpost?>flename/<?=$r->title?>/id/<?=$r->id?>" 
                  class="btn btn-success btn-block" 
                  title = "Markdown edit text in FILE (not in database !)"
               > <span class="btn btn-info">Edit post in <?php echo self::escp($r->title); ?> (We cre/del .txt in op.system. TODO: cre/del .txt here) &rang;&rang; </span> </a>
@@ -168,9 +166,9 @@ if(isset($_POST["Submit"])){
 
             <small class="text-muted">Category: <span class="text-dark">
 
-              <a href="<?=$this->pp1->filter_postcateg?><?=self::escp($r->category)?>"> 
+              <a href="<?=$pp1->filter_postcateg?><?=self::escp($r->category)?>"> 
                  <?=self::escp($r->category)?> </a></span> & Written by <span class="text-dark">
-              <a href="<?=$this->pp1->read_user?>username/<?php echo self::escp($r->author); ?>">
+              <a href="<?=$pp1->read_user?>username/<?php echo self::escp($r->author); ?>">
                  <?=self::escp($r->author)?></a>
                  </span> On <span class="text-dark"><?php echo self::escp($r->datetime); ?></span>
 
@@ -186,7 +184,7 @@ if(isset($_POST["Submit"])){
                      ));
               ?>
             </p>
-              <?php $this->readmkdpost($r->title); //means  i n c l u d e  here html ?>
+              <?php $this->readmkdpost($pp1, $r->title, ''); //means  i n c l u d e  here html ?>
             </p>
 
           </div>
@@ -233,7 +231,7 @@ if(isset($_POST["Submit"])){
     <!--  Fetching existing comment END -->
 
       <div>
-        <form class="" action="<?=$this->pp1->read_post?>id/<?php echo $IdFromURL ?>" method="post">
+        <form class="" action="<?=$pp1->read_post?>id/<?php echo $IdFromURL ?>" method="post">
           <div class="card mb-3">
             <div class="card-header">
               <h5 class="FieldInfo">Share your thoughts about this post</h5>
@@ -276,7 +274,3 @@ if(isset($_POST["Submit"])){
 </div>
 
 <!-- HEADER END -->
-
-
-<?php //require_once($this->pp1->wsroot_path.'zinc/ftr.php'); ?>
-

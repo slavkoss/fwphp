@@ -275,7 +275,8 @@ if ('') //if ($autoload_arr['dbg'])
           <!-- title="Learning examples"-->
               My tests &amp; Demos
         
-        <a href="/<?=$path_rel_glomodul?>lsweb/lsweb.php/?cmd=' . $wsroot_path.$path_rel_help_sw?>" target="_blank">ALL HELP SW (lsweb)</a>
+        <a href="/<?=$path_rel_glomodul?>lsweb/lsweb.php/?cmd=' . $wsroot_path.$path_rel_help?>"
+           target="_blank">ALL HELP SW (lsweb)</a>
         &nbsp; <a href="/<?=$path_rel_examples?>" target="_blank" title="Help dir">Help dir</a>
         &nbsp; 
     <a href="<?=$wsroot_url?>phpmyadmin" target="_blank" title="getenv('COMPUTERNAME')">PHPMyAdmin</a>

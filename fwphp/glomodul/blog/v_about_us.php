@@ -2,9 +2,9 @@
 //J:\awww\www\fwphp\glomodul4\blog\v_about_us.php
 
  $title = 'About us' ;
- //require_once($this->pp1->wsroot_path.'zinc/hdr.php');
  require_once("navbar.php");
 ?>
+
 <div class="container">
   <div class="row mt-4">
 
@@ -21,4 +21,3 @@
     </div>
   </div>
 
-<?php //require_once($this->pp1->wsroot_path.'zinc/ftr.php'); ?>

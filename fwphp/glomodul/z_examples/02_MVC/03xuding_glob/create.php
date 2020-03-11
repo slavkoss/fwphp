@@ -3,8 +3,8 @@
 * step 3
 * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\create.php
 * called from Home_ ctr cls method  c() when usr clicks link/button or any URL is entered in ibrowser  
-* calls Admin_crud cls method cc()     =pre-insert tbl row
-* which calls Db_ allsites method cc() =on-insert tbl-row
+* calls Admin_crud cls method c c()     =pre-insert tbl row
+* which calls Db_ allsites method c c() =on-insert tbl-row
 */
 namespace B12phpfw ;
 //Admin_ crud is ORM class : DM of row in memory to/from DB tbl row

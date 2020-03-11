@@ -4,11 +4,8 @@
 * cs02. I N C L U D E D  only i n  i n d e x.p h p 
 * Here is :  module attributes and methods, module CRUD is in module dirs 
 */
-namespace B12phpfw ;
-
-if (strnatcmp(phpversion(),'5.4.0') >= 0) {
-      if (session_status() == PHP_SESSION_NONE) { session_start(); }
-} else { if(session_id() == '') { session_start(); } }
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\core\zinc ;
 
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
 //extends  = ISA ("is a something") relation = not "conf is contained in db" but 
@@ -21,11 +18,9 @@ abstract class Config_allsites extends Db_allsites
   * 1. R O U T I N G - IS NOT NEEDED IF NO USER INTERACTIONS (ee links) 
   * ****************************************************
   */
-  public $uriq ; //url parameters (url query string) after QS='?' are key-value pairs
-                 // if using Composer autoloading classes set QS=''.
-  public $pp1 ;  //M O D U L E  PROPERTIES PALLETE like Oracle Forms
-
-
+  //url parameters (url query string) after QS='?' are key-value pairs
+  //M O D U L E  & GLOBAL PROPERTIES PALLETE like Oracle Forms
+  private $pp1 ; //was public. If using Composer autoloading classes set QS=''.
 
 
   public function __construct($pp1, $pp1_module_links)
@@ -63,7 +58,7 @@ abstract class Config_allsites extends Db_allsites
              } */
 
            if (! function_exists('session_start'))
-             { echo "<strong>PHP has no session support</strong>: 
+             { echo "<h3>PHP has no session support</h3>: 
              Your PHP installation doesn't have the 
              <a href=\"http://www.php.net/manual/en/ref.session.php\">Session module</a> 
              installed which is required to run this program !<br />\n";
@@ -92,7 +87,9 @@ abstract class Config_allsites extends Db_allsites
       $wsroot_url = ( (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' )
               // 2. URL_DOM AIN = dev1:8083 :
             . filter_var( $_SERVER['HTTP_HOST'] . '/', FILTER_SANITIZE_URL ) ;
-      
+
+      $imgrel_path = 'zinc/img/'; // img_big/oop_help/
+
       $uri_arr = explode(QS, $_SERVER['REQUEST_URI']) ;
       //script relpath : (with "/01_phpinfo.php")
       $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); 
@@ -101,30 +98,35 @@ abstract class Config_allsites extends Db_allsites
 
       $uri_qrystring = '' ; if (isset($uri_arr[1])) { $uri_qrystring = $uri_arr[1] ; }
       $uri_qrystring_arr = [] ; $uri_qrystring_arr = explode('/', $uri_qrystring) ;
-                    // or: if (isset($_SERVER['QUERY_STRING'])) {
-                    //  $uri_qrystring_arr = explode('/', $_SERVER['QUERY_STRING']) ; }
+                // or: if (isset($_SERVER['QUERY_STRING'])) {
+                //  $uri_qrystring_arr = explode('/', $_SERVER['QUERY_STRING']) ; }
 
-      //We want $this->uriq = stdClass Object ( [i] => home... ) :
-      // --------------------------------------------------------
-      //foreach($uri_ qrystring_arr as $k=>$v) or :
-      $uriq = [] ; //url parameters after QS=? (url query string is key-value pairs)
-      for ( $ii = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...
-            $ii < count($uri_qrystring_arr) ; //expr2 is evaluated at iteration begin
-            $ii++ ) :              //expr3 is evaluated at iteration end
-      {
-        if (isset($uri_qrystring_arr[$ii + 1])) {
-          $uriq[$uri_qrystring_arr[$ii]] = $uri_qrystring_arr[++$ii] ;
-        }
-        else {
-          if (!isset($uri_qrystring_arr[0]) or !$uri_qrystring_arr[0] ) 
-             {$uriq = ['i' => 'home'] ; } //means url is module`s url
-        }
-      } endfor;
-      $this->uriq = (object)$uriq ;
+                        //We want $this->u riq = stdClass Object ( [i] => home... ) :
+                        // --------------------------------------------------------
+                        //foreach($uri_ qrystring_arr as $k=>$v) or :
+                        //url parameters after QS=? (url query string is key-value pairs) :
+                        $uriq = [] ;
+                        for ( $ii = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...
+                              $ii < count($uri_qrystring_arr) ; //expr2 is evaluated at iteration begin
+                              $ii++ ) :              //expr3 is evaluated at iteration end
+                        {
+                          if (isset($uri_qrystring_arr[$ii + 1])) {
+                            $uriq[$uri_qrystring_arr[$ii]] = $uri_qrystring_arr[++$ii] ;
+                          }
+                          else {
+                            if (!isset($uri_qrystring_arr[0]) or !$uri_qrystring_arr[0] ) 
+                            { 
+                               $uriq = ['i' => 'home'] ;
+                            } //means url is module`s url
+                          }
+                        } endfor;
+
+
+      $pp1 = (array)$pp1 ;
+      $pp1['uriq'] = (object)$uriq ;
+      //$this->setp('uriq', (object)$uriq) ; //$this->u riq = (object)$u riq ;
       // **************************** E N D  R O U T I N G
 
-
-        $pp1 = (array)$pp1 ;
         $pp1 += [ 
             //'module_version'        => $module_version //c o n n e c t  (states) a t t r i b u t e s
             'F O R  $_S E S  ARR. (D B S H E M A...)' => '~~~~~~~~~~~~~~~~~'
@@ -138,6 +140,7 @@ abstract class Config_allsites extends Db_allsites
           , 'module_towsroot'     => $module_towsroot
           , 'wsroot_path'         => $wsroot_path
           , 'wsroot_url'          => $wsroot_url
+          , 'imgrel_path'         => $imgrel_path
           , 'module_path'         => $module_path
           , 'uri_arr'             => $uri_arr
           , 'module_relpath'      => $module_relpath
@@ -149,9 +152,9 @@ abstract class Config_allsites extends Db_allsites
 
         $pp1 += $pp1_module_links ;
 
-      $this->pp1 = (object)$pp1 ;
+      $this->setp('pp1', (object)$pp1) ; //$this->p p1 = (object)$p p1 ;
 
-      //$this->set_default_cls_states_atr($this->pp1);
+      //$this->set_default_cls_states_atr($this->p p1);
                   if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
                     .'Coding step cs03. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
@@ -159,59 +162,61 @@ abstract class Config_allsites extends Db_allsites
                   echo '<b>$_ GET</b>='; print_r($_GET); 
                   echo '<b>$_POST</b>='; print_r($_POST); 
                   echo '<b>$_SESSION</b>='; print_r($_SESSION); 
-                  echo '<br /><b>$this->pp1</b>='; print_r($this->pp1);
+                  echo '<br /><b>$this->p p1</b>='; print_r($this->getp('pp1'));
                   echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>    ='; print_r($_SERVER['REQUEST_URI']); 
                   echo '<br /><b>uri_arr is exploded string REQUEST_URI '.$_SERVER['REQUEST_URI'].' (on QS=?)</b>'
                   .'<br />0 is $module_relpath,'
                   .'<br />1 is $uri_qrystring = key-value pairs ee = url parameters after QS.'
-                  .'  <br />$this->pp1->uri_arr='; print_r($this->pp1->uri_arr);
+                  .'  <br />$this->p p1->uri_arr='; print_r($this->getp('pp1')->uri_arr);
                   echo '<br /><b>exploded $uri_qrystring (on /) is'
-                  .'<br />$this->pp1->uri_qrystring_arr</b>=';
-                      print_r($this->pp1->uri_qrystring_arr);
+                  .'<br />$this->p p1->uri_qrystring_arr</b>=';
+                      print_r($this->getp('pp1')->uri_qrystring_arr);
                   //echo '<br /><b>key-value pairs in one assoc arr line =  $u riq</b>='; print_r($u riq);
-                  echo '<br /><b>$this->uriq</b>='; print_r($this->uriq);
+                  echo '<br /><b>$this->u riq</b>='; print_r($this->getp('pp1')->uriq);
                   echo '</pre>'; 
                   }
                     /*.'<span style="color: red; font-size: large; font-weight: bold;">'
                     .'B A D &nbsp;R O U T I N G'
-                    .'<br /> See if $uriq is created OK in Config_blog.php.'
+                    .'<br /> See if $u riq is created OK in Config_blog.php.'
                     .'</span>' */
 
 
       /**
       *           **** 4. D I S P A T C H I N G
-      * may be in module`s Home_ctr (code here is global for all sites)
+      * may be in module`s Home_ ctr (code here in Config_ allsites is global for all sites)
       */
-    /** ************** coding step cs04. *******************
-    * DISPATCHER: calls Home_ctr cls method which 
+    /**
+    * ************* coding step cs04. *******************
+    * DISPATCHER: calls Home_ctr cls method (CONVENTION : i=ctrakcmethod) which 
     * calls fns or includes view scripts (http jumps only to other module)
-    ***************************************************** */
-        // CONVENTION :
-        // i = ctrakcmethod of  H o m e_c t r  cls which includes view script or calls method (does tblrowCRUD...)
-        $akc = $this->uriq->i ; //uriq = url query string, default = home
-        $this->$akc() ; //dispatching using home class methods is based on Mini3 php fw
-              /*
-              //         Slim does same so :
-              use Psr\Http\Message\ResponseInterface as Response;
-              use Psr\Http\Message\ServerRequestInterface as Request;
-              use Slim\Factory\AppFactory;
-
-              require __DIR__ . '/../vendor/autoload.php';
-
-              $app = AppFactory::create();
-
-              $app->get('/hello/{name}', f unction (Request $request, Response $response, array $args) {
-                  $name = $args['name'];
-                  $response->getBody()->write("Hello, $name");
-                  return $response;
-              });
-
-              $app->run();
-              */
-
-  } //e n d  __ c o n s t r u c t
+    * Dispatching using home class methods is based on Mini3 php fw.
+    *****************************************************
+    */
+        $pp1 = $this->getp('pp1') ; //fn params are in  p p 1
+        $akc = $pp1->uriq->i ; 
+        $this->callf($akc, $pp1) ; //public fn (in child cls) calls private fns (in child cls)
+        // OR (fns in child cls must be public, not private to be called from here) :
+        //Fatal error: Uncaught Error: Call to private method B12phpfw\Home_ctr::home() from context 'B12phpfw\Config_allsites' 
+        //$this->$akc($pp1) ; 
+  } //e n d  __ c o n s t r u c t  see (**3)
 
 
+  //UNIVERSAL prop. setter to assign prop. :  __set MAGIC METHOD or:
+  public function setp($property, $value){
+    if(property_exists($this, $property)){
+      $this->$property = $value;
+    }
+    return $this;
+  }
+  //UNIVERSAL prop. getter to access prop. :  __get MAGIC METHOD or :
+  public function getp($property){
+    if(property_exists($this, $property)){
+      return $this->$property;
+    }
+  }
+  //$user1 = new User('John', 40); //$this->name = $name;  $this->age = $age; //both are private
+  //$user1->__set('age', 41);
+  //echo $user1->__get('age');
 
 
 
@@ -256,6 +261,15 @@ abstract class Config_allsites extends Db_allsites
 
 
     public function Redirect_to($New_Location){
+                        if ('') {self::jsmsg( [ //basename(__FILE__).
+                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE header(...'
+                          ,'aaaaaa'=>'bbbbbb'
+                           //, 'New_Location'=>$New_Location
+                           //,'self::$d bi'=>self::$dbi
+                           //,'$caller'=>$caller
+                           //, '$dsn'=>$dsn
+                           ] ) ; 
+                        }
       header("Location:".$New_Location);
       exit;
     }
@@ -308,7 +322,7 @@ public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $ur
   } else {$_SESSION['filter_tbl']['pgordno_from_url']  = 1 ;}
   $pgordno_from_url = $_SESSION['filter_tbl']['pgordno_from_url'] ;
 
-      //$show_all_r = isset($uriq->pgn) and $uriq->pgn == 'ALL' ? '1' : '' ;
+      //$show_all_r = isset($u riq->pgn) and $u riq->pgn == 'ALL' ? '1' : '' ;
       //if($show_all_r){ $first_rinblock = 0; } else
         if($pgordno_from_url < 2){ $first_rinblock = 1; } 
         else{$first_rinblock = ($pgordno_from_url * $rblk) - $rblk + 1; }
@@ -364,7 +378,7 @@ $navbar .= " <a class='button'
           <a class='button' 
              title='Rows {$first_rinblock} - {$last_rinblock}'
           " . '</a>'
-       .' Tot.rows '.$rtbl
+       .' Total count '.$rtbl
           //."href='{$qs}p/1/pgn/all$mtd_to_inc_view'>ALL"
           //title='No pagination (f or c t r l + F)'
           //.' Tot.pages '.$total_pages
@@ -392,7 +406,7 @@ $navbar .= " <a class='button'
   public function setcsrf() {
   //Records a token to check that any SUBMITTED FORM WAS GENERATED BY THIS APPL. (not by hacker)
   //Aid CSRF protection in HTML forms, see section CSRF example on page 9-5 in Chapter 9, "Inserting Data."
-      $this->pp1->cncts->csrftoken = mt_rand(); // not sufficient f or production systems
+      $this->getp('pp1')->cncts->csrftoken = mt_rand(); // not sufficient f or production systems
       //??? $this->i nisetses();
   }
 
@@ -467,18 +481,18 @@ $navbar .= " <a class='button'
     switch ($username) {
       case 'admin': //break;
       case 'nonadmin': //korisnik
-        $this->pp1->cncts->username = $username;
+        $this->getp('pp1')->cncts->username = $username;
         return(true);  // OK to login
         break;
       default:
-        $this->pp1->cncts->username = null;
+        $this->getp('pp1')->cncts->username = null;
         return(false); // Not OK to login
         break;
     }
   }
 
   public function has_rights() {
-    switch ($this->pp1->cncts->username) {
+    switch ($this->getp('pp1')->cncts->username) {
       case 'admin':
         return(1); //all  r i g h t s : to see extra reports, upload new data...
         break;
@@ -540,7 +554,7 @@ $navbar .= " <a class='button'
 
     // (**1)
     //require __DIR__ . '/conn_dbi_obj.php'; //Oracle or MySQL or... (as you wish)
-                  //not here parent::__construct($pp1);
+                  //not here parent::__construct($p p1);
                   //not here get_ or_new_dball, but only in private fn set_d bobj!!
 
           // to be called from  J S :
@@ -587,6 +601,24 @@ $navbar .= " <a class='button'
                 $ip = getenv('REMOTE_ADDR', true) ? getenv('REMOTE_ADDR', true) : getenv('REMOTE_ADDR') 
                 */
 
+              /*
+              // (**3)  Slim does same as  __ c o n s t r u c t  so :
+              use Psr\Http\Message\ResponseInterface as Response;
+              use Psr\Http\Message\ServerRequestInterface as Request;
+              use Slim\Factory\AppFactory;
 
+              require __DIR__ . '/../vendor/autoload.php';
+
+              $app = AppFactory::create();
+
+              $app->get('/hello/{name}', f unction (Request $request, Response $response, array $args) 
+              {
+                  $name = $args['name'];
+                  $response->getBody()->write("Hello, $name");
+                  return $response;
+              });
+
+              $app->run();
+              */
 
 } // e n d  c l s  

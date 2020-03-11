@@ -1,8 +1,8 @@
 // J:\awww\www\zinc\util.js
 function jsmsgyn(p_todo, p_url) {
   var ret;
-  var r = confirm(p_todo);
-  if (r == true) { 
+  var yes = confirm(p_todo);
+  if (yes == true) { 
      ret = '1';
      if (p_url) { location.href=p_url; }
   } else { ret = '0'; }

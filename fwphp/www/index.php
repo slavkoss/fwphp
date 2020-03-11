@@ -22,13 +22,17 @@ include_once($all_sites_glo_path.'lang/lang.php');
 //if(!isset($_SESSION['lang'])) { include_once '/zinc/lang/lang/hr.php'; }
 
 switch (true) {
-case isset($_GET['h1']): $title ='FAQ'; include('help.php');
+case isset($_GET['hlp1']): $title ='FAQ'; include('help.php');
   break;
-case isset($_GET['h2']): $title ='CSSplay';
+case isset($_GET['hlp2']): $title ='CSSplay';
   include($wsroot_path.$path_rel_examples.'05_predlozak_cssplay_3cols&Rside_tableles.php');
   break;
-case isset($_GET['h3']): $title ='phpenthusiast';
+case isset($_GET['hlp3']): $title ='phpenthusiast';
   include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/index.php');
+  break;
+case isset($_GET['hlp4']): $title ='DM, DDD';
+  include($wsroot_path.$path_rel_help .'OOP_help/index.php');
+  //include(realpath($path_rel_help) .'OOP_help/index.php');
   break;
 // ------------- 
 case isset($_GET['b_tmplts']): $title ='Bootstrap tmplts HOME';

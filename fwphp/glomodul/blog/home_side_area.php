@@ -1,3 +1,9 @@
+<?php
+
+//$pp1  = $this->getp('pp1') ;
+
+?>
+
 <!-- Side Area Start -->
 <div class="col-sm-4">
   <div class="card mt-4">
@@ -21,19 +27,15 @@
       <h2 class="lead">Teme (Posts Categories)</h2>
     </div>
     <div class="card-body">
-      <a href="<?=$this->pp1->filter_postcateg?>">ALL</a>&nbsp;&nbsp;&nbsp;
+      <a href="<?=$pp1->filter_postcateg?>">ALL</a>&nbsp;&nbsp;&nbsp;
         <?php
         //$cursor = $this->r r('', $this, 'category', "'1'='1' ORDER BY title", '*') ;
         $cursor = $this->rr("SELECT * FROM category ORDER BY title", [], __FILE__ .' '.', ln '. __LINE__ ) ;
         while ($r = $this->rrnext($cursor))
           { //all row fld names lowercase
-            switch (self::$dbi) 
-            {
-              case 'oracle' : $r = self::rlows($r) ; break; 
-              default: break; 
-            }
+            switch (self::$dbi) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
             ?>
-            <a href="<?=$this->pp1->filter_postcateg?><?=$r->title?>">
+            <a href="<?=$pp1->filter_postcateg?><?=$r->title?>/p/1">
              <span class="heading"> <?=$r->title?></span> </a>&nbsp;&nbsp;&nbsp;
             <?php 
          } ?>
@@ -56,29 +58,34 @@
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
           self::$do_pgntion = '1';
-          $cursor = $this->rr("SELECT * FROM posts ORDER BY datetime desc", $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
+          $cursor = $this->rr("SELECT * FROM posts ORDER BY datetime desc"
+              , $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
         break;
         case 'mysql' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':rblk', 'valph'=>5, 'tip'=>'int'];
           self::$do_pgntion = '1';
-          $cursor = $this->rr("SELECT * FROM posts ORDER BY datetime desc  LIMIT :first_rinblock, :rblk", $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
+          // Invalid parameter number: number of bound variables does not match number of tokens in J:\awww\www\zinc\Db_allsites.php:198 Stack trace: #0 J:\awww\www\zinc\Db_allsites.php(198): PDOStatement->execute() #1 J:\awww\www\fwphp\glomodul\blog\home_side_area.php(68): 
+          $binds =[] ;
+          $cursor = $this->rr(
+          "SELECT * FROM posts ORDER BY datetime desc" // LIMIT :first_rinblock, :rblk
+               , $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
         break;
         default:
                 echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
                     .'D B I '. self::$dbi .' does not exist' . '</h3>';
-          //$this->Redirect_to($this->pp1->filter_page) ;
+          //$this->Redirect_to($pp1->filter_page) ;
           break;
       }
-      while ($r = $this->rrnext($cursor))
-      { //all row fld names lowercase
-        switch (self::$dbi)
-        {
-          case 'oracle' : $r = self::rlows($r) ; break; 
-          default: break;
-        }
+
+
+      $ii=0 ; while ($r = $this->rrnext($cursor))
+      {
+        if ($ii>9) break ;
+        //all row fld names lowercase
+        switch (self::$dbi) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
         ?>
-        <a href="<?=$this->pp1->filter_postcateg?><?=$r->category?>">
+        <a href="<?=$pp1->filter_postcateg?><?=$r->category?>">
          <span class="heading"> <?=$r->category?></span> </a>&nbsp;&nbsp;&nbsp;
 
         <div class="media">
@@ -94,7 +101,7 @@
 
           <div class="media-body ml-2">
             <a style="text-decoration:none;" 
-               href="<?=$this->pp1->read_post?>id/<?php echo self::escp($r->id) ; ?>" 
+               href="<?=$pp1->read_post?>id/<?php echo self::escp($r->id) ; ?>" 
                target="_blank">
                  <span class="lead"><?php echo self::escp($r->title); ?></span> </a>
             <p class="small"><?php echo self::escp($r->datetime); ?></p>
@@ -103,7 +110,8 @@
         </div>
 
         <hr>
-        <?php 
+        <?php
+        $ii++ ;
       } ?>
     </div> <!--e n d <div class="card-body"-->
   </div> <!--e n d <div class="card"-->

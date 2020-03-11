@@ -1,6 +1,10 @@
 <?php
 // J:\awww\www\fwphp\glomodul4\blog\login_frm.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+
+//$u riq = $this->g etp('u riq') ;
+$pp1  = $this->getp('pp1') ;
+
                       if ('') {  //if ($module_ arr->dbg) {
                       echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                       echo '<pre>';
@@ -14,7 +18,7 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
                        ,'aaaaaaa'=>'bbbbbbb'
                     ] ) ; }
 if(isset($_SESSION["userid"]) and $_SESSION["userid"]){ 
-   $this->Redirect_to($this->pp1->dashboard);
+   $this->Redirect_to($pp1->dashboard);
 } else {
                     if ('') {self::jsmsg( [ basename(__FILE__) //. __METHOD__ 
                     .', line '. __LINE__ .' SAYS'=>' '
@@ -49,7 +53,7 @@ $title = 'Log in' ;
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a href="<?=$this->pp1->filter_page?>1/i/home/" class="navbar-brand">Home</a>
+      <a href="<?=$pp1->filter_page?>1/i/home/" class="navbar-brand">Home</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -90,7 +94,7 @@ $title = 'Log in' ;
 
 
 
-          <form class="" action="<?=$this->pp1->login?>" method="post">
+          <form class="" action="<?=$pp1->login?>" method="post">
             <div class="form-group">
               <label for="username"><span class="FieldInfo">USERNAME eg a or w (first add such user in phpMyAdmin or in Tables->Admins page):</span></label>
               <div class="input-group mb-3">

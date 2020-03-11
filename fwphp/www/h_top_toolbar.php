@@ -47,15 +47,19 @@ $img_url_users_link   =  '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
       </a>
               <div class="dropdown-menu">
 
-                  <a href="<?=QS?>h1" class="dropdown-item" target="_blank"
+                  <a href="<?=QS?>hlp4" class="dropdown-item" target="_blank"
+                     title=""
+                  ><?=$img_url_users_link?> DM, DDD</a>
+
+                  <a href="<?=QS?>hlp1" class="dropdown-item" target="_blank"
                      title=""
                   ><?=$img_url_users_link?> 2 cols</a>
 
-                  <a href="<?=QS?>h2" class="dropdown-item" target="_blank"
+                  <a href="<?=QS?>hlp2" class="dropdown-item" target="_blank"
                      title=""
                   ><?=$img_url_settings_link?> 4 cols CSSplay</a>
 
-                  <a href="<?=QS?>h3" class="dropdown-item" target="_blank"
+                  <a href="<?=QS?>hlp3" class="dropdown-item" target="_blank"
                      title=""
                   >Flex (phpenthusiast)</a>
 

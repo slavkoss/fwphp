@@ -3,9 +3,6 @@
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
-    $db = $this ;            //this globals for all sites are for CRUD... !!
-    $Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
-
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"])){
   $username        = $_POST["username"];
@@ -20,16 +17,16 @@ if(isset($_POST["Submit"])){
   //   1.1. V A L I D A T I O N
   if(empty($username)||empty($password)||empty($Confirmpassword)){
     $_SESSION["ErrorMessage"]= "All fields must be filled out";
-    $this->Redirect_to($this->pp1->admins);
+    $this->Redirect_to($pp1->admins);
   }elseif (strlen($password)<4) {
     $_SESSION["ErrorMessage"]= "password should be greater than 3 characters";
-    $this->Redirect_to($this->pp1->admins);
+    $this->Redirect_to($pp1->admins);
   }elseif ($password !== $Confirmpassword) {
     $_SESSION["ErrorMessage"]= "password and Confirm password should match";
-    $this->Redirect_to($this->pp1->admins);
-  }elseif ($Db_user->ChkUsrNameExists($username, $db)) {
-    $_SESSION["ErrorMessage"]= "username Exists. Try Another One! ";
-    $this->Redirect_to($this->pp1->admins);
+    $this->Redirect_to($pp1->admins);
+  }elseif ($Db_user->ChkUsrNameExists($username, $dm)) {
+    $_SESSION["ErrorMessage"]= "Username Exists. Try Another One! ";
+    $this->Redirect_to($pp1->admins);
   }else{
     //  1.2 I N S E R T  D B T B L R O W
     // Query to insert admin in DB When everything is fine
@@ -49,14 +46,14 @@ if(isset($_POST["Submit"])){
 
     if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
     }else { $_SESSION["ErrorMessage"]= "Something went wrong. Try Again !"; }
-    $this->Redirect_to($this->pp1->admins);
+    $this->Redirect_to($pp1->admins);
   }
 } //Ending of Submit Button If-Condition
 
 //Warning: Cannot modify header information :
-    require $this->pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->wsroot_path . 'zinc/hdr.php';
     require_once("navbar_admin.php");
-    //require $this->pp1->module_path . '../user/admins.php';
+
 //        2. G U I  to get user action
 ?>
     <!-- HEADER -->
@@ -81,7 +78,7 @@ if(isset($_POST["Submit"])){
        ?>
 
 
-      <form class="" action="<?=$this->pp1->admins?>" method="post">
+      <form class="" action="<?=$pp1->admins?>" method="post">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-header">
             <h1>Add Admin</h1>
@@ -109,7 +106,7 @@ if(isset($_POST["Submit"])){
 
             <div class="row">
               <div class="col-lg-6 mb-2">
-                <a href="<?=$this->pp1->dashboard?>" class="btn btn-warning btn-block">
+                <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block">
                    <i class="fas fa-arrow-left"></i> Back To Dashboard</a>
               </div>
               <div class="col-lg-6 mb-2">
@@ -133,16 +130,15 @@ if(isset($_POST["Submit"])){
         </thead>
         <tbody>
       <?php
-      //$cursor = $db->r r('', $db, 'admins', "'1'='1' ORDER BY aname", '*' ) ;
       $cursor = $this->rr("SELECT * FROM admins ORDER BY aname", [], __FILE__ .' '.', ln '. __LINE__) ;
       $SrNo = 0;
       while ($r = $this->rrnext($cursor))
       {
         $SrNo++;
           //all row fld names lowercase
-          switch ($db->getdbi())
+          switch ($dm->getdbi())
           {
-            case 'oracle' : $r = $db->rlows($r) ; break; 
+            case 'oracle' : $r = $dm->rlows($r) ; break; 
             default: break;
           }
         ?>
@@ -152,12 +148,12 @@ if(isset($_POST["Submit"])){
               <td><?=self::escp($r->username)?></td>
               <td><?=self::escp($r->aname)?></td>
               <td><?=self::escp($r->addedby)?></td>
-              <!-- after /r/ (r means redirect) is nickname of inc/call, see $pp1 = [ ... -->
+              <!-- after /r/ (r means redirect) is nickname of inc/call, see $p p1 = [ ... -->
               <td>
                  <a id="erase_row" class="btn btn-danger"
-                    onclick="if (jsmsgyn('Erase row ?',''))
-                    { location.href= '<?=$this->pp1->del_row?>t/admins/id/<?=$r->id?>/'; }"
-                 >Delete <?=$r->id?></a>
+                    onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
+                    if (yes == '1') { location.href= '<?=$pp1->del_row?>t/admins/id/<?=$r->id?>/'; }"
+                 >Del <?=$r->id?></a>
               </td>
         <?php
       } ?>
@@ -184,5 +180,5 @@ if(isset($_POST["Submit"])){
 -->
 
 
-<?php require $this->pp1->wsroot_path . 'zinc/ftr.php'; ?>
+<?php require $pp1->wsroot_path . 'zinc/ftr.php'; ?>
 

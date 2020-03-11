@@ -250,7 +250,7 @@ DM updates V           (V) -----URL-----> (C)  View (home.php) and Controller (H
 V calls DM              |  \              |
 V sees URL              \  \              /U uses C - sends URL (signal) to C through link in V
                        URL'. \HTML      .'
-                            '-._(U)_.-'User types URL cliks link or button
+                            '-._(U)_.-'User types URL or cliks link or button
 ```
 
 Picture shows M-V data flow. Model code is most complicated. **C and V code can be standardized, M only partially** :      

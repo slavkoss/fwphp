@@ -5,11 +5,7 @@
 namespace B12phpfw ;
 //J:\awww\www\fwphp\glomodul\post\read_msg_tbl_kalendar_flex.css
 
-//$db = n ew Db_post('2019-10-05 01:00:00') ;
-
-//$fmte = 'css'; $c ss_ files = ["/fwphp/glomodul/post/read_ msg_tbl_kalendar_flex.$f mte"];
-
-switch (self::$dbi) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break; 
+switch (self::$dbi) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
   default: $tmp_datetime = 'datetime' ; break; }
 
 $css_files = ["/zinc/themes/read_msg_tbl_kalendar_flex.css"];
@@ -68,7 +64,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
     $dkal = str_pad($iimonthday, 2, '0', STR_PAD_LEFT)  ;
 
     //Build opening and closing list item tags (according r o w content !!)
-    //$listart = "<li>"; $liend   = "</li>"; // \n\t\t 
+    //$listart = "<li>"; $liend   = "</li>"; // \n\t\t
     next_master:
     $rows_sameday_str = '' ; //was NULL
     //$rows_sameday_str .= '<b> $dkal='. $dkal .' </b>' ; //f o r  testing
@@ -84,23 +80,23 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
     if (!($r = $this->rrnext($cursor))) { //empty  d a y square (no  p o s t s)
         switch (self::$dbi)
         {
-          case 'oracle' : $r = self::rlows($r) ; break; 
+          case 'oracle' : $r = self::rlows($r) ; break;
           default: break;
         }
                     if ('') {self::jsmsg( [ //basename(__FILE__).
                        __METHOD__ .', line '. __LINE__ .' SAYS'=>' : '
                        ,'$r'=>json_encode($r)
                     ] ) ; }
-                                    //$r=[ 
+                                    //$r=[
                                     //{/ datetime/ :false
                                     //   ,/ 0/ :false
                                     //} ]
       echo '<li style="list-style-type:none;" class="nonum">'.$rows_sameday_str
            .' no posts</li>'.'<br />';
-    } else 
+    } else
     {
       //Created date from strtotime("2019-10-09 12:00:00") is 2019-10-09 12:00:00
-      $today_mmabr = substr(date("l"),0,3); 
+      $today_mmabr = substr(date("l"),0,3);
             //try { $post_date = new \DateTime($r->$tmp_datetime);
             try { $post_date = new \DateTime($r->datetime);
             } catch (Exception $e) { echo $e->getMessage(); exit(1); }
@@ -110,7 +106,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
       // **********************************************************
       //   D a y  h e a d e r  -  1st r o w  in  d a y
       // **********************************************************
-      $dtbl = substr($r->datetime,8,2) ; 
+      $dtbl = substr($r->datetime,8,2) ;
 
       if( $iimonthday !== (int)$dtbl ) {
          $rows_sameday_str .= ' $dtbl='. $dtbl .' notMMM '.$post_ddabr."<br />" ; //f o r  testing
@@ -119,7 +115,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
         //$rows_sameday_str .= '<b> $dtbl='. $dtbl .' </b>MMM '.$post_ddabr."<br />" ;
               //. ', $_m1week1d1='.$_m1week1d1. '< $iimonthday='.$iimonthday
               //.', $_daysInMonth='.$_daysInMonth
-      
+
         // **********************************************************
         //   D a y  p o s t s
         // **********************************************************
@@ -129,7 +125,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
         //      $r = $this->f etchNext() ) : //, ++$iimonthday expr3 is evaluated at iteration end
         while ( substr($r->datetime,8,2) == $dtbl ): //eg 2019-10-07 from 0
         {
-            $link="<a href=\"{$this->pp1->read_post}id/$r->id\">{$r->title}</a>"
+            $link="<a href=\"{$pp1->read_post}id/$r->id\">{$r->title}</a>"
                       .' '. substr($r->datetime,11,5)
               //.', (int)substr($r->datetime,8,2)='.(int)substr($r->datetime,8,2)
               //. ', today=$iitoday='.$iitoday
@@ -178,7 +174,7 @@ echo '</p></div><br />';
 
 
 
-if ('') //if ($module_ arr['dbg']) 
+if ('') //if ($module_ arr['dbg'])
 {
   //UPDATE `posts` SET `datetime` = '2019-10-12 12:20:29' WHERE `posts`.`id` = 16;
   echo '<p>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</p>' ;
@@ -226,7 +222,7 @@ if ('') //if ($module_ arr['dbg'])
   $d=strtotime("+3 Months");
   echo '<br />Created date from strtotime("+3 Months") is ' . date("Y-m-d h:i:sa", $d);
 
-  $d=date_create("2013-03-15"); 
+  $d=date_create("2013-03-15");
   echo '<br />date_create("2013-03-15") formated "Y/m/d H:i:s"='.date_format($d,"Y/m/d H:i:s");
 
   $date = \DateTime::createFromFormat('Y-m-d', '2019-10-03');
@@ -276,7 +272,7 @@ l (lowercase 'L') = day of the week eg Tuesday
                   //echo $iimonthday.' ';
                   // ~~~~~~~~~~~~ ROWS WITHIN SAME DAY :
                   //if($iimonthday == (int)substr($r->datetime,8,2)) // 2019.10.07
-                  { 
+                  {
                    $link='<a href=?loadscript/read/event_ id/'.$r->id.'">'
                       . $r->title
                       . '</a>'
@@ -304,8 +300,8 @@ l (lowercase 'L') = day of the week eg Tuesday
 */
 
 
-                          /*$sql = "S ELECT * FROM posts 
-                                  WHERE datetime LIKE '%2019-10%' 
+                          /*$sql = "S ELECT * FROM posts
+                                  WHERE datetime LIKE '%2019-10%'
                                   and SUBSTRING(datetime,9,2) = '$dkal'
                                   ORDER BY datetime desc";
                           //echo $sql ;

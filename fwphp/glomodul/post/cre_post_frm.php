@@ -20,19 +20,19 @@ if(isset($_POST["Submit"]))
   //   1.1. V A L I D A T I O N
   if(empty($PostTitle)){
     $_SESSION["ErrorMessage"]= "Title Cant be empty";
-    $this->Redirect_to($this->pp1->addnewpost);
+    $this->Redirect_to($pp1->addnewpost);
   }elseif (strlen($PostTitle)<5) {
     $_SESSION["ErrorMessage"]= "Post Title should be greater than 5 characters";
-    $this->Redirect_to($this->pp1->addnewpost);
+    $this->Redirect_to($pp1->addnewpost);
   }elseif (strlen($img_desc)>3999) {
     $_SESSION["ErrorMessage"]= "Image Description should be less than than 4000 characters";
-    $this->Redirect_to($this->pp1->addnewpost);
+    $this->Redirect_to($pp1->addnewpost);
   }elseif (strlen($SummaryText)>3999) {
     $_SESSION["ErrorMessage"]= "Summary Description should be less than than 4000 characters";
-    $this->Redirect_to($this->pp1->addnewpost);
+    $this->Redirect_to($pp1->addnewpost);
   //}elseif (strlen($PostText)>9999) {
   //  $_SESSION["ErrorMessage"]= "Post Description should be less than than 1000 characters";
-  //  $this->Redirect_to($this->pp1->addnewpost);
+  //  $this->Redirect_to($pp1->addnewpost);
   }else{
 
     //  1.2 I N S E R T  D B T B L R O W
@@ -60,12 +60,12 @@ if(isset($_POST["Submit"]))
       //$_SESSION["SuccessMessage"]="Post with id : " .$ConnectingDB->lastInsertId()." added Successfully";
     if($cursor){ $_SESSION["SuccessMessage"]="Post added Successfully";
     }else { $_SESSION["ErrorMessage"]= "Post adding  went wrong. Try Again !"; }
-    $this->Redirect_to($this->pp1->addnewpost);
+    $this->Redirect_to($pp1->addnewpost);
   }
 } //Ending of Submit Button If-Condition
 
 
-      require $this->pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->wsroot_path . 'zinc/hdr.php';
       require_once("navbar_admin.php");
 //        2. G U I  to get user action
 ?>
@@ -90,7 +90,7 @@ if(isset($_POST["Submit"]))
        echo $this->SuccessMessage();
        ?>
 
-      <form class="" action="<?=$this->pp1->addnewpost?>" method="post" 
+      <form class="" action="<?=$pp1->addnewpost?>" method="post" 
             enctype="multipart/form-data">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-body bg-dark">
@@ -115,7 +115,7 @@ if(isset($_POST["Submit"]))
                   //all row fld names lowercase
                   switch ($this->getdbi())
                   {
-                    case 'oracle' : $rr = $db->rlows($rr) ; break; 
+                    case 'oracle' : $rr = $dm->rlows($rr) ; break; 
                     default: break;
                   }
                   ?>
@@ -151,7 +151,7 @@ if(isset($_POST["Submit"]))
 
             <div class="row">
               <div class="col-lg-6 mb-2">
-                <a href="<?=$this->pp1->dashboard?>" class="btn btn-warning btn-block">
+                <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block">
                    <i class="fas fa-arrow-left"></i> Back To Dashboard</a>
               </div>
               <div class="col-lg-6 mb-2">
@@ -186,5 +186,4 @@ if(isset($_POST["Submit"]))
 -->
 
 
-<?php       require $this->pp1->wsroot_path . 'zinc/ftr.php'; ?>
-
+<?php require $pp1->wsroot_path . 'zinc/ftr.php'; ?>

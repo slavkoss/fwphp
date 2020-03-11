@@ -2,7 +2,10 @@
 /**
 *  J:\awww\www\fwphp\glomodul\post_comment\Db_post_comment.php
 */
-namespace B12phpfw ;
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\dbadapter\post_comment ;
+use B12phpfw\module\blog\Home_ctr ;
+//use B12phpfw\core\zinc\Config_ allsites ;
 
 class Db_post_comment //extends Db_allsites
 {
@@ -25,35 +28,35 @@ class Db_post_comment //extends Db_allsites
 
 
   //         u p d  c o m m e n t _ s t a t
-  public function upd_comment_stat($db)
+  public function upd_comment_stat(object $pp1, object $dm)
   {
-    //copy of an already created object can be made by cloning it. 
+    //copy of an already created object can be made by cloning it.
+    $uriq = $pp1->uriq ;
                               if ('') { echo '<br /><h3>'.__METHOD__ .', line '. __LINE__ .' SAYS:</h3>'
-                              .'<br />works if redirect commented U R L  query array ='.'$db->uriq=' ;
-                              if (isset($db->uriq))
-                                { echo '<pre>'; print_r($db->uriq) ; echo '</pre>'; }
-                              else { echo ' uriq arr. not set<br />' ; } 
-                              echo 'c l a s s  name of $db='.get_class($db);
-                              echo '<br />c l a s s  name of $db='.get_class($db);
-                              echo '<br />c l a s s  name of $Db_post_comment='.get_class($Db_post_comment);
+                              .'<br />works if redirect commented U R L  query array ='.'$u riq=' ;
+                              if (isset($uriq))
+                                { echo '<pre>'; print_r($uriq) ; echo '</pre>'; }
+                              else { echo ' u riq arr. not set<br />' ; } 
+                              echo 'c l a s s  name of $dm='.get_class($dm);
+                              echo '<br />c l a s s  name of $dm='.get_class($dm);
+                              echo '<br />c l a s s  name of $dm_post_comment='.get_class($Db_post_comment);
                               }
                               // outputs :
-                              //c l a s s name of $db=B12phpfw\Home_ctr
-                              //c l a s s name of $db=B12phpfw\Home_ctr
+                              //c l a s s name of $dm=B12phpfw\Home_ctr
+                              //c l a s s name of $dm=B12phpfw\Home_ctr
                               //c l a s s name of $Db_post_comment=B12phpfw\Db_post_comment
 
-    //$Db_post_comment->upd_comment_stat($db);
       $flds     = "SET status=:status, approvedby=:admin" ;
       $qrywhere = "WHERE id=:id" ;
       
-      $id   = $db->uriq->id ;
-      $stat = $db->uriq->stat ;
+      $id   = $uriq->id ;
+      $stat = $uriq->stat ;
       $binds = [
         ['placeh'=>':status', 'valph'=>$stat, 'tip'=>'str']
        ,['placeh'=>':admin',  'valph'=>$_SESSION["adminname"], 'tip'=>'str']
        ,['placeh'=>':id',     'valph'=>$id, 'tip'=>'int']
       ] ;
-      $cursor = $db->uu($db,'comments',$flds,$qrywhere,$binds);
+      $cursor = $dm->uu($dm,'comments',$flds,$qrywhere,$binds);
 
       if ($cursor) {
         if ($stat == 'ON') {$_SESSION["SuccessMessage"]="Comment Approved Successfully ! " ;
@@ -63,12 +66,12 @@ class Db_post_comment //extends Db_allsites
 
                       /*  ?><SCRIPT LANGUAGE="JavaScript">
                          alert( "<?php echo __METHOD__ .', line '. __LINE__ .' SAYS: '
-                               .'\\n $db->pp1[\'comments\']=' 
-                               . (isset($db->pp1->comments)?$db->pp1->comments:'NOT SET')
+                               .'\\n $dm->pp1[\'comments\']=' 
+                               . (isset($dm->pp1->comments)?$dm->pp1->comments:'NOT SET')
                                ; ?>" 
                          ) ;
                          </SCRIPT><?php */ //works if redirect commented
-    $db->Redirect_to($db->pp1->comments);
+    //$dm->Redirect_to($dm->pp1->comments);
   }
 
 

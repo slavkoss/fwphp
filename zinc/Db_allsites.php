@@ -10,7 +10,8 @@
 *     should be delegated down the hierarchy to refined implementations, 
 *     newrow_obj() (createEntity()) method has been DECLARED ABSTRACT.
 */
-namespace B12phpfw ;
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\core\zinc ;
 use PDO;
 
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
@@ -194,12 +195,13 @@ abstract class Db_allsites extends Dbconn_allsites
                 //exit(); //somethimes we need break execution
                 }
     //$Executedsql =
-    $cursor->execute(); //$this->e xecute();
-        $_SESSION['states']->history[] = self::debugPDO($sql,$ph_val_arr);
+    $cursor->execute();
+    //Warning: Creating default object from empty value in J:\awww\www\zinc\Db_allsites.php on line 199
+        /* $_SESSION['states']->history[] = self::debugPDO($sql,$ph_val_arr);
         if (count($_SESSION['states']->history) > 25) {
           array_shift($_SESSION['states']->history); //array_pop=remove last & return it
         }
-        $_SESSION['states']->sql = self::debugPDO($sql,$ph_val_arr);
+        $_SESSION['states']->sql = self::debugPDO($sql,$ph_val_arr); */
 
     return $cursor ;
     //if ($o nerow) { return $cursor->fetch(PDO::FETCH_OBJ);
@@ -250,15 +252,14 @@ abstract class Db_allsites extends Dbconn_allsites
                   self::jsmsg( [ //basename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
                    ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
-                   ,'$this->uriq'=>$this->uriq
+                   ,'$this->u riq'=>$this->u riq
                    ] ) ; */
                    echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
-                   echo '<pre>$_GET='; print_r($_GET); echo '</pre><br />';
-                   echo '<pre>$_POST='; print_r($_POST); echo '</pre><br />';
-                   echo '<pre>$sql='; print_r($sql); echo '</pre><br />'; 
-                   echo '<pre>$ph_val_arr='; print_r($ph_val_arr); echo '</pre><br />';
-                   echo '<pre>$this->uriq='; print_r($this->uriq); echo '</pre><br />';
-                   // $this->uriq=stdClass Object( [d] => 39 )
+                   echo '<pre>$_GET ='; print_r($_GET); echo '</pre><br />';
+                   echo '<pre>$_POST ='; print_r($_POST); echo '</pre><br />';
+                   echo '<pre>$sql ='; print_r($sql); echo '</pre><br />'; 
+                   echo '<pre>$ph_val_arr ='; print_r($ph_val_arr); echo '</pre><br />';
+                   echo '<pre>$this->u riq ='; print_r($this->getp('uriq')); echo '</pre><br />'; //not $this->u riq // $this->u riq =stdClass Object( [d] => 39 )
                   exit();
                 }
 
@@ -272,27 +273,26 @@ abstract class Db_allsites extends Dbconn_allsites
   }
 
 
-  public function dd() //used f or all  t a b l e s !!
+  public function dd(string $tbl, int $id = NULL) //used f or all  t a b l e s !!
   {
-    if(isset($this->uriq->id))
+    if(NULL !== $id)
     {
-      //$this->set_dbobj(basename(__FILE__), __LINE__, __METHOD__) ; //d d(...
       $this->dbobj=Dbconn_allsites::get_or_new_dball(basename(__FILE__),__LINE__,__METHOD__); //d d(...
-                  if ('') {  //if ($module_ arr['dbg']) {
-                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
-                  echo '<pre>';
-                  echo '<b>$this->uriq</b>='; print_r($this->uriq);
-                  echo '</pre><br />';
-                  }
-      $sql = "DELETE FROM {$this->uriq->t} WHERE id=:id"; //FROM admins WHERE id='$id'";
-
-      $this->stmt = $this->dbobj->prepare($sql);  //same as $this->prepareSQL($sql);
-      $this->stmt->bindValue(':id', $this->uriq->id, PDO::PARAM_INT);
+                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
+                              echo '<pre>$tbl='; print_r($tbl) ; echo '</pre>';
+                              echo '<pre>$id='; print_r($id) ; echo '</pre>';
+                              exit(0) ;
+                              } 
+      $sql = "DELETE FROM $tbl WHERE id=:id"; //FROM a dmins WHERE id='$id'";
+      $this->stmt = $this->dbobj->prepare($sql); //same as $this->prepareSQL($sql);
+      //$this->stmt->bindValue(':tbl',   $tbl,   PDO::PARAM_STR);
+      $this->stmt->bindValue(':id',    $id,    PDO::PARAM_INT);
       $Executed = $this->stmt->execute(); //$this->e xecute();
-      if ($Executed) {$_SESSION["SuccessMessage"]="Row Deleted Successfully ! ";
+
+      if ($Executed) {$_SESSION["SuccessMessage"]="Row id $id Deleted Successfully ! ";
       }else { $_SESSION["ErrorMessage"]="Deleting Went Wrong. Try Again !"; }
 
-      if (isset($this->uriq->r)) { $this->Redirect_to(QS.'i/'.$this->uriq->r) ; }
+      if (isset($this->getp('uriq')->r)) { $this->Redirect_to(QS.'i/'.$this->getp('uriq')->r) ; }
 
     }
   }
@@ -339,12 +339,12 @@ abstract class Db_allsites extends Dbconn_allsites
 
 
     /*
-    //self::$d bi_obj = $this->pp1->d bi_obj ;
+    //self::$d bi_obj = $this->p p1->d bi_obj ;
                         if ('') {self::jsmsg( [ //basename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'s004. BEFORE $dsn = ...'
                            ,'self::$d bi_obj'=>self::$d bi_obj
                            //,'$caller'=>$caller IS ALLWAYS get_ or_ new_ dball
-                           ,'$this->pp1->d bi_obj'=>isset($this->pp1->d bi_obj)?:'NOT SET'
+                           ,'$this->p p1->d bi_obj'=>isset($this->p p1->d bi_obj)?:'NOT SET'
                            //, '$dsn'=>$dsn
                            ] ) ; }
     //if ( (is_object($this->dbobj) and !$instantiate) ) { null; } else 
@@ -408,7 +408,7 @@ abstract class Db_allsites extends Dbconn_allsites
                            ,'Called from'=>$caller, '$this->dbobj'=>$this->dbobj
                            //, '$dsn'=>$dsn
                            ] ) ; }
-      self::$d bi_obj = $this->pp1->d bi_obj; //c o n n  parameters
+      self::$d bi_obj = $this->p p1->d bi_obj; //c o n n  parameters
       //Memory ocupied for this cls :
       $instance    = self::get_or_new_dball($mtd_or_fle .', line='. $lne); 
       $this->dbobj = $instance->dbobj ;

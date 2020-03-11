@@ -2,8 +2,8 @@
 //J:\awww\www\fwphp\glomodul4\blog\dashboard.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 //use PDO;
-
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+
 ?>
 <!-- HEADER -->
 <header class="bg-dark text-white py-3">
@@ -82,7 +82,7 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
       <table class="table table-striped table-hover">
         <thead class="thead-dark">
           <tr>
-          <th>No.</th><th>Title</th><th>Date&Time</th><th>Category</th><th>Author</th><th>Comments</th><th>Details</th>
+          <th>No.</th><th>Title</th><th>Date&Time</th><th>Category</th><th>Author</th><th>Comments</th><th>Show</th>
           </tr>
         </thead>
         <tbody>
@@ -132,8 +132,9 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
                 ?>
               </td>
               <td> 
-                 <a target="_blank" href="<?=$this->pp1->read_post?>id/<?=$r->id?>">
-                    <span class="btn btn-info">Preview <?=$r->id?></span>
+                 <a target="_blank" href="<?=$pp1->read_post?>id/<?=$r->id?>"
+                    title="Preview post id <?=$r->id?>"
+                 ><span class="btn btn-info"><?=$r->id?></span>
                    </a>
               </td>
             </tr>
@@ -154,5 +155,5 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
  -->
 
 
-<?php //require_once($this->pp1->wsroot_path.'zinc/ftr.php'); ?>
+<?php //require_once($this->p p1->wsroot_path.'zinc/ftr.php'); ?>
 

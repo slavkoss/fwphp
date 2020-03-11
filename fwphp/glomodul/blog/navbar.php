@@ -1,9 +1,15 @@
-  <!-- NAVBAR   $this->pp1->f ilter_page> 1-->
+<?php
+
+//$u riq = $this->g etp('u riq') ;
+$pp1  = $this->getp('pp1') ;
+
+?>
+  <!-- NAVBAR  -->
   <div style="height:10px; background:#27aae1;"></div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
 
-      <a href="<?=$this->pp1->filter_page?>1/i/home/" class="navbar-brand">Home</a>
+      <a href="<?=$pp1->filter_page?>1/i/home/" class="navbar-brand">Home</a>
 
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
         <span class="navbar-toggler-icon"></span>
@@ -13,12 +19,12 @@
 
         <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a href="/fwphp/www" class="nav-link">SiteHome</a></li>
-        <li class="nav-item"><a href="<?=$this->pp1->kalendar?>" class="nav-link"
+        <li class="nav-item"><a href="<?=$pp1->kalendar?>" class="nav-link"
             title="Show all posts in months">Kalendar</a></li>
            <li class="nav-item"><a href="" class="nav-link">|</a></li>
-        <li class="nav-item"><a href="<?=$this->pp1->about_us?>" class="nav-link">About Us</a></li>
-        <li class="nav-item"><a href="<?=$this->pp1->contact_us?>" class="nav-link">Contact Us</a></li>
-        <li class="nav-item"><a href="<?=$this->pp1->features?>" class="nav-link">This Module</a></li>
+        <li class="nav-item"><a href="<?=$pp1->about_us?>" class="nav-link">About Us</a></li>
+        <li class="nav-item"><a href="<?=$pp1->contact_us?>" class="nav-link">Contact Us</a></li>
+        <li class="nav-item"><a href="<?=$pp1->features?>" class="nav-link">This Module</a></li>
            <li class="nav-item"><a href="" class="nav-link">|</a></li>
         </ul>
 
@@ -32,9 +38,9 @@
                 [SearchButton] => 
              )
           -->
-          <form method="post" action="<?=$this->pp1->filter_page?>1/i/home/"
+          <form method="post" action="<?=$pp1->filter_page?>1/i/home/"
                 class="form-inline d-none d-sm-block" 
-                title="$this->pp1->filter_page...=<?=$this->pp1->filter_page?>1/i/home/"
+                title="$this->p p1->filter_page...=<?=$pp1->filter_page?>1/i/home/"
           >
             <div class="form-group">
             <input class="form-control mr-2" type="text" name="Search" 
@@ -54,11 +60,11 @@
           <li class="nav-item">
                <?php
                  if (isset($_SESSION["userid"])) { 
-                    ?><a href="<?=$this->pp1->dashboard?>" class="nav-link text-danger">
+                    ?><a href="<?=$pp1->dashboard?>" class="nav-link text-danger">
                     <?php
                     echo 'Tables';
                  } else { 
-                    ?><a href="<?=$this->pp1->loginfrm?>" class="nav-link text-danger">
+                    ?><a href="<?=$pp1->loginfrm?>" class="nav-link text-danger">
                     <?php
                     echo 'Log in';
                  }

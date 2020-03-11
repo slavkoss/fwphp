@@ -2,9 +2,6 @@
 //J:\awww\www\fwphp\glomodul4\blog\upd_post_frm.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
-//$SarchQueryParameter = $this->ctr akc par_ arr['id'] ; //$_ GET["id"] :
-$IdFromURL = $this->uriq->id ;
-
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"]))
 {
@@ -19,19 +16,19 @@ if(isset($_POST["Submit"]))
   //   1.1. V A L I D A T I O N
   if(empty($PostTitle)){
     $_SESSION["ErrorMessage"]= "Title Cant be empty";
-    $this->Redirect_to($this->pp1->posts);
+    $this->Redirect_to($pp1->posts);
   }elseif (strlen($PostTitle)<5) {
     $_SESSION["ErrorMessage"]= "Post Title should be greater than 5 characters";
-    $this->Redirect_to($this->pp1->posts);
+    $this->Redirect_to($pp1->posts);
   }elseif (strlen($img_desc)>4999) {
     $_SESSION["ErrorMessage"]= "Image Description should be less than than 4000 characters";
-    $this->Redirect_to($this->pp1->posts);
+    $this->Redirect_to($pp1->posts);
   }elseif (strlen($SummaryText)>4999) {
     $_SESSION["ErrorMessage"]= "Summary Description should be less than than 4000 characters";
-    $this->Redirect_to($this->pp1->posts);
+    $this->Redirect_to($pp1->posts);
   //}elseif (strlen($PostText)>9999) {
   //  $_SESSION["ErrorMessage"]= "Post Description should be less than than 10000 characters";
-  //  $this->Redirect_to($this->pp1->posts);
+  //  $this->Redirect_to($pp1->posts);
   }else{
 
   //  1.2 U P D A T E  D B T B L R O W
@@ -59,12 +56,12 @@ if(isset($_POST["Submit"]))
     //var_dump($cursor);
     if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";
     }else { $_SESSION["ErrorMessage"]= "Post Update went wrong. Try Again !"; }
-    $this->Redirect_to($this->pp1->posts);
+    $this->Redirect_to($pp1->posts);
   }
 } //E n d  of Submit Button If-Condition
 
 
-    require $this->pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->wsroot_path . 'zinc/hdr.php';
     require_once("navbar_admin.php");
 //        2. G U I  to get user action
 ?>
@@ -103,7 +100,7 @@ if(isset($_POST["Submit"]))
          $img_descToBeUpdated = $r->img_desc;
        //}
        ?>
-      <form class="" action="<?=$this->pp1->editpost?>id/<?php echo $IdFromURL; ?>" 
+      <form class="" action="<?=$pp1->editpost?>id/<?php echo $IdFromURL; ?>" 
             method="post" enctype="multipart/form-data">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-body bg-dark">
@@ -152,7 +149,8 @@ if(isset($_POST["Submit"]))
 
             <div class="form=group mb-1">
               <span class="FieldInfo">Existing Image: </span>
-              <img  class="mb-1" src="Uploads/<?php echo $ImageToBeUpdated;?>" width="170px"; height="70px"; >
+              <img  class="mb-1" src="Uploads/<?php echo $ImageToBeUpdated;?>" 
+                    width="170px"; height="70px"; >
               <div class="custom-file">
                <!--span class="FieldInfo">Select Image and write image description below</span-->
                 <input class="custom-file-input" type="File" name="Image" id="imageSelect" value="">
@@ -166,7 +164,7 @@ if(isset($_POST["Submit"]))
               <div>
                     <!--div style="display: inline;"-->
                     <!--div class="col-lg-6 mb-2 form-inline d-none d-sm-block"-->
-                <a href="<?=$this->pp1->edmkdpost?>flename/<?=$TitleToBeUpdated?>/id/<?=$IdFromURL?>" 
+                <a href="<?=$pp1->edmkdpost?>flename/<?=$TitleToBeUpdated?>/id/<?=$IdFromURL?>" 
                    class="btn btn-primary btn-block"
                 >Edit post (markdown). Post Title must be = mkd_file_name.txt which exists ! 
                   Real title put in txt.
@@ -186,7 +184,7 @@ if(isset($_POST["Submit"]))
 
             <div class="row">
               <div class="col-lg-6 mb-2">
-                <a href="<?=$this->pp1->dashboard?>" class="btn btn-warning btn-block"><i class="fas fa-arrow-left"></i> Back To Dashboard</a>
+                <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block"><i class="fas fa-arrow-left"></i> Back To Dashboard</a>
               </div>
               <div class="col-lg-6 mb-2">
                 <button type="submit" name="Submit" class="btn btn-success btn-block">
@@ -219,5 +217,4 @@ if(isset($_POST["Submit"]))
 
 -->
 
-<?php require $this->pp1->wsroot_path . 'zinc/ftr.php'; ?>
-
+<?php require $pp1->wsroot_path . 'zinc/ftr.php'; ?>

@@ -1,4 +1,5 @@
 <?php
+// J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Home_ctr.php
 namespace B12phpfw ;
 
 /**
@@ -19,14 +20,15 @@ class Home_ctr extends Config_allsites
   {
     if (!defined('QS')) define('QS', '?');
     $pp1_module_links = [ 
-      'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~' ,
-      'h'   => QS.'i/home/' ,
-      'c'   => QS.'i/c/' ,
-      'r'   => QS.'i/r/id/' ,
-      'u'   => QS.'i/u/id/' , //in view script href = $this->pp1->u . $id
+      'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~'
+      ,'h'   => QS.'i/home/'
+      ,'c'   => QS.'i/c/'
+      ,'r'   => QS.'i/r/id/'
+      ,'u'   => QS.'i/u/id/' //in view script href = $this->pp1->u . $id
       //$this->uriq->i/home_fn, t/tbl_name, id/idval key/value
       //in home.php onclick does jsmsgyn dialog,  home_fn "d" calls dd() (no need include script)
-      'd'   => QS.'i/d/t/admins/id/' //in view script href = $this->pp1->d . $id
+      ,'d'   => QS.'i/d/t/admins/id/' //in view script href = $this->pp1->d . $id
+      ,'h'   => QS.'i/h/' //help
     ] ;
 
     //step 3 : fw core calls method in this cls : see home_fn above
@@ -109,5 +111,44 @@ class Home_ctr extends Config_allsites
 
   }
 
+
+  public function h() //help
+  {
+    $img_url_dir = $this->pp1->wsroot_url . $this->pp1->imgrel_path .'img_big/oop_help/';
+      $title = 'DM, DDD HELP';
+      //require $this->pp1->wsroot_path . 'zinc/hdr.php';
+          //require_once("navbar.php");
+          //include $this->pp1->wsroot_path . 'fwphp/glomodul/z_help/oop_help/index.php';
+      ?>
+      <!doctype html>
+      <html>
+      <head>
+        <meta charset="utf-8" />
+        <title>OOP tutorial B12phpfwdoc</title>
+        <link rel="stylesheet" href="<?=$wsroot_url?>zinc/img_gallery_flex.css" />
+        <link rel="stylesheet" href="<?=$wsroot_url?>zinc/exp_collapse.css">
+        <style></style>
+      </head>
+      <body>
+      <main><?php
+
+          include $this->pp1->wsroot_path . 'fwphp/glomodul/z_help/oop_help/00_OOP01_basics_intro.php';
+          //also works : require $this->pp1->module_path . 'help.php';
+      //require $this->pp1->wsroot_path . 'zinc/ftr.php';
+      
+      // <=$wsroot_url>
+      //Loading failed for the <script> with source “http://dev1:8083/fwphp/glomodul/z_examples/02_mvc/03xuding_g…%20line%20%3Cb%3E143%3C/b%3E%3Cbr%20/%3Ezinc/exp_collapse.js”.
+       ?>
+      <hr />
+      <?='$this->pp1->wsroot_url ='. $this->pp1->wsroot_url?>
+      <br /><?='$img_url_dir ='. $img_url_dir?>
+      <br /><?='$this->pp1->imgrel_path ='. $this->pp1->imgrel_path?> - not visible in module which is not based on CRUD skeleton "B12phpfw", ee does not use Config_allsites (like Mnu)
+      </main>
+
+      <!-- script src="zinc/exp_collapse.js" OR: -->
+      <script src="<?=$this->pp1->wsroot_url?>zinc/exp_collapse.js" 
+              language='JScript' type='text/javascript'></script>
+      </body></html><?php
+  }
 
 } // e n d  c l s  

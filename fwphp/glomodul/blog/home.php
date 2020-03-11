@@ -1,17 +1,29 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\home.php
+                  if ('') //if ($autoload_arr['dbg']) 
+                  { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                    echo '<pre>' ; 
+                      echo '<br />$ u r i q='; print_r($uriq) ;
+                      //echo 'ses fltr pg ='; print_r($_SESSION['filter_posts']) ;
+                      //echo 'For pagination (not for c o u n t !!) $qrywhere='; print_r($qrywhere) ;
+                      //echo '<br />$binds='; print_r($binds) ;
+                    //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
+                    //exit(0) ;
+                    echo '</pre>'; }
+
 $rblk = 5;
 
-if (isset($this->uriq->p)) {
-  $_SESSION['filter_posts']['pgordno_from_url']  = $this->uriq->p ;
+//if (isset($uriq->p)) { //Fatal error: Cannot use isset() on the result of an expression
+if (isset($uriq->p) and null !== $uriq->p) {
+  $_SESSION['filter_posts']['pgordno_from_url']  = $uriq->p ;
 } else {
   if (!isset($_SESSION['filter_posts']['pgordno_from_url'])) {
     $_SESSION['filter_posts']['pgordno_from_url']  = 1 ;
   }
 }
 
-if (isset($this->uriq->c)) {
-   $_SESSION['filter_posts']['category_from_url'] = $this->uriq->c ;
+if (isset($uriq->c) and null !== $uriq->c) {
+   $_SESSION['filter_posts']['category_from_url'] = $uriq->c ;
    $_SESSION['filter_posts']['pgordno_from_url'] = 1 ;
 } else {
   if (!isset($_SESSION['filter_posts']['category_from_url'])) {
@@ -74,7 +86,7 @@ $rcnt =  $rcnt->COUNT_ROWS ;
 
 
 
-$pgn_links = self::get_pgnnav($rcnt, '/i/home/', $this->uriq, $rblk);
+$pgn_links = self::get_pgnnav($rcnt, '/i/home/', $uriq, $rblk);
 $pgnnavbar        = $pgn_links['navbar'];
 $pgordno_from_url = $pgn_links['pgordno_from_url'];
 $first_rinblock   = $pgn_links['first_rinblock'];
@@ -97,7 +109,7 @@ if( $pgordno_from_url ) {
       echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
                 .'D B I '. self::$dbi .' does not exist' . '</h3>';
       break;
-    //default: $this->Redirect_to($this->pp1->filter_page) ; break;
+    //default: $this->Redirect_to($pp1->filter_page) ; break;
   }
   
 }
@@ -158,7 +170,7 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
                 //echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
                 //    .'D B I '. self::$dbi .' does not exist' . '</h3>';
               break; 
-            } //default: $this->Redirect_to($this->pp1->filter_page) ; break;
+            } //default: $this->Redirect_to($pp1->filter_page) ; break;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
@@ -174,12 +186,15 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
             <h4>
               <?php
               if ($r->summary) {
+
+                       echo '<h3>Article summary</h3>' ;
+
               //echo nl2br(self::escp($r->summary));
               echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
                       nl2br(self::escp($r->summary))
                    ));
               } else {
-                $this->readmkdpost('','only_help'); //means  i n c l u d e  here html 
+                $this->readmkdpost($pp1, '','only_help'); //means  i n c l u d e  here html 
               }
               ?>
             </h4>
@@ -189,31 +204,42 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
           <?php
           //J://awww//www//fwphp//glomodul//blog//Uploads//mvc_M_V_data_flow.jpg
-          $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp($r->image));
+          $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp(
+             (null == $r->image ? 'NON EXISTENT' : $r->image)
+          ));
           $tmp_imgurlrel = 'Uploads/'.self::escp($r->image) ;
           if (file_exists($tmp_imgpath)) { ?>
             <img src="<?=$tmp_imgurlrel?>" class="img-fluid card-img-top"
+                 title = "<?='$r->image='. $r->image .', $tmp_imgpath='.$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
                  style="max-height:450px;" 
                  alt="" />
             <?php
           } 
 
-          $tmp_imgpath = str_replace('/',DS, $this->pp1->wsroot_path)
-               . 'zinc'.DS.'img'.DS.'img_big'.DS.self::escp($r->image) ;
+          $tmp_imgpath = str_replace('/',DS, $pp1->wsroot_path
+               . 'zinc'.DS.'img'.DS.'img_big'.DS.self::escp(
+               (null == $r->image ? 'NON EXISTENT' : $r->image)
+          ) ) ;
           $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($r->image) ;
                         if ('') {self::jsmsg( [ //basename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
                            ,'$tmp_imgurlrel'=>$tmp_imgurlrel
                            ] ) ; }
           if ($r->image and file_exists($tmp_imgpath)) { ?>
-              <img src="<?=$tmp_imgurlrel?>" style="max-height:450px;" class="img-fluid card-img-top" />
-              <?php
+              <img src="<?=$tmp_imgurlrel?>"
+                   title = "<?='$r->image='. $r->image .', $tmp_imgpath='.$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
+                   class="img-fluid card-img-top"
+                   style="max-height:450px;" 
+              /><?php
           } ?>
 
 
 
           <div class="card-body">
             <p><?php
+
+                       echo '<h3>Image description</h3>' ;
+
                $tmptxt = self::escp($r->img_desc) ; //$tmptxt = $r->img_desc ;
                //$lnklabel = substr(strstr(self::escp($r->img_desc), '{{lnktxt}}'), 10,9) ;
                echo 
@@ -226,24 +252,24 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
 
 
-            <small class="text-muted">Category: <span class="text-dark">
-              <a href="<?=$this->pp1->filter_postcateg?><?=self::escp($r->category)?>/p/1">
+            <!--small class="text-muted"-->
+            <span class="text-muted">Category: 
+              <span class="text-dark">
+              <a href="<?=$pp1->filter_postcateg?><?=self::escp($r->category)?>/p/1">
                      <?=self::escp($r->category)?> </a></span> & Written by <span class="text-dark"> 
               
-              <a href="<?=$this->pp1->read_user?>username/<?=self::escp($r->author)?>">
+              <a href="<?=$pp1->read_user?>username/<?=self::escp($r->author)?>">
                   <?=self::escp($r->author)?></a>
                 </span> On 
                 <!--<span class="text-dark"><php echo self::escp($r->datetime); ></span-->
               <span class="text-dark">
-              <a href="<?=$this->pp1->kalendar?>mm/<?=self::escp(substr($r->datetime,0,7))?>"
+              <a href="<?=$pp1->kalendar?>mm/<?=self::escp(substr($r->datetime,0,7))?>"
                  title="Show all posts in post month"><?=self::escp($r->datetime)?></a>
                 </span>
-            </small>
+            </span>
 
             <span style="float:right;" class="badge badge-dark text-light">Comments:
-              <?php //echo $this->ApproveCommentsAccordingtoPost($db, $r->id);
-                //$rcnt = $this->r rc ount('c omments') ;
-                //$c_r = $this->r r('1', $this, 'comments', "post_id='$r->id' AND status='ON'"); //->C OUNT_ R OWS
+              <?php
                 $c_r = $this->rr("SELECT count(*) COUNT_ROWS FROM comments WHERE post_id='$r->id' AND status='ON'", [], __FILE__ .' '.', ln '. __LINE__ ) ;
                 while ($row = $this->rrnext($c_r)): {$rcnt = $row ;} endwhile; //c_, R_, U_, D_
                echo $rcnt->COUNT_ROWS ;
@@ -263,8 +289,8 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
                   . self::escp($r->title);
                   ?>
 
-            <a href="<?=$this->pp1->read_post?>id/<?=$r->id?>" style="float:right;">
-              <span class="btn btn-info">Read More &rang;&rang; </span>
+            <a href="<?=$pp1->read_post?>id/<?=$r->id?>" style="float:right;">
+              <span class="btn btn-info">Read article (in OS txt) &rang;&rang; </span>
             </a>
             </h5>
 
@@ -301,7 +327,7 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
                 , ['placeh'=>':last_rinblock',  'valph'=>$last_rinblock, 'tip'=>'int']
           ] ;
           $c_limitedSQL = $this->r r('', $this, $tbl //c= cursor
-              , $qrywhere, '*', $binds, 'do_ora_pgn', $this->pp1->dbi_obj
+              , $qrywhere, '*', $binds, 'do_ora_pgn', $pp1->dbi_obj
               //, "$q rywhere ORDER BY ... L IMIT :first_rinblock,5", '*' //mysql
             ) ;
           $numcols = $c_limitedSQL->columnCount(); //$numcols = ocinumcols($c_col_info);

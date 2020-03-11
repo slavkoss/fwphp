@@ -1,9 +1,19 @@
 <?php
+if ( isset($pp1) and is_object($pp1) ) { 
+  if ( isset($pp1->wsroot_url) and null !== $pp1->wsroot_url ) { $wsroot_url=$pp1->wsroot_url; }
+  else { $wsroot_url = '/' ; } ;
+} 
+
+/*
 switch (true) {
-  case isset($wsroot_url)      : NULL ; break;
-  case isset($pp1->wsroot_url) : $wsroot_url = $pp1->wsroot_url ; break;
+  //case isset($wsroot_url) :  NULL ; break;
+  //case isset($p p1->wsroot_ url) : $wsroot_ url = $p p1->wsroot_ url ; break;
+  case isset($this->getp('pp1')->wsroot_url) and null !== $this->getp('pp1')->wsroot_url :
+     $wsroot_url=$this->getp('pp1')->wsroot_url; break;
   default: $wsroot_url = '/' ; break;
 }
+*/
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

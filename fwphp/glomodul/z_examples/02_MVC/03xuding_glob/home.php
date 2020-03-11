@@ -1,9 +1,10 @@
 <?php
 /**
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\home.php
 * step 3
 * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\home.php
 * called from Home_ ctr cls method h ome() when usr clicks link/button or any URL is entered in ibrowser  
-* calls Admin_crud cls method rr_all() =pre-query which sets rows filter (default-where), sort... 
+* calls Admin_crud cls method rr_ all() =pre-query which sets rows filter (default-where), sort... 
 * which calls Db_ allsites method rr() =execute-query which creates cursor for read row by row loop here
 *
 * Adds user request (interaction, event) eg $id at link end, for read user profile or update or delete.
@@ -11,7 +12,16 @@
 * Admin_ crud is ORM (tbl adapter) class, when instantiated is DM object of row in memory to/from DB tbl row
 *    Where ORM = Object Relational Mapper, DM = Domain Model, row in memory is model of DB tbl row
 * Admin_ crud maps (adapts) model of tbl row in memory to tbl row in DM data source (DB, web service...)
+*
+*
+* https://getbootstrap.com/docs/4.0/components/buttons/
+* 1. <button type="button" class="btn btn-primary">Primary</button> BLUE
+* 2. btn-secondary GRAY  3. btn-success GREEN    4. btn-danger RED
+* 5. btn-warning YELLOW  6. btn-info DARK GREEN  7. btn-light WHITE, GRAY TXT
+* 8. btn-dark BLACK      9. btn-link WHITE, BLUE TXT
+*
 */
+
 namespace B12phpfw ;
 $Admin_crud = new Admin_crud ;
 $cursor = $Admin_crud->rr_all($this);
@@ -25,6 +35,7 @@ $cursor = $Admin_crud->rr_all($this);
 <div class="row">
 
   <p><a href="<?=$this->pp1->c?>" class="btn btn-success">Create</a></p>
+  <p><a href="<?=$this->pp1->h?>" class="btn btn-info">Help DM</a></p>
 
   <table class="table table-striped table-bordered">
 

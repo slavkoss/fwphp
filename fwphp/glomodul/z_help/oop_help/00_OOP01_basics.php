@@ -1,29 +1,6 @@
 
 <article id="intro">
-<h2>02. Introduction to PHP OOP 002</h2><?php displ_breadcrumbs('intro');?>
-<img alt="" src="<?=$imgrelpath?>002_properties_behavior_diagram.jpg" onclick="window.open(this.src)">
-<p>002_properties_behavior_diagram.jpg Some objects are same, their behavior is exactly same, but they are slightly different in their properties (for dog: name, color, breed-pasmina). Alan Kay discovered OOP : eg dog has properties and actions described in class Dog, and "new Dog" command occupies memory for them, ee creates object (instantiates class).</p>
-
-<p>Objects can also interact with each other (hierarhically or containment).</p>
-
-
-<h3>Advantages of an OOP approach to software development</h3>
-<ol>
-<li><b>Easy to map our classes</b> onto real-world objects (situations) like people, things and concepts. These classes have the same properties and behaviors as the real - world concepts they represent. Purpose of each object, as well as the relationship between objects, is already clear from the real life situation.
-<li>Code Reuse in other applications (Recycling).
-<li>Easy to write modular code in self-contained modules
-<li>Easily upgraded from smaller to larger systems
-<li>lots of other OOP benefits... book can be written, 
-<br />--------------------------------------------------------------------
-<br />but also against OOP ! Some say: "is OOP mistake ?" OOP minuses :
-<li>For navigation (url-s, links) code is same - OOP does not help - compare mnu and msg module.
-<li>Lack of reusability in OOP - to get banana (some method or attribute) you get also gorilla holding banana and whole gorillas jungle (<b>all higher classes</b> with complicated dependencies). Interfaces help to get ONLY banana, but coding is complicated - I could find only strong-talk-weak-work code examples about this subject.
-<li>See <a href="https://phpthewrongway.com/">https://phpthewrongway.com/</a>, or Joe Armstrong why OOP sucks <a href="http://harmful.cat-v.org/software/OO_programming/why_oo_sucks">http://harmful.cat-v.org/software/OO_programming/why_oo_sucks</a>.</li>
-
-</ol>
-
-<h3>Procedural language</h3>
-<p>For example "C" : execution of a C program begins from the function "main()". Compiler reads these lines one by one. For example one line of code calls a function A : compiler reads lines from that function than continues reading "main()".</p>
+  <?php include '00_OOP01_basics_intro.php'; ?>
 </article>
 
 
@@ -33,10 +10,10 @@
 
 <article id="basics"><h2>03. Basics of OOP 003_012</h2><?php displ_breadcrumbs('basics');?>
 
-<img alt="" src="<?=$imgrelpath?>003_Basics_OOPClasses_And_Obj_different_color_kitchen_appliances.jpg" onclick="window.open(this.src)">
+<img alt="" src="<?=$img_url_dir?>003_Basics_OOPClasses_And_Obj_different_color_kitchen_appliances.jpg" onclick="window.open(this.src)">
 <p>003_Basics_OOPClasses_And_Obj_different_color_kitchen_appliances.jpg  </p>
 
-<img alt="" src="<?=$imgrelpath?>004_1Cls_members_Prop_Meth_different_color_fabric.jpg" onclick="window.open(this.src)"><p>004_1Prop_Meth_are_Cls_members_different_color_fabric_not_Design.jpg
+<img alt="" src="<?=$img_url_dir?>004_1Cls_members_Prop_Meth_different_color_fabric.jpg" onclick="window.open(this.src)"><p>004_1Prop_Meth_are_Cls_members_different_color_fabric_not_Design.jpg
 <br />
 There may be a possibility that the design of some dress will always be the same.</p>
 
@@ -91,6 +68,9 @@ Dress Object
     [design] => Slim Fit Blazer
 )</pre>
 </div><!-- collapsible -->
+
+
+
 <p>008 Defining And Calling Methods</p>
 <p>009 Accessing Object Properties From Methods</p>
 <p>010 Parameters And Return Value Of Methods.mp4</p>
@@ -101,7 +81,7 @@ Dress Object
 
 <article id="visibility"><h2>04. Visibility 013_014</h2><?php displ_breadcrumbs('visibility');?>
 
-<article><img alt="" src="<?=$imgrelpath?>021_Visibility_Level_Protected_In_Inheritance.jpg" onclick="window.open(this.src)">
+<article><img alt="" src="<?=$img_url_dir?>021_Visibility_Level_Protected_In_Inheritance.jpg" onclick="window.open(this.src)">
 <p>013_Visibility_acess_cls_members_public_is_default_protected_priv</p>
 </article>
 
@@ -246,7 +226,7 @@ Clses hierarhy BY BEHAVIOR (3 levels). See below "Interfaces " - Clses hierarhy 
 
 
 
-<br /><img alt="" src="<?=$imgrelpath?>029_6Abstract_and_concrete_c_2nd_level_is_abstract_without_word_abstract_as_no_domaintain_m.jpg" onclick="window.open(this.src)">
+<br /><img alt="" src="<?=$img_url_dir?>029_6Abstract_and_concrete_c_2nd_level_is_abstract_without_word_abstract_as_no_domaintain_m.jpg" onclick="window.open(this.src)">
 <p>029_6Abstract_and_concrete_c_2nd_level_is_abstract_without_word_abstract_as_no_domaintain_m.jpg
 </p>
 
@@ -580,7 +560,7 @@ This relationship doesn't exist with interfaces.
 </ol>
 Portable fan, electric toy car and electric car are from different inheritance hierarchies, and their parents are different. But there is one common thing in all of them. "They are chargeable", they use batteries, which need electric charging. <b>All "electric" classes need charge() method which is in chargeable interface :</b>
 
-<img alt="" src="<?=$imgrelpath?>031_Interfaces_common_method_for_different_cls_hier.jpg" onclick="window.open(this.src)">
+<img alt="" src="<?=$img_url_dir?>031_Interfaces_common_method_for_different_cls_hier.jpg" onclick="window.open(this.src)">
 <p>031_Interfaces_common_method_for_different_cls_hier.jpg</p>
 <p>We create a chargeable interface with the method charge().</p>
 <p>Now all three classes implement chargeable interface. Just like abstract methods of abstract classes, we can declare method in interface with no implementation.</p>

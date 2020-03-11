@@ -1,9 +1,13 @@
 <?php
+
+//               better $pp1... !!!! :
 $wsroot_url = ( (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' )
         // 2. URL_DOM AIN = dev1:8083 :
       . filter_var( $_SERVER['HTTP_HOST'] . '/', FILTER_SANITIZE_URL ) ;
 
-$imgrelpath = '/zinc/img/img_big/oop_help/';
+$img_url_dir = $wsroot_url . 'zinc/img/' . 'img_big/oop_help/';
+//$img_url_dir = $this->pp1->wsroot_url . $this->pp1->imgrel_path .'img_big/oop_help/';
+//was bad : $imgrel_path = 'zinc/img/img_big/oop_help/';
 ?>
 <!doctype html>
 <html>

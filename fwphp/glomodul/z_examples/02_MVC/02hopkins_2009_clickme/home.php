@@ -1,3 +1,17 @@
+<!--
+/**
+* J:\awww\www\fwphp\glomodul\z_examples\02_MVC\02hopkins_2009_clickme\home.php
+*
+* https://getbootstrap.com/docs/4.0/components/buttons/
+* 1. <button type="button" class="btn btn-primary">Primary</button> BLUE
+* 2. btn-secondary GRAY  3. btn-success GREEN    4. btn-danger RED
+* 5. btn-warning YELLOW  6. btn-info DARK GREEN  7. btn-light WHITE, GRAY TXT
+* 8. btn-dark BLACK      9. btn-link WHITE, BLUE TXT
+*
+*/
+-->
+
+
 <!DOCTYPE html>
 <html lang="hr">
 

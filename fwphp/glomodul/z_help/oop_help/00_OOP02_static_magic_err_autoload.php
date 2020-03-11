@@ -265,14 +265,14 @@ The interpreter stops running your program when it encounters a parse error.
 <li>Strict Standards Notices are not errors. These are only suggestions according to good php coding standards.PHP suggest changes to your code that will ensure the best interoperability and forward compatibility of your code.
 </ol>
 
-<img alt="" src="<?=$imgrelpath?>050_Sub_Types_Of_5Errors.jpg" onclick="window.open(this.src)">
+<img alt="" src="<?=$img_url_dir?>050_Sub_Types_Of_5Errors.jpg" onclick="window.open(this.src)">
 <p>Errors BY SEVERITY : 050_Sub_Types_Of_5Errors.jpg</p>
 <?php displ_breadcrumbs('');?><!--a href="#content">GoTop</a-->
 
 <p>These Subtypes are called error levels. Each level is also represented by an integer value and an associated constant.</p>
 
 
-<img alt="" src="<?=$imgrelpath?>058_When_Err_Occur_In_Life_Cycle_Of_Your_Script.jpg" onclick="window.open(this.src)">
+<img alt="" src="<?=$img_url_dir?>058_When_Err_Occur_In_Life_Cycle_Of_Your_Script.jpg" onclick="window.open(this.src)">
 <p>Errors BY WHEN : 058_When_Err_Occur_In_Life_Cycle_Of_Your_Script.jpg</p>
 
 <br />

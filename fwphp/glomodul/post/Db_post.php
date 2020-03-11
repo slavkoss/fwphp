@@ -2,7 +2,10 @@
 /*
 *  J:\awww\www\fwphp\glomodul\post\Db_post.php
 */
-namespace B12phpfw ;
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\dbadapter\post ;
+use B12phpfw\module\blog\Home_ctr ;
+//use B12phpfw\core\zinc\Config_ allsites ;
 
 class Db_post //extends Db_allsites //was Home
 {

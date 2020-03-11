@@ -38,6 +38,7 @@ $glomodul_dir      = 'glomodul/' ;
 $path_rel_glomodul = $site_dir.$glomodul_dir ;
 
 $path_rel_examples = $path_rel_glomodul .'z_examples/' ;
+$path_rel_help     = $path_rel_glomodul .'z_help/' ;
 
 $zbig_url       = $wsroot_url .'zbig/';
 $zbig_path      = $wsroot_path .'zbig/';
