@@ -1,28 +1,25 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\categories.php
 
-namespace B12phpfw ; //FUNCTIONAL and POSITIONAL see below MODULE_&_ITS_DIR_NAME
+//namespace B12phpfw ; //FUNCTIONAL and POSITIONAL see below MODULE_&_ITS_DIR_NAME
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_category ;
 use B12phpfw\dbadapter\post_category\Tbl_crud ;
-
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
-
-//           1. S U B M I T E D  A C T I O N S
+                if ('') { $tbl_o = new Tbl_crud ;
+                    self::jsmsg( [ basename(__FILE__) //. __METHOD__ 
+                         .', line '. __LINE__ .' SAYS'=>'rr_last_id '
+                   ,'$id'=>$tbl_o->rr_last_id($dm)
+                ] ) ; }
 if(isset($_POST["Submit"]))
 {
-  $Category = $_POST["CategoryTitle"];
-  $Admin    = $_SESSION["username"];
-  $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-  // 1.1 V A L I D A T I O N  and  1.2 C R E A T E  D B T B L R O W
-  $fldvals = [$Category, $Admin, $DateTime] ;
+  //           1. S U B M I T E D  A C T I O N S
   $tbl_o = new Tbl_crud ; //Db_post_category
-  $id = $tbl_o->cc($dm, $fldvals);
+  $tbl_o->cc($dm);
+  //$id = $tbl_o->rr_last_id($dm);
 } //E n d  Submit Button If-Condition
 
-
 //               2. R E A D  D B T B L R O W S
-//$cursor = $dm->rr("SELECT * FROM category ORDER BY title", [], __FILE__ .' '.', ln '. __LINE__ ) ;
 $tbl_o = new Tbl_crud ;
 $cursor = $tbl_o->rr_all($dm);
 
@@ -61,7 +58,7 @@ $cursor = $tbl_o->rr_all($dm);
           <div class="card-body bg-dark">
             <div class="form-group">
               <label for="title"> <span class="FieldInfo"> Categroy Title: </span></label>
-               <input class="form-control" type="text" name="CategoryTitle" id="title"
+               <input class="form-control" type="text" name="category_title" id="title"
                       placeholder="Type title here" value="">
             </div>
             <div class="row">

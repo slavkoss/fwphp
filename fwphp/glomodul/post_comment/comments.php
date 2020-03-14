@@ -1,6 +1,9 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\comments.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\dbadapter\post_comment ;
+//use B12phpfw\module\blog\Home_ctr ;
+
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
 ?>

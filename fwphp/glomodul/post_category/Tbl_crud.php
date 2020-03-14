@@ -2,6 +2,7 @@
 /**
 *  J:\awww\www\fwphp\glomodul\post_category\Tbl_crud.php
 */
+
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_category ;
 //use B12phpfw\core\zinc\Config_ allsites ;
@@ -14,56 +15,52 @@ class Tbl_crud //extends Db_allsites
 
   // on-insert
   //public function cc(UserInterface $user) {
-  public function cc($dm, $vv)
+  public function cc($dm)
   {
-    //$fldvals = $vv = [$Category, $Admin, $DateTime] ;
-
-    // 1.1. V A L I D A T I O N
+    // 1. S U B M I T E D  F L D V A L S :
+    $category_title = $_POST["category_title"];
+    $username          = $_SESSION["username"];
+    $CurrentTime = time(); $datetime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+    // 2. V A L I D A T I O N
     $valid = true;
-    if(empty($vv[0])){ $valid = false;
+    if(empty($category_title)){ $valid = false;
       $_SESSION["ErrorMessage"]= "All fields must be filled out";
       $dm->Redirect_to($pp1->categories);
-    }elseif (strlen($vv[0])<3) { $valid = false;
+    }elseif (strlen($category_title)<3) { $valid = false;
       $_SESSION["ErrorMessage"]= "Category title should be greater than 2 characters";
       $dm->Redirect_to($pp1->categories);
-    }elseif (strlen($vv[0])>49) { $valid = false;
+    }elseif (strlen($category_title)>49) { $valid = false;
       $_SESSION["ErrorMessage"]= "Category title should be less than than 50 characters";
       $dm->Redirect_to($pp1->categories);
     }
     if (!$valid) {goto fnend ;}
 
 
-    // 1.2 C R E A T E  D B T B L R O W
+    // 3. C R E A T E  D B T B L R O W
     $flds    = "title, author, datetime" ; //names in data source
-    $qrywhat = "VALUES(:categoryName,:adminname,:dateTime)" ;
+    $qrywhat = "VALUES(:category_title,:username,:datetime)" ;
     $binds = [
-      ['placeh'=>':categoryName', 'valph'=>$vv[0], 'tip'=>'str']
-     ,['placeh'=>':adminname',    'valph'=>$vv[1], 'tip'=>'str']
-     ,['placeh'=>':dateTime',     'valph'=>$vv[2], 'tip'=>'str']
+      ['placeh'=>':category_title', 'valph'=>$category_title, 'tip'=>'str']
+     ,['placeh'=>':username',    'valph'=>$username, 'tip'=>'str']
+     ,['placeh'=>':datetime',     'valph'=>$datetime, 'tip'=>'str']
     ] ;
     $cursor = $dm->cc($dm, $this->tbl, $flds, $qrywhat, $binds);
     if($cursor){
       //$_SESSION["SuccessMessage"]="Category id : " .$ConnectingDB->lastInsertId()." added Successfully";
-      $_SESSION["SuccessMessage"]="Category {$vv[0]} added Successfully";
+      $_SESSION["SuccessMessage"]="Category $category_title added Successfully";
       $dm->Redirect_to($pp1->categories);
     }else {
-      $_SESSION["ErrorMessage"]= "Category {$vv[0]} adding went wrong. Try Again !";
+      $_SESSION["ErrorMessage"]= "Category $category_title adding went wrong. Try Again !";
       $dm->Redirect_to($pp1->categories);
     } 
 
-    // 1.3  G E T  I D
-    $c_r = $dm->rr("SELECT max(id) id FROM $this->tbl" 
-        , []
-        , __FILE__ .' '.', ln '. __LINE__) ;
-    while ($row = $dm->rrnext($c_r)): {$r = $row ;} endwhile; 
-
-    $dm::disconnect();
-
-    return $r->id;
 
     fnend:
   }
 
+  public function rr_last_id($dm) {
+    return $dm->rr_last_id($this->tbl) ;
+  }
 
   // pre-query
   public function rr_all($dm) {
@@ -73,7 +70,7 @@ class Tbl_crud //extends Db_allsites
     return $cursor ;
   }
 
-} // e n d  c l s
+} // e n d  c l s  T b l_ c r u d
 
 
 

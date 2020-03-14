@@ -27,71 +27,114 @@ B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CR
 ![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/   OR       
  ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\xampp\\htdocs ee   http://localhost:8083/  OR       
  ![B12phpfw favicon PRODUCTION DOCROOT](B12phpfw_3PRODUCTION_DOCROOT.ico "B12phpfw_3PRODUCTION_DOCROOT.ico") **PRODUCTION (DEMO) DOCROOT** http://phporacle.eu5.net/       
+|   
+In Windows tree /A shows :
 ```
-|       
-|-- **1. fwphp/** (app)      # Apache_docroot\fwphp. fwphp is optional name **or SITE1, or APLications1**
-|   |                        # my is J:\awww\www\fwphp\ . Namespace is only one: B12phpfw.         
-|   |                        # Contains **MODULE GROUPS** eg APLication1, 2, 3      
-|   |                        # **NO Models, Views, Controllers dirs**          
-|   |                        # but dirs are like Oracle FORMS form module.fmb !         
-|   |-- 01mater/ (or APPLication1) # modules group - material book keeping (not made here)      
-|   |-- 02financ/ (or apl2)  # modules group - financial book keeping (not made here)      
-|   |-- 03salary/  (or apl3) # modules group - not made here      
-|   |       
-|   |-- glomodul/  (or apl4) # module group - not application but group of appl not in 01, 02...     
-|   |   |-- lsweb/           # module - web server dirs navigation and run .html and .php scripts in ibrowser
-|   |   |-- mkd/             # module - plain text (markdown or html) WYSIWYG web editor, 
-|   |   |                    # NOT ON B12PHPFW CODE SKELETON, BUT SIMILAR
-|   |   |       
-|   |   |-- blog/            # module (subgroup). It is LIKE ORACLE FORMS .FMB :         
-|   |   |    |-- class Home_ctr in class script Home_ctr.php = CONTROLLER   
-|   |   |    |-- VIEW scripts (not view classes !) to be included in Home_ctr
-|   |   |                    # 2 masters, detail, subdetail :
-|   |   |-- user/            # module - master 1 - Home_ctr.php and VIEW scripts like blog module
-|   |   |-- post_category/   # module - master 2 - Home_ctr.php and VIEW scripts
-|   |   |-- post/            # module - detail - relations M : 1 user,  M : 1 post_category
-|   |   |-- post_comment/    # module - subdetail - relation M : 1 post.
-|   |   |
-|   |   |-- z_examples/      # module (subgroup) - LEARNING EXAMPLES. Eg :
-|   |   |   |-- 02_MVC/      #  OOP and MVC learn
-|   |   |       |-- 03xuding/.. # **STEP BY STEP SHOWS WHY AND HOW TO USE B12PHPFW**
-|   |   |       |            # Simple, small, elegant code. I improved it (?) in step 1 and 2.
-|   |   |       |            # https://www.startutorial.com/articles/view/php-crud-tutorial-part-1, 2, 3
-|   |   |       |-- Mini3 PHP fw # ...\fwphp\glomodul\adrs  https://github.com/panique/mini3
-|   |   |                    # Excellent rare not to simple MVC example (lot of good coding). 
-|   |   |                    # My **routing using key-values** is different but dispatching 
-|   |   |                    # using home class methods is based on Mini3. 
-|   |   |
-|   |   |-- z_help/          # module (subgroup) - (static) pages
++---1. J:\awww\www\index.php redirects to main menu url fwphp/www/index.php
+|
+|
++---2. J:\awww\www\fwphp SITE, group of apps = Apache_docroot\fwphp
+|   |  NO Models, V, C dirs, but dirs are like Oracle FORMS form .fmb !
 |   |         
-|   |-- www/  (old apl5/)    # main menu - (static) pages, 
-|                            # NOT ON B12PHPFW CODE SKELETON, BUT SIMILAR
-|        
-|        
-|-- **2. zinc/** (core)      # MVC engine directory.  zinc is for search more selective than core  -:).                  
-|   |                        # Here are dirs img, lang, theme,  global classes (for all sites)**,                  
-|   |-- img/           
-|   |-- lang/           
-|   |-- themes/              # some public resources (some are in vendor dir - optional, as we wish).         
-|   |-- class Autoload in class script Autoload.php           
-|   |-- class Dbconn_allsites in class script Dbconn_allsites.php
-|   |-- class Db_allsites in class script Db_allsites.php   
-|   |-- class Config_allsites in class script Config_allsites.php   
-|   |-- class Pgn in class script Pgn.php - PAGINATION   
+|   +---www  - MAIN MENU MODULE (static) pages, 
+|   |   not on B12phpfw code skeleton, but similar
+|   |
+|   | APPLICATION DIRS HAVE SIMILAR DIR STRUCTURE AS glomodul :
+|   |
+|   +---01mater app (app = modules group) - material book keeping - empty dir
+|   +---02financ app (dir name is module name) - empty dir
+|   +---03salary app - empty dir
+|   |
+|   +---glomodul "app" modules group not in previous 01, 02... dirs.
+|       |
+|       |
+|       +---mkd module - plain text Op.sys files (markdown or html) 
+|       |   WYSIWYG web editor, not on b12phpfw code skeleton, but similar
+|       |
+|       |
+|       +---blog (Msg) MODULE
+|       |   |-- MODULE CONTROLLER class Home_ctr extends Config_allsites
+|       |   |-- MODULE MODEL - DATA SOURCE ADAPTER class Tbl_crud
+|       |   |-- VIEW scripts (not view classes !) to be included in Home_ctr
+|       |   +---msgmkd dir - markdown texts .txt = POSTS
+|       |   \---Uploads dir
+|       |
+|       | blog module consists of : two masters, detail, subdetail :
+|       | which, like blog module, have Home_ctr.php, Tbl_crud.php 
+|       | and VIEW scripts :
+|       |
+|       +---user/            module - master 1
+|       |
+|       |
+|       +---post_category/   module - master 2 - Home_ctr.php and VIEW scripts
+|       |
+|       |
+|       +---post/            module - detail - relations M : 1 user,  M : 1 post_category
+|       |
+|       |
+|       +---post_comment/    module - subdetail - relation M : 1 post.
+|       |
+|       |
+|       |
+|       +---adrs (Mini3 fw) module https://github.com/panique/mini3
+|       |   Excellent rare not to simple MVC example (lot of good coding). 
+|       |   My ROUTING USING KEY-VALUES is different, but  
+|       |   DISPATCHING USING HOME CLASS METHODS is based on Mini3.
+|       |
+|       +---z_examples      modules group - LEARNING EXAMPLES. Eg :
+|       |   |
+|       |   +---02_MVC      modules group  OOP and MVC learn
+|       |       |
+|       |       +---03xuding/ STEP BY STEP SHOWS WHY AND HOW TO USE B12PHPFW
+|       |           Simple, small, elegant code. I improved it (?) in step 1 and 2.
+|       |           https://www.startutorial.com/articles/view/php-crud-tutorial-part-1, 2, 3
+|       |
+|       |
+|       +---lsweb module - web server dirs navigate & run .html and .php
+|       +---oraedoop
+|       +---z_help modules group - (static) pages
+|
+|
++---3. J:\awww\www\zinc (core) - GLOBAL INCLUDES for all sites (eg 2. fwphp SITE)
+|   |  zinc is for search more selective than core  -:).
+|   |  Here are dirs img, lang, theme and global classes (for all sites)
+|   |  which are MVC engine.
+|   |
+|   | GLOBAL RESOURCES :
 |   |-- hdr.php, ftr.php
+|   +---img
+|   +---lang
+|   +---themes some public resources (some are in vendor dir)
+|   |
+|   | MVC ENGINE :
+|   +---class Autoload in class script Autoload.php
+|   |   CONVENTION FOR NAMESPACES :
+|   |   Eg in tbl view script J:\awww\www\fwphp\glomodul\post\posts.php :
+|   |          namespace B12phpfw\dbadapter\post ;
+|   |          use B12phpfw\module\dbadapter\post\Tbl_crud ;
+|   |   vendor_namesp_prefix \ processing_(behavior) \ proc2 \ ... \ cls_dir
+|   |   before cls_dir is FUNCTIONAL part of name space, any string "\" separated 
+|   |   cls_dir='post' is POSITIONAL part of ns, CAREFULLY it is dir name!
+|   |   If we change dir names than we must change also cls_dir in ns in scripts !
+|   |-- class Dbconn_allsites - global data source adapter
+|   |-- class Db_allsites extends Dbconn_allsites - global data source adapter
+|   |-- class Config_allsites extends Db_allsites - routing, dispatching, utils (helpers)
+|   |-- class Pgn - PAGINATION
+|   |
+|   |
 |   |-- showsource.php
-|            
-|                
-|-- **3. index.php**         # redirects to main menu url fwphp/www/index.php        
-|      
-|         
-|-- **4. vendor/** (public)   # dir for external code (vendor's plugins) & resources :  JS files, stylesheets.            
-|   |                        # B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
-|   |-- erusev/ (parsedown markdown to html)         
-|   |-- php2wsdl/        
-|   |-- simplemde/ WYSIWYG editor for markdown (or Summernote for html)         
+|
+|
++---4. J:\awww\www\vendor dir for external code (vendor's plugins) & resources :
+|      JS files, stylesheets.            
+|      B12phpfw own (internal) resources are in zinc dir, external in vendor dir.          
+|   +---erusev (parsedown markdown to html)         
+|   +---php2wsdl        
+|   +---simplemde WYSIWYG editor for markdown (or Summernote for html)         
 |     
 ```
+
+
 
 ## 1\.4 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
 ```

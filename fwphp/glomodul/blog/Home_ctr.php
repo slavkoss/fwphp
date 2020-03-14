@@ -7,7 +7,7 @@
 namespace B12phpfw\module\blog ;
 use B12phpfw\core\zinc\Config_allsites ;
 use B12phpfw\module\dbadapter\user\DB_user ; //to Login_ Confirm_ SesUsrId
-use B12phpfw\module\dbadapter\post_comment\Db_post_comment ;
+use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
 
 // May be named App, Router_dispatcher... :
 class Home_ctr extends Config_allsites
@@ -20,22 +20,11 @@ class Home_ctr extends Config_allsites
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
                            //,'self::$d bi'=>self::$dbi
-                           //, 'New_Location'=>$New_Location
-                           //,'$caller'=>$caller
-                           //, '$dsn'=>$dsn
                            ] ) ; 
                         }
-    /**
-    * *********************************************************
-    * R O U T I N G  T A B L E  (IS OK FOR MODULES IN OWN DIR)
-    * We have two masters (usr, category) and two level of details (post s, comment s).
-    * *********************************************************
-    * QS=?=url adress Query Separator. Without QS we must use Apache mod-rewrite and Composer auto loading classes instead own simple-fast auto loading.
-
-    * After KEY i is VALUE methodname which includes/calls samenamed (or not) 
-    * script/method or calls some (global method) or...
-    */
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
+
+    // R O U T I N G  T A B L E  (IS OK FOR MODULES IN OWN DIR)
     $pp1_module = [ 
             'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~' ,
           //, 'cncts'                 => (object)[] //c o n n e c t  (states) a t t r i b u t e s
@@ -75,62 +64,26 @@ class Home_ctr extends Config_allsites
     //e n d  R O U T I N G  T A B L E
         ] ;
 
-    //ROUTING ee $this->u riq object and adds elements to $p p1
-    //DISPATCHING ee contains code $akc = $this->u riq->i ; $this->$akc() ; :
-    parent::__construct($pp1, $pp1_module); //Config_ allsites unites (ties) them
-      //extends Db_ allsites ee cc,rr,uu,dd methods = D B I abstr.layer for PDO D B I abs.l.
-      //Db_ allsites extends Dbconn_ allsites singleton DB obj
-    $pp1 = $this->getp('pp1') ;
-                if ('') {self::jsmsg( [ //basename(__FILE__).
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
-                   ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
-                   ,'$this->u riq'=>$this->getp('uriq')
-                ] ) ; }
+    parent::__construct($pp1, $pp1_module);
+
+    //$pp1 = $this->getp('pp1') ;
 
 
-                if ('') {self::jsmsg( [ //basename(__FILE__).
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE call akc'
-                   ,'$this->p p1->dbi_ obj'=>(
-                       isset($pp1->dbi_obj) and null !== $pp1->dbi_obj
-                     ) ? $pp1->dbi_obj : 'NOT SET'
-                   //, '$dsn'=>$dsn
-                   ] ) ; }
-
-      /**
-      *           **** 4. D I S P A T C H I N G
-      * coud be here, in modules Home_ ctr (see code in Config_ allsites is global for all sites)
-      * but better here, in fn  c a l l f  (less and simpler coding, home ctr fns are MUST)
-      */
-        //fn  c a l l f  is called before this from Config_ allsites
-                //$pp1 = $this->getp('pp1') ; //get property
-        //$akc = $pp1->uriq->i ; 
-               //$this->callf($akc, $pp1) ; //code in Config_ allsites
-        //$this->$akc($pp1) ;
 
   } // e n d  f n  __ c o n s t r u c t
 
 
-  /**
-  * p ublic f unction c a l l f (string $fnname, object $pp1)
-  * CONVENTION: Must be same fnname (eg posts) in $pp1 index and in $pp1 value :
-  *   eg link : 'posts' => QS.'i/posts/' ee 'fnname' => QS.'i/fnname/'
-  * CALLED only from Config_allsites __construct so :
-        //fn params are in  p p 1 = properties palette = all settings
-        $pp1 = $this->getp('pp1') ; //get property
-        $akc = $pp1->uriq->i ; 
-        $this->callf($akc, $pp1) ; // OR
-        //$this->$akc($pp1) ;
-  * CALLS Home_ ctr PRIVATE method
-  * WHY :
-  */
+  //           **** D I S P A T C H I N G
+          //$accessor = "get" . ucfirst(strtolower($akc));
   public function callf(string $akc, object $pp1)  //fnname, params
   {
-          //$accessor = "get" . ucfirst(strtolower($akc));
     return ( 
       ( //method_exists($this, $akc) and
       is_callable(array($this, $akc)) ) ? $this->$akc($pp1) : '0'
     ) ;
   }
+
+
 
           //******************************************
           //       DISPATCH  M E T H O D S
@@ -287,12 +240,14 @@ class Home_ctr extends Config_allsites
   //        p o s t s  v i e w  t b l
   private function posts(object $pp1) //private
   {
+
+    $dm = $this ;            //globals for all sites (eg for CRUD...) !!
+
     $uriq = $pp1->uriq ;
     $category_from_url = ( isset($uriq->c) and null !== $pp1->uriq->c ) 
        ? $pp1->uriq->c : ''
     ;
 
-    $dm = $this ;            //globals for all sites (eg for CRUD...) !!
     $this->Login_Confirm_SesUsrId($dm);
 
     $title = 'Posts' ;
@@ -519,7 +474,7 @@ class Home_ctr extends Config_allsites
   private function upd_comment_stat(object $pp1) //private
   {
     $dm = $this ; // Domain Model is B12phpfw CRUD code skeleton
-    $Db_post_comment = new Db_post_comment ;
+    $Tbl_crud_post_comment = new Tbl_crud_post_comment ;
     //copy of an already created object can be made by cloning it. 
                               if ('') { echo '<br /><h3>'.__METHOD__ .', line '. __LINE__ .' SAYS:</h3>'
                               .'<br />works if redirect commented U R L  query array ='.'$this->u riq=' ;
@@ -528,14 +483,14 @@ class Home_ctr extends Config_allsites
                               else { echo ' uriq arr. not set<br />' ; } 
                               echo 'c l a s s  name of $this='.get_class($this);
                               echo '<br />c l a s s  name of $dm='.get_class($dm);
-                              echo '<br />c l a s s  name of $Db_post_comment='.get_class($Db_post_comment);
+                              echo '<br />c l a s s  name of $Tbl_crud_post_comment='. get_class($Tbl_crud_post_comment);
                               }
                               // outputs :
                               //c l a s s name of $this=B12phpfw\Home_ctr
                               //c l a s s name of $dm=B12phpfw\Home_ctr
-                              //c l a s s name of $Db_post_comment=B12phpfw\Db_post_comment
+                              //c l a s s name of $Tbl_crud_post_comment=B12phpfw\Tbl_crud_post_comment
 
-    $Db_post_comment->upd_comment_stat($pp1, $dm);
+    $Tbl_crud_post_comment->upd_comment_stat($pp1, $dm);
     $this->Redirect_to($pp1->comments);
 
   }
@@ -625,3 +580,62 @@ class Home_ctr extends Config_allsites
   }
 
 } // e n d  c l s  C onfig_ m ini3
+
+
+
+
+    /**
+    * *********************************************************
+    * R O U T I N G  T A B L E  (IS OK FOR MODULES IN OWN DIR)
+    * We have two masters (usr, category) and two level of details (post s, comment s).
+    * *********************************************************
+    * QS=?=url adress Query Separator. Without QS we must use Apache mod-rewrite and Composer auto loading classes instead own simple-fast auto loading.
+
+    * After KEY i is VALUE methodname which includes/calls samenamed (or not) 
+    * script/method or calls some (global method) or...
+    */
+
+                /*
+                if ('') {self::jsmsg( [ //basename(__FILE__).
+                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
+                   ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
+                   ,'$this->u riq'=>$this->getp('uriq')
+                ] ) ; }
+
+
+                if ('') {self::jsmsg( [ //basename(__FILE__).
+                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE call akc'
+                   ,'$this->p p1->dbi_ obj'=>(
+                       isset($pp1->dbi_obj) and null !== $pp1->dbi_obj
+                     ) ? $pp1->dbi_obj : 'NOT SET'
+                   //, '$dsn'=>$dsn
+                   ] ) ; }
+                 */
+
+      /**
+      *           **** D I S P A T C H I N G
+      * coud be here, in modules Home_ ctr (see code in Config_ allsites is global for all sites)
+      * but better here, in fn  c a l l f  (less and simpler coding, home ctr fns are MUST)
+      */
+        //fn  c a l l f  is called before this from Config_ allsites
+                //$pp1 = $this->getp('pp1') ; //get property
+        //$akc = $pp1->uriq->i ; 
+               //$this->callf($akc, $pp1) ; //code in Config_ allsites
+        //$this->$akc($pp1) ;
+
+
+  /**
+  * p ublic f unction c a l l f (string $fnname, object $pp1)
+  * CONVENTION: Must be same fnname (eg posts) in $pp1 index and in $pp1 value :
+  *   eg link : 'posts' => QS.'i/posts/' ee 'fnname' => QS.'i/fnname/'
+  * CALLED only from Config_allsites __construct so :
+        //fn params are in  p p 1 = properties palette = all settings
+        $pp1 = $this->getp('pp1') ; //get property
+        $akc = $pp1->uriq->i ; 
+        $this->callf($akc, $pp1) ; // OR
+        //$this->$akc($pp1) ;
+  * CALLS Home_ ctr PRIVATE method
+  * WHY :
+  */
+
+

@@ -1,68 +1,23 @@
 <?php
 // J:\awww\www\fwphp\glomodul4\post\cre_post_frm.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
-//    1. S U B M I T E D  A C T I O N S
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\dbadapter\post ;
+use B12phpfw\module\dbadapter\post\Tbl_crud as Tbl_crud_post;
+use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_category;
+//use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
+
 if(isset($_POST["Submit"]))
 {
-  $PostTitle   = $_POST["PostTitle"];
-  $Category    = $_POST["Category"];
-  $Target      = "Uploads/".basename($_FILES["Image"]["name"]);
-  $Admin       = $_SESSION["username"];
-  $Image       = $_FILES["Image"]["name"];
-  //$img_desc    = self::escp($_POST["img_desc"]) ;
-  //$img_desc    = htmlspecialchars($_POST["img_desc"], ENT_QUOTES, 'UTF-8');
-  $img_desc    = $_POST["img_desc"] ; 
-  //preg_replace('/\s+/', ' ', $input);
-  $SummaryText = $_POST["SummaryDescription"];
-  //$PostText  = $_POST["PostDescription"]; //in op.system file
-
-  //   1.1. V A L I D A T I O N
-  if(empty($PostTitle)){
-    $_SESSION["ErrorMessage"]= "Title Cant be empty";
-    $this->Redirect_to($pp1->addnewpost);
-  }elseif (strlen($PostTitle)<5) {
-    $_SESSION["ErrorMessage"]= "Post Title should be greater than 5 characters";
-    $this->Redirect_to($pp1->addnewpost);
-  }elseif (strlen($img_desc)>3999) {
-    $_SESSION["ErrorMessage"]= "Image Description should be less than than 4000 characters";
-    $this->Redirect_to($pp1->addnewpost);
-  }elseif (strlen($SummaryText)>3999) {
-    $_SESSION["ErrorMessage"]= "Summary Description should be less than than 4000 characters";
-    $this->Redirect_to($pp1->addnewpost);
-  //}elseif (strlen($PostText)>9999) {
-  //  $_SESSION["ErrorMessage"]= "Post Description should be less than than 1000 characters";
-  //  $this->Redirect_to($pp1->addnewpost);
-  }else{
-
-    //  1.2 I N S E R T  D B T B L R O W
-    // Query to insert Post in DB When everything is fine
-    //I NSERT INTO $t bl ($f lds) $w hat
-    $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-    $flds     = "datetime,title,category,author,image, img_desc, summary" ; //not used ,post
-    $qrywhat  = "VALUES(:dateTime,:postTitle,:categoryName,:adminname
-                       ,:imageName, :img_desc, :SummaryText)" ; //,:postDescription
-    $binds = [
-      ['placeh'=>':dateTime',     'valph'=>$DateTime, 'tip'=>'str']
-     ,['placeh'=>':postTitle',    'valph'=>$PostTitle, 'tip'=>'str']
-     ,['placeh'=>':categoryName', 'valph'=>$Category, 'tip'=>'str']
-     ,['placeh'=>':adminname',    'valph'=>$Admin, 'tip'=>'str']
-     ,['placeh'=>':imageName',    'valph'=>$Image, 'tip'=>'str']
-     ,['placeh'=>':img_desc',     'valph'=>$img_desc, 'tip'=>'str']
-     ,['placeh'=>':SummaryText',  'valph'=>$SummaryText, 'tip'=>'str']
-     //,['placeh'=>':postDescription',  'valph'=>$PostText, 'tip'=>'str'] //not used
-    ] ;
-    $cursor = $this->cc($this,'posts',$flds,$qrywhat,$binds);
-
-
-
-    move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
-      //$_SESSION["SuccessMessage"]="Post with id : " .$ConnectingDB->lastInsertId()." added Successfully";
-    if($cursor){ $_SESSION["SuccessMessage"]="Post added Successfully";
-    }else { $_SESSION["ErrorMessage"]= "Post adding  went wrong. Try Again !"; }
-    $this->Redirect_to($pp1->addnewpost);
-  }
+  $tbl_o_post = new Tbl_crud_post ;
+  $tbl_o_post->cc($dm);
+  //$id = $tbl_o_post->rr_last_id($dm);
 } //Ending of Submit Button If-Condition
+
+//               2. R E A D  D B T B L R O W S
+//$cursor = $this->rr("SELECT * FROM category ORDER BY title", [], __FILE__ .' '.', ln '. __LINE__ ) ;
+$tbl_o_category = new Tbl_crud_category ;
+$c_category = $tbl_o_category->rr_all($dm);
 
 
       require $pp1->wsroot_path . 'zinc/hdr.php';
@@ -108,9 +63,7 @@ if(isset($_POST["Submit"]))
               <select class="form-control" id="CategoryTitle"  name="Category">
                  <?php
                 $SrNo = 0;
-                //$cursor = $this->r r('', $this, 'category', "1 ORDER BY title", '*' ) ;
-                $cursor = $this->rr("SELECT * FROM category ORDER BY title", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-                while ($rr= $this->rrnext($cursor))
+                while ($rr= $this->rrnext($c_category))
                 {
                   //all row fld names lowercase
                   switch ($this->getdbi())
@@ -182,7 +135,7 @@ if(isset($_POST["Submit"]))
                   $this->b indvalue(':adminname', $Admin, \PDO::PARAM_STR);
                   $this->b indvalue(':imageName', $Image, \PDO::PARAM_STR);
                   $this->b indvalue(':postDescription', $PostText, \PDO::PARAM_STR);
-                  $cursor = $this->e xecute();*/
+                  $c ursor = $this->e xecute();*/
 -->
 
 

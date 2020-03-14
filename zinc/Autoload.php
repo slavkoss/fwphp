@@ -38,8 +38,9 @@ class Autoload
 
   //private static function get_path(
   private function get_path(
-       string $clsname //cls name
-     , string $nsprefix //eg B12phpfw or B12phpfw\db_adapter\post_category\
+       string $clsname      //cls name
+     //should be assigned here !!! : $modulename_dirname  // eg post_category
+     , string $nsprefix     //eg B12phpfw or B12phpfw\db_adapter\post_category\
      //, $p_path
   )
   {
@@ -50,7 +51,30 @@ class Autoload
             if ( isset($this->pp1->module_path_arr[$ii]) ) 
             {
               $script = $this->pp1->module_path_arr[$ii] . $clsname .'.php' ;
-              if (file_exists($script)) { return $script ; } 
+              $modulename_dirname = basename(dirname($script)) ;
+
+              $nsprefix_arr = explode('\\', $nsprefix) ;
+              $is_contained = false ;
+              for ( $jj = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...
+                    $jj < count($nsprefix_arr) ; //expr2 is evaluated at iteration begin
+                    $jj++ ) :              //expr3 is evaluated at iteration end
+                if ($nsprefix_arr[$jj] == $modulename_dirname) { $is_contained = true ; }
+              endfor;
+
+              // not good for dirs post and post_comment :
+              // str_replace($modulename_dirname, '', $nsprefix) !== $nsprefix
+              if ( file_exists($script) and $is_contained )
+              { 
+                  if ('') {
+                  echo '<pre>'; 
+                    echo $this->fmt( __METHOD__ .', line '. __LINE__ .' SAYS: ','blue') ;
+                    echo $this->fmt('<br />1. In dir in module_path_arr exists script $script='. $script
+                       . '<br />2. $modulename_dirname='.$modulename_dirname
+                       . ' is contained in $nsprefix='. $nsprefix, 'green') ; 
+                  echo '</pre>'; 
+                  }
+                 return $script ;
+              }
             } //else { break ; }
 
             $ii++ ;
@@ -66,9 +90,8 @@ class Autoload
 
     // ********** 1. get_module_cls_script_path **********  eg B12phpfw\\clickmeModule
     $clsscript_path = $this->get_path($cls, $nsprefix1=dirname($nscls)) ;  // $cls_script_path
-
-    $modulename_dirname = basename(dirname($clsscript_path)) ;
-    //$modulename_dirname = ($vendornsp == 'B12phpfw') ? dirname(dirname($clsscript_path)) :  ;
+    //should be assigned in get_ path !! : $modulename_dirname = basename(dirname($clsscript_path)) ;
+               //$modulename_dirname = ($vendornsp == 'B12phpfw') ? dirname(dirname($clsscript_path)) :  ;
                   if ('') {
                   echo '<pre>'; 
                   echo $this->fmt( __METHOD__ .', line '. __LINE__ .' SAYS: inputs and processing ', 'blue') 
@@ -86,37 +109,34 @@ class Autoload
 
                   echo  '<br /> &nbsp;  &nbsp; '.'dirname($nscls)  = name space prefix = '. $this->fmt('$nsprefix = '. $nsprefix1,'green') ;
                   //. ' - is FUNCTIONAL if = "B12phpfw", otherwise eg see categories.php'
-
+ 
+                 /*
                   echo '<b>$clsscript_path='.$clsscript_path.'= one of dirs in module_path_arr such that:'
                   . '<br /> &nbsp;  &nbsp;  1. in dir in module_path_arr exists script "CLASS_NAME.php" = '.$this->fmt('$cls.php = '. $cls .'.php','green')
                   . '&nbsp;  2. $modulename_dirname is contained in name space prefix $nsprefix'
                   .'</b>' ; 
 
 
-                  echo '<br />'.'MODULE_AND_ITS_DIR_NAME = basename(dirname($clsscript_path)) = '. $this->fmt('$modulename_dirname = '. $modulename_dirname, 'green');
+                  echo '<br />'.'MODULE_AND_ITS_DIR_NAME = basename(dirname($clsscript_path)) = '
+                     . $this->fmt('$modulename_dirname = '. $modulename_dirname, 'green');
 
                   if ( str_replace($modulename_dirname, '', $nsprefix1) !== $nsprefix1 ) { echo $this->fmt(' 2. IS TRUE : $modulename_dirname is contained in $nsprefix', 'green') ; }
+                  */
 
                   echo '</pre>';
                   //exit(0) ;
                 }
 
-
-
   // ********** 3. r e q u i r e  cls_ script_ path **********
   switch (true) {
-    case file_exists($clsscript_path) 
-         and str_replace($modulename_dirname, '', $nsprefix1) !== $nsprefix1 :
-       //echo $this->fmt('1. in dir in module_path_arr exists script "CLASS_NAME.php" and 2. $modulename_dirname is contained in $nsprefix', 'green') ; 
-       include_once $clsscript_path ;
-       break;
+    case file_exists($clsscript_path) : include_once $clsscript_path ; break;
 
     default: //e r r o r : not found cls script
         if ('1') { 
         echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS: '.'</h3>' ;
         echo ' '. $this->fmt('ERROR namespaced class '. $nscls, 'red')
         . '<br />None of possible CLASS SCRIPTS DIRS assigned in index.php CONTAIN CLASS SCRIPT :'
-        . "<br />\"$nsprefix1\" :"
+        . "<br />\"$nsprefix1\" :" //eg "B12phpfw\module\dbadapter\post" :
         //. "<br />\"$nsprefix1\" or \"$nsprefix2\" or \"$nsprefix3\" or \"$nsprefix4\" are :"
         ; 
         echo '<pre>';

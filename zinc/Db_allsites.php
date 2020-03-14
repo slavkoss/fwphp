@@ -93,11 +93,23 @@ abstract class Db_allsites extends Dbconn_allsites
   * To access table rows we must read this cursor !!
   */
   public function rrcount($tbl){ //read1_ or_get_c('1',$this,'posts')->COUNT_ROWS
-    $this->dbobj=Dbconn_allsites::get_or_new_dball(basename(__FILE__),__LINE__,__METHOD__); // r r n ext(...
+    $this->dbobj=Dbconn_allsites::get_or_new_dball(basename(__FILE__),__LINE__,__METHOD__); 
     $c_r = $this->rr("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
     while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
+    //$this::disconnect();
     return $r->COUNT_ROWS ;
   }
+
+
+  public function rr_last_id($tbl) {
+    $this->dbobj=Dbconn_allsites::get_or_new_dball(basename(__FILE__),__LINE__,__METHOD__); 
+    $c_r = $this->rr("SELECT max(id) id FROM $tbl" 
+        , [], __FILE__ .' '.', ln '. __LINE__) ;
+    while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; 
+    //$this::disconnect();
+    return $r->id;
+  }
+
 
   /**
   * RETURNS OBJECT VARIABLE OF CURSOR (named SQL), NOT OBJ.VAR. OF TABLE ROW !!

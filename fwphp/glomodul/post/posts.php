@@ -1,8 +1,17 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\posts.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\dbadapter\post ;
+use B12phpfw\module\dbadapter\post\Tbl_crud as Tbl_crud_post;
+use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
                   //echo '<pre>$p p1='; print_r($pp1); echo '</pre><br />';
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+
+//               2. R E A D  D B T B L R O W S
+//no sense to put this in controller (Home_ctr) because details cursor can not be there ! :
+$tbl_o_post = new Tbl_crud_post ;
+$c_posts = $tbl_o_post->rr_all($dm, $category_from_url);
+
 
 ?>
 <!-- HEADER & n avbar_ admin2 -->
@@ -42,22 +51,11 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
       <tbody>
         <?php
-        if ($category_from_url) 
-        {
-          //3. SQL Query if FILTER BY  C ATEGORY_ FROM_ U R L  is active
-          // *******************************************************************
-          $c_r = $this->rr("SELECT * FROM posts WHERE category = :category_from_url ORDER BY datetime desc"
-            ,[ ['placeh'=>':category_from_url', 'valph'=>$category_from_url, 'tip'=>'str'] ]
-            , __FILE__ .'() '.', ln '. __LINE__  );
-        }
-        // default SQL query
-        else{
-          $c_r = $this->rr("SELECT * FROM posts ORDER BY datetime desc", [], __FILE__ .' '.', ln '. __LINE__) ;
-        }
+
 
         $Sr = 0;
-        //while ($r = $c_r->fetch(\PDO::FETCH_OBJ)) 
-        while ($r = $this->rrnext($c_r)): 
+        // $this is $dm=domain model = cls hierarchy in UML diagram
+        while ($r = $this->rrnext($c_posts)): 
         {
           $Sr++;
           //all row fld names lowercase
@@ -94,25 +92,14 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
           <td>
             <?php
 
-
-            //$c_ron=$this->r r('1',$this,'comments',"post_id='$r->id' AND status='ON'");
-            $c_ron = $this->rr("SELECT count(*) COUNT_ROWS FROM comments WHERE post_id=$r->id AND status='ON'", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-            while ($row = $this->rrnext($c_ron)): {$rcnt = $row ;} endwhile; //c_, R_, U_, D_
-            $Total = $rcnt->COUNT_ROWS ;
-            if ($Total>0) { ?>
-              <span class="badge badge-success"><?=$Total?></span>
-               <?php
-            } 
-
-
-            //$c_rof = $this->r r('1', $this, 'comments', "post_id='$r->id' AND (status='OFF' or status < '0')") ;
-            $c_rof = $this->rr("SELECT count(*) COUNT_ROWS FROM comments WHERE post_id=$r->id AND status='OFF' or status < '0'", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-            while ($row = $this->rrnext($c_rof)): {$rcnt = $row ;} endwhile; //c_, R_, U_, D_
-            $Total = $rcnt->COUNT_ROWS ;
-            if ($Total>0) { ?>
-              <span class="badge badge-danger"><?=$Total?></span>
-              <?php
-            } ?>
+            $tbl_o_post_comment = new Tbl_crud_post_comment ;
+            // $dm = domain model = cls hierarchy in UML diagram ($this )
+            // A p p r o v e d  c o m m e n t s  c o u n t  count_post_comment_aproved
+            $rows_on = $tbl_o_post_comment->rr_count_aproved($dm, $r->id, 'ON');
+            if ($rows_on>0) { ?> <span class="badge badge-success"><?=$rows_on?></span> <?php } 
+            // D i s a p p r o v e d  c o m m e n t s  c o u n t
+            $rows_off = $tbl_o_post_comment->rr_count_aproved($dm, $r->id, 'OFF');
+            if ($rows_off>0) { ?> <span class="badge badge-danger"><?=$rows_off?></span> <?php } ?>
           </td>
 
 
