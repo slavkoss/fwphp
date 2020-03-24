@@ -1,9 +1,5 @@
 <?php
-/**
- * loadContent
- * Load the Content
- * @param $default
- */
+
 function loadContent($where, $default='') {
   // Get the content from the url 
   // Sanitize it for security reasons
@@ -35,15 +31,16 @@ function maintContact() {
       unset($_SESSION['token']);
       // Put the sanitized variables in an associative array 
       // Use the FILTER_FLAG_NO_ENCODE_QUOTES to allow names like O'Connor
-      $item  = array (  'id' => (int) $_POST['id'],
-                'first_name' => filter_input(INPUT_POST,'first_name', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES),
-                'last_name'  => filter_input(INPUT_POST,'last_name', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES),
-                'position'   => filter_input(INPUT_POST,'position', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES),
-                'email'      => filter_input(INPUT_POST,'email', FILTER_SANITIZE_STRING),            
-                'phone'      => filter_input(INPUT_POST,'phone', FILTER_SANITIZE_STRING),
-                'user_name'  => filter_input(INPUT_POST,'user_name', FILTER_SANITIZE_STRING),
-                'access'     => filter_input(INPUT_POST,'access', FILTER_SANITIZE_STRING)
-            );
+      $item  = array (
+      'id' => (int) $_POST['id'],
+      'first_name' => filter_input(INPUT_POST,'first_name', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES),
+      'last_name'  => filter_input(INPUT_POST,'last_name', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES),
+      'position'   => filter_input(INPUT_POST,'position', FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES),
+      'email'      => filter_input(INPUT_POST,'email', FILTER_SANITIZE_STRING),            
+      'phone'      => filter_input(INPUT_POST,'phone', FILTER_SANITIZE_STRING),
+      'user_name'  => filter_input(INPUT_POST,'user_name', FILTER_SANITIZE_STRING),
+      'access'     => filter_input(INPUT_POST,'access', FILTER_SANITIZE_STRING)
+      );
               
       // Set up a Contact object based on the posts
       $contact = new Contact($item);
@@ -218,7 +215,7 @@ function maintLot() {
         'lot_image' => filter_input(INPUT_POST,'lot_image', 
           FILTER_SANITIZE_STRING),
         'lot_number' => (int) $_POST['lot_number'],
-        'lot_price'	=> filter_input(INPUT_POST,'lot_price', 
+        'lot_price'  => filter_input(INPUT_POST,'lot_price', 
           FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION),
         'cat_id' => (int) $_POST['cat_id']     
       );
@@ -312,6 +309,7 @@ function userLogout() {
 }
 
 function maintArticle() {
+
   $results = '';
   if (isset($_POST['save']) AND $_POST['save'] == 'Save') {
     // check the token

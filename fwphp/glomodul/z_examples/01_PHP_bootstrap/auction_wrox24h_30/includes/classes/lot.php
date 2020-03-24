@@ -198,7 +198,7 @@ class Lot
         $statement->close();
         // add success message
         $return = array('', 'Lot Record successfully added.');
-	    // add success message
+      // add success message
         return $return;
       } else {
         $return = array('lotmaint', 'No Lot Record Added. Unable to create record.', '');
@@ -228,11 +228,11 @@ class Lot
   }
   
   public static function getLot($id) {
-	// clear the results
+  // clear the results
     $items = '';
     // Get the connection 
     $connection = Database::getConnection();
-    // Set up the query	
+    // Set up the query  
     $query = 'SELECT * FROM `lots` WHERE lot_id="'.$id.'"';
     // Run the query   
     $result_obj = $connection->query($query);
@@ -242,12 +242,12 @@ class Lot
       }
       // pass back the results
         return($item);
-    }	
+    }  
     catch(Exception $e)
     {
     echo $e->getMessage();
     }
-	
+  
   }
 
   static public function getLots($cat_id) {

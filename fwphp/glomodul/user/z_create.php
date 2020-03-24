@@ -3,7 +3,7 @@
 * step 3 - IN HOME.PHP WITH TABLE DISPLAY
 * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\create.php
 * called from Home_ ctr cls method  c() when usr clicks link/button or any URL is entered in ibrowser  
-* calls Admin_crud cls method cc()     =pre-insert tbl row
+* calls Tbl_ crud cls method cc()     =pre-insert tbl row
 * which calls Db_ allsites method cc() =on-insert tbl-row
 */
 namespace B12phpfw ;
@@ -41,8 +41,8 @@ if ( !empty($_POST))
   // 2. insert data
   if ($valid) {
     $fldvals = [$username, $email] ;
-    $Admin_crud = new Admin_crud ;
-    $id = $Admin_crud->cc($this, $fldvals);
+    $Tbl_crud = new Tbl_crud ;
+    $id = $Tbl_crud->cc($this, $fldvals);
     echo "<h3>Created id=$id </h3>" ;
     //header("Location: index.php");
   }
@@ -57,7 +57,7 @@ if ( !empty($_POST))
               <h4>Create a Customer</h4>
           </div>
 
-          <form class="form-horizontal" action="<?=$this->pp1->c?>" method="post">
+          <form class="form-horizontal" action="<?=$pp1->c?>" method="post">
 
             <div class="control-group <?php echo !empty($usernameError)?'error':'';?>">
               <label class="control-label">Name</label>

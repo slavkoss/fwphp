@@ -2,7 +2,8 @@
   /* 
    *  APP CORE CLASS
    *  Creates URL & Loads Core Controller
-   *  URL Format - /controller/method/param1/param2
+   *  URL Format - /controller[/method/param1/param2]
+   *      default method is index 
    */
   class Core {
     // Set Defaults
@@ -54,10 +55,22 @@
 
     // Construct URL From $_GET['url']
     public function getUrl(){
-        if(isset($_GET['url'])){
+        if(isset($_GET['url']))
+        {
           $url = rtrim($_GET['url'], '/');
           $url = filter_var($url, FILTER_SANITIZE_URL);
           $url = explode('/', $url);
+                  if ('1') {  //if ($module_ arr['dbg']) {
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
+                    .' ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
+                  echo '<pre>';
+                  echo '<b>$_ GET</b>='; print_r($_GET); 
+                  echo '<b>$_POST</b>='; print_r($_POST); 
+                  echo '<b>$_SESSION</b>='; print_r($_SESSION); 
+                  echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>    ='; print_r($_SERVER['REQUEST_URI']); 
+                  echo '<br /><b>$url='; print_r($url);
+                  echo '</pre>'; 
+                  }
           return $url;
         }
     }

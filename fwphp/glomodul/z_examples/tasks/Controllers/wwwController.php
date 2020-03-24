@@ -1,5 +1,5 @@
 <?php
-//J:\awww\www\fwphp\glomodul\z_examples\tasks\Controllers\wwwController.php
+//J:\awww\www\fwphp\glomodul\z_examples\tasks\Controllers\Controller.php
 class wwwController extends Controller
 {
     function index()

@@ -12,12 +12,11 @@
  */
 // Get the category information
 $items = Category::getCategories();
-if (empty($items)) {
-  $items = array();
-}
+if (empty($items)) { $items = array(); }
 $accessLevel = Contact::accessLevel();
 ?>
-<h1>Categories
+
+<h1>Products Categories
   <?php if ($accessLevel == 'Admin') : ?>
     <a class="button" href="index.php?content=categorymaint&cat_id=0">Add</a>
   <?php endif; ?>
@@ -48,7 +47,7 @@ $accessLevel = Contact::accessLevel();
       <?php echo htmlspecialchars($item->getCat_name()); ?></a></h2>  
       <p><?php echo htmlspecialchars($item->getCat_description()); ?></p>
       <a class="button display" 
-      href="index.php?content=lots&cat_id=<?php echo (int) $item->getCat_id(); ?>&amp;sidebar=catnav">Display Lots</a>
+      href="index.php?content=lots&cat_id=<?php echo (int) $item->getCat_id(); ?>&amp;sidebar=catnav">Category contains</a>
       <?php if ($accessLevel == 'Admin') : ?>
         <a class="button edit" 
           href="index.php?content=categorydelete&cat_id=<?php echo 
@@ -62,3 +61,6 @@ $accessLevel = Contact::accessLevel();
   </li>
   <?php endforeach; ?>
 </ul>
+
+<hr />
+<span style="font-size:small;"><?=__FILE__?></span>

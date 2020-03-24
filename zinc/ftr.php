@@ -70,6 +70,11 @@ if ('1') //if ($autoload_arr['dbg'])
 
   echo 'PHP_OS='. PHP_OS .', php_uname()=' . php_uname() ;
   echo '<br />'.'$_SERVER[\'DOCUMENT_ROOT\']='.$_SERVER['DOCUMENT_ROOT']  ;
+  echo '<br />'.'$_SERVER[\'REQUEST_URI\']='.$_SERVER['REQUEST_URI']  ;
+  echo '<br />'.'$_SERVER[\'QUERY_STRING\']='.$_SERVER['QUERY_STRING']  ;
+
+
+
   echo '<br />'.'~~~~~~~~~<b>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</b>' ; 
 
 

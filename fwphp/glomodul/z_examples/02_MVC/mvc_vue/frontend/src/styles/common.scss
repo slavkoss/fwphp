@@ -1,0 +1,32 @@
+.router-fade-enter-active, .router-fade-leave-active {
+  transition: opacity .3s;
+}
+.router-fade-enter, .router-fade-leave-active {
+  opacity: 0;
+}
+
+.no-mr {
+margin-right: 0 !important;
+}
+
+.no-ml {
+margin-left: 0 !important;
+}
+
+.toolbar__content {
+background: white;
+color: black;
+border-bottom: 4px solid #f44336;
+}
+
+.content {
+margin-bottom: 25px;
+}
+
+.pull-right {
+float: right;
+}
+
+.pull-left {
+float: left;
+}

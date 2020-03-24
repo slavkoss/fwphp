@@ -3,7 +3,7 @@
 *  J:\awww\www\fwphp\glomodul\post_comment\Db_post_comment.php
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\module\dbadapter\post_comment ;
+namespace B12phpfw\dbadapter\post_comment ;
 use B12phpfw\module\blog\Home_ctr ;
 
 class Tbl_crud //Db_post_comment //extends Db_allsites

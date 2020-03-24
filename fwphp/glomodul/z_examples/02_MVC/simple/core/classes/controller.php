@@ -72,7 +72,7 @@ abstract class Controller {
 
         $path = strtolower($path);
 
-        require(ROOT . '/app/models/' . $path . '.php');
+        require(MODULEDIR_PATH . '/app/models/' . $path . '.php');
 
         $this->$class = new $class;
 
@@ -80,10 +80,14 @@ abstract class Controller {
 
     function view ($path, $data = []) {
 
-        if (is_array($data))
-            extract($data);
-
-        require(ROOT . '/app/views/' . $path . '.php');
+        if (is_array($data)) {
+          //extract( array &$assoc_array[,int $flags=EXTR_OVERWRITE[,string $prefix=NULL]] ) :int
+          //   EXTR_PREFIX_SAME = If there is a collision, prefix the variable name with prefix. 
+          //Do not use extract() on untrusted data, like user input(e.g. $_GET, $_FILES). 
+          //keys as variable names and values as variable values
+          extract($data);
+        }
+        require(MODULEDIR_PATH . '/app/views/' . $path . '.php');
 
     }
 

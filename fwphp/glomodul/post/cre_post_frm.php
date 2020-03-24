@@ -3,7 +3,7 @@
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
-use B12phpfw\module\dbadapter\post\Tbl_crud as Tbl_crud_post;
+use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
 use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_category;
 //use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
 

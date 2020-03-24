@@ -2,8 +2,8 @@
 //J:\awww\www\fwphp\glomodul4\blog\posts.php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
-use B12phpfw\module\dbadapter\post\Tbl_crud as Tbl_crud_post;
-use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
+use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
+use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
                   //echo '<pre>$p p1='; print_r($pp1); echo '</pre><br />';
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 

@@ -10,6 +10,9 @@ class Admins
     $this->id = $id;
   }
 
+
+
+
   public function __get($memberName) // from data source
   {
     // called eg :  $posts = $admin->posts ; //$posts = $admin->get_posts();

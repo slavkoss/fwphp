@@ -92,7 +92,8 @@ abstract class Db_allsites extends Dbconn_allsites
   * Shows how to use other two  r e a d  methods
   * To access table rows we must read this cursor !!
   */
-  public function rrcount($tbl){ //read1_ or_get_c('1',$this,'posts')->COUNT_ROWS
+  public function rrcount($tbl)
+  { //read1_ or_get_c('1',$this,'posts')->COUNT_ROWS
     $this->dbobj=Dbconn_allsites::get_or_new_dball(basename(__FILE__),__LINE__,__METHOD__); 
     $c_r = $this->rr("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
     while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_

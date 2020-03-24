@@ -1,7 +1,7 @@
 /*
--- J:\awww\www\fwphp\glomodul4\help_sw\test\auction_wrox24h_30\1_DDL_moj_mysql_auction.sql
+-- J:\awww\www\fwphp\glomodul\z_examples\01_php_bootstrap\auction_wrox24h_30\z_DDL_moj_mysql_auction.sql
 -- Note: All passwords are 12345678
---      private static $_mysqlDb = 'smithside'; // tema  or  smithside
+--      private static $_mysqlDb = 'z_smithside'; // tema  or  smithside
 */
 DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE `contacts` (
@@ -91,16 +91,16 @@ INSERT INTO `articles` (`id`, `title`, `text`, `created_by`, `date_created`, `mo
 
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE `menus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `link` varchar(255) NOT NULL,
-  `level` varchar(10) NOT NULL DEFAULT 'Public',
+  `id`      int(11) NOT NULL AUTO_INCREMENT,
+  `title`   varchar(100) NOT NULL,
+  `link`    varchar(255) NOT NULL,
+  `level`   varchar(10) NOT NULL DEFAULT 'Public',
   `orderby` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
 INSERT INTO `menus` (`id`, `title`, `link`, `level`, `orderby`) VALUES
-(1, 'Lot Categories', 'content=categories', 'Public', 1),
+(1, 'Category', 'content=categories', 'Public', 1),
 (2, 'About Us', 'content=about', 'Public', 2),
 (3, 'Home', 'content=home', 'Public', 3),
 (4, 'Logout', 'content=logout', 'LoggedIn', 4),

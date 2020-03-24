@@ -182,7 +182,7 @@ class Menu extends Table
     // Get the connection  
     $connection = Database::getConnection();
     // Set up query
-    $query = 'SELECT * FROM `menus` ORDER BY `orderby` ASC';
+    $query = 'SELECT * FROM menus ORDER BY orderby DESC';
     // Run the query
     $result_obj = '';
     $result_obj = $connection->query($query);

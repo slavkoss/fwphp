@@ -1,19 +1,6 @@
 <?php
 /**
  * category.php
- *
- * Category class file
- *
- * @version    1.2 2011-02-03
- * @package    Smithside Auctions
- * @copyright  Copyright (c) 2011 Smithside Auctions
- * @license    GNU General Public License
- * @since      Since Release 1.0
- */
-/**
- * Category class
- *
- * @package    Smithside Auctions
  */
 class Category
 {

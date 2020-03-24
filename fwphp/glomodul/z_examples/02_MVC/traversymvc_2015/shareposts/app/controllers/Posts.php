@@ -9,7 +9,7 @@
       $this->userModel = $this->model('User');
     }
 
-    // Load All Posts
+    // Load All Posts  c R u d  more in block
     public function index(){
       $posts = $this->postModel->getPosts();
 
@@ -20,7 +20,7 @@
       $this->view('posts/index', $data);
     }
 
-    // Show Single Post
+    // Show Single Post  c R u d  one  in block
     public function show($id){
       $post = $this->postModel->getPostById($id);
       $user = $this->userModel->getUserById($post->user_id);
@@ -33,7 +33,7 @@
       $this->view('posts/show', $data);
     }
 
-    // Add Post
+    // Add Post  C r u d
     public function add(){
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
         // Sanitize POST
@@ -82,7 +82,7 @@
       }
     }
 
-    // Edit Post
+    // Edit Post c r U d
     public function edit($id){
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
         // Sanitize POST
@@ -141,7 +141,7 @@
       }
     }
 
-    // Delete Post
+    // Delete Post  c r u D
     public function delete($id){
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
         //Execute

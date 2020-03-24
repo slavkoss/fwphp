@@ -3,7 +3,7 @@
 *  J:\awww\www\fwphp\glomodul\post\Db_post.php
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\module\dbadapter\post ;
+namespace B12phpfw\dbadapter\post ;
 use B12phpfw\module\blog\Home_ctr ;
 
 class Tbl_crud //Db_post //extends Db_allsites //was Home

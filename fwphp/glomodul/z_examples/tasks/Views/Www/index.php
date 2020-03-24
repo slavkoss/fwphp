@@ -16,16 +16,24 @@
         foreach ($tasks as $task)
         {
             ?><tr>
-            <td><?=$task['event_id']?></td>
-            <td><?=$task['event_title']?></td>
-            <td><?=$task['event_desc']?></td>
+            <td><?=$task['id']?></td>
+
+            <td>
+              <a href="<?=QS?>edit/<?=$task["id"]?>">
+                 <span class="glyphicon glyphicon-edit"></span><?=$task['title']?></a>
+            </td>
+
+            <td><?=$task['summary']?></td>
 
             <td class='text-center'>
-            
-            <a class='btn btn-info btn-xs' href="<?=QS?>edit/<?=$task["event_id"]?>"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+            <!--a class='btn btn-info btn-xs' href="<?=QS?>edit/<?=$task["id"]?>">
+               <span class="glyphicon glyphicon-edit"></span> Edit</a-->
 
-            <a href="<?=QS?>delete/<?=$task['event_id']?> "
-               class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+            <a href="<?=QS?>delete/<?=$task['id']?>"
+               class="btn btn-danger btn-xs">
+               <span class="glyphicon glyphicon-remove"></span> Del <?=$task['id']?></a>
+            </td>
+
             </tr>
             <?php
         }

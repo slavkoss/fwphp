@@ -5,20 +5,26 @@
 * http://dev1:8083/fwphp/glomodul/z_examples/02_mvc/03xuding_glob/index.php?i/u/id/79
 *
 * called from Home_ ctr cls method  u() when usr clicks link/button or any URL is entered in ibrowser  
-* calls Admin_crud cls method uu()     =pre-update
+* calls Tbl_ crud cls method uu()     =pre-update
 * which calls Db_ allsites method uu() =on-update
 */
-namespace B12phpfw ;
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\user ;
+//use B12phpfw\module\user\Home_ctr ;
+use B12phpfw\dbadapter\user\Tbl_crud ;
+//use B12phpfw\core\zinc\Config_allsites ;
                 if ('') { 
                   echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
-                  echo '<pre>URL query array $this->uriq='; print_r($this->uriq); echo '</pre>';
-                        // $this->uriq=stdClass Object( [i] => u  [d] => 79 )
-                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
-                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  echo '<pre>';
+                  //echo '$_GET='; print_r($_GET);
+                  //echo '$_POST='; print_r($_POST); 
+                  echo 'URL query array $pp1->uriq='; print_r($pp1->uriq);
+                        // $pp1->uriq=stdClass Object( [i] => u  [d] => 79 )
+                  echo '</pre>';
                   //exit();
                 }
-$id = (int)$this->uriq->id ;
-if ( null==$id ) { header("Location: index.php"); }
+$id = (int)$pp1->uriq->id ;
+//if ( null==$id ) { header("Location: index.php"); }
 
 if ( !empty($_POST) ) 
 {
@@ -49,14 +55,14 @@ if ( !empty($_POST) )
 
         if ($valid) {
           $fldvals = [$aname, $email, $id, $abio] ;
-          $Admin_crud = new Admin_crud ;
-          $Admin_crud->uu($this, $fldvals);
-          //echo "<h3>Updated id=$id </h3>" ;
+          $Tbl_crud = new Tbl_crud ;
+          $Tbl_crud->uu($this, $fldvals);
+          //echo "<h3>U pdated id=$id </h3>" ;
         }
 } else {
           //show row to update
-          $Admin_crud = new Admin_crud ;
-          $cursor = $Admin_crud->rr($this, $id) ;
+          $Tbl_crud = new Tbl_crud ;
+          $cursor = $Tbl_crud->rr($this, $id) ;
           while ($row = $this->rrnext($cursor)): {$r = $row ;} endwhile;
           $username = $r->username ;
           $aname    = $r->aname ;
@@ -69,17 +75,22 @@ if ( !empty($_POST) )
 
       <div class="span10 offset1">
           <div class="row">
-            <h3><?php if (isset($_POST['username'])): echo 'UPDATED'; else: echo 'Update';  endif; ?>  
-                  Admin user
+            <h3><?php
+              if (isset($_POST['username'])):
+                 echo 'UPDATED Admin user username='. $username .', id='.$id; 
+              else:
+                echo 'Update Admin user ';
+              endif;
+                  ?>
             </h3>
           </div>
 
           <form class="form-horizontal"  method="post"
-                action="<?=$this->pp1->u . $id?>">
+                action="<?=$pp1->u . $id?>">
 
             <div class="control-group <?php echo !empty($anameError)?'error':'';?>">
               <label class="control-label">
-                 Admin username=<?=$username?>, id=<?=$id?> name</label>
+                 Name of admin username=<?=$username?>, id=<?=$id?> </label>
               <div class="controls">
                   <input name="aname" type="text"  placeholder="Admin user name" 
                          value="<?php echo !empty($aname)?$aname:'';?>">

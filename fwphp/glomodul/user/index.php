@@ -7,25 +7,39 @@
 * see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
 * For more code comments see blog module J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
 */
-namespace B12phpfw ;
+//c o r e = processing (behavior), z i n c = cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\user ;
+use B12phpfw\core\zinc\Autoload ;
 
-$dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ; 
+//1. settings - properties - assign global variables to use them in any code part
+$module_towsroot = '../../../' ;  //to web server doc root or our doc root by ISP
+$dirup_to_app = str_replace('\\','/', dirname(__DIR__) ) ; //to app eg glomodul
+
+//MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
 $pp1 = (object)
-[   'dbg'=>'1', 'module_version'=>'6.0.4.0 Users'
-  , 'module_towsroot'=>'../../../'
-  , 'vendor_namesp_prefix'=>'B12phpfw'
-  , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
-        str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path (CONVENTION!!)
-      , $dirup_tmp.'/blog/'
-  ] , 'caller'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+[   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+  //1.1
+  , 'module_towsroot'=>$module_towsroot
+  //1.2
+  , 'module_version'=>'6.0.4.0 Users', 'vendor_namesp_prefix'=>'B12phpfw'
+  //1.3 F o r  A u t o l o a d
+  , 'module_path_arr'=>[
+       str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
+      //dir of global clses for all sites :
+      , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
+      , $dirup_to_app.'/blog/'
+  ] 
 ] ;
+
+//2. global cls loads classes scripts automatically
 require($pp1->module_towsroot.'zinc/Autoload.php');
-new Autoload($pp1); //global cls loads classes scripts automatically
+new Autoload($pp1);
                 if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
                    .', line '. __LINE__ .' SAYS'=>' '
                    ,'where am I'=>'AFTER  A u t o l o a d'
                 ] ) ; }
 
+//3. process request from ibrowser & send response to ibrowser :
 //1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
 //STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
 $db = new Home_ctr($pp1) ; //also instatiates all higher cls-es : Config_ allsites

@@ -8,13 +8,12 @@ class Main extends Controller {
     function Index () {
         
         if (!isset($_SESSION['login'])) {
-
-            header('Location: /login');
+            //http://dev1:8083/fwphp/glomodul/z_examples/02_mvc/simple/login/login/...
+            //header('Location: '.MODULEURL.'login');
+            header('Location: '.MODULEURL.'dashboard');
 
         } else {
-
-            header('Location: /dashboard');
-            
+            header('Location: '.MODULEURL.'dashboard');
         }
         
     }

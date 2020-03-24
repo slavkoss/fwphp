@@ -10,7 +10,7 @@ class Database
     public static function getBdd() {
         if(is_null(self::$bdd)) {
             //self::$bdd = new PDO("mysql:host=localhost;dbname=todo_php", 'root', '');
-            self::$bdd = new PDO("mysql:host=localhost;dbname=tema", 'root', ''
+            self::$bdd = new PDO("mysql:host=localhost;dbname=z_blogcms", 'root', ''
               , [
                    PDO::ATTR_PERSISTENT => true
                  , PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION

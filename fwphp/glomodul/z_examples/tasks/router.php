@@ -8,9 +8,12 @@ class Router
       $requested_relpath = trim(str_replace(QS,'',$url));
       $explode_url1 = explode('/', $requested_relpath);
       $explode_url = array_slice($explode_url1, MODULE_LEVEL);
-                  if ('1') {echo '<h4>'. __METHOD__ . ' SAYS: </h4>'
-                  . 'MODULE_RELPATH=str_replace("www/index.php", "", $_SERVER["SCRIPT_NAME"]))='.MODULE_RELPATH;
-                  echo '<br />MODULE_LEVEL='.MODULE_LEVEL .' // +1 level are method params';
+                  if ('1') {echo '<h4>'. __METHOD__ . ' SAYS: </h4>';
+                  echo '$_SERVER[\'REQUEST_URI\']='.$_SERVER['REQUEST_URI'] ; 
+                  echo '<br />'.'MODULE_RELPATH= dirname($_SERVER[\'REQUEST_URI\'])/='
+                     . dirname($_SERVER['REQUEST_URI']).'/' ; 
+                  echo '<br />'.'Or worse: MODULE_RELPATH=str_replace("www/index.php", "", $_SERVER["SCRIPT_NAME"]))='.MODULE_RELPATH;
+                  echo '<br />MODULE_ LEVEL='.MODULE_LEVEL .' // +1 level are method params';
                   echo '<br />'.'MODULE_PATH=str_replace("www/index.php", "", $_SERVER["SCRIPT_FILENAME"]))='.MODULE_PATH ; 
                   //
                   echo '<br />$requested_relpath='.$requested_relpath ;

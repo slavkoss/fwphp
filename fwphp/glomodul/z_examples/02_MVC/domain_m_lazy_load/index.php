@@ -2,6 +2,7 @@
 // J:\awww\www\fwphp\glomodul\z_examples\02_mvc\domain_m_lazy_load\index.php
 // https://www.hashbangcode.com/article/lazy-instantiation-php
 
+// Lazy instantiation (also known as lazy load) OO design pattern
 //        CREATING OBJECTS WHEN THEY ARE NEEDED
 
 require 'Admins.php';

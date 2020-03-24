@@ -22,7 +22,13 @@ See **info code :**
 http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php       
 https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php        
 
-B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CRUD code skeleton") because dirs are like Oracle FORMS form module .fmb and other mentioned below, see at this text end  [4.  **"What is SW fw"**](#swfw).     
+B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CRUD code skeleton") because dirs are like Oracle FORMS form module .fmb and other reasons mentioned below.    
+But basics are same : HexArch (Hexagonal architecture) application of DDD (Domain Driven Design) :  example img gallery code https://github.com/oumarkonate/hexagonal-architecture 
+1. **application** directory : src/Config contains ~ code in my Config_allsites cls
+2. application directory : src/Controller contains ~ code in my  Config_allsites cls  and Home_ctr cls
+3. **Domain (model)** code in directory src/Domain contains ~ code in my  Dbconn_allsites cls and Db_allsites cls
+4. **Infrastructure (or Common)** dir contains dependencies that app code needs to work - my zinc dir
+See at this text end  [4.  **"What is SW fw"**](#swfw).
 
 ![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/   OR       
  ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\xampp\\htdocs ee   http://localhost:8083/  OR       

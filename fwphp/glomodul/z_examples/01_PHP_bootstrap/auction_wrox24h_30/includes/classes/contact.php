@@ -1,76 +1,18 @@
 <?php
 /**
- * contact.php
- *
- * Contact class file
- *
- * @version  1.2 2011-02-03
- * @package  Smithside Auctions
- * @copyright  Copyright (c) 2011 Smithside Auctions
- * @license  GNU General Public License
- * @since    Since Release 1.0
- */
-/**
- * Contact class
- *
- * @package  Smithside Auctions
+ * contact.php  - sell agents
  */
 class Contact
 {
-  /**
-   * ID
-   * @var int
-   */
-  protected $id;
-  
-  /**
-   * First name
-   * @var string
-   */
+  protected $id; // * @var int
   protected $first_name;
-  
-  /**
-   * Last Name
-   * @var String
-   */
   protected $last_name;
-  
-  /**
-   * Position in the company.
-   * @var string
-   */
-  protected $position;
-  
-  /**
-   * Email
-   * @var string
-   */
+  protected $position; // Position in the company. @var string
   protected $email;
-  
-  /**
-   * Phone number, formatted in string
-   * @var string
-   */
-  protected $phone;
-  
-  /**
-   * User name
-   * @var string
-   */
+  protected $phone; //Phone number, formatted in string
   protected $user_name;
-  
-  /**
-   * Password
-   * @var string
-   */
   protected $password;
-  
-  
-  /**
-   * Access level
-   * @var string
-   */
-  protected $access;
+  protected $access; //Access level
 
   /**
    * Initialize the Contact with first name, last name, position
@@ -80,53 +22,18 @@ class Contact
   public function __construct($input = false) {
   if (is_array($input)) {
     foreach ($input as $key => $val) {
-    // Note the $key instead of key. 
-    // This will give the value in $key instead of 'key' itself
+    // Note the $key instead of key. This will give value in $key instead of 'key' itself
     $this->$key = $val;
     }
   }
   }
-  
-  /**
-   * Return ID
-   * @return int
-   */
-  public function getId() {
-  return $this->id;
-  }
-  
-  /**
-   * Return First Name
-   * @return string
-   */
-  public function getFirst_name() {
-  return $this->first_name;
-  }
-  
-  /**
-   * Return Last Name
-   * @return string
-   */
-  public function getLast_name() {
-  return $this->last_name;
-  }
-  
-  /**
-   * Return Position
-   * @return string
-   */
-  public function getPosition() {
-  return $this->position;
-  }
-  
-  /**
-   * Return Email
-   * @return string
-   */
-  public function getEmail() {
-  return $this->email;
-  }
-  
+
+  public function getId() { return $this->id; }
+  public function getFirst_name() { return $this->first_name; }
+  public function getLast_name() { return $this->last_name; }
+  public function getPosition() { return $this->position; }
+  public function getEmail() { return $this->email; }
+
   /**
    * Return Phone
    * @return string
@@ -134,7 +41,7 @@ class Contact
   public function getPhone() {
   return $this->phone;
   }
-  
+
   /**
    * Return User Name
    * @return string
@@ -142,7 +49,7 @@ class Contact
   public function getUser_name() {
   return $this->user_name;
   }
-  
+
   /**
    * Return Access
    * @return string
@@ -150,7 +57,7 @@ class Contact
   public function getAccess() {
   return $this->access;
   }
-  
+
   /**
    * Creates a full name by concatenating first and last names
    * @return string
@@ -159,12 +66,12 @@ class Contact
    $name = $this->first_name . ' ' . $this->last_name;
    return $name;
   }
-  
+
   protected function _verifyInput() {
-  $error = false; 
+  $error = false;
   if (!trim($this->first_name)) {
     $error = true;
-  } 
+  }
   if (!trim($this->last_name)) {
     $error = true;
   }
@@ -174,8 +81,8 @@ class Contact
      $error = true;
   } elseif (self::getContactIdByUser(trim($this->user_name))) {
     $error = true;
-  } 
-  
+  }
+
   $password1 = trim($_POST['password1']);
   if ($password1) {
     if ($password1 != trim($_POST['password2'])) {
@@ -193,37 +100,37 @@ class Contact
   }
 
   public function addRecord() {
-  
+
     // Verify the fields
     if ($this->_verifyInput()) {
       // prepare for the encrypted password
         $password = trim($_POST['password1']);
-      
+
       // Get the Database connection
       $connection = Database::getConnection();
-      
-      // Prepare the data 
-      $query = "INSERT INTO contacts(first_name, last_name, position, email, phone) 
+
+      // Prepare the data
+      $query = "INSERT INTO contacts(first_name, last_name, position, email, phone)
       VALUES ('" . Database::prep($this->first_name) . "',
        '" . Database::prep($this->last_name) . "',
        '" . Database::prep($this->position) . "',
        '" . Database::prep($this->email) . "',
        '" . Database::prep($this->phone) . "')";
-      // Run the MySQL statement 
+      // Run the MySQL statement
       if ($connection->query($query)) { // this inserts the row
         // update with the user name and password now that you know the id
-        $query = "UPDATE contacts 
-        SET user_name = '" . Database::prep($this->user_name) . "', 
+        $query = "UPDATE contacts
+        SET user_name = '" . Database::prep($this->user_name) . "',
         password = '" . hash_hmac('sha512',
-          $password . '!hi#HUde9' . mysql_insert_id(), 
+          $password . '!hi#HUde9' . mysql_insert_id(),
           SITE_KEY) ."',
         access = '" . Database::prep($this->access) . "'";
         if ($connection->query($query)) { // this updates the row
-          $return = array('', 'Contact Record successfully added.', '');   
+          $return = array('', 'Contact Record successfully added.', '');
           // add success message
           return $return;
         } else {
-          // send fail message 
+          // send fail message
             $return = array('', 'User name/password not added to contact.', '');
             return $return;
         }
@@ -239,76 +146,76 @@ class Contact
        or problem with user name or password.', '0');
       return $return;
     }
-  
+
   }
-  
+
   public static function getContacts() {
     // clear the results
     $items = [];  //'';
-    // Get the connection  
+    // Get the connection
     $connection = Database::getConnection();
     // Set up query
     $query = 'SELECT `id`,`first_name`,`last_name`,`position`, `email`, `phone`,
-      `user_name`, `access` 
+      `user_name`, `access`
       FROM `contacts` ORDER BY first_name, last_name';
     // Run the query
     $result_obj = '';
     $result_obj = $connection->query($query);
-    // Loop through the results, 
-    // passing them to a new version of this class, 
+    // Loop through the results,
+    // passing them to a new version of this class,
     // and making a regular array of the objects
-    try {  
+    try {
       while($result = $result_obj->fetch_object('Contact')) {
         $items[]= $result;
       }
       // pass back the results
       return($items);
     }
-    
+
     catch(Exception $e) {
       return false;
-    }  
+    }
   }
-  
+
   public function editRecord() {
     // Verify the fields
     if ($this->_verifyInput()) {
-      
+
       // Get the Database connection
       $connection = Database::getConnection();
 
       // Update with a password changed
       if (trim($_POST['password1'])) {
         // prepare the encrypted password
-        $hash_password = hash_hmac('sha512', 
-          trim($_POST['password1']) . '!hi#HUde9' . $this->id, 
+        $hash_password = hash_hmac('sha512',
+          trim($_POST['password1']) . '!hi#HUde9' . $this->id,
           SITE_KEY);
         // Set up the prepared statement
-        $query = 'UPDATE `contacts` SET first_name=?, last_name=?, 
-          position=?, email=?, phone=?, 
-          user_name=?, password=?, access=? 
+        $query = 'UPDATE `contacts` SET first_name=?, last_name=?,
+          position=?, email=?, phone=?,
+          user_name=?, password=?, access=?
           WHERE id=?';
         $statement = $connection->prepare($query);
         // bind the parameters
-        $statement->bind_param('ssssssssi',$this->first_name, $this->last_name, 
-          $this->position, $this->email, $this->phone, 
-          $this->user_name, $hash_password, $this->access, 
-          $this->id);  
+        $statement->bind_param('ssssssssi',$this->first_name, $this->last_name,
+          $this->position, $this->email, $this->phone,
+          $this->user_name, $hash_password, $this->access,
+          $this->id);
       } else {
         // update without a password changed
         // Set up the prepared statement
         $query = 'UPDATE `contacts` SET first_name=?, last_name=?,
           position=?, email=?, phone=?,
-          user_name=?, access=? 
+          user_name=?, access=?
           WHERE id=?';
         $statement = $connection->prepare($query);
         // bind the parameters
-        $statement->bind_param('sssssssi',$this->first_name, $this->last_name, 
-          $this->position, $this->email, $this->phone, 
-          $this->user_name, $this->access, 
+        $statement->bind_param('sssssssi',$this->first_name, $this->last_name,
+          $this->position, $this->email, $this->phone,
+          $this->user_name, $this->access,
           $this->id);
       }
-      
+
       if ($statement) {
         $statement->execute();
         $statement->close();
@@ -322,22 +229,22 @@ class Contact
 
     } else {
       // send fail message and return to categorymaint
-      $return = array('contactmaint', 'Contact Record not updated. Missing required information 
+      $return = array('contactmaint', 'Contact Record not updated. Missing required information
         or problem with user name or password.', (int) $this->id);
       return $return;
     }
-    
+
   }
-  
+
   public static function getContact($id) {
     // Get the database connection
     $connection = Database::getConnection();
     // Set up the query
-    $query = 'SELECT `id`,`first_name`,`last_name`,`position`, `email`, `phone`, 
+    $query = 'SELECT `id`,`first_name`,`last_name`,`position`, `email`, `phone`,
       `user_name`, `access`
       FROM `contacts` WHERE id="'. (int) $id.'"';
-    // Run the MySQL command   
-    $result_obj = '';    
+    // Run the MySQL command
+    $result_obj = '';
       try {
         $result_obj = $connection->query($query);
         if (!$result_obj) {
@@ -355,20 +262,20 @@ class Contact
       catch(Exception $e) {
         echo $e->getMessage();
       }
-  } 
+  }
 
-  public static function getContactIdByUser($user_name) {   
+  public static function getContactIdByUser($user_name) {
     // Get the database connection
-    $connection = Database::getConnection();  
+    $connection = Database::getConnection();
     // set up the query
     $id = '';
-    $query = 'SELECT id FROM `contacts` 
-      WHERE user_name="'. Database::prep($user_name) .'" 
+    $query = 'SELECT id FROM `contacts`
+      WHERE user_name="'. Database::prep($user_name) .'"
       LIMIT 1';
-    // Run the MySQL command   
-    $result_obj = '';  
     // Run the MySQL command
-    $result_obj = $connection->query($query); 
+    $result_obj = '';
+    // Run the MySQL command
+    $result_obj = $connection->query($query);
       while($result = $result_obj->fetch_array(MYSQLI_ASSOC)) {
         $id = $result['id'];
       }
@@ -379,15 +286,15 @@ class Contact
       return $id;
     }
   }
-  
-  
+
+
   public static function deleteRecord($id) {
       // Get the Database connection
-      $connection = Database::getConnection();     
+      $connection = Database::getConnection();
       // Set up query
       $query = 'DELETE FROM `contacts` WHERE id="'. (int) $id.'"';
       // Run the query
-      if ($result = $connection->query($query)) {   
+      if ($result = $connection->query($query)) {
         $return = array('', 'Contact Record successfully deleted.', '');
         return $return;
       } else {
@@ -395,23 +302,23 @@ class Contact
         return $return;
       }
   }
-  
+
   public function getAccess_DropDown() {
     // set up first option for selection if none selected
     $option_selected = '';
     if (!$this->access) {
       $option_selected = ' selected="selected"';
     }
-    
+
     // Get the categories
     $items = array('Registered', 'Admin');
 
     $html  = array();
-    
+
     $html[] = '<label for="access">Choose Access</label><br />';
     $html[] = '<select name="access" id="access">';
-    
-    foreach ($items as $i=>$item) { 
+
+    foreach ($items as $i=>$item) {
       // If the selected parameter equals the current category id then flag as selected
       if ($this->access == $item) {
         $option_selected = ' selected="selected"';
@@ -421,10 +328,10 @@ class Contact
       // clear out the selected option flag
       $option_selected = '';
     }
-    
+
     $html[] = '</select>';
-    return implode("\n", $html);      
-      
+    return implode("\n", $html);
+
   }
 
   public static function logIn($item) {
@@ -433,28 +340,28 @@ class Contact
     }
     // Get the database connection
     require_once dirname(__DIR__) . '/classes/' . strtolower('Database') . '.php';
-    $connection = Database::getConnection(); 
-     
+    $connection = Database::getConnection();
+
     // get the id for the user
     $id = self::getContactIdByUser($item['user_name']);
- 
+
     if (!$id) { // if user name not found, return with error message
       return array('login','Sorry, invalid User Name and/or Password.','');
-    } 
-    
+    }
+
     $hash_password = hash_hmac('sha512', $item['password'] . '!hi#HUde9' . (int) $id, SITE_KEY);
-  
+
     // Set up the query
-    $query = 'SELECT id, first_name, last_name, user_name, access 
-      FROM `contacts` 
-      WHERE user_name="'. $item['user_name'] .'" 
-      AND password = "' . $hash_password . '" 
+    $query = 'SELECT id, first_name, last_name, user_name, access
+      FROM `contacts`
+      WHERE user_name="'. $item['user_name'] .'"
+      AND password = "' . $hash_password . '"
       LIMIT 1';
-    // Run the MySQL command   
-    $result_obj = '';  
     // Run the MySQL command
-    $result_obj = $connection->query($query);  
-    try { 
+    $result_obj = '';
+    // Run the MySQL command
+    $result_obj = $connection->query($query);
+    try {
       while ($result = $result_obj->fetch_array(MYSQLI_ASSOC)) {
         // pass back the results
         $_SESSION['user_id'] = $result['id'];
@@ -469,31 +376,31 @@ class Contact
     catch(Exception $e)
       {
         return false;
-      }    
+      }
   }
 
-  public static function logout() {  
+  public static function logout() {
     unset($_SESSION['user_id']);
     unset($_SESSION['first_name']);
     unset($_SESSION['last_name']);
     unset($_SESSION['user_name']);
-    unset($_SESSION['access']);  
-  }    
-  
-  public static function isLoggedIn() {  
+    unset($_SESSION['access']);
+  }
+
+  public static function isLoggedIn() {
     if (isset($_SESSION['user_id'])) {
       return true;
     } else {
       return false;
     }
-  }  
+  }
 
-  public static function accessLevel() {  
+  public static function accessLevel() {
     if (isset($_SESSION['access'])) {
       return $_SESSION['access'];
     } else {
       return false;
     }
   }
-  
+
 }

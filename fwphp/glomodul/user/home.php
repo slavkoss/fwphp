@@ -10,10 +10,13 @@
 *
 */
 
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\user ;
+use B12phpfw\dbadapter\user\Tbl_crud ;
+//use B12phpfw\core\zinc\Config_allsites ;
 
-$Admin_crud = new Admin_crud ;
-$cursor     = $Admin_crud->rr_all($this);
+$Tbl_crud = new Tbl_crud ;
+$cursor     = $Tbl_crud->rr_all($this);
 
 //<!--             U S E R  T B L  R E A D -->
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
@@ -35,31 +38,31 @@ if(isset($_POST["Submit"])){
   {
 
     $_SESSION["ErrorMessage"]= "All fields must be filled out";
-      $this->Redirect_to($this->pp1->c); // to this script
+      $this->Redirect_to($pp1->c); // to this script
     }elseif (strlen($password)<4) {
       $_SESSION["ErrorMessage"]= "password should be greater than 3 characters";
-      $this->Redirect_to($this->pp1->c);
+      $this->Redirect_to($pp1->c);
     }elseif ($password !== $Confirmpassword) {
       $_SESSION["ErrorMessage"]= "password and Confirm password should match";
-      $this->Redirect_to($this->pp1->c);
-    }elseif ($Admin_crud->ChkUsrNameExists($username, $this)) {
+      $this->Redirect_to($pp1->c);
+    }elseif ($Tbl_crud->ChkUsrNameExists($username, $this)) {
       $_SESSION["ErrorMessage"]= "Username $username Exists. Try Another One! ";
-      $this->Redirect_to($this->pp1->c);
+      $this->Redirect_to($pp1->c);
 
   }else{
     //  1.2 I N S E R T  D B  T B L  R O W
       $fldvals = [$DateTime,$username,$password,$aName,$Admin] ;
-      $id = $Admin_crud->cc($this, $fldvals);
+      $id = $Tbl_crud->cc($this, $fldvals);
       //echo "<h3>Created id=$id </h3>" ;  //header("Location: index.php");
   }
 } //E n d Submit Button If-Condition
 
 //Warning: Cannot modify header information :
-require $this->pp1->wsroot_path . 'zinc/hdr.php';
+require $pp1->wsroot_path . 'zinc/hdr.php';
     //require_once('navbar_admin.php');
-    //require_once($this->pp1->module_path .'../blog/navbar_admin.php');
-    //require_once($this->pp1->module_path_arr[1] .'../blog/navbar_admin.php');
-               //require $this->pp1->module_path . '../user/admins.php';
+    //require_once($pp1->module_path .'../blog/navbar_admin.php');
+    //require_once($pp1->module_path_arr[1] .'../blog/navbar_admin.php');
+               //require $pp1->module_path . '../user/admins.php';
 //        2. G U I  to get user action
 ?>
     <!-- HEADER -->
@@ -85,9 +88,9 @@ require $this->pp1->wsroot_path . 'zinc/hdr.php';
 
 
       <!-- 
-                A D D  A D M I N  F O R M   $this->pp1->admins
+                A D D  A D M I N  F O R M   $pp1->admins
       -->
-      <form class="" action="<?=$this->pp1->c?>" method="post">
+      <form class="" action="<?=$pp1->c?>" method="post">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-header">
             <h1>Add Admin</h1>
@@ -115,7 +118,7 @@ require $this->pp1->wsroot_path . 'zinc/hdr.php';
 
             <div class="row">
               <div class="col-lg-6 mb-2">
-                <a href="<?=$this->pp1->dashboard?>" class="btn btn-warning btn-block">
+                <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block">
                    <i class="fas fa-arrow-left"></i> Back To Dashboard</a>
               </div>
               <div class="col-lg-6 mb-2">
@@ -153,30 +156,31 @@ require $this->pp1->wsroot_path . 'zinc/hdr.php';
           //$SrNo_escaped = self::escp($SrNo) ;//  $SrNo_escaped = self::escp($SrNo) ;
           $id = self::escp($r->id) ;
           //all row fld names lowercase
-          switch ($this->getdbi()) {
-            case 'oracle' : $r = $this->rlows($r) ; break; 
-            default: break; }
+          switch ($this->getdbi()) { case 'oracle' : $r = $this->rlows($r) ; break; default: break; }
         ?>
             <tr>
               <td>
-                 <!--str_pad( $SrNo, 5 - strlen($SrNo), '&nbsp;', STR_PAD_LEFT )-->
-                 <?=str_repeat('&nbsp;', 5 - strlen($SrNo)) . $SrNo ?>
-                 <a id="erase_row" class="btn btn-danger"
+                 <!--str_pad( $SrNo, 5 - strlen($SrNo), '&nbsp;', STR_PAD_LEFT )
                     onclick="
                       var vodg ;
-                      vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
+                      vodg = jsmsgyn('Erase row <=$id> ?','') ; // '' means no URL to redirect
                       //alert('vodg='+vodg) ; // if OK vodg=1, if CANCEL vodg=0
-                      if ( vodg == 1 ) { location.href= '<?=$this->pp1->d . $id?>/'; }
+                      if ( vodg == 1 ) { location.href= '<=$pp1->d . $id>/'; }
                     "
+                 -->
+                 <?=str_repeat('&nbsp;', 5 - strlen($SrNo)) . $SrNo ?>
+                 <a id="erase_row" class="btn btn-danger"
+                    onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
+                    if (yes == '1') { location.href= '<?=$pp1->d?>t/admins/id/<?=$r->id?>/'; }"
                     title="Delete tbl row ID"
-                 ><?=str_repeat('&nbsp;', 10 - strlen($id)) . $id ?></a>
+                 ><?=str_repeat('&nbsp;', 8 - strlen($id)) . $id ?></a>
               </td>
 
               <td><?=self::escp($r->datetime)?></td>
 
               <td>
                 <!-- https://getbootstrap.com/docs/4.0/components/buttons/ -->
-                <a class="btn btn-link" href="<?=$this->pp1->u . $id?>"
+                <a class="btn btn-link" href="<?=$pp1->u . $id?>"
                    title="Edit tbl row"
                 ><?=self::escp($r->username)?></a>
               </td>
@@ -186,14 +190,14 @@ require $this->pp1->wsroot_path . 'zinc/hdr.php';
 
               <td width=21%>
 
-                <a class="btn btn-success" href="<?=$this->pp1->r . $id?>"
+                <a class="btn btn-success" href="<?=$pp1->r . $id?>"
                    title="Read - show user profile"
                 >R</a>
 
-                <a class="btn btn-warning" href="<?=$this->pp1->l . $id?>"
+                <a class="btn btn-warning" href="<?=$pp1->l . $id?>"
                    title="Login"
                 >Login</a>
-                <a class="btn btn-secondary" href="<?=$this->pp1->lout . $id?>"
+                <a class="btn btn-secondary" href="<?=$pp1->lout . $id?>"
                    title="Logout"
                 >Lout</a>
               </td>
@@ -219,7 +223,7 @@ require $this->pp1->wsroot_path . 'zinc/hdr.php';
 <!-- End Main Area 
 
 
-<?php require $this->pp1->wsroot_path . 'zinc/ftr.php'; ?>
+<?php require $pp1->wsroot_path . 'zinc/ftr.php'; ?>
 
 
 
@@ -250,7 +254,7 @@ require $this->pp1->wsroot_path . 'zinc/hdr.php';
       ?>
       <tr>
 
-      <td><a class="btn" href="<?=$this->pp1->u . $id?>"><?=self::escp($r->username)?></a></td>
+      <td><a class="btn" href="<?=$pp1->u . $id?>"><?=self::escp($r->username)?></a></td>
 
       <td><?=self::escp($r->email)?></td>
 
@@ -262,12 +266,12 @@ require $this->pp1->wsroot_path . 'zinc/hdr.php';
             var vodg ;
             vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
             //alert('vodg='+vodg) ; // if OK vodg=1, if CANCEL vodg=0
-            if ( vodg == 1 ) { location.href= '<?=$this->pp1->d . $id?>/'; }
+            if ( vodg == 1 ) { location.href= '<?=$pp1->d . $id?>/'; }
             "
          >Del <?=$id?></a>
       </td>
 
-      <td width=5%><a class="btn" href="<?=$this->pp1->r . $id?>">Profile</a></td>
+      <td width=5%><a class="btn" href="<?=$pp1->r . $id?>">Profile</a></td>
 
       </tr> <?php
     }

@@ -16,153 +16,95 @@ class Autoload
    protected $pp1 ;
 
    public function __construct($pp1) {
-                       if ('') { 
-                          //echo '<pre>'; 
-                          echo 'Color meanings : '.$this->fmt('Code flow (blue)', 'blue')
-                             . ', '. $this->fmt('Processing output (green)', 'green')
-                             . ', '. $this->fmt('ERROR (red)', 'red')
-                             . ', '. $this->fmt('Info (brown)', 'brown')
-                          ; //darkgray brown
-                      echo '<br />'.' &nbsp;  &nbsp; CONVENTION: use ' 
-                      . 'vendor_nsprefix\\module_functionality\\MODULE_AND_ITS_DIR_NAME\\clsname;';
-                      echo '<br />'.' &nbsp;  &nbsp; We need MODULE_AND_ITS_DIR_NAME for same named Home_ctr clses in more modules (or Tbl_crud cls or...)'
-                      ;
-                      //. '<br />'.' &nbsp;  &nbsp; Clsname in functional namespace MUST BE UNIQUE for all module groups (apps) eg "glomodul" "app".'
-                          //echo '</pre>'; 
-                       }
+                       //see (**2)
      $this->pp1 = $pp1 ;
      spl_autoload_register(array($this, 'loader'));
      return null ;
    }
 
 
-  //private static function get_path(
-  private function get_path(
-       string $clsname      //cls name
-     //should be assigned here !!! : $modulename_dirname  // eg post_category
-     , string $nsprefix     //eg B12phpfw or B12phpfw\db_adapter\post_category\
-     //, $p_path
+  private function get_path( // static ?
+       $nscls // namespaced cls name
+     , &$nsdir_in_clsdir 
   )
   {
-    // get_module_cls_script_path
-    //$DS = DIRECTORY_SEPARATOR ;
-          $ii=0;
-          while ($ii<100):
-            if ( isset($this->pp1->module_path_arr[$ii]) ) 
-            {
-              $script = $this->pp1->module_path_arr[$ii] . $clsname .'.php' ;
-              $modulename_dirname = basename(dirname($script)) ;
+    // returns cls_script_path      $DS = DIRECTORY_SEPARATOR ;
 
-              $nsprefix_arr = explode('\\', $nsprefix) ;
-              $is_contained = false ;
-              for ( $jj = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...
-                    $jj < count($nsprefix_arr) ; //expr2 is evaluated at iteration begin
-                    $jj++ ) :              //expr3 is evaluated at iteration end
-                if ($nsprefix_arr[$jj] == $modulename_dirname) { $is_contained = true ; }
-              endfor;
+    $clsname     = basename($nscls) ;          //=Config_allsites
+    $last_nspart = basename(dirname($nscls)) ; //=tasks   eliminated cls name
+    
+    //all possible dirs for cls script :
+    $clsdirx = 0;
+    while ($clsdirx < count($this->pp1->module_path_arr)):
+      $scriptdir_path = $this->pp1->module_path_arr[$clsdirx] ;
+      $script = $scriptdir_path . $clsname .'.php' ; //str_replace('/',$DS, )
+      $modulename_dirname = basename($scriptdir_path) ;
 
-              // not good for dirs post and post_comment :
-              // str_replace($modulename_dirname, '', $nsprefix) !== $nsprefix
-              if ( file_exists($script) and $is_contained )
-              { 
-                  if ('') {
-                  echo '<pre>'; 
-                    echo $this->fmt( __METHOD__ .', line '. __LINE__ .' SAYS: ','blue') ;
-                    echo $this->fmt('<br />1. In dir in module_path_arr exists script $script='. $script
-                       . '<br />2. $modulename_dirname='.$modulename_dirname
-                       . ' is contained in $nsprefix='. $nsprefix, 'green') ; 
-                  echo '</pre>'; 
-                  }
-                 return $script ;
+      if ( $last_nspart             //=tasks
+           == $modulename_dirname   //=tasks, then zinc
+           and file_exists($script) //J:/awww/www/zinc/Config_allsites.php
+      )
+      {
+        $nsdir_in_clsdir = $modulename_dirname ; //=tasks
+              if ('') { echo  '<br />'. __METHOD__ .', line '. __LINE__ .' SAYS: F O U N D ' ;
+                echo ' $last_nspart='; print_r($last_nspart);
+                echo ' $modulename_dirname='; print_r($modulename_dirname);
+                echo ' $clsname='; print_r($clsname);
+                echo ' $nsdir_in_clsdir='; print_r($nsdir_in_clsdir); 
+                echo " <br />file_exists(<b>\$script=$script</b>) and \$nsdir_in_clsdir=<b>$nsdir_in_clsdir</b>"; 
               }
-            } //else { break ; }
+        return $script ; //see (**3)
+      }
 
-            $ii++ ;
-          endwhile;
+      $clsdirx++ ;
+    endwhile;
 
+    return $clsname .'; <--- put_this_in_caller' ;
   } //e n d  f n  get_ path
 
   //public static function autoload($cls) //namespaced className
   private function loader($nscls) //namespaced  c l a s s  name
   {
     $vendornsp = $this->pp1->vendor_namesp_prefix ;
-    $cls = basename($nscls) ;
+    $clsname = basename($nscls) ;
 
     // ********** 1. get_module_cls_script_path **********  eg B12phpfw\\clickmeModule
-    $clsscript_path = $this->get_path($cls, $nsprefix1=dirname($nscls)) ;  // $cls_script_path
-    //should be assigned in get_ path !! : $modulename_dirname = basename(dirname($clsscript_path)) ;
-               //$modulename_dirname = ($vendornsp == 'B12phpfw') ? dirname(dirname($clsscript_path)) :  ;
-                  if ('') {
-                  echo '<pre>'; 
-                  echo $this->fmt( __METHOD__ .', line '. __LINE__ .' SAYS: inputs and processing ', 'blue') 
-                  .'<br />'.'Input 1 assigned in index.php $this->pp1->vendor_namesp_prefix ='
-                  .  $this->fmt($vendornsp, 'green') ; 
-
-                  echo '<br />'.'Input 2 assigned in index.php is dirs where class scripts are<br />$this->pp1->module_path_arr=' ; 
-                  echo str_replace('\\','',json_encode($this->pp1->module_path_arr,JSON_PRETTY_PRINT)); //print_r and var_dump send headers
-
-                  echo '<br />'.'Input 3 assigned in each cls with "namespace" and "use" is namespaced class name <br />'. '$nscls = '. $this->fmt($nscls, 'green') ;
-
-                  echo ' &nbsp;'.'CLASS NAME $cls = basename($nscls) = '. $this->fmt($cls, 'green') ;
-
-
-
-                  echo  '<br /> &nbsp;  &nbsp; '.'dirname($nscls)  = name space prefix = '. $this->fmt('$nsprefix = '. $nsprefix1,'green') ;
-                  //. ' - is FUNCTIONAL if = "B12phpfw", otherwise eg see categories.php'
- 
-                 /*
-                  echo '<b>$clsscript_path='.$clsscript_path.'= one of dirs in module_path_arr such that:'
-                  . '<br /> &nbsp;  &nbsp;  1. in dir in module_path_arr exists script "CLASS_NAME.php" = '.$this->fmt('$cls.php = '. $cls .'.php','green')
-                  . '&nbsp;  2. $modulename_dirname is contained in name space prefix $nsprefix'
-                  .'</b>' ; 
-
-
-                  echo '<br />'.'MODULE_AND_ITS_DIR_NAME = basename(dirname($clsscript_path)) = '
-                     . $this->fmt('$modulename_dirname = '. $modulename_dirname, 'green');
-
-                  if ( str_replace($modulename_dirname, '', $nsprefix1) !== $nsprefix1 ) { echo $this->fmt(' 2. IS TRUE : $modulename_dirname is contained in $nsprefix', 'green') ; }
-                  */
-
-                  echo '</pre>';
-                  //exit(0) ;
-                }
+    $nsdir_in_clsdir   = '' ; //Possible CLASS SCRIPTS DIR is contained in $nscls
+    $clsscript_path = $this->get_path(
+          $nscls // namespaced cls name
+        , $nsdir_in_clsdir
+    ) ;
+                  //see (**1)
 
   // ********** 3. r e q u i r e  cls_ script_ path **********
+              //see (**5)
   switch (true) {
-    case file_exists($clsscript_path) : include_once $clsscript_path ; break;
-
-    default: //e r r o r : not found cls script
-        if ('1') { 
-        echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS: '.'</h3>' ;
-        echo ' '. $this->fmt('ERROR namespaced class '. $nscls, 'red')
-        . '<br />None of possible CLASS SCRIPTS DIRS assigned in index.php CONTAIN CLASS SCRIPT :'
-        . "<br />\"$nsprefix1\" :" //eg "B12phpfw\module\dbadapter\post" :
-        //. "<br />\"$nsprefix1\" or \"$nsprefix2\" or \"$nsprefix3\" or \"$nsprefix4\" are :"
-        ; 
-        echo '<pre>';
-        echo '$clsscript_path='; print_r($clsscript_path);
-        //print_r([$clsscript_path, $path2, $path3, $path4]);
-        //print_r('Namespaced class '. $cls .' has not class script ?');
-        echo '</pre>';
-      }
+    case file_exists($clsscript_path) and $nsdir_in_clsdir :
+      include_once $clsscript_path ;
       break;
+
+    default: //E R R O R : NOT FOUND CLS SCRIPT or 
+      echo '<br />'.$this->fmt( __METHOD__ .', line '. __LINE__ .' SAYS: ', 'black')  ;
+      echo '<br />'.'C l a s s : ' . $this->fmt($clsname . ' NOT FOUND', 'red' ,'bold') ;
+            echo ', may be  eg : '
+            . $this->fmt( 'use B12phpfw\\core\\zinc\\'. basename($clsscript_path, '.php') .' ?'
+            , 'blue', 'bold') .' - see stack trace (caller)';
+      echo '<br />'.$this->fmt(' module_path_arr = possible CLASS SCRIPTS DIRS assigned in index.php are :', 'black', 'bold');
+      echo '<pre>';
+      echo '$this->pp1='; print_r($this->pp1);
+      echo '$nscls='; print_r($nscls);
+      echo '</pre>';
+
+    break;
   }
-                    if ('') { ?> <SCRIPT LANGUAGE="JavaScript">
-                    alert( "<= __METHOD__ .', line '. __LINE__ .' SAYS: '
-                     .'\\n namespaced C L S '. str_replace('\\','\\\\',$nsclsname)
-                     .'\\n ...called from: '. str_replace('"','\"',json_encode($caller))
-                     .'\\n ...cls_script_path_toinc NOT INCLUDED CANDIDATE C L S  S C R I P T S  are: '
-                     .'\\n'. str_replace('"','\"',json_encode($cls_script_path_toinc))
-                     >" ) ; 
-                    </SCRIPT><?php
-                    }
+
    } //e n d  f n  l o a d e r
 
 
-  private function fmt(string $txt, string $color)
+  private function fmt(string $txt, string $color, string $bold='')
   { 
     ob_start(); //ob_ start("callbackfn"); //without output buffering breaks line
-    ?><span style="color: <?=$color?>; font-size: large; font-weight: bold;"><?=$txt?></span>
+    ?><span style="color: <?=$color?>; font-size: large; font-weight: <?=$bold?>;"><?=$txt?></span>
     <?php
     $fmtedtxt .= ob_get_contents();
     ob_end_clean(); //ob_ end_flush(), ob_ get_flush()...
@@ -172,32 +114,25 @@ class Autoload
 } //e n d  c l a s s  A u t o l o a d
 
 
-    //TODO same named Tbl_crud  c l a s s e s  for each DB tbl
-    //     same named Home_ctr  c l a s s e s  for each module ... and other
-    //1. module_path_arr assigned in index.php eg : [3] => J:/awww/www/fwphp/glomodul/post_category/
-    //2. $nsprefix eg :
-         //CONVENTION: use vendor_nsprefix\module_functionality\MODULE_&_ITS_DIR_NAME\clsname :
-         //use B12phpfw\db_adapter\post_category\Tbl_crud ;
-    //3. post_category = module dir must be in 1 and 2 if $nsprefix != B12phpfw
-              //$modulecls_script_path2 = str_replace(
-              //     $vendornsp.'\\'
-              //   , str_replace(DIRECTORY_SEPARATOR,'/', $this->pp1->module_path_arr[$ii])
-              //   , $nsclsname 
-              //) .'.php' ;
-
-             //$glocls_script_path = str_replace(
-             //   [$vendornsp,'\\', '//']
-             // , ['',        '/',  '/']
-             // , __DIR__ . '/'. $nsclsname).'.php';
 
 
 /**
-*       ***** namespaced cls name --> cls script path *****
-* Coding step cs02. W H O: J:\awww\www\zinc\Autoload.php - GLOBAL FOR ALL SITES
-* WHY: to avoid i n c l u d e  statesments in many scripts
-* WHAT DOES: if c l s script of called  c l s  exists - i n c l u d e  it
-* HOW DOES: I N C L U D E D  ONLY I N  i n d e x.p h p (single module entry point)
-*   We use module_ path_ arr and namespaced  c l a s s  name to construct c l s script path 
-*   (f or global and module cls-es or external cls-es)
-* 
+                    if ('') { ?> <SCRIPT LANGUAGE="JavaScript">
+                    alert( "<= __METHOD__ .', line '. __LINE__ .' SAYS: '
+                     .'\\n namespaced C L S '. str_replace('\\','\\\\',$nsclsname)
+                     .'\\n ...called from: '. str_replace('"','\"',json_encode($caller))
+                     .'\\n ...cls_script_path_toinc NOT INCLUDED CANDIDATE C L S  S C R I P T S  are: '
+                     .'\\n'. str_replace('"','\"',json_encode($cls_script_path_toinc))
+                     >" ) ; 
+                    </SCRIPT><?php
+                    }
+
+      for ( $nspartx = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...
+            $nspartx < count($nsprefix_arr) ; //expr2 is evaluated at iteration begin
+            $nspartx++ ) : //expr3 is evaluated at iteration end
+        if ($nsprefix_arr[$nspartx] == $modulename_dirname) {
+          $nsdir_in_clsdir = $modulename_dirname ;
+          break ;
+        }
+      endfor;
 */

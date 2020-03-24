@@ -23,11 +23,11 @@ abstract class Config_allsites extends Db_allsites
   private $pp1 ; //was public. If using Composer autoloading classes set QS=''.
 
 
-  public function __construct($pp1, $pp1_module_links)
+  public function __construct(object $pp1, array $pp1_module_links)
   {
     // see (**1)
 
-    //1=autol STEP_2=CONF 3=view/rout/disp 4=preCRUD 5=onCRUD
+    //STEP_1=new autol STEP_2=CONF   view/rout/disp preCRUD onCRUD
     //STEP_3=ROUT/DISP is in this parent::__construct : fw core calls method in Home_ctr cls
     
     //1.requirements_ok, 2.adresses (no constants), 3.routing, 4.dispatching
@@ -38,7 +38,9 @@ abstract class Config_allsites extends Db_allsites
             if (session_status() == PHP_SESSION_NONE) { session_start(); }
       } else { if(session_id() == '') { session_start(); } }
 
+           // =============================================
            // 1. C H E C K  R E Q U I R E M E N T S
+           // =============================================
            //$requirements_ok = true;
            $required_version = '5.6.0';
            if (version_compare(phpversion(), $required_version) < 0)
@@ -67,7 +69,9 @@ abstract class Config_allsites extends Db_allsites
              }
 
 
-      //***** 2. DEFINE  A D R E S S E S  (NO CONSTANTS) **********************
+      // =============================================
+      // 2. DEFINE  A D R E S S E S  (NO CONSTANTS) 
+      // =============================================
       if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR); //dirname, basename
       if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
@@ -75,10 +79,11 @@ abstract class Config_allsites extends Db_allsites
       //module dir (f or autoload clses) (rtrim(ltrim(... has error !!) :
       $module_path = $pp1->module_path_arr[0] ; 
             //str_replace('\\','/', $module_dir .'/') ; //rtrim(ltrim(... has error !!
+      $imgrel_path = 'zinc/img/'; // img_big/oop_help/
 
-      /**
-      *           **** 3. R O U T I N G
-      */
+      // =============================================
+      //           3. R O U T I N G
+      // =============================================
       // see (**2)
 
       $wsroot_path = str_replace('\\','/', realpath($module_towsroot) .'/') ; 
@@ -88,44 +93,54 @@ abstract class Config_allsites extends Db_allsites
               // 2. URL_DOM AIN = dev1:8083 :
             . filter_var( $_SERVER['HTTP_HOST'] . '/', FILTER_SANITIZE_URL ) ;
 
-      $imgrel_path = 'zinc/img/'; // img_big/oop_help/
 
-      $uri_arr = explode(QS, $_SERVER['REQUEST_URI']) ;
-      //script relpath : (with "/01_phpinfo.php")
+      //req.uri eg : /fwphp/glomodul/blog/?i/categories/
+      //     0 is script relpath   : /fwphp/glomodul/blog/
+      //     1 is URL query string : i/categories/
+      //CONVENTION : URL query string is key(=property name) - value pairs
+      //   We want $this->u r i q = stdClass Object ( [i] => categories 
+      //   or [i] =>any Home_ctr method, than its_first_parameter=>paramvalue... )
+      $uri_arr = explode(QS, $_SERVER['REQUEST_URI']) ; 
       $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); 
               //or rtrim(str_replace($w sroot_path, '', $m odule_path),'/') ;
       $module_url = $wsroot_url.$module_relpath.'/';
 
-      $uri_qrystring = '' ; if (isset($uri_arr[1])) { $uri_qrystring = $uri_arr[1] ; }
-      $uri_qrystring_arr = [] ; $uri_qrystring_arr = explode('/', $uri_qrystring) ;
-                // or: if (isset($_SERVER['QUERY_STRING'])) {
-                //  $uri_qrystring_arr = explode('/', $_SERVER['QUERY_STRING']) ; }
+      // -----------------------------------------------------------------
+      //                 URL query array  u r i q
+      //       is URL query string = url part after QS (=?)
+      // -----------------------------------------------------------------
+      $uri_qrystring = '' ;
+      if (isset($uri_arr[1])) { $uri_qrystring = $uri_arr[1] ; }
+      $uri_qrystring_arr = [] ;
+      $uri_qrystring_arr = explode('/', $uri_qrystring) ;
+                        // or: if (isset($_SERVER['QUERY_STRING'])) {
+                        //     $uri_qrystring_arr = explode('/', $_SERVER['QUERY_STRING']) ; }
 
-                        //We want $this->u riq = stdClass Object ( [i] => home... ) :
-                        // --------------------------------------------------------
-                        //foreach($uri_ qrystring_arr as $k=>$v) or :
-                        //url parameters after QS=? (url query string is key-value pairs) :
-                        $uriq = [] ;
-                        for ( $ii = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...
-                              $ii < count($uri_qrystring_arr) ; //expr2 is evaluated at iteration begin
-                              $ii++ ) :              //expr3 is evaluated at iteration end
-                        {
-                          if (isset($uri_qrystring_arr[$ii + 1])) {
-                            $uriq[$uri_qrystring_arr[$ii]] = $uri_qrystring_arr[++$ii] ;
-                          }
-                          else {
-                            if (!isset($uri_qrystring_arr[0]) or !$uri_qrystring_arr[0] ) 
-                            { 
-                               $uriq = ['i' => 'home'] ;
-                            } //means url is module`s url
-                          }
-                        } endfor;
+                         //foreach($uri_ qrystring_arr as $k=>$v) or :
+      $uriq = [] ;
+      for ( $ii = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...
+            $ii < count($uri_qrystring_arr) ; //expr2 is evaluated at iteration begin
+            $ii++ ) :              //expr3 is evaluated at iteration end
+      {
+        if (isset($uri_qrystring_arr[$ii + 1])) {
+          $uriq[$uri_qrystring_arr[$ii]] = $uri_qrystring_arr[++$ii] ;
+        }
+        else {
+          if (!isset($uri_qrystring_arr[0]) or !$uri_qrystring_arr[0] ) 
+          { 
+             //means url is module`s url and we call home() method in Home_ctr :
+             $uriq = ['i' => 'home'] ;
+          } 
+        }
+      } endfor;
 
 
       $pp1 = (array)$pp1 ;
       $pp1['uriq'] = (object)$uriq ;
       //$this->setp('uriq', (object)$uriq) ; //$this->u riq = (object)$u riq ;
+
       // **************************** E N D  R O U T I N G
+
 
         $pp1 += [ 
             //'module_version'        => $module_version //c o n n e c t  (states) a t t r i b u t e s
@@ -180,20 +195,20 @@ abstract class Config_allsites extends Db_allsites
                     .'<br /> See if $u riq is created OK in Config_blog.php.'
                     .'</span>' */
 
-
-      /**
-      *           **** 4. D I S P A T C H I N G
-      * may be in module`s Home_ ctr (code here in Config_ allsites is global for all sites)
-      */
+    // =============================================
+    //           4. D I S P A T C H I N G
+    // =============================================
+    // may be in module`s Home_ ctr (code here in Config_ allsites is global for all sites)
     /**
     * ************* coding step cs04. *******************
-    * DISPATCHER: calls Home_ctr cls method (CONVENTION : i=ctrakcmethod) which 
-    * calls fns or includes view scripts (http jumps only to other module)
+    * DISPATCHER: calls Home_ctr cls method (CONVENTION : i=ctrakcmethod)
+    * which calls fns or includes view scripts (http jumps only to other module)
     * Dispatching using home class methods is based on Mini3 php fw.
     *****************************************************
     */
+        unset($pp1) ; //for easier debugging if next 2 lines are switched
         $pp1 = $this->getp('pp1') ; //fn params are in  p p 1
-        $akc = $pp1->uriq->i ; 
+        $akc = $pp1->uriq->i ;      //fn name (by user entered URL we put in uriq array)
         $this->callf($akc, $pp1) ; //public fn (in child cls) calls private fns (in child cls)
         // OR (fns in child cls must be public, not private to be called from here) :
         //Fatal error: Uncaught Error: Call to private method B12phpfw\Home_ctr::home() from context 'B12phpfw\Config_allsites' 

@@ -6,8 +6,9 @@
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\blog ;
 use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\module\dbadapter\user\DB_user ; //to Login_ Confirm_ SesUsrId
-use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
+use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_user;  //to Login_ Confirm_ SesUsrId
+       //use B12phpfw\module\dbadapter\user\DB_ user ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
 
 // May be named App, Router_dispatcher... :
 class Home_ctr extends Config_allsites
@@ -16,7 +17,7 @@ class Home_ctr extends Config_allsites
 
   public function __construct(object $pp1)
   {
-                            if ('') {self::jsmsg( [ //basename(__FILE__).
+                        if ('') { self::jsmsg( [ //basename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
                            //,'self::$d bi'=>self::$dbi
@@ -24,14 +25,14 @@ class Home_ctr extends Config_allsites
                         }
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
-    // R O U T I N G  T A B L E  (IS OK FOR MODULES IN OWN DIR)
+    // R O U T I N G  T A B L E  - module links, (IS OK FOR MODULES IN OWN DIR)
     $pp1_module = [ 
             'P P 1 _ M O D U L E' => '~~~~~~~~~~~~~~~~~' ,
           //, 'cncts'                 => (object)[] //c o n n e c t  (states) a t t r i b u t e s
     //  all module links (menu items) should be here :
     'loginfrm'        => QS.'i/loginfrm/' , 
     'login'           => QS.'i/login/' , 
-    'logout'          => QS.'i/logout/r/i|loginfrm|' , //logout_me
+    'logout'          => QS.'i/logout/r/i|loginfrm|' ,
     'del_row'         => QS.'i/del_row_do/' , //used for all tables !!
     'filter_page'     => QS.'p/' , // i/home/
     //
@@ -96,16 +97,16 @@ class Home_ctr extends Config_allsites
 
   private function Login_Confirm_SesUsrId(object $dm) {
     //$dm = $this = domain model = globals for all sites (eg for CRUD...) & for curr.module
-    $Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
+    $Db_user = new Tbl_crud_user ; //tbl mtds and attr use globals for all sites !!
     $Db_user->Login_Confirm_SesUsrId();
   }
 
   private function logout(object $pp1)
   {
-    //$this = $dm = domain model = globals for all sites (eg for CRUD...) & for curr.module
+    //$this = $dm = domain model = globals for all sites / curr.module (eg for CRUD...)
     $dm = $this ;
-    $Db_user = new Db_user ;
-    $Db_user->logout($dm);
+    $Db_user = (new Tbl_crud_user)->logout($dm) ;
+    //$Db_user = new Tbl_crud_user ; $Db_user->logout($dm);
   }
 
   // U S E R  R E A D
@@ -125,8 +126,8 @@ class Home_ctr extends Config_allsites
   private function login(object $pp1) //private
   {
       $dm = $this ;            //this globals for all sites are for CRUD... !!
-      $Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
-    $Db_user->login($dm, $pp1) ;
+      $Db_user = new Tbl_crud_user ; //tbl mtds and attr use globals for all sites !!
+    $Db_user->login($dm, $pp1, $pp1->dashboard) ;
   }
 
 
@@ -138,7 +139,7 @@ class Home_ctr extends Config_allsites
   */
 
   /**
-      2.1 I N C  P A G E  S C R I P T S
+      2.1 I N C L U D E D  P A G E  S C R I P T S
   */
 
   private function home(object $pp1) //DI page prop.palette   
@@ -150,7 +151,7 @@ class Home_ctr extends Config_allsites
       $title = 'MSG HOME';
 
       require $pp1->wsroot_path . 'zinc/hdr.php';
-      require_once("navbar.php");
+      require("navbar.php");
       require $pp1->module_path . 'home.php';
       require $pp1->wsroot_path . 'zinc/ftr.php';
   }
@@ -177,7 +178,7 @@ class Home_ctr extends Config_allsites
     $this->Login_Confirm_SesUsrId($this);
     
     $dm = $this ;  // = domain model = globals for all sites are for CRUD... & for curr.module
-    $Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
+    $Db_user = new Tbl_crud_user ; //tbl mtds and attr use globals for all sites !!
 
     $title = 'Admin Page' ;
     //Warning: Cannot modify header information :
@@ -211,7 +212,6 @@ class Home_ctr extends Config_allsites
   {
 
     $dm = $this ;            //globals for all sites (eg for CRUD...) !!
-    //$D b_user = n ew Db_user ; //table m.and attr. use globals for all sites !!
     $this->Login_Confirm_SesUsrId($dm);
 
     $title = 'MSG Categories' ;
@@ -227,7 +227,6 @@ class Home_ctr extends Config_allsites
 
     // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/
     $dm = $this ;            //globals for all sites (eg for CRUD...) !!
-    //$D b_user = n ew Db_user ; //table m.and attr. use globals for all sites !!
     $this->Login_Confirm_SesUsrId($dm);
 
       $title = 'Add Post' ;

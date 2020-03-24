@@ -19,9 +19,9 @@
     <legend>Login</legend>
     <ul>
       <li><label for="user_name" class="required">User Name</label><br />
-        <input type="text" name="user_name" id="user_name" class="required" /></li>
+        <input type="text" name="user_name" id="user_name" value="msmith" class="required" /></li>
       <li><label for="password" class="required">Password</label><br />
-        <input type="password" name="password" id="password" class="required" /></li>
+        <input type="password" name="password" id="password" value="12345678" class="required" /></li>
     </ul>
 
     <?php 
@@ -36,3 +36,6 @@
     <a class="cancel" href="index.php">Cancel, return to Home Page</a>
   </fieldset>
 </form>
+
+<hr />
+<span style="font-size:small;"><?=__FILE__?></span>

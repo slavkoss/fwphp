@@ -57,9 +57,9 @@ $accessLevel = Contact::accessLevel();
           <strong>Price:</strong> $<?php echo number_format($lot->getLot_price(),2); ?>
           <?php if ($accessLevel == 'Admin') : ?>
           <a class="button edit" 
-      		href="index.php?content=lotdelete&cat_id=<?php echo $cat_id_in; ?>&lot_id=<?php echo $lot->getLot_id(); ?>">Delete
+          href="index.php?content=lotdelete&cat_id=<?php echo $cat_id_in; ?>&lot_id=<?php echo $lot->getLot_id(); ?>">Delete
           </a>
-      	  <a class="button edit" 
+          <a class="button edit" 
             href="index.php?content=lotmaint&cat_id=<?php echo $cat_id_in; ?>&lot_id=<?php echo $lot->getLot_id(); ?>">Edit
           </a>
           <?php endif; ?>
@@ -70,3 +70,6 @@ $accessLevel = Contact::accessLevel();
 <?php endforeach; ?>
 
 </ul>
+
+<hr />
+<span style="font-size:small;"><?=__FILE__?></span>
