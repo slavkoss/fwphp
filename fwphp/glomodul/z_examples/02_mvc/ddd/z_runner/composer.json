@@ -1,0 +1,21 @@
+{
+    "name": "tsh/fa-runner",
+    "type": "project",
+    "description": "Agnostic running app",
+    "license": "MIT",
+    "require": {
+        "php": "^7.1.3"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "autoload": {
+        "classmap": [
+            "src"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

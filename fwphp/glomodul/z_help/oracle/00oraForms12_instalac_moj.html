@@ -1,0 +1,514 @@
+<!--
+-->
+<!DOCTYPE HTML>
+<html lang="hr-HR"><head><title>INSTALAC Forms 12c</title>
+   <meta charset="utf-8">
+
+   <!--link rel="shortcut icon" href="Other/Help/images/favicon.ico"-->
+   <link rel="stylesheet" media="screen" href="/zinc/themes/simplest.css" />
+   <!--simplest.css localy :-->
+  <style>
+
+  </style>
+</head>
+
+
+<body>
+
+<div class="content">
+
+  <div class="logo">
+    <h1>INSTALL Oracle Forms 12c ver. 12.2.1.4.0 (Sept. 2019)</h1>
+      <!--img src="Other/Help/images/help_logo_top.png" width="211" height="47"-->
+  </div><!-- E N D  11111 div class="logo" -->
+  <!-- E N D  11111 div class="logo" -->
+
+
+
+     <!--      1. T O P  DROPDOWN  M E N U  (row 1) (Banner)         -->
+
+    <div id="topmnu1">
+
+        <div class="topsubmnu p1">
+          <dl class="mnuitms">
+            <dt><a href="#url">HOME</a></dt>
+
+          </dl>
+        </div><!--e n d  p1-->
+        <!--e n d  p1-->
+
+
+
+      <div class="topsubmnu p2">
+        <dl class="mnuitms">
+           <dt><a class="sub" href="#download">1. Download 1/8</a></dt>
+
+        </dl>
+      </div>
+
+
+
+
+      <div class="topsubmnu p3">
+        <dl class="mnuitms">
+          <dt><a href="#url">19c XE inst 2/8</a></dt>
+
+        </dl>
+      </div>
+
+
+
+
+      <div class="topsubmnu p4">
+        <dl class="mnuitms">
+          <dt><a class="sub" href="#frmrepinstalac">F, R instal 4/8</a></dt>
+
+          <dd class="dd2">
+              <a href="#frmsverify">WLS app server 3/8</a>
+              <a href="#JDK">jdk-7u80-win 64bit</a>
+              <a href="#crerepsvr">wls1036_generic.jar</a>
+          </dd>
+
+        </dl>
+      </div>
+
+
+      <div class="topsubmnu p5">
+        <dl class="mnuitms">
+
+          <dt><a href="#url">2. Frms verify 5/8</a></dt>
+
+          <dd class="dd2">
+              <a href="#frmsverify">Verify Forms inst.</a>
+              <a href="#repsverify">Verify Rep. inst.</a>
+              <a href="#crerepsvr">Standalone rep.s.</a>
+          </dd>
+
+        </dl>
+      </div>
+
+
+      <div class="topsubmnu p6">
+        <dl class="mnuitms">
+          <dt><a href="#url">3. Cre frm &amp; rep</a></dt>
+          <dd class="dd2">
+            <a href="#javawebstartlauncher">J. Web Start (9/8)</a>
+            <a href="#crefrm">Cre frm (6/8)</a> <a href="#crerep">Cre rep (7/8)</a>
+            <a href="#callrep">Call rep (8/8)</a> 
+          </dd>
+        </dl>
+      </div>
+
+
+      <div class="topsubmnu p7">
+        <dl class="mnuitms">
+          <dt><a class="sub" href="#"></a>
+                <!--dd class="dd3">
+                 <a href="#frmrepinstalac">...disk1_1of2.zip</a>
+                </dd-->
+          </dt>
+          <li>&nbsp;</li>
+        </dl>
+      </div><!--e n d  p7-->
+      <!--e n d  p7-->
+
+    </div><!--e n d  div id="top mnu1"-->
+    <!--e n d  div id="top mnu1"-->
+
+
+
+
+      <!--              1. izbornik 2.redak (Banner)                 -->
+      <div id="topmnu2">
+      <ul>
+        <li id="frst"><a href="">POČETAK</a> <a href="#">O PROGRAMU</a>
+        <a href="#">OPREMA</a> <a href="#">LOKACIJE KONTAKT</a> <a href="#">
+        AAAAAAAA</a> <a href="#">BBBBBBBB</a> <a href="#">CCCCCCCC</a> </li>
+      </ul>
+    </div><!--e n d  div id="top mnu2"-->
+    <!--e n d  div id="top mnu2"-->
+    
+    <!--                    E N D  T O P  (Toolbar row 1,2)               -->
+
+
+
+
+
+
+
+
+
+      <!--           C O N T E N T             -->
+    <p>
+    2020.04.06&nbsp;<br>
+    <a href="https://docs.oracle.com/cd/E23104_01/download_readme_12214/download_readme_12214.htm">
+    https://docs.oracle.com/cd/E23104_01/download_readme_12214/download_readme_12214.htm</a>
+    <br><a href="https://www.youtube.com/watch?reload=9&amp;v=y9d-ffO99Mk">
+    https://www.youtube.com/watch?reload=9&amp;v=y9d-ffO99Mk</a> <br>
+    (L:\1_instalac\2_instalac_ora11g\forms_instalac\1_forms12\video_forms12)</p>
+
+
+      <h2>Run fmx in Forms 12c</h2>
+
+
+    <p>Oracle recommends to use Oracle ADF for new apps.</p>
+    <p>For Oracle Forms 11g, you have to plan to migrate to newer version of Forms 12c and continue running Forms Instances via <strong>
+    :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JWS</strong> (Java Web Start) and <strong>JNLP (Java Network Launch Protocol)</strong>.</p>
+    <ol>
+        <li><span class="auto-style3"><strong>jnlp://url method</strong> eg jnlp://myapp/forms/frmservlet?config=myapp-webstart</span><br>
+          jnlp://sspc1:7001/forms/frmservlet?<span class="auto-style3">config=</span>02_test_F11 - not working on Forms 11<br>
+          &nbsp;&nbsp;&nbsp; - slightly faster startup<br>
+          &nbsp;&nbsp;&nbsp; - use if your Forms application will not be using SSO (single sign-on). <br>
+          This method cause the entire request to be based to <strong>JWS (Java Web Start) and bypasses any browser processing</strong>.        Chrome bug  will prevent you from using Chrome with this custom protocol.
+          (<a href="https://bugs.chromium.org/p/chromium/issues/detail?id=560809" rel="nofollow">https://bugs.chromium.org/p/chromium/issues/detail?id=56080</a>)<br>
+      <br>How did you create the desktop shortcut for <strong>calling the app
+      using Web Start</strong>? You cannot simply copy a downloaded JNLP and
+      plan to use it. These files are generated dynamically and can change. You
+      must use a properly formatted JNLP. The easiest way to accomplish this is
+      to use the &quot;Install&quot; option provided by Java. To do this simply run the
+      desired form using JNLP. Then open the Java Control Panel and the Cache
+      Viewer. Select the desired app to install then click on the Install
+      button. This will create a proper desktop shortcut for you. <br><br>
+          <br>
+        </li>
+        <li><strong>http://myapp/frmservlet.jnlp method</strong><br>
+          &nbsp;&nbsp;&nbsp; - <strong>If you need single sign-on</strong>, then using HTTP/HTTPS will be necessary <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; because the browser must make the initial request.<br>
+          http://TEST_F11/02_test_F11.jnlp<br>
+          <br>
+        </li>
+        <li> C:\&gt;&quot;C:\Program Files (x86)\Java\jdk1.8.0_92\bin\javaws.exe&quot; "http://sspc1:7001/forms/frmservlet?config=02_test_F11&amp;colorsScheme=BLAF&amp;centerOnStartup=true&quot;<br>
+          C:\&gt;javaws "http://example.com:9001/forms/frmservlet?config=webstart&amp;colorsScheme=BLAF&amp;centerOnStartup=true"</li>
+      </ol>
+      <p><br>
+        Best is <strong>(own) FSAL (Forms Standalone Launcher) AppletViewer (JFrame mit AppletStub und AppletContext) works even with Forms 10 and Forms 11</strong>. Bereits mit Forms 6i gab es einen solchen AppletViewer, nur die Download-Mechanismen die<strong> Java Archive</strong> waren nicht vorhanden. Mit 10g und 11g konnte man dieses Verfahren mit einem eigenen AppletViewer auch nutzen.<br>
+      <a href="https://community.oracle.com/thread/4133155?start=15&tstart=0">https://community.oracle.com/thread/4133155?start=15&amp;tstart=0</a></p>
+      <p class="auto-style3">Bis 2025 koennen wir FSAL mit JRE 1.8 als Filesystem betreiben und mit Forms19 (gerade in Arbeit) dann sicher mit JRE 11 und folgende� bis 2030.</p>
+      <p class="auto-style3"><strong>FSAL is browser-less, modern client/server-like interface</strong>. As a result of not using a browser, FSAL does not rely on the Java Deployment technologies (e.g.<strong> Plug-in, Web Start</strong>, etc) and therefore is not dependent on a browser.
+      However, it does <strong>require Java on the end-user machine -  JRE, JDK, and Server JRE</strong>. </p>
+    <p class="auto-style3">&nbsp;</p>
+      <p class="auto-style3"><strong>JRE</strong> (Java Runtime Environment) <br>
+        The JRE installs most components needed for typical end-users.  It includes everything needed to run a
+        local java application, as well as the Java deployment components (i.e. Java Web Start and Java Plug-in). <br>
+      Java deployment components may not be available in releases newer than Java 8. <br>
+      C:\WINDOWS\system32&gt;java -version<br>
+      java version &quot;1.8.0_181&quot;<br>
+      Java(TM) SE Runtime Environment (build 1.8.0_181-b13)<br>
+      Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)    </p>
+      <p class="auto-style3">&nbsp;</p>
+      <p class="auto-style3">FSAL's Small  version specific JAR file (<strong>frmsal.jar</strong>) is stored on the end-user machine  (e.g. web download, email, ftp, etc).  Storing it in the users home directory is
+      recommended, but not required. checksum&nbsp;-  you cannot use frmsal.jar that was downloaded from
+      a Windows server and use it to run an application against a UNIX server. The launcher is not client platform specific. The page can be accessed using a URL like this: <br>
+      <a href="http://example.com/forms/html/fsal.htm">http://example.com/forms/html/fsal.htm</a> </p>
+      <p class="auto-style3"> With FSAL Forms
+      app. modules are securely stored on WebLogic Server (ee on remote middle tier server
+    - centralized app. server) - just as in earlier web deployed Forms versions. </p>
+      <p class="auto-style3">The use of FSAL supports all the same functionality found when running a form in the browser,
+    <strong>except single sign-on (SSO) and single sign-off</strong>.  JavaScript integration support for FSAL does not exist by default.  However, JS
+      integration can be enabled with a provided as an add-on in 12.2.1.3.0 and a third party library.  Future releases may
+      also add support for Single Sign-on.    </p>
+      <p><a href="https://forms-demo.com/plsql/cd_forms12demo?sg=0&anw=1">https://forms-demo.com/plsql/cd_forms12demo?sg=0&amp;anw=1</a></p>
+      <p>&nbsp;</p>
+
+
+    <div>
+        <p class="auto-style3"> October 2016 <br>
+      <a href="https://windows7bugs.wordpress.com/2016/01/05/oracle-12c-database-weblogic-forms-reports/"> https://windows7bugs.wordpress.com/2016/01/05/oracle-12c-database-weblogic-forms-reports/</a></p>
+      <p class="auto-style3"> &nbsp;</p>
+      <p class="auto-style3"> &nbsp;</p>
+      <a href="https://community.oracle.com/thread/4313362">
+      https://community.oracle.com/thread/4313362</a> <br><br>1. Node Manager is
+      needed to &quot;manage&quot; the node. Meaning, if you expect to use <strong>Fusion
+      Middleware Control (FMC)</strong> to make configuration changes and
+      control servers you will need it running. That said, it is not supported
+      to edit most configurations outside of FMC. So unlike old-school where you
+      used your favorite <strong>text editor and made changes to formsweb.cfg
+      (as an example), you cannot/should not do that in 12c</strong>. <strong>
+      All changes that can be made in FMC should be made from within FMC !!</strong>.<br>
+      <br>2. Unless you plan to configure the managed server(s) to start
+      automatically with the machine or as a Windows Service, it likely would be
+      better to <strong>start the managed servers from with FMC</strong>. This
+      will also avoid having extra DOS shells open.<br><br>3. <strong>
+      DOMAIN_HOME\config\fmwconfig\tnsnames.ora</strong> file is not managed by
+      FMC and therefore <strong>can be edited in a text editor</strong>. This
+      file is used by the Forms and Reports Builders, compilers, etc, and
+      runtime components. So it is not recommended that you move this file.
+      However, if you decide to move the file you will need to update the
+      following (at least for Forms):<br>Setting TNS_ADMIN in the Registry will
+      only work for the client tools (Builder, compiler, etc). It will not be
+      used by runtime.<br>HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE\KEY_OracleHome&lt;SOME
+      NUMBER&gt;<br>The Forms Runtime includes a TNS_ADMIN reference in its
+      Environment Variable configuration (aka default.env). To update the value,
+      use FMC<br><br>If you are not familiar with Fusion Middleware Control some
+      information can be found in the Working with Oracle Forms guide here: <br>
+      <a href="https://docs.oracle.com/en/middleware/developer-tools/forms/12.2.1.4/index.html">
+      https://docs.oracle.com/en/middleware/developer-tools/forms/12.2.1.4/index.html</a>
+      <br><br><br><br>
+
+
+
+      <h1>Install Oracle 12c forms &amp; r, DB, weblogic server</h1>
+      
+      
+      <a id="download"></a>
+      <h3 class="logo">&nbsp; Download ver. 12.2.1.4 in install order</h3>
+      to
+      <a href="file:///L:/1_instalac/2_instalac_ora11g/forms_instalac/1_forms12/">
+      L:\1_instalac\2_instalac_ora11g\forms_instalac\1_forms12\</a>
+      <br />
+      from <a href="https://www.oracle.com/downloads/#category-middleware">
+      https://www.oracle.com/downloads/#category-middleware</a>
+      
+        <ol>
+        <li>
+        <strong>JDK</strong>
+        <a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html#license-lightbox">
+        https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html#license-lightbox</a>
+        <br><br>
+        <a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">
+        https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html</a><br>
+        to 001_jdk-8u241-windows-x64.exe<br><br></li>
+        <li>
+        <strong>Weblogic app server</strong>
+        <a href="https://download.oracle.com/otn/nt/middleware/12c/122140/fmw_12.2.1.4.0_infrastructure_Disk1_1of1.zip">
+        https://download.oracle.com/otn/nt/middleware/12c/122140/fmw_12.2.1.4.0_infrastructure_Disk1_1of1.zip</a>
+        <br><br>
+        <a href="https://www.oracle.com/middleware/technologies/weblogic-server-installers-downloads.html">
+        https://www.oracle.com/middleware/technologies/weblogic-server-installers-downloads.html</a><br>
+        to 002_weblogic_fmw_12.2.1.4.0_infrastructure_Disk1_1of1.zip (.jar &amp; 
+        readme)<br><br></li>
+        <li>
+        <strong>Forms &amp; rep.</strong>
+        <a href="https://edelivery.oracle.com/osdc/faces/SoftwareDelivery">
+        https://edelivery.oracle.com/osdc/faces/SoftwareDelivery</a><br>to 
+        003_forms_rep_V983393-01.zip (exe &amp; html)<br>Not working :
+        <a href="https://www.oracle.com/middleware/technologies/forms/downloads.html#">
+        https://www.oracle.com/middleware/technologies/forms/downloads.html#</a>
+        <br>
+        <a href="https://www.oracle.com/middleware/technologies/forms/downloads.html">
+        https://www.oracle.com/middleware/technologies/forms/downloads.html</a></li>
+      </ol>
+
+
+
+
+
+
+      <p class="auto-style3"> &nbsp;</p>
+    </div><!--e n d  nonamed content div-->
+    <!--e n d  nonamed content div-->
+    
+
+
+
+    <div>
+      <h3 class="logo">&nbsp; Install</h3>
+
+
+      <ol>
+        <a id="oradb19c"></a>
+        <li class="auto-style3"><span class="logo">Oracle database 19c XE</span><br>
+          <br>
+          Why ? Weblogic server 12c doesn't support database versions below 11.2.0.4 (<span class="red_dark"><strong>11g R2 XE is 11.2.0.2</strong></span>). Upgrade (patch, full installation) is only available for customers with valid support subscriptions, hence the best option available is installing Oracle 12c.<br>
+          <br>
+          2 zip files &amp; You must extract both the zip files to <strong>single folder</strong>, in installer\database is setup.exe.<br>
+          You don&rsquo;t have Oracle support, so uncheck the &ldquo;I wish to…&rdquo;<br>
+          <br>
+          Creating DB after  Oracle software installation gives  more options to setup archive logs, automated backups etc. So  proceed with &ldquo;Install software Only&rdquo; <br>
+          Add the languages you want to use with the database<br>
+          <br>
+          It is better to have a dedicated user to start the Oracle services, which provides better security. I created a user called &ldquo;Oracle&rdquo;<br>
+          <br>
+          database installation path to start with &ldquo;Oracle&rdquo;, hence I chose &ldquo;D:\Oracle&rdquo; for the installation. You can accept the default<br>
+          <br>
+          Once the software installed, use DBCA to create a new database.<br>
+          <br>
+          ----------------<br>
+          <br>
+          &ldquo;Oracle&rdquo; strongly suggests that the repository for Middleware should have &ldquo;AL32UTF8&rdquo; as the character set. Hence, while creating the database, please make sure you select the same for your repo database. If you are migrating a legacy application that has issues with this particular character set, I suggest you create a smaller size database exclusively for the Middleware repo and create another database for your application that uses a different character set.<br>
+          <br>
+          setup your 12c database with no password expiry, no complex passwords etc (as far you are using the environment for development)<br>
+          <br>
+          have <a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=30679">Visual C++ 201</a>2 package installed, enabled the IPV6 protocol, Pointed all the servers, &ldquo;Admin Server&rdquo;, &ldquo;WLS_FORMS&rdquo; and &ldquo;WLS_REPORTS&rdquo; to the hostname, instead of leaving the listening address empty. Eg: rajesh-pc.<br>
+      <br><a href="https://www.w3resource.com/oracle/index.php">
+      https://www.w3resource.com/oracle/index.php</a> <br><br>
+          <br>
+        </li>
+        <a id="JDK"></a>
+        <li class="auto-style3"> <span class="logo">JDK 8u66 64 bit (1.8.0.66)</span> <br>
+          <br>
+          To run the installer in a .jar distribution, you must have a certified
+      JDK already installed on your system.<br>Preferably install to a folder like C:\Java, D:\JDK. If you have earlier versions of JRE for some specific reasons, deselect JRE from the feature listing.<br>
+          <br>
+        </li>
+        <li class="auto-style3"><span class="logo">Middleware aka Weblogic Server 12c</span><br>
+          <br>
+          Switch to the folder from command prompt where you downloaded &ldquo;fmw_12.2.1.0.0_infrastructure.jar&rdquo; and call java to install the package.<br>
+          <br>
+          <strong>C:\jdk\bin\java -jre
+            fmw_12.2.1.0.0_infrastructure.jar</strong><br>
+          <br>
+          As usual you will skip the updates<br>
+          <br>
+          in a folder like C:\Weblogic or D:\Weblogic<br>
+          <br>
+          select the first option, Fusion Middleware Infrastructure (no examples)<br>
+          <br>
+        </li>
+        <li class="auto-style3"><span class="logo">Forms and reports 12c</span><br>
+          <br>
+          Oracle Forms 12c allows a Standalone Forms Builder installation, which
+      no longer needs a WebLogic installation. The Standalone installation does
+      not allow forms to be run, just built and compiled. To run them, they must
+      be deployed to a full installation of Oracle Forms and/or Reports
+      Services.<br><br>Hence we will be doing the standard installation
+      processes facilitating the app. deployments.<br>
+          <br>
+          As usual We will skip auto updates<br>
+          <br>
+          Make sure you select the same folder where you installed WebLogic server for &ldquo;Oracle Home&rdquo;<br>
+          <br>
+          Select Forms and reports deployment <br>
+          <br>
+          Oracle says a <strong>database repo is required for Weblogic 12c</strong>, so I created one repo. Browse to your &ldquo;D:\Weblogic\Middleware\Oracle_Home\oracle_common\bin&rdquo; folder and execute rcu.bat file as &ldquo;Administrator&rdquo;<br>
+          <br>
+          <p>Make sure your database &amp; listener services already started and you can TNSPING, connect to the instance using SQL etc, to insure that the repo creation will NOT fail</p>
+          <p>Fill in your database instance details (Service name, host name, PORT etc)</p>
+          If the utility could establish a connection to the database, you will be taken to rest of the configurations in next steps. <br>
+          <br>
+          By default when you are trying to create your 1st repository (for each new domain, you must create a new repo, there were claims that someone managed to use the same repo with his 2nd domain as well, however, 1st domain being offline) You will be offered to create a new prefix, by default &lsquo;DEV&rsquo;. You can change it to JON, MARTA or PROD according to your requirement. Just make sure that you note it down or remember it while configuring your forms and reports instance at later stages<br>
+          <br>
+          Select the components :
+          Oracle Platform Security Services, Audit, Audit Append, Audit Viewer<br>
+          <br>
+          I have used the same password across 12c products. For a lab, it is okay, however when you are deploying the solution for production environment, follow the recommendations for passwords. I created a password like &ldquo;Abcprod123&rdquo;, it has CAPITAL letter, lowercase letters &amp; numbers<br>
+          <br>
+          That&rsquo;s all, you have created a new repo for your new domain that you will create later.<br>
+          <br>
+          Make sure your <span class="red_color">PATH environment variable has your JDK\bin folder as the first value</span>, else you will NEVER manage to get your forms and reports builders configured properly, Oracle has made sure of it ;)<br>
+          <br>
+          You can start the &ldquo;config.cmd&rdquo; either from the start menu or from the &ldquo;D:\Weblogic\Middleware\Oracle_Home\oracle_common\common\bin&rdquo; folder (Please change the path according to your installation preferences, for example I opted &ldquo;D:\WebLogic&rdquo; for my WebLogic server installation and rest of the paths were created automatically during the installation process)<br>
+          <br>
+          Select the default &ldquo;Create a new domain&rdquo;. You will see that &ldquo;base_domain&rdquo; folder is selected by default, which you can change according to your requirement.<br>
+          <br>
+          Select the component for your domain (Select all the components listed with the image below) - without upgrade F and R, without user messaging, HTTP Restricted, WSM Policy manager<br>
+          <br>
+          <p>You will be provided a window showing your current domain name, physical location etc<br>
+            <br>
+            Leave the Weblogic account name as &ldquo;weblogic&rdquo; &amp; supply an Alpha Numeric password for the account<br>
+            <br>
+            Select Production &amp; keep the JDK pointed towards your specific JDK installation, which is automatically selected.<br>
+            <br>
+            Now you have to supply the repo details you have created earlier. Make sure you are not making mistakes with supplying the details &amp; click &ldquo;Get RCU Configuration&rdquo;<br>
+            <br>
+            You can proceed to next level only once after populating the RCU Configurations, if errors you will not able to proceed<br>
+            <br>
+            Make sure all the listed elements hare having same Service, HOST, PORT names and the password columns are automatically filled. If any one of the listed row has different value, cancel the installation. It means you made some mistakes while creating the repo.<br>
+            <br>
+            Once the repo connectivity confirmed, you will be provided a number of components those you could configure as the part of the forms &amp; reports configuration.</p>
+          <p>Select the components as shown with the image below: Admin Server, Managed Servers,&nbsp; System Components<br>
+            <br>
+            Accept the defaults for Administration Server<br>
+            <br>
+            Next screen you should be shown two components - Accept the defaults</p>
+          <ol>
+            <li>WLS_FORM</li>
+            <li>WLS_REPORTS</li>
+          </ol>
+          <p><br>
+            You need to add the &ldquo;AdminServer&rdquo; from the left pan &ldquo;Servers&rdquo; to the node under &ldquo;Machines&rdquo;<br>
+            <br>
+            we select OHS as a component, you should add one OHS instance using the Add Button and give it a meaningful name like &ldquo;ohs1&rdquo; or &ldquo;ohs_1&rdquo;. Make sure the Component Type is &ldquo;OHS&rdquo;<br>
+            <br>
+            You may enter localhost as Listen address for the ohs instance in the next page.<br>
+            <br>
+            Now add the &ldquo;ohs1&rdquo; component from the &ldquo;System Components&rdquo; to &ldquo;Machines&rdquo; Node<br>
+            <br>
+            Click the &ldquo;Create&rdquo; button to start configuring the forms &amp; reports domain<br>
+            <br>
+            Once the configuration is over, you will be provided a confirmation screen as seen below. Don&rsquo;t close this window. We need to perform few more stuffs prior finishing the configuration, said you can close this window by clicking the &ldquo;Finish&rdquo; button, just make sure that you have copied the URL, and the foot note shown by the bottom of the window. That note clearly asks you to execute a specific command using WebLogic Scripting Tool, for OHS<br>
+            <br>
+            Start the node manager from your newly created domain\bin folder <br>
+            <strong>D:\Weblogic\Middleware\Oracle_Home\user_projects\domains\base_domain\bin</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp; (F11 : C:\Oracle\Middleware\user_projects\domains)<br>
+            (Check the below image for details)<br>
+            <strong>startNodeManager.cmd</strong> <br>
+            <br>
+            Start the weblogic server. When prompted, supply your weblogic username and password <br>
+            <strong>startWebLogic.cmd</strong><br>
+            <br>
+            Logon to the WebLogic Admin server console and start the WLS_FORMS &amp; WLS_REPORTS servers, this will trigger setting up much of the start menu components for your installed products, else missing.</p>
+          <p>Keep monitoring the weblogic server window, Once the server enters into RUNNING mode, you will notice that items are getting added to &ldquo;Oracle FMW 12c Domain -base_domain&rdquo; Start Menu folder.<br>
+            <br>
+            Now you have to start the Weblogic scripting tool &amp; run the instructions provided with the last Window of forms and reports configuration<br>
+            Please see the below image(s) for details<br>
+            <br>
+            OHS instance should get activated and updated without any issues by the end of the process.</p>
+          <p>Now you can close the last window of forms &amp; reports configuration and access Weblogic console &amp; Enterprise Manager through the following URL(s)</p>
+          <p><a href="http://localhost:7001/console" rel="nofollow">http://localhost:7001/console</a> &amp; <a href="http://localhost:7001/em" rel="nofollow">http://localhost:7001/em</a><br>
+            <br>
+            You can use the EM console to start your OHS instance (OPMN depreciated) as well. Once started, the OHS instance will be configured to start automatically.</p>
+          <p>Now We will create the Node Manager Service for Windows. Please check the below image for details<br>
+            <br>
+            I&rsquo;ve used &ldquo;NSSM – the Non-Sucking Service Manager&rdquo; to create the Weblogic Admin Server Service. You can download NSSM from <a href="https://nssm.cc/download" target="_blank">here</a>. Issue a command like nssm.exe install &ldquo;WebLogic Admin Server&rdquo; will popup a GUI where you can select the &ldquo;….\Oracle_Home\user_projects\domains\base_domain\bin\startWebLogic.cmd&rdquo; as the executable for the service.<br>
+            <br>
+            Now, we will configure the last element in this configuration section, Reports Tools instance so that you can start using the report developer 12c. From Weblogic Scripting Tool Console, you can create a new tool instance. Please refer the below image for details.<br>
+            <br>
+            Restart the WLS_REPORTS server using Weblogic Admin console and the reports tool will be configured once after the WLS_REPORTS enters RUNNING status</p>
+          <p>While the Forms developer could be invoked from the Start Menu folder &ldquo;Oracle FMW 12c Domain -base_domain&rdquo;, calling reports builder is pretty awkward. You have to browse to &ldquo;…\Oracle_Home\user_projects\domains\base_domain\reports\bin\&rdquo; and execute the batch file &ldquo;rwbuilder.bat&rdquo;. Better, you create a shortcut for the batch file on your desktop.</p>
+          <p>So, that concludes the 1st level installation and configuration of 12c database, WebLogic, forms &amp; reports.</p>
+          <p><br>
+            You can setup the <strong>db in a machine and rest in another</strong>. Just add the TNS entries into your weblogic domains. If you are familiar with Weblogic 10.3.6, 12c didn&rsquo;t change much, other than increased complexities to get it configured.<br>
+            Database running from a different server, that&rsquo;s how you reduce the clutter. Just make sure that you have both server&rsquo;s host files having entries for each other, do ping to insure that both machines respond to each other.<br>
+            Once you confirmed the connectivity, all you need to do is to either copy the tnsnames.ora file from the database server to Weblogic&rsquo;s tns location or editing the existing tnsnames.ora and adding the entries manually. Though IPV6 is getting adapted and Oracle confirms 12c has better IPV6 handling, I will suggest you <strong>disabling the IPV6 on both servers</strong>, cleaning DNS servers by removing the IPV6 entries for the servers prior deploying applications. I&rsquo;ve came across multiple situations when the weblogic server fail to start WLS_FORMS and WLS_REPORTS services failing to start due to IPV6, mainly after a restart.<br>
+            <strong>OPMN is depreciated with 12c</strong>, hence don&rsquo;t miss the OHS instance part :). <br>
+            <br>
+          </p>
+        </li>
+        <li class="auto-style3"><span class="logo">&nbsp; Oracle 12c forms-reports configure for deployments</span><br>
+          <br>
+          <p><a href="https://windows7bugs.wordpress.com/2016/01/13/oracle-12c-forms-reports-configure-for-deployments/">https://windows7bugs.wordpress.com/2016/01/13/oracle-12c-forms-reports-configure-for-deployments/</a><br>
+            <br>
+          12c total setup could be a painful experience and may NOT be successful for many, even after following line by line instructions) <a href="https://windows7bugs.wordpress.com/2016/01/05/oracle-12c-database-weblogic-forms-reports/">here</a>        <br>
+          <br>
+          Deploy your existing forms &amp; reports based applications to newly built 12c environment - if your forms and reports were built and compiled used 11g R2 (not sure about 11g R1), no need to recompile them once again for the 12c deployment.        </p>
+        <p>Previous step (4.) stopped at accessing the Oracle Enterprise Manager for Weblogic server.</p>
+        </li></ol>
+      &nbsp;&nbsp;&nbsp; ...
+    </div><!--e n d  nonamed content div-->
+    <!--e n d  nonamed content div-->
+
+
+
+
+
+
+
+
+    <div class="footer">
+      © 2001-... ™phporacle - All rights reserved &nbsp; &nbsp;<a href="http://phporacle.altervista.org" title="phporacle blog">Comments</a>
+      &nbsp; &nbsp;<a href="/faqs.html">FAQs</a>
+
+            <!-- ?php
+            $decimale = 6;
+            $time_end = explode(" ", microtime());
+            $time_end = $time_end[0] + $time_end[1];
+            $time = round($time_end - STARTUP_TIME, $decimale) * 1000;
+
+            $mem1 = round(STARTUP_MEMORY/(1024*1024), $decimale);
+            $mem2 = round(memory_get_usage(true)/(1024*1024), $decimale);
+            $mem  = $mem2 - $mem1;
+
+            echo '<br />Page rendered in '.$time.' mili seconds'
+                 .', using '.round($mem,3).' MB '.'(='.$mem2.' - '.$mem1.')'
+                 //.', Nr DB queries ' . $data['o']['NrDBqueries'] //$main_ctr->NrDBqueries
+            ;
+            -->
+
+    </div><!-- E N D  33333 div class="footer" -->
+    <!-- E N D  33333 div class="footer" -->
+
+
+</div><!-- E N D  div class="c ontent" -->
+<!-- E N D  div class="c ontent" -->
+</body></html>

@@ -1,0 +1,1 @@
+<h1 class="header">Dashboard subpage with parameter! Parameter: <?=$parameter?></h1>

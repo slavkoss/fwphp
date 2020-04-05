@@ -1,0 +1,267 @@
+/* reset browser styles */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+.footer {  
+      /* color: #fff; */  
+      background-color: #000;  
+      background-color: rgba(0, 0, 0, 0.8);  
+  }  
+body {
+	line-height: 1.2;
+}
+  /* background-image: url(../imgs/header.jpg); */
+.action {
+  /* works : */
+  background-image: url(/fwphp/b12fw/img/header.jpg); 
+  background-size: cover;
+  height: 100px;
+  
+}
+
+ol { 
+	padding-left: 1.4em;
+	list-style: decimal;
+}
+ul {
+	padding-left: 1.4em
+	list-style: square;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+} 
+/* end reset browser styles */
+
+/* basic layout -- 2 columns 
+#B1967C=smedja  E9F5FE=white   "CDE6FF=lightblue  #BACED2=green
+url(images/bg_body.png) repeat-x;          - was body  - solid lightblue
+url(images/bullet_flower.png) no-repeat;   - .main h2  - top img
+*/
+.main {
+	float: left;
+	width: 70%;
+}
+/*E8E8E8 */
+.sidebar {
+	margin-left: 75%;
+	padding: 15px;
+	background: #EEEEF6;
+}
+/*F2F2F2 EEEEF6 */
+body {
+  color: #B1967C;
+  font-family: "Palatino Linotype", Baskerville, serif;
+  padding-top: 0px;
+  background: #E4E4EB;
+  max-width: 800px;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 2em;
+  font-family: "Arial Black", Arial, sans-serif;
+  margin-bottom: 15px;
+}
+h2 {
+  font-size: 1.6em;
+  color: #AFC3D6;
+  margin-bottom: 5px;
+}
+.main h2 {
+  color: #E8A064;
+  border-bottom: 2px white solid;
+  /* background: #BACED2; */
+  padding: 0 0 2px 80px;
+}
+.main p {
+  color: #616161;
+  font-family: "Palatino Linotype", Baskerville, serif;
+  font-size: 1.1em;
+  line-height: 150%;
+  margin-bottom: 10px;
+  margin-left: 80px;
+}
+p.intro {
+  color: #6A94CC;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+  margin-left: 0;
+  margin-bottom: 15px;
+}
+
+
+
+
+/* --------- I added ---------- 
+green=rgb(69,189,102)
+*/
+
+.note {
+ color: black;
+ border: 2px solid white;
+ background-color: lightgray;
+ margin-top: 25px;
+ margin-bottom: 35px;
+ padding: 20px;
+}
+.note strong {
+  color: white;
+}
+
+.icon > svg {
+  margin-right: 5px;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+  top: 5px;
+}
+
+
+/* .chapter::before {  
+      content: '"';  
+      font-size: 10em;  
+}   */
+.chapter p::first-letter {  
+      float: left;  
+      font-size: 3em;  
+      font-family: Georgia, Times, "Times New Roman", serif;  
+}  
+.chapter p::first-line {  
+      font-family: Georgia, Times, "Times New Roman", serif;  
+      text-transform: uppercase;  
+}  
+
+
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+
+button {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+input {
+  line-height: normal;
+}
+
+/* Buttons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 5px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+  
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary 
+{
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+  
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+
+
+
+  
+/*
+.button-primary {
+  background-color: lightyellow;
+  border: none;
+}
+*/
+.button {
+  background-color: rgba(255,255,255,.5);
+  border: none;
+}
+.button:hover {
+  background-color: rgba(255,255,255,.3);
+}

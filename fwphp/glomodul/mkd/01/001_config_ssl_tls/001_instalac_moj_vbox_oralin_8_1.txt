@@ -1,0 +1,174 @@
+2020.04.03 
+## Install Oracle Linux 7.6 on VirtualBox 6.4
+Simmilar are RHEL, Fedora, CentOS (yum, rpm based Linux distros)      
+
+### 11111 VirtualBox CLICK RIGHT CTRL TO FREE MOUSE !!
+1. Download  Oracle VM VirtualBox OR   https://www.virtualbox.org/wiki/Downloads         
+    Oracle Linux 8.1 64 bit https://edelivery.oracle.com/osdc/faces/Home.jspx
+
+2. Machine -> New or icon "New" in vbox main screen :
+    1. Name for your VM **oralin81**  (**centos81**)
+        Machine folder: `J:\vbox_vms` (for oralin81.vdi)     
+        Type of OS (operating system) Linux, version Oracle (64 bit)       
+        click "Next"
+        Select Memory size eg 4096 + 1024= 5120 MB  (6028) and click Next        
+    2. Create a virtual hard disk now, expert mode VDI (VirtualBox Disk Image), Dinamically allocated, 
+        `J:\vbox_vms\oralin81\oralin81.vdi`  100 GB (**8 GB for swap - required by Oracle 11g DB**)         
+        click "Create" New Wizzard re-directs you back to vbox main screen.     
+
+3. Settings -> General -> Advanced
+    Snapshot folder is : `J:\vbox_vms\oralin81\Snapshots`  (`J:\vbox\VMs\ora11gxefedora\Snapshots`)
+    Enable Shared Clippboard and Drag-drop both bidirectional        
+    Settings -> System -> Processor -> 2 CPU (2 for Win 10 64 bit)          
+    Settings -> Display -> Screen -> 128 MB        
+    Settings -> Display -> Screen -> Enable 3D acceleration       
+    Settings -> Network -> Adapter 1  -> Atached to: -> **Bridged** adapter         
+    (my is cable, Realtek PCIe GBE on Gigabyte Z68AP-D3, Intel Core i5 2500K, 16 GB DDR3 - recomended)     
+    ->Promiscuous -> Mode: Allow all          
+
+   Settings -> Shared folders -> Add -> Folder path and name J:\, or J:\awww\www, name: **JWIN**        
+   My virt. Apache site doc.root on Win.10 is  J:\awww\www      
+   Auto-mount check box for all Shared folders.     
+   Mount point :
+
+4. Settings -> Storage -> IDE controller -> **Click on Empty CD icon**.       
+   On screen right side click on CD image icon for the CD/DVD drive        
+   and click on the “**Choose a virtual CD/DVD disk file**...”           
+   L:\1_instalac\1_instalirano\linux\2_oralinux\000_0ralin_8_1_V984216-01.iso   7,5 GB      
+   was L:\1_instalac\1_instalirano\linux\2_oralinux\7_5\V975367-01.iso    4,3 GB     
+   
+
+
+
+### 22222 Oracle_VM_VirtualBox_Extension_Pack-5.1.6-110634.vbox-extpack
+
+**.vbox-extpack extension**. To install an extension, **double-click on the package**       
+and a Network Operations Manager window will appear, guiding you through steps.       
+
+Extension Pack is for All supported platforms - Install it with same version as installed version of VirtualBox.     
+Support for **USB 2.0 and USB 3.0 devices**, VirtualBox **RDP** and **PXE** boot for Intel cards.       
+
+To view the extension packs that are currently installed, start        
+VirtualBox Manager -> File menu -> select Preferences-> go to the        
+Extensions category - allows you to remove a package or add a new one.        
+Alternatively you can use VBoxManage on the command line: see chapter 8.41, VBoxMan        
+age extpack, page 184 for details.        
+
+VirtualBox Remote Desktop Extension (**VRDE**) allows for high-performance remote access to any running virtual machine. This extension supports Remote Desktop Protocol (RDP) originally built into Microsoft Windows, with special additions for full client USB support.
+
+
+### 33333
+#### 8 GB for swap - required by Oracle 11g DB (2 x memory = eg 12 GB)
+5. Select Virtual Machine oralin81 that you just created.   Click on the green Start icon on the top of vbox screen.
+Select 'install Oracle linux' and click Enter key.  Select language to use during the installation process.
+Only ora Linux: Select **Server with GUI**. Minimal installation option is the installation without GUI.
+         Select :Add ons for selected environment and choose :
+         File and storage server
+         Java platform
+         Network filesystem client
+         Performance tools
+         Compatibility libraries
+         Development tools --- at least this
+         **not !!! KDE desktop (installs also Gnome)** 
+Select other buttons (keyboard if not english, partitioning...)
+ethernet  fwphp75   enp0s3    GENERAL: Automatic conn. to network   ipv4 :
+during installation you will see 2 red warnings indicating that the       root password is not set and no users are created - create root account and user account 
+When system reboots, you will be directed to perform the initial setup,
+       click on the checkbox to accept the license agreement
+       and click on the Done button on the top left corner.
+       Click on the FINISH CONFIGURATION button to proceed.
+       do not forget to remove the tick at Boot Order 'CD/DVD'.
+Installation is finished.
+
+su -
+yum update     
+
+**if ERROR see 002_instalac02_2ERROR_add_guest_add.jpg**        
+cd /var/log     
+ls      
+gedit vboxadd-setup.log.highest_ver_eg_4    
+**look for "please install"...  shift+ctrl+c them**     
+yum install zlib-devel      
+yum install elfutils-libelf-devel      
+
+Right click on desktop then Display setings 1920 1200 (16:10) then **right ctrl+f works**     
+
+
+<br /><br />
+yum group list
+
+dnf group list       
+ping google.com   err NOT KNOWN       
+lp a     shows if netw card is down (GUI is also down)        
+ifup enp0s3       **now we can ping and dnf group**
+dnf group list       
+
+dnf group install workstation
+
+uname -a 
+
+
+
+<br /><br />
+I tested also Centos 7.3 and Mint 18.2 Cinnamon - do not work for me (after OS update - problems with booting same as with oralinux 7.3). To install DB 11g XE I ended withoralinux 7.3 - works better than 7.2.     
+
+
+
+### 44444 VBoxGuestAdditions_5.1.6.iso
+This image file is located in the installation directory of VirtualBox:     
+  eg C:\Program Files\Oracle\VirtualBox\VBoxGuestAdditions.iso       
+To install the Guest Additions for a particular VM, you mount this ISO file    
+in your VM as a virtual CD-ROM and install from there.      
+
+see chapter 4, Guest Additions, page 61/352
+software packages which can be installed inside of supported guest
+systems to improve their performance and to provide additional integration 
+and communication with the host system. 
+  - automatic adjustment of VIDEO RESOLUTIONS,
+  - MOUSE POINTER integration
+  - SEAMLESS WINDOWS -  windows that are displayed on the desktop of the
+    virtual machine can be mapped on the host�s desktop, as if the underlying 
+    application was actually running on the host See ch 4.6, page 74
+  - SHARED FOLDERS which let you access files from the host system 
+    from within a guest machine see chapter 4.3 page 69
+  - accelerated 3D graphics
+  - Generic host/guest communication channels
+  - Time synchronization
+  - SHARED CLIPBOARD
+  - Automated logons (credentials passing) 
+
+
+https://www.virtualbox.org/wiki/Downloads
+J:\awww\apl\dev1\dev1_zinstalac_dok\linux\oralinux\vbox_UserManual.pdf
+
+
+file:///L:/1_instalac/1_instalirano/video/centos/Install_CentOS8_on_VirtualBox_Linux_Hint.html  - **pictures**     
+(https://linuxhint.com/install_centos8_virtualbox/)       
+
+https://www.linuxtechi.com/install-configure-samba-centos-8/
+
+https://davidghedini.com/pg/entry/install_oracle_11g_xe_on_centos/ 
+
+https://www.youtube.com/watch?v=9lMifqB6Y8s         
+https://www.youtube.com/watch?v=HSPbwezgMno         
+
+https://appuals.com/how-to-fix-the-windows-10-file-sharing-not-working-problem/ 
+
+Why vbox ? Before larger installations we make snapshot to return to (any previos) state-snapshot  before (failed) installation. 
+
+
+L:\1_instalac\1_instalirano\linux\1_virtualbox\2_VirtualBox 5.1.26_forWindowshosts_oralinux7.3.txt
+
+L:\1_instalac\1_instalirano\linux\2_oralinux\2_VirtualBox 5.1.26_forWindowshosts_oralinux7.3.txt
+
+L:\_ISO\_ISO\LINUX\oracle_linux\Instalac11gXE_on_oralin7_6.txt
+
+L:\1_instalac\1_instalirano\linux\2_oralinux\1_instalac_moj_oracle_linux_or_fedora_64bit_virtualbox_Apache_PHP_11gXE.html
+
+L:\2_knjige\linux\z_doc\How to install Oracle Express Edition on Centos_RHEL - COMPUTER TECHNOLOGY SPECIAL.html
+
+
+EXPENSIVE, NO DB XE SUPPORT, COMPLICATED (more appl. than development SW - APEX BETTER ? PHP ?) :      
+http://dev1:8083/fwphp/glomodul/z_help/oracle/00oraForms12_instalac_moj.html#download
+L:/1_instalac/2_instalac_ora11g/forms_instalac/1_forms11/00_instalac_help/00oraForms11_1_2_2_0_instalac_moj.html     
+https://github.com/finos/exodus/wiki/Installing-Oracle-Forms-12.2.1.4   

@@ -1,0 +1,216 @@
+    /* ********************************
+           1. P A G E   Top,Right,Bottom,Left
+    ********************************* 
+    for J:\awww\apl\dev1\fwphp\index.php    
+    */
+/*#e7dbcd=drap  l i g h t : #DFDEE3=grey  #F0F1FF=blue  #E0E6E3=green*/
+/* #fafaff , verdana, tahoma */
+body, html, p {
+  font-size: 1.0em;
+  margin: 0;
+  padding: 0px 10px 0px 10px; 
+  height: 100%;
+}
+
+body {
+  background: #fff; 
+  font-family: Cantarell, arial, Helvetica ;
+  line-height: 1.5;
+  overflow-y: scroll;
+}
+
+    #wrapper { 
+      width: 100%;
+      /* align: center; */
+    } 
+    #header { 
+      /* background-image: url(images/header.jpg); */
+      /* background-repeat: no-repeat; */ 
+      /* #F0F1FF  lightgray  #e0e0ff   #d5b87e=drap  #0000ff*/
+      padding: .2em;
+                /* border: 1px dotted #d7ad7b; */
+                /*height: 120px;*/
+                /*border: 1px solid blue;*/
+                /*margin-bottom: 10px;*/
+      border-style: solid;
+      border-width: thin;
+      border-color: black;
+
+      background-color: #093754; 
+      /* font-family: arial, helvetica, ariel, sans-serif; */
+      color: #ffffff;
+      text-align: center;
+
+      /* font-size: 150%; font-weight: bold;
+      padding: 0px 4px 0px 4px; */
+    }
+    #main { 
+      display: table;
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px dotted #d7ad7b;
+      /* align: center; */
+                /* text-align: center; */
+                /* padding: 50; */
+                /*margin: 100;*/
+    }
+    .row {
+      display: table-row;
+    }
+    
+    
+    /* C O L U M N S    T,R,B,L */  
+    #content { 
+      display: table-cell;
+      padding: 0px 50px 0px 10px; 
+              /*width: 50%;*/
+              /*padding-left: 10px;*/
+              /*border: 1px solid blue;*/
+              /*padding: .2em;*/
+    } 
+
+    #extras { 
+      display: table-cell;
+      width: 25%;
+      /*background-color: #E0E6E3;*/
+      /* border-right: 1px dotted #d7ad7b; */
+      border: 1px dotted #d7ad7b;
+      padding: .2em;
+    } 
+    #nav { 
+      display: table-cell;
+      width: 25%;
+      /* background-color: #DFDEE3; */ 
+      border: 1px dotted #d7ad7b;
+      padding: .2em;
+        /*  width: 200px; height: 25px; 
+        position: absolute;
+        top: 2em;
+        text-align: right;
+        */
+    } 
+    li a {
+      display: block;
+      color: darkblue;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+
+    /* Change the link color on hover */
+    li a:hover {
+      background-color: #555;
+      color: white;
+    }
+        /*
+    #nav li { 
+        width: 200px; height: 25px; 
+        position: absolute;
+        top: 2.5em;
+        text-align: right;
+        */
+
+
+    /* ********************************
+        2. NESTED CSS TABLE
+    **********************************/
+    .promo {
+     display: table;
+     width: 100%;
+     border: 2px solid #5a3811;
+     border-collapse: collapse;
+     margin-bottom: 1em; 
+    } 
+/*#e7dbcd=drap   lightyellow*/
+    .promo .promoleft {
+     width: 50%;
+     display: table-cell;
+     border: 2px solid #5a3811;
+     padding: 10px;
+     background-color: #F0F1FF; 
+    } 
+    .promo .promolefterror {
+     width: 50%;
+     display: table-cell;
+     border: 2px solid #5a3811;
+     padding: 10px;
+     background-color: pink; 
+    }
+    /*  link is positioned relative to the viewport and not the cell : */
+    #allnewslink {
+     position: absolute;
+     bottom: 0;
+     right: 15px;
+     padding: 0; 
+    } 
+          
+          .promo .news {
+            width: 50%; /* width: 340px; */
+            display: table-cell;
+            border: 2px solid #5a3811;
+            padding: 10px;
+          }
+          .promo h3 {
+            font-size: 110%;
+            font-weight: normal;
+            color: #5a3811;
+          }
+          .promo ul {
+            list-style: none;
+          }
+          .promo p, .promo li {
+            font-size: 100%;
+          }
+          
+    /* ********************************
+        3. I M G  G A L L E R Y
+    **********************************/
+    .grid {
+     width: 100%; 
+     display: table;
+     border-spacing: 4px; 
+    } 
+    .row {
+     display: table-row; 
+    } 
+
+    .image {
+     display: table-cell;
+     width: 50%;
+     background-color: #093754;
+     border: 1px solid #000;
+     vertical-align: center;
+     text-align: center; 
+    } 
+    .image p {
+     color: #ffffff;
+     font-size: 100%; 
+     text-align: left;
+     padding: 8px; /* padding-top: 8px; */
+    }
+
+
+/* MY : */
+pre, code, kbd, samp {
+  text-align:left;
+  white-space: pre-wrap;
+  border-style: solid; border-color: lightblue; border-width: 1px 3px 3px 1px;
+  padding: 1px 8px;
+  background: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  color:black;
+  font-family: courier-prime,'Courier New',Courier,monospace;
+  font-size: 1em;
+  display: block;
+  max-width: 100%;
+}
+.pgBreakAfter {
+  cursor: text;
+  filter: Gray;
+  page-break-after: always;
+}
+.pgBreakBefore {
+  cursor: text;
+  filter: Gray;
+  page-break-before: always;
+}

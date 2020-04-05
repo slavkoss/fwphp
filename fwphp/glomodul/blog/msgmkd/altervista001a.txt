@@ -1,0 +1,655 @@
+Revised November 2019.      
+
+1a. Install ZWAMP, Apache, PHP, MySQL, WordPress on Win 10 all 64bit, all portable (extract, setup files)
+=========================================================================================================
+
+**[HOME](http://phporacle.altervista.org/php-oracle-main-menu/ "Main menu")**
+
+22.oct.2016  
+from  J:\\zwamp64\\z\_apache\_php\_instalac\_doc\\z\_doc\\01\_zwamp\_instalac\_moj.txt
+
+I tried 4-5 WAMP server SW. WAMP and ZWAMP are ok but XAMPP unzip is simplest 窶・almost 1 click . WAMP has problem with composer installations from Windows command line. Next shows more details about ZWAMP (I do not use ZWAMP recently) :
+
+1\. Z-WAMP
+----------
+
+is hosted by SourceForge:[http://zwamp.sourceforge.net/](http://zwamp.sourceforge.net/)  
+download:[http://sourceforge.net/projects/zwamp/files/](https://sourceforge.net/projects/zwamp/files/)  
+**latest is jan.2013**  11\_**zwamp-x64-2.2.1-full.zip**  
+to DIRECTORY J:\\zwamp64\\z\_apache\_php\_instalac\_doc\\win64\_x64bit  
+where is also coresponding MS VC++ which must be installed first (**only this one installation**) see below vc\_redist.x64.  
+  
+**Latest ZWAMP for Win XP which I have as web site on USB stick**they work on all Windows 32/64 bit versions :  
+25 MB     11\_for\_winXP\_32bit\_**zwamp-i386-1.1.2.zip**  
+br>Last version I extracted php for 32 bit windows xp is 5.4.\*  :  
+11\_for\_wiXP\_32bit\_vcredist\_x86\_VS2008.exe  
+12\_for\_winXP\_32bit\_php-5.4.45-Win32-VC9-x86.zip  
+Last apache for 32 bit windows xp is 2.4.? or 2.2.? (see apachelounge site)
+
+ZWAMP is Bing Cosca逞ｴ project (also author of F3 Fat free php framework).  
+Latest ZWAMP 2013 year  for win 10 64 bit contains web development tools:
+
+1.  I use only : Apache, MySQL, PHP, Adminer,  I added phpmyadmin and I extracted their latest versions to Z:\\.sys (Z: is for me 隨・\\zwamp64\\vdrive
+2.  I do not use : MiniPerl 5.14.2, MongoDB 2.2.3,   (PHP 1.3.4 driver),  APC 3.1.13, XCache 3.0.0, XDebug 2.2.1, AdminMongoDB, MemCached, SQLite, eAccelerator, and Alternative PHP Cache (APC)
+
+ZWAMP Version 2.2.1, 2013 year (LATEST RELEASE)  
+
+
+**23.oct.2016 I EXTRACTED NEWEST 64 BIT VERSIONS OF  (ALL NO INSTALL, PORTABLE)**
+
+Apache 2.4.3
+
+apachelounge  
+12\_apache\_httpd-2.4.20-win64-VC14.zip
+
+PHP 5.4.12
+
+12\_php-7.0.12-Win32-VC14-x64.zip  
+MSVC14 (Visual C++ 2015)
+
+MySQL 5.6.10
+
+mysql-5.7.16-winx64.zip,  mysql-5.7.9-winx64.zip  
+see below EXTRACT PORTABLE: MYSQL
+
+tool  
+Adminer 3.5.1
+
+Adminer 4.2.5  
+[http://dev1:8083/adminer/adminer.php](http://dev1:8083/adminer/adminer.php)  
+see below EXTRACT PORTABLE: MYSQL
+
+ZWAMP does not contain phpMyAdmin
+
+phpMyAdmin 4.6.4  
+see below EXTRACT PORTABLE: MYSQL
+
+ZWAMP does not contain WordPress
+
+1\_wordpress-4.6.1.zip   8.5 MB  
+see below EXTRACT PORTABLE: WORDPRESS
+
+My DIRECTORY J:\\zwamp64\\z\_apache\_php\_instalac\_doc\\win64\_x64bit  
+contains :
+
+\*\*\*\*\* 1. vc\_redist (install this first, other SW is portable ): \*\*\*\*\*  
+  
+23.oct.2016 15 MB 10\_2015\_**vc\_redist.x64.exe**  
+**for .php 7.0.12 64 bit**(compiled with Visual Studio 2015)  
+[http://www.microsoft.com/en-us/download/details.aspx?id=48145](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
+
+2\. Apache :
+=======================
+3.jul.2016. 14 MB 12\_apache\_**httpd-2.4.20-win64-VC14.zip**  
+
+do not forget comment/uncomment:  
+**LoadModule php5\_module**/.sys/php/php5apache2\_4.dll  
+**LoadModule php7\_module**/.sys/php/php7apache2\_4.dll  
+in J:\\zwamp64\\vdrive\\.sys\\Apache2\\conf\\**httpd.conf** and :
+
+```
+\# ZWAMP does:   (subst Z: "J:\\zwamp\\vdrive")
+Listen 8083
+dir J:\\zwamp64\\vdrive\\.sys\\php is :   PHPIniDir /.sys/php
+dir J:\\zwamp64\\vdrive\\.sys\\php is
+<IfModule alias\_module>
+  \# dir. J:\\zwamp64\\vdrive\\.sys\\adminer is :
+  \# [http://localhost:8083/adminer/](http://localhost:8083/adminer/)
+ Alias /adminer /.sys/adminer
+  <Directory /.sys/adminer>
+    Options All
+    AllowOverride AuthConfig
+    Require all granted
+  </Directory>
+
+  \# [http://localhost:8083/phpmyadmin/](http://localhost:8083/phpmyadmin/)  
+  \# WE NEED WAMP WAY for WAMP main menu group 3. Aliases & virt.hosts :
+  \# J:\\zwamp64\\vdrive\\alias\\phpmyadmin.conf for me is all commented
+  Alias /phpmyadmin /.sys/phpmyadmin
+  <Directory /.sys/phpmyadmin>
+    Options All
+    AllowOverride AuthConfig
+    Require all granted
+  </Directory>
+</IfModule>
+```
+3.1 PHP
+==================
+[http://windows.php.net/download](https://windows.php.net/download)  
+build date Oct 13 2016 24 MB 12\_**php-7.0.12-Win32-VC14-x64.zip**  
+oct.2016 23 MB 12\_**php-5.6.27-Win32-VC11-x64.zip**  
+oct.2015 21 MB 12\_php-5.5.38-Win32-VC11-x64.zip  
+**works, oci8 for php7 is supported !!  
+see trick with php\_oci8\_11g.dll below**
+
+              \*\*\*\*\* 3.2 memcache CURL : \*\*\*\*\*  
+  
+CURL is compiled with php7.0.12,  
+I do not use memcache (any cache) for now (not needed ?)
+
+4\. DB
+============
+
+              \*\*\*\*\* 4.1 DB sqlite : \*\*\*\*\*  
+13.08.2015.  164 kB tema.sqlite  
+              \*\*\*\*\* 4.2 sqlite develop. tools : \*\*\*\*\*  
+24.06.2015.  25 MB 14\_**sqlitestudio-3.0.6.zip**  
+29.03.2015.  98 kB 14\_**SQLiteStudio\_User Manual.htm**  
+br>  
+        \*\*\*\*\* 4.2 DB Oracle 11gXE 64 bit : \*\*\*\*\*  
+  
+332 MB 1\_**OracleXE112\_Win64.zip**  
+see below OracleXE112 INSTALL  
+**see below CONNECT PHP TO OracleXE112**  
+              \*\*\*\*\* Oracle develop. tools : \*\*\*\*\*  
+              Orcle sqldeveloper  
+              Orcle sqldeveloper data modeler  
+              IDE Netbeans I do not use  
+
+    \*\*\*\*\* 4.3 DB mysql (SEE BELOW MYSQL EXTRACT GUIDE) : \*\*\*\*\*  
+
+23.oct.2016.  349 MB 14\_**mysql-5.7.16-winx64.zip**
+
+              \*\*\*\*\*  mysql develop. tools \*\*\*\*\*  
+
+23.oct.2016.  6 MB  16\_**phpMyAdmin-4.6.4-all-languages.7z**  
+compatible with PHP 5.5 to 7.0 and MySQL 5.5 and newer.  
+SHA256: 89ce2055402ea3052d380aebddf3c9c5bfc4ed686f49b98ee2e0f6ec6a3ded6c  
+old: 16\_phpMyAdmin-4.5.0.2-all-languages.7z
+
+23.oct.2016. 283 kB 16\_**adminer-4.2.5-en.php**I renamed to :  
+J:\\zwamp64\\vdrive\\.sys\\adminer\\adminer.php  
+01.06.2016   413 kB adminer-4.2.4.php,  570 kB 16\_adminer-master.zip
+
+23.10.2015. 33 MB  
+15\_mysql-workbench-community-6.3.5-winx64-noinstall.zip
+
+**EXTRACT PORTABLE: MYSQL, PHPMYADMIN, ADMINER**
+
+
+22.oct.2016  
+[http://dev.mysql.com/downloads/mysql/](https://dev.mysql.com/downloads/mysql/)  
+(phpinfo() shows: mysqli mysqlnd 5.0.12-dev  20150407 ?)  
+MD5: 1b23c0ddaa1ad59465fd1702b864e4a3  
+BEGIN PGP SIGNATURE  I do not use this  
+Version: GnuPG v1
+
+iD8DBQBX7U37jHGNO1By4fURAkIGAJ9vU5VfOLHqDnZvvrtq/B/n6jE3MQCgh4C1  
+9sR5bRIkjwpwJ5Adjekc7uA=  
+\=9Kxd  
+END PGP SIGNATURE
+
+348 MB  14\_**mysql-5.7.16-winx64.zip**  
+36 MB   14\_mysql\_refman-5.7.16-en.a4.pdf  
+http://dev.mysql.com/doc/refman/5.7/en/  http://dev.mysql.com/doc/
+
+A bit more difficult for beginner user is to integrate newest  
+Apache. php, mysql, phpmyadmin, adminer in ZWAMP  
+(all portable = extract  & setup & run).
+
+Testing MySQL is best in console (command prompt) window best mysql msgs.  
+I did not use MSI mysql installer (is it better ?)  
+
+
+If using no install mysql zip, you need to:
+
+1\. \*\*\*EXTRACT MYSQL\*\*\*  
+unzip  J:\\zwamp64\\z\_apache\_php\_instalac\_doc\\win64\_x64bit\\14\_mysql-5.7.16-winx64.zip  
+to ZWAMP dir: **J:\\zwamp64\\vdrive\\.sys\\mysql (rename old to mysql\_5\_7\_9)**
+
+2\. Create**\*\*\*OPTIONS\*\*\* file my.ini see my.ini below**  
+or copy my.ini from mysql\_5\_7\_9 dir to mysql dir  
+Optional I id not:   extract the debug-test archive if you plan to execute the MySQL benchmark and test suite
+
+???I DID NOT: Choose a MySQL \*\*\*SERVER TYPE\*\*\*, it could be :  
+it is server-id    = 1 ???  
+mysqld Optimized binary with named-pipe support  
+or mysqld-debug like mysqld, but compiled with  
+full debugging and automatic memory allocation checking
+
+3\. \*\*\*INITIALIZE MYSQL\*\*\*  
+3.1 Freecommander in admin mode and click CLI icon  
+or (I did):  
+make icon C:\\Windows\\SysWOW64\\cmd.exe -> right click -> run as admin  
+J:  
+cd J:\\zwamp64\\vdrive\\.sys\\mysql
+
+3.2  **.\\bin\\mysqld nitialize-insecure er=mysql**
+
+MySQL ee mysqld creates dir :  
+J:\\zwamp\\vdrive\\.sys\\mysql\\data we can move it if needed
+
+data dir we can delete to try nitialize-insecure again if  
+installation was unsuccesfull as my was first time I used  
+nitialize mysqld parameter  
+I did not know how resolve errors same as MANY PEOPLE ON WEB FORUMS :  
+access denied for user root@localhost or  
+ur password has expired
+
+4\. \*\*\*START\*\*\* MySQL server :  
+4.1 First this to be able to do 4.2 !! :  
+Establish ZWAMP try icon & start Apache and mysql  
+(or 2click on: J:\\zwamp64\\zwamp.exe)  
+Rightclick on ZWAMP try icon  
+standard ZWAMP, WAMP or XAMPP functions.
+
+**ZWAMP Services menu item should show apache and mysql started**.
+
+4.2 Execute mysql.exe to \*\*\*OPEN MYSQL CONNection\*\*\*  
+to open mysql prompt:  
+J:  
+cd J:\\zwamp\\vdrive\\.sys\\mysql
+
+**.\\bin\\mysql -u root -p **  
+Enter password: \*\*\*\*\*  
+press ENTER key if you not yet have root psw \*\*\*\*\*  
+then \*\*\*GIVE PASSWORD TO ROOT USER\*\*\*  
+**ALTER USER root@localhost IDENTIFIED BY root**    
+**         exit**  
+So we avoided error:  
+ERROR 1045 (28000): Access denied for user root@localhost(using password: YES)
+
+Then again**:  
+.\\bin\\mysql -u root -p**  
+or .\\bin\\mysql -u root -h 127.0.0.1 遨・ip-password
+
+If we try 4.2 without ZWAMP started (5.1) :  
+Enter password: \*\*\*\*  
+ERROR 2003 (HY000): Cant connect to MySQL server on 鮠ocalhost(10061)
+
+Why we need password :  
+secure default user accounts  
+Portable phpMyAdmin says 髀gin without psw is forbidden by configuration/p>
+
+5\. MYSQL TOOLS
+
+[http://dev1:8083/phpmyadmin](http://dev1:8083/phpmyadmin)login into mysql with portable phpMyAdmin works after :  
+rename J:\\zwamp64\\vdrive\\.sys\\phpMyAdmin to phpMyAdmin\_4\_5\_0\_2  
+16\_phpMyAdmin-4.6.4-all-languages.7z  6 MB \*\*\*phpMyAdmin EXTRACT\*\*\* to :  
+J:\\zwamp64\\vdrive\\.sys\\phpMyAdmin  
+copy J:\\zwamp64\\vdrive\\.sys\\phpMyAdmin\_4\_5\_0\_2**\\config.inc.php**  
+to J:\\zwamp64\\vdrive\\.sys\\phpMyAdmin\\config.inc.php  
+**see below config.inc.php**
+
+[http://dev1:8083/adminer/adminer.php](http://dev1:8083/adminer)login into mysql with portable adminer works  
+login into oracle 11gXE with portable adminer works  
+16\_adminer-4.2.5-en.php 283 kB copyed to adminer dir  
+same as phpMyAdmin and renamed to adminer.php, no setup file changes required
+
+[http://dev1:8083/adminer/ed/editor.php](http://dev1:8083/adminer/ed/editor.php)is only for mysql DB
+
+http://dev1:8083/adminer/ed/oraed.php is only for Oracle DB
+
+・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡・｡ end mysql 64 bit installation
+
+[http://dev1:8083/phpmyadmin](http://dev1:8083/phpmyadmin)displays:
+
+Database server  
+Server: localhost via TCP/IP  
+Server type: MySQL  
+Server version: 5.7.16 MySQL Community Server (GPL)  
+Protocol version: 10  
+User:root@localhost  
+Server charset: UTF-8 Unicode (utf8)
+
+Web server  
+Apache/2.4.20 (Win64)  
+Database client version: libmysql  mysqlnd 5.0.12-dev 20150407 $Id: 241ae00989d1995ffcbbf63d579943635faf9972 $  
+PHP extension: mysqliDocumentation curlDocumentation mbstringDocumentation  
+PHP version: 7.0.12
+
+phpMyAdmin  
+Version information: 4.6.4 (up to date)  
+Documentation  
+Official Homepage  
+Contribute  
+Get support  
+List of changes  
+License
+
+Starting MySQL from the Windows Command Line  
+\=======================================  
+mysqld corresponds to Oracle DB server daemon(TSR) service name (XE)
+
+Stop MySQL server by executing this command:  
+**mysqladmin -u root -p shutdown**
+
+Start mysqld with the 遨・andalone and 隰ebug options. In debug case, mysqld writes a log file**C:\\mysqld.trace**that should contain the reason WHY MYSQLD DOESNT START. See Section 24.5.3, 蜈ｸhe DBUG Package  
+Use**mysqld 豐｡erbose 髦ｲelp**to display all the options that mysqld supports.
+
+2.3.5.6 Customizing the PATH for MySQL Tools  
+\============================================  
+To make it easier to invoke MySQL programs, you can add the path name of the MySQL bin directory to your Windows system PATH environment variable.  
+You should not add the MySQL bin directory to your Windows PATH if you are running multiple MySQL servers on the same machine.
+
+[https://www.adminer.org/#download](https://www.adminer.org/#download)  
+Adminer Database management in a single PHP file  
+Adminer Editor Data manipulation for end-users
+
+https://www.adminer.org/  
+Supports: MySQL, PostgreSQL, SQLite, MS SQL, Oracle, SimpleDB, Elasticsearch  
+Requirements: PHP 5+  
+Apache License 2.0 or GPL 2
+
+To see what databases (users in Oracle DB terminology) exist :  
+-  
+(in oracle DB user coresponds to mysql DB)  
+goto J:\\zwamp64\\vdrive\\.sys\\mysql\\bin
+
+**mysqld 髦ｲelp**  
+mysqld  Ver 5.7.16 for Win64 on x86\_64 (MySQL Community Server (GPL))  
+Copyright (c) 2000, 2016, Oracle and/or its affiliates.  
+Starts the MySQL database server.
+
+Usage: mysqld \[OPTIONS\]
+
+For more help options (several pages), use  
+**mysqld 豐｡erbose 髦ｲelp**
+
+**mysqlshow -u root -p**  
++  
+|     Databases      |  
++  
+| information\_schema |  
+| blogwp             |  
+| mysql              |  
+| performance\_schema |  
+| sys                |  
++  
+Two DB ar minimum.
+
+**mysqlshow -u root mysql**  
+Database: mysql  
++  
+|          Tables           |  
++  
+| columns\_priv              |  
+| db                        |  
+br>+
+
+To select information from a table in the mysql database :  
+**mysql -e 驩ЕLECT User, Host, plugin FROM mysql.user-u root mysql**  
+++++  
+| User      | Host      | plugin                |  
+++++  
+| root      | localhost | mysql\_native\_password |  
+| mysql.sys | localhost | mysql\_native\_password |  
+++++
+
+**mysqladmin -u root version status proc**  
+mysqladmin  Ver 8.42 Distrib 5.7.16, for Win64 on x86\_64  
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.  
+Server version          5.7.16  
+Protocol version        10  
+Connection              localhost via TCP/IP  
+TCP port                3306  
+Uptime:                 41 min 55 sec
+
+Threads: 1  Questions: 21  Slow queries: 0  Opens: 115  Flush tables: 1  Open tables: 0  Queries per second avg: 0.008  
+Uptime: 2515  Threads: 1  Questions: 22  Slow queries: 0  Opens: 115  Flush tables: 1  Open tables: 0  Queries per second avg: 0.008  
+++++++++  
+| Id | User | Host            | db | Command | Time | State    | Info             |  
+++++++++  
+| 11 | root | localhost:50191 |    | Query   | 0    | starting | show processlist |  
+++++++++
+
+To display all the options that mysqld supports:  
+**.\\bin\\mysqld 豐｡erbose 髦ｲelp**
+
+J:\\zwamp\\vdrive\\.sys\\mysql>**.\\bin\\mysql -u root -p**  
+Enter password:  
+mysql> SELECT User, Host, Password FROM mysql.user;  
+ERROR 1054 (42S22): Unknown column ・sswordin 邏ield listbr> mysql>**SELECT User, Host FROM mysql.user;**  
++++  
+| User      | Host      |  
++++  
+| mysql.sys | localhost |  
+| root      | localhost |  
++++  
+2 rows in set (0.00 sec)
+
+\# -  
+#**my.ini     mysql 5.7.16 config file**  
+\# -  
+\# J:\\zwamp64\\vdrive\\.sys\\mysql\\my.ini  
+\[client\]  
+password    = root  
+port          = 3306  
+socket        = /.tmp/mysql.sock
+
+\[mysqld\]  
+basedir = J:/zwamp64/vdrive/.sys/mysql  
+datadir = J:/zwamp64/vdrive/.sys/mysql/data  
+\# default IPv6 change to ipv4  
+bind-address = 0.0.0.0  
+skip-external-locking  
+key\_buffer\_size = 16K  
+max\_allowed\_packet = 1M  
+table\_open\_cache = 4  
+sort\_buffer\_size = 64K  
+read\_buffer\_size = 256K  
+read\_rnd\_buffer\_size = 256K  
+net\_buffer\_length = 2K  
+thread\_stack = 128K  
+sync\_binlog = 0  
+explicit\_defaults\_for\_timestamp = TRUE  
+server-id    = 1
+
+sql\_mode=NO\_ENGINE\_SUBSTITUTION,STRICT\_TRANS\_TABLES
+
+\[mysqldump\]  
+quick  
+max\_allowed\_packet = 16M
+
+\[mysql\]  
+no-auto-rehash  
+\# Remove the next comment character if you are not familiar with SQL  
+safe-updates
+
+\[myisamchk\]  
+key\_buffer\_size = 8M  
+sort\_buffer\_size = 8M
+
+\[mysqlhotcopy\]  
+interactive-timeout
+
+\# -  
+#**config.inc.php   phpMyAdmin 4.6.4 config file**  
+\# -  
+// J:\\zwamp64\\vdrive\\.sys\\phpMyAdmin\\config.inc.php  
+$cfg\[owfish\_secret =  /\* YOU MUST FILL IN THIS FOR COOKIE AUTH! \*/  
+$i = 0;  
+$i++;  
+/\* Authentication type \*/  
+//$cfg\[ervers\[$i\]\[th\_type = 逾撲okie  
+//  if you prefer to not be prompted every time you log in:  
+$cfg\[ervers\[$i\]\[辷ｽser          = root  
+$cfg\[ervers\[$i\]\[assword      = root // use here your password  
+//$cfg\[ervers\[$i\]\[th\_type     = 逾撲nfig  
+/\* Server parameters \*/  
+$cfg\[ervers\[$i\]\[㎜st = 鮠ocalhost  
+$cfg\[ervers\[$i\]\[逾撲nnect\_type = 螂縦p  
+$cfg\[ervers\[$i\]\[逾撲mpress = false;  
+$cfg\[ervers\[$i\]\[ｨllowNoPassword = false;
+
+$cfg\[郢頻loadDir =   
+$cfg\[aveDir = 
+
+3.  EXTRACT PORTABLE: WORDPRESS
+-------------------------------
+
+[http://sspc1:8083/papl1/blogwp/wp-admin/](http://sspc1:8083/papl1/blogwp/wp-admin/)  = Control panel (Ndzorna plo髏ｶ)  
+[http://sspc1:8083/papl1/blogwp/](http://sspc1:8083/papl1/blogwp/)  = articles, posts, 髑杪nci, objave
+
+[http://sspc1:8083/papl1/blogwp/primjer-stranice/](http://sspc1:8083/papl1/blogwp/primjer-stranice/)\= page
+
+http://sspc1:8083/papl1/blogwp/2016/10/22/dan-svijete/
+
+http://sspc1:8083/papl1/blogwp/wp-admin/about.php
+
+[https://wordpress.org/download/](https://wordpress.org/download/)  
+[http://codex.wordpress.org/Installing\_WordPress](https://codex.wordpress.org/Installing_WordPress)
+
+1\. extract 1\_**wordpress-4.6.1.zip**, 8.5 MB  
+to  
+**J:\\zwamp64\\vdrive\\web\\papl1\\blogwp**
+
+2\. 5-Minute Installation  
+
+
+### 11111 start apache & mysql
+
+start ZWAMP  
+rightclick ZWAMP icon and check services apache and mysql are running
+
+### 22222 create mysql DB and user for WordPress blog
+
+z:  
+dir .sys  
+cd .sys\\mysql\\bin  
+mysqlshow -u root -p  
+mysql -u root -p  
+Enter password:  
+Welcome to the MySQL monitor.  Commands end with ; or \\g.  
+Your MySQL connection id is 2  
+Server version: 5.7.16 MySQL Community Server (GPL)  
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.  
+Type ㌃lp;or 譖ｾhfor help. Type 譖ｾcto clear the current input statement.
+
+1.        mysql>**DROP DATABASE blogwp;**(possible repeat this)  
+1.        mysql>**CREATE DATABASE blogwp;**  
+2.cre usr mysql>**GRANT ALL PRIVILEGES ON blogwp.\* TO 貔ｱlogwp螯らｽｵocalhost/strong>  
+\->**IDENTIFIED BY 貔ｱlogwp**  
+3\. mysql>       **FLUSH PRIVILEGES;**  
+4\. mysql>       **EXIT****
+
+**
+
+or in GraphicUI which creates statements below :
+
+http://dev1:8083/phpmyadmin/  
+create db blogwp collation utf8\_,:  
+New link on left top
+
+CREATE USER ogwp蜿ｩIDENTIFIED WITH mysql\_native\_password BY \*\*  
+GRANT ALL PRIVILEGES ON \*.\* TO ogwp蜿ｩREQUIRE NONE WITH GRANT OPTION MAX\_QUERIES\_PER\_HOUR 0 MAX\_CONNECTIONS\_PER\_HOUR 0 MAX\_UPDATES\_PER\_HOUR 0 MAX\_USER\_CONNECTIONS 0;  
+GRANT ALL PRIVILEGES ON \`blogwp\`.\* TO ogwp蜿ｩ  
+REVOKE ALL PRIVILEGES ON \`blogwp\`.\* FROM ogwp蜿ｩ  
+GRANT ALL PRIVILEGES ON \`blogwp\`.\* TO ogwp蜿ｩWITH GRANT OPTION;
+
+### 33333 install WordPress blog tables to MySQL DB
+
+[http://sspc1:8083/papl1/blogwp/](http://sspc1:8083/papl1/blogwp/)  
+or http://sspc1:8083/papl1/blogwp/wp-admin/install.php  
+Needed info about DB:  
+DB name               blogwp  
+DB user name          blogwp  
+DB psw                blogwp  
+Host of DB            localhost  or PC name eg SSPC1 or domain name eg http://www.mysite.hr  
+tables Prefiks        blogwp  
+(if we want more WordPress installations in one DB)
+
+Above info is used to create**wp-config.php**file. Also you can edit  
+wp-config-sample.php. See[https://codex.wordpress.org/Editing\_wp-config.php](https://codex.wordpress.org/Editing_wp-config.php)
+
+psw= email=/p>
+
+Akismet blog spam protection needs :  
+email,  usr/psw, API key  
+[https://akismet.com/account/](https://akismet.com/account/)
+
+[http://sspc1:8083/papl1/blogwp/](http://sspc1:8083/papl1/blogwp/)  = articles, posts, 髑杪nci, objave  
+[http://sspc1:8083/papl1/blogwp/wp-admin/](http://sspc1:8083/papl1/blogwp/wp-admin/)  = control panel
+
+### 44444  WordPress Importer
+
+will import the following content from a WordPress export file:  
+posts, pages, comments, categories, and other content.  
+<!隍・\\zwamp64\\vdrive\\web\\papl1\\blogwp\\1\_**phporacle.wordpress.2016-10-22.xml**  
+This is a WordPress eXtended RSS file (WXR) generated by WordPress as an export of your site.  
+gt;  
+<!You may use this file to TRANSFER CONTENT FROM ONE SITE TO ANOTHER. gt;  
+<!This file is not complete backup of your site. gt;
+
+<!TO IMPORT THIS INFORMATION INTO A WORDPRESS SITE : gt;  
+<!1. Log in to that site as an administrator. gt;  
+<!2. Go to TOOLS: IMPORT IN THE WORDPRESS ADMIN PANEL. gt;  
+<!3. Install the 螻賓rdPressimporter from the list. gt;  
+<!4. Activate & Run Importer. gt;  
+<!5. Upload this file using the form provided on that page. gt;  
+<!6. You will first be asked to MAP THE AUTHORS IN THIS EXPORT FILE TO USERS gt;  
+<!   on the site. For each author, you may choose to map to an gt;  
+<!   existing user on the site or to create a new user. gt;  
+<!7. WORDPRESS WILL THEN IMPORT each of the posts, pages, comments, categories, etc. contained in this file into your site. gt;  
+<!generator=蝓徙rdPress/4.6.1created=016-10-22 12:46gt;
+
+If you would prefer to do things manually then follow these instructions:  
+Upload the wordpress-importer folder to the /wp-content/plugins/ directory  
+Activate the plugin through the ・uginsmenu in WordPress  
+Go to the Tools -> Import screen, click on WordPress
+
+Remember to**update the passwords and roles of imported users**.
+
+Many web hosts now offer tools (e.g. Fantastico) to automatically install WordPress for you.  
+WordPress  has Automatic upgrading.
+
+Things to Know/todo Before You Begin Installing WordPress  
+  
+Access to web server (via FTP or shell)  
+text editor  
+FTP Client  
+ Web browser (**K-meleon**, Firefox, Google Chrome)
+
+Minimum requirements to run WordPress:  
+PHP version 5.6 or greater  
+ MySQL version 5.6 or greater OR . MariaDB version 10.0 or greater -http://dev1:8083/phpmyadmin/  
+WordPress also works with PHP 5.2.4+ and MySQL 5.0+, but these versions have reached official End Of Life and as such may expose your site to security vulnerabilities.
+
+\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*  
+OracleXE112 INSTALL  
+\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*  
+see my other article or just install it as any Windows program.
+
+4\. CONNECT PHP 7.0.12  TO Oracle 11g r2 XE
+-------------------------------------------
+
+Oracle instantclient is not needed if all is on home development PC :  
+OCI8 Extension WORKS FOR PHP 7.0.12 64 BIT build date Oct 13 2016
+
+### Use php 7.0.12 OCI8 extension to access Oracle Database 11g XE from PHP
+
+I did for php 7.0.12, 64 bit:  
+  
+download:[https://pecl.php.net/package/oci8](https://pecl.php.net/package/oci8)  
+[https://pecl.php.net/package/oci8/2.1.2/windows](https://pecl.php.net/package/oci8/2.1.2/windows)  
+**7.0 Thread Safe (TS) x64**  
+**TRICK**: from J:\\zwamp64\\vdrive\\.sys\\php\\ext\\1\_php\_**oci8-2.1.2-7.0-ts-vc14-x64.zip**   20.sep.2016 734 kB  
+extract**php\_oci8\_11g.dll**in J:\\zwamp64\\vdrive\\.sys\\php\\ext
+
+I also installed  php 5.6.27, 64 bit:  
+  
+I renamed php dir to php\_7\_0\_12  
+I renamed php\_5\_6\_27 dir to php  
+download:[https://pecl.php.net/package/oci8/2.0.12/windows](https://pecl.php.net/package/oci8/2.0.12/windows)  
+**5.6 Thread Safe (TS) x64**  
+from J:\\zwamp64\\vdrive\\.sys\\php\\ext\\1\_**php\_oci8-2.0.12-5.6-ts-vc11-x64.zip**     20.sep.2016 581 kB  
+extract**php\_oci8\_11g.dll**in J:\\zwamp64\\vdrive\\.sys\\php\\ext
+
+OCI8 php extension needs to be linked with Oracle 12, 11, or 10.2  
+client libraries.  These libraries are found in your database installation,  
+or (I did not this) :   in the free Oracle Instant Client from  
+http://www.oracle.com/technetwork/database/features/instant-client/  
+Install the 閻ｺasicor 閻ｺasic LiteInstant Client package.  If  
+building from source, then also install the SDK package.  
+aug.2015.  55 MB 18\_instantclient-basic-windows.x64-11.2.0.4.0.zip  
+nov.2014.  73 MB instantclient-basic-windows.x64-12.1.0.2.0.zip
+
+Oracle standard cross-version connectivity applies.  For example,  
+PHP OCI8 linked with Instant Client 11.2 can connect to Oracle  
+Database 9.2 onward.  See Oracle note 蠕ｹracle Client / Server  
+Interoperability Support(ID 207303.1) for details.
+
+see README of pecl oci8 dll-s zip above  
+see Documentation is at[http://php.net/oci8](https://php.net/oci8)
+
+ kod[ edit](?$web_docroot_url/inc/utl/edservertxt.php)[ phpinfo](?$web_docroot_url/phpinfo_inc.php) EOKOD; /\* call it so: kod\_edit\_run( $idx // script\_dir\_path , $idxscript // script\_name , MDURL); // web\_docroot\_url = (Apache) web server URL \*/ }**

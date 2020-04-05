@@ -1,0 +1,3 @@
+
+
+![mvc_M_C_V_data_flow_Laravel2.jpg]( /zinc/img/img_big/mvc_M_C_V_data_flow_Laravel2.jpg "mvc_M_C_V_data_flow_Laravel2.jpg" )

@@ -1,0 +1,377 @@
+<style type="text/css">
+<!--
+/* 
+   J:\awww\apl\inc\cssfmt\style01.css
+   font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif; 
+    font-style: normal;     "Trebuchet MS"
+*/
+body {
+    padding: 10px;
+    color:black; background-color: #F0F0F0;
+    font-size: 16px;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    font-weight: normal; text-align: justify;
+}
+p, li, span {
+   /* font-size: 16px;*/
+     max-width: 100%;
+}
+
+p.group {color:#3366cc}
+
+img {
+  float:right;
+  margin-right:10px
+}
+
+table {
+   width: 90%;
+   align: center;
+   /* margin: auto; */
+   /* background-color: #FFFFFF; */
+   border-collapse: collapse;
+   border-style: solid; border-color: lightblue;
+   border-width: 1px 3px 3px 1px; /* T,R,D,L smedja= #936709*/
+   /* border-color:      #000000;     border:      0; */
+   margin: 5px;
+   font-size: 1em;
+   font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+td, th {
+    /* border: solid #000000 1px; */
+    /* text-align: left; */
+    padding: 2px;
+    height: 1em;
+    /* max-width: 300px; */
+}
+
+.maintable {
+    border: 2px solid #376EAB;
+}
+.parameter {
+    font-weight: bold; color: #6586AC;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+h1 {
+    font-size: 2em;
+    color: #A5663D; /*  7A7272=siva */
+    font-weight: normal;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+h2 {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #303030;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+h3 {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #2B5885;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+div {
+    margin: 5px;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+div.settings {
+    margin-right: 0;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+a:link, a:visited, a:active {
+    color: #294F75;
+    text-decoration: none;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+a:hover {
+    color: #182634;
+    text-decoration: underline;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+.txtBody {
+    font-size: 16px;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+    font-style: normal; font-weight: normal;
+}
+.txtBody18px {
+    font-size: large; font-style: normal; font-weight: normal;
+    font-family: Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+
+
+
+.mainTitle {
+   font-family: Impact;
+   font-size: 24px;
+}
+.mnuMainH {
+    text-align: center;
+    cursor: pointer;
+    cursor: hand;
+    color: #294F75;
+    font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+.imgPlusMinus {
+    float : left
+    /* cursor: pointer;
+    cursor: hand;
+    height: 14px; */
+}
+.NotDisp {
+    display: none;
+}
+.hdr_open_close_section {
+  color: #000;
+  background-color:#E8E8E8; /* CCC=svjetlosiva E8E8E8=jos vise svjetlosiva */
+  font-weight: bold;
+   font-family:  Corbel, Constantia, Arial, 'Helvetica', sans-serif;
+}
+.pgBreakAfter {
+  cursor: text;
+  filter: Gray;
+  page-break-after: always;
+}
+.pgBreakBefore {
+  cursor: text;
+  filter: Gray;
+  page-break-before: always;
+}
+/*  <span class="pgBreakAfter"> </span>  */
+
+
+
+/* J:\dev_web\inc\cssfmt\zwamp.css  NE TREBA VISE !!!
+   <!--link rel="stylesheet" type="text/css" href="<php echo $css_url; >" /-->
+   $cssfmt = realpath(CONFGLOB_DIR.'/cssfmt/zwamp.css')
+   echo file_get_contents($cssfmt);
+*/
+/* * {   margin: 0;  padding: 0; } */
+
+/* html {  background: #ddd; }
+body {
+  margin: 1em 10%;
+  padding: 1em 3em;
+  font: 80%/1.4 tahoma, arial, helvetica, lucida sans, sans-serif;
+  border: 1px solid #999;
+  background: #eee;
+  position: relative;
+} */
+/* h2 {
+  margin: 0.8em 0 0 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+} */
+
+
+
+/* letter-spacing: -500em;
+  text-indent: -500em; */
+/* kad se ovo otkomentira pokaze logo
+   background: url(index.php?img=gifLogo) 0 0 no-repeat;
+*/
+/*
+#head {
+  margin-bottom: 1.8em;
+  margin-top: 1.8em;
+  padding-bottom: 0em;
+  border-bottom: 1px solid #999;
+  height: 125px;
+}
+#head ul li, dl ul li, #foot li {
+  list-style: none;
+  display: inline;
+  margin: 0;
+  padding: 0 0.4em;
+}
+*/
+
+
+
+
+.utility {
+  position: absolute;
+  right: 4em;
+  top: 145px;
+  font-size: 0.85em;
+}
+.utility li {
+  display: inline;
+}
+
+
+ul.aliases, ul.projects, ul.tools {
+  list-style: none;
+  line-height: 24px;
+}
+ul.aliases a, ul.projects a, ul.tools a {
+  padding-left: 22px;
+  /*background: url(index.php?img=pngFolder) 0 100% no-repeat; */
+}
+/* ul.tools a {
+  background: url(index.php?img=pngWrench) 0 100% no-repeat;
+} */
+ul.aliases a {
+  /* background: url(index.php?img=pngFolderGo) 0 100% no-repeat; */
+}
+
+dl {
+  margin: 0;
+  padding: 0;
+}
+dt {
+  font-weight: bold;
+  text-align: right;
+  width: 11em;
+  clear: both;
+}
+dd {
+  /* margin: -2% 0% 0% 20%; */ /* 12=lijeva margina oko 0,15 sirine
+            vrijedi za sva polja ispod naslova - verzije SW */
+  /* margin: -1.35em 0 0 12em; */
+  padding-bottom: 0.4em;
+  overflow: auto;
+}
+dd ul li {
+  float: left;
+  /* display: block; */
+  width: 16.5%;
+  /* width: 16.5%; */
+  margin: 0;
+  padding: 0 0 0 20px;
+  /* RADI ALI NEDOVOLJNO OPCENITO pa treba style u li tagu - vidi 2.4
+         phpExtContents u zwamp_conf.php !!!
+      background: url(http://dev/?img=pngPlugin) 2px 50% no-repeat; */
+  /* NE RADI KAD JE APL. U SUBDIR-u: background:
+         url(index.php?img=pngPlugin) 2px 50% no-repeat; */
+  line-height: 1.6;
+}
+
+
+/* a {
+  color: #024378;
+  font-weight: bold;
+  text-decoration: none;
+}
+a:hover {
+  color: #04569A;
+  text-decoration: underline;
+} */
+
+#foot {
+  text-align: center;
+  margin-top: 1.8em;
+  border-top: 1px solid #999;
+  padding-top: 1em;
+  font-size: 0.85em;
+}
+.third {
+  width:32%;
+  float:left;
+}
+.left {float:left;}
+.right {float:right;}
+
+.appname {
+    text-align :center;
+    background :#eb8;
+    color      :#40d;
+    font-family:helvetica;
+    font-size  :14pt;
+    padding    :4px; }
+.appnamebig {
+    text-align :center;
+    background :#eb8;
+    color      :#40d;
+    font-family:helvetica;
+    font-size  :20pt;
+    font-weight:bold;
+    /* width      :100%; */
+    padding    :4px 4px 4px 4px; /* u,r,d,l */
+}
+
+
+
+
+
+
+/***********************************/
+
+kbd,
+pre,
+samp {
+white-space: pre-wrap;
+  border-style: solid; border-color: lightblue;
+  border-width: 1px 3px 3px 1px; /* T,R,D,L smedja= #936709*/
+  padding: 1px 8px;
+  background: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  color:black;
+  font-family: courier-prime, 'Courier New',Courier,monospace;
+  font-size: 1em;
+  display: block;
+   /* width: 700px; */
+  max-width: 850px;
+}
+
+code {
+white-space: pre-wrap;
+  border-style: solid; border-color: lightblue;
+  border-width: 1px 3px 3px 1px; /* u,r,d,l smedja= #936709*/
+  padding: 1px 8px;
+  background: white;
+  margin-left: 5px;
+  margin-right: 5px;
+   color:black;
+  font-family: courier-prime, 'Courier New',Courier,monospace;
+  font-size: 1em;
+  display: block;
+   /* width: 400px; */
+  max-width: 400px;
+}
+
+.pre300 {
+   white-space: pre-wrap;
+   border-style: solid; border-color: lightblue;
+   border-width: 1px 3px 3px 1px; /* u,l,r,d   smedja #936709*/
+   padding: 1px 8px;
+   background: white;
+  /* margin-right: 50px;
+    color:black;
+    font-family: courier-prime, 'Courier New',Courier,monospace; */
+  font-size: 1.2em;
+  display: block;
+   /* width: 300px; */
+  max-width: 300px;
+}
+
+/* ZADNJI P R E G A Z I  p r ethodne istoimene */
+.xxlarge {font-size: 1.6em;}
+.xlarge {font-size: 1.4em;}
+.large {font-size: 1.2em;}
+
+p#lju {color:magenta}
+.crven {
+   /*font-size: xx-large;    zelena: #30A308*/
+   color: red;
+}
+.zelen {color: green;}
+.smedj {color: brown;}
+.plav {color: blue;}
+.plava {color: #0000FF}
+.plava_bold {color: #0000FF; font-weight: bold; }
+.bold_darkblue_yellow {
+   color: #0000A0;
+   background-color:#FFFF99;
+   font-weight: bold;
+}
+.bold_violet_white {
+   color: #800080;
+   font-weight: bold;
+}
+-->
+</style>

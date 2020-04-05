@@ -1,0 +1,21 @@
+{
+    "name": "slavkoss/fwphp",
+    "description": "Modern, small, simple, fast and I hope well explained PHP framework",
+    "keywords": ["CMS", "CRUD", "PHP", "framework", "markdown"],
+    "license": "MIT",
+    "type": "project",
+  "autoload": {
+    "psr-4": {
+        ""          : ["zbig/"]
+      , "B12phpfw\\": ["", "zinc/", "zinc/ver5/", "fwphp/"]
+    }
+  },
+  "require": {
+     "taq/pdooci": "^1.0"
+    , "php2wsdl/php2wsdl": "^0.5.0"
+    , "erusev/parsedown": "^1.7"
+    , "wixel/gump": "dev-master"
+    , "phpmailer/phpmailer": "~6.0",
+        "pusher/pusher-php-server": "^4.0"
+  }
+}

@@ -1,0 +1,16 @@
+2018-11-24 06:06:57 | Logs Cleared: by User ID 1
+2018-11-24 06:15:16 | Login: kskoglund logged in.
+2018-11-24 06:22:47 | Login: admin logged in.
+2018-11-24 06:23:06 | Login: admin logged in.
+2018-11-24 06:35:28 | Login: admin logged in.
+2018-11-24 06:36:16 | Login: admin logged in.
+2018-11-24 06:36:26 | Login: admin logged in.
+2018-11-24 06:37:58 | Login: admin logged in.
+2018-11-24 06:39:16 | Login: admin logged in.
+2018-11-24 06:39:27 | Login: admin logged in.
+2018-11-24 06:39:40 | Login: admin logged in.
+2018-11-24 07:33:50 | Login: admin logged in.
+2018-11-24 07:34:13 | Login: admin logged in.
+2018-11-24 07:40:34 | Login: admin logged in.
+2018-11-24 08:07:42 | Login: admin logged in.
+2018-11-24 08:07:56 | Login: admin logged in.

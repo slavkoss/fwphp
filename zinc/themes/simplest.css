@@ -1,0 +1,480 @@
+/* NOT NEEDED : normalize.css v3.0.1 | MIT License | git.io/normalize */
+      /* width: 100%; */
+      /* white-space: pre-wrap; */
+      /* word-wrap: break-word; */
+body {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 100%;
+  color: #000;
+  margin: 20px;
+  background: #E6E8EA;
+  text-align: center;
+}
+a {
+  color: #3c3c3c;
+  font-weight: bold;
+}
+a:link {
+}
+a:visited {
+}
+a:active {
+}
+a:hover {
+  color: #000000;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+h1 {
+  color: #d35400; /*#3c3c3c*/
+  padding-left: 5px;
+  font-weight: semibold;
+  letter-spacing: -2px;
+  font-size: 1.5em;
+  border-bottom: 2px solid silver;
+  padding-bottom: 5px;
+}
+h2 {
+  font-size: 1.5em;
+  background: lightgray;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid silver;
+  clear: both;
+}
+h3 {
+  font-size: 1.2em;
+}
+h4 {
+  font-size: 1.1em;
+}
+h5 {
+  font-size: 1.0em;
+}
+h6 {
+  font-size: 0.8em;
+}
+img {
+  border: 0;
+}
+ol, ul, li {
+  font-size: 1.0em;
+}
+ol ol {
+  list-style-type: lower-alpha;
+}
+p, table, tr, td, th {
+  font-size: 1.0em;
+}
+pre {
+  font-family: Consolas, Courier New, Courier, monospace;
+  font-size: 1.0em;
+}
+strong, b {
+  font-weight: bold;
+}
+table, tr, td {
+  font-size: 1.0em;
+  border-collapse: collapse;
+}
+td, th {
+  border: 1px solid #aaaaaa;
+  border-collapse: collapse;
+  padding: 3px;
+}
+th {
+  background: #3667A8;
+  color: #fff;
+}
+
+
+        /* L O G O, C O N T E N T, F O O T E R  T R D L*/
+  /* width: 780px; margin-top: 40px; width: 840px;
+  background: #567C14; url("images/help_background_header.png") repeat-x;
+  url("images/help_background_header.png") repeat-x; 
+  url("images/help_background_footer.png") repeat-x;
+  */
+  /*margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  */
+.content {
+  margin-top: 40px;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  background-color: #FFFFFF;
+  border-left: 1px solid Black;
+  border-right: 1px solid Black;
+  padding: 3px 7px 300px 7px;
+  line-height: 150%;
+}
+.logo {
+  background: #567C14; 
+  color: gray;
+  background:#dfe4e8; /*#ff0=yelow*/
+  width: 100%;
+  padding: 10px 0px;
+  line-height: 150%;
+}
+.footer {
+  background: #000; 
+  color: white;
+  width: 76%;
+  height: 64px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  padding: 12px 30px;
+  line-height: 150%;
+}
+.logo img {
+  padding-left: 0px;
+  border: none;
+  position: relative;
+  top: -4px;
+}
+
+
+          /* T O P  DROPDOWN  M E N U  (row 1) 
+        url(dl-pullup/arrow.gif) no-repeat 110px center;
+               #888   gray; #aaa  #888
+          */
+/* for all mnus (dl-s) div */
+                                /*margin-left: 0%;
+                                margin-right: 0%; 
+                                padding: 0px 0px; 
+                                no efect   align: center;*/
+#topmnu1 {
+  position: relative;
+  width: 100%;
+  height: 25px;
+  background: gray;
+}
+
+/* for one mnu (dl) div    105px*/
+  /*width: 105px;*/
+.topsubmnu {
+  position: absolute;
+  padding: 1px 0px;
+  top: 0;
+  height: 25px;
+}
+
+dl.mnuitms {
+  width: 250px;
+  float: left;
+  margin: -32000px 0 0 -9999px;
+}
+
+/* m n u  p o s i t i o n s  (nmu ordinary numbers)*/
+.p1 {
+  left: 0%;
+}
+.p2 {
+  left: 12.5%;
+}
+.p3 {
+  left: 25%;
+}
+.p4 {
+  left: 37.5%;
+}
+.p5 {
+  left: 50%;
+}
+.p6 {
+  left: 62.5%;
+}
+.p7 {
+  left: 75%;
+}
+.p8 {
+  left: 87.5%;
+}
+dl.mnuitms a {
+  display: block;
+  height: 25px;
+  font: normal 11px/25px verdana, sans-serif;
+  text-decoration: none;
+  text-indent: 10px;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+dl.mnuitms dt {
+  float: left;
+  padding: 0;
+  position: relative;
+  left: 9999px;
+  z-index: 50;
+  margin: 32000px 0 0 0;
+}
+dl.mnuitms dt a {
+  width: 124px;
+  background: gray;
+  float: left;
+  color: #fff;
+}
+dl.mnuitms dt a.sub {
+  background: gray 
+  color: #fff;
+}
+dl.mnuitms dt a:hover,  dl.mnuitms dt a:focus,  dl.mnuitms dt a:active {
+  margin-right: 1px;
+  text-decoration: none;
+  background-color: gray; /*#888*/
+  color: #fc0;
+}
+dl.mnuitms dd {
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+dl.mnuitms dd.dd3 {
+  height: 104px;
+}
+dl.mnuitms dd.dd4 {
+  height: 130px;
+}
+dl.mnuitms dd.dd5 {
+  height: 156px;
+}
+dl.mnuitms dd:hover {
+  clear: both;
+}
+dl.mnuitms dd a {
+  position: relative;
+  height: 25px;
+  background: gray;
+  width: 124px;
+  color: #fff;
+  left: 9999px;
+  top: -100%;
+  z-index: 60;
+}
+dl.mnuitms dd a:hover,  dl.mnuitms dd a:focus,  dl.mnuitms dd a:active {
+  margin-right: 1px;
+  background: gray;
+  color: #fc0;
+}
+
+
+           /* T O P  B U T T O N S  M E N U  (row 2) */
+          /*no-repeat 15px 9px; url(menuBullet1.gif) ; 
+          padding: 0 0 0 5px;
+          margin-right: auto;
+          padding: 0 0 0 23px;
+          url(menuBullet3.gif) ;
+          background: url(menuBullet2.gif) no-repeat 4px 6px !important;
+          background: url(menuBullet2.gif) no-repeat 4px 9px;
+          whole row 
+          */
+#topmnu2 {
+  border-style: solid;
+  border-color: #545454;
+  border-width: 1px 0;
+  width: 100%;
+  height: 25px;
+  background: #cbd1c3;
+  margin-left: 0%;
+  margin-right: 0%; 
+}
+#topmnu2 ul {
+  margin: 0 0 0 -40px !important;
+  /*margin: 0; */
+  width: 100%;
+  list-style: none;
+  text-align: center;
+  /* background: transparent url(menuBullet3.gif) no-repeat 650px 9px !important; */
+  background: transparent no-repeat 615px 9px;
+}
+#topmnu2 ul li {
+  display: inline;
+}
+#topmnu2 ul li#frst {
+  padding: 0;
+  background: none !important;
+}
+#topmnu2 ul li a {
+  color: darkgreen;
+  font: bold 14px/25px Georgia, Times New Roman, Times, serif;
+  text-decoration: none;
+  padding: 3px 8px;
+}
+#topmnu2 ul li a:hover {
+  text-decoration: none;
+  background-color: #e1e5db;
+}
+
+
+                    /* PRINTER STYLES */
+@media print {
+  body, .content {
+    margin: 0;
+    padding: 0;
+  }
+  .navigation, .locator, .footer a, .message, .footer-links {
+    display: none;
+  }
+  .footer, .content, .header {
+    border: none;
+  }
+  a {
+    text-decoration: none;
+    font-weight: normal;
+    color: black;
+  }
+}
+
+
+
+
+
+
+/* Style form - display items horizontally */
+.form-inline { 
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Add some margins for each label */
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style input fields */
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+/* Style submit button */
+.form-inline button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.form-inline button:hover {
+  background-color: royalblue;
+}
+
+/* Add responsiveness - display form controls vertically instead of horizontally
+   on screens t h a t are less t h a n 800px wide */
+@media (max-width: 800px) {
+  .form-inline input {
+    margin: 10px 0;
+  }
+
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+
+
+
+
+/* --  Links t h a t have been visited are DeepPink  -- */
+/* a:visited { color: DeepPink !important; }  */
+ 
+/* --  Links t h a t need javascript are green  -- */
+/*
+a[href^="javascript:"] { color: SandyBrown !important; font-weight: bold !important; }
+*/
+
+/* T,R,D,L smedja= #936709*/
+pre, code, kbd, samp {
+  text-align:left;
+  white-space: pre-wrap;
+  border-style: solid; border-color: lightblue; border-width: 1px 3px 3px 1px; 
+  padding: 1px 8px;
+  background: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  color:black;
+  font-family: courier-prime,'Courier New',Courier,monospace;
+  font-size: 1em;
+  display: block;
+  max-width: 100%;
+}
+   /* width: 700px; */
+  /* text-align:justify; */  
+  /* text-justify:none; */
+  
+
+#rightCol .box300.tad {padding:5px 40px; margin:2px 0; background:#ddd;}
+.tad p {padding:0; margin:0; font-size:14px !important;}
+.tad p a {color:#069; text-decoration:none;}
+#cse-search-box input.search {padding:0 10px; height:38px; border:0; border-radius:5px 0 0 5px;
+   width:150px; float:left; font:normal 15px/37px;} /* 'latomedium', arial, sans-serif*/
+
+.h2_csscls {
+  text-align: left;
+  background-color: #DDDDDD;
+  /* height:83px; position:relative; */
+  width:100%; 
+  word-wrap: break-word;
+}
+
+
+
+    /* Responsive Table with horizontal scrollbar 
+       HOR.SCROLLBAR DOES NOT WORK WITH CSS USED IN SOME PAGES !!!
+    */
+
+    .w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,
+      .w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,
+      .w3-cell-row:before,.w3-cell-row:after,.w3-clear:after,.w3-clear:before,
+      .w3-bar:before,.w3-bar:after{content:"";display:table;clear:both}
+
+    .w3-container,.w3-panel{padding:0.01em 16px}
+
+    .w3-responsive{display:block;overflow-x:auto} 
+    .w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;
+        width:100%;display:table}
+    .w3-table-all{border:1px solid #ccc}
+    .w3-bordered tr,.w3-table-all tr{border-bottom:1px solid #ddd}
+    .w3-table-all tr:nth-child(odd){background-color:#fff}
+    .w3-table-all tr:nth-child(even){background-color:#f1f1f1}
+    .w3-table td,.w3-table th,.w3-table-all td,.w3-table-all th{
+       padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+    .w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{padding-left:16px}
+
+.r5pct {
+ margin-left: 50px;
+}
+
+
+.pgBreakAfter {
+  cursor: text;
+  filter: Gray;
+  page-break-after: always;
+}
+.pgBreakBefore {
+  cursor: text;
+  filter: Gray;
+  page-break-before: always;
+}
+
+
+
+        .red_color {
+          color: #FF0000;
+        }
+        .red_dark {
+          color: #800000;
+        }

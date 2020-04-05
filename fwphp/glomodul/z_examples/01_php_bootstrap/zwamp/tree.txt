@@ -1,0 +1,180 @@
+Folder PATH listing for volume H2T_1600
+Volume serial number is 0000000A 706F:BCD7
+H:\DEV_WEB\HTDOCS
+<apl>
+|   <ctr>
+      about.inc.php
+      contact.inc.php
+      direct_accessed.inc.php
+      prva.inc.php
+      search.inc.php
+    <ctr />
+|   <inc>
+      conf_poss11.inc.php
+      ftr.inc.php
+      hdr.inc.php
+      iisstart.htm
+      sidebar.inc.php
+      utilities.inc.php
+|   </inc>
+|   </instalac>
+|   </placa>
+|   <pomoc>
+    ...
+    </pomoc>
+|   <poss11>
+|   |   <finnanc></finnanc>
+|   |   <izdatnica></izdatnica>
+|   |   <primka></primka>
+|   </poss11>
+|   <tema>
+|   |   <inc></inc>
+|   |   <instalac></instalac>
+|   |   <utl></utl>
+|   |   <z_mydoc></z_mydoc>
+    </tema>
+|   <test>
+    ...
+    </test>
+|   <TodoList>
+    ...
+    </TodoList>
+
+|   <utl></utl>
+<apl />
+
+
+<inc>
+|   <fw></fw>
+|   <img></img>
+|   <imgt2></imgt2>
+|   <utl></utl>
+|   <wp>
+|   |   <wp-admin>
+|   |   |   <css>
+|   |   |   |   <colors>
+|   |   |   |       </blue>
+|   |   |   |       </coffee>
+|   |   |   |       </ectoplasm>
+|   |   |   |       </light>
+|   |   |   |       </midnight>
+|   |   |   |       </ocean>
+|   |   |   |       </sunrise>
+            </css>
+|   |   |   </images>
+|   |   |   </includes>
+|   |   |   <js>
+|   |   |   <maint>
+|   |   |   <network>
+|   |   |      <user>
+        </wp-admin>
+|   |   <wp-content>
+|   |   |   <plugins>
+|   |   |   |   <akismet></akismet>
+|   |   |   |       <views></views>
+|   |   |   |       <_inc></_inc>
+|   |   |   |           <img></img>
+            </plugins>
+|   |   |   <themes>
+|   |   |       <twentyfourteen>
+|   |   |       |   <css></css>
+|   |   |       |   <genericons></genericons></genericons>
+|   |   |       |   |   <font></font>
+|   |   |       |   <images></images>
+|   |   |       |   <inc></inc>
+|   |   |       |   <js></js>
+|   |   |       |   <languages></languages>
+|   |   |       |   <page-templates></page-templates>
+                </twentyfourteen>
+|   |   |       <twentythirteen>
+|   |   |       |   <css></css>
+|   |   |       |   <fonts></fonts>
+|   |   |       |   <images></images>
+|   |   |       |   |   <headers></headers>
+|   |   |       |   <inc></inc>
+|   |   |       |   <js></js>
+|   |   |       |   <languages></languages>
+                </twentythirteen>
+|   |   |       <twentytwelve>
+|   |   |           <css></css>
+|   |   |           <inc></inc>
+|   |   |           <js></js>
+|   |   |           <languages></languages>
+|   |   |           <page-templates></page-templates>
+                </twentytwelve>
+             </themes>
+        </wp-content>
+|   |   <wp-includes>
+|   |       <certificates></certificates>
+|   |       <css></css>
+|   |       <fonts></fonts>
+|   |       <ID3></ID3>
+|   |       <images>
+|   |       |   <crystal></crystal>
+|   |       |   <media></media>
+|   |       |   <smilies></smilies>
+|   |       |      <wlw></wlw>
+            </images>
+|   |       <js>
+|   |       |   <crop></crop>
+|   |       |   <imgareaselect></imgareaselect>
+|   |       |   <jcrop></jcrop>
+|   |       |   <jquery></jquery>
+|   |       |   |   <ui></ui>
+|   |       |   <mediaelement></mediaelement>
+|   |       |   <plupload></plupload>
+|   |       |   <swfupload>
+|   |       |   |   <plugins></plugins>
+                </swfupload>
+|   |       |   <thickbox></thickbox>
+|   |       |       <tinymce
+|   |       |       <langs
+|   |       |       <plugins
+|   |       |       |   <charmap
+|   |       |       |   <compat3x
+|   |       |       |   |   \---css
+|   |       |       |   <directionality
+|   |       |       |   <fullscreen
+|   |       |       |   <hr
+|   |       |       |   <image
+|   |       |       |   <media
+|   |       |       |   <paste
+|   |       |       |   <tabfocus
+|   |       |       |   <textcolor
+|   |       |       |   <wordpress
+|   |       |       |   <wpdialogs
+|   |       |       |   <wpeditimage
+|   |       |       |   <wpfullscreen
+|   |       |       |   <wpgallery
+|   |       |       |   <wplink
+|   |       |       |   \---wpview
+|   |       |       <skins
+|   |       |       |   <lightgray
+|   |       |       |   |   <fonts
+|   |       |       |   |   \---img
+|   |       |       |   \---wordpress
+|   |       |       |       \---images
+|   |       |       <themes
+|   |       |       |   \---modern
+|   |       |       \---utils
+            </js>
+|   |       <pomo
+|   |       <SimplePie
+|   |       |   <Cache
+|   |       |   <Content
+|   |       |   |   \---Type
+|   |       |   <Decode
+|   |       |   |   \---HTML
+|   |       |   <HTTP
+|   |       |   <Net
+|   |       |   <Parse
+|   |       |   \---XML
+|   |       |       \---Declaration
+|   |       <Text
+|   |       |   \---Diff
+|   |       |       <Engine
+|   |       |       \---Renderer
+|   |       \---theme-compat
+        </wp-includes>
+|   <wp_altervista></wp_altervista>
+<inc />

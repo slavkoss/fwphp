@@ -1,0 +1,3 @@
+# will redirect the user to the Webroot directory
+RewriteEngine on
+RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ www/$1

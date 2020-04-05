@@ -1,0 +1,63 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+DefaultDir=J:\awww\www\fwphp\glomodul4\help_sw\test\login\user
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+Extensions=*.*
+[Project tree]
+advanced_php_ajax
+	+user
+		+img
+			img\meatmirror.jpg
+			img\no_img.png
+		1_DDL_MOJ_uy_signup.sql
+		add_photo.php
+		address.php
+		advanced_php_ajax.nppses
+		advanced_php_ajax.ppr
+		bio.php
+		change_password.php
+		DbCrud.php
+		del_ajax.php
+		facebook.php
+		frm.js
+		frm.php
+		ftr.php
+		func_cols.php
+		func_frm.php
+		hdr.php
+		index.php
+		linkedin.php
+		login.js
+		login_ajax.php
+		logout.php
+		name.php
+		nav.php
+		profile.css
+		signup.js
+		signup_ajax.php
+		simple.js
+		style.css
+		success.php
+		tbl.php
+		z_db.php
+		z_ftr.php
+		z_hdr.php
+[Open project files]
+0=index.php
+[Selected Project Files]
+Main=
+Selected=index.php
+[index.php]
+TopLine=1
+Caret=80,6

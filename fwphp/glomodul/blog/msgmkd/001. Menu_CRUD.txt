@@ -1,0 +1,12 @@
+# 1\. PHP menu & CRUD code skeleton (I named it B12phpfw)
+see https://github.com/slavkoss/fwphp/blob/master/readme.md (J:\awww\www\readme.md).
+
+![mvc_M_C_V_data_flow_Laravel.jpg]( /zinc/img/mvc_M_C_V_data_flow_Laravel.jpg "mvc_M_C_V_data_flow_Laravel.jpg" )
+
+<p>
+M-C-V data flow - controller instantiates M (and V if V is class) and pushes M data to V.
+I do not see advantages compared to M-V data flow. Disadvantage are : for pagination M-V data flow is only possible solution, C is fat in large modules (lot of code). C in my msg (blog) module has lot of code, but code is very simple.
+</p>
+<p>
+1, 2 and 3 are routing code snippets (odsječci) or separate scripts or separate classes.
+</p>

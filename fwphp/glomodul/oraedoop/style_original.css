@@ -1,0 +1,87 @@
+/* <style type="text/css"> */
+body,a,p,span,td,th,input,select,textarea {
+   font-family:verdana,arial,helvetica,geneva,sans-serif,serif;
+   font-size:12px;
+}
+
+a:link,a:visited,a:active {
+   color:darkgray;
+}
+
+.logo {
+   color:black;
+   background:#EDE6FD;
+   font-family: Arial,Helvetica,sans-serif;
+   font-size:12px;
+}
+
+.headerline {
+   border-style:none;
+   padding:5px;
+   background:#EDE6FD;
+   font-family: Arial,Helvetica,sans-serif;
+   font-weight:bold;
+   color:black;
+   font-size:14px;
+   width:100%;
+}
+
+.selectform {
+   border-width:1px;
+   border-color:#FF9999;
+   border-style:dashed;
+   padding:5px;
+   width:100%;
+}
+
+.button {
+   width:100%;
+   color:black;
+   background:#EDE6FD;
+}
+
+.sqlline {
+   font-family:courier;
+   border-style:none;
+   padding:5px;
+   width:100%;
+   color:#800040;
+   background:#EDE6FD;
+}
+
+.sqllineerr {
+   font-family:courier;
+   border-style:none;
+   padding:5px;
+   width:100%;
+   color:red;
+   background:lightgray;
+}
+
+.resultgrid {
+   border-width:1px;
+   border-color:#FF9999;
+   border-style:dashed;
+   padding:5px;
+}
+
+.gridheader {
+   background:#EEEEEE;
+   color:darkgray;
+}
+
+.gridline {
+   background:white;
+}
+
+.gridlinealt {
+   background:#EEEEEE;
+}
+
+.gridfooter {
+   border-style:none;
+   background:#EDE6FD;
+   color:black;
+   width:100%;
+}
+/* </style> */

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hr">
+              <!-- CODE FOR SPECIFIC SKIN -->
+<head>
+
+  <meta charset="utf-8">
+  <title>HOME</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/zinc/themes/base01raleway400_300_600.css" type="text/css">
+  <link rel="stylesheet" href="/zinc/themes/base02.css">
+  <link rel="stylesheet" href="/zinc/themes/base03custom.css">
+  <link rel="stylesheet" href="/zinc/themes/flex_sticky_hdr_ftr.css">
+<style id="editme">
+ /*  flex sticky ftr  */
+ * {box-sizing: border-box;}
+  body {
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+  }
+   header, footer {
+    flex: 0 0 content;
+   }
+   main {
+    flex: 1 1 0;
+    overflow: scroll;
+   
+  }
+</style>
+
+</head>
+
+
+
+<body>
+<header>
+    <!-- STICKY top section SAME CODE IN ALL SKINS - top buttons -->
+    <div class="nav">{{ hdr1 }}</div>
+</header>
+
+<main>
+  <!-- black top section -->
+  <div class="header">
+    <div class="section">
+      <!-- top section SAME CODE IN ALL SKINS - top buttons -->
+      <!--div class="nav">{{ hdr1 }}</div-->
+      
+      <div class="action footer">{{ hdr2 }} &nbsp;&nbsp;</div>
+    </div>
+  </div>
+
+
+
+<!-- info section below black top section-->
+<div class="info">
+
+  <div class="section">{{ info_titles }} (--info_titles)</div>
+
+  <div class="section boxes">
+    <!-- column 1,2,3 -->
+    <div>{{ info2col.1 }} (--info2col.1)</div>
+    <div>{{ info2col.2 }} (--info2col.2)</div>
+    <div>{{ info3 }} (--info3)</div>
+  </div><!-- e n d  div class="section boxes" -->
+
+</div><!-- e n d  div class="info" -->
+
+
+  <!-- footer -->
+  <div class="footer section">
+    <div class="copyright">{{ ftr1 }}</div>
+    <div class="signup">{{ ftr2 }}</div>
+  </div>
+  <!--
+  <hr />
+  <nbv>
+    <div clbss="copyright">{  { ftr1 }}</div>
+    <div clbss="signup">{  { ftr2 }}</div>
+  </nbv>
+  -->
+</main>
+
+<!--works!! footer>Sticky footer</footer-->
+
+</body>
+</html>

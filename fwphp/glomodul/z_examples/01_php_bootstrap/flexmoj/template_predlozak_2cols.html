@@ -1,0 +1,493 @@
+<!DOCTYPE html><HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META charset="utf-8">
+<META http-equiv="x-ua-compatible" content="ie=edge">
+<META NAME="robots" content="all">
+<META name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="description" content="HFS web server">
+<META NAME="keywords" content="HFS, send, receive, files">
+
+<LINK REL="StyleSheet" HREF="template_predlozak_2cols.css" TYPE="text/css">
+<!--LINK REL="StyleSheet" HREF="/common/style.css?v=20180612" TYPE="text/css"-->
+<!--LINK rel="alternate" type="application/rss+xml" title="RSS" href="/news.rss"-->
+<TITLE>HFS</TITLE>
+</HEAD>
+
+
+<BODY><DIV id="content">
+<DIV id="header"><DIV id="logo"><a href="//www.aprelium.com/"><IMG SRC="/common/apreliumlogo.gif" BORDER="0" galleryimg="no"></a></DIV></DIV>
+<div id="navcontainer"><ul>
+<li><a href="/">Home</a></li>
+<li><a href="/downloads/">Downloads</a></li>
+<li><a href="/order/">Buy Online</a></li>
+<li><a href="/support/">Help &amp; Support</a></li>
+<li><a href="/forum/">Forum</a></li>
+</ul></div>
+<DIV id="page">
+<H2>HFS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://www.rejetto.com/hfs/guide/intro.html" target="_blank">http://www.rejetto.com/hfs/guide/intro.html</a>&nbsp; 
+- web server for web file transfer - download / upload</H2>
+ <H2>Ngrok&nbsp; <a href="https://ngrok.com/" target="_blank">https://ngrok.com/</a> 
+ - Public URLs for exposing your local web server.</H2>
+<div class="frame">
+<div class="bit-2">
+<h3>HFS is web server for web file transfer - download / upload</h3>
+ <h1 id="firstHeading" class="firstHeading" lang="en-GB" style="color: rgb(0, 0, 0); background: none; font-weight: normal; margin: 0px 0px 0.25em; overflow: visible; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.8em; line-height: 1.3; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ HFS: Introduction<span lang="hr"> and DDNS through Ngrok tunells</span></h1>
+ <div id="bodyContent" class="mw-body-content" style="position: relative; line-height: 1.6; font-size: 0.875em; z-index: 0; color: rgb(34, 34, 34); font-family: sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+  <div id="mw-content-text" class="mw-content-ltr" dir="ltr" lang="en-GB" style="direction: ltr;">
+   <div class="mw-parser-output">
+    <div id="toc" class="toc" style="border: 1px solid rgb(162, 169, 177); background-color: rgb(248, 249, 250); padding: 7px; font-size: 13.3px; display: table; zoom: 1;">
+     <div class="toctitle" style="direction: ltr; text-align: center;">
+      <h2 style="color: rgb(0, 0, 0); background: none; font-weight: bold; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border: 0px; font-size: 13.3px; display: inline; font-family: sans-serif; line-height: 1.3;">
+      Contents</h2>
+      <span class="toctoggle" style="user-select: none; font-size: 12.502px;">&nbsp;[<a class="togglelink" role="button" style="text-decoration: none; color: rgb(6, 69, 173); background: none; cursor: pointer;" tabindex="0">hide</a>]&nbsp;</span></div>
+     <ul style="list-style-type: none; margin: 0.3em 0px; padding: 0px; list-style-image: none; text-align: left;">
+      <li class="toclevel-1 tocsection-1" style="margin-bottom: 0.1em;">
+      <a href="http://www.rejetto.com/wiki/index.php/HFS:_Introduction#What_is_it.3F" style="text-decoration: none; color: rgb(11, 0, 128); background: none;">
+      <span class="tocnumber" style="display: table-cell; text-decoration: inherit; padding-left: 0px; padding-right: 0.5em; color: rgb(34, 34, 34);">
+      1</span><span class="toctext" style="display: table-cell; text-decoration: inherit;">What 
+      is it?</span></a></li>
+      <li class="toclevel-1 tocsection-2" style="margin-bottom: 0.1em;">
+      <a href="http://www.rejetto.com/wiki/index.php/HFS:_Introduction#Installation" style="text-decoration: none; color: rgb(11, 0, 128); background: none;">
+      <span class="tocnumber" style="display: table-cell; text-decoration: inherit; padding-left: 0px; padding-right: 0.5em; color: rgb(34, 34, 34);">
+      2</span><span class="toctext" style="display: table-cell; text-decoration: inherit;">Installation</span></a></li>
+      <li class="toclevel-1 tocsection-3" style="margin-bottom: 0.1em;">
+      <a href="http://www.rejetto.com/wiki/index.php/HFS:_Introduction#Basic_instructions" style="text-decoration: none; color: rgb(11, 0, 128); background: none;">
+      <span class="tocnumber" style="display: table-cell; text-decoration: inherit; padding-left: 0px; padding-right: 0.5em; color: rgb(34, 34, 34);">
+      3</span><span class="toctext" style="display: table-cell; text-decoration: inherit;">Basic 
+      instructions</span></a></li>
+      <li class="toclevel-1 tocsection-4" style="margin-bottom: 0.1em;">
+      <a href="http://www.rejetto.com/wiki/index.php/HFS:_Introduction#Uninstallation" style="text-decoration: none; color: rgb(11, 0, 128); background: none;">
+      <span class="tocnumber" style="display: table-cell; text-decoration: inherit; padding-left: 0px; padding-right: 0.5em; color: rgb(34, 34, 34);">
+      4</span><span class="toctext" style="display: table-cell; text-decoration: inherit;">Uninstallation</span></a></li>
+     </ul>
+    </div>
+    <ul style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+     <li><strong>Run HFS</strong><span lang="hr"> - best from Symenu portable 
+     appl. suite.</span></li>
+     <li>In the window (left-pane), <strong>drag&amp;drop</strong>
+     <span lang="hr"><strong>dirs as virtual</strong> (</span>all the elements<span lang="hr">)</span> to share.</li>
+     <li>Communicate to your friends the address of the items to download<span lang="hr"> 
+     so :<br><br>J:\aplp\aplp\0_symenu\ProgramFiles\aplp\ngrok&gt;<strong>ngrok.exe&nbsp;</strong> 
+     http 8083<br><strong>better two icons on desktop<br></strong>
+     J:\aplp\aplp\0_symenu\ProgramFiles\aplp\ngrok\ngrok.exe http -region eu 
+     8083<strong><br></strong>J:\aplp\aplp\0_symenu\ProgramFiles\aplp\ngrok<strong><br>
+     and second :&nbsp;&nbsp; ... http -region eu 80 ...<br></strong><br>
+     WEB SERVER DOCUMENT ROOT :<br>
+     <a href="http://cf893303.eu.ngrok.io" target="_blank">
+     http://cf893303.eu.ngrok.io</a> &nbsp;(each time different URL !!) 
+     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; opens same page as 
+     <a href="http://localhost:8083/" target="_blank">http://localhost:8083/</a>
+     <br><br>WEB FILE TRANSFER ROOT DEFINED WITH DRAG&amp;DOP IN HFS :<br>Same for 
+     <strong>ngrok.exe http 80</strong> which is localhost:80<br>
+     <a href="http://cf893303.eu.ngrok.io" target="_blank"><strong>
+     http://cf893303.eu.ngrok.io</strong></a> &nbsp;(each time different URL !!)&nbsp;&nbsp;
+     <br>is than same as :&nbsp;&nbsp; <a href="http://192.168.5.101/">http://192.168.5.101/</a>&nbsp;&nbsp; 
+     or&nbsp;&nbsp; <a href="http://localhost/" target="_blank"><strong>
+     http://localhost/</strong></a> <br>
+     </span><br></li>
+    </ul>
+    <p style="color: rgb(0, 0, 0); background: none; font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3;">
+    &nbsp;</p>
+    <h2 style="color: rgb(0, 0, 0); background: none; font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3;">
+    <span id="What_is_it.3F" class="mw-headline">What is it?</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=HFS:_Introduction&amp;action=edit&amp;section=1" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: What is it?">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+    <p style="margin: 0.5em 0px; line-height: inherit;">HFS (Http File Server) 
+    is file sharing software which allows you to send and receive files over 
+    HTTP. You can limit this sharing to just a few friends, or be open to the 
+    whole world.</p>
+    <p style="margin: 0.5em 0px; line-height: inherit;">HFS is different from 
+    classic file sharing because there is no network. HFS is a web server which 
+    uses web technology to be more compatible with today's Internet.</p>
+    <p style="margin: 0.5em 0px; line-height: inherit;">Since it is actually a 
+    web server, your friends can download files as if they were downloading from 
+    a website using a web browser, such as Internet Explorer or Firefox. Your 
+    users don't have to install any new software.</p>
+    <p style="margin: 0.5em 0px; line-height: inherit;">HFS is designed to let 
+    you easily share files. Most web servers are used to publish a website. 
+    While HFS is fully capable of this, it is not designed to do so. You are 
+    free to use HFS in any way you wish, but at your own risk.</p>
+    <h2 style="color: rgb(0, 0, 0); background: none; font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3;">
+    <span id="Installation" class="mw-headline">Installation</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=HFS:_Introduction&amp;action=edit&amp;section=2" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Installation">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+    <p style="margin: 0.5em 0px; line-height: inherit;">HFS needs no 
+    installation. Just put the "hfs.exe" file in a folder of your choice 
+    (perhaps named HFS), and run it.</p>
+    <p style="margin: 0.5em 0px; line-height: inherit;">The first time it runs, 
+    you are prompted to see if you wish to integrate it into the context menu. 
+    If you pick "yes", then in Window's Explorer you can simply right-click on a 
+    file to add it to HFS (and make it downloadable). (This option can also be 
+    accessed after installation in<span>&nbsp;</span><i>Menu→Other options→Shell 
+    context menu</i>.)</p>
+    <h2 style="color: rgb(0, 0, 0); background: none; font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3;">
+    <span id="Basic_instructions" class="mw-headline">Basic instructions</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=HFS:_Introduction&amp;action=edit&amp;section=3" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Basic instructions">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+    <p style="margin: 0.5em 0px; line-height: inherit;">HFS really is very easy 
+    to use.</p>
+    <pre style="font-family: monospace, Courier; color: rgb(0, 0, 0); background-color: rgb(248, 249, 250); border: 1px solid rgb(234, 236, 240); padding: 1em; white-space: pre-wrap; line-height: 1.3em;">   * Run "HFS.exe".
+   * In the window (left-pane), drag&amp;drop all the elements to share.
+   * Communicate to your friends the address of the items to download. 
+</pre>
+    <p style="margin: 0.5em 0px; line-height: inherit;">After you drag&amp;drop the 
+    files, the address (ie. the URL) is automatically copied to your Windows 
+    clipboard. If you then use, say, a chat window, just PASTE to send the 
+    address.</p>
+    <p style="margin: 0.5em 0px; line-height: inherit;">Alternatively, if you 
+    chose to enable the context menu, just right-click on the file/folder to 
+    share, and select "Add to HFS". HFS then automatically runs, shares the 
+    item, and copies the URL to your clipboard, ready to be pasted.</p>
+    <p style="margin: 0.5em 0px; line-height: inherit;">Notice that at first, 
+    "You are in Easy mode". It is recommended that you stay in this mode until 
+    you have used HFS a few times. Simply click the message to change to Expert 
+    mode.</p>
+    <p style="margin: 0.5em 0px; line-height: inherit;">See<span>&nbsp;</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="First time configuration">First 
+    time configuration</a><span>&nbsp;</span>for more detailed setup information.</p>
+    <h2 style="color: rgb(0, 0, 0); background: none; font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3;">
+    <span id="Uninstallation" class="mw-headline">Uninstallation</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=HFS:_Introduction&amp;action=edit&amp;section=4" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Uninstallation">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+    <p style="margin: 0.5em 0px; line-height: inherit;">Use the Uninstall 
+    command from the HFS Main menu.</p>
+   </div>
+  </div>
+ </div>
+<p>
+								&nbsp;</p>
+<h3>
+<A NAME="newfeatures"></A>Major features <A HREF="features.html" class="smallbutton">All the Features</A>
+</h3>
+ </p>
+<h3>HFS&nbsp;&nbsp;&nbsp; First time configuration</h3>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span class="mw-headline">
+ <a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration">
+ http://www.rejetto.com/wiki/index.php?title=First_time_configuration</a> </span>
+ </h2>
+ <p style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span style="color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+ If you connect to the Internet through a hardware router/firewall you will 
+ almost certainly have to configure your router in order to get HFS to work 
+ properly. The critical task is called "Port fowarding".<span>&nbsp;</span></span><br style="color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ <span style="color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+ You can get help about this at<span>&nbsp;</span></span><a class="external text" href="http://www.portforward.com/" rel="nofollow" style="text-decoration: none; color: rgb(102, 51, 102); background: linear-gradient(transparent, transparent) right center no-repeat, url(&quot;data:image/svg+xml,%3C%3Fxml version=%221.0%22 encoding=%22UTF-8%22 standalone=%22no%22%3F%3E%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E%3Cpath fill=%22%23fff%22 stroke=%22%2306c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E%3Cpath d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22 fill=%22%2306f%22/%3E%3Cpath d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22 fill=%22%23fff%22/%3E%3C/svg%3E&quot;) rgb(255, 255, 255); padding-right: 13px; font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">Portforward</a><span style="color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">, 
+ and on the HFS<span>&nbsp;</span></span><a class="external text" href="http://www.rejetto.com/forum/index.php?board=27.0" rel="nofollow" style="text-decoration: none; color: rgb(102, 51, 102); background: linear-gradient(transparent, transparent) right center no-repeat, url(&quot;data:image/svg+xml,%3C%3Fxml version=%221.0%22 encoding=%22UTF-8%22 standalone=%22no%22%3F%3E%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E%3Cpath fill=%22%23fff%22 stroke=%22%2306c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E%3Cpath d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22 fill=%22%2306f%22/%3E%3Cpath d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22 fill=%22%23fff%22/%3E%3C/svg%3E&quot;) rgb(255, 255, 255); padding-right: 13px; font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">Forum</a><span style="color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">.</span><br style="color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ <span style="color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+ Many firewalls also require that you give HFS permission to send and receive 
+ files.</span></p>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Summary" class="mw-headline">Summary</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=1" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Summary">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ This section explains what you have to do to establish a working, fully-secured 
+ and protected, HFS server. These tasks include:</p>
+ <ol style="margin: 0.3em 0px 0px 3.2em; padding: 0px; list-style-image: none; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+  <li style="margin-bottom: 0.1em;">Starting and testing.</li>
+  <li style="margin-bottom: 0.1em;">Adding folders for upload and download.</li>
+  <li style="margin-bottom: 0.1em;">Determining addresses.</li>
+  <li style="margin-bottom: 0.1em;">Setting passwords.</li>
+  <li style="margin-bottom: 0.1em;">Defining user accounts.</li>
+  <li style="margin-bottom: 0.1em;">Saving a configuration.</li>
+ </ol>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Initial_state" class="mw-headline">Initial state</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=2" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Initial state">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ When you have configured your router, double-click the file named<span>&nbsp;</span><i>hfs.exe</i><span>&nbsp;</span>to 
+ start your server. Initially, it looks like this:<span>&nbsp;</span></p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Of course the "Address" in the above illustration is not the address you 
+ actually see on your server.</p>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Self_Test" class="mw-headline">Self Test</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=3" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Self Test">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Now make sure that your server is visible on the Internet, by using "Self 
+ Test". Click the option and follow the onscreen instructions. A successful 
+ test, popsup the following:</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ "Self Test" is an amazingly powerful HFS feature. It not only checks Internet 
+ visibilty, it also attempts to automatically repair many common connection 
+ problems.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ In general terms, if "Self Test" is successful you can be almost certain that 
+ the server is visible on the Internet, and is ready to accept and process 
+ upload and download requests. Equally, however, if it fails there is little 
+ point in continuing configuration until you have solved this connection 
+ problem. (Most often failure to forward port correctly.)</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ You'll see that the first Address displayed is now replaced by your normal IP 
+ address. Click "IP address" to see the various address-handling options 
+ available. But do not change it right now.<br>You can check your normal IP 
+ address at, for example:<span>&nbsp;</span><a class="external text" href="http://www.whatismyipaddress.com/" rel="nofollow" style="text-decoration: none; color: rgb(102, 51, 102); background: linear-gradient(transparent, transparent) right center no-repeat, url(&quot;data:image/svg+xml,%3C%3Fxml version=%221.0%22 encoding=%22UTF-8%22 standalone=%22no%22%3F%3E%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E%3Cpath fill=%22%23fff%22 stroke=%22%2306c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E%3Cpath d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22 fill=%22%2306f%22/%3E%3Cpath d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22 fill=%22%23fff%22/%3E%3C/svg%3E&quot;); padding-right: 13px;">IP 
+ address</a><span>&nbsp;</span>or<span>&nbsp;</span><a class="external text" href="http://www.auditmypc.com/whats-my-ip.asp" rel="nofollow" style="text-decoration: none; color: rgb(102, 51, 102); background: linear-gradient(transparent, transparent) right center no-repeat, url(&quot;data:image/svg+xml,%3C%3Fxml version=%221.0%22 encoding=%22UTF-8%22 standalone=%22no%22%3F%3E%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E%3Cpath fill=%22%23fff%22 stroke=%22%2306c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E%3Cpath d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22 fill=%22%2306f%22/%3E%3Cpath d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22 fill=%22%23fff%22/%3E%3C/svg%3E&quot;); padding-right: 13px;">Audit 
+ PC</a>.</p>
+</div>
+<div class="bit-2">
+<h3>aaaaaa</h3>
+ <dl>
+  <dt>
+  <A class="smallbutton" href="/abyssws/download.php">Free Download</A>
+<br><br><A class="smallbutton" href="/order">AAAaaaaA</A>
+</dt>
+</dl></p>
+<h3>Screenshots <A class="smallbutton" href="screenshots.html">More</A>
+</h3>
+<div class="center"></div>
+<h3>HFS&nbsp; Learn more</h3>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Adding_an_upload_folder" class="mw-headline">Adding an upload folder</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=4" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Adding an upload folder">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Next, add an upload folder so that your friends can easily send you files. This 
+ must be a real folder (see<span>&nbsp;</span><a href="http://www.rejetto.com/wiki/index.php?title=HFS:_Glossary" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="HFS: Glossary">HFS: 
+ Glossary</a>). To do this:<br></p>
+ <ol style="margin: 0.3em 0px 0px 3.2em; padding: 0px; list-style-image: none; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+  <li style="margin-bottom: 0.1em;">Create a new folder on your hard disk eg. 
+  C:\Uploads, by using Window's Explorer.</li>
+  <li style="margin-bottom: 0.1em;">If you have "Add to HFS" in the Windows 
+  Explorer context menu, simply right-click on the folder and click this option. 
+  Then click "Real Folder" in the resultant dialog box.</li>
+  <li style="margin-bottom: 0.1em;">The alternative is to drag&amp;drop the folder 
+  "Uploads" to the left pane of the server window named "Virtual File System".</li>
+  <li style="margin-bottom: 0.1em;">Make sure that "Uploads" is selected (ie. it 
+  has the focus). Use<span>&nbsp;</span><i>Upload →Upload for accounts →Anyone</i><span>&nbsp;</span>so 
+  that any of your friends can access this folder.</li>
+  <li style="margin-bottom: 0.1em;">You can password-protect "Uploads", but most 
+  users don't do this so that all their friends can upload files without any 
+  restrictions. (See "Password protection", below.)</li>
+  <li style="margin-bottom: 0.1em;">You may care to type (or paste)<span>&nbsp;</span><b>http://localhost/</b><span>&nbsp;</span>into 
+  your Internet browser to check what your site's users will see when they 
+  access your site. Alternatively, use the<span>&nbsp;</span><i>Browser</i><span>&nbsp;</span>function 
+  in HFS.</li>
+ </ol>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Adding_a_download_folder" class="mw-headline">Adding a download 
+ folder</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=5" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Adding a download folder">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Next, add a download directory so that your friends can easily download files 
+ from you. This can be a virtual folder (see<span>&nbsp;</span><a href="http://www.rejetto.com/wiki/index.php?title=HFS:_Glossary" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="HFS: Glossary">HFS: 
+ Glossary</a>), but for first-time use, it's probably easier to use another real 
+ folder. To do this:<br></p>
+ <ol style="margin: 0.3em 0px 0px 3.2em; padding: 0px; list-style-image: none; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+  <li style="margin-bottom: 0.1em;">Create a new folder on your hard disk eg. 
+  "C:\Downloads", by using Window's Explorer. Copy some test files there, of the 
+  type you imagine your friends will want. MP3s, for example.</li>
+  <li style="margin-bottom: 0.1em;">If you have "Add to HFS" in the context 
+  menu, simply right-click on the folder and click this option. Then click "Real 
+  Folder" in the resultant dialog box.</li>
+  <li style="margin-bottom: 0.1em;">The alternative is to drag&amp;drop the folder 
+  "Downloads" to the left pane of the server window named "Virtual File System".</li>
+  <li style="margin-bottom: 0.1em;">You probably should password-protect 
+  "Download", but, assuming your system is reasonably secure (ie. you have at 
+  least an updated firewall), it's safe to leave it without any restrictions for 
+  a few minutes while you complete configuration. (See "Password protection", 
+  below.)</li>
+  <li style="margin-bottom: 0.1em;">You can type (or paste)<span>&nbsp;</span><b>http://localhost/</b><span>&nbsp;</span>into 
+  your browser to check what your site's users see when they access your site. 
+  Alternatively, use the HFS<span>&nbsp;</span><i>Browser</i><span>&nbsp;</span>function.</li>
+ </ol>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ The HFS Virtual File System now looks like this:</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ http://localhost/ now displays this:</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Addresses_to_give_out" class="mw-headline">Addresses to give out</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=6" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Addresses to give out">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Your friends can now download any files you add to the folder C:\Downloads on 
+ your hard disk. You can either give them the address of your site,</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ or of the item (the folder "Downloads").</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ If you use folder names that contain spaces, the item address may include&nbsp;% 
+ signs and some unwanted digits. In order to make it more readable, you can use 
+ the HFS "URL Encoding" facility (Main menu in "Expert mode"). Uncheck "Encode 
+ spaces" to remove the&nbsp;% signs which conventionally represent spaces, and the 
+ superfluous digits. The item then becomes a little more clear and readable:</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ <b>Warning</b><br>Many HFS users like to give their site address to their 
+ buddies while they are using a Chat or Messenger application. In these 
+ circumstances, you may find some difficulties if you attempt to send the more 
+ readable version. (The Messenger browser, for example, normally just freezes 
+ when it encounters a non-encoded space.) One solution is to just right-click on 
+ the address (or file, or folder, or item) in HFS, and use "Copy URL". You can 
+ then simply paste the address into your chat browser.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ A neat solution that avoids any problems with this, is to only create folders 
+ with names (character strings) that do not contain spaces!<span>&nbsp;</span><br>For 
+ example "Downloads", "Mother", "Music", "Catherine",etc.</p>
+<p><div class="center"><table class="specialtable" id="table1">
+<tr>
+<td class="tdnowrap"><img src="/common/oswin.gif"></td>
+<td>
+												All editions (32-bit and 64-bit) of Windows 10, 8.1, 8, 7, Vista, and XP<br>
+                                                ...<br>
+</td>
+</tr>
+<tr><td class="noborder" colspan="2"></td></tr>
+<tr>
+<td class="tdnowrap"><img src="/common/osmacuniv.gif"></td>
+<td>
+												macOS 10.13 (High Sierra), macOS 
+                                                10.12 (Sierra), Mac OS X 10.11 
+                                                (El Capitan), 10.10 (Yosemite), 
+                                                10.9 (Mavericks), 10.8 ...</td>
+</tr>
+<tr><td class="noborder" colspan="2"></td></tr>
+<tr>
+<td class="tdnowrap"><img src="/common/oslinux.gif"></td>
+<td>
+												Linux for Intel x86 (32-bit) or x64 (64-bit) : any modern distribution - needs GLIBC 2.4 or later - Kernel 2.4 or later
+											</td>
+</tr>
+</table></div></p>
+ <p style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Password_protection" class="mw-headline">Password protection</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=7" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Password protection">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ You can protect folders, files, other items, or your complete site, by 
+ assigning passwords. This is not the same as setting-up user accounts. (See 
+ below.)<br>To password protect the folder "Downloads", for example, click the 
+ folder to select it, then right-click and choose "Set user/pass". Then complete 
+ the dialog box:<a href="http://www.rejetto.com/wiki/index.php?title=File:081.png" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="File:081.png">File:081.png</a></p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ After you've clicked "Ok", only those who use the correct username and know the 
+ password can access this folder. You'll notice that a locked icon appears next 
+ to the folder in HFS.<span>&nbsp;</span><a class="image" href="http://www.rejetto.com/wiki/index.php?title=File:063.png" style="text-decoration: none; color: rgb(11, 0, 128); background: none;"><img alt="063.png" height="73" src="http://www.rejetto.com/wiki/images/e/e7/063.png" style="border: 0px; vertical-align: middle; margin: 0px;" width="121"></a></p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ To remove the protection, click "Reset user/pass".</p>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Passwords_and_folder_restrictions" class="mw-headline">Passwords and 
+ folder restrictions</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=8" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Passwords and folder restrictions">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Some users get confused about the use of folder restrictions, and the 
+ "username/password" facilities, in HFS.<br>It is perfectly possible to have a 
+ highly secure HFS server without using the "username/password" facilities at 
+ all.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ The best practice is to just protect your HFS folders. This a key difference 
+ between HFS and conventional file servers. Many have used conventional servers 
+ and discovered that you have to have an account and login before you can do<span>&nbsp;</span><i>anything</i>.<span>&nbsp;</span><br>
+ HFS just isn't like that.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ On this site for example, "rojetto" (whoever he is) has no account. But he can 
+ access the folders "Uploads and "4rojetto". He can't access "Downloads" 
+ (because he doesn't know the password). You can see that "Downloads" has a 
+ padlock icon, to show that it's locked.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ You can also password-protect root.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Now "rojetto" (who still doesn't know the password) can see the folders, but 
+ can't access any of them.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ For extra security however, you<span>&nbsp;</span><i>can</i><span>&nbsp;</span>set-up 
+ user accounts.</p>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="User_accounts" class="mw-headline">User accounts</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=9" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: User accounts">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Use the facilities in "Restrict access" to setup user accounts.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Assuming you haven't setup any accounts before, select the "Downloads" folder, 
+ and click "New account" to display:</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ &nbsp;</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ Fill-in the "Username" and "Password" and click Ok.<br>Click "Restrict access" 
+ again to check that the acount has been established correctly.<br>If you click 
+ "All existing accounts", all users with an account (including the one you have 
+ just setup) must enter their username and password to access the "Downloads" 
+ folder.<span>&nbsp;</span><br>If you click "No account", you effectively remove all 
+ username/password protection for the item.</p>
+ <h2 style="color: rgb(0, 0, 0); background: none rgb(255, 255, 255); font-weight: normal; margin: 1em 0px 0.25em; overflow: hidden; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); font-size: 1.5em; font-family: &quot;Linux Libertine&quot;, Georgia, Times, serif; line-height: 1.3; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+ <span id="Saving_your_configuration" class="mw-headline">Saving your 
+ configuration</span><span class="mw-editsection" style="user-select: none; font-size: small; font-weight: normal; margin-left: 1em; vertical-align: baseline; line-height: 1em; display: inline-block; font-family: sans-serif;"><span class="mw-editsection-bracket">[</span><a href="http://www.rejetto.com/wiki/index.php?title=First_time_configuration&amp;action=edit&amp;section=10" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Edit section: Saving your configuration">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ If you have followed the process outlined above, you now have a simple, very 
+ easy-to-use HFS server that is fully-secured and protected.<br>The final task 
+ is to preserve your work by using "Save file system".<span>&nbsp;</span><br>You are 
+ prompted for a filename to use. Many users find it convenient to use an 
+ incremental naming system, eg. "01.vfs", "02.vfs", "03.vfs", etc. But, of 
+ course, you are free to adopt whatever naming system you prefer.</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ <b>Warning</b><span>&nbsp;</span>Do not attempt to change the default file 
+ extension;always use "vfs".</p>
+ <p style="margin: 0.5em 0px; line-height: inherit; color: rgb(34, 34, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">
+ See<span>&nbsp;</span><a href="http://www.rejetto.com/wiki/index.php?title=Refinements" style="text-decoration: none; color: rgb(11, 0, 128); background: none;" title="Refinements">Refinements</a><span>&nbsp;</span>for 
+ for more step-by-step guidance about some of the other features included in HFS</p>
+<P>
+ <P><DL>
+<DT><A HREF="/abyssws/summary.html">Abyss Web Server X1 vs. Abyss Web Server X2</A></DT>
+<DD>
+										View the features summary and learn about the differences between the personal and the professional edition.
+									</DD>
+</DL>...</P>
+</div>
+</div>
+</DIV>
+<DIV id="mailing"><div class="callbox">
+<h3>Keep in touch with us</h3>
+<p>Sign up for our low volume newsletter to get product announcements, articles and power tips.</p>
+<form action="/mailing.php" method="POST">
+<input name="e" type="email" placeholder="Add my email..." size="40" class="animated"><input type="submit" value="Subscribe now" class="smallbutton">
+					or <a href="https://twitter.com/abyssws?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @abyssws on Twitter</a><script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</form>
+</div></DIV>
+<DIV id="footer2">
+<UL class="fl"><LI class="fl">
+<A class="fl" HREF="/abyssws/">Abyss Web Server</A><UL>
+<LI><A HREF="/abyssws/download.php">Personal Edition X1 (Free)</A></LI>
+<LI><A HREF="/abyssws/x2/">Professional Edition X2</A></LI>
+<LI><A HREF="/abyssws/features.html">Features</A></LI>
+<LI><A HREF="/abyssws/screenshots.html">Screenshots</A></LI>
+<LI><A HREF="/abyssws/users-customers.html">Users/Customers</A></LI>
+</UL>
+</LI></UL>
+<UL class="fl"><LI class="fl">
+<A class="fl" HREF="/abyssws/scripting.html">Install...</A><UL>
+<LI><A HREF="/abyssws/php.html">PHP</A></LI>
+<LI><A HREF="/abyssws/perl.html">Perl</A></LI>
+<LI><A HREF="/abyssws/aspnet/">ASP.NET</A></LI>
+<LI><A HREF="/abyssws/asp.html">"Classic" ASP</A></LI>
+<LI><A HREF="/abyssws/ror.html">Ruby On Rails</A></LI>
+</UL>
+</LI></UL>
+<UL class="fl"><LI class="fl">
+<A class="fl" HREF="/support/">Get Help...</A><UL>
+<LI><A HREF="/abyssws/faq.html">FAQ</A></LI>
+<LI><A HREF="/abyssws/articles/">Articles</A></LI>
+<LI><A HREF="/abyssws/doc.html">User's Guide</A></LI>
+<LI><A HREF="/support/email/">Email Support</A></LI>
+</UL>
+</LI></UL>
+<UL class="fl"><LI class="fl">
+<A class="fl" HREF="/company.html">Company</A><UL>
+<LI><A HREF="/contact.html">Contact Us</A></LI>
+<LI><A HREF="/legal.html">Legal Terms</A></LI>
+<LI><A HREF="/privacy.html">Privacy Policy</A></LI>
+<LI><A HREF="/company.html">About Us</A></LI>
+</UL>
+</LI></UL>
+<UL class="fl"><LI class="fl">
+<A class="fl" HREF="/company.html">Keep in Touch</A><UL>
+<LI>
+<A HREF="/news/">News</A> <A HREF="/news.rss" BORDER="0" ALT="News RSS Feed" TITLE="News RSS Feed"><IMG class="noborder" SRC="/common/feedicon.png" galleryimg="no" ALT="News RSS Feed"></A>
+</LI>
+<LI><A HREF="/mailing.php">Mailing List</A></LI>
+<LI><A HREF="https://twitter.com/abyssws"><img class="badge noborder" src="/common/twitter.svg" alt="Twitter">@abyssws</A></LI>
+</UL>
+</LI></UL>
+<DIV ID="right"><DIV style="text-align: center">
+<A HREF="http://www.aprelium.com/abyssws/" ALT="Powered By Abyss Web Server" TITLE="Powered By Abyss Web Server" BORDER="0"><IMG SRC="/common/pwrabyss.gif" galleryimg="no" ID="pwrabyss"></A><br>
+						    © 2001-2018 Aprelium
+                            </DIV></DIV>
+<DIV STYLE="clear: both; display: block; height: 1px; overflow: hidden; margin: 0; padding: 0; font-size: 1px"> </DIV>
+</DIV>
+</DIV></BODY>
+</HTML>

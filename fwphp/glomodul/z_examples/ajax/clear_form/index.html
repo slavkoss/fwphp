@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+  <title>Demo: Using Javascript to clear a form</title>
+  <script script type="text/javascript" src="demo1.js"></script>
+</head>
+<body>
+
+  <div align="center"><h2 style="color: #8e9182">Demo: Using Javascript to clear a form</h2></div>
+
+  <form name="data_entry" id="data_entry_frm" action="#">
+    <table cellspacing="5" cellpadding="0">  
+
+      <tr><td><input type="button" name="clear" value="Clear Form" 
+                    onclick="clearForm(this.form);" ></td>
+          <td><input type="button" name="reset_form" value="Reset Form" 
+                    onclick="this.form.reset();"></td>
+      </tr>
+  
+    <tr><td><label for="company_name">Company Name: </label></td>
+        <td><input type="text" size="35" maxlength="70" name="company_name" id="txt_company_name"></td>
+    </tr>
+
+      <tr><td><label for="business_category">Select Business Type:</label> </td>
+          <td><input type="radio" name="business_category" value="1" id="rad_business_category_1">Manufacturer</td>
+      </tr>
+      <tr><td>&nbsp;</td><td><input type="radio" name="business_category" value="2" id="rad_business_category_2">Whole Sale Supplier</td></tr>
+      <tr><td>&nbsp;</td><td><input type="radio" name="business_category" value="3" id="rad_business_category_3" checked>Retailer</label></tr>
+      <tr><td>&nbsp;</td><td><input type="radio" name="business_category" value="4" id="rad_business_category_4">Service Provider</td></tr>
+      
+      <tr><td><label for="email">Email Address: </label></td><td><input type="text" size="15" maxlength="70" name="email" id="txt_email"></td></tr>
+      
+      <tr><td><label for="privacy">Keep Information Private: </label></td>
+         <td><input type="checkbox" name ="privacy" id="chk_privacy"></td>
+      </tr>
+
+      </table>
+  </form>
+  
+  <p>
+  http://www.javascript-coder.com/html-form/how-to-make-a-form-quickly.phtml<br/>
+  Reset button does not clear default values (does nondefault v.), unlike other button, which clears all values.
+  </p>
+  <p>
+  If none of the values of elements in form are set on page load, then Two buttons function same.<br/>
+  Set default for radio element named "business_category" to value: checked and click both buttons - Reset button cheks again.
+  </p>
+</body>
+</html>  

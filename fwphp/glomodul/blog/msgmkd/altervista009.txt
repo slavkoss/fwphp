@@ -1,0 +1,221 @@
+9\. Main development, test and production menu (& 3 sites) – PHP 7 RC5, Oracle 11g on Windows 10 all 64 bit
+===========================================================================================================
+
+**[HOME](http://phporacle.altervista.org/php-oracle-main-menu/ "Main menu") – Download Win10 64 bit AMP config and three sites php scripts.  
+**
+
+**14.8.2016**I changed a lot, see my article 10. This article 9 can be used only for explanations but everything is in code in**1\_3sites\_mnu\_crud\_ver1.rar**.
+
+**22.11.2015**code refactored – i uploaded sites code version 3, (**SINGLETON UTILS-HELPERS CLASS**,**config\_site.php…**).
+
+Scripts **config\_site.php, utls.php, utls\_glbsetpg.php and lsweb.php **explain most important changes.**I hope this is final code skeleton,** ver4 will be bug fixes and cosmetic updates. (In ver3 I tested only most important lsweb.php but testing others is good exercise – and it shows how difficult this job is).
+
+Statements (functions) flow article (not yet uploaded) should link together all I wanted to say.
+
+Every (vitual) host – I have them 3: dev, test, production – should have in its web site doc root script which tells web server where are**resources which are outside doc tree**(global fns, settings, css, imgs)
+
+(Problem with resources outside web doc tree is that we need file\_get\_contents() fn which is disabled by some inet providers. But if you want own SOAP server eg for direct b2b copying einvoice xml – then every your user should have own web site (bad news for some not needed service brokers – posrednici).)
+
+Most important are:  
+1\. “path science” – unexplained enough in learning materials I met (for SPA script very different than for URL called script).  
+2\. Statements (functions) flow (to**understand SW & for debugging**) – I shall soon write article 10 or 11 () about this (SOAP examples for**copying xml**across inet will also be soon).
+
+I can not understand SPA & frameworks without above two explained. To me seems that framework authors intentionally do not explain important things about their scripts coding (there is to much commercial interests in free SW) – so we have 100 frameworks instead 5-6.
+
+I am shure that Utils class should be, settings should be in global\_config.php both outside web doc tree. Local settings in doc tree should owerwrite global.
+
+Eg my : **J:\\awww\\apl\\dev1\\config\_site.php**contais:
+
+ < php
+ // development site (virtual host on home PC) :
+ // J:\\awww\\apl\\dev1\\config\_site.php
+//**$\_SERVER\['DOCUMENT\_ROOT'\] = J:\\awww\\apl\\dev1\\**
+ // yii2 advanced site (virtual host on home PC) :
+ // J:\\awww\\apl\\dev1\\zfw\\yii205\\frontend\\web\\config\_site.php
+ // J:\\awww\\apl\\dev1\\zfw\\yii205\\aplmy\\backend\\web\\config\_site.php
+ // realpath
+ use utlmoj\\utlmoj as utl;
+ $ds = DIRECTORY\_SEPARATOR;
+ /\*\*
+ \* CONVENTION: sitedocroot/../zinc = eg J:/awww/apl/zinc
+ \* site does not know where (outside site doc tree) are global resources
+ \* (util scripts, css, img for all sites), so we must assign
+ \* 1. GLOBAL RESOURCES (INCLUDES) FOLDER :
+ \*/
+ $gloresdir = realpath($\_SERVER\['DOCUMENT\_ROOT'\].'/../zinc'); // 1.
+ require\_once($gloresdir.'/utls.php'); // 2. util (helper) scripts
+ $utl=utl::uget(); // 3. get or create helper fns object (singleton)
+ require\_once($gloresdir.'/utls\_glbsetpg.php'); // 4. global page properties
+ /\*\*
+ \* IN APPL (IN SPA) IF IT NEEDS C R U D :
+ \* 2. g l o b a l C R U D :
+ \* $dbi = 'sqlite'; $dsn = 'cars\_makes\_names\_savings.sqlite';
+ \* require\_once($gloresdir.$ds.'db\_conn.php');
+ \* db\_conn.php does:
+ \* 1. require\_once($gloresdir.'/klase/dbi.php');
+ \* 2. require\_once($gloresdir.'/tbl/zodiac\_mdl.php);
+ \* CONVENTION for M D L of concrete tbl :
+ \* require\_once($gloresdir.'/tbl/'
+ \* .str\_replace('.php','\_mdl.php', basename($curpgpath)));
+ \* 3. template crud script :
+ \* require\_once($gloresdir.$ds.'crud.php');
+ \*/
+ // \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+ //exit();
+ >
+
+I am not shure if Utils class should have static or non static or both methods & properties (because you need many years PHP programming experience to be shure). Properties of this two working ways are not clear to me and unexplained enough in my learning sources.
+
+Pitty that somebody – PHP expert – which I am not – does not explain this somewhere.
+
+2.Sept.2015 – site\_ver2.rar – improved code for all scripts, eg for lsweb.php and added some dir icons and better presented/explained site dir structure (see awww\_DIR\_NOT\_VISIBLE\_TO\_ME.txt).
+
+This article is**enough for (advanced) beginning PHP programming Oracle and SQLite CRUD. **  
+Articles 1 to 8 are supplementary info.
+
+This article unites my posts 3. Zwamp menu and 5. CRUD simple table (**example 1**) with refactored code for 5. CRUD and my (I hope) final site directories structure.
+
+Most important examples in this article (others are in site\_verx.rar):
+
+Example Šifrarnik – is not finished, but shows much. Model is table (id, few\_columns)
+
+Example**web server directories listing**– dir items listing can be extended with row filters, sorts, downloads… but so as it is is very useful for web development.  
+Model (input data) is DirectoryIterator().  
+I find lsweb.php very useful for web development:  
+J:\\awww\\apl\\dev1\\zinc\\utl\\ls.php         [http://dev1:8083/zinc/utl/ls.php](http://dev1:8083/zinc/utl/ls.phpdir=J:%5Cawww%5Capl%5Cdev1)  (or with dir=J:\\awww\\apl\\dev1)  
+J:\\awww\\apl\\dev1\\zinc\\utl\\lsweb.php
+
+Code for article 3. Zwamp menu is also contained in  site\_verx.rar – it is to complicated for real life sites (except if you like something like)  but is excellent for learning PHP.
+
+Oracle example 1
+================
+
+Model (input data) is simple table (šifrarnik) (id, few\_columns), but more than 50% programming techniques can be learned on this and next example.
+
+ **J:\\awww\\apl\\dev1\\zinstalac\\ddl\\DDL\_selfjoin.sql:**
+-- winkey+X -> Comm.prompt admin
+C:
+cd C:\\oraclexe\\app\\oracle\\product\\11.2.0\\server\\bin
+sqlplus hr/hr
+sho user
+CREATE **TABLE** ZODIAC (
+  ID          NUMBER(10) NOT NULL,
+  SIGN        VARCHAR2(11),
+  SYMBOL      VARCHAR2(13),
+  PLANET      VARCHAR2(7),
+  ELEMENT     VARCHAR2(5),
+  START\_MONTH INTEGER,
+  START\_DAY   INTEGER,
+  END\_MONTH   INTEGER,
+  END\_DAY     INTEGER,
+  PRIMARY KEY(ID)
+);
+
+CREATE **SEQUENCE** ZODIAC\_SEQ;
+CREATE or replace **TRIGGER** ZODIAC\_PREINS\_TRIG 
+BEFORE INSERT ON ZODIAC 
+FOR EACH ROW
+BEGIN
+  -- PRIOR TO 11G :
+  SELECT ZODIAC\_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
+  -- 11G :
+  --:NEW.MSG\_ID := ZODIAC\_SEQ.NEXTVAL;
+END;
+/
+sho err
+
+**DML** :
+INSERT INTO zodiac VALUES (1,'Aries','Ram','Mars','fire',3,21,4,19);
+INSERT INTO zodiac VALUES (2,'Taurus','Bull','Venus','earth',4,20,5,20);
+INSERT INTO zodiac VALUES (3,'Gemini','Twins','Mercury','air',5,21,6,21);
+INSERT INTO zodiac VALUES (4,'Cancer','Crab','Moon','water',6,22,7,22);
+INSERT INTO zodiac VALUES (5,'Leo','Lion','Sun','fire',7,23,8,22);
+INSERT INTO zodiac VALUES (6,'Virgo','Virgin','Mercury','earth',8,23,9,22);
+INSERT INTO zodiac VALUES (7,'Libra','Scales','Venus','air',9,23,10,23);
+INSERT INTO zodiac VALUES (8,'Scorpio','Scorpion','Mars','water',10,24,11,21);
+INSERT INTO zodiac VALUES (9,'Sagittarius','Archer','Jupiter','fire',11,22,12,21);
+INSERT INTO zodiac VALUES (10,'Capricorn','Goat','Saturn','earth',12,22,1,19);
+INSERT INTO zodiac VALUES (11,'Aquarius','Water Carrier','Uranus','air',1,20,2,18);
+INSERT INTO zodiac VALUES (12,'Pisces','Fishes','Neptune','water',2,19,3,20);
+
+Scripts directory structure (SPA, MVC domain style)
+===================================================
+
+SPA means scripts are included, only exceptionally URL called. So scripts see all $ variables as own.
+
+In SPA is**not posible using relative page adresses**because**path relative to included script is not relative to includer (SPA)**script  – adresses syntax explained here must be used !! To learn dirs science is**one of most difficult PHP beginning parts**, and allmost NOT EVEN MENTIONED in PHP learning materials.
+
+MVC domain style means Scripts directory structure is “**one form (application) one dir**(& its subdeirs if needed)”. MVC is basically old**structured programming**:
+
+1.  initialize (bootstrap, config),
+2.  manage (ctr),
+3.  input (model),
+4.  output (view).
+
+It is interesting that no one MVC promotor mentions this simple truth. Names are most important, but working means not (only) inventing new names but understand+explain.
+
+DDLs are in**J:\\awww\\apl\\dev1\\zinstalac\\ddl\\**,  eg above **DDL\_selfjoin.sql**contain also selfjoin DDL & for SQLite.
+
+Global config scripts (.php, .css, .js…most important of all types !) are in**J:\\awww\\apl\\dev1\\zinc\\**,  eg **utls.php.**
+
+Below zinc are dirs: utl (helpers), slike (img), js…
+
+**Three sites (Apache virtual hosts on home PC):**
+
+Development URL is[http://dev1:8083/](http://dev1:8083/) is Windows dir J:\\awww\\apl\\dev1.
+
+Production URL is[http://pro1:8083/](http://pro1:8083/)  is Windows dir J:\\awww\\apl\\pro1.
+
+Simmilar are both test site adresses.
+
+After huderts Oracle Forms 6i created from scratch (from existing form ctrl+c,v) in more then 15 years it seems to me, whatever they say :), for PHP & Oracle should be :
+
+### CONVENTIONS FOR BETTER SCRIPTS VISIBILITY
+
+1.  No camelcase becouse name**higher\_lower**is (to me) better visible then**camelcase****higherLower**
+2.  Scripts**sufixes**:
+    1.  **controller**scripts have no sufix
+    2.  other scripts :
+        1.  **model**scripts: \_mdl, \_val (validation scripts)
+        2.  **view**scripts: \_frm, \_tbl, \_rep
+3.  ctr / bootstrap scripts are NOT named**index.php**, but are named simmilar to**DB table name**which they (CRUD) manage.Beside script visibility, this enables us to have more/all small tables crud (forms) scripts in one dir.To many dirs is not practical and old principle “**one form (application) one dir**(& its subdeirs if needed)” is newest fashion (2015 year).
+4.  **GLOBAL configuration scripts**are in $CNFGD=J:\\awww\\apl\\dev1\\zinc, eg**$CNFGD.$DS.utls.php**utls.php (with help of config not static class & namespace) defines**PHP $  (adress) variables**for all included scripts (SPA !!) (no constants except pi and simmilar). Conf. vars must be defined as $ vars in utls.php and not as concatenation of dirs in all index.php scripts, becouse :  
+    IF DIR TREE CHANGES -> WE CHANGE ONLY ONE PLACE: utls.php
+5.  Some strange names are better for search or for name conflicts (eg zinc instead of includes, chcons instead configclass, this example zodiac…)
+
+Example 2: Web server directories listing programs
+==================================================
+
+Model (input data) is DirectoryIterator() dir items listing.
+
+I find them very useful for web development:  
+J:\\awww\\apl\\dev1\\zinc\\utl\\ls.php         [http://dev1:8083/zinc/utl/ls.php](http://dev1:8083/zinc/utl/ls.phpdir=J:%5Cawww%5Capl%5Cdev1)  (or with dir=J:\\awww\\apl\\dev1)  
+J:\\awww\\apl\\dev1\\zinc\\utl\\lsweb.php
+
+ Conclusion
+===========
+
+I did not see advantages in my testings compared with programming techniques I explained in this article (and in other before):
+
+1.  AngularJS 1.4.3 CRUD with Oracle 11g
+2.  Yii 2.0.6 with PHP 7 beta 3
+3.  FatFree PHP fw
+
+But frameworks above:
+
+1.  no Oracle DBI example for normal people given
+2.  It seems to me they are unfinished – always in development (uncompatible new versions), always new fws appear.
+3.  slower ( min ~ 150 kB code with uncertain future included),
+4.  more complicated – another (more) programming languages
+5.  They do not even mention reporting (php reports from Eustáquio Rangel or similar) or tab key -> enter key which I made with few lines Javascript code (see site\_ver1.rar J:\\awww\\apl\\dev1\\zinc\\**key\_pressed.js**).
+6.  I doubt if they are more productive – learn time for programming techniques I explained in this article is ~ as for them  (lot of time )
+7.  to many incompatibilities uncertain future (yii2, ng 2),
+8.  …
+
+Until authors of fw sw convince us on**CRUD examples I give**in this article +**master-detail example**I can not believe their to simple / not clear CRUD examples.
+
+* * *
+
+\~~~utls.php $test=1 ~~~end script J:\\awww\\apl\\dev1\\index.php  [ source](http://dev1:8083/index.phpcmd=showsource&file=J:%5Cawww%5Capl%5Cdev1%5Cindex.php&line=1&prev=10000&next=10000)   [phpinfo](http://dev1:8083/zinc/utl/info_php.php)\~~~
+
+ kod[ edit]($web_docroot_url/inc/utl/edservertxt.php)[ phpinfo]($web_docroot_url/phpinfo_inc.php) EOKOD; /\* call it so: kod\_edit\_run( $idx // script\_dir\_path , $idxscript // script\_name , MDURL); // web\_docroot\_url = (Apache) web server URL \*/ }

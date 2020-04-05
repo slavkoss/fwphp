@@ -1,0 +1,96 @@
+# Virtual Hosts
+#
+# Required modules: mod_log_config
+
+# If you want to maintain multiple domains/hostnames on your
+# machine you can setup VirtualHost containers for them. Most configurations
+# use only name-based virtual hosts so the server doesn't need to worry about
+# IP addresses. This is indicated by the asterisks in the directives below.
+#
+# Please see the documentation at 
+# <URL:http://httpd.apache.org/docs/2.4/vhosts/>
+# for further details before you try to setup virtual hosts.
+#
+# You may use the command line option '-S' to verify your virtual host
+# configuration.
+
+#
+# Use name-based virtual hosting.
+#
+##NameVirtualHost *:80
+#
+# VirtualHost example:
+# Almost any Apache directive may go into a VirtualHost container.
+# The first VirtualHost section is used for all requests that do not
+# match a ##ServerName or ##ServerAlias in any <VirtualHost> block.
+#
+##<VirtualHost *:80>
+    ##ServerAdmin webmaster@dummy-host.example.com
+    ##DocumentRoot "J:/xampp/htdocs/dummy-host.example.com"
+    ##ServerName dummy-host.example.com
+    ##ServerAlias www.dummy-host.example.com
+    ##ErrorLog "logs/dummy-host.example.com-error.log"
+    ##CustomLog "logs/dummy-host.example.com-access.log" common
+##</VirtualHost>
+
+##<VirtualHost *:80>
+    ##ServerAdmin webmaster@dummy-host2.example.com
+    ##DocumentRoot "J:/xampp/htdocs/dummy-host2.example.com"
+    ##ServerName dummy-host2.example.com
+    ##ErrorLog "logs/dummy-host2.example.com-error.log"
+    ##CustomLog "logs/dummy-host2.example.com-access.log" common
+##</VirtualHost>
+
+#
+# Use name-based virtual hosting.
+#
+##NameVirtualHost *:80
+#
+# Almost any Apache directive may go into a VirtualHost container.
+
+# First VirtualHost section is default or fallback virtual host, 
+# used f or all requests that do not match ##ServerName or ##ServerAlias
+# in any <VirtualHost> block.
+<VirtualHost *:8083>
+    ##ServerAdmin webmaster@dummy-host.example.com
+    ##D ocumentRoot "/xampp/htdocs/dummy-host.example.com"
+    DocumentRoot "/xampp/htdocs/"
+    # custom domain name f or the virtual host :
+    ##ServerName dummy-host.example.com 
+    ServerName localhost
+    ##ServerAlias www.dummy-host.example.com
+    ##ErrorLog "logs/dummy-host.example.com-error.log"
+    ##ErrorLog "logs/error.log"
+    ##CustomLog "logs/dummy-host.example.com-access.log" common
+</VirtualHost>
+
+# sets up a virtual host named dev1
+<VirtualHost *:8083>
+    ##ServerAdmin webmaster@dummy-host2.example.com
+    ##D ocumentRoot "/xampp/htdocs/dummy-host2.example.com"
+    ##               or "C:/xampp/apps/wordpress/htdocs" or ...
+    DocumentRoot "J:/awww/www/"
+    # custom domain name f or the virtual host :
+    ##ServerName dummy-host2.example.com or wordpress.localhost or ...
+    ServerName dev1
+    ##ErrorLog "logs/dummy-host2.example.com-error.log"
+    ##CustomLog "logs/dummy-host2.example.com-access.log" common
+</VirtualHost>
+
+
+#To add more virtual hosts, duplicate second virtual host block and modify port number, D ocumentRoot and ServerName directives. f or example, if you want to use SSL with your custom domain name, you can add a new virtual host block f or port 443.
+# J:\xampp\apache\conf\extra\httpd-ssl.conf :
+#IF UNCOMMENTED : AH00112: Warning: DocumentRoot [j:/awww/wwww] does not exist !!
+#DocumentRoot "/xampp/htdocs"
+#DocumentRoot "J:/awww/wwww"
+
+#If you plan to have a large number of virtual hosts with very similar configuration, consider using wildcard-based subdomains with your virtual hosts.
+
+#Restart Apache using the XAMPP control panel f or your changes to take effect.
+
+#At this point, your virtual host is configured. However, if you try browsing to the wordpress.localhost domain, your browser will show a failure notice, since this domain does not exist in reality. To resolve this, it is necessary to MAP CUSTOM DOMAIN NAME TO LOCAL IP ADDRESS. To do this, open with administrator privileges file :
+
+#C:\windows\system32\drivers\etc\hosts and add the following line to it:
+#127.0.0.1           localhost  wordpress.localhost
+
+#At this point, you should be able to enter the URL http://wordpress.localhost:8083

@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Power Grid home page example</title>
+<!--link rel="stylesheet" href="/static/css/examples.css" /-->
+<style>
+* {
+  font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue" !important;
+}
+
+code, pre {
+  font-family: "ubuntu mono", monospace;
+}
+
+.code head {
+	display: block;
+	}
+.code head :not(style) {
+	display: none;	
+}
+
+style[contenteditable] {
+	display: block; 
+	white-space: pre;
+	padding: 10px; 
+	font-size: 16px;
+	font-family: "ubuntu mono", monospace;
+	background-color: rgba(0,0,0,0.1);
+	border: 1px solid rgba(0,0,0,0.2);
+}
+</style>
+
+
+<style>
+html {
+  background-color: #333;
+  border: 1px solid;
+}  
+main {
+  background-color: white;
+  border-width: 1px 0 0 1px;
+}
+article {
+  border: 1px solid;
+  border-width: 0 1px 1px 0;
+  padding: 10px;
+}
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
+article { 
+  flex: 1;
+  max-width: 300px;
+  min-width: 200px;
+}
+.magic {
+  visibility: hidden; 
+  padding: 0 10px;
+  border-width: 0 1px;
+}
+img {
+  width: 100%; 
+  height: 18vw; 
+  background-color: #ccc;
+}
+  </style>
+</head>
+<body>
+<main>
+<article><img alt="" src="/zinc/img/mvc_M_V_data_flow.jpg"><p>M-V data flow. User`s events are handled in Controller class. C assigns variables telling V what user wants (orders by user in URL) and includes V (not showed in picture). V pulls data from M according C variables (orders by user in URL). V also may call C method for some state changes ordered by user in URL ee table row updates like approve user comment.
+V script may contain class but I do not see need for view classes.</p>
+
+<p>M-V data flow is ok for views (view instantiates model and pulls data from M).
+If we have user`s interactions (events) eg filter displayed rows (pagination is sort of filtering), than M-V data flow is only possible solution. /zinc/img/ <br />mvc_M_V_data_flow.jpg</p></article>
+
+<article><img alt="" src="/zinc/img/mvc_Laravel2.jpg"><p>M-C-V data flow - controller instantiates M and pushes M data to V. I do not see advantages compared to M-V data flow. Disadvantage are : for pagination M-V data flow is only possible solution, C is fat in large modules (lot of code). C in my msg (blog) module has lot of code, but code is very simple.</p> mvc_Laravel2.jpg</article>
+
+<article><img alt="" src="/zinc/img/github.jpg"><p>github.jpg</p></article>
+
+<article><img alt="" src="/zinc/img/twitter.jpg"><p>twitter.jpg </p></article>
+
+<article><img alt="" src="/zinc/img/facebook.jpg"><p>facebook.jpg</p></article>
+
+<article><img alt="" src="/zinc/img/hdr_polje.jpg"><p>polje.jpg </p></article>
+
+<article><img alt="" src="/zinc/img/avatar.jpg"><p>avatar.jpg</p></article>
+
+<article><img alt="" src="/zinc/img/mravojed.png"><p>mravojed.png</p></article>
+
+<article><img alt="" src="/zinc/img/meatmirror.jpg"><p>meatmirror.jpg </p></article>
+
+
+
+<article><img alt="" src="http://placekitten.com/280/195"><p>Claws in your leg jump around on couch, meow constantly until given food. Pee in the shoe. </p></article>
+
+<article><img alt="" src="http://placekitten.com/280/300"><p>Knock dish off table head butt cant eat out of my own dish sleep nap so spit up on light gray carpet instead of adjacent linoleum hiss at vacuum cleaner for caticus cuteicus. </p></article>
+
+
+<article class="magic"></article>
+<article class="magic"></article>
+<article class="magic"></article>
+<article class="magic"></article>
+<article class="magic"></article>
+<article class="magic"></article>
+<article class="magic"></article>
+<article class="magic"></article>
+<article class="magic"></article>
+</main>
+
+
+</body>
+</html>

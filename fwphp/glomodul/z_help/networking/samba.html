@@ -1,0 +1,595 @@
+﻿
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Samba is an open-source implementation of the
+       Server Message Block (SMB) protocol. It allows Linux to work with the Windows
+       operating system, as both a server and a client. Samba shares Linux files
+       and printers with Windows systems, and also gives Linux users access to files
+       on Windows systems. Samba uses NetBIOS over TCP/IP (NetBT) protocols and does
+       not need the NetBEUI (Microsoft Raw NetBIOS frame) protocol."/>
+    <meta name="keywords" content="smb, samba, samba client, samba server, smbclient,
+       smb share, findsmb, smbtree"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Beginners Guide to Samba (Installation and Configuration) - The Geek Diary</title>
+
+    <link rel='stylesheet' id='wellness-pro-css' href='style_wellness.css' type='text/css' media='all'/>
+
+    <!--link rel='stylesheet' id='wellness-pro-css' href='https://cdn.thegeekdiary.com/wp-content/themes/wellness-pro/style.css?ver=1.1.3' type='text/css' media='all'/-->
+    <!--link rel='stylesheet' id='wellness-fonts-css' href='//fonts.googleapis.com/css?family=Open+Sans%3A400%2C700%7COswald&#038;ver=1.1.3' type='text/css' media='all'/-->
+  </head>
+
+
+
+  <body class="post-template-default single single-post postid-9075 
+              single-format-standard header-full-width content-sidebar 
+              genesis-breadcrumbs-hidden genesis-footer-widgets-hidden" 
+        itemscope itemtype="https://schema.org/WebPage">
+    <div class="site-container">
+
+      <header class="site-header" itemscope itemtype="https://schema.org/WPHeader">
+        <div class="wrap">
+          <div class="title-area">
+            <p class="site-title" itemprop="headline">
+              <a href="https://www.thegeekdiary.com/" title="The Geek Diary">
+              <span class="auto-style6">The<span class="custom-title"> Geek </span>Diary</span></a><span class="auto-style5">
+                      </span>
+          <p class="auto-style4" itemprop="description">HowTos | Basics | Concepts</p>
+          </div>
+        </div>
+
+      </header>
+
+
+      <nav class="nav-primary" aria-label="Main" 
+              itemscope itemtype="https://schema.org/SiteNavigationElement" id="genesis-nav-primary">
+        <div class="wrap">
+          <ul id="menu-primary-navigation" class="menu genesis-nav-menu menu-primary js-superfish">
+            <li id="menu-item-2717" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2717">
+              <a href="https://www.thegeekdiary.com/category/solaris/" itemprop="url" class="auto-style1">
+                    <span itemprop="name">Solaris</span></a>
+              <ul class="sub-menu">
+                <li id="menu-item-2833" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2833"><a href="https://www.thegeekdiary.com/category/solaris/solaris-11/" itemprop="url"><span itemprop="name">
+                Solaris 11</span></a></li>
+                <li id="menu-item-2837" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2837"><a href="https://www.thegeekdiary.com/category/solaris/svm/" itemprop="url"><span itemprop="name">
+                SVM</span></a></li>
+                <li id="menu-item-2839" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2839"><a href="https://www.thegeekdiary.com/category/solaris/zfs/" itemprop="url"><span itemprop="name">
+                ZFS</span></a></li>
+                <li id="menu-item-2835" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2835"><a href="https://www.thegeekdiary.com/category/solaris/zones/" itemprop="url"><span itemprop="name">
+                Zones</span></a></li>
+                <li id="menu-item-2834" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2834"><a href="https://www.thegeekdiary.com/category/solaris/ldoms/" itemprop="url"><span itemprop="name">
+                LDOMs</span></a></li>
+                <li id="menu-item-2836" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2836"><a href="https://www.thegeekdiary.com/category/solaris/hardware/" itemprop="url"><span itemprop="name">
+                Hardware</span></a></li>
+              </ul>
+            </li>
+
+                <li id="menu-item-2719" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-2719">
+        <a href="https://www.thegeekdiary.com/category/linux/" itemprop="url" class="auto-style1"><span itemprop="name">Linux</span></a>
+                <ul class="sub-menu">
+                <li id="menu-item-3892" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3892"><a href="https://www.thegeekdiary.com/category/linux/centos-rhel-7/" itemprop="url"><span itemprop="name">CentOS/RHEL 7</span></a></li>
+                <li id="menu-item-4702" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4702"><a href="https://www.thegeekdiary.com/category/linux/rhcsa-notes/" itemprop="url"><span itemprop="name">RHCSA notes</span></a></li>
+                <li id="menu-item-5155" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5155"><a href="https://www.thegeekdiary.com/category/linux/suse-linux-enterprise/" itemprop="url"><span itemprop="name">SuSE Linux Enterprise</span></a></li>
+                <li id="menu-item-6970" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6970"><a href="https://www.thegeekdiary.com/category/linux/linux-services/" itemprop="url"><span itemprop="name">Linux Services</span></a></li>
+                </ul>
+                </li>
+
+                <li id="menu-item-2718" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2718">
+        <a href="https://www.thegeekdiary.com/category/vcs/" itemprop="url" class="auto-style1"><span itemprop="name">VCS</span></a>
+                <ul class="sub-menu">
+                <li id="menu-item-2838" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2838"><a href="https://www.thegeekdiary.com/category/solaris/vxvm/" itemprop="url"><span itemprop="name">VxVM</span></a></li>
+                </ul>
+                </li>
+                <li id="menu-item-2840" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2840">
+        <a href="https://www.thegeekdiary.com/category/interview-questions/" itemprop="url" class="auto-style1"><span itemprop="name">Interview Questions</span></a></li>
+                <li id="menu-item-2931" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2931">
+        <a href="https://www.thegeekdiary.com/category/oracle/" itemprop="url" class="auto-style1"><span itemprop="name">oracle</span></a>
+                <ul class="sub-menu">
+                <li id="menu-item-4703" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4703"><a href="https://www.thegeekdiary.com/category/oracle/asm/" itemprop="url"><span itemprop="name">ASM</span></a></li>
+                <li id="menu-item-4704" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4704"><a href="https://www.thegeekdiary.com/category/mysql/" itemprop="url"><span itemprop="name">mysql</span></a></li>
+                <li id="menu-item-4705" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4705"><a href="https://www.thegeekdiary.com/category/oracle/rac/" itemprop="url"><span itemprop="name">RAC</span></a></li>
+                <li id="menu-item-5035" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5035"><a href="https://www.thegeekdiary.com/category/oracle/oracle-12c/" itemprop="url"><span itemprop="name">oracle 12c</span></a></li>
+                <li id="menu-item-6987" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6987"><a href="https://www.thegeekdiary.com/category/oracle/data-guard/" itemprop="url"><span itemprop="name">Data Guard</span></a></li>
+                </ul>
+                </li>
+                <li id="menu-item-6964" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-6964">
+        <a href="https://www.thegeekdiary.com/category/devops/" itemprop="url" class="auto-style1"><span itemprop="name">DevOps</span></a>
+                <ul class="sub-menu">
+                <li id="menu-item-6965" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6965"><a href="https://www.thegeekdiary.com/category/devops/docker/" itemprop="url"><span itemprop="name">Docker</span></a></li>
+                <li id="menu-item-8216" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8216"><a href="https://www.thegeekdiary.com/category/devops/shell-scripting/" itemprop="url"><span itemprop="name">Shell Scripting</span></a></li>
+                </ul>
+                </li>
+                <li id="menu-item-11700" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-11700">
+        <a href="https://www.thegeekdiary.com/category/hadoop/" itemprop="url" class="auto-style1"><span itemprop="name">Hadoop</span></a>
+                <ul class="sub-menu">
+                <li id="menu-item-11701" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-11701"><a href="https://www.thegeekdiary.com/category/hadoop/hortonworks-hdp/" itemprop="url"><span itemprop="name">Hortonworks HDP</span></a>
+                <ul class="sub-menu">
+                <li id="menu-item-11702" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11702"><a href="https://www.thegeekdiary.com/category/hadoop/hortonworks-hdp/hdpca/" itemprop="url"><span itemprop="name">HDPCA</span></a></li>
+                </ul>
+                </li>
+                <li id="menu-item-12129" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-12129"><a href="https://www.thegeekdiary.com/category/hadoop/cloudera/" itemprop="url"><span itemprop="name">Cloudera</span></a>
+                <ul class="sub-menu">
+                <li id="menu-item-12130" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12130"><a href="https://www.thegeekdiary.com/category/hadoop/cloudera/cca-131/" itemprop="url"><span itemprop="name">CCA 131</span></a></li>
+                </ul>
+                </li>
+                </ul>
+                </li>
+          </ul>
+        </div>
+      </nav>
+
+
+
+    <div class="site-inner">
+      <div class="content-sidebar-wrap">
+        <main class="content" id="genesis-content">
+          <article class="post-9075 post type-post status-publish format-standard category-centos-rhel-7 category-linux category-oel-7 entry" 
+                   itemscope itemtype="https://schema.org/CreativeWork">
+            <header class="entry-header">
+
+              <h1 class="entry-title" itemprop="headline">Oracle DB 1<span lang="hr">9</span>c on VBOX 6.1.4 Ora Linux 7.6</h1>
+
+
+              <p class="entry-meta">
+                &nbsp;Oracle Database 19c Database Development Virtual Machine<span lang="hr">&nbsp;&nbsp;
+        </span>2020.04.06<span lang="hr"> </span>&nbsp;B<span lang="hr">y 
+        Slavko Srakočić Zagreb Croatia</span></p>
+
+              <h2 style="font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        <span lang="hr">1. After installation (why)</span></h2>
+        <p class="auto-style1">In windows, type "<strong>winver</strong>" 
+        in the run box. My latest version is 1909. (march 2020)<br>
+        [root@oralin76 ~]#<span>&nbsp;</span><strong>uname -a</strong><br>
+        Linux oralin76 4.1.12-124.27.1.el7uek.x86_64 #2 SMP Mon<span>&nbsp;</span>
+        <strong>May 13</strong><span>&nbsp;</span>08:56:17 PDT<span>&nbsp;</span><strong>2019</strong><span>&nbsp;</span>x86_64 
+        x86_64 x86_64 GNU/Linux</p>
+        <p><span class="auto-style1"><span lang="hr">For</span> right click 
+        <span lang="hr">-&gt; </span>"New .txt" :<span lang="hr"> </span>create 
+        file shortcut<span lang="hr"> :<br></span>Home -&gt; Templates -&gt; create in Terminal or copy 
+        here<span>&nbsp;</span></span><strong><span class="auto-style1">moj_Blank_Doc.txt</span></strong>&nbsp;</p>
+        <p><span class="auto-style1">super (winkey) + space - switch to 
+        english</span></p>
+        <p><span class="auto-style1">sudo /opt/lampp/manager-linux-x64.run 
+        <span lang="hr">&nbsp;&nbsp;&nbsp; </span>- <strong>start XAMPP</strong></span></p>
+        <p class="auto-style1"><strong>URLs to use on Linux in vbox PC oralin76 
+        :</strong><br>
+        <table style="width: 100%">
+          <tr>
+            <td><a href="http://oralin76/fwphp/www/">http://oralin76/fwphp/www/</a></td>
+            <td> <span lang="hr">fwphp site on </span>vbox PC 
+        oralin76</td>
+          </tr>
+          <tr>
+            <td><a href="http://192.168.5.12:8083/fwphp/www/">http://192.168.5.12:8083/fwphp/www/</a><span lang="hr">&nbsp; </span>
+            </td>
+            <td><span lang="hr">fwphp site on win 10 PC sspc2 (or 
+            sspc2 instead IP)</span></td>
+          </tr>
+        </table>
+        </p>
+        <p class="auto-style1"><strong>URLs to use on win 10 PC sspc2 :</strong></p>
+        <p class="auto-style1">
+        <table style="width: 100%">
+          <tr>
+            <td><a href="http://sspc2:8083/fwphp/www/">
+            http://sspc2:8083/fwphp/www</a></td>
+            <td> 
+        <span lang="hr">fwphp site on </span>win 10 PC sspc2</td>
+          </tr>
+          <tr>
+            <td><strong>
+        <a href="http://192.168.5.13/fwphp/www/">
+            http://192.168.5.13/fwphp/www</a></strong><br>
+            <span lang="hr">or <a href="http://oralin76/fwphp/www/">
+        http://oralin76/fwphp/www/</a> </span></td>
+            <td><span lang="hr" class="auto-style8">
+            <strong>fwphp site on vbox PC oralin76 - ERR_CONNECTION_REFUSED 
+        (why ?)</strong></span></td>
+          </tr>
+        </table>
+        </p>
+        <p class="auto-style1">On Linux oralin76 PC, in explorer : 
+        smb://192.168.5.13/htdocs/ opens Linux share defined in 
+        /etc/samba/smb.conf<br>/media/sf_J_DRIVE opens Windows share 
+        defined in Windows</p>
+        <p class="auto-style1">On Windows sspc2 PC, in explorer : 
+        \192.168.5.12 and \192.168.56.1 = Win shares visible in Win 
+        Network folder on PC sspc2<span lang="hr">, </span>but Lin does 
+        not open this<span lang="hr">, </span>same as \sspc2 or 
+        smb://192.168.56.1/ </p>
+        <p class="auto-style1"> <br></p>
+
+
+        <h3><strong>Access Linux share dir from 
+        Windows with WinSCP FTP</strong></h3>
+        <p style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        <br>How we can see RHEL type linux 64 bit share in Windows 10 64 bit 
+        Network folder ? I can in Linux file explorer ctrl+c, v files on 
+        win10 to/from Linux.<br>With WinSCP FTP I can sync website tree.</p>
+        <h3 style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        WinSCP FTP website tree synchronization step 1</h3>
+        <p style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        chown -R someuser:somegroup /your/folder/here/* (Recursive mode 
+        only works on directories, not files.) This will apply chown to 
+        all files and all subdirectories and sub-subdirectories of the 
+        specified folder. Use with care.</p>
+        <h4 style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        sudo chown -R oracle:oracle /opt/lampp/htdocs/fwphp/ On Debian 
+        Linux : var/www/html/fwphp</h4>
+        <h4 style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        sudo chmod 755 /opt/lampp/htdocs/fwphp -R</h4>
+        <h3 style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        WinSCP FTP website tree synchronization step 2</h3>
+        <h4 style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        WinSCP FTP -&gt; "New session" icon -&gt; button "Edit" -&gt; button 
+        "Advanced"</h4>
+        <h4 style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        assign SFTP value : /usr/libexec/openssh/sftp-server</h4>
+        <h4 style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        assign Shell value : sudo su -</h4>
+        
+        <blockquote style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+          <p><b class="auto-style7">/opt/lampp/htdocs/u01/userhome/oracle<br>
+          To create or delete file you need have a write permissions 
+          to the directory;<br>To change file or directory permissions 
+          you need to be its owner;<br>To change file modification 
+          time you need to be its owner (note that by default WinSCP 
+          updates file modification time when uploading).</b></p>
+        </blockquote>
+
+        
+
+              <p itemprop="headline">&nbsp;</p>
+
+              <h2 style="font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        <span lang="hr">2. Installation</span></h2>
+      
+        <p style="font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        <span lang="hr">hhhhhhhh</span></p>
+        <p style="font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        &nbsp;</p>
+        <p style="font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+        &nbsp;</p>
+
+        <h1 class="entry-title" itemprop="headline">Beginners Guide to Samba (Installation and Configuration)</h1>
+
+
+              <p class="entry-meta">
+                <a href="https://www.thegeekdiary.com/beginners-guide-to-samba-installation-and-configuration/" target="_blank">
+                  <span class="auto-style1">https://www.thegeekdiary.com/beginners-guide-to-samba-installation-and-configuration/</span>
+                </a>&nbsp;&nbsp;
+                By 
+                <span class="entry-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                  <a href="https://www.thegeekdiary.com/author/sandeep_patil/" class="entry-author-link" 
+                     rel="author" itemprop="url"><span class="entry-author-name" itemprop="name">admin</span></a>
+                </span>
+              </p>
+
+            
+
+
+    <div class="entry-content" itemprop="text"><div style="text-align:center;"></div>
+
+      <h2>1. What is Samba?</h2>
+
+      <ol>
+        <li class="auto-style1">open-source implementation of <span lang="hr">
+    Windows</span> <strong>SMB protocol</strong><span lang="hr"> (</span>Server Message Block<span lang="hr">s)</span></li>
+        <li class="auto-style1">allows Linux to work with Windows operating system, as both a server and a client<span lang="hr">,
+    </span>shares Linux files and printers</li>
+        <li class="auto-style1">gives Linux users access to files on Windows systems</li>
+        <li class="auto-style1"><span lang="hr">u</span>ses (NetBT) protocols<span lang="hr"> 
+    (</span>NetBIOS over TCP/IP<span lang="hr">).</span>&nbsp;
+    <span lang="hr">D</span>oes not need the NetBEUI
+            (Microsoft Raw NetBIOS frame) protocol
+            
+      </ol>
+        <span class="auto-style1">Several Samba packages are included with most of the Linux distributions<span lang="hr">
+    </span>:</span><ul>
+        <li><strong><span class="auto-style1">samba<span lang="hr"> </span></span></strong><span class="auto-style1">: Provides an SMB/Common Internet File System (CIFS) server that can be used to provide 
+    <em>network services to SMB/CIFS </em><span lang="hr"><em>(Windows&nbsp; 
+    or Linux) </em></span><em>clients</em></span></li>
+      <li><span class="auto-style1"><strong>samba-client<span lang="hr">
+      </span></strong>: Provides some SMB/CIFS clients to complement the built-in SMB/CIFS file system in Linux. These clients allow access to 
+      <em>SMB/CIFS shares and printing to SMB/CIFS printers</em>.</span></li>
+      <li><span class="auto-style1">samba-common<strong><span lang="hr">
+      </span></strong>: Provides<em> files necessary for both</em> the server and client Samba packages</span></li>
+      <li><span class="auto-style1"><strong>samba-winbind<span lang="hr">
+      </span></strong>: Provides the 
+    <em>winbind daemon and client tools</em>. winbind enables Linux membership in Windows domains and the use of Windows user and group accounts</span></li>
+      <li><span class="auto-style1">samba-winbind-clients<strong><span lang="hr">
+      </span></strong>: Provides the Network Security Services (NSS) library and Pluggable Authentication Modules (PAM) needed to communicate with winbind</li>
+        </ul>
+        <p>Use "<strong>yum install [package_name]</strong>" to install the packages.</p>
+
+        <div class="codeme"><pre class="auto-style1"># yum install [package_name]<span lang="hr"> (only three bold)</span></pre></div>
+
+
+
+
+    <h2>2. Samba Daemons and Services</h2>
+    <p><span class="auto-style1">The samba server package includes the following daemons and associated services:
+    <ul>
+    <li><strong>smbd</strong>: The server daemon that <em>provides file-sharing and printing services to Windows clients</em>. It is also responsible for user 
+  <em>authentication, resource locking</em>, and data sharing through the SMB protocol.</li>
+    <li><strong>nmbd</strong>: The NetBIOS nameserver daemon <strong>replies to name-service requests produced by SMB/CIFS in Windows-based system</strong>s. It also provides 
+  <strong>browsing support in the Windows Network Neighborhood view.</strong></li>
+    </ul>
+    <p>These daemons are controlled by their associated services, smb and nmb, for example: 
+  </span> </p>
+    <div class="codeme">
+    <pre><span class="auto-style1"># systemctl start smb</span>
+<span class="auto-style1"># systemctl start nmb</span></pre>
+    </div>
+    <p><span class="auto-style1">The samba-winbind package includes the winbindd daemon and associated service:
+    <ul>
+    <li><strong>winbindd</strong>: <strong>Resolves user and group information on a server running Windows</strong> and makes this information understandable by Linux.</li>
+    </ul>
+    <p>This daemon is controlled by the winbind service:</span></p>
+    <div class="codeme">
+    <pre class="auto-style1"># systemctl start winbind</pre>
+    </div>
+    <h2>3. Samba Server Configuration</h2>
+    <p><span class="auto-style1">The main configuration file for Samba is <strong>/etc/samba/smb.conf</strong>. This configuration file is divided into sections, each beginning with text surrounded by square brackets. With the exception of the [global] section, each 
+  <strong>section describes a shared resource, known as a &#8220;share</strong>&#8220;. Typical sections are:
+    <table class="table table-striped">
+    <tr>
+    <th>Section</th>
+    <th>Description</th>
+    </tr>
+    <tr>
+    <td>[global]</td>
+    <td> Defines global parameters</td>
+    </tr>
+    <tr>
+    <td>[homes]</td>
+    <td> Defines shares in the homes directory</td>
+    </tr>
+    <tr>
+    <td>[printers]</td>
+    <td> Defines printers</td>
+    </tr>
+    <tr>
+    <td>[share name]</td>
+    <td> Defines a share</td>
+    </tr>
+    </table>
+    <p>Parameters within the section define the <strong>share attributes</strong>. Assuming that the global parameters are configured properly, the following example defines a share that gives any Windows user read-write permissions to the local /tmp directory:</span></p>
+    <div class="codeme">
+    <pre class="auto-style1"># vi /etc/samba/smb.conf
+    [tmp]
+    comment = Insert a comment here
+    path = /tmp
+    writable = yes
+    guest ok = yes</pre>
+    </div>
+    <p class="auto-style1">Refer to the <strong>smb.conf</strong> man page for a description of all the parameters that you can set in the configuration file. </p>
+    <div class="codeme">
+    <pre class="auto-style1"># man smb.conf</pre>
+    </div>
+    <p class="auto-style1">There are <strong>global</strong> parameters, <strong>security</strong> parameters, 
+  <strong>logging</strong> parameters, <strong>browser</strong> parameters, 
+  <strong>communication</strong> parameters, and <strong>share</strong> parameters. There are also several 
+  <strong>graphical user interfaces to configure and manage Samba</strong>. A list of these can be found at 
+  <a href="http://www.samba.org/samba/GUI/" target="_blank">http://www.samba.org/samba/GUI/</a></p>
+    <h2>4. [homes] Share</h2>
+    <p class="auto-style1">Samba provides this share to make it easy for users to share their Linux home directories with a Windows system. The following is an example:</p>
+    <div class="codeme">
+    <pre class="auto-style1"># vi /etc/samba/smb.conf
+    [homes]
+    comment = Insert a comment here
+    browsable = no
+    writable = yes</pre>
+    </div>
+    <p class="auto-style1">These settings prevent users other than the owners from browsing home directories while allowing logged-in owners full access.</p>
+    <h2>5. Starting a Samba Server</h2>
+    <p class="auto-style1">To start a Samba server execute the command shown below.</p>
+    <div class="codeme">
+    <pre class="auto-style1"># systemctl start smb</pre>
+    </div>
+    <p class="auto-style1">When making configuration changes to the /etc/samba/smb.conf file, issue a restart or reload:</p>
+    <div class="codeme">
+    <pre class="auto-style1"># systemctl restart smb
+# systemctl reload smb</pre>
+    </div>
+    <p class="auto-style1">The reload argument does not stop and start the smb service; it only reloads the configuration file. Use the systemctl command to configure the service to start at boot time. Example:</p>
+    <div class="codeme">
+    <pre class="auto-style1"># systemctl enable smb</pre>
+    </div>
+    <h2>6. Samba Server Types</h2>
+    <p><span class="auto-style1">&#8211; Server type is configured in the [global] section of the /etc/samba/smb.conf file.<br/>
+    &#8211; A <strong>stand-alone server</strong> can be a workgroup server or a member of a workgroup.<br/>
+    &#8211; A <strong>domain member server</strong> logs in to a domain controller and is subject to the domain’s security rules.<br/>
+    &#8211; A <strong>Samba server</strong> can be a domain controller in a Windows NT domain but not in an Active Directory domain.
+    <p>For more details on Samba server types refere the below post.</span></p>
+    <div class="auto-style3"><a href="https://www.thegeekdiary.com/what-are-different-samba-server-types/" rel="noopener" target="_blank">What are different Samba Server Types</a></div>
+    <h2>7. Accessing Linux Shares from Windows</h2>
+    <p><span class="auto-style1"><span lang="hr">To</span> access a share on a Linux Samba server from Windows, open My Computer or Explorer and enter the host name of the Samba server and the share name in the following format:</span></p>
+    <div class="codeme">
+    <pre class="auto-style1">\\servername\sharename</pre>
+    </div>
+    <p class="auto-style1">If you enter <strong>\\servername</strong>, Windows displays the directories that the Linux system is sharing. You can also map a network drive to a share name by using the same syntax.</p>
+    <div class="codeme">
+    <pre class="auto-style1">smbusers File</pre>
+    </div>
+    <p><span class="auto-style1">For a Windows user to access a Samba share on a Linux system, the user must provide a Windows username and a Samba password. The Windows username must be the same as the Linux username or must map to a Linux username. Samba stores these username maps in the <strong>/etc/samba/smbusers</strong> file. Users with the same username on Linux and Windows do not need an entry in this file, but they still need a Samba password.</p>
+    <p>The /etc/samba/smbusers file has two default entries: </span> </p>
+    <div class="codeme">
+    <pre class="auto-style1">root = administrator admin
+nobody = guest pcguest smbguest</pre>
+    </div>
+    <p><span class="auto-style1">The first entry maps the Linux root user to the administrator and admin users in Windows. The second entry maps the Linux user nobody to three Windows usernames &#8211; guest, pcguest, smbguest.</p>
+    <p>To map the Windows username of john to the Linux username of user01, add the following entry to /etc/samba/smbusers:</span></p>
+    <div class="codeme">
+    <pre class="auto-style1"># vi /etc/samba/smbusers
+user01 = john</pre>
+    </div>
+    <p class="auto-style1">Samba uses Samba passwords, not Linux passwords, to authenticate users. Add a password for the user01 user with the following command:</p>
+    <div class="codeme">
+    <pre class="auto-style1"># smbpasswd -a user01 
+    New SMB password: 
+    Retype new SMB password: 
+    Added user oracle.</pre>
+    </div>
+    <h2>8. </span>Accessing Windows Shares from Linux</h2>
+    <p class="auto-style1">There are 2 Utilities to query Samba servers:</p>
+      <span class="auto-style1">
+    <ul>
+    <li>findsmb</li>
+    <li>smbtree</li>
+    </ul>
+    <p>Use the <strong>findsmb</strong> command to query a subnet for Samba servers. The command displays the IP address, NetBIOS name, workgroup, operating system, and version for each server found.</p>
+    <p>
+      <span class="auto-style1">
+      [root@localhost ~]# <strong>findsmb</strong></span></p>
+    <pre><span lang="hr">                     </span>*=DMB
+<span lang="hr">                     </span>+=LMB
+IP ADDR <span lang="hr">        </span>NETBIOS NAME <span lang="hr">  </span>WORKGROUP/OS/VERSION 
+---------------------------------------------------------------------
+192.168.122.1 <span lang="hr">  </span>ORALIN76 <span lang="hr">      </span>+[ <span lang="hr">   </span>WORKGROUP <span lang="hr">   </span>]
+</pre>
+    <p>You can also use the <strong>smbtree</strong> command, which is a text-based SMB network browser. It displays a hierarchy diagram with all the known domains, the servers in those domains, and the shares on the servers.</p>
+    <p>The GNOME and KDE desktops provide browser-based file managers to view Windows shares on the network. 
+  <br>Enter <strong>smb:</strong> in the location bar of the file managers to browse shares.</p>
+    <p>Use the <strong>smbclient</strong> utility to connect to a Windows share from the command line. The format is as follows:</span></p>
+    <div class="codeme">
+    <pre class="auto-style1">smbclient //[servername]/[sharename] [-U [username]]</pre>
+    </div>
+    <p class="auto-style1">The <strong>smb:\></strong> prompt is displayed after successfully logging in. Type help to display a list of commands. Type exit to exit smbclient. </p>
+    <p class="auto-style1">To mount Samba shares, install the cifs-utils package:</p>
+    <div class="codeme">
+    <pre class="auto-style1"># yum install cifs-utils</pre>
+    </div>
+    <p class="auto-style1">Use the <strong>mount.cifs</strong> command with the following format to mount Samba shares:</p>
+    <div class="codeme">
+    <pre class="auto-style1"># mount.cifs //[servername]/[sharename] /mount-point -o username=[username],password=[password]</pre>
+    </div>
+    </p><div style="text-align:left;"><p>
+
+    </p></div></div><footer class="entry-footer"><p class="entry-meta">
+          <span class="auto-style2">Filed Under: <a href="https://www.thegeekdiary.com/category/linux/centos-rhel-7/" rel="category tag">CentOS/RHEL 7</a>, <a href="https://www.thegeekdiary.com/category/linux/" rel="category tag">Linux</a>, <a href="https://www.thegeekdiary.com/category/linux/oel-7/" rel="category tag">OEL 7</a></span> </p><div class="related-posts"><h3 class="related-title">Some more articles you might also be i<span class="auto-style1">nterested in...</span></span></h3>
+            <ol class="auto-style1"><li><a href="https://www.thegeekdiary.com/how-to-monitor-etc-shadow-and-etc-passwd-file-for-changes-with-auditd/" rel="bookmark" title="Permanent Link toHow to monitor /etc/shadow and /etc/passwd file for changes with Auditd?">How to monitor /etc/shadow and /etc/passwd file for changes with Auditd?</a></li><li><a href="https://www.thegeekdiary.com/centos-rhel-installing-and-configuring-asmlib/" rel="bookmark" title="Permanent Link toCentOS / RHEL : Installing and Configuring ASMLib">CentOS / RHEL : Installing and Configuring ASMLib</a></li><li><a href="https://www.thegeekdiary.com/yum-clean-all-not-clearing-yum-repository-cache-in-centos-rhel-oel/" rel="bookmark" title="Permanent Link to&#8220;yum clean all&#8221; not clearing yum repository cache in CentOS/RHEL/OEL">&#8220;yum clean all&#8221; not clearing yum repository cache in CentOS/RHEL/OEL</a></li><li><a href="https://www.thegeekdiary.com/how-to-troubleshoot-nfs-transfer-latency-issues-using-nfsiostat-in-centos-rhel/" rel="bookmark" title="Permanent Link toHow to troubleshoot NFS transfer latency issues using &#8220;nfsiostat&#8221; in CentOS / RHEL">How to troubleshoot NFS transfer latency issues using &#8220;nfsiostat&#8221; in CentOS / RHEL</a></li><li><a href="https://www.thegeekdiary.com/centos-rhel-6-how-to-configure-802-1q-vlan-on-nic/" rel="bookmark" title="Permanent Link toCentOS / RHEL 6 : How to configure 802.1q VLAN On NIC">CentOS / RHEL 6 : How to configure 802.1q VLAN On NIC</a></li><li><a href="https://www.thegeekdiary.com/centos-rhel-7-how-to-change-set-hostname/" rel="bookmark" title="Permanent Link toHow to change hostname in CentOS/RHEL 7">How to change hostname in CentOS/RHEL 7</a></li><li><a href="https://www.thegeekdiary.com/centos-rhel-7-how-to-disable-ipv6/" rel="bookmark" title="Permanent Link toHow to disable IPv6 on CentOS / RHEL 7">How to disable IPv6 on CentOS / RHEL 7</a></li><li><a href="https://www.thegeekdiary.com/maintaining-linux-filesystems-using-fsck-and-tune2fs/" rel="bookmark" title="Permanent Link toMaintaining Linux filesystems using &#8220;fsck&#8221; and &#8220;tune2fs&#8221;">Maintaining Linux filesystems using &#8220;fsck&#8221; and &#8220;tune2fs&#8221;</a></li><li><a href="https://www.thegeekdiary.com/how-to-delete-asm-disk-on-multipath-device-in-centos-rhel/" rel="bookmark" title="Permanent Link toHow to Delete ASM Disk on Multipath Device in CentOS/RHEL">How to Delete ASM Disk on Multipath Device in CentOS/RHEL</a></li><li><a href="https://www.thegeekdiary.com/linux-unix-how-to-find-files-which-has-suid-sgid-set/" rel="bookmark" title="Permanent Link toLinux / UNIX : How to find files which has SUID/SGID set">Linux / UNIX : How to find files which has SUID/SGID set</a></li></ol></div></footer></article><div class="after-related-post widget-area"><div class="wrap"><section id="custom_html-6" class="widget_text widget widget_custom_html"><div class="widget_text widget-wrap"><h3 class="widgettitle widget-title">You May Also Like</h3>
+
+
+
+    </div></section>
+    </div></div></main><aside class="sidebar sidebar-primary widget-area" role="complementary" aria-label="Primary Sidebar" itemscope itemtype="https://schema.org/WPSideBar" id="genesis-sidebar-primary"><h2 class="genesis-sidebar-title screen-reader-text">Primary Sidebar</h2><section id="search-2" class="widget widget_search"><div class="widget-wrap"><form class="search-form" method="get" action="https://www.thegeekdiary.com/" role="search" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction"><label class="search-form-label screen-reader-text" for="searchform-1">Search this website</label><input class="search-form-input" type="search" name="s" id="searchform-1" placeholder="Search this website" itemprop="query-input"><input class="search-form-submit" type="submit" value="Search"><meta content="https://www.thegeekdiary.com/?s={s}" itemprop="target"></form></div></section>
+    <section id="custom_html-3" class="widget_text widget widget_custom_html"><div class="widget_text widget-wrap"><div class="textwidget custom-html-widget"><div style="text-align: center;"><style>.primary_sidebar_top_ad{width:336px;height:280px}@media (max-width:400px){.primary_sidebar_top_ad{width:300px;height:250px}}</style>
+
+
+    </div></div></div></section>
+
+
+
+    <section id="recent-posts-2" class="widget widget_recent_entries"><div class="widget-wrap">  <h3 class="widgettitle widget-title">Recent Posts</h3>
+    <ul>
+    <li>
+    <a href="https://www.thegeekdiary.com/how-to-backup-a-mysql-cluster/">
+  <span class="auto-style1">How to Backup a MySQL Cluster</span></a><span class="auto-style1">
+    </li>
+    <li>
+    <a href="https://www.thegeekdiary.com/how-to-configure-2-way-replication-in-an-existing-master-slave-mysql-replication-environment/">How to Configure 2-way replication in an existing Master, Slave MySQL Replication environment</a>
+    </li>
+    <li>
+    <a href="https://www.thegeekdiary.com/linux-seq-command-examples/">Linux &#8220;seq&#8221; Command Examples</a>
+    </li>
+    <li>
+    <a href="https://www.thegeekdiary.com/how-to-install-an-configure-master-pdf-editor-in-ubuntu/">How to Install an Configure MASTER PDF EDITOR IN UBUNTU</a>
+    </li>
+    <li>
+    </span>
+    <a href="https://www.thegeekdiary.com/how-to-check-and-repair-acfs-with-fsck/">
+  <span class="auto-style1">How to check and repair ACFS with FSCK</span></a>
+    </li>
+    </ul>
+    </div></section>
+    <section id="custom_html-2" class="widget_text widget widget_custom_html"><div class="widget_text widget-wrap"><div class="textwidget custom-html-widget"><div style="text-align: center;"><style>.sidebar-responsive{width:300px;height:600px}@media (max-width:860px){.sidebar-responsive{width:336px;height:280px}}
+.auto-style1 {
+  font-size: medium;
+}
+.auto-style2 {
+  display: block;
+  font-size: medium;
+}
+.auto-style3 {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-size: medium;
+  border-left: 10px solid #fcbe06;
+  border-right: 1px solid #fadf98;
+  border-top: 1px solid #fadf98;
+  border-bottom: 1px solid #fadf98;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 25px;
+  padding: 20px;
+  background-color: #f0dd9a;
+}
+.auto-style4 {
+  font-size: medium;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0;
+}
+.auto-style5 {
+  font-size: large;
+}
+.auto-style6 {
+  font-size: x-large;
+}
+                                                                                                 .auto-style7 {
+                                                                                                   font-weight: normal;
+                                                                                                 }
+                                                                                                 .auto-style8 {
+  color: #800000;
+}
+                                                                                                 </style>
+
+
+
+    </div></div></div></section>
+    </aside></div></div>
+    <footer class="site-footer" itemscope itemtype="https://schema.org/WPFooter">
+       <div class="wrap">
+          <nav class="nav-secondary" aria-label="Secondary" 
+              itemscope itemtype="https://schema.org/SiteNavigationElement">
+            <div class="wrap">
+              <ul id="menu-top-menu" 
+                 class="menu genesis-nav-menu menu-secondary js-superfish">
+                <li id="menu-item-316" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-316">
+                   <a href="https://www.thegeekdiary.com/archives/" itemprop="url"><span itemprop="name">Archives</span></a>
+                </li>
+                <li id="menu-item-317" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-317">
+                  <a href="https://www.thegeekdiary.com/contact-us/" itemprop="url"><span itemprop="name">Contact Us</span></a>
+                </li>
+                <li id="menu-item-2584" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2584"><a href="https://www.thegeekdiary.com/copyright-terms-and-privacy-policy/" itemprop="url"><span itemprop="name">Copyright</span></a></li>
+              </ul>
+            </div>
+          </nav>
+
+      <p>&#x000A9;&nbsp;2020 &middot; <a href="http://thegeekdiary.com">The Geek Diary</a></p>
+      </div>
+    </footer>
+
+    </div>
+
+    <!--
+    <script type='text/javascript' 
+      src='https://cdn.thegeekdiary.com/wp-content/themes/genesis/lib/js/skip-links.min.js?ver=3.3.1'></script>
+    <script type='text/javascript'>
+      //var genesis_responsive_menu={"mainMenu":"Menu","subMenu":"Submenu","menuClasses":{"combine":[".nav-header",".nav-primary"]}};
+    </script>
+    <script type='text/javascript' src='https://cdn.thegeekdiary.com/wp-content/themes/wellness-pro/js/responsive-menus.min.js?ver=1.1.3'></script>
+    <script type='text/javascript'>var q2w3_sidebar_options=[{"sidebar":"sidebar","margin_top":10,"margin_bottom":162,"stop_id":"","screen_max_width":1180,"screen_max_height":0,"width_inherit":true,"refresh_interval":1500,"window_load_hook":true,"disable_mo_api":false,"widgets":["custom_html-2"]}];</script>
+    <script type='text/javascript' src='https://cdn.thegeekdiary.com/wp-content/plugins/q2w3-fixed-widget/js/q2w3-fixed-widget.min.js?ver=5.1.9'></script>
+    <script type='text/javascript' src='https://cdn.thegeekdiary.com/wp-includes/js/wp-embed.min.js?ver=5.3.2'></script>
+    -->
+
+  </body>
+</html>

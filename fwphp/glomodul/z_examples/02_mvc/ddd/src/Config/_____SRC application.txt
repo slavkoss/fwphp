@@ -1,0 +1,157 @@
+HexArch DDD - Hexagonal architecture also called PORTS & ADAPTERS
+=================================================================
+HexArch is a case of application of DDD (Domain Driven Design).
+HexArch permits to SEPARATE app code (module as Oracle Forms .fmb) in three parts :
+App (application code), D (domain code = business logic), I (infrastructure code).
+
+   Eg https://github.com/oumarkonate/hexagonal-architecture
+                            UML diagram of
+   Module (application) that solicits (request, beg) 
+   external (to HexArch) API to READ & display images on a web page :
+
+  ** are elements in B12phpfw equivalent to HexArch
+
+   *************************** APPLICATION CODE **************************
+      APPLICATION IS CONTROLLER (**Home_ctr**) in dirs Config and Controllers
+      is side ee code by witch usr or external programs interact with web site app
+      App contains in dirs Config and Controllers :
+         - code of graphical interface (assets in zinc dir, templates = view scripts in module dir), 
+         - routes (array in **Home_ctr**)
+         - controllers (methods in Home_ctr), request, response, config (**Config_allsites**)...
+         - everything that is not part of D and I
+      App is isolated from D and I and must be able to be STARTED BY USER, PROGRAM, OR BASH SCRIPT.
+
+
+      src/Controller/GalleryController.php - App drives D (model) = ADAPTER
+      | Adapters are external (to domain) classes that communicate with ports
+      |
+      |uses method of ctr above showGallery(): Response 
+      |     to inject GalleryManagerInterface.php into GalleryController.php
+      |     by calling $imagesLists = $this->GalleryManager->getImagesGalleryContents(...
+      |     which implements this intf
+   ***|********************* end application code ************************
+      |
+      |
+   ***|************************* DOMAIN CODE ******************************
+      | DOMAIN IS MODEL IS CENTER OF THIS ARCHITECTURE (IS BUSINESS LOGIC = B. RULES)
+      | D contains in dir Domain :
+      |   - class GalleryManager.php - manages data from I 
+      |     Implements interface GalleryManagerInterface.php
+      |   - class GalleryDataFinderInterface.php that is implemented by I. 
+      |     This interface permits D no to depend on I.
+      | D is totally isolated and CAN BE TESTED INDEPENDENTLY OF APP AND I.
+      | Domain drives infrastructure.
+      |
+      |
+      V
+      src/Domain/GalleryManagerInterface.php = PORT (interfaces on D side)
+      A
+      |
+      |
+      |implements
+      |  .....................................................
+      ...|        src/Domain/GalleryManager.php              |
+         |...................................................|
+         | + repository: GalleryDataFinderInterface          |
+         |...................................................|
+         | + getImagesGalleryContents(array $options): array |
+      ...|...................................................|
+      |
+      |uses method of ctr above showGallery(): Response 
+      |     injects GalleryManagerInterface.php into GalleryController.php
+      |     by calling $imagesLists = $this->GalleryManager->getImagesGalleryContents(...
+      |
+      V
+      src/Domain/GalleryDataFinderInterface.php = PORT (interface on D side)
+      A
+      |
+   ***|*********************** end domain code ***************************
+      |
+      |
+   ***|******************** INFRASTRUCTURE CODE **************************
+      | INFRASTRUCTURE is code where are DEPENDENCIES THAT APP NEEDS to work
+      | I contains in dir Infrastructure files to drive web site to work.
+      | Essential infrastr. is code that INTERACTS WITH EXTERNAL API - classes.
+      | I is completely isolated and CAN BE TESTED INDEPENDENTLY OF D AND APP.
+      | Advantage is that D has no knowledge of model data ee :
+      |     - data source (DB, web service, file system...) 
+      |     - how the data are retrieved.
+      |
+      |
+      |implements
+      src/Infrastructure/GalleryRepository.php = ADAPTER
+        Adapters are external (to domain) classes that communicate with ports
+
+   ************************** end domain code ***************************
+
+
+Connect (interaction) Application – Domain
+==========================================
+To connect App and D, we INJECT INTO APP INTERFACE THAT CONSTITUTES D ENTRY POINT,
+ee we inject GalleryManagerInterface.php into GalleryController.php :
+
+// src/Controller/GalleryController.php
+public function showGallery(): Response
+{
+    try {
+        $imagesLists = $this->GalleryManager->getImagesGalleryContents([
+            'page'  => $this->request->get('page') ?? 1,
+            'limit' => $this->request->get('size') ?? 10,
+        ]);
+    } catch (\Exception $exception) {
+        ...
+    }
+
+    ...
+}
+
+
+Connect (interaction) Domain – Infrastructure
+=============================================
+To connect D and I, I-side communication must implement D-side communication interface.
+
+// src/Infrastructure/GalleryRepository.php
+<?php
+namespace App\Infrastructure;
+use App\Domain\GalleryDataFinderInterface;
+
+class GalleryRepository implements GalleryDataFinderInterface
+{
+    ...
+}
+
+
+
+
+
+
+
+
+
+Alistair Cockburn 2005.
+https://en.wikipedia.org/wiki/Alistair_Cockburn
+http://alistair.cockburn.us/
+
+HexArch is a case of application of DDD (Domain Driven Design). It allows :
+   to isolate the core business of app
+   automatically test  core business behavior independently of everything else
+   allows app to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
+
+In 2015 Alistair launched the Heart of Agile movement https://heartofagile.com/
+which is presented as a response to the overly complex state of the Agile industry.
+
+To focus our energies on critical actions :
+
+              Collaborate
+
+Improve                         Deliver
+
+              Reflect
+
+Collaborate better starting ideas...  collaboration as a motor to drive reflection
+Deliver small probes initially...
+Reflect about what you've learned in your collaboration and from your deliveries.
+Improve direction of your ideas, their technical implementation, and your internal processes.
+
+
+

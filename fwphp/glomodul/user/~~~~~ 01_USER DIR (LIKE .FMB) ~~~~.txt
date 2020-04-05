@@ -1,0 +1,453 @@
+<?php
+        switch (true) 
+        {
+          case $category_from_url  : $t1 .= $category_from_url  ;
+          case $search_from_submit : $t1 .= ' found '. $search_from_submit  ;
+          case $pgordno_from_url   : $t1 .= ' page '. $pgordno_from_url  ;
+            break;
+          default: $t1 .= ' all articles' ;
+            break;
+        }
+
+
+
+  private function login()
+  {
+                if ('') {self::jsmsg( [ //basename(__FILE__).
+                   __METHOD__ .', line '. __LINE__ .' SAYS'=>''
+                   ,'aaa'=>'bbb'
+                ] ) ; }
+      $r = '';
+      /*if (isset($_POST["Submit"])) {
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+      } e lse {
+        $_SESSION["ErrorMessage"]="l o g i n() is not called from l o g i n _ f r m  script";
+        return ;
+      } */
+
+                  if ('') {  //if ($module_ arr->dbg) {
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                  echo '<pre>';
+                  echo '<b>$_GET</b>='; print_r($_GET); 
+                  echo '<b>$this->uriq</b>='; print_r($this->uriq); 
+                  echo '<b>$_POST</b>='; print_r($_POST); 
+                  echo '<b>$_SESSION</b>='; print_r($_SESSION); 
+                  echo '<b>$this->pp1</b>='; print_r($this->pp1); 
+                  echo '</pre><br />'; 
+                  //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
+                  }
+      // define variables and set to empty values
+      $username = $password = ''; //$nameErr = $passwordErr = '';
+      //if ($_SERVER["REQUEST_METHOD"] == "POST") 
+      if (!isset($_POST["Submit"])) {
+        $_SESSION["ErrorMessage"]="l o g i n() is not called from l o g i n _ f r m  script";
+        goto redirto ; //return ;
+      } else {
+          if (empty($_POST["username"])) { 
+             $_SESSION["ErrorMessage"] = "Name is required!";
+             goto redirto ;
+          } else { $username = self::escp($_POST["username"]);
+            // check if name only contains letters and whitespace
+            if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
+              $_SESSION["ErrorMessage"] = "Only letters and white space are allowed in name!";
+              goto redirto ;
+            }
+          }
+
+        if (empty($_POST["password"])) { 
+           $_SESSION["ErrorMessage"] = "Password is required!";
+           goto redirto ;
+        } else { $password = self::escp($_POST["password"]); }
+                    if ('1') {self::jsmsg( [ //basename(__FILE__).
+                       __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE Config_allsites construct '
+                       ,'$_SESSION["username"]'=>isset($_SESSION["username"])?$_SESSION["username"]:'NOT SET'
+                       ,'$username'=>isset($username)?$username:'NOT SET'
+                       ,'$password'=>isset($password)?$password:'NOT SET'
+                    ] ) ; }
+                      if ('1') {  //if ($module_ arr->dbg) {
+                      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                      echo '<pre>';
+                      echo '$_SESSION["username"]=' . $_SESSION["username"]
+                      .'<br />'.'$username=' .  $username
+                       //.'<br />'.'$password='.isset($password)?$password:'NOT SET' 
+                       .'<br />';
+                      echo '</pre>'; }
+        //$username = $_POST["username"];
+        //$password = $_POST["password"];  if (empty($username) or empty($password)) {
+            //$this->Redirect_to($this->pp1->l oginfrm); //t o  t h i s  script
+        if ($username and $password) 
+        {
+          // code for checking username and password from Database
+    //      $this->Redirect_to($this->pp1->l ogin);
+          /* $r = $Db_user->Login_Attempt($username, $password);
+          if ($r) { //not  n u l l
+            $_SESSION["userid"]     =$r->id;
+            $_SESSION["username"]   =$r->username;
+            $_SESSION["adminname"]  =$r->aname;
+            $_SESSION["SuccessMessage"] = "Wellcome ".$_SESSION["adminname"]."!";
+            if (isset($_SESSION["TrackingURL"])) { $this->R edirect_to($_SESSION["TrackingURL"]);
+            } else { $this->R edirect_to($this->pp1->dashboard); } 
+          }else {
+            $_SESSION["ErrorMessage"]="Incorrect username/password";
+            //$this->R edirect_to($this->pp1->l oginfrm); //$this->R edirect_ to("l ogin.php");
+          } */
+        }
+
+
+      /*
+        if (empty($_POST["email"])) { $emailErr = "Email is required";
+        } else {
+          $email = myfilter_input($_POST["email"]);
+          // check if e-mail address is well-formed
+          if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { $emailErr = "Invalid email format"; }
+        }
+          
+        if (empty($_POST["website"])) { $website = "";
+        } else { $website = myfilter_input($_POST["website"]);
+          //check if URL address syntax is valid (this reg.expr. also allows dashes in URL)
+          if (!preg_match(
+            "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i"
+            , $website)) {
+            $websiteErr = "Invalid URL";
+          }
+        }
+
+        if (empty($_POST["comment"])) { $comment = "";
+        } else { $comment = myfilter_input($_POST["comment"]); }
+
+        if (empty($_POST["gender"])) { $genderErr = "Gender is required";
+        } else { $gender = myfilter_input($_POST["gender"]); }
+      */
+
+
+    }
+
+
+
+      //$qrywhere = "username=:username AND password=:password" ;
+      // c u r s o r  of one  r o w :
+      $c_r = $this->rr("SELECT * FROM admins WHERE username=:username AND password=:password" 
+        , [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
+          , ['placeh'=>':password', 'valph'=>$password, 'tip'=>'str'] ] 
+      ) ;
+      $r = $this->rrnext($c_r);
+      //while ($rx = $this->rrnext($c_r)): {$r = $rx ;} endwhile; //c_, R_, U_, D_
+                    if ('') {  //if ($module_ arr['dbg']) {
+                      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                    echo '<pre>';
+                    echo '<b>$username</b>='; print_r($username); 
+                    echo '<br /><b>$password</b>='; print_r($password); 
+                    echo '<br /><b>$r</b>='; print_r($r); 
+                    echo '</pre><br />'; 
+                    //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
+                    }
+      //if (isset($r->username) and $r->username == $username) { return $Found_Account = $r;
+      //}else { return null; }
+
+      redirto:
+
+      switch (true) 
+      {
+        case isset($_SESSION["userid"]) and $_SESSION["userid"] : 
+          $this->Redirect_to($this->pp1->dashboard) ;
+          break ;
+        case $r : 
+          $_SESSION["userid"]     =$r->id;
+          $_SESSION["username"]   =$r->username;
+          $_SESSION["adminname"]  =$r->aname;
+          $_SESSION["SuccessMessage"] = "Wellcome ".$_SESSION["adminname"]."!";
+
+          $this->Redirect_to($this->pp1->dashboard);
+          break;
+        default:
+          $_SESSION["username"]     = $username;
+          //$_SESSION["ErrorMessage"] ="Incorrect username/password";
+          $this->Redirect_to($this->pp1->loginfrm);
+          //$this->R edirect_to($this->pp1->l oginfrm); //$this->R edirect_ to("l ogin.php");
+          break;
+      }
+
+
+  } //e nd  f n  l o g i n
+
+
+
+
+
+
+      /*case isset($this->uriq->c) : //and $this->uriq->c == 'home' and count( (array)$this->uriq )  == 1
+        //       CALL CLSAKCMETHOD  $A K C  IN CLS  $C T R :
+        //http://dev1:8083/fwphp/glomodul/adrs?c/tbl/m/l/ - see top toolbar href
+        $nsctr = $this->pp1->vendor_namesp_prefix . '\\' . ucfirst($this->uriq->c) . '_ctr' ;
+        $akc = $this->uriq->m ;
+        $obj = n ew $nsctr($this, $this->pp1) ; //$this is $db in index.php !!
+        $obj->$akc() ; 
+        break;
+                //c a l l  (ONLY db object`s)  m e t h o d :
+                // $obj = 'db'; $akc = $this->uriq->a ; 
+                // $$obj->{$akc}() ; // $$obj contains "obj" = name of variable, so $$obj=$db
+      */
+    /*
+    switch (true) 
+    {
+      default: 
+        //i = ctrakcmethod of this cls  (H o m e) which includes view script or calls method (does tblrowCRUD...)
+        $akc = $this->uriq->i ; //home: uriq = url query string
+        $this->$akc() ;
+        break;
+              //include(str_replace('|','/', $this->uriq->i.'.php'));  break;
+    } */
+
+
+/*
+                  if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
+                    .'Coding step cs03. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
+                  echo '<pre>';
+                  echo '<b>$_ GET</b>='; print_r($_GET); 
+                  echo '<b>$_POST</b>='; print_r($_POST); 
+                  echo '<b>$_SESSION</b>='; print_r($_SESSION); 
+                  echo '<br /><b>$this->pp1</b>='; print_r($this->pp1);
+                  echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>    ='; print_r($_SERVER['REQUEST_URI']); 
+                  echo '<br /><b>uri_arr is exploded string REQUEST_URI '.$_SERVER['REQUEST_URI'].' (on QS=?)</b>'
+                  .'<br />0 is $module_relpath,'
+                  .'<br />1 is $uri_qrystring = key-value pairs ee = url parameters after QS.'
+                  .'  <br />$this->pp1->uri_arr='; print_r($this->pp1->uri_arr);
+                  echo '<br /><b>exploded $uri_qrystring (on /) is'
+                  .'<br />$this->pp1->uri_qrystring_arr</b>=';
+                      print_r($this->pp1->uri_qrystring_arr);
+                  //echo '<br /><b>key-value pairs in one assoc arr line =  $u riq</b>='; print_r($u riq);
+                  echo '<br /><b>$this->uriq</b>='; print_r($this->uriq);
+                  echo '</pre>'; 
+                  }
+*/
+                    /*.'<span style="color: red; font-size: large; font-weight: bold;">'
+                    .'B A D &nbsp;R O U T I N G'
+                    .'<br /> See if $uriq is created OK in Config_blog.php.'
+                    .'</span>' */
+
+
+      //if (isset($this->uriq->r)) { $this->Redirect_to(QS.'i/'.$this->uriq->r) ; }
+      //$this->Redirect_to($this->pp1->module_url.QS.'i/rt/') ; //to read_ tbl
+
+      /*
+       MUCH SIMPLER :  in  a d m i n s . p h p  code :
+       <a href="<?=$this->pp1->del_ row?>t/admins/id/<?=$r->id?>/" class="btn btn-danger">Delete</a>
+       produces U R L :
+       http://dev1:8083/fwphp/glomodul/blog/index.php?i/del_ row_do/t/admins/id/27/
+       ee  U R L query array =$this->uriq =stdClass Object(
+               [i] => del_ row_do  = this method
+               [t] => a dmins      = table
+               [id] => 27)        = row to  d e l e t e
+
+       instead additional code for redirect which I put HERE !! :
+       .../r/<?=str_replace(QS.'i/','', $this->pp1->admins)?>" class="btn btn-danger">Delete</a>
+       http://dev1:8083/fwphp/glomodul/blog/index.php?i/del_ row_do/t/admins/id/28/r/admins/
+
+      */
+            //$this->uriq=stdClass Object  [i] => d  [t] => song  [id] => 37
+
+      /* case $this->uriq->i == 'home' and count( (array)$this->uriq )  == 1 :
+        //NO CTR,  NO AKC, NO AKCPARAMS IN URL
+        $akc = 'index' ;// $this->uriq->a ;
+        $this->$akc($this->pp1) ; 
+               //$$ctr->{$akc}() ; // $$ctr contains "nameofobjvar", so $$ctr=$obj
+        break; */
+
+        //$ctr = $vendor_namesp_prefix.'\\Home_ctr_mini3' ; // must be mamespaced 
+                     //$ctr = 'Home_ctr_mini3'; // must be mamespaced 
+               //$akc = $this->action ;     // Call clsakcmethod
+
+        //$obj = n ew $ctr ; // nsctrcls
+        //$obj->$akc($this->pp1) ; // $this->relpath_requested_arr , $this->akcpar1idx
+
+
+
+                        //$sql  = "S ELECT username FROM admins WHERE username=:username";
+                        //$db->pr epareSQL($sql);
+                        //$db->b indvalue(':username', $username,  \PDO::PARAM_STR); //$db->e xecute();
+                        //$r = $db->f etchSingle();
+
+
+     // called only from l ogin.php
+                  //$sql = "S ELECT * FROM admins WHERE username=:username AND password=:password";
+                  //$db->p repareSQL($sql); 
+                  //$db->b indvalue(':username', $username,  \PDO::PARAM_STR); 
+                  //$db->b indvalue(':password', $password,  \PDO::PARAM_STR); //$db->e xecute();
+                  //$r = $db->f etchSingle();
+
+
+
+
+        /*
+                      if ('') {  //if ($module_ arr['dbg']) {
+                        echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                      echo '<pre>';
+                      echo '<b>$conn_ par_ obj</b>='; print_r($conn_ par_ obj);
+                      echo '</pre><br />';
+                      }
+
+
+                      ?><SCRIPT LANGUAGE="JavaScript">
+                         alert( "<?php echo __METHOD__ .', line '. __LINE__ .' SAYS: '
+                                    .'\\n called from =' . str_replace('\\','/',$caller)
+                              //. (isset($this->uriq) ? json_encode($this->uriq) : ' not set')
+                           ?>"
+                         ) ;
+                      </SCRIPT><?php 
+
+
+        //(***1)
+        //01 method to open our c onnection
+        public function __construct($pp1)
+        {
+                      if ('') {  //if ($module_ arr['dbg']) {
+                        echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                      echo '<pre>';
+                      echo '<b>$instantiate</b>='; print_r($instantiate);
+                      echo '<b>$c_arr</b>='; print_r($c_arr);
+                      echo '</pre><br />';
+                      }
+          $this->dbi    = $pp1['dbi_ arr']['dbi'] ; //oracle or mysql...
+          $this->host   = $pp1['dbi_ arr']['host'] ; //"localhost";
+          $this->dbnm   = $pp1['dbi_ arr']['dbnm'] ; //"cmsakram"; //tema
+          $this->user   = $pp1['dbi_ arr']['user'] ; //"root";
+          $this->pass   = $pp1['dbi_ arr']['pass'] ; //"";
+            // singleton : https://phpenthusiast.com/blog/the-singleton-design-pattern-in-php
+            // All variables point to the same object.
+            //$object1 = Singleton::get_ or_new_dball();
+            //$object2 = Singleton::get_ or_new_dball(); ...
+            if (
+                  (is_object($this->dbobj) and !$instantiate)
+            )
+                   { null; }
+            else {
+              switch ($this->dbi)
+              {
+                case 'oracle' :
+                  $dsn = 'oci:dbname='.$this->host;
+                  //n ew PDO($DSN=sspc2/XE:pooled;charset=UTF8, $USR, $PSW, $options);
+                  break;
+                default:
+                  $dsn ="mysql:host=" . $this->host . "; dbname=" . $this->dbnm;
+                  break;
+              }
+
+                $options = array(
+                      PDO::ATTR_PERSISTENT    => true,
+                      PDO::ATTR_ERRMODE       => PDO::ERRMODE_EXCEPTION
+                ); //array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+                try{
+                    $this->dbobj  = new PDO($dsn,   $this->user, $this->pass, $options);
+                    //echo "Successfully Connected"; //$sth = $dbobj->query('SELECT * FROM foo');
+                }catch(PDOException $error){
+                    $this->errmsg = $error->getMessage();
+                    echo $this->errmsg;
+                }
+            }
+         }
+                          //when we're done; close or PHP will automatically closethe conn when your script ends. 
+                          //$sth = null; //references to PDO instance (eg from aPDOstatesment instance)
+                          //$dbobj = null; //instance of the PDO class
+        } //e n d  __ c o n s t r u c t
+        */
+
+
+
+/*  //(**1)
+SELECT * FROM (
+  SELECT A.*, ROWNUM AS RNUM
+  FROM (
+    SELECT COUNT(*) COUNT_ROWS FROM COUNTRIES WHERE '1'='1'
+  ) A
+WHERE ROWNUM <= :last_rinblock ) WHERE RNUM >= :first_rinblock
+
+$bindvars = array()) {
+    //
+    $query = 'SELECT *
+        FROM (SELECT a.*, ROWNUM AS rnum
+              FROM (' . $sql . ') a
+              WHERE ROWNUM <= :sq_last)
+        WHERE :sq_first <= RNUM';
+
+    // Set up bind variables.
+    array_push($bindvars, array(':sq_first', $firstrow, -1));
+    array_push($bindvars, array(':sq_last', $firstrow + $numrows - 1, -1));
+    $res = $this->execFetchAll($query, $action, $bindvars);
+    return($res);
+}
+*/
+
+
+
+
+  //    ***** fetch *****
+  //fetch data in a result set in  o b j e c t
+    /*
+    public function fetchNext(){
+       //$this->e xecute();
+       return $this->stmt->fetch(PDO::FETCH_OBJ);
+    }
+    //
+     public function fetchMultiple(){
+       $this->e xecute();
+       return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function fetchMultiple_asoc(){
+       $this->e xecute();
+       return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    //07 count fetched data in a result set
+    public function fetchSingle(){
+       $this->e xecute();
+       return $this->stmt->fetch(PDO::FETCH_OBJ);
+    }
+    */
+
+
+
+    /* // 02 ***** prepare, bind, execute, check last I nsert Id *****
+    public function prepareSQL($query){
+        $this->stmt = $this->dbobj->p repare($query);
+    }
+    //03 bind method eg ':id', $id_posted, PDO::PARAM_INT
+    public function bindvalue($param, $value, $type=0){
+         $this->stmt->bindValue($param, $value, $type);
+    }
+    //04 execute statesment
+    public function execute(){
+      return $this->stmt->execute();
+    }
+    //05 check last I nsert Id
+    public function confirm_result(){
+        $this->dbobj->lastInsertId();
+    }
+    */
+
+
+
+                        if ('') { echo '<br /><h3>'.__METHOD__ .', line '. __LINE__ .' SAYS:</h3>'
+                        .'<br />works if redirect commented U R L  query array ='.'$this->uriq=' ;
+                        if (isset($this->uriq))
+                          { echo '<pre>'; print_r($this->uriq) ; echo '</pre>'; }
+                        else { echo ' uriq arr. not set<br />' ; } 
+                        echo 'c l a s s  name of $this='.get_class($this);
+                        echo '<br />c l a s s  name of $db='.get_class($db);
+                        //echo '<br />c l a s s  name of $Db_post_comment='.get_class($Db_post_comment);
+                        if (isset($Db_post_comment))
+                          { echo '<pre>'; print_r($Db_post_comment) ; echo '</pre>'; }
+                        else { echo ' Db_post_comment not set<br />' ; }
+                        }
+                      // outputs :
+                      //works if redirect commented U R L query array =$this->uriq= uriq arr. not set
+                      //c l a s s name of $this=B12phpfw\Db_post_comment
+                      //c l a s s name of $db=B12phpfw\Home_ctr Db_post_comment not set
+
+                      //$sql = "UPDATE comments SET status=:status, approvedby=:admin WHERE id=:id";
+                      //$cursor = $db->p repareSQL($sql); 
+                      //$db->b indvalue(':status',$stat, \PDO::PARAM_STR);
+                      //$db->b indvalue(':admin', $_SESSION["adminname"], \PDO::PARAM_STR);
+                      //$db->b indvalue(':id',    $id, \PDO::PARAM_INT);
+                      //$cursor = $db->e xecute();
+

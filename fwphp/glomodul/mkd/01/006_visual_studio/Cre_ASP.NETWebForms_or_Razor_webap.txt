@@ -1,0 +1,185 @@
+**http://vstest1/Default.aspx **
+C:\Windows\System32\drivers\etc\hosts - added vstest1  
+**I deployed** C:\Users\slavk\source\repos\oratest  
+                        to J:\awww\apl\dev1\zz\zz\zdevnet which is second IIS site vstest1.
+
+Requested URL	   http://vstest1:80/Default.aspx
+Physical Path	   J:\awww\apl\dev1\zz\zz\zdevnet\Default.aspx
+Config File	   \\?\J:\awww\apl\dev1\zz\zz\zdevnet\web.config
+
+Click "Start button"
+in the search box, enter "Turn windows features on or off"
+in the features window, Click: "Internet Information Services"
+Click: "World Wide Web Services"
+Click: "Application Development Features"
+Check (enable) the features. I **checked all but CGI**.
+
+This I left untuched:
+https://docs.microsoft.com/en-us/iis/get-started/planning-for-security/how-to-use-locking-in-iis-configuration
+%windir%\system32\inetsrv\config\applicationHost.config
+configSections  
+overrideModeDefault="Allow" ...
+
+
+
+http://www.oracle.com/technetwork/testcontent/asp-otn-097104.html 
+
+1.    Create a ASP.NET web site
+2.    Create a GridView
+3.    Create a new Data Source
+4.    Execute your web site
+
+### 1. Create ASP.NET MVC & Web Forms web project
+http://www.oracle.com/technetwork/topics/dotnet/utilsoft-086879.html
+L:\1_instalac\1_instalirano\visual_studio_2015
+1_ODTwithODAC122010_2017year.zip   (9_ODTwithODAC1120320_32bit_2012year.zip did not show managed ODP.NET)
+oracle base dir :  C:\ora_odt_odac12_2   (default shows L:\app\client\slavk)   (not so C:\oraclexe\app\oracle\product\11.2.0)
+
+oracle home (software locatuon) :
+     name :   
+     path :     C:\ora_odt_odac12_2\product\12.2.0\client_1
+                                      not C:\oraclexe\app\oracle\product\11.2.0\product\11.2.0\client_1
+
+Run the SQL scripts located in C:\ora_odt_odac12_2\product\12.2.0\client_1\ASP.NET\SQL directory after a new installation or an upgrade of Oracle Providers for ASP.NET.
+click win icon > type SQL  (cd C:\oraclexe\app\oracle\product\11.2.0\server\bin)
+(does sqlplus /nolog)
+CONNECT SYSTEM as SYSDBA
+start C:\ora_odt_odac12_2\product\12.2.0\client_1\ASP.NET\SQL\InstallAllOracleASPNETProviders.sql
+
+Database Connection Configuration
+A TNSNAMES.ORA file containing your connection alias has been created in
+C:\ora_odt_odac12_2\product\12.2.0\client_1\Network\Admin\TNSNAMES.ORA
+
+
+
+Data Source=ora7;Persist Security Info=True;User ID=HR;Unicode=True
+   or Data Source=XE (in tnsnames are XE and ora7)    or Data Source=sspc1/XE
+
+
+Oracle's ODP.net works very efficiently between Oracle and .NET and can take advantage of many of the low level features (such as bulk inserts/updates) available through the Oracle Call Interface (OCI).
+
+From there, ODP.net has a OracleConnectionStringBuilder class that demistifys the connection string difficulties you have with most databases:
+
+````
+OracleConnectionStringBuilder sb = new OracleConnectionStringBuilder();
+sb.DataSource = "<your datasource>";
+sb.UserID = "library";
+sb.Password = "library";
+
+OracleConnection conn = new OracleConnection(sb.ToString());
+conn.Open();
+````
+
+If your database is remote, Oracle's EZ Connect makes it nice to not have to worry about TNS names:
+````
+sb.DataSource = "hostname.whatever.com:1521/ServiceName";
+````
+
+_________________
+
+VS2017 File menu > New > Project > Web > ASP.NET Web App (.NET Framework 4.6.1) C#
+
+Name the project **oratest**
+Location:          C:\Users\slavk\source\repos
+Solution name: oratest
+
+MVC and chk Web forms
+_________________
+
+### 2. Creating GridView
+
+1.	In the Default.aspx tabbed page, click the **Design tab**
+2.	You get a blank canvas
+3.	From View menu, select **Toolbox**
+4.	Scroll down. In the toolbox, **expand Data**. **Drag the GridView control to the Design area**
+
+### 3. Creating Data Source
+
+1. If you do not see the GridView Tasks pane, **click the > symbol** to get it
+    Select **<New data source...>** from the Choose Data Source drop down.
+    A Data Source Configuration wizard starts.
+2. Select **Database**. Enter HR as the ID for the data source.  Click OK.
+
+3. Click **New Connection**...
+4. In the Change Data Source dialog box, select **Oracle Database Server** as the Data Source 
+    and **Oracle Data Provider for .NET** as the Data Provider.  Click OK.
+
+5. Enter **sspc1/XE** (or ORCL) for Server (Data source) name, and HR for the Username and Password. 
+    Data Source=XE;Persist Security Info=True;User ID=HR;Unicode=True
+    ? change Unicode=True to Unicode=False ?
+    Click **Test Connection**
+6. Your test was successful. Conn name is **sspc1/XE.HR**  **ConnStr11XE** Click OK.
+7. Click Next to **save conn. string in app config file**.
+8. Select the EMPLOYEES table from the Name drop down. Click the checkbox in front of *. Click Next.
+9. Click **Test Query**, result of your query is shown. Click Finish.
+10. Click the **Enable Paging** checkbox        
+
+
+### 4. Executing your Web Site - run ASP.NET web app
+1. Build > Build Web Site
+2. ctrl+F5   or   F5 (Debug > Start Debugging)
+3. If F5 Click OK to modify the web.config file to enable debugging. Web browser will open showing web app.
+    http://localhost:41578/Default
+
+# 
+# 
+# 
+
+
+
+
+
+
+________________________________________________________
+**no support may 2018** :
+https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-2.1
+
+File menu > New > Project
+.NET Core > ASP.NET Core Web App C#
+
+Name the project **RazorPagesMovie**. It's important to name the project RazorPagesMovie so the namespaces will match when you copy/paste code. 
+Location:          C:\Users\slavk\source\repos
+Solution name: RazorPagesMovie
+
+Web App
+
+
+The Visual Studio template creates a starter project - see Solution explorer on right side.
+
+Press F5 to run the app in debug mode or Ctrl-F5 to run without attaching the debugger.
+
+VS2017 opens page http://localhost:9235/
+
+1. Visual Studio starts IIS Express and runs your app. `localhost` is the standard hostname for your local computer. localhost only serves web requests from the local computer. When Visual Studio creates a web project, a random port is used for the web server. When you run the app, you'll see a different port number.
+2. Launching the app with Ctrl+F5 (non-debug mode) allows you to make CRUD page. Use non-debug mode to quickly launch the app and view changes.
+
+The default template creates RazorPagesMovie, Home, About and Contact links and pages. Depending on the size of your browser window, you might need to click the navigation icon to show the links.
+
+### Project files and folders
+For this tutorial, **Startup.cs** file is the most important to understand. You don't need to review each link provided below. The links are provided as a reference when you need more information on a file or folder in the project.
+
+File or folder	Purpose
+wwwroot	       Contains static files. See [Work with static files](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/static-files?view=aspnetcore-2.1).
+Pages            Folder for [Razor Pages](https://docs.microsoft.com/en-us/aspnet/core/mvc/razor-pages/index?view=aspnetcore-2.1).
+appsettings.json	[Configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/index?view=aspnetcore-2.1)
+Program.cs	  [Hosts](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/hosting?view=aspnetcore-2.1) the ASP.NET Core app.
+Startup.cs	    Configures services and the request pipeline. See [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup?view=aspnetcore-2.1).
+
+
+### Pages folder
+1. **_Layout.cshtml** file contains common HTML elements (scripts and stylesheets) and sets the layout for the application. For example, when you click on RazorPagesMovie, Home, About or Contact, you see the same elements. The common elements include *navigation menu on the top* and the *header on the bottom* of the window. See [Layout](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/layout?view=aspnetcore-2.1) for more information.
+2. ** _ViewStart.cshtml** sets the Razor Pages Layout property to use the _Layout.cshtml file. See Layout for more information.
+3. **_ViewImports.cshtml** file contains *Razor directives that are imported into each Razor Page*. See [Importing Shared Directives](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/layout?view=aspnetcore-2.1#importing-shared-directives) for more information.
+4. **_ValidationScriptsPartial.cshtml** file provides a reference to *jQuery validation scripts*. When we add Create and Edit pages later in the tutorial, the **ValidationScriptsPartial.cshtml** file will be used.
+
+The About, Contact and Index pages are basic pages you can use to start an app. The Error page is used to display error information.
+
+L:\1_instalac\1_instalirano\visual_studio_2015\oracle\Oracle_data_provider_for_NET_e55744.pdf
+https://docs.oracle.com/cd/E56485_01/win.121/e55744/toc.htm
+
+Table 1–8  Application Programming Interfaces not supported in **ODP.NET Managed Driver**
+EF Core support is planned after .NET Core is supported. - Planned for 2019 https://apex.oracle.com/pls/apex/f?p=18357:39:3254395263557::NO::P39_ID:28241 
+
+
+
+

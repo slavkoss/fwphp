@@ -1,0 +1,242 @@
+/* === Custom Styles  === */
+body{
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background-color: #F3F3F2;
+}
+
+.scale1{
+  transform: scale(1);
+}
+
+.scale0{
+  transform: scale(0);
+}
+
+/* === Custom Styles Nav === */
+.custom-nav{
+  background: linear-gradient(left,#f93d67,#7047d7);
+  background: -webkit-linear-gradient(left,#f93d67,#7047d7);
+  background: -moz-linear-gradient(left,#f93d67,#7047d7);
+  background: -ms-linear-gradient(left,#f93d67,#7047d7);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  -ms-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.custom-nav ul li a{
+  color:#fff!important;
+}
+.navbar-brand{
+  color:#fff!important;
+}
+.content{
+  margin-top: 50px;
+}
+/* === Signup Form Design ===*/
+.card{
+  border:0px;
+  position: relative;
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  -ms-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+}
+.card-header{
+  background-color: #fff;
+  color:#7047d7;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.form-heading{
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.form-control{
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border:0px;
+  border-bottom: 1px solid #7047d7;
+  padding:6px 0px;
+}
+.form-control:hover{
+  cursor: pointer;
+}
+.form-control:focus{
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.form-btn{
+  background-color: #7047d7;
+  border:0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+  padding: 10px 10px;
+}
+.form-btn:hover{
+  background-color: #7047d7;
+    cursor: pointer;
+}
+.form-btn:focus{
+  background-color: #7047d7!important;
+}
+
+/* === Login Form Design ===*/
+.login-cover{
+  display: none;
+}
+.fa-pencil-square-o, .fa-lock{
+  -webkit-animation:icon-animate 5s infinite;
+  -o-animation:icon-animate 5s infinite;
+  animation:icon-animate 5s infinite;
+}
+@keyframes icon-animate {
+
+  100%{
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.border-red{
+  border-color: red;
+  color:red!important;
+}
+.error{
+  color:red;
+}
+.border-green{
+  border-color:green;
+  color:green!important;
+}
+.fa-spinner{
+  font-size: 14px;
+  color:#7047d7;
+}
+.progress{
+  width:100%;
+  height: 4px;
+  position: relative;
+  background: #7047D7;
+}
+.progress::before{
+  position: absolute;
+  content: "";
+  width:0%;
+  height: 4px;
+  top:0;
+  left:0;
+  background-color: orange;
+  animation: wait 1s infinite;
+  -webkit-animation: wait 1s infinite;
+  -moz-animation: wait 1s infinite;
+}
+@keyframes wait{
+  10%{width: 10%}
+  30%{width: 30%}
+  50%{width: 50%}
+  70%{width: 70%}
+  100%{width: 100%}
+}
+
+/*=== login progress ===*/
+.login-progress{
+  width:100%;
+  height: 4px;
+  position: relative;
+  background: #7047D7;
+}
+.login-progress::before{
+  position: absolute;
+  content: "";
+  width:0%;
+  height: 4px;
+  top:0;
+  left:0;
+  background-color: #0CFB06;
+  animation: loginwait 1s infinite;
+  -webkit-animation: loginwait 1s infinite;
+  -moz-animation: loginwait 1s infinite;
+}
+@keyframes loginwait{
+  10%{width: 10%}
+  30%{width: 30%}
+  50%{width: 50%}
+  70%{width: 70%}
+  100%{width: 100%}
+}
+.success-area{
+  background-color: #fff;
+  margin-top: 50px;
+  padding:20px;
+  text-align: center;
+  color:green;
+}
+.all-msg{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+}
+.fa-thumbs-o-up{
+  color:#f93d67!important;
+  transform: rotate(-20deg)!important;
+  font-size: 45px;
+  margin-top: 20px;
+}
+.online{
+  color:#f93d67;
+}
+.form-icon{
+  position: absolute;
+  right: 0;
+  width: 110%;
+  height: 50px;
+  color:#fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  line-height: 50px;
+  background: linear-gradient(left,#f93d67,#7047d7);
+  background: -webkit-linear-gradient(left,#f93d67,#7047d7);
+  background: -moz-linear-gradient(left,#f93d67,#7047d7);
+  background: -ms-linear-gradient(left,#f93d67,#7047d7);
+}
+.label-heading {
+  padding:  14px 60px;
+  box-sizing: border-box;
+  font-size: 22px;
+}
+#myvideo{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+}
+
+.showcase {
+  position: absolute;
+  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  color:#fff;
+}

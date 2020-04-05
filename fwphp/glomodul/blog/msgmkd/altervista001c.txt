@@ -1,0 +1,419 @@
+1c. Web server at home, DDNS (dynamic DNS), access my dyndns from local network, PHP, CURL, OpenSSL
+===================================================================================================
+
+[HOME](http://phporacle.altervista.org/php-oracle-main-menu/)
+
+DDNS – Dynamic DNS
+==================
+
+Access my dyndns from local network ee access my dynamic DNS domain name inside my LAN.
+
+I dont want to redirect from Dyn hostname to 192.168.x.x (create an entry in my hosts file with Dyn hostname and the LAN IP), but how i can access from inside network to my dyndns
+
+Solution below would be better without (see below) localtest.me or fuf.me but I do not know how to do it.
+
+I did not used this (not clear explanations):  
+Few home routers support what’s known as NAT Reflection or Loopback, see[http://opensimulator.org/wiki/NAT\_Loopback\_Routers](http://opensimulator.org/wiki/NAT_Loopback_Routers). NAT loopback connection basically is accessing a LAN side device via it’s NAT’ed WAN IP from the internal LAN network.  
+Setting up Microsoft Loopback adapter allows you to have multiple service appear at the same port.
+
+WORKS My home site from local network :
+---------------------------------------
+
+[http://phporacle.mooo.com.localtest.me:8083/](http://phporacle.mooo.com.localtest.me:8083/)
+--------------------------------------------------------------------------------------------
+
+[http://phporacle.mooo.com.fuf.me:8083/](http://phporacle.mooo.com.fuf.me:8083/)
+--------------------------------------------------------------------------------
+
+WORKS  My home site from inet is without (see below) localtest.me or fuf.me :
+-----------------------------------------------------------------------------
+
+[http://phporacle.mooo.com:8083/](http://phporacle.mooo.com:8083/)
+------------------------------------------------------------------
+
+How I did it :
+
+11111 Open port in router and firewall
+--------------------------------------
+
+On Windows XP PC (different router) subdomains like fuf.me or localtest.me are not needed,  
+but on Win 8.1 and 10 router Siemens Gigaset SX763 WLAN dsl  are now needed (few monts ago not !!).
+
+1\. open port 8083 or simmilar in router – port 8083 forward to my PC static IP 192.168.x.x (ipv4 network adapter properties !)  
+2\. open port 8083 in Windows firewall for TCP access (UDP also )  
+2.1 WINKEY+R -> type WF.msc  
+2.2 In the Windows Firewall with Advanced Security, in the left pane,  
+left-click Inbound Rules -> click New Rule in the action pane.  
+2.3 In the Rule Type dialog box, select Port, and then click Next…
+
+ZWAMP does next in Windows firewall :  
+httpd.exe      J:\\zwamp64\\vdrive\\.sys\\Apache2\\bin\\httpd.exe  
+mysqld.exe   J:\\zwamp64\\vdrive\\.sys\\mysql\\bin\\mysqld.exe
+
+My C:\\Windows\\System32\\drivers\\etc\\**hosts**  
+127.0.0.1      localhost dev1  
+::1                 localhost dev1
+
+22222 What Is My IP see code at end of this page
+------------------------------------------------
+
+The request came from:  
+**fe80::8179:3afd:d500:28f5**
+
+My home web server IP : 89.164.194.29
+-------------------------------------
+
+or  
+[http://www.canyouseeme.org/](http://www.canyouseeme.org/)
+
+[https://www.whatismyip.com/](https://www.whatismyip.com/)
+
+[http://www.portchecktool.com/](http://www.portchecktool.com/)
+
+[http://www.yougetsignal.com/tools/open-ports/](https://www.yougetsignal.com/tools/open-ports/)  
+[  
+https://bestvpn.org/whats-my-ip/](https://bestvpn.org/whats-my-ip/)
+
+[https://www.dynu.com/networktools/portcheck](https://www.dynu.com/networktools/portcheck)
+
+33333 Send my IP to DDNS provider
+---------------------------------
+
+DDNS client
+
+or
+
+[http://YOURDDNSUSRNAME:YOURDDNSPSW@freedns.afraid.org/nic/updatehostname=phporacle.mooo.com&myip=89.164.194.29](http://slavkoss22:pozega141@freedns.afraid.org/nic/updatehostname=phporacle.mooo.com&myip=89.164.194.29)
+
+or
+
+rem J:\\zwamp64\\vdrive\\web\\utl\\wcurl\_phporacle.mooo.com.bat  
+@cls  
+cd %~DP0  
+@echo Updating FreeDNS  
+@J:\\CURL\\CURL -k http://freedns.afraid.org/dynamic/update.phpRFFqMGxON2s5V1RXSm51VE84bkJjamdIOjE3MDE3ODUw  
+@pause
+
+or
+
+rem J:\\zwamp64\\vdrive\\web\\utl\\wget\_phporacle.mooo.com.bat  
+cd %~DP0  
+J:\\CURL\\wget -q –read-timeout=0.0 –waitretry=5 –tries=400 –background http://freedns.afraid.org/dynamic/update.phpRFFqMGxON2s5V1RXSm51VE84bkJjamdIOjE3MDE3ODUw
+
+Public DNS Pointing To localhost (127.0.0.1)
+============================================
+
+[http://www.fidian.com/programming/public-dns-pointing-to-localhost](http://www.fidian.com/programming/public-dns-pointing-to-localhost)
+
+Hosts File
+----------
+
+The first and easiest method is where one edits their hosts file (`/etc/hosts` in Linux, `C:\Windows\System32\Drivers\etc\hosts` for some versions of Windows) and add lines like this:
+
+`127.0.0.1 client1.local`
+
+`127.0.0.1 client2.dev`
+
+`127.0.0.1 client3`
+
+At work, we have up to five different hostnames for each of our clients.  Adding yet another client means dozens of developers that now need to edit their hosts file.  Oh, the pain and agony when you have to do this for hundreds of domains!
+
+_What if we could have a single top-level domain that always resolved to localhost_
+
+DNS Entries – Windows
+---------------------
+
+If you are using Windows DNS, you can create a new zone (I did not):
+
+dnscmd /RecordAdd local \* 3600 A 127.0.0.1
+
+dnscmd /RecordAdd local @ 3600 A 127.0.0.1
+
+dnsmasq – Linux, MacOS
+----------------------
+
+On Linux systems, you can install dnsmasq to pretend to be a real DNS server and actually respond with 127.0.0.1 for all subdomains of a top level domain.  So, if you wanted \*.local to always resolve to your own domain, then you can use URLs like this:
+
+`http://client1.local/`
+
+`http://client2.local/`
+
+`http://client3.local/`
+
+You only need to install and set up dnsmasq.  There’s some well-written instructions at [http://drhevans.com/blog/posts/106-wildcard-subdomains-of-localhost](http://drhevans.com/blog/posts/106-wildcard-subdomains-of-localhost) that you can follow; I won’t repeat them here.
+
+The drawback of this setup is that you now have to install and configure dnsmasq on every machine where you want to use this trick.
+
+_What if someone set up DNS entries and basically did this for you_
+
+Available Wildcarded DNS Domains
+--------------------------------
+
+Some kind hearted people already set up wildcarded domains for you already.  You can use any top level domain below and any subdomain of these and they will always resolve back to 127.0.0.1 (your local machine).
+
+[http://localtest.me:8083/](http://localtest.me:8083/)   or [http://fuf.me:8083/](http://fuf.me:8083/)    – WORKS same as[http://localthost:8083/](http://localthost:8083/)  
+or same for:   **2011 –  September 2017**:
+
+1.  http://fuf.me:8083/ – Managed by me; it will always point to localhost for IPv4 and IPv6
+2.  http://localtest.me:8083/ – Also has an SSL cert
+3.  http://127-0-0-1.org.uk:8083/
+4.  http://42foo.com:8083/
+5.  http://vcap.me:8083/
+6.  http://beweb.com:8083/
+7.  http://yoogle.com:8083/
+8.  http://lvh.me:8083/
+9.  http://ulh.us:8083/  
+    no more http://ortkut.com:8083/              http://feacebook.com:8083/  
+    http://ratchetlocal.com:8083/     http://smackaho.st:8083/
+
+Now, with these wildcarded domains, you don’t need to do any modification of your system for requests to come back to your own server.  For instance, you can go to http://127-0-0-1.org.uk:8083/ and the web page request will always head back to your own server.  You’ll still need to configure your web server to answer on this hostname as above said, but at least the DNS portion of the problem is now solved.
+
+Install  cURL (SSL-enabled) Win command-line tool
+-------------------------------------------------
+
+If you install [Git for Windows](https://git-scm.com/downloads) you get Curl automatically too. There are some advantages:
+
+*   Git takes care of the `PATH` setup during installation automatically.
+*   You get the [GNU bash](https://www.gnu.org/software/bash/), a really powerful shell, in my opinion much better than the native Windows console.
+*   You get many other useful Linux tools like tail, cat, grep, gzip, pdftotext, less, sort, tar, vim and even Perl.
+
+[http://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/13\_2/messagingservice/files/installing\_curl\_command\_line\_tool\_on\_windows.html](http://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/13_2/messagingservice/files/installing_curl_command_line_tool_on_windows.html)
+
+This tutorial shows you how to access Oracle Messaging Cloud Service via the REST interface by using the cURL command-line tool. cURL is free, open software that runs under various operating systems.
+
+This tutorial demonstrates cURL on a Windows 64-bit operating system that is enabled for the secure sockets layer (SSL). The authentication aspects of the Messaging Cloud Service require an SSL-enabled environment.
+
+Your first task is to install the appropriate version of cURL for your SSL-enabled environment.
+
+There is an ordered series of steps to follow to install cURL on Windows. There are two libraries to install and they must be installed before cURL will work with SSL. Also, they must be installed in this order to work. Do not skip the step to install a recent certificate.
+
+Install Visual C++ 2008 Redistributable Package.
+
+For 64-bit systems: Visual C++ 2008 Redistributables (x64) from [http://www.microsoft.com/en-us/download/details.aspxid=15336](https://www.microsoft.com/en-us/download/details.aspxid=15336)
+
+For 32-bit systems: Visual C++ 2008 Redistributables (x32)
+
+Install Visual C++ 2010 Redistributable Package.
+
+For 64-bit systems: Visual C++ 2010 Redistributables (x64) from [http://www.microsoft.com/en-us/download/details.aspxid=14632](https://www.microsoft.com/en-us/download/details.aspxid=14632)
+
+For 32-bit systems: Visual C++ 2010 Redistributables (x32)
+
+Install Win(32/64) OpenSSL v1.0.0k Light from [http://www.shininglightpro.com/products/Win32OpenSSL.html](http://www.shininglightpro.com/products/Win32OpenSSL.html).
+
+For 64-bit systems: Win64 OpenSSL v1.0.0k Light
+
+For 32-bit systems: Win32 OpenSSL v1.0.0k Light
+
+In your browser, navigate to the cURL welcome page at [http://curl.haxx.se](https://curl.haxx.se/) and click Download.
+
+On the cURL Releases and Downloads page, click the link for the SSL-enabled version for your computer’s operating system, download the zip file, and install it in a new folder on your computer.
+
+The cURL website offers a wizard to find the appropriate version for your computer’s operating system.
+
+For this tutorial, the 64-bit generic, SSL-enabled version for Windows is selected.  
+Copy curl.exe file into your Windows PATH folder. By default, this is C:\\Windows\\System32
+
+Install recent CA Certificates. Do not skip this step.  
+Download cacert.pem, a recent copy of valid CERT files, from [http://curl.haxx.se/docs/caextract.html](https://curl.haxx.se/docs/caextract.html).  
+Copy it to the same folder where you placed `curl.exe` and rename it curl-ca-bundle.crt.  
+Or: Move this file into your Windows PATH folder.
+
+Invoke `curl.exe` from a command window (in Windows, click Start > Run and then enter “cmd” in the Run dialog box).
+
+You can enter `curl --help` to see a list of cURL commands.
+
+[http://freedns.afraid.org/dynamic/](https://freedns.afraid.org/dynamic/)
+
+DDNS record types
+-----------------
+
+**Type: A**– Point subdomain.domain.com (phporacle.mooo.com) to a hard coded**IP Address**. Most direct and straight forward option, also note any change you make in the FreeDNS program is reflected on the internet and made live immediately. The only way you will not see immediate results is if you have cached a query on your computer by looking it up PRIOR to configuring it in the FreeDNS program.
+
+**Type: MX**– Point subdomain.domain.com to a**mail server**. These type of records are special for just mail servers, they can co-exist with A records, and their only use is for routing mail to a different location. All mail implementations check for this record first before attempting to route an e-mail message. If a MX record does not exist for a host, an e-mail delivery would be attempted directly to the IP that the hostname resolves to.
+
+**Type: AAAA**– Point subdomain.domain.com to a IPv6 address. Useful for those who are using IPv6 on their personal networks or those who are using a[IPv4 to IPv6](http://www.tunnelbroker.net/)tunnel at home.
+
+**Type: CNAME**– Point subdomain.domain.com to another**hostname**. Good for those who are using other dynamic DNS services. You can create a CNAME record to another host and whatever subdomain.domain.com you choose here will go to whatever IP address the CNAMEd host has.
+
+**Type: NS**– Point subdomain.domain.com to another**NAMESERVER**. If you choose this option, then whatever subdomain.domain.com address you choose using FreeDNS will have to be configured and setup on the destination ADDRESS (nameserver) that you choose. This option basically means you are delegating a FreeDNS host to another DNS server all together, so when you choose this option you are telling every computer on the internet to ask the ‘address’ where subdomain.domain.com is located at. If the host you point an NS record to is not configured to answer for the subdomain.domain.com that you are using in FreeDNS then the subdomain.domain.com host will not resolve.
+
+**Type: TXT**– Lets you create TXT records, used for a number of different things, most commonly for DKIM records (for combatting spam) so other receiving mail servers can verify email was sent from you by verifying your publically published crypto-signature. Wrap your TXT “destination” in quotes (don’t worry, the system will remind you if you forget).
+
+**Type: SPF**– A anti-spam record, good to have on any domain you’re sending email with. See[https://www.spfwizard.net/](https://www.spfwizard.net/)for more details.
+
+**Type: LOC**– A means for Expressing Location Information in the Domain Name System.
+
+[RFC1876](http://www.faqs.org/rfcs/rfc1876.html)has the complete explanation.
+
+To find your latitude/longitude location, you may find[Map-O-Rama](http://www.maporama.com/)of use.
+
+**Type: RP**– The Responsible Person RR. RP has the following format:
+
+RP <mbox-dname> <txt-dname>
+
+Both RDATA fields are required in all RP RRs.
+
+The first field, <mbox-dname>, is a domain name that specifies the mailbox for the responsible person.
+
+The second field, <txt-dname>, is a domain name for which TXT RR’s exist. A subsequent query can be performed to retrieve the associated TXT resource records at .
+
+[RFC1183](http://www.faqs.org/rfcs/rfc1183.html)has the complete explanation.
+
+**Type: SRV**– A ‘service’ record, used by Session Initiation Protocol (SIP), and the Extensible Messaging and Presence Protocol (XMPP). Also used by Minecraft.
+
+Some examples:
+
+Type: SRV  
+Subdomain: \_service.\_protocol.subdomain  
+Destination: 4 fields, separated by a space (Priority Weight Port Target)
+
+Some more random examples:
+
+Type: SRV  
+Subdomain: \_minecraft.\_tcp.mc  
+Domain: yourdomain.com  
+Destination: 0 0 25676 dns.yourdomain.com
+
+Type: SRV  
+Subdomain: \_jabber.\_tcp  
+Domain: yourdomain.com  
+Destination: 10 0 5269 jabber.yourdomain.com
+
+Type: SRV  
+Subdomain: \_jabber.\_tcp  
+Domain: yourdomain.com  
+Destination: 20 0 5269 xmpp-server1.l.google.com
+
+Cool tips / hidden features
+---------------------------
+
+1). If you use other dynamic DNS services and plan to continue using them, one easy way to keep your IP address up to date, is by simply changing your record to a CNAME in the ‘subdomains’ area to your other dynamic DNS hostname, then you do not need to bother setting up a update script to Free DNS.  
+2). If you use only Free DNS, and have multiple hostnames to update, you can leave 1 of them a A record, and make the rest of them CNAME’s so you do not have to issue multiple updates each time.  
+3). If you want to redirect your users to a webpage when you go offline, you can add the string &offline=1 to your update string, and your record will then be converted to a web forward record. To edit the offline URL, click ‘subdomains’, then click the subdomain you wish to edit, then click ‘forward to URL’ and fill it out with all your offline info, then save it.  
+4). If you are behind a firewall and Free DNS is not detecting your IP address correctly, you can add &address=127.0.0.2 to the update string, to override Free DNS auto-detection. To see the order and/or HTTP variables checked that Free DNS attempts to detect your IP address, you can[click here](https://freedns.afraid.org/dynamic/check.php)
+
+**DEFINITIONS:**  
+Direct URL– The URL used to update FreeDNS with your current IP address. You can right click the link and copy shortcut to get the update URL.
+
+Grab URL Script– This is a link that generates a Windows .bat file you can use to update your IP address. You may however prefer to use[Free DNS Clients](https://freedns.afraid.org/scripts/freedns.clients.php)available for a cleaner more automatic solution, not all of these are free.
+
+Edit Record– Self explanatory. If you don’t know what this means, contact me for a brutal hazing.
+
+The expiration time value is controlled by FreeDNS. In FreeDNS, the cache values (called a TTL, time to live) is set to 3600 seconds by default (1 hour). With that said, you must wait a maximum of one hour for your previous cache to expire.
+
+If you wish to verify that your update has made it into FreeDNS, instead of waiting, you can query against freedns.afraid.org’s nameservers directly from your computer like so:
+
+click start menu -> click run -> type “nslookup” without quotes, press enter. You should see a black box. Inside of it, type:
+
+“server ns1.afraid.org” press enter  
+Default Server:  ns1.afraid.org  
+Addresses:  2607:f0d0:1102:d5::2  
+50.23.197.94
+
+then phporacle.mooo.com.afraid.org.fuf.me:8083  =“yourhostname.afraid.org” press enter  
+\*\*\* ns1.afraid.org can’t find phporacle.mooo.com.afraid.org.fuf.me:8083: No response from server
+
+There are also 3rd party DNS utilities available for windows that would even let you see how many seconds are left in the cache in your ISPs nameserver.
+
+tempr.email = Fake email for email askers on inet :  
+mojmail@tempr.emailhttps://tempr.email/inbox.htm
+
+Code
+====
+
+<php
+// J:\\awww\\apl\\dev1\\utl\\**ddns\_whatismyip.php**
+// proxy\_intermediate\_buffer\_server\_request\_hdr is modified
+// returns first forwarded IP match it finds
+// forwarded IP is of who started request
+function forwarded\_ip() {
+ $keys = array(
+ 'HTTP\_X\_FORWARDED\_FOR', 
+ 'HTTP\_X\_FORWARDED', 
+ 'HTTP\_FORWARDED\_FOR', 
+ 'HTTP\_FORWARDED',
+ 'HTTP\_CLIENT\_IP', 
+ 'HTTP\_X\_CLUSTER\_CLIENT\_IP', 
+ );
+ 
+ foreach($keys as $key) {
+ if(isset($\_SERVER\[$key\])) {
+ $ip\_array = explode(',', $\_SERVER\[$key\]);
+ foreach($ip\_array as $ip) {
+ $ip = trim($ip);
+ if(validate\_ip($ip)) {
+ return $ip; 
+ }
+ }
+ }
+ }
+ return '';
+}
+
+function validate\_ip($ip) {
+ if(filter\_var($ip, FILTER\_VALIDATE\_IP, FILTER\_FLAG\_IPV4 | FILTER\_FLAG\_NO\_PRIV\_RANGE 
+     | FILTER\_FLAG\_NO\_RES\_RANGE) === false) {
+ return false;
+ } else {
+ return true;
+ }
+}
+
+$remote\_ip = $\_SERVER\['REMOTE\_ADDR'\];
+$forwarded\_ip = forwarded\_ip();
+ 
+>
+
+<span style="font-weight: bold;"></span><br>
+<h2>22222 What Is My IP</h2>
+ 
+<p>The request came from:<br>
+ <strong><php echo $remote\_ip; ></strong>
+ </p>
+
+ <php if($forwarded\_ip != '') { >
+ 
+<p>The request was forwarded for:<br>
+ <strong><php echo $forwarded\_ip; ></strong>
+ </p>
+
+<php } 
+
+exec("del wip\_web\_servera.txt");
+exec("J:\\CURL\\wget.exe -qO - http://www.icanhazip.com > wip\_web\_servera.txt");
+if (file\_exists("wip\_web\_servera.txt")) {
+ $wip\_web\_servera=trim(file\_get\_contents("wip\_web\_servera.txt"));
+ echo '<h2>'."My home web server IP : $wip\_web\_servera".'</h2>'; 
+ 
+}
+>
+
+or<br>
+<a href="http://www.canyouseeme.org/" target="\_blank">http://www.canyouseeme.org/</a><br>
+<br>
+<a href="https://www.whatismyip.com/" target="\_blank">https://www.whatismyip.com/</a><br>
+<br>
+<a href="http://www.portchecktool.com/" target="\_blank">http://www.portchecktool.com/</a><br>
+<br>
+<a href="http://www.yougetsignal.com/tools/open-ports/" 
+      target="\_blank">http://www.yougetsignal.com/tools/open-ports/</a>&nbsp;
+<br>
+<a href="https://bestvpn.org/whats-my-ip/" target="\_blank"><br>
+https://bestvpn.org/whats-my-ip/</a><br>
+<br>
+<a href="https://www.dynu.com/networktools/portcheck" target="\_blank">
+     https://www.dynu.com/networktools/portcheck</a><br><br>
+<br>
+
+<h2>33333 Send my IP to DDNS provider</h2>
+DDNS client<br>
+<br>
+or<br>
+<br>
+<a href="http://**YOURDDNSUSRNAME:YOURDDNSPSW**@freedns.afraid.org/nic
+/updatehostname=phporacle.mooo.com&amp;myip=<=$wip\_web\_servera>" 
+target="\_blank">http://**YOURDDNSUSRNAME:YOURDDNSPSW**@freedns.afraid.org/nic
+/updatehostname=phporacle.mooo.com&amp;myip=<=$wip\_web\_servera></a>
+
+ kod[ edit]($web_docroot_url/inc/utl/edservertxt.php)[ phpinfo]($web_docroot_url/phpinfo_inc.php) EOKOD; /\* call it so: kod\_edit\_run( $idx // script\_dir\_path , $idxscript // script\_name , MDURL); // web\_docroot\_url = (Apache) web server URL \*/ }

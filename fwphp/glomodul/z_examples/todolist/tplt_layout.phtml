@@ -1,0 +1,155 @@
+<?php
+/*
+ * 
+ */
+
+namespace TodoList;
+
+use \TodoList\Model\Todo;
+use \TodoList\Util\Utils;
+
+//~ Template for index.php
+// variables:
+//  $template - page to be displayed (included)
+//  $flashes - flash messages
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TODO</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" >
+    <meta name="description" content="TODO List - sample application" >
+    <meta name="keywords" content="NetBeans, PHP" >
+    <meta name="author" content="NetBeans PHP team" >
+
+    <!--link rel="stylesheet" href="/zinc/themes/bootstrap/css/bootstrap.min.css"-->
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/redmond/jquery-ui.css" >
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- see https://material.io/tools/icons/?style=baseline
+             https://google.github.io/material-design-icons/
+         Icon font for web 42KB in smallest woff2 format, 56KB in standard woff format.
+       link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"
+       is same as :
+    -->
+    <style>
+            /* fallback */
+        /*@font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          */
+               /*src: url(https://example.com/MaterialIcons-Regular.eot);*/ /* For IE6-8 
+          src: local('Material Icons'),
+            local('MaterialIcons-Regular'),
+                  url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'); */
+                  /*
+                  url('/zinc/themes/materialicons.woff2') format('woff2'), 
+                  url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+                  url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+                  */
+        }
+            /* CSS rules for rendering icon normally served as part of the Google Web Font stylesheet need to be included when self-hosting the font */
+            /*
+        .material-icons {
+          font-family: 'Material Icons';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 24px; /* Preferred icon size, all: 18,24,36,48 
+                              eg <i class="material-icons md-36">face</i>*/
+          line-height: 1;
+          letter-spacing: normal;
+          text-transform: none;
+          letter-spacing: normal;
+          word-wrap: normal;
+          white-space: nowrap;
+          direction: ltr;
+          display: inline-block;
+          /* Support for all WebKit browsers. */
+          -webkit-font-smoothing: antialiased;
+          /* Support for Safari and Chrome. */
+          text-rendering: optimizeLegibility;
+          /* Support for Firefox. */
+          -moz-osx-font-smoothing: grayscale;
+          /* Support for IE. */
+          font-feature-settings: 'liga';
+          /*-webkit-font-feature-settings: 'liga';*/
+          */
+        }
+    </style>
+    <link href="css/style.css" rel="stylesheet" type="text/css" >
+    <link href="css/layout.css" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+
+</head>
+<body id="page">
+    <div class="tail-top-right"></div>
+    <div id="main">
+        <!-- header -->
+        <div id="header">
+            <i class="material-icons logo">assignment</i>
+            <div class="title">
+                <h1>TODO List</h1>
+                <h2>PHP CRUD sample module</h2>
+            </div>
+            <div class="nb">
+                <a href="https://netbeans.org/features/php/" target="_blank" title="NetBeans PHP Support"><img src="/zinc/img/meatmirror.jpg" alt="module logo"></a>
+            </div>
+        </div>
+        <div id="content">
+            <div class="wrapper">
+                <!-- content left pgecolumn-->
+                <div class="col-3">
+                    <div class="box">
+                        <div class="inner">
+                            <ul class="list">
+                                <li><span><a href="<?php echo Utils::createLink('home'); ?>">Home</a></span></li>
+                                <li><span><a href="<?php echo Utils::createLink('list', ['status' => Todo::STATUS_PENDING]); ?>" title="Pending TODOs"
+                                             ><?php echo Utils::iconStatus(Todo::STATUS_PENDING); ?>Pending TODOs</a></span></li>
+                                
+                                <li><span><i class="material-icons">done_outline</i><a href="<?php echo 
+                                   Utils::createLink('list',['status'=>Todo::STATUS_DONE]); ?>" 
+                                             title="Done TODOs" >
+                                   <?php echo Utils::iconStatus(Todo::STATUS_DONE); ?>Done TODOs</a></span></li>
+                                
+                                <li><span><a href="<?php echo Utils::createLink('list', ['status' => Todo::STATUS_VOIDED]); ?>" title="Voided TODOs"
+                                             ><?php echo Utils::iconStatus(Todo::STATUS_VOIDED); ?>Voided TODOs</a></span></li>
+                                <li class="last"><span><a href="<?php echo Utils::createLink('add-edit'); ?>" title="Add TODO"
+                                             ><i class="material-icons new">insert_invitation</i>Add TODO</a></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- content -->
+                <div class="col-3">
+                    <div class="indent">
+                        <?php if ($flashes): ?>
+                            <ul id="flashes">
+                            <?php foreach ($flashes as $flash): ?>
+                                <li><?php echo $flash; ?></li>
+                            <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+
+                        <?php require $tplt_content ; // eg home.phtml ur tbl.phtml ?>
+                    </div>
+                </div>
+
+
+                <!-- content right pgecolumn-->
+
+
+            </div>
+        </div>
+        <!-- footer NOT include_once ! -->
+         <?php $thispge = __FILE__; include 'ftr_module.phtml'; ?>
+    </div>
+</body>
+</html>

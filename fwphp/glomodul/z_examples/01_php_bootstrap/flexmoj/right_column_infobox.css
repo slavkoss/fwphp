@@ -1,0 +1,26 @@
+.infobox{
+  border:1px solid #aaa;
+  background-color:#f9f9f9;color:black;
+  margin:0.5em 0 0.5em 1em;
+  padding:0.2em;float:right;clear:right}
+.infobox caption{
+  font-size:larger}
+.infobox td,.infobox th{
+  vertical-align:top}
+.infobox.bordered{border-collapse:collapse}
+.infobox.bordered td,.infobox.bordered th{
+  border:1px solid #aaa}
+.infobox.bordered .borderless td,.infobox.bordered .borderless th{border:0}
+.infobox.sisterproject{width:20em;font-size:90%}
+.infobox.standard-talk{border:1px solid #c0c090;background-color:#f8eaba}
+.infobox.standard-talk.bordered td,.infobox.standard-talk.bordered th{
+  border:1px solid #c0c090}
+.infobox.bordered .mergedtoprow td,.infobox.bordered .mergedtoprow th{
+  border:0;border-top:1px solid #aaa;border-right:1px solid #aaa}
+.infobox.bordered .mergedrow td,.infobox.bordered .mergedrow th{
+  border:0;border-right:1px solid #aaa}
+.infobox.geography{
+  text-align:left;border-collapse:collapse;line-height:1.2em;font-size:90%}
+.infobox.geography td,.infobox.geography th{
+  border-top:1px solid #aaa;padding:0.4em 0.6em 0.4em 0.6em}
+.infobox.geography .mergedtoprow td,.infobox.geography .mergedtoprow th{border-top:1px solid #aaa;padding:0.4em 0.6em 0.2em 0.6em}.infobox.geography .mergedrow td,.infobox.geography .mergedrow th{border:0;padding:0 0.6em 0.2em 0.6em}.infobox.geography .mergedbottomrow td,.infobox.geography .mergedbottomrow th{border-top:0;border-bottom:1px solid #aaa;padding:0 0.6em 0.4em 0.6em}.infobox.geography .maptable td,.infobox.geography .maptable th{border:0;padding:0}table.wikitable,table.prettytable{margin:1em 1em 1em 0;background:#f9f9f9;border:1px #aaa solid;border-collapse:collapse}.wikitable th,.wikitable td,.prettytable th,.prettytable td{border:1px #aaa solid;padding:0.2em}.wikitable th,.prettytable th{background:lightgrey;text-align:center}.wikitable caption,.prettytable caption{font-weight:bold}.nonumtoc .tocnumber{display:none}.nonumtoc #toc ul,.nonumtoc .toc ul{line-height:1.5em;list-style:none none;margin:.3em 0 0;padding:0}.hlist.nonumtoc #toc ul ul,.hlist.nonumtoc .toc ul ul{margin:0}div.topicon{position:absolute;top:-3em;margin-right:-10px;display:block !important}#mw-panel div.portal div.body ul li{font-size:small !important}#mw-panel div.portal div.body ul li{overflow:visible !important}.menuSidebar ul div{top:-1px !important}.menuSidebar ul{width:8em}@media print{.ns-0 .ambox,.ns-0 .navbox,.ns-0 .vertical-navbox,.ns-0 .infobox.sisterproject,.ns-0 .dablink,.ns-0 .metadata,#filetoc,#footer-places,#mobileview,.editlink,a.NavToggle,span.collapseButton,span.mw-collapsible-toggle,.noprint{display:none !important}#content cite a.external.text:after,.nourlexpansion a.external.text:after,.nourlexpansion a.external.autonumber:after{display:none !important}table.collapsible tr,div.NavPic,div.NavContent{display:block !important}table.collapsible tr{display:table-row !important}.skin-simple div#column-one,.skin-simple div#f-poweredbyico,.skin-simple div#f-copyrightico,.skin-simple .editsection{display:none}#firstHeading{margin:0px}}
