@@ -766,6 +766,10 @@ if ( !empty($_POST))
 ```
 
 ### 1\.6\.5 read.php - display user profile
+curl -s https://api.github.com/markdown/raw -X "POST" -H "Content-Type: text/plain" --data-binary "@J:/awww/www/readme.md" >> "C:\Users\ss\AppData\Local\Temp\readme.htm"
+
+See J:\\awww\\www\\vendor\\erusev\\parsedown\\styles>md2h.bat
+
 ```php
 <?php
 /**
@@ -1103,7 +1107,8 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 
 ## 2\.1 [Git SCM distributed version control system](https://git-scm.com/downloads)
 
-see  https://git-scm.com/book/en/v2   or eg  https://git-scm.com/docs/git-checkout         
+see  https://help.github.com/en/github/writing-on-github    https://git-scm.com/book/en/v2      
+   or eg  https://git-scm.com/docs/git-checkout         
 
 ### In Windows Symenu Cmder as administrator (or CLI or Git Bash CLI)
 J:\\aplp\\aplp\\0\_symenu\\ProgramFiles\\SPSSuite\\SyMenuSuite\\Cmder\_sps       

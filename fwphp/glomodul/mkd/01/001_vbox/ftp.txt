@@ -81,19 +81,19 @@ local = changes from remote directory are applied to local directory. When the f
 
 | Switch        | Description           
 |:-------------|:-------------|
--preview	| Preview changes only, do not synchronize. Transfer settings switches -permissions, -nopermissions, -speed, -transfer and -resumesupport have no effect.
--nopermissions	| **Keep default permissions**.
--**permissions**=\<mode>	| Set permissions (SFTP and SCP protocols only).
--**filemask**=\<mask>	| \<mask>[;\<mask2>...] Sets file mask.
--transfer=\<mode>	binary\|ascii\|automatic | Transfer mode: binary, ascii (text), automatic (by extension).
--delete	| Delete obsolete files. Ignored for both mode.
--mirror	| **Mirror mode (synchronize also older files)**. Ignored for both mode.
--speed=\<kbps>	| Limit transfer speed (in KB/s).
--resumesupport= \<state>	on\|off\|\<threshold> | Configures automatic resume/transfer to temporary filename.
--rawtransfersettings setting1=value1 setting2=value2 …	| Allows configuring any transfer settings using raw format as in an INI file. E.g. to enable preserving of directory timestamps, use -rawtransfersettings PreserveTimeDirs=1. The switch should come only after other parameters.
--criteria=\<criteria>	| Comparison criteria. Possible values are time, size, either and none. Ignored for both mode.
--preservetime	| Preserve timestamp. **Enforced by default unless -criteria is size or none**.
--nopreservetime	| Do not preserve timestamp. Ignored unless -criteria is size or none.
+-preview  | Preview changes only, do not synchronize. Transfer settings switches -permissions, -nopermissions, -speed, -transfer and -resumesupport have no effect.
+-nopermissions  | **Keep default permissions**.
+-**permissions**=\<mode>  | Set permissions (SFTP and SCP protocols only).
+-**filemask**=\<mask>  | \<mask>[;\<mask2>...] Sets file mask.
+-transfer=\<mode>  binary\|ascii\|automatic | Transfer mode: binary, ascii (text), automatic (by extension).
+-delete  | Delete obsolete files. Ignored for both mode.
+-mirror  | **Mirror mode (synchronize also older files)**. Ignored for both mode.
+-speed=\<kbps>  | Limit transfer speed (in KB/s).
+-resumesupport= \<state>  on\|off\|\<threshold> | Configures automatic resume/transfer to temporary filename.
+-rawtransfersettings setting1=value1 setting2=value2 …  | Allows configuring any transfer settings using raw format as in an INI file. E.g. to enable preserving of directory timestamps, use -rawtransfersettings PreserveTimeDirs=1. The switch should come only after other parameters.
+-criteria=\<criteria>  | Comparison criteria. Possible values are time, size, either and none. Ignored for both mode.
+-preservetime  | Preserve timestamp. **Enforced by default unless -criteria is size or none**.
+-nopreservetime  | Do not preserve timestamp. Ignored unless -criteria is size or none.
 
 Effective options: reconnecttime, failonnomatch
 

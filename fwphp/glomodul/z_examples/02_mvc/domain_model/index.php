@@ -8,7 +8,7 @@ require_once __DIR__ . "/Autoloader.php";
 spl_autoload_register('Model\Autoloader::autoload'); //'Autoloader::autoload'
 
 //Cls_no_db_test::db_test() ;
-Cls_db_test::db_test() ;
+Home_ctr::db_test() ;
 
 
 

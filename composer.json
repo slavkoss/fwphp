@@ -14,7 +14,7 @@
     }
   },
   "require": {
-      "php": "^5.6 || ~7.4.0"
+      "php": "^5.6 || ~7.0"
     , "erusev/parsedown": "^1.7"
     , "php2wsdl/php2wsdl": "^0.6"
   }

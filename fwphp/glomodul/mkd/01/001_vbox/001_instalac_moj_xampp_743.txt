@@ -1,11 +1,13 @@
-## 2020.03.30 XAMPP instalac
+## XAMPP instalac on Windows 10 64 bit
+2020.03.30
 
-## 1. C:\Windows\System32\drivers\etc\hosts
-#### localhost name resolution is handled within DNS itself.
-127.0.0.1       localhost dev1 https://www.expressvpn.com/       
+### 1. C:\Windows\System32\drivers\etc\hosts
+\#localhost name resolution is handled within DNS itself.         
+```
+128.127.0.0.1       localhost dev1 https://www.expressvpn.com/       
 ::1             localhost dev1 https://www.expressvpn.com/      
-
-## 2. J:\xampp\apache\conf\httpd.conf
+```
+### 2. J:\xampp\apache\conf\httpd.conf
 Listen 8083      
 ServerName localhost:8083   
 
@@ -18,6 +20,7 @@ ServerName localhost:8083
     Require all granted
 </Directory>
 ```
+
 Now in J:\xampp\xampp-control.exe :
    1. buttons "Config", "Editor" and "Service and port settings" Apache port 8083
    2. buttons "Start mysql" and "Start Apache"
@@ -25,43 +28,43 @@ Now in J:\xampp\xampp-control.exe :
 http://localhost:8083/ shows :          
 Apache Friends    Applications    FAQs    HOW-TO Guides    PHPInfo    phpMyAdmin          
 
-dev1:8083/phpmyadmin/ shows Server: 127.0.0.1 Database :
+dev1:8083/phpmyadmin/ shows Server: 127.0.0.1 Database :     
    1. information_schema
    2. mysql
    3. performance_schema
    4. phpmyadmin
    5. test
 
-### my db-s imporeted
+#### my db-s imporeted
    in http://dev1:8083/phpmyadmin/import.php
 1.  J:\\awww\\www\\01_DDL_mysql_blog.sql
 
 
 
 
-#### To see http://dev1:8083/fwphp/www/ (dev1 is apache virtual host) :
-## 3. J:\xampp\apache\conf\extra\httpd-vhosts.conf :
-#### First VirtualHost section is default or fallback virtual host, 
-#### used f or all requests that do not match ##ServerName or ##ServerAlias
-#### in any <VirtualHost> block.
+To see http://dev1:8083/fwphp/www/ (dev1 is apache virtual host) :      
+### 3. J:\xampp\apache\conf\extra\httpd-vhosts.conf :
+First VirtualHost section is default or fallback virtual host,     
+used f or all requests that do not match **ServerName or ServerAlias**       
+in any \<VirtualHost> block.      
 ```xml
 <VirtualHost *:8083>
-    DocumentRoot "/xampp/htdocs/"
-    ServerName localhost
+   DocumentRoot "/xampp/htdocs/"
+   ServerName localhost
 </VirtualHost>
-
-#### sets up a virtual host named dev1
+#### sets up a virtual host named dev1        
 <VirtualHost *:8083>
-    DocumentRoot "J:/awww/www/"
-    ServerName dev1
+   DocumentRoot "J:/awww/www/"
+   ServerName dev1
 </VirtualHost>
 ```
 
-## Self signed certificate comes with xampp :
+**Self signed certificate comes with xampp :**     
   SSLCertificateFile "conf/ssl.crt/server.crt"      
-  SSLCertificateKeyFile "conf/ssl.key/server.key"      
-#### To see https://dev1/fwphp/www/ (dev1 is apache virtual host) :
-## 4. J:\xampp_742_bad_mysql\apache\conf\extra\httpd-ssl.conf
+  SSLCertificateKeyFile "conf/ssl.key/server.key"       
+
+**To see https://dev1/fwphp/www/ (dev1 is apache virtual host) :**      
+**4. J:\xampp\apache\conf\extra\httpd-ssl.conf**      
 
 #### SSL Virtual Host Content
 
@@ -138,4 +141,4 @@ CustomLog "J:/xampp/apache/logs/ssl_request.log" \
 
 
 ## 5. Deploy (copy) my xampp or dev1 web site win 10 64 bit to new xampp test site
-####To see http://dev1:8083/fwphp/www/ :
+To see http://dev1:8083/fwphp/www/ :
