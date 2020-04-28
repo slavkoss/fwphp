@@ -29,7 +29,7 @@ abstract class Dbconn_allsites
           ,\PDO::ATTR_ORACLE_NULLS => \PDO::NULL_TO_STRING
         ];
         self::$instance=new \PDO($dsn,'root','',$options);
-        //self::$instance=new P DO("mysql:host=localhost;dbname=z_blogcms",'root','',$options);
+        //self::$instance=n ew P DO("mysql:host=localhost;dbname=z_blogcms",'root','',$options);
       }
       return self::$instance;
     }

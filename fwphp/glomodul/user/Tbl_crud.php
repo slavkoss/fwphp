@@ -1,6 +1,5 @@
 <?php
 // J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
-
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\user ;
 use B12phpfw\module\blog\Home_ctr ;
@@ -9,6 +8,13 @@ use B12phpfw\module\blog\Home_ctr ;
 //    Model\User ; //entity
 
 // 2. PdoAdapter.php (1 is namespace LibraryDatabase; interface DatabaseAdapterInterface)
+// Gateway class - separate DBI layer. Better : data mappers that interact more cleanly with our domain (bussiness) objects.  Domain logic into a Domain Model and wrap it with a series of Service Layers.
+//DESIGN PATTERNS solves a specific problem. Design pattern is not a tool; it is description or template that describes how to solve a specific problem.
+// 1. MVC - fat model (layer) and skinny controllers, eg validation is performed at the model level.
+//M parts : business logic, CRUD db operations, data mapper pattern and services, and so on.
+// 2. FACTORY DESIGN PATTERN creates objects that are needed to be used. 
+// 3. OBSERVER PATTERN in which an object calls different observers on a specific event or task on it. This is mainly used for event handling.
+// 4. SINGLETON PATTERN used when there is a requirement that only a single object of a class be used throughout the application's execution. A singleton object can't be serialized and cloned.
 class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 {
   protected $tbl = "admins";
@@ -233,7 +239,7 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 
     $db::disconnect();
 
-    $id = (int)$r->id ; // $id = $db::escp($r->id) ; //F5 to refresh page to see new user.
+    $id = (int)$r->id ; // $id = $db::escp($r->id) ; //F5 to refresh page to see n ew user.
     if($cursor){$_SESSION["SuccessMessage"]="Admin adminname {$vv[3]}"
        .", id $id added Successfully by admin {$vv[4]}. Refresh page (F5) to see added row!";
     }else { $_SESSION["ErrorMessage"]= "Something went wrong. Try Again !"; }

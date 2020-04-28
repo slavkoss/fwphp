@@ -29,7 +29,7 @@ abstract class Dbconn_allsites
         $dsn  ='oci:dbname='.$host ;
         self::$instance = new \PDO($dsn, 'hr', 'hr', $options); 
         //$dsn = "mysql:host=localhost;dbname=z_blogcms" ;
-        //self::$instance=new \PDO($dsn,'root','',$options);
+        //self::$instance=n ew \PDO($dsn,'root','',$options);
       }
       return self::$instance;
     }

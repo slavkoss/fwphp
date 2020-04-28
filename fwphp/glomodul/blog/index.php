@@ -70,7 +70,7 @@ exit(0);
 * J:\awww\www=WEBSERVER_DOC_ROOT_DIR.   '../../../' means 4 LEVELS OF MODULES DIRS:
 * 1.module (dir blog) 2.mdlegroup (glomodul), 3.site (fwphp), doc_root (www)
 *       MODULE CODE in execution order, eg Blog IS IN 5 OR 6 CODE LEVELS :
-*  1.LEVEL5 index.php 2.L3 new Home_ctr($p p1) (3.L4 Home_mdl if needed) extends 4.
+*  1.LEVEL5 index.php 2.L3 n ew Home_ctr($p p1) (3.L4 Home_mdl if needed) extends 4.
 *  4.L2 Config_allsites extends 5.L1 Db_allsites, 6.L6: home.php, zinc/h dr.php and ftr
 * see http://localhost:8083/pdogridbig_original/demo/pages/
 *     http://dev1:8083/fwphp/glomodul/z_examples/05_flex01_2col.php

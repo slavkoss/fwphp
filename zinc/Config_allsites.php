@@ -27,7 +27,7 @@ abstract class Config_allsites extends Db_allsites
   {
     // see (**1)
 
-    //STEP_1=new autol STEP_2=CONF   view/rout/disp preCRUD onCRUD
+    //STEP_1=n ew autol STEP_2=CONF   view/rout/disp preCRUD onCRUD
     //STEP_3=ROUT/DISP is in this parent::__construct : fw core calls method in Home_ctr cls
     
     //1.requirements_ok, 2.adresses (no constants), 3.routing, 4.dispatching
@@ -232,7 +232,7 @@ abstract class Config_allsites extends Db_allsites
       return $this->$property;
     }
   }
-  //$user1 = new User('John', 40); //$this->name = $name;  $this->age = $age; //both are private
+  //$user1 = n ew User('John', 40); //$this->name = $name;  $this->age = $age; //both are private
   //$user1->__set('age', 41);
   //echo $user1->__get('age');
 
@@ -266,10 +266,6 @@ abstract class Config_allsites extends Db_allsites
     {
       $data = trim($string);
       $data = stripslashes($data);
-      /**
-      * escaping output in PHP
-      * <iframe title="Prevent XSS Attacks. Escape Strings in PHP" width="700" height="394" src="https://www.youtube.com/embed/pc0V9hJpE54?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      */
       //scalpel - recommended : ONLY encodes a small set of the most problematic chars :
       return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
       // hammer - can cause display problems : encode ANY char that has an HTML entity equivalent
@@ -512,7 +508,7 @@ $navbar .= " <a class='button'
   public function has_rights() {
     switch ($this->getp('pp1')->cncts->username) {
       case 'admin':
-        return(1); //all  r i g h t s : to see extra reports, upload new data...
+        return(1); //all  r i g h t s : to see extra reports, upload n ew data...
         break;
       default: //case 'korisnik':
         return(0); // web users r i g h t s
@@ -532,7 +528,7 @@ $navbar .= " <a class='button'
         $field = "_" . strtolower($name);
 
         if (!property_exists($this, $field)) {
-            throw new InvalidArgumentException(
+            throw n ew InvalidArgumentException(
                 "Setting the field '$field' is not valid for this entity.");
         }
 
@@ -557,7 +553,7 @@ $navbar .= " <a class='button'
         $field = "_" . strtolower($name);
 
         if (!property_exists($this, $field)) {
-            throw new InvalidArgumentException(
+            throw n ew InvalidArgumentException(
                 "Getting the field '$field' is not valid for this entity.");
         }
 

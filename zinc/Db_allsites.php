@@ -381,11 +381,11 @@ abstract class Db_allsites extends Dbconn_allsites
       }
     }
                         if ('') {self::jsmsg( [ //b asename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'s004. BEFORE new PDO'
+                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'s004. BEFORE n ew PDO'
                            , '$dsn'=>$dsn
                            ] ) ; }
     //PDO (CRUD DBI) part of memory ocupied for this cls :
-    $this->dbobj = new PDO(
+    $this->dbobj = n ew PDO(
          $dsn 
        , self::$d bi_obj->user
        , self::$d bi_obj->pass
@@ -404,12 +404,12 @@ abstract class Db_allsites extends Dbconn_allsites
       if(!self::$instance) {
         //        INSTANTIATION IS ONLY HERE :
                         if ('') {self::jsmsg( [ //b asename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'s003. BEFORE new Db_allsites'
+                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'s003. BEFORE n ew Db_allsites'
                            ,'self::dbi_obj'=>self::$d bi_obj
                            ,'$caller'=>$caller
                            //, '$dsn'=>$dsn
                            ] ) ; }
-        self::$instance = new Db_allsites(); //, $dsn
+        self::$instance = n ew Db_allsites(); //, $dsn
       } //e n d  ! s e l f : : $ i n s t a n c e
       return self::$instance;
     } //e n d  get_ or_ new_ dball($c onn_ par_ obj)

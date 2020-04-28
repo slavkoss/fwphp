@@ -9,6 +9,7 @@ use B12phpfw\module\blog\Home_ctr ;
 //use B12phpfw\core\zinc\Config_ allsites ;
 
 //class Db_post_category //extends Db_allsites
+// Gateway class - separate DBI layer
 class Tbl_crud //extends Db_allsites
 {
   private $tbl = "category";

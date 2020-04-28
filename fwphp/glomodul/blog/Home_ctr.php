@@ -106,7 +106,7 @@ class Home_ctr extends Config_allsites
     //$this = $dm = domain model = globals for all sites / curr.module (eg for CRUD...)
     $dm = $this ;
     $Db_user = (new Tbl_crud_user)->logout($dm) ;
-    //$Db_user = new Tbl_crud_user ; $Db_user->logout($dm);
+    //$Db_user = n ew Tbl_crud_user ; $Db_user->logout($dm);
   }
 
   // U S E R  R E A D
@@ -126,7 +126,7 @@ class Home_ctr extends Config_allsites
   private function login(object $pp1) //private
   {
     //$dm = $this ; //this = globals for all sites are for CRUD... !!
-    //$Db_ user = new Tbl_ crud_ user ;  $Db_ user->login($dm, $pp1, $pp1->dashboard) ;
+    //$Db_ user = n ew Tbl_ crud_ user ;  $Db_ user->login($dm, $pp1, $pp1->dashboard) ;
     (new Tbl_crud_user)->login($this, $pp1, $pp1->dashboard) ;
   }
 

@@ -6,6 +6,7 @@
 namespace B12phpfw\dbadapter\post_comment ;
 use B12phpfw\module\blog\Home_ctr ;
 
+// Gateway class - separate DBI layer
 class Tbl_crud //Db_post_comment //extends Db_allsites
 {
 

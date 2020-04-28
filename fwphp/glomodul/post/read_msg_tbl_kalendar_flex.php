@@ -97,7 +97,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
     {
       //Created date from strtotime("2019-10-09 12:00:00") is 2019-10-09 12:00:00
       $today_mmabr = substr(date("l"),0,3);
-            //try { $post_date = new \DateTime($r->$tmp_datetime);
+            //try { $post_date = n ew \DateTime($r->$tmp_datetime);
             try { $post_date = new \DateTime($r->datetime);
             } catch (Exception $e) { echo $e->getMessage(); exit(1); }
             $post_ddabr = substr($post_date->format('l'),0,3);

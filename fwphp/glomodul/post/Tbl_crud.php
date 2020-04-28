@@ -6,6 +6,7 @@
 namespace B12phpfw\dbadapter\post ;
 use B12phpfw\module\blog\Home_ctr ;
 
+// Gateway class - separate DBI layer
 class Tbl_crud //Db_post //extends Db_allsites //was Home
 {
 
