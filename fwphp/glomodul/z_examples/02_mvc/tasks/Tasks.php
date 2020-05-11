@@ -1,7 +1,7 @@
 <?php
-//include "TaskInterface.php";
+include "TaskInterface.php";
 
-class Tasks //implements TaskInterface
+class Tasks implements TaskInterface
 {
     private $db;
     public $pageno;
@@ -44,13 +44,17 @@ class Tasks //implements TaskInterface
       $this->totalPages = ceil($total_rows / $numRecordsPerPage);
 
       if ($id > -99) {
-        $this->db->prep_qry("SELECT * FROM posts WHERE id=? ORDER BY title LIMIT $offset,$numRecordsPerPage");
+        $this->db->prep_qry("SELECT * FROM posts WHERE id=?");
         $this->db->bind(1, $id);
                       echo '<pre>before single $row=... $id='; print_r($id);  echo '</pre>';
                       echo '<pre>$total_rows='; print_r($total_rows);  echo '</pre>';
-        $row = $this->db->single(); echo '<pre>$row='; print_r($row);  echo '</pre>';
-      } else {
-        $this->db->prep_qry("SELECT * FROM posts ORDER BY title LIMIT $offset,$numRecordsPerPage");
+        //$row = $this->db->single(); echo '<pre>$row='; print_r($row);  echo '</pre>';
+        $row = $this->singleTasks($id); echo '<pre>$row='; print_r($row);  echo '</pre>';
+      } else { //r e a d  a l l :
+        $this->db->prep_qry(
+          //"SELECT * FROM posts ORDER BY title LIMIT $offset,$numRecordsPerPage"
+          "SELECT * FROM posts ORDER BY title"
+        );
                       echo '<pre>before resultSet $row=... $id='; print_r($id);  echo '</pre>';
         $row = $this->db->resultSet(); //echo '<pre>$row='; print_r($row);  echo '</pre>';
       }
