@@ -6,6 +6,7 @@
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\blog ;
 use B12phpfw\core\zinc\Config_allsites ;
+
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_user;  //to Login_ Confirm_ SesUsrId
        //use B12phpfw\module\dbadapter\user\DB_ user ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
@@ -76,8 +77,10 @@ class Home_ctr extends Config_allsites
 
   //           **** D I S P A T C H I N G
           //$accessor = "get" . ucfirst(strtolower($akc));
-  public function callf(string $akc, object $pp1)  //fnname, params
+  protected function callf(string $akc, object $pp1)  //fnname, params
   {
+    //this fn calls method $ a k c in Home_ ctr which has parameters in  $ p p 1
+    //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
     return ( 
       ( //method_exists($this, $akc) and
       is_callable(array($this, $akc)) ) ? $this->$akc($pp1) : '0'
@@ -90,6 +93,7 @@ class Home_ctr extends Config_allsites
           //       DISPATCH  M E T H O D S
           // they call other methods or include script
           // CALLED FROM Config_ allsites __c onstruct
+          // so: $this->callf($akc, $pp1) ;
           //******************************************
   /**
        1. S E S S I O N  M E T H O D S
@@ -303,7 +307,7 @@ class Home_ctr extends Config_allsites
 
 
   //        r e a d  p o s t
-  private function read_post(object $pp1) //private
+  private function read_post(object $pp1)
   {
     /* not working here :
     //parsedown to color code (sintax highlighting https://highlightjs.org/download/) :

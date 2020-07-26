@@ -7,12 +7,16 @@
 3. My blog :  http://phporacle.altervista.org
     and  http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
     
-## 1\.2 Download and install code from here
+## 1\.2 Download and unzip code from my Github repo
 1. https://github.com/slavkoss/fwphp - PHP code here is good for (more) large sites
 2. In webserver doc root - my is J:\xampp\htdocs  or virtual host  J:\awww\www
-3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**        
+3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**      
+    and in phpmyadmin import J:\awww\www\01_DDL_mysql_blog.sql in database z_blogcms (or in Oracle db 01_DDL_oracle_blog.sql).       
 
-
+After that to understand how B12phpfw CRUD framework works (eg $db = new Home_ctr($pp1) ; //Home\_ ctr (or App) class "inherits" index.php ee "inherits" $ p p 1),    
+you should learn/try J:\awww\www\fwphp\glomodul\z_examples\php_patterns\singleton_B12phpfw.php     
+http://dev1:8083/fwphp/glomodul/z_examples/php_patterns/singleton_B12phpfw.php?i/read_post/     
+In 2 scripts: singleton_B12phpfw.php and Home_ctr.php is everything important but is not easy to learn (same as any framework).    
 
 <span id="directories"></span>
 ## 1\.3 B12phpfw directories (modules) structure
@@ -34,16 +38,16 @@ See at this text end  [4.  **"What is SW fw"**](#swfw).
  ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\xampp\\htdocs ee   http://localhost:8083/  OR       
  ![B12phpfw favicon PRODUCTION DOCROOT](B12phpfw_3PRODUCTION_DOCROOT.ico "B12phpfw_3PRODUCTION_DOCROOT.ico") **PRODUCTION (DEMO) DOCROOT** http://phporacle.eu5.net/       
 |   
-In Windows tree /A shows :
+In Windows **tree /A** shows :
 ```
-+---1. J:\awww\www\index.php redirects to main menu url fwphp/www/index.php
++---1. J:\awww\www\index.php redirects to main menu module url /fwphp/www/index.php
 |
 |
-+---2. J:\awww\www\fwphp SITE, group of apps = Apache_docroot\fwphp
++---2. J:\awww\www\fwphp SITE, group of apps (modules groups) = Apache_docroot\fwphp
 |   |  NO Models, V, C dirs, but dirs are like Oracle FORMS form .fmb !
 |   |         
 |   +---www  - MAIN MENU MODULE (static) pages, 
-|   |   not on B12phpfw code skeleton, but similar
+|   |   not on B12phpfw code skeleton, but similar coding
 |   |
 |   | APPLICATION DIRS HAVE SIMILAR DIR STRUCTURE AS glomodul :
 |   |

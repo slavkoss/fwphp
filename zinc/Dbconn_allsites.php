@@ -6,43 +6,53 @@ namespace B12phpfw\core\zinc ;
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
 abstract class Dbconn_allsites
 {
-    protected static $dbi ; // mysql or oracle or any dbi you wish
     
-    private static   $instance   = null ; // singleton !
+    private static $instance   = null ; // singleton !
     
-    //command for all tables global read fn "rr" to read paginated ee to read rows block (recordset) :
+    //for all tbls global read fn "rr" to read paginated ee to read rows block (recordset) :
     protected static $do_pgntion = null;
+
+    protected static $dbi = 'mysql' ; // mysql or oracle or any  d b i  you wish
+    private static $hostpc = 'localhost';
+    private static $dbname = 'z_blogcms';
+    private static $user   = 'root';
+    private static $pass   = '';
 
 
 
     private function __construct() {
     }
 
-    public static function get_or_new_dball($caller='') //or connect
+    public static function get_or_new_dball($caller='') //or connect_db
     {
-      self::$dbi = 'mysql' ;
+      //get    = returns created dbobj (db instance, mem.adress of cls vars & fns) 
+      //or_new = creates and returns dbobj
+      //dball  = here (Dbconn_allsites) and Db_allsites is abstract code for any db, any tbl
       if(is_null(self::$instance)) {
-        $dsn = "mysql:host=localhost;dbname=z_blogcms" ;
+                // THIS CODE IS EXECUTED ONLY ONCE DURING PAGE LIFE !!!
+                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
+                echo '<pre>'; echo 'is_null(self::$instance)' ; echo '</pre>';
+                }
+        $dsn = 'mysql:host='. self::$hostpc .';dbname='. self::$dbname .';' ;
         $options = [
            \PDO::ATTR_PERSISTENT   => true
           ,\PDO::ATTR_ERRMODE      => \PDO::ERRMODE_EXCEPTION
           ,\PDO::ATTR_ORACLE_NULLS => \PDO::NULL_TO_STRING
         ];
-        self::$instance=new \PDO($dsn,'root','',$options);
+        self::$instance=new \PDO($dsn,self::$user,self::$pass,$options);
         //self::$instance=n ew P DO("mysql:host=localhost;dbname=z_blogcms",'root','',$options);
+      } else {
+                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
+                echo '<pre>'; echo 'NOT is_null(self::$instance)' ; echo '</pre>';
+                echo '<pre>self::$instance='; var_dump(self::$instance) ; echo '</pre>';
+                }
       }
       return self::$instance;
     }
 
-    public static function getdbi($caller='')
-    {
-      return self::$dbi ;
-    }
+    public static function getdbi($caller='') { return self::$dbi ; }
 
-    public static function disconnect()
-    {
-        self::$instance = null;
-    }
+    public static function disconnect() { self::$instance = null; }
 
     //JS  M s g  dialog IMPLEMENTATION DELEGATED TO CONF & UTILS CLS Config_ allsites
     //abstract protected function createEntity(array $row);

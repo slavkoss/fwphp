@@ -24,7 +24,7 @@
   <br>
   <div class="card">
     <div class="card-header bg-primary text-light">
-      <h2 class="lead">Teme (Posts Categories)</h2>
+      <h2 class="lead"> 1. Teme (posts categories filter)</h2>
     </div>
     <div class="card-body">
       <a href="<?=$pp1->filter_postcateg?>">ALL</a>&nbsp;&nbsp;&nbsp;
@@ -48,7 +48,7 @@
   <br>
   <div class="card">
     <div class="card-header bg-info text-white">
-       <h2 class="lead"> Recent Posts</h2>
+       <h2 class="lead"> 2. Recent posts (date filter)</h2>
     </div>
     <div class="card-body">
       <?php
@@ -123,7 +123,7 @@
     </div-->
     <div class="card-body">
       <button type="button" class="btn btn-success btn-block text-center text-white mb-4" 
-              name="button">Join the Forum</button>
+              name="button">3. Join the Forum (todo)</button>
       <!--button type="button" class="btn btn-danger btn-block text-center text-white mb-4" 
               name="button">Log in</button-->
       <div class="input-group mb-3">

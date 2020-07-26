@@ -212,7 +212,7 @@ abstract class Config_allsites extends Db_allsites
         unset($pp1) ; //for easier debugging if next 2 lines are switched
         $pp1 = $this->getp('pp1') ; //fn params are in  p p 1
         $akc = $pp1->uriq->i ;      //fn name (by user entered URL we put in uriq array)
-        $this->callf($akc, $pp1) ; //public fn (in child cls) calls private fns (in child cls)
+        $this->callf($akc, $pp1) ; //protected fn (in child cls) calls private fns (in child cls)
         // OR (fns in child cls must be public, not private to be called from here) :
         //Fatal error: Uncaught Error: Call to private method B12phpfw\Home_ctr::home() from context 'B12phpfw\Config_allsites' 
         //$this->$akc($pp1) ; 
@@ -569,7 +569,7 @@ $navbar .= " <a class='button'
     // (**1)
     //require __DIR__ . '/conn_dbi_obj.php'; //Oracle or MySQL or... (as you wish)
                   //not here parent::__construct($p p1);
-                  //not here get_ or_new_dball, but only in private fn set_d bobj!!
+                  //not here get_or_new_dball, but only in private fn set_d bobj!!
 
           // to be called from  J S :
           //LINUX (not Windows) Warning: Cannot modify header information - headers already sent by (output started at /home/slavkoss/public_html/zinc/Config_allsites.php:35) in /home/slavkoss/public_html/zinc/Config_allsites.php on line 249

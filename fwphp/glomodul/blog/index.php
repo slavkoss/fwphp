@@ -3,9 +3,12 @@
 // ?=QS, p=page=1, i=call Home_ctr method 'home()' to include (or call, or jump to) :
 //http://dev1:8083/fwphp/glomodul/blog/?p/1/i/home/ 
 
-//c o r e = processing (behavior), z i n c = cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\blog ;
 use B12phpfw\core\zinc\Autoload ;
+      //first namespace part B12phpfw is vendor ns prefix
+      //2nd ns part m o d u l e is functional part of ns = like Oracle form
+      //2nd ns part c o r e is functional part of ns = processing (behavior)
+      //3rd ns part zinc and blog (cls) are dirs = POSITIONAL parts of name spaces, CAREFULLY !
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_towsroot = '../../../' ;  //to web server doc root or our doc root by ISP
@@ -42,7 +45,7 @@ $autoloader = new Autoload($pp1);
 //3. process request from ibrowser & send response to ibrowser :
 //1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
 //STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
-$db = new Home_ctr($pp1) ; //Home_ ctr "inherits" index.php ee inherits $p p1
+$db = new Home_ctr($pp1) ; //Home_ ctr "inherits" index.php ee inherits $p p 1
 
 exit(0);
 
@@ -74,4 +77,36 @@ exit(0);
 *  4.L2 Config_allsites extends 5.L1 Db_allsites, 6.L6: home.php, zinc/h dr.php and ftr
 * see http://localhost:8083/pdogridbig_original/demo/pages/
 *     http://dev1:8083/fwphp/glomodul/z_examples/05_flex01_2col.php
+
+
+https://supportindeed.com/view.php?id=945785  slavkoss22@gmail.com
+Dear sirs !
+Links, eg
+http://phporacle.eu5.net/fwphp/glomodul/blog/?i/about/
+link worked few months ago, but then stopped working.
+(Same as on Heliohost)
+
+This link works on my Windows10 64 bit XAMPP development, also on virtual Oracle Linux machine on Windows10 64 bit.
+
+Second, I think that my site http://phporacle.eu5.net/fwphp/www/ 
+is very useful for PHP learning so it should not have time limitation, same as my Github page : https://github.com/slavkoss/fwphp
+
+
+Hello Chris White !
+
+Error is visible if you put this URL in Chrome or Firefox :
+   1. http://phporacle.eu5.net/fwphp/glomodul/blog/
+   --- blog module home page appears
+   2. now click at page top link About Us or Contact Us or This Module 
+      (it is link eg http://phporacle.eu5.net/fwphp/glomodul/blog/?i/contact/
+       or same error eg phporacle.eu5.net/fwphp/glomodul/blog/index.php?i/about/)
+   --- page does not open - we are still in blog module home page
+
+This link works on my Windows10 64 bit XAMPP development, also on virtual Oracle Linux machine on Windows10 64 bit.
+On Heliohost is not working (same bug as Freehostingeu). Permissions ?
+
+Clear cache and cookies in Chrome and Firefox does not help.
+
+Second, I think that my site http://phporacle.eu5.net/fwphp/www/
+is very useful for PHP learning so it should not have time limitation, same as my Github page : https://github.com/slavkoss/fwphp
 */

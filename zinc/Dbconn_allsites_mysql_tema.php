@@ -30,10 +30,7 @@ abstract class Dbconn_allsites
       return self::$instance;
     }
 
-    public static function getdbi($caller='')
-    {
-      return self::$dbi ;
-    }
+    public static function getdbi($caller='') { return self::$dbi ; }
 
 
 }

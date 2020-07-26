@@ -18,7 +18,10 @@ class ConnectDb {
   {
     $this->conn_par_obj = (object)[
       'db_new_instance'=>'db_new_instance' // '' or 'db_new_instance' or '1'
-    , 'dbi'=>'mysql','host'=>'localhost', 'dbnm'=>'cmsakram','user'=>'root', 'pass'=>''] ;
+    , 'dbi'=>'mysql','host'=>'localhost'
+    , 'dbnm'=>'z_blogcms'
+    , 'user'=>'root'
+    , 'pass'=>''] ;
                       ?><SCRIPT LANGUAGE="JavaScript">
                          alert( "<?php echo __METHOD__ .', line '. __LINE__ .' SAYS: '
                               .'\\n private function !! HERE IS new PDO(...' 
@@ -27,9 +30,12 @@ class ConnectDb {
                            ?>"
                          ) ;
                       </SCRIPT><?php
-    $this->dbobj = new PDO("mysql:host={$this->conn_par_obj->host};
-    dbname={$this->conn_par_obj->dbnm}", $this->conn_par_obj->user,$this->conn_par_obj->pass,
-    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+    $this->dbobj = new PDO(
+      "mysql:host={$this->conn_par_obj->host};dbname={$this->conn_par_obj->dbnm}"
+      , $this->conn_par_obj->user
+      , $this->conn_par_obj->pass
+      , array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'")
+    );
   }
 
 
@@ -54,16 +60,16 @@ class ConnectDb {
 }
 
 
-//Since we use a class that checks if a connection already exists before it establishes a new one, it DOESN'T MATTER HOW MANY TIMES WE CREATE A NEW OBJECT OUT OF THE CLASS, WE STILL GET THE SAME CONNECTION. To prove the point, let's create three instances out of the class and var dump them.
+//Since we use a class that checks if a connection already exists before it establishes a new one, it DOESN'T MATTER HOW MANY TIMES WE CREATE A NEW OBJECT OUT OF THE CLASS, WE STILL GET THE SAME CONNECTION. To prove the point, let's create two instances out of the class and var dump them.
 
 $instance = ConnectDb::get_or_new_dbobj();
 $dbobj = $instance->getdbobj();
-print_r($dbobj);
-var_dump($dbobj);
+echo '<br /><br />$dbobj is: '; var_dump($dbobj);
+//print_r($dbobj);
 
 $instance = ConnectDb::get_or_new_dbobj();
 $dbobj = $instance->getdbobj();
-print_r($dbobj);
-var_dump($dbobj);
+echo '<br /><br />$dbobj is: '; var_dump($dbobj);
+//print_r($dbobj);
 
-//The result is the same connection for the three instances.
+//The result is the same connection for both instances.
