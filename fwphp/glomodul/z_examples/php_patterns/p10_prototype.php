@@ -1,140 +1,113 @@
 <?php
+namespace RefactoringGuru\Prototype\Conceptual;
 // https://phpenthusiast.com/blog/design-patterns
 // https://github.com/domnikl/DesignPatternsPHP
 // https://designpatternsphp.readthedocs.io/en/latest/README.html
 ?>
 
-<a href="https://phpenthusiast.com/blog/the-singleton-design-pattern-in-php">https://phpenthusiast.com/blog/the-singleton-design-pattern-in-php</a>
+<a href="https://refactoring.guru/design-patterns/prototype/php/example#example-0">https://refactoring.guru/design-patterns/prototype/php/example#example-0</a>
 
 
 <?php
-// General singleton class.
-class Singleton {
-  // Hold the class instance.
-  private static $instance = null;
-  
-  // The constructor is private to prevent initiation with outer code.
-  private function __construct()
-  {
-    // The expensive process (e.g.,db connection) goes here.
-  }
- 
-  // The object is created from within the class itself
-  // only if class Singleton has no instance.
-  public static function getInstance()
-  {
-    if (self::$instance == null)
+/**
+ * The example class that has cloning ability. We'll see how the values of field
+ * with different types will be cloned.
+ */
+class Prototype
+{
+    public $primitive;
+    public $component;
+    public $circularReference;
+
+    /**
+     * PHP has built-in cloning support. You can `clone` an object without
+     * defining any special methods as long as it has fields of primitive types.
+     * Fields containing objects retain their references in a cloned object.
+     * Therefore, in some cases, you might want to clone those referenced
+     * objects as well. You can do this in a special `__clone()` method.
+     */
+    public function __clone()
     {
-      self::$instance = new Singleton();
+        $this->component = clone $this->component;
+
+        // Cloning an object that has a nested object with backreference
+        // requires special treatment. After the cloning is completed, the
+        // nested object should point to the cloned object, instead of the
+        // original object.
+        $this->circularReference = clone $this->circularReference;
+        $this->circularReference->prototype = $this;
     }
- 
-    return self::$instance;
-  }
 }
 
-?><h4>Since we restrict the number of objects that can be created from a class to only one, both variables $objectx = Singleton::getInstance(); point to the same object :</h4><?php
-$object1 = Singleton::getInstance();
-echo '$object1='; var_dump($object1); echo '';
+class ComponentWithBackReference
+{
+    public $prototype;
 
-$object2 = Singleton::getInstance();
-echo '<br />$object2='; var_dump($object2); echo '';
-
-
-
-
-?><h4>Singleton to connect DB. DB conn $this->conn is established in private constructor.
-We use public static function getInstance() that checks if self::$instance (ee conn) exists before it establishes a new one.
-</h4><?php
-
-class ConnectDb {
-  // Hold the class instance.
-  private static $instance = null;
-  private $conn;
-  
-  private $host = 'localhost';
-  private $user = 'root';
-  private $pass = '';
-  private $name = 'z_blogcms';
-   
-  // The expensive process (e.g.,db connection) goes here.
-  // The db connection is established in the private constructor.
-  private function __construct()
-  {
-    $this->conn = new PDO(
-       "mysql:host={$this->host}; dbname={$this->name}"
-       , $this->user, $this->pass
-       , array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'")
-    );
-  }
-  
-  public static function getInstance()
-  {
-    if(!self::$instance) {
-                if ('1') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
-                echo '<pre>'; echo '!self::$instance' ; echo '</pre>';
-                }
-      self::$instance = new ConnectDb();
+    /**
+     * Note that the constructor won't be executed during cloning. If you have
+     * complex logic inside the constructor, you may need to execute it in the
+     * `__clone` method as well.
+     */
+    public function __construct(Prototype $prototype)
+    {
+        $this->prototype = $prototype;
     }
-    return self::$instance;
-  }
-  
-  public function getConnection() { return $this->conn; }
 }
 
-//Since getInstance() checks if a conn already exists before creates a new one, it doesn't matter how many times we call getInstance(), we allways get the same connection :
-$instance = ConnectDb::getInstance();
-$conn     = $instance->getConnection();
+/**
+ * The client code.
+ */
+function clientCode()
+{
+    $p1 = new Prototype;
+    $p1->primitive = 245;
+    $p1->component = new \DateTime;
+    $p1->circularReference = new ComponentWithBackReference($p1);
+
+    $p2 = clone $p1;
+    if ($p1->primitive === $p2->primitive) {
+        echo "<br /><br />Primitive field values have been carried over to a clone. Yay!<br />";
+    } else {
+        echo "<br /><br />Primitive field values have not been copied. Booo!<br />";
+    }
+    if ($p1->component === $p2->component) {
+        echo "Simple component has not been cloned. Booo!<br />";
+    } else {
+        echo "Simple component has been cloned. Yay!<br />";
+    }
+
+    if ($p1->circularReference === $p2->circularReference) {
+        echo "Component with back reference has not been cloned. Booo!<br />";
+    } else {
+        echo "Component with back reference has been cloned. Yay!<br />";
+    }
+
+    if ($p1->circularReference->prototype === $p2->circularReference->prototype) {
+        echo "Component with back reference is linked to original object. Booo!<br />";
+    } else {
+        echo "Component with back reference is linked to the clone. Yay!<br />";
+    }
+}
+
+clientCode();
+
 ?>
+
+<br /><br />
+<p>10. PROTOTYPE PATTERN creational design pattern that allows cloning objects, even complex ones, without coupling to their specific classes.</p>
+
+<p>All prototype classes should have a common interface that makes it possible to copy objects even if their concrete classes are unknown. Prototype objects can produce full copies since objects of the same class can access each other's private fields.</p>
+
+<p>Usage examples: The Prototype pattern is available in PHP out of the box. You can use the clone keyword to create an exact copy of an object. To add cloning support to a class, you need to implement a __clone method.</p>
+
+<p>Identification: The prototype can be easily recognized by a clone or copy methods, etc.</p>
+
+<p>Pros (Benefits) and Cons</p>
 <ol>
-  <li>$instance = ConnectDb::getInstance(); // public static function getInstance()
-      <?php echo '<pre>$instance='; var_dump($instance); echo '</pre>'; //print_r($conn); ?>
-  <li>$conn = $instance->getConnection();   // public function getConnection() { return $this->conn; }, where $this->conn; is assigned in private function __construct() of class ConnectDb 
-      <br /><b>Output</b> of var_dump($conn); : <b>is</b> SAME CONNECTION FOR NEXT TWO INSTANCES: <?php var_dump($conn); ?>
-</ol>
-
-<?php
-$instance = ConnectDb::getInstance();
-$conn     = $instance->getConnection();
-echo 'Same is: '; var_dump($conn);
-
-$instance = ConnectDb::getInstance();
-$conn     = $instance->getConnection();
-echo '<br /><br />Same is: '; var_dump($conn);
-//The result is the SAME CONNECTION FOR THE THREE INSTANCES.
-
-$dbobj = $conn; //$conn not $instance
-//$sql = "SELECT * FROM posts ORDER BY datetime desc LIMIT 1, 5";
-$sql = "SELECT COUNT(*) COUNT_ROWS FROM posts";
-$cursor = $dbobj->prepare($sql); //$this->dbobj->prepare($sql); 
-$cursor->execute();
-//$c_r = $this->rr("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
-//while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
-$row = $cursor->fetch(\PDO::FETCH_OBJ);
-//$this::disconnect();
-echo '<br />posts COUNT_ROWS='. $row->COUNT_ROWS ;
-
-
-?>
-<p>06. SINGLETON PATTERN - to restrict the number of instances that can be created from a resource_consuming class to only one. EG Some external service providers (APIs) charge money per each use. Some classes that detect mobile devices might slow down our website.
-Establishing a connection with a database is time consuming and slows down our app.</p>
-
-<p>A private constructor is used to prevent the direct creation of objects from the class.</p>
-
-<p>The expensive process is performed within the private constructor.</p>
-
-<p>The only way to create an instance from the class is by using a static method that creates the object only if it wasn't already created.</p>
-
-
-
-<p>Benefits : In order to implement the code, we need to:</p>
-<ol>
-<li>Create an object from one of the basic classes (in our example, it is the Suv class).
-<li>Pass the object that was created from the basic class as a parameter to the class that adds the first feature (i.e., the SunRoof class).
-<li>Pass the object that was created from the first feature class to the second feature class, and so on until we finish adding all the optional features.
-<li>Run the methods on the last object that we created in the process of decoration.
+<li>
 </ol>
 
 
 <br /><br />
 <?php
-include(dirname(dirname(dirname(dirname(dirname(__FILE__))))) .'/zinc/showsource.php');
+include(dirname(dirname(dirname(dirname(__DIR__)))) .'/zinc/showsource.php');

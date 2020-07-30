@@ -1,82 +1,166 @@
 <?php
+namespace RefactoringGuru\Observer\Conceptual;
 // https://phpenthusiast.com/blog/design-patterns
 // https://github.com/domnikl/DesignPatternsPHP
 // https://designpatternsphp.readthedocs.io/en/latest/README.html
 
 ?>
-<a href="https://phpenthusiast.com/blog/simplify-your-php-code-with-facade-class">https://phpenthusiast.com/blog/simplify-your-php-code-with-facade-class</a>
+<a href="https://refactoring.guru/design-patterns/observer/php/example#example-0">https://refactoring.guru/design-patterns/observer/php/example#example-0</a>
+
+<br /><br /><a href="https://refactoring.guru/design-patterns/observer/php/example#example-0">https://refactoring.guru/design-patterns/observer/php/example#example-0</a>
 
 <?php
-// Class to tweet on Twitter.
-class CodeTwit {
-  function tweet($status, $url)
-  {
-    var_dump('Tweeted:'.$status.' from:'.$url);
-  }
-}
+/**
+ * PHP has a couple of built-in interfaces related to the Observer pattern.
+ *
+ * Here's what the Subject interface looks like:
+ *
+ * @link http://php.net/manual/en/class.splsubject.php
+ *
+ *     interface SplSubject
+ *     {
+ *         // Attach an observer to the subject.
+ *         public function attach(SplObserver $observer);
+ *
+ *         // Detach an observer from the subject.
+ *         public function detach(SplObserver $observer);
+ *
+ *         // Notify all observers about an event.
+ *         public function notify();
+ *     }
+ *
+ * There's also a built-in interface for Observers:
+ *
+ * @link http://php.net/manual/en/class.splobserver.php
+ *
+ *     interface SplObserver
+ *     {
+ *         public function update(SplSubject $subject);
+ *     }
+ */
 
-// Class to share on Google plus.
-class Googlize {
-  function share($url)
-  {
-    var_dump('Shared on Google plus:'.$url);
-  }
-}
+/**
+ * The Subject owns some important state and notifies observers when the state
+ * changes.
+ */
+class Subject implements \SplSubject
+{
+    /**
+     * @var int For the sake of simplicity, the Subject's state, essential to
+     * all subscribers, is stored in this variable.
+     */
+    public $state;
 
-// Class to share in Reddit.
-class Reddiator {
-  function reddit($url, $title)
-  {
-    var_dump('Reddit! url:'.$url.' title:'.$title);
-  }
-}
-
-
-
-class shareFacade {
-  // Holds a reference to all of the classes.
-  protected $twitter;    
-  protected $google;   
-  protected $reddit;    
+    /**
+     * @var \SplObjectStorage List of subscribers. In real life, the list of
+     * subscribers can be stored more comprehensively (categorized by event
+     * type, etc.).
+     */
+    private $observers;
     
-  // The objects are injected to the constructor.   
-  function __construct($twitterObj,$gooleObj,$redditObj)
-  {
-    $this->twitter = $twitterObj;
-    $this->google  = $gooleObj;
-    $this->reddit  = $redditObj;
-  }  
-        
-  // One function makes all the job of calling all the share methods
-  //  that belong to all the social networks.
-  function share($url,$title,$status)
-  {
-    $this->twitter->tweet($status, $url);
-    $this->google->share($url);
-    $this->reddit->reddit($url, $title);
-  }
+    public function __construct()
+    {
+        $this->observers = new \SplObjectStorage;
+    }
+
+    /**
+     * The subscription management methods.
+     */
+    public function attach(\SplObserver $observer): void
+    {
+        echo "<br />Subject: Attached an observer.<br />";
+        $this->observers->attach($observer);
+    }
+
+    public function detach(\SplObserver $observer): void
+    {
+        $this->observers->detach($observer);
+        echo "Subject: Detached an observer.<br />";
+    }
+
+    /**
+     * Trigger an update in each subscriber.
+     */
+    public function notify(): void
+    {
+        echo "Subject: Notifying observers...<br />";
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
+    }
+
+    /**
+     * Usually, the subscription logic is only a fraction of what a Subject can
+     * really do. Subjects commonly hold some important business logic, that
+     * triggers a notification method whenever something important is about to
+     * happen (or after it).
+     */
+    public function someBusinessLogic(): void
+    {
+        echo "<br />Subject: I'm doing something important.<br />";
+        $this->state = rand(0, 10);
+
+        echo "Subject: My state has just changed to: {$this->state}<br />";
+        $this->notify();
+    }
 }
 
-// Create the objects from the classes.
-$twitterObj = new CodeTwit();
-$gooleObj   = new Googlize();
-$redditObj  = new Reddiator();
+/**
+ * Concrete Observers react to the updates issued by the Subject they had been
+ * attached to.
+ */
+class ConcreteObserverA implements \SplObserver
+{
+    public function update(\SplSubject $subject): void
+    {
+        if ($subject->state < 3) {
+            echo "ConcreteObserverA: Reacted to the event.<br />";
+        }
+    }
+}
 
-// Pass the objects to the class facade object.
-$shareObj = new shareFacade($twitterObj,$gooleObj,$redditObj);
+class ConcreteObserverB implements \SplObserver
+{
+    public function update(\SplSubject $subject): void
+    {
+        if ($subject->state == 0 || $subject->state >= 2) {
+            echo "ConcreteObserverB: Reacted to the event.<br />";
+        }
+    }
+}
 
-// Call only 1 method to share your post with all the social networks.
-echo '<br /><br />';
-$shareObj->share('https://myBlog.com/post-awsome','My greatest post','Read my greatest post ever.');
+/**
+ * The client code.
+ */
+
+$subject = new Subject;
+
+$o1 = new ConcreteObserverA;
+$subject->attach($o1);
+
+$o2 = new ConcreteObserverB;
+$subject->attach($o2);
+
+$subject->someBusinessLogic();
+$subject->someBusinessLogic();
+
+$subject->detach($o2);
+
+$subject->someBusinessLogic();
 
 ?>
-<p>02. FACADE PATTERN - code processor, manager, controller - eg shareFacade class gets the social networks objects injected to its constructor, holds these objects by reference, and has the ability to call to all of the share methods from a single share method.</p>
+<p>07. Observer PATTERN - is a behavioral design pattern that allows some objects to notify other objects about CHANGES IN THEIR STATE.
 
+<p>Observer pattern provides a way to subscribe and unsubscribe to and from these events for any object that implements a SUBSCRIBER INTERFACE.
 
-<p>Benefits :</p>
+<p>Usage examples: PHP has several built-in interfaces (SplSubject, SplObserver) that can be used to make your implementations of the Observer pattern compatible with the rest of the PHP code.
+
+<p>Identification: The pattern can be recognized by subscription methods, that store objects in a list and by calls to the update method issued to objects in that list.
+
+<p>Pros (Benefits) and Cons</p>
 <ol>
-<li>code that shares the newest posts in our blog with several social networks. Each social network has its own class, and a set of methods to share our posts. Every time that we want to share our posts, we need to call to all of the methods - better is CALL TO ONLY ONE METHOD IN FACADE CLASS
+<li>
 </ol>
 
 <?php
-include(dirname(dirname(dirname(dirname(dirname(__FILE__))))) .'/zinc/showsource.php');
+include(dirname(dirname(dirname(dirname(__DIR__)))) .'/zinc/showsource.php');

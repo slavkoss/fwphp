@@ -1,4 +1,6 @@
 <?php
+// https://refactoring.guru/design-patterns/catalog
+// https://refactoring.guru/design-patterns/php
 // https://phpenthusiast.com/blog/design-patterns
 // https://github.com/domnikl/DesignPatternsPHP
 // https://designpatternsphp.readthedocs.io/en/latest/README.html
@@ -11,7 +13,7 @@
 class CodeTwit {
   function tweet($status, $url)
   {
-    var_dump('Tweeted:'.$status.' from:'.$url);
+    echo '<br />'; var_dump('Tweeted:'.$status.' from:'.$url);
   }
 }
 
@@ -19,7 +21,7 @@ class CodeTwit {
 class Googlize {
   function share($url)
   {
-    var_dump('Shared on Google plus:'.$url);
+    echo '<br />'; var_dump('Shared on Google plus:'.$url);
   }
 }
 
@@ -27,7 +29,7 @@ class Googlize {
 class Reddiator {
   function reddit($url, $title)
   {
-    var_dump('Reddit! url:'.$url.' title:'.$title);
+    echo '<br />'; var_dump('Reddit! url:'.$url.' title:'.$title);
   }
 }
 
@@ -66,17 +68,18 @@ $redditObj  = new Reddiator();
 $shareObj = new shareFacade($twitterObj,$gooleObj,$redditObj);
 
 // Call only 1 method to share your post with all the social networks.
-echo '<br /><br />';
+echo '<br />';
 $shareObj->share('https://myBlog.com/post-awsome','My greatest post','Read my greatest post ever.');
 
 ?>
-<p>02. FACADE PATTERN - code processor, manager, controller - eg shareFacade class gets the social networks objects injected to its constructor, holds these objects by reference, and has the ability to call to all of the share methods from a single share method.</p>
+<br /><br />
+<p>01. FACADE PATTERN - code processor, manager, controller - eg shareFacade class gets the social networks objects injected to its constructor, holds these objects by reference, and has the ability to call to all of the share methods from a single share method.</p>
 
 
-<p>Benefits :</p>
+<p>Pros (Benefits) and Cons</p>
 <ol>
 <li>code that shares the newest posts in our blog with several social networks. Each social network has its own class, and a set of methods to share our posts. Every time that we want to share our posts, we need to call to all of the methods - better is CALL TO ONLY ONE METHOD IN FACADE CLASS
 </ol>
 
 <?php
-include(dirname(dirname(dirname(dirname(dirname(__FILE__))))) .'/zinc/showsource.php');
+include(dirname(dirname(dirname(dirname(__DIR__)))) .'/zinc/showsource.php');

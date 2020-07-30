@@ -1,82 +1,166 @@
 <?php
-// https://phpenthusiast.com/blog/design-patterns
+namespace RefactoringGuru\Command\Conceptual;
+// https://refactoring.guru/design-patterns/command/php/example
 // https://github.com/domnikl/DesignPatternsPHP
 // https://designpatternsphp.readthedocs.io/en/latest/README.html
 
 ?>
-<a href="https://phpenthusiast.com/blog/simplify-your-php-code-with-facade-class">https://phpenthusiast.com/blog/simplify-your-php-code-with-facade-class</a>
+<a href="https://refactoring.guru/design-patterns/command/php/example#example-0">https://refactoring.guru/design-patterns/command/php/example#example-0</a>
 
 <?php
-// Class to tweet on Twitter.
-class CodeTwit {
-  function tweet($status, $url)
-  {
-    var_dump('Tweeted:'.$status.' from:'.$url);
-  }
+/**
+ * The Command interface declares a method for executing a command.
+ */
+interface Command
+{
+    public function execute(): void;
 }
 
-// Class to share on Google plus.
-class Googlize {
-  function share($url)
-  {
-    var_dump('Shared on Google plus:'.$url);
-  }
+/**
+ * Some commands can implement simple operations on their own.
+ */
+class SimpleCommand implements Command
+{
+    private $payload;
+
+    public function __construct(string $payload)
+    {
+        $this->payload = $payload;
+    }
+
+    public function execute(): void
+    {
+        echo "SimpleCommand: See, I can do simple things like printing (" . $this->payload . ")<br />";
+    }
 }
 
-// Class to share in Reddit.
-class Reddiator {
-  function reddit($url, $title)
-  {
-    var_dump('Reddit! url:'.$url.' title:'.$title);
-  }
+/**
+ * However, some commands can delegate more complex operations to other objects,
+ * called "receivers."
+ */
+class ComplexCommand implements Command
+{
+    /**
+     * @var Receiver
+     */
+    private $receiver;
+
+    /**
+     * Context data, required for launching the receiver's methods.
+     */
+    private $a;
+
+    private $b;
+
+    /**
+     * Complex commands can accept one or several receiver objects along with
+     * any context data via the constructor.
+     */
+    public function __construct(Receiver $receiver, string $a, string $b)
+    {
+        $this->receiver = $receiver;
+        $this->a = $a;
+        $this->b = $b;
+    }
+
+    /**
+     * Commands can delegate to any methods of a receiver.
+     */
+    public function execute(): void
+    {
+        echo "ComplexCommand: Complex stuff should be done by a receiver object.<br />";
+        $this->receiver->doSomething($this->a);
+        $this->receiver->doSomethingElse($this->b);
+    }
 }
 
+/**
+ * The Receiver classes contain some important business logic. They know how to
+ * perform all kinds of operations, associated with carrying out a request. In
+ * fact, any class may serve as a Receiver.
+ */
+class Receiver
+{
+    public function doSomething(string $a): void
+    {
+        echo "Receiver: Working on (" . $a . ".)<br />";
+    }
 
-
-class shareFacade {
-  // Holds a reference to all of the classes.
-  protected $twitter;    
-  protected $google;   
-  protected $reddit;    
-    
-  // The objects are injected to the constructor.   
-  function __construct($twitterObj,$gooleObj,$redditObj)
-  {
-    $this->twitter = $twitterObj;
-    $this->google  = $gooleObj;
-    $this->reddit  = $redditObj;
-  }  
-        
-  // One function makes all the job of calling all the share methods
-  //  that belong to all the social networks.
-  function share($url,$title,$status)
-  {
-    $this->twitter->tweet($status, $url);
-    $this->google->share($url);
-    $this->reddit->reddit($url, $title);
-  }
+    public function doSomethingElse(string $b): void
+    {
+        echo "Receiver: Also working on (" . $b . ".)<br />";
+    }
 }
 
-// Create the objects from the classes.
-$twitterObj = new CodeTwit();
-$gooleObj   = new Googlize();
-$redditObj  = new Reddiator();
+/**
+ * The Invoker is associated with one or several commands. It sends a request to
+ * the command.
+ */
+class Invoker
+{
+    /**
+     * @var Command
+     */
+    private $onStart;
 
-// Pass the objects to the class facade object.
-$shareObj = new shareFacade($twitterObj,$gooleObj,$redditObj);
+    /**
+     * @var Command
+     */
+    private $onFinish;
 
-// Call only 1 method to share your post with all the social networks.
-echo '<br /><br />';
-$shareObj->share('https://myBlog.com/post-awsome','My greatest post','Read my greatest post ever.');
+    /**
+     * Initialize commands.
+     */
+    public function setOnStart(Command $command): void
+    {
+        $this->onStart = $command;
+    }
+
+    public function setOnFinish(Command $command): void
+    {
+        $this->onFinish = $command;
+    }
+
+    /**
+     * The Invoker does not depend on concrete command or receiver classes. The
+     * Invoker passes a request to a receiver indirectly, by executing a
+     * command.
+     */
+    public function doSomethingImportant(): void
+    {
+        echo "<br /><br />Invoker: Does anybody want something done before I begin?<br />";
+        if ($this->onStart instanceof Command) {
+            $this->onStart->execute();
+        }
+
+        echo "Invoker: ...doing something really important...<br />";
+
+        echo "Invoker: Does anybody want something done after I finish?<br />";
+        if ($this->onFinish instanceof Command) {
+            $this->onFinish->execute();
+        }
+    }
+}
+
+/**
+ * The client code can parameterize an invoker with any commands.
+ */
+$invoker = new Invoker;
+$invoker->setOnStart(new SimpleCommand("Say Hi!"));
+$receiver = new Receiver;
+$invoker->setOnFinish(new ComplexCommand($receiver, "Send email", "Save report"));
+
+$invoker->doSomethingImportant();
 
 ?>
-<p>02. FACADE PATTERN - code processor, manager, controller - eg shareFacade class gets the social networks objects injected to its constructor, holds these objects by reference, and has the ability to call to all of the share methods from a single share method.</p>
+<p>06. COMMAND  PATTERN - behavioral design pattern that converts requests or simple operations into objects.</p>
 
 
-<p>Benefits :</p>
+<p>Pros (Benefits) and Cons</p>
 <ol>
-<li>code that shares the newest posts in our blog with several social networks. Each social network has its own class, and a set of methods to share our posts. Every time that we want to share our posts, we need to call to all of the methods - better is CALL TO ONLY ONE METHOD IN FACADE CLASS
+<li>Used for queueing tasks, tracking the history of executed tasks and performing the "undo".
+<li>The Command pattern is recognizable by behavioral methods in an abstract/interface type (sender) which invokes a method in an implementation of a different abstract/interface type (receiver) which has been encapsulated by the command implementation during its creation. Command classes are usually limited to specific actions.
 </ol>
 
 <?php
-include(dirname(dirname(dirname(dirname(dirname(__FILE__))))) .'/zinc/showsource.php');
+include(dirname(dirname(dirname(dirname(__DIR__)))) .'/zinc/showsource.php');
