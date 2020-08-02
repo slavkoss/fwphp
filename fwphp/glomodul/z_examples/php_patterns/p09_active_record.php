@@ -139,7 +139,7 @@ echo '<pre>$user='; print_r($user) ; echo '</pre>';
 
 
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <ol>
 <li>
 </ol>

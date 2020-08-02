@@ -102,7 +102,7 @@ clientCode();
 
 <p>Identification: The prototype can be easily recognized by a clone or copy methods, etc.</p>
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <ol>
 <li>
 </ol>

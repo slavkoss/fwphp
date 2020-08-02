@@ -76,7 +76,7 @@ $shareObj->share('https://myBlog.com/post-awsome','My greatest post','Read my gr
 <p>01. FACADE PATTERN - code processor, manager, controller - eg shareFacade class gets the social networks objects injected to its constructor, holds these objects by reference, and has the ability to call to all of the share methods from a single share method.</p>
 
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <ol>
 <li>code that shares the newest posts in our blog with several social networks. Each social network has its own class, and a set of methods to share our posts. Every time that we want to share our posts, we need to call to all of the methods - better is CALL TO ONLY ONE METHOD IN FACADE CLASS
 </ol>

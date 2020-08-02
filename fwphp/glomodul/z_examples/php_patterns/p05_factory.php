@@ -37,7 +37,7 @@ $veyron = AutomobileFactory::create('Bugatti', 'Veyron');
 print_r('Output (maker, model) : ' . $veyron->getMakeAndModel()); // outputs "Bugatti Veyron"
 
 ?>
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <ol>
 <li>If you need to change, rename, or replace the Automobile class later on you can do so and you will only have to modify the code in the factory, INSTEAD OF EVERY PLACE IN YOUR PROJECT that uses the Automobile class. 
 <li>If creating the object is a COMPLICATED JOB you can do all of the work in the factory.

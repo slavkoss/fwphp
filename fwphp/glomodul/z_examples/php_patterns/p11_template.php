@@ -135,7 +135,7 @@ clientCode(new ConcreteClass2);
 <p>Identification: Template Method can be recognized by behavioral methods that already have a "default" behavior defined by the base class.</p>
 
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <p>Structure of the Template Method</p>
 <ol>
 <li>What classes does it consist of?

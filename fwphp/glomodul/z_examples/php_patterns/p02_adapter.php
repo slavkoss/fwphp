@@ -269,7 +269,7 @@ $customer -> buy("lollipop", 2);
 </p>
 
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <ol>
 <li>methods of the adapter class, are constructed from the new class`s methods as bodies wrapped with the names of the old class`s methods. 
 <li>By doing so, the adapter translates the new interface to the old interface, and so saves us the trouble of re-writing our existing code.

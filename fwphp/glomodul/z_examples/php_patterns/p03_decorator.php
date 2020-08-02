@@ -130,7 +130,7 @@ clientCode($decorator2);
 <p>Problem starts when customers are given the choice to add optional features to their car, like high end wheels, a car rear spoiler, or a sun roof. We wouldn't like to change the existing classes to include optional features, so we need a better solution - decorator pattern, which instructs us to add to the basic classes that implement the interface, an abstract class eg CarFeature that also implements the same Car interface. The abstract class is used as a super-class that the features classes inherit from eg concrete class SunRoof or HighEndWheels which extends the CarFeature decorator.</p>
 
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <p>In order to implement the code, we need to:</p>
 <ol>
 <li>Create an object from one of the basic classes (in our example, it is the Suv class).

@@ -2,8 +2,8 @@
 **Top**      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [DM](#dm)      [IDE](#ide)    [CRUD](#crud)     [SW fw](#swfw)        
 # 1. My PHP menu & CRUD code skeleton (I named it B12phpfw)
 ## 1\.1 Demo site - free hosting with free Mysql
-1. On Linux : http://phporacle.eu5.net/ (freehostingeu- fast, stable) - here are newest programs (may be more problems than heliohost). Also PHP on Linux is a bit different than on Windows.
-2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable)
+1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - here are newest programs (may be more problems than heliohost). Also PHP on Linux is a bit different than on Windows.
+2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL)
 3. My blog :  http://phporacle.altervista.org
     and  http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
     
@@ -13,10 +13,20 @@
 3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**      
     and in phpmyadmin import J:\awww\www\01_DDL_mysql_blog.sql in database z_blogcms (or in Oracle db 01_DDL_oracle_blog.sql).       
 
-After that to understand how B12phpfw CRUD framework works (eg $db = new Home_ctr($pp1) ; //Home\_ ctr (or App) class "inherits" index.php ee "inherits" $ p p 1),    
-you should learn/try J:\awww\www\fwphp\glomodul\z_examples\php_patterns\singleton_B12phpfw.php     
-http://dev1:8083/fwphp/glomodul/z_examples/php_patterns/singleton_B12phpfw.php?i/read_post/     
-In 2 scripts: singleton_B12phpfw.php and Home_ctr.php is everything important but is not easy to learn (same as any framework).    
+After that to understand how B12phpfw CRUD framework works (eg $db = new Home_ctr($pp1) ; //Home\_ ctr (or App) class "inherits" index.php ee "inherits" $ p p 1), you should learn/try two modules like Oracle FORMS forms .fmb :     
+1. J:\awww\www\fwphp\glomodul\z_examples\01_php_bootstrap\flexmoj\FLEX_minisite2017          
+    http://dev1:8083/fwphp/glomodul/z_examples/01_php_bootstrap/flexmoj/FLEX_minisite2017        
+    This module shows basic site module code idea (I think best site pages navigation - B12phpfw is needed only for CRUD !).      
+    It is very easy to learn and pages are very fast. It is easy to use Bootstrap 4 instead FLEX but pages are slower (good exercize).
+2. J:\awww\www\fwphp\glomodul\z_examples\php_patterns\singleton_B12phpfw.php           
+    http://dev1:8083/fwphp/glomodul/z_examples/php_patterns/singleton_B12phpfw.php?i/read_post/      
+    This module shows basic CRUD code idea in B12phpfw, ee how to use B12phpfw code for CRUD.      
+    In 2 scripts: singleton_B12phpfw.php and Home_ctr.php is everything important but is not easy to learn (same as any framework).    
+
+Explanations below are far less important than demo site, code download and modules mentioned above.
+<br><br><br>
+
+
 
 <span id="directories"></span>
 ## 1\.3 B12phpfw directories (modules) structure

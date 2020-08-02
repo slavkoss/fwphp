@@ -294,7 +294,7 @@ Establishing a connection with a database is time consuming and slows down our a
 <p>The only way to create an instance from the class is by using a static method that creates the object only if it wasn't already created.</p>
 
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <p>In order to implement the code, we need to:</p>
 <ol>
 <li>Create an object from one of the basic classes (in our example, it is the Suv class).

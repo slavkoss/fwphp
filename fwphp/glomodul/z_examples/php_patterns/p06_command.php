@@ -156,7 +156,7 @@ $invoker->doSomethingImportant();
 <p>06. COMMAND  PATTERN - behavioral design pattern that converts requests or simple operations into objects.</p>
 
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <ol>
 <li>Used for queueing tasks, tracking the history of executed tasks and performing the "undo".
 <li>The Command pattern is recognizable by behavioral methods in an abstract/interface type (sender) which invokes a method in an implementation of a different abstract/interface type (receiver) which has been encapsulated by the command implementation during its creation. Command classes are usually limited to specific actions.

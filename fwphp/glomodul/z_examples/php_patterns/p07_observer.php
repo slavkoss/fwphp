@@ -157,7 +157,7 @@ $subject->someBusinessLogic();
 
 <p>Identification: The pattern can be recognized by subscription methods, that store objects in a list and by calls to the update method issued to objects in that list.
 
-<p>Pros (Benefits) and Cons</p>
+<p>Pros (benefits, advantages) and Cons</p>
 <ol>
 <li>
 </ol>
