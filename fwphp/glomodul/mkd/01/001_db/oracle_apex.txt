@@ -4,13 +4,16 @@
 **Top**.....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
 .....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
-This txt on my Github :   https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/mkd/01/001_db/oracle_apex.txt  
->Md to HTML converters on inet :   **http://demo.showdownjs.com/**  or  https://daringfireball.net/projects/markdown/dingus
-or https://pandoc.org/try/ or https://products.aspose.app/pdf/conversion/md-to-html  to many formats
-or https://markdowntohtml.com/   or   https://www.browserling.com/tools/markdown-to-html (and html to md and... many converters)
+>This txt on my Github :   https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/mkd/01/001_db/oracle_apex.txt  (in Markdown format) is based on https://drive.google.com/drive/my-drive    **2020_Riaz_Oracle_APEX_20_For_Beginner.pdf : **,  URL to Download Book Code (no DDL)  https://tinyurl.com/oracleapex20  
 
-https://drive.google.com/drive/my-drive    **2020_Riaz_Oracle_APEX_20_For_Beginner.pdf : **      URL to Download Book Code (no DDL)  https://tinyurl.com/oracleapex20  
+>MD to HTML converters on inet :
+1. **https://markdowntohtml.com/**   
+2. or   https://www.browserling.com/tools/markdown-to-html (many converters)  
+3. or files convert :  https://products.aspose.app/pdf/conversion/md-to-html  to many formats  
+4. Links not working :     http://demo.showdownjs.com/ (no HTML source)  
+  NOT WORKING : https://daringfireball.net/projects/markdown/dingus    or   https://pandoc.org/try/ 
 
+### Cloud APEX Sales app
 1. **Cloud Dev APEX : https://apex.oracle.com/pls/apex/f?p=4500:1000** is opened  (APEX add  :722441254522763:::::)  
    or dev URL https://apex.oracle.com/pls/apex/f?p=4550  
    To sign in Cloud Dev APEX : https://apex.oracle.com/en/  -> "Sign in" button which opens Login page  
