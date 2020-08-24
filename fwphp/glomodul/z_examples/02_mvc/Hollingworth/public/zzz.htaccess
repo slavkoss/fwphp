@@ -1,0 +1,13 @@
+# Remove the question mark from the request but maintain the query string
+RewriteEngine On
+
+#RewriteBase /
+# J:\xampp\htdocs\z_Hollingworth\login\public
+# http://localhost:8083/z_Hollingworth/login/public/
+# Uncomment the following line if your public folder isn't the web server's root
+#   but does not help for links !!
+RewriteBase /z_Hollingworth/login/public
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]

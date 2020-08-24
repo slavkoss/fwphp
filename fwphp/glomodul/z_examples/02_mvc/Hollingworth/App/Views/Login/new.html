@@ -1,0 +1,48 @@
+<?php
+// J:\xampp\htdocs\z_Hollingworth\login\App\Views\Login\new.html
+//{% extends 'b ase.html' %}  ee  includes b ase.html !!
+use App\Config;
+$cnf = new Config;
+
+$title        = 'Log in';
+$body         = '<h1>Log in</h1>';
+
+$footer = 'THIS VIEW IS '. __FILE__ .' which extends '
+  . dirname(dirname(__FILE__)) . '/base.html';
+            $current_user = 'current_user';
+            $current_user_name = 'current_user_name';
+
+$email        = '' ;
+$remember_me  = '' ;
+
+ob_start(); //ob_ start("callbackfn"); //without output buffering breaks line
+?>
+    <form action="<?=$cnf->MODULE_RELURL?>/login/create" method="post">
+
+        <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input type="email" id="inputEmail" name="email" placeholder="Email address" autofocus value="<?=$email?>" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input type="password" id="inputPassword" name="password" placeholder="Password" class="form-control" />
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="remember_me"
+                <?php if ($remember_me) { ?> checked="checked" <?php } ?> /> Remember me
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-default">Log in</button>
+        <a href="/password/forgot">Forgot password?</a>
+
+    </form>
+
+<?php
+$body .= ob_get_contents();
+ob_end_clean(); //ob_ end_flush(), ob_ get_flush()...
+
+//http://localhost:8083/z_Hollingworth/login/public/login
+include $cnf->MODULE_PATH .'\App\Views\base.html' ;
+    //'J:\xampp\htdocs\z_Hollingworth\login\App\Views\base.html' ;

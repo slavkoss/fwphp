@@ -1,38 +1,65 @@
----
+<hr />
+~~  
 Title: MD cheatsheet and SimpleMDE JS based Markdown Editor  
 Published: 2018-03-20  
 Author: phporacle  
 Template: blog  
-Tag: Help, Markdown 
-`---`
-> `"> "` is quote
-# 1. Content
+Tag: Help, Markdown sintax, SimpleMDE  
+~~  
+**See https://www.tutorialspoint.com/online_markdown_editor.php**
 
-#### [About SimpleMDE](#SimpleMDE)    https://github.com/sparksuite/simplemde-markdown-editor
+https://www.w3schools.com/html/html_symbols.asp   
 
-1. H1, H2... (hash, 2xhash... at beginning), H2 with equal signs in next line is H1, H2 with minus signs in next line is H3.
-    Underlined `-` or `=` text is header.
-    Ignoring Markdown formatting: by using \ before the Markdown character. Eg
-    Let's rename \*our-new-project\* to \*our-old-project\*. Same without \ :   
-    Let's rename *our-new-project* to *our-old-project*. 
-1. [Emphasis (bold...)](#Emphasis)
-1. [Lists](#Lists)
-1. [Links](#Links)  `[**inline-style** https://google.hr link](https://google.hr)`
-   [**inline-style** https://google.hr link](https://google.hr)  
-   Anchors new : jumps to anchor `[Lists](){:name='Lists'}`  - not working for me
-   old  `[Emphasis](#Emphasis)` jumps to `<a name="Emphasis"></a>2. Emphasis`  
-1. [Images](#Images)
-1. [Code](#Code) and Syntax Highlighting: 
-   code inline: backticks (`altgr+7`) around string
-   or block: eg three `altgr+7`php ...SOME CODE...  three `altgr+7`,    or four blanks at line beginning (in this list does not work)
-1. [Tables](#Tables)
-1. [Blockquotes](#Blockquotes)
-1. Inline HTML: raw HTML mostly works
-1. HR (Horizontal Rule): Three or more hypens `---` or 3 asterisks `***` or 3 underscores `___`
+https://www.degraeve.com/reference/specialcharacters.php
+
+#### [About SimpleMDE](#SimpleMDE)    https://github.com/sparksuite/simplemde-markdown-editor
+# 1. Content   
+1. **non-breaking space**
+    
+    | System     | Key combination                                             |
+    |------------|-------------------------------------------------------------|
+    | Windows   | <kbd>Alt + 255 or ANDnbsp;</kbd> |       
+    |                   | or Alt + 0160 |
+    | macOS       | ⌥ Opt+Space |
+    | Linux         | Compose+Space+Space        |
+    | In many commercial software | Ctrl + Space  |
+    
+1. `Text Underlined with - or =  is header`
+    H1, H2... (hash, 2xhash,... at line beginning), H2 with equal signs in next line is H1, H2 with minus signs in next line is H3.
+
+1. Ignoring Markdown formatting: by using \ before the Markdown character. Eg
+    Let's rename \*our-new-project\* to \*our-old-project\*.  
+    Same without \ :  Let's rename *our-new-project* to *our-old-project*.  
+1. [Emphasis (bold...)](#Emphasis)  
+    
+1. [Lists](#Lists)  
+    
+1. [Links](#Links)  [inline-style: https://google.hr link](https://google.hr)  
+    `[inline-style: https://google.hr link](https://google.hr)`
+   `Anchors new : jumps to anchor [Lists](){:name='Lists'}  - not working for me`
+   `old  [Emphasis](#Emphasis) jumps to <a name="Emphasis"></a>2. Emphasis`
+   
+1. [Images](#Images)  
+   
+1. [Code](#Code) and Syntax Highlighting:  
+   `code inline: backticks (altgr+7) around string or or <kbd>some_txt</kbd>`
+   `or block: eg three altgr+7php ...SOME CODE...  three altgr+7,    or four blanks at line beginning (in this list does not work)`
+  
+1. [Tables](#Tables)  
+   
+1. [Blockquotes](#blockquotes)  
+   
+1. Inline HTML: raw HTML mostly works  
+   
+1. `HR (Horizontal Rule): Three or more hypens --- or 3 asterisks *** or 3 underscores ___`
+    
 1. Line Breaks: two blanks at line end or ENTER KEY twice  
-Blank line : `\HTML space character ANDnbsp; followed by 2 spaces or <br /> or ANDNewLine;`  
-1. [Videos](#Videos)  (Youtube)
-[--more--]   
+
+1. `Blank line : \HTML space character ANDnbsp; followed by 2 spaces or <br /> or ANDNewLine;`
+    
+1. [Videos](#Videos)  (Youtube)  
+
+[more]   
 
 
      
@@ -182,8 +209,8 @@ Markdown | Less | Pretty
 1 | 2 | 3
 
 
-
-# <a name="Bolockquotes"></a>8. Blockquotes
+<a name="blockquotes"></a>
+# 8. Blockquotes
 > Blockquotes are very handy in email to emulate reply text.
 > This line is part of the same quote.
 

@@ -1,3 +1,4 @@
+---
 <a name="top"></a>
 **Top**      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [DM](#dm)      [IDE](#ide)    [CRUD](#crud)     [SW fw](#swfw)        
 # 1. My PHP menu & CRUD code skeleton (I named it B12phpfw)
@@ -1770,3 +1771,5 @@ To be sure, use DI or IoC with DIP.
 
 I never understood enough fw authors explanations which is one of reasons why I do not believe them).   (font Century Gothic 16)      
 
+___
+[Top](#top).....<a href="#directories" id="lnkdirectories">Directories</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   

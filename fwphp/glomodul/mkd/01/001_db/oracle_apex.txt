@@ -1,124 +1,1917 @@
-http://127.0.0.1:8080/apex/apex_admin 
+ ---  
+<a name="top"></a>
+2020.08.17  
+## 1. Intro
+**Top**.....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
-file:///L:/1_instalac/2_instalac_ora/z_ostalo/2_oracleXE/11XE_win/apex_dokum/AEMIG/overview-migration-process.htm#AEMIG139
+https://drive.google.com/drive/my-drive    **2020_Riaz_Oracle_APEX_20_For_Beginner.pdf : **      URL to Download Book Code (no DDL)  https://tinyurl.com/oracleapex20  
 
-http://www.oracle.com/technetwork/developer-tools/apex/application-express/podcasts-090206.html
+**Cloud Dev APEX : https://apex.oracle.com/pls/apex/f?p=4500:1000** is opened  (added is  :722441254522763:::::)  
 
-https://www.youtube.com/watch?v=5kPxqEXM5UM
+** Cloud run APEX Sales app : https://apex.oracle.com/pls/apex/possys/r/sales-web-app4/home**  (added is  ?session=710994255959550)  
 
-https://www.youtube.com/watch?v=gg6Gy1VtqmA
-
-L:\2_knjige\oracle\apex\8_instal_oracle_10XE_APEX32_devsuite101_MOJ.txt
-L:\1_instalac\2_instalac_ora\z_ostalo\9_ASG_F6i_f11\1_f6i
-
-L:\1_instalac\2_instalac_ora\z_ostalo\2_oracleXE\11XE_win
-L:\1_instalac\5_inst\1_instalac_old\0instal\1_moj_WinPostInst\z_mojeF6R6_ASGphp32bit\2_ORA_f10_DeveloperSuite10g
-
-C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Oracle Database 11g Express Edition
-C:\oraclexe\app\oracle\product\11.2.0\server
-
-C:\OraDS10Home1\BIN
-
-##  cf6 = Convert Oracle Forms 6i (9 or ...) to APEX
-frmf2xml [options] file1 [file2...] 
-
-C:\OraDS10Home1\BIN\frmf2xml.bat L:\asg\hr\poplist_dept2.fmb
->XML Module saved as L:\asg\hr\poplist_dept2_fmb.xml
-
-C:\OraDS10Home1\BIN\frmf2xml.bat L:\asg\possys6\tipdok.fmb
->XML Module saved as L:\asg\possys6\tipdok_fmb.xml
+dev URL https://apex.oracle.com/pls/apex/f?p=4550   
+After "p=" is app alias 4500 (appID) means eg sales-web-app4, possys is workspace.   1000 is pageID.
 
 
-login to cf6/admin/admin = Access the workspace **cf6** you created for your conversion project.
-Click the App Builder icon.
-Click Oracle Forms **Migrations** on the right side of the page.
-On the Application Migrations page, click **Create Project**.
-Enter the project details:
-Project Name - **hr** Enter a unique name. The project name must be unique to your current workspace and should not contain any white spaces.
-Description - **hr user forms migrated to APEX 18.1**
-Schema - hr Select the schema that contains the database schema objects associated with the Oracle Forms application you want to convert.
-The default schema is the schema associated with your workspace. If multiple schemas are associated with your workspace, all associated schemas appear in the select list, arranged in alphabetical order. When this situation exists, select the schema associated with the Oracle Forms you want to upload.
-Forms Module XML File -**L:\asg\hr\poplist_dept2_fmb.xml** which contains the information of your converted Oracle FormModule
-Note that you must upload the converted Oracle FormModule file first.
-Click Next.
-The Confirm page appears.
-To add more files, click Upload Another File.
+**To leave Ora. APEX envir**, click your name (appearing at top-right) and select Sign Out.    
+
+To sign in : https://apex.oracle.com/en/  -> "Sign in" button which opens Login page or     
+
+**https://apex.oracle.com/pls/apex/f?p=4550**
+ 
 
 
 
 
-**C:\OraDS10Home1\BIN\frmf2xml.bat C:\OraDS10Home1\forms\test2.fmb**
-C:\OraDS10Home1\BIN\frmf2xml.bat C:\OraDS10Home1\forms\test2.fmb
-Oracle Forms 10.1.2 Forms to XML Tool
-Copyright(c) 2001, 2005, Oracle.  All rights reserved.
-Processing module C:\OraDS10Home1\forms\test2.fmb
-XML Module saved as C:\OraDS10Home1\forms\test2_fmb.xml
+<br /><br /><br /><a name="lnkapexws_cloud"></a>
+## 2.1 Own free Workspace to execute exercises online on  Ora. servers
+[Top](#top).....**Apexws_cloud**.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm).....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)   ......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img).....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
->Not working if form contains image :
-Processing module C:\OraDS10Home1\forms\test.fmb
-ERROR - an exception has been encountered:
-**_jni_gra_export_image failed**
+1.  https://apex.oracle.com/en/ Oracle APEX site
+2.  click  "Get Started for Free" button
+3.  click "Request a Free Workspace" button    
+    On the  Identification   wizard  screen,  enter :   
+    Request a Workspace   
+      First Name     Slavko    Last Name      Srakocic   
+      Email          **slavkoss22@gmail.com**    
+      Workspace      **possys**       Country        Croatia       Usage          Personal   
+    Email : Workspace Request Approved  
+   Environment: https://apex.oracle.com/pls/apex/   
 
+      Click "Create Workspace" button to complete the approval process and set your psw.   
+      Workspace Successfully Created Your request for an account has been approved.   
+      Button "Continue to Sign in screen" psw=**MYLONGPSW** opens page :  
 
+    **Cloud Dev APEX : https://apex.oracle.com/pls/apex/f?p=4500:1000:722441254522763:::::** is opened    
 
-**C:\OraDS10Home1\BIN\frmf2xml.bat**
-@ECHO OFF
-REM
-REM  DESCRIPTION
-REM    This file is used to call the Forms2XML conversion tool.
-REM    It takes .fmb, .mmb, and .olb files and converts them into XML.
-REM 
-REM  NOTES
-REM    It wraps the class oracle.forms.util.xmltools.Forms2XML and passes
-REM    any parameters given onto the tool.
-REM    You can only use the standard nine parameters, but these can include
-REM    wildcards in the filenames.
-REM
-
-REM Setup the path to include the necessary Forms dlls.
-set PATH=C:\OraDS10Home1\bin;%PATH%
-
-REM Run the tool with the required jar files added to the classpath
-C:\OraDS10Home1\jdk\bin\java -classpath C:\OraDS10Home1\forms\java\frmxmltools.jar;C:\OraDS10Home1\forms\java\frmjdapi.jar;C:\OraDS10Home1\lib\xmlparserv2.jar;C:\OraDS10Home1\lib\xschema.jar oracle.forms.util.xmltools.Forms2XML %*
+    Application Express 20.1.0.00.13  Copyright © 1999, 2020    
 
 
+ 
+<br /><br /><br /><a name="app_builder"></a>
+## 2.2 Applications, App. builder
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....**App. builder**.....[Page](#page).....[Environm](#environm).....[URL](#url)   .....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
-## INSTALL / DEINSTALL APEX
-2018.08.10
-11111
-c:\temp\apex>C:\oraclexe\app\oracle\product\11.2.0\server\bin\sqlplus.exe /nolog
-SQL*Plus: Release 11.2.0.2.0 Production on Pet Kol 10 18:00:35 2018   Copyright (c) 1982, 2014, Oracle
-          **above avoids old sql+ from  2008. 11.1.0.7.0**  !!!
-          (I have also SQL*Plus: Release 12.2.0.1.0 Production   Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production)
-22222
-conn sys/MYPSW as sysdba    or  conn sys/MYPSW@XE as SYSDBA
+Create and manage apps  and app. pages :   
+1. Create :   
+   1. New App based on tables you select or by providing a valid SQL
+   2. From a File :    
+      Load Data Wizard appears to load definitions & data in CSV, XLSX, XML, TXT or JSON    
+      or Copy and Paste column delimited data    
+      After loading data into DB tbl, wizard creates some app. pages based on new tbl  
+    3. Productivity Apps eg  proj. mngmnt,  surveys,  shared  calendars, and tracking apps   
+       Can be installed, run, and removed.  
 
-SELECT username  FROM dba_users  WHERE (  username LIKE 'FLOWS\_______' ESCAPE  '\'   OR username LIKE 'APEX\_______' ESCAPE '\' )   
-AND username NOT IN ( SELECT schema FROM dba_registry WHERE comp_id = 'APEX' );
-If the results contain entries in the form  FLOWS_XXXXXX  or  APEX_XXXXXX  where  XXXXXX represents six numbers, those entries are candidates for removal.
-33333
-DROP USER APEX_040000 CASCADE;
-DROP USER APEX_180100 CASCADE;
-44444
-@apexins.sql SYSAUX SYSAUX TEMP /i/
-SELECT DBMS_XDB.GETHTTPPORT FROM DUAL;
-55555
-@apex_epg_config.sql C:\TEMP
-ALTER USER ANONYMOUS ACCOUNT UNLOCK;
-SELECT DBMS_XDB.GETHTTPPORT FROM DUAL;
---8080
-66666
-@apxchpwd.sql
+2. Import
+3. Dashboard
+4. Workspace Utilities
+ 
 
-       ADMIN created
-       slavkoss22@gmail.com
-       MYPSW_LONG
+<br /><br /><br /><a name="page"></a>
+## 2.3 Page
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....**Page**.....[Environm](#environm).....[URL](#url)   .....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
-http://127.0.0.1:8080/apex/apex_admin
-or http://127.0.0.1:8080/apex/apex  workspace internal, admin/MYPSW_LONG
+**Page creation wizards** (option to create a blank page and add components manually), **Page Designer** interface to add more controls after page creation.  
+
+APEX dynamically  renders  and  processes pages  based  on  data  stored  in  Oracle  DB  tables.  To  view  a  rendered version  of  your  app,  you  request  it  from APEX engine with a URL.  When you run app APEX engine relies on **two processes**: 
+1. **Show  Page**  is  the  page  rendering  process.  It  assembles  all  the  page attributes (including regions, items, and buttons) into a viewable HTML page.  When you request a page using a URL, the engine is running Show Page.
+2. **Accept  Page**  performs  page  processing.  It  performs  any  computations, validations,  processes,  and  branching.  When  you  submit  a  page :
+    1. APEX  engine  is  running  Accept  Page  or  performing  page processing during which it 
+    2. saves submitted values in session cache 
+    3. and then performs any computations, validations, or processes.
+
+You can create following **types of pages** for your application:
+1. Blank Page Creates a page without any built-in functionality
+2. Report Used to present a SQL query in a formatted style
+    1. Interactive Report
+    2. Interactive Grid
+    3. Classic  Report
+3. Form
+    1. Editable Interactive Grid
+    2. Report  with  Form
+4. Master Detail
+    1. Stacked
+    2. Side by Side
+    3. Drill Down
+    4. Plug-ins
+    5. Chart
+    6. Tree
+    7. Calendar
+    8. Data Loading
+ 
+
+<br /><br /><br />
+## 2.4 Region, Items, Buttons,  Development Environment,  Page Designer
+
+### 1. Region (stacked canvas)
+is page area that serves as container  for  content. **Region template** controls region look , its size, determines whether there is border or background color, and what type  of  fonts  to  display. Also  determines  standard placement for any buttons placed in region positions. You can use regions **to group page elements** (such as items or buttons). Oracle APEX supports many different **region types** eg **Static  Content,  Classic  Report,  Interactive Report, Interactive Grid, Chart**, and more.
+
+### 2. Items
+Text  Field,  Textarea,  Password,  Select  List, Checkbox... Item properties : where a label displays, how large an item is, and if the item displays next to or below previous  item.  Page  item name is  preceded  **P followed by number** eg  P7_CUSTOMER_ID represents custID item on page 7.
+
+### 3. Buttons
+to submit a page or to take users to another page (redirect) 
+1. within the same site where  a  user  submits  a  page,  the Oracle  APEX  engine  executes  some  processes  associated  with  a  particular button and uploads the page’s item values to the server - see Figure 1-3 in chapter  1
+2. or  to  a  different  site
+
+In  case  of  a  **redirect : nothing  is  uploaded  to  the  server**.  If  you change  some  items  values  on  a  page  and  press  a  **button created with a redirect action**, those changes will be lost.
+
+You have three button options that you can add to a web page, these are: **Icon, Text, and Text with Icon**. You can place buttons either in predefined region positions or with other items in a form - see Figures 1-1, 1-3, and 1-7 in chapter 1.
+
+Being an important component to control the flow of DB appls, **buttons are created by right-clicking a region** in which you want to place the button  and  selecting  Create  Button  from  the  context  menu.  By  placing buttons (such as Create, Delete, Cancel, Next, Previous , and more) on your web page, you can post or process the provided information or you can direct user to another page in the application or to another URL.
+
+Buttons are used to:
+
+1. **Submit a page**. For example, to save user input in a database table. When a button on a page is clicked, the page is submitted with a REQUEST value that carries the button name. You can reference the  value  of  REQUEST  from  within  PL/SQL  using  the  bind variable  :REQUEST.  By  using  this  bind  variable,  you  can conditionally  process,  validate,  or  branch  based  on  which  button the  user  clicks.  You  can  create  processes  that  execute  when the user clicks a button. And you can use a more complex condition as demonstrated in the following examples:
+    ```
+    If :REQUEST in ('EDIT','DELETE') then ...
+    If :REQUEST != 'DELETE' then ...
+    ```
+     These  examples  assume  the  existence  of  buttons  named  EDIT  and DELETE.  You  can  also  use  this  syntax  in  PL/SQL  Expression conditions.  Be  aware,  however,  that  the  button  name  capitalization (case) is preserved. In other words, if you name a button LOGIN, then request looking for the name Login fails.
+
+ 2. Take  user  to  another  page  within  the  same  app  with optional  additional  properties  for  resetting  pagination,  setting  the request value, clearing cache, and setting item values on the target page.
+
+3. Redirect to another URL. 
+
+4. Do  nothing-for  example,  if  the  buttons  behavior  is  defined  in  a Dynamic Action.
+
+5. Download  Printable  Report  Query.  This  creates  a  Submit  Page button  and  also  a  corresponding  branch.  When  the  button  is clicked, the output is downloaded from the Report Query.
+
+ 
+
+<br /><br /><br /><a name="environm"></a>
+## 2.5 APEX Web-based app Development Environment to build web apps
+
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....**Environment**.....[URL](#url)   [Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+You are not required to install any client software to develop, deploy, or run Oracle APEX applications.
+
+Primary **tools** provided by Oracle APEX :
+1. App  Builder  -  to  create  dynamic  database  driven  web appls. This is the place where you create and modify your applications and pages. It comprises the following :
+   1. Create: This is the option in the App Builder that is used to  create  new  applications.  See  section  2.3.2
+   2. Import:  Used  to  import  an  entire  Oracle  APEX application developed somewhere else, along with related files.
+   3. Dashboard: Presents different metrics about applications in  your  workspace  including:  Developer  Activity,  Page Events,  Page  Count  by  Application,  and  Most  Active Pages.
+   4. Workspace  Utilities: Most significant is  **Export** app  and  component metadata to **SQL script file format** that you can import on the  same  or  another  compatible  instance  of  APEX. 
+
+2. SQL Workshop -  to browse your database objects and to run  ad-hoc  SQL  queries,  SQL Workshop  is  designed  to allow  Application  Developers  to  maintain  database  objects such as tables, packages, functions, views, and so on. It is beneficial  in  **hosted  environments  like  apex.oracle.com where direct access to underlying schemas is not provided**. It has five basic components:
+   1. Object Browser: to review and maintain database objects (tables, views, functions, triggers, and so on).
+   2. SQL Commands: to run SQL queries.
+   3. SQL Scripts: to upload and execute script files.
+   4. Utilities:  includes  Query  Builder,  Data  Workshop, Generate DDL, Schema Comparison , and more.
+   5. RESTful  Services:  to  define  Web  Services  using  SQL and PL/SQL against DB
+
+3. Team  Development  -  Team  Development  allows development  teams  to  better  manage  their  Oracle  APEX projects by defining milestones, features, to-dos, and bugs. Features,  to-dos,  and  bugs  can  be  associated  with  specific apps and pages as necessary. Developers can readily configure  feedback  to  allow  their  end-users  to  provide comments  on  app.  The  feedback  also  captures relevant session state details and can be readily converted to a feature, to-do or bug.
+
+4. App Gallery  -   Productivity apps are a suite of business productivity  applications,  easily  installed  with  only  a  few clicks.  These  solutions  can  be  readily  used  as  production applications  to  improve  business  processes  and  are  fully supported by Oracle.
+
+
+
+Oracle APEX environment has two broad categories:
+1. **Development**  Environment:  Here  you  have  complete  control  to build and test your applications.
+2. **Runtime**  Environment:  After  completing  the  development  and testing  phase,  you  implement  your  applications  in  a  production environment  where  users  can  only  run  these  applications  and  do not have the right to modify them.
+
+ 
+<br /><br /><br />
+## 2.6 Page Designer
+
+1. **Page Designer toolbar** (A) page top. It comprises various tools to find a page, lock/unlock a page, undo/redo actions, save and run  page,  and  so  on.  When  you  pass  your  cursor  over  an  active  option,  a tooltip indicates what that particular toolbar option does.   
+
+   **Utilities menu** has an option that lets you delete the page being displayed in your browser. A lock icon indicates whether a page is currently locked.- open padlockor locked  padlock.  An  indication  (a  locked  padlock)  for  a  locked  page  is displayed  in  Page  Designer  as  well  as  on  the  Application  home  page  -  as illustrated in Figure 2-5. This feature enables you to prevent conflicts during app  development.  By  locking  a  page  you  prevent  other  developers from editing it.Figure 2-5 Page Lock Indicator
+
+2. **Tree Pane** is displayed on the left side in the Page Designer. It contains regions,  items,  buttons,  application  logic  (such  as  computations,  processes, and validations), dynamic actions, branches, and shared components as nodes on a tree. It comprises four tabs :
+   1. Rendering  (B)  -  Displays  regions,  page  items,  page  buttons,  and app logic  as  nodes  in  a  tree.  The  components  defined  in  this section appear when a page is rendered. These components can be viewed as  a  tree,  organized  either  by  processing  order  (the  default)  or  by component type. The first two buttons to the right of the Rendering label can be used to toggle between the rendering trees. Rendering is divided in three  stages :
+   2. In  the  Pre-Rendering  stage  preliminary  computations  are performed.  The  main  rendering  stage  comprises  regions  and  its components,  while  the  Post-Rendering stage  also  carries  computations that occur after rendering a page. 
+   3. Dynamic Actions (C) -  Displays dynamic actions defined on this page. By  creating  a  dynamic  action,  you  can  define  complex  client-side behavior declaratively without the need for JavaScript. Refer to Dynamic Actions  entry  in  the  book’s  index  to  see  its  utilization  in  the  project application.
+   4. Processing  (D)  -  Use  this  tab  to  specify  application  logic  such  as computations,  validations,  processes,  and  branches.  **Computations**  are Oracle  APEX's  declarative  way  of  setting  an  item's  values  on  the  page. These  are  units  of  logic  used  to  assign  session  state  to  items  and  are executed  at  the  time  the  page  is  processed.  **Validation**  is  a  server-side mechanism  designed  to  check  and  validate  the  quality,  accuracy,  and consistency of the page submitted data, prior to saving it into DB. If  a  validation  fails,  further  processing  is  aborted  by  the  server  and  the existing page is redisplayed with all inline validation errors. Processes are logic  controls  used  to  execute  DML (Data  Manipulation  Language) or PL/SQL.  Processes  are  executed  after  the  page  is  submitted.  A  page  is typically submitted when a user clicks a button. Branches enable you to create  logic  controls  that  determine  how  the  user  navigates  through  the application.  The  left  iconic  button  to  the  right  of  the  Processing  label displays  the  components  under  this  tab  according  to  the  servers processing  order.  The  middle  button  organizes  these  components according to their type, while the third one provides a menu to create a new component in the selected folder. 
+   5. Page Shared Components (E) -  Displays shared components associated with this page. The list on this tab gets populated automatically when you use shared components on a page.
+
+3. **Central Pane** in the Page Designer has two sections. The upper section contains three tabs: Layout, Page Search, and Help. The lower pane is called Gallery and it is associated with the Layout tab.
+   1. Layout (F) is a visual representation of the regions, items, and buttons that define a page. You can add new regions, items and buttons to a page by selecting them from the Gallery at the bottom of the page.
+   2. Page Search (G) -  to search all page metadata including regions, items, buttons, dynamic actions, columns, and so on.
+   3. Help  (H) displays  help  text  for  properties  in  the  Property Editor. Click a property in the Property Editor and then click the Help tab (in the Central pane) to see the purpose of the selected property. As you move from one property to the next in the property editor, the Help tabdisplays the help text for the currently selected property.
+
+4. Property Editor appears in the right pane and displays all the properties and values for the current component. As you select different components in either Tree View or Layout tab, the Property Editor automatically updates to reflect the current selection. Properties are organized into functional groups (Identification,  Source,  Layout,  Appearance,  and  more)  that  describe  their purpose. When you modify or add a value to a property, a colored vertical bar appears as a visual modification indicator before the property name.
+
+ 
+
+
+<br /><br /><br /><a name="url"></a>
+## 2.7 APEX URL Syntax
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page)   [Environm](#environm).....**URL**   .....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+### f?p  URL  Syntax
+
+is  a  legacy syntax  that  creates  a  unique  URL  structure  that  identifies  address  of  APEX, app ID, page number, and session ID.
+
+ 
+
+**https://apex.oracle.com/pls/apex/f?p=4500:1000:706440515653484**
+
+**In code: https://apex.oracle.com/pls/apex/f?p=&APP_ID.:1000:&APP_SESSION.:::::**
+
+ 
+
+https://   URL of the server / **pls** is indicator to use the mod_plsql cartridge     
+
+/ **apex** is (default)  DAD (database  access  descriptor)  name. DAD describes how HTTP server connects to DB server to fulfill HTTP request.        
+
+ 
+
+/ **f?p=** is a prefix used by Oracle APEX to route the request to the correct engine process    
+
+**4500** is appID being called : 1000 is page within app to be displayed      
+
+: 440323506685863558 is **session number** to keep track of user’s session state     
+
+ 
+
+Developer  Toolbar among  other  tools  for  developers contains  a  **Session  option**,  which shows you the current session state. Clicking it opens a window (called Session Page, shown in Figure 2-6)  carrying  all  items  and  their  current session  values.  It  is  useful  for  developers  to  debug  pages.  When  you change some item value on a page and submit it, the value in the session window for that item changes to reflect the current state. Use the Page,
+
+Find, and View parameters to view session state for the page. The drop-down View menu comprises Page Items, Application Items, Session State, Collections, and All options. Select an option from this list and click the Set button to refresh the Session State report.
+
+ 
+
+### Friendly URL Syntax (APEX  release  >= 20)
+
+creates a URL structure that identifies the address of APEX,  app,  page,  and  uses  a  standard URL  hierarchy  and  passes  parameters  in  a  similar  fashion. You can change existing apps to use Friendly URLs by editing  Friendly  URLs  attribute  in  app  definition  :     
+
+Shared Components | Application Definition Attributes | Properties.
+
+ 
+
+**https://apex.oracle.com/pls/apex/POSSYS/r/4500/home?session=702685162362252**
+
+ 
+
+Friendly URL Syntax creates a URL with the following directory hierarchy and syntax:     
+
+https:// apex.oracle.com / pls /apex / myws/ r / 4500 / home?session=16167973992554      
+
+Where:     
+
+1. myws   is  the  path_prefix  which  is  URI  path  prefix  used  to  access RESTful  Services.  When  you  create  a  workspace,  this  value defaults  to  workspace  name.  You  can  customize  the  URI  path prefix  by  editing  the  Path  Prefix  attribute  in        
+
+Administration  | Manage Service | Set Workspace Preferences | SQL Workshop
+
+2. r  is the router shortcut. This value is a constant and should never be changed
+
+3. 4500  is the application id
+
+4. home  is the alias of the page being displayed. **If no alias is defined, the page number is displayed instead**.
+
+5. ?session=16167973992554  identifies the session ID.
+
+ 
+
+<br /><br /><br />
+## 2.8  Substitution Strings (&varname.) and Bind Variables (:item_name)
+
+&varname. means prefix ampersand to item name and append period at its end to  reference item.
+
+ 
+
+:item_name means precede item name with colon.
+
+ 
+
+**To make your app more portable**, APEX provides many features. On top of the list are the Substitution Strings that help you **avoid hard-coded  references**  in  your  app.  Every app  has  its  own  unique  ID  used  to identify  app  and  it's  metadata  within APEX repository.  When  you  move  app  from your dev. envir. to prod. envir, and if you've hard-coded  app  references,  eg you hard-coded the application ID (101) like this:  f?p=101:1:&APP_SESSION and prod. environ. already  has  an  app  ID=101, you will  be forced  to  use  a  different  ID,  which  will  **point  all  your  links  within  app to the wrong ID**.    
+
+ 
+
+To avoid such situations, you should always use substitution strings. You can avoid  hard-coding  appID  by  using   **APP_ID  substitution string**, which identifies ID of the currently executing app. With the substitution  string,  the  URL  looks  like: **f?p=&APP_ID.:1:&APP_SESSION.**. Supported syntax for referencing APP_ID :     
+
+**Reference Type       Syntax**
+
+Bind variable                :APP_ID
+
+Substitution string        &APP_ID.
+
+ 
+
+There  are  two  ways to get a page to access the value of a session state variable:
+
+1. Use **bind variable** to  reference  the  variable  from **within SQL or PL/SQL** code, 
+
+ 
+
+2. Use **substitution string** from **within an HTML expression** so :       
+
+   1. Include  a  substitution  string  **within  a  template to  reference component values**     
+
+      Special  substitution  strings  available  within  a  template  are  denoted  by  the number symbol (#). For example:  #PRODUCT_ID# - see Chapter 4 Section 4.3.2, 4.3.5, and 4.3.6.      
+
+   2. **Reference page or app items** using &ITEM. syntax - all capital letters !       
+
+      For example, you would refer to a page item named P7_CUSTOMER_ID in a region, a region title, an item label,      
+
+      or in any of numerous other contexts in which static text is used, like this: &CUSTOMER_ID.     
+
+      Notice the required trailing period. When the page is rendered, APEX engine replaces the value of the substitution string with the value of item P7_CUSTOMER_ID.
+
+   3. Use one of many APEX **built-in** substitution strings     
+
+      To achieve specific types of functionality.  Eg APP_ID, APP_IMAGES,  APP_PAGE_ID,  APP_SESSION,  APP_USER, LOGIN_URL,  LOGOUT_URL.
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+<br /><br /><br /><a name="sales"></a>
+# 2.9  Start Building Sales app. 80858
+
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm).....[URL](#url).....**Sales**.....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+https://apex.oracle.com/pls/apex/possys/r/sales-web-app4/home?session=706440515653484
+
+1. https://apex.oracle.com/pls/apex/f?p=4550
+2. Sign In form : Username (your e-mail  address)  and  Password  (you  provided  in  Section  2.3.1) 
+3. Click   App  Builder  icon. When you select an app Application home page appears. Use the Application home page to run, edit, import, export, copy, or delete apps
+4. On the App Builder page, click Create icon
+5. Select first New App option -  Create an App page is displayed
+5. In Appearance section, click Set Appearance icon 
+6. Enter Sales Web Application in the Name box (A)
+7. On Appearance page, in  Navigation section, select Mega Menu option (or Shared Components  |  Edit  Application  Definition  |  User  Interface  | Navigation  Menu). Click  the  Choose  New  Icon button  (E),  and select an icon (F) and its color (G). By default, App Builder process creates a Home page  along with a couple of pages (Login and Global). Since  you  will  create  other  pages  for  your app in subsequent chapters, you do not need to add any page at the moment.
+8. In Features section, click the Check All link (K). In  the  **Settings  section**,  accept  all  default  values.  Here, Application ID (K) = 80858.      
+    In default APEX Accounts authentication scheme (M) users are managed and maintained in the Oracle APEX repository.
+9. Click Create App button (N), app  will  be  created  with  some  default  pages,  including  Page  1 Home,  Page 9999 Login Page and Page 0 Global Page (A).      
+      Using buttons (View Icons and View Report - B), you can get different views of this interface.      
+      To modify properties of your app (for example, app name or menu position), click Edit Application Properties button (D).        
+      See  Delete  this Application  link  (E). See Copy  this  App  link  (F) -  makes  an  exact  copy  of  the app under a different ID.  
+10. Click  Run  Application  (H) -  type same username (your e-mail ID) and the password you entered earlier to access the development environment.  
+     At the bottom of Home page is **Developer Toolbar**. Application option (D) takes you to the App Builder page, where you can select a different page to work on. The Edit Page  option (E) in this toolbar takes you to the Page Designer to edit the current page.  The  Session  option  brings  up  a  page  (see  Figure  2-6)  that displays the current state of the application so that you can verify its behavior. The Sign Out option (F top page right) exits app. Administration  menu  option  (G)  -  Administration  page  that  lists  all  the  features  you selected  in  step 9. Features section.
+
+ 
+
+ 
+<br /><br /><br />
+## 2.10  Create Database Objects interactively (no SQL) for sales app
+
+Five  tables : DEMO_STATES,  DEMO_CUSTOMERS,  DEMO_PRODUCT_INFO, DEMO_ORDER,  and  DEMO_ORDER_ITEMS.
+
+app 4500, pg 3002 is SQL workshop :     https://apex.oracle.com/pls/apex/f?p=4500:3002     
+
+app 4500, pg 1001 is SQL workshop Object browser :     https://apex.oracle.com/pls/apex/f?p=4500:1001    
+
+
+### prompt 1. DEMO_ CUSTOMERS
+```
+CREATE table "DEMO_CUSTOMERS" (
+    "CUSTOMER_ID"          NUMBER NOT NULL,
+    "CUST_FIRST_NAME"      VARCHAR2(20) NOT NULL,
+    "CUST_LAST_NAME"       VARCHAR2(20) NOT NULL,
+    "CUST_STREET_ADDRESS1" VARCHAR2(60),
+    "CUST_STREET_ADDRESS2" VARCHAR2(60),
+    "CUST_CITY"            VARCHAR2(30),
+    "CUST_STATE"           VARCHAR2(2),
+    "CUST_POSTAL_CODE"     VARCHAR2(10),
+    "CUST_EMAIL"           VARCHAR2(30),
+    "PHONE_NUMBER1"        VARCHAR2(25),
+    "PHONE_NUMBER2"        VARCHAR2(25),
+    "URL"                  VARCHAR2(100),
+    "CREDIT_LIMIT"         VARCHAR2(2),
+    "TAGS"                 VARCHAR2(4000),
+    constraint  "DEMO_CUSTOMERS_PK" primary key ("CUSTOMER_ID")
+)
+/
+
+alter table "DEMO_CUSTOMERS" modify (
+  "CREDIT_LIMIT" NUMBER(9,2)
+)
+/   
+
+CREATE sequence "DEMO_CUSTOMERS_SEQ" 
+/
+
+ 
+CREATE trigger "BI_DEMO_CUSTOMERS"  
+  before insert on "DEMO_CUSTOMERS"              
+  for each row 
+begin  
+  if :NEW."CUSTOMER_ID" is null then
+    select "DEMO_CUSTOMERS_SEQ".nextval into :NEW."CUSTOMER_ID" from sys.dual;
+  end if;
+end;
+/   
+```
+
+### prompt 2. DEMO_ PRODUCT_ INFO
+```
+CREATE table "DEMO_PRODUCT_INFO" (
+    "PRODUCT_ID"          NUMBER NOT NULL,
+    "PRODUCT_NAME"        VARCHAR2(50),
+    "PRODUCT_DESCRIPTION" VARCHAR2(2000),
+    "CATEGORY"            VARCHAR2(30),
+    "PRODUCT_AVAIL"       VARCHAR2(1),
+    "LIST_PRICE"          NUMBER(8,2),
+    "PRODUCT_IMAGE"       BLOB,
+    "MIMETYPE"            VARCHAR2(255),
+    "FILENAME"            VARCHAR2(400),
+    "IMAGE_LAST_UPDATE"   TIMESTAMP(6) WITH LOCAL TIME ZONE,
+    constraint  "DEMO_PRODUCT_INFO_PK" primary key ("PRODUCT_ID")
+)
+/
+
+CREATE sequence "DEMO_PRODUCT_INFO_SEQ" 
+/
+
+CREATE trigger "BI_DEMO_PRODUCT_INFO"  
+  before insert on "DEMO_PRODUCT_INFO"              
+  for each row 
+begin  
+  if :NEW."PRODUCT_ID" is null then
+    select "DEMO_PRODUCT_INFO_SEQ".nextval into :NEW."PRODUCT_ID" from sys.dual;
+  end if;
+end;
+/   
+```
+### prompt 3. DEMO_ STATES (no PK)
+```
+CREATE table "DEMO_STATES" (
+    "STATE_ID"   VARCHAR2(2),
+    "STATE_NAME" VARCHAR2(25)
+)
+/
+```
+
+
+### prompt 4. DEMO_ ORDERS
+```
+CREATE table "DEMO_ORDERS" (
+    "ORDER_ID"        NUMBER NOT NULL,
+    "CUSTOMER_ID"     NUMBER NOT NULL,
+    "ORDER_TOTAL"     NUMBER(8,2),
+    "ORDER_TIMESTAMP" TIMESTAMP(6) WITH LOCAL TIME ZONE,
+    "USER_NAME"       VARCHAR2(100),
+    "TAGS"            VARCHAR2(4000),
+    constraint  "DEMO_ORDERS_PK" primary key ("ORDER_ID")
+)
+/
+
+
+CREATE sequence "DEMO_ORDERS_SEQ" 
+/
+
+
+
+CREATE trigger "BI_DEMO_ORDERS"  
+  before insert on "DEMO_ORDERS"              
+  for each row 
+begin  
+  if :NEW."ORDER_ID" is null then
+    select "DEMO_ORDERS_SEQ".nextval into :NEW."ORDER_ID" from sys.dual;
+  end if;
+end;
+/   
+ 
+--ALTER TABLE "DEMO_ORDERS" DROP CONSTRAINT "DEMO_ORDERS_FK" 
+
+ALTER TABLE "DEMO_ORDERS" ADD CONSTRAINT "DEMO_ORDERS_FK" 
+FOREIGN KEY ("CUSTOMER_ID")
+REFERENCES "DEMO_CUSTOMERS" ("CUSTOMER_ID")
+/
+--delete DEMO_ORDERS
+```
+
+
+### prompt 5. DEMO_ ORDER_ ITEMS
+```
+CREATE table "DEMO_ORDER_ITEMS" (
+    "ORDER_ITEM_ID" NUMBER NOT NULL,
+    "ORDER_ID"      NUMBER NOT NULL,
+    "PRODUCT_ID"    NUMBER NOT NULL,
+    "UNIT_PRICE"    NUMBER(8,2) NOT NULL,
+    "QUANTITY"      NUMBER(8,0) NOT NULL,
+    constraint  "DEMO_ORDER_ITEMS_PK" primary key ("ORDER_ITEM_ID")
+)
+/
+ 
+
+CREATE sequence "DEMO_ORDER_ITEMS_SEQ" 
+/
+
+ 
+
+CREATE trigger "BI_DEMO_ORDER_ITEMS"  
+  before insert on "DEMO_ORDER_ITEMS"              
+  for each row 
+begin  
+  if :NEW."ORDER_ITEM_ID" is null then
+    select "DEMO_ORDER_ITEMS_SEQ".nextval into :NEW."ORDER_ITEM_ID" from sys.dual;
+  end if;
+end;
+/   
+
+
+
+ALTER TABLE "DEMO_ORDER_ITEMS" ADD CONSTRAINT "DEMO_ORDER_ITEMS_FK" 
+FOREIGN KEY ("ORDER_ID")
+REFERENCES "DEMO_ORDERS" ("ORDER_ID")
+ON DELETE CASCADE
+/
+
+
+
+ALTER TABLE "DEMO_ORDER_ITEMS" ADD CONSTRAINT "DEMO_ORDER_ITEMS_PRODUCT_ID_FK" 
+FOREIGN KEY ("PRODUCT_ID")
+REFERENCES "DEMO_PRODUCT_INFO" ("PRODUCT_ID")
+/
+
+```
+
+ 
+
+ 
+
+ 
+<br /><br /><br />
+## 2.11 Add Data to tbl, see oracle_apex_....csv files
+
+1. From main APEX  menu, select  SQL Workshop | Utilities | Data Workshop
+
+2. On Get Started page, click Load Data button
+
+3. On next  screen,  click Choose  File  button.  In Open dialog box, select DEMO_CUSTOMERS csv 
+
+4. The Load Data page will appear on your screen. Select options on this screen. By selecting Existing Table option you are informing that you want to upload the csv file data to eg existing DEMO_CUSTOMERS table. Once you select the database table, Oracle APEX will automatically map the columns. Click Load  Data  button  on  this  page.  A  message  " Data  in table DEMO_CUSTOMERS appended with 7 new rows! " should appear on your screen. Click the View Table button to browse data.
+
+ 
+
+ 
+
+### tbl01 DEMO_CUSTOMERS
+
+1.  Click the SQL Workshop menu (A).
+
+2.  Select the Object Browser  option  (B)  from  the  menu,  which  is used  to  review  and  maintain  database  objects  (such  as,  tables, sequences, views, functions, triggers, and so on).
+
+3.  In Object Browser page, select the **Tables option** (C) from select list. This action will show a list of existing tables in the left pane, if there are any.
+
+4.  Click Create menu select list (D) , and select Table (E) from the menu list to create a new table. This will invoke a wizard named Create Table
+
+5.  DEMO_CUSTOMERS  for  table  name  (A),  CUSTOMER_ID  in  the  first  Column  Name  (B), NUMBER (C) Type, Not Null (D)    
+     CUST_FIRST_NAME, CUST_LAST_NAME, CUST_STREET_ADDRESS1, CUST_STREET_ADDRESS2, CUST_CITY, CUST_STATE,      
+     CUST_POSTAL_CODE,  CUST_EMAIL, PHONE_NUMBER1, PHONE_NUMBER2, URL, CREDIT_LIMIT, TAGS
+
+6.   Scale  column  specify  the number of characters each column will hold
+
+7.    Primary  Key -> select Populated from a new sequence (A) ->  Accept  DEMO_CUSTOMERS_PK  (B) for  the  Primary Key Constraint Name -> select  CUSTOMER_ID  (C) -> default Sequence Name or enter any other
+
+8. Skipp  Foreign  Key  and  Constraints  wizard screens.  On  the  final  Confirm  screen,  click  the  Create  Table button. SQL button shows  auto-generated  SQL see above.
+
+
+```
+
+"Column Name","Data Type","Nullable","Default","Primary Key"
+"CUSTOMER_ID","NUMBER","No"," ","1"
+"CUST_FIRST_NAME","VARCHAR2(20)","No"," "," "
+"CUST_LAST_NAME","VARCHAR2(20)","No"," "," "
+"CUST_STREET_ADDRESS1","VARCHAR2(60)","Yes"," "," "
+"CUST_STREET_ADDRESS2","VARCHAR2(60)","Yes"," "," "
+"CUST_CITY","VARCHAR2(30)","Yes"," "," "
+"CUST_STATE","VARCHAR2(2)","Yes"," "," "
+"CUST_POSTAL_CODE","VARCHAR2(10)","Yes"," "," "
+"CUST_EMAIL","VARCHAR2(30)","Yes"," "," "
+"PHONE_NUMBER1","VARCHAR2(25)","Yes"," "," "
+"PHONE_NUMBER2","VARCHAR2(25)","Yes"," "," "
+"URL","VARCHAR2(100)","Yes"," "," "
+"CREDIT_LIMIT","VARCHAR2(2)","Yes"," "," "
+"TAGS","VARCHAR2(4000)","Yes"," "," "
+ 
+
+-- data : see oracle_apex_....csv files 
+
+CUSTOMER_ID,CUST_FIRST_NAME,CUST_LAST_NAME,CUST_STREET_ADDRESS1,CUST_STREET_ADDRESS2,CUST_CITY,CUST_STATE,CUST_POSTAL_CODE,CUST_EMAIL,PHONE_NUMBER1,PHONE_NUMBER2,URL,CREDIT_LIMIT,TAGS
+1,John,Dulles,45020 Aviation Drive, ,Sterling,VA,20166,techies81@gmail.com,703-555-2143,703-555-8967,http://www.johndulles.com,1000, 
+2,William,Hartsfield,6000 North Terminal Parkway, ,Atlanta,GA,30320, ,404-555-3285, , ,1000,REPEAT CUSTOMER
+3,Edward,Logan,1 Harborside Drive, ,East Boston,MA,2128, ,617-555-3295, , ,1000,REPEAT CUSTOMER
+4,Frank,OHare,10000 West OHare, ,Chicago,IL,60666, ,773-555-7693, , ,1000, 
+5,Fiorello,LaGuardia,Hangar Center,Third Floor,Flushing,NY,11371, ,212-555-3923, , ,1000, 
+6,Albert,Lambert,10701 Lambert International Blvd., ,St. Louis,MO,63145,techies81@gmail.com,314-555-4022, , ,1000, 
+7,Eugene,Bradley,Schoephoester Road, ,Windsor Locks,CT,6096,techies81@gmail.com,860-555-1835, , ,1000,REPEAT CUSTOMER
+
+```
+
+ 
+
+### tbl02 DEMO_PRODUCT_INFO
+
+Contains **BLOB** (Binary Large Objects) type (B), which is an Oracle  data  type  that  can  hold  up  to  4  GB  of  data.  BLOBs  are handy for storing digitized information, such as images, audio, and video. This type can also be used to store document files like PDF, MS Word, MS Excel, MS PowerPoint and CSV. We are also using a **TIMESTAMP** type (C) to store the date when a product image is updated. 
+
+Select  the  Populated  from  a  new  sequence
+
+Skip  the  Foreign Key  and  Constraints  wizard  screens.
+
+```
+PRODUCT_ID,PRODUCT_NAME,PRODUCT_DESCRIPTION,CATEGORY,PRODUCT_AVAIL,LIST_PRICE,PRODUCT_IMAGE,MIMETYPE,FILENAME,IMAGE_LAST_UPDATE
+1,Air Max 2090,"Bring the past into the future with the Nike Air Max 2090, a bold look inspired by the DNA of the iconic Air Max 90.",Men,Y,1500,,image/png,1_AirMax2090.png,21-JUN-20 06.45.19.434901 AM
+2,LeBron Soldier 13 Red,"LeBron works hard in the offseason, getting stronger and fine-tuning his already devastating skills. ",Men,Y,200,,image/png,2_LeBron Soldier 13 Red.png,21-JUN-20 06.45.19.733931 AM
+3,LeBron Soldier 13 White,"LeBron works hard in the offseason, getting stronger and fine-tuning his already devastating skills. ",Men,Y,150,,image/png,3_LeBron Soldier 13 White.png,21-JUN-20 06.45.19.738065 AM
+4,Air Max 720,"The Nike Air Max 720 goes bigger than ever before with Nike’s tallest Air unit yet, which offers more air underfoot for unimaginable, all-day comfort.",Women,Y,60,,image/png,4_Air Max 720.png,21-JUN-20 06.45.19.741109 AM
+5,Air Max 270,"Nike's first lifestyle Air Max takes a leap forward with the softest, smoothest, most resilient foam yet in the Nike Air Max 270 React.",Women,Y,80,,image/png,5_Air Max 270.png,21-JUN-20 06.45.19.743820 AM
+6,Air Jordan 6,Inspired by the original AJ6 - released the year MJ won his first professional championship - the Air Jordan 6 Retro maintains the iconic look with updated materials.,Women,Y,120,,image/png,6_Air Jordan 6.png,21-JUN-20 06.45.19.746745 AM
+7,LeBron 17 BG,The LeBron 17 harnesses LeBrons strength and speed with containment and support for all-court domination.,Women,Y,30,,image/png,7_LeBron 17 BG.png,21-JUN-20 06.45.19.749888 AM
+8,Air Max 270 Gradient,"By pulling inspiration from two icons the Air Max 180 and Air Max 93, the Nike Air Max 270 has the tallest Air unit to date.",Men,Y,125,,image/png,8_Air Max 270 Gradient.png,21-JUN-20 06.45.19.752623 AM
+9,Air Max 180 Trainer,"Hi-Tech meets high impact in these durable, performance-based Nike training shoes.",Men,Y,110,,image/png,9_Air Max 180 Trainer.png,21-JUN-20 06.45.19.755284 AM
+10,Jr Phantom Vision,"Wenn du auf der Suche nach Multinockenschuhen für Kinder bist, ist der kicker-Onlineshop genau das Richtige - 10112892",Kids,Y,50,,image/png,10_Jr Phantom Vision.png,21-JUN-20 06.45.19.757715 AM
+
+```
+
+ 
+
+### tbl03 DEMO_STATES no PK (51 row) 
+
+Skip  the  Foreign Key  and  Constraints  wizard  screens.
+
+```
+STATE_ID,STATE_NAME
+AK,ALASKA
+AL,ALABAMA
+AR,ARKANSAS
+AZ,ARIZONA
+CA,CALIFORNIA
+CO,COLORADO
+CT,CONNECTICUT
+DC,DISTRICT OF COLUMBIA
+DE,DELAWARE
+FL,FLORIDA
+GA,GEORGIA
+HI,HAWAII
+IA,IOWA
+ID,IDAHO
+IL,ILLINOIS
+IN,INDIANA
+KS,KANSAS
+KY,KENTUCKY
+LA,LOUISIANA
+MA,MASSACHUSETTS
+MD,MARYLAND
+ME,MAINE
+MI,MICHIGAN
+MN,MINNESOTA
+MO,MISSOURI
+MS,MISSISSIPPI
+MT,MONTANA
+NC,NORTH CAROLINA
+ND,NORTH DAKOTA
+NE,NEBRASKA
+NH,NEW HAMPSHIRE
+NJ,NEW JERSEY
+NM,NEW MEXICO
+NV,NEVADA
+NY,NEW YORK
+OH,OHIO
+OK,OKLAHOMA
+OR,OREGON
+PA,PENNSYLVANIA
+RI,RHODE ISLAND
+SC,SOUTH CAROLINA
+SD,SOUTH DAKOTA
+TN,TENNESSEE
+TX,TEXAS
+UT,UTAH
+VA,VIRGINIA
+VT,VERMONT
+WA,WASHINGTON
+WI,WISCONSIN
+WV,WEST VIRGINIA
+WY,WYOMING
+
+```
+
+ 
+
+### tbl04 DEMO_ORDERS
+
+Select  Populated  from  a  new  sequence.
+
+Foreign Key wizard  screen :      
+Create  a  relationship  between  DEMO_CUSTOMERS  and DEMO_ORDERS table.    
+Default **Disallow Delete** option (B) will block deletion of rows from the customers table when they are utilized in the  orders  master  table.     
+
+Skip  Constraints  wizard  screen.
+
+```
+
+ORDER_ID,CUSTOMER_ID,ORDER_TOTAL,ORDER_TIMESTAMP,USER_NAME,TAGS
+1,7,1890,17-APR-20 06.45.19.000000 AM,DEMO, 
+2,1,2380,01-MAY-20 06.45.19.000000 AM,DEMO,LARGE ORDER
+3,2,1640,12-MAY-20 06.45.19.000000 AM,DEMO, 
+4,5,1090,14-MAY-20 06.45.19.000000 AM,DEMO, 
+5,6,950,24-MAY-20 06.45.19.000000 AM,DEMO, 
+6,3,1515,29-MAY-20 06.45.19.000000 AM,DEMO, 
+7,3,905,03-JUN-20 06.45.19.000000 AM,DEMO, 
+8,4,1060,11-JUN-20 06.45.19.000000 AM,DEMO, 
+9,2,730,17-JUN-20 06.45.19.000000 AM,DEMO, 
+10,7,870,20-JUN-20 06.45.19.000000 AM,DEMO, 
+192,7,180,21-JUN-20 07.03.03.717283 AM,DEMO, 
+191,1,800,21-JUN-20 06.52.48.105288 AM,DEMO, 
+211,7,100,21-JUN-20 06.57.10.978243 AM,DEMO, 
+212,6,210,21-JUN-20 06.59.13.144771 AM,DEMO, 
+213,6,500,21-JUN-20 07.00.17.533966 AM,DEMO, 
+251,7,155,02-DEC-20 06.29.39.463839 AM,DEMO, 
+231,7,1421,06-JUL-20 09.17.31.833485 AM,DEMO, 
+
+```
+
+ 
+
+### tbl05 DEMO_ORDER_ITEMS
+
+Has  two  foreign  key  references : ORDER_ID  and  PRODUCT_ID.     
+
+FK to DEMO_ORDERS : For this relationship you selected the Cascade Delete option (A), which simultaneously removes both parent and child records from the two tables when you delete an order.       
+
+DEMO_ORDER_ITEMS_PRODUCT_ID_FK : Select Disallow Delete for delete option.
+
+Skip  Constraint  wizard  screen.
+
+```
+"ORDER_ITEM_ID","ORDER_ID","PRODUCT_ID","UNIT_PRICE","QUANTITY"
+"500","1","1","50","10"
+"501","1","2","80","8"
+"502","1","3","150","5"
+"503","2","1","50","3"
+"504","2","2","80","3"
+"505","2","3","150","3"
+"506","2","4","60","3"
+"507","2","5","80","3"
+"508","2","6","120","2"
+"509","2","7","30","2"
+"510","2","8","125","4"
+"511","2","9","110","2"
+"512","2","10","50","2"
+"513","3","4","60","4"
+"514","3","5","80","4"
+"515","3","6","120","4"
+"516","3","8","125","4"
+"517","3","10","50","2"
+"518","4","6","120","2"
+"519","4","7","30","6"
+"520","4","8","125","2"
+"521","4","9","110","2"
+"522","4","10","50","4"
+"523","5","1","50","3"
+"524","5","2","80","2"
+"525","5","3","150","2"
+"526","5","4","60","3"
+"527","5","5","80","2"
+"528","6","3","150","3"
+"529","6","6","120","3"
+"530","6","8","125","3"
+"531","6","9","110","3"
+"532","7","1","50","2"
+"533","7","2","80","2"
+"534","7","4","60","2"
+"535","7","5","80","2"
+"536","7","7","30","3"
+"537","7","8","125","1"
+"538","7","10","50","3"
+"539","8","2","80","2"
+"540","8","3","150","3"
+"541","8","6","120","1"
+"542","8","9","110","3"
+"543","9","4","60","4"
+"544","9","5","80","3"
+"545","9","8","125","2"
+"546","10","1","50","5"
+"547","10","2","80","4"
+"548","10","3","150","2"
+"561","192","7","30","6"
+"620","231","8","125","10"
+"560","191","2","80","10"
+"549","211","10","50","2"
+"550","212","7","30","7"
+"551","213","1","50","10"
+"640","251","7","30","1"
+"641","251","8","125","1"
+"580","231","8","111","1"
+"581","231","7","30","2"
+
+```
+
+
+### Next
+
+In chapter 3, we create the building blocks (**shared components**) of  app.    
+
+Shared  Components  wizards  allow  us  to  define  a variety of components we can use and re-use throughout our app. In coming chapters, our main focus will be on the practical aspect of this robust technology to build professional looking web-based data-centric app.
+
+Work in detail on the Home page in Chapter 4 to convert  it  into  a  dashboard.
+
+
+<br /><br /><br /><br /><br />
+# 3. Create Application Components
+After creating  an  application  page,  you  can  see  a  list  of  all  Shared  Components utilized on that page by accessing its Shared Components tab   in the Page Designer.
+ 
+
+## 3.1 Shared (common, global) Components across all app pages eg menu options
+
+"Page Shared Components" tab **(top right icon) in Page Designer (App Builder -> App)** displays a list of common elements applied to that particular page. Shared  components are only  displayed in this section after you add them to a page.
+
+ 
+
+1. APP LOGIC SECTION : **App Definition Attributes**  
+
+   Link to  Edit  App  Definition page  where you can modify your app attributes, including its name, version, and availability options.  
+
+   You can turn on new Friendly URLs option.
+
+ 
+
+2. APP LOGIC SECTION : **Application Processes**  
+
+    run  PL/SQL  logic  at  a  specific  point  from  multiple pages  of  an  application.  You  can  apply  conditions  to  control  when process executes.  
+
+    Currently there are eight different types of process that you can include in your application. One significant one among these processes is **On Demand App Process**. It is a special type of app process which executes when called from a page-level On Demand process or from an Ajax call from the browser.
+
+ 
+
+   On Demand processes are useful when you have **PL/SQL logic that you would like to run from different execution points across  multiple  pages**.  For  example,  assessing  a  customer’s  outstanding balance  and  using  that  figure  on  customer  invoice,  age  analysis  report,customer balances report and so on. 
+
+ 
+
+3. SECURITY : **Authentication and Authorization Schemes** (access=prijava, functionalities=prava)    
+
+  
+
+  These  schemes  enable  us  to  declaratively  define  security  for  our apps quickly and easily.
+
+ 
+
+  Authentication is the process of establishing the  identity  of  every  user  of  your  application. Most  common  auth.  process : usrname and psw. These credentials are then evaluated either through  the  built-in  APEX  Auth.  scheme  or  using  a custom scheme with more control. Authentication could involve the use of **digital  certificates**  or  a  secure  key,  too.  If  the  credentials  pass,  the  user  is allowed to access the app. Once a user
+
+  has been identified, the APEX engine keeps track of each user by setting the value of **built-in substitution string APP_USER**.
+
+ 
+
+  As  you  create  your  app,  you  must  determine  whether  to  include auth. You can:
+
+  1. Choose  to  **not  require  authentication**.  Oracle  APEX  does  not check  any  user  credentials.  All  pages  of  your  app  are accessible to all users eg **public informational app website**.
+
+  2. Select a built-in authentication scheme. Create an auth. method based on available preconfigured authentication schemes. Each  scheme  follows  a  standard  behavior  for authentication and session management. 
+
+     1. Application Express Accounts. These are user accounts created within and managed in Oracle APEX user repository. When you use this method, your app is authenticated against these accounts.
+
+     2. **Database Account Credentials**.  It  utilizes  database  schema accounts.  This  authentication  scheme  requires  that  a  database  user (schema)  exist  in  the  local  database.  When  using  this  method,  the username and password of the database account is used to authenticate the user. Choose Database Account Credentials **if having one database account  for  each  named  user  of  your  app**  is  feasible  and account maintenance using database tools meets your needs.
+
+     3. HTTP Header Variable. It supports the use of header variables to identify a user and to create an Application Express user session. Use this authentication scheme if your company employs a centralized web authentication  solution  like  Oracle  Access  Manager,  which  provides single sign-on across apps and technologies.
+
+     4. LDAP  Directory  Verification.  You  can  configure  any authentication  scheme  that  uses  a  login  page  to  use  Lightweight Directory  Access  Protocol  (LDAP)  to  verify  the  username  and password submitted on the login page. App Builder includes wizards and  pages  that  explain  how  to  configure  this  option.  These  wizards assume that an LDAP directory accessible to your application for this purpose already exists and that it can respond to a SIMPLE_BIND_S call for credentials verification.
+
+     5. Application Server Single Sign-On Server. This one delegates authentication to the Oracle AS Single Sign-On (SSO) Server. To use this  authentication  scheme,  your  site  must  have  been  registered  as  a partner application with the SSO server.
+
+     6. Create  custom  authentication  scheme.
+
+        Using  this  method  you can  have  complete  control  over  the  authentication  interface.  To implement this approach you must provide a PL/SQL function the Application Express engine executes before processing each page request.  The  Boolean  return  value  of  this  function  determines whether  the  Application  Express  engine  processes  the  page normally or displays a failure page. This is the best approach for apps when any of the following is true:
+
+          1. Database authentication or other methods are not adequate
+
+          2. You want to develop your **own login form** and associated methods
+
+          3. You want to control security aspects of session management
+
+          4. You want to record or audit activity at the user or session level
+
+          5. You want to enforce session activity or expiry limits
+
+          6. Your **app consists of multiple apps that operate seamlessly (eg, more than one app ID)**
+
+ 
+
+4. SECURITY : **Authorization Schemes**  
+
+    to  control  users  access  to  specific components  of  your  app. An auth.  scheme  can  be  specified  for  an  entire  app,  page,  or specific page components such as a region, button, or item. For instance, you can apply an auth. scheme to determine which menu options a user can  see,  or  whether  he  is  allowed  to  create  a  new  order  (using  Create button).
+
+ 
+
+5. OTHER COMPONENTS : **LOVs** (Lists of Values) are defined by running LOV wizard.  
+
+   Once  created,  LOVs  are  stored  in  the  List  of  Values  repository  and  are utilized  by  page  items.  You  can  create  two  types  of  LOVs:  static  and dynamic. A static LOV displays and returns predefined values such as Yes and  No,  while  a  dynamic  list  is populated  using  a  SQL  query  that  fetches values from database tables. After creating an LOV you associate it to page items such as select list, radio group, checkbox, and so on. By creating a list of  values  at  the  app-level,  you  have  the  advantage  to  add  it  to  any page within an app, and since all LOV definitions are stored in one location, it makes them easy to locate and update.
+
+ 
+
+6. OTHER COMPONENTS : **Plug-Ins framework** was introduced in Oracle APEX 4.0,  
+
+   which allows developers to create their own plug-ins to add additional functionality in a supported and declarative way. Usually, a **tool like Ajax** is used to add custom functionality. The con of this approach  is  to  place  the  code  in  different  locations  such  as  within  the database, in external JavaScript files, and so on. On the other hand, turning that code into a plug-in is more convenient to use and manage because the code resides in one object. With the help of open source jQuery components you can create plug-ins without generating huge amount of code manually.
+
+ 
+
+   Plug-ins  are  shared  component  objects  that  allow  you  to  extend  the functionality of item types, region types, dynamic actions, and process types. The plug-in architecture includes a declarative development environment that lets you create custom versions of these built-in objects. For example, you can create your **own star rating item** that allows your user to provide feedback using a one-to-five star graphic. This new item type can then be used across all your apps. The main part of a plug-in consists of PL/SQL code and can  be  supplemented  with  JavaScript  and  CSS  code.  A  plug-in  consists  of one  or  more  PL/SQL  functions.  These  functions  can  either  reside  in  the database (in a package or a set of functions) or be included within the plug-in. 
+
+   
+
+   NOTE:  The  Plug-in  OTN  page (https://www.oracle.com/tools/technologies/apex-plug-ins.html)  has  several different plug-ins developed by the APEX community.
+
+ 
+
+7. OTHER COMPONENTS : **Shortcuts** to  avoid  repetitive  coding  of  HTML  or  PL/SQL functions.  
+
+   You can use a shortcut to define a page control such as a button, HTML text, or a PL/SQL procedure. Once defined, you can invoke a shortcut using  specific  syntax  unique  to  the  location  in  which  the  shortcut  is  used. Shortcuts can be referenced many times, thus reducing code redundancy. When you create a shortcut, you must specify the type of shortcut you want to create. Oracle APEX supports the following shortcut types:
+
+      1. PL/SQL Function Body
+
+      2. HTML Text
+
+      3. HTML Text with Escaped Special Characters
+
+      4. Image
+
+      5. Text with JavaScript Escaped Single Quotes
+
+      6. Message
+
+      7. Message with JavaScript Escaped Special Quotes
+
+ 
+
+8. NAVIGATION : **Lists - collections of links**.  
+
+   For each list entry, you specify display text, a target  URL,  and  other  attributes  to  control  when  and  how  the  list  entry displays. Once created, you can add a list to any number of pages within an app  by creating a region and specifying the region type as List. You control the display of the list and the appearance of all list entries by linking
+
+the list to a template. Lists are of two types:  
+
+   **Static Lists** -  When you create a static list you define a list entry label and a target (either a page or a URL). You can add list entries when you create the list (from scratch), by copying existing entries or  by  adding  the  list  entries.  You  can  control  when  list  entries display by defining display conditions.
+
+   **Dynamic  Lists**  -  are  based  on  a  SQL  query  or  a PL/SQL function executed at runtime.
+
+ 
+
+9. NAVIGATION : **Navigation Menu**  
+
+    You might have seen a horizontal bar at the top of a website. The options provided  on  this  bar  help  you  navigate  to  different  pages  within  that  site. app  Express  provides  you  with  a  similar  component  called Navigation Menu. It is an effective way to navigate users between pages of an app.  A navigation menu is basically a list with hierarchical entries.  
+
+   When you create an app, the Create app Wizard automatically creates  a  navigation  menu  for  you  and  populates  it  with  one  or  more  list
+
+entries. Types of navigation menus include Side Me
+
+ 
+
+9. NAVIGATION : **Navig. Top Menu, or Mega Menu**  
+
+   By default, the navigation menu is displayed as a left sidebar. Users can expand or collapse the Side Navigation Menu by clicking on the menu icon  from  the  header.  This  navigation  menu  renders  the  navigation  items using a tree component that enables users to expand or collapse sub items. A Top Navigation Menu displays at the top of the app. You can change how and where a navigation menu displays by editing the app User Interface  Details.  The  Top  Navigation  Mega  Menu  template  renders  your app navigation in a pop-up panel that can be opened or closed from the  header  menu  button.  Users  can  expand  or  collapse  a  Mega  Menu  by clicking on the menu icon from the header. Mega menus are especially useful when you want to display all navigation items at once to your user.
+
+ 
+
+10. NAVIGATION : **Breadcrumb**  
+
+   A breadcrumb (A) is a hierarchical list of links rendered using a template. For example, you can display breadcrumbs as a list of links or as a breadcrumb path. A breadcrumb trail indicates where you are within the app from a hierarchical perspective. In addition, you can click a specific breadcrumb link to instantly view the page. For example, in the screen shot below you can access the app home page by clicking its breadcrumb entry (B). You use  breadcrumbs  as  a  second  level  of  navigation  at  the  top  of  each  page, complementing  other  navigation  options  such  as  Navigation  Menu  and Navigation Bar.
+
+ 
+
+11. NAVIGATION : **Navigation Bar List**  
+
+   Just like menus, lists, and breadcrumb, a navigation bar is also created to link users  to  various  pages  within  an  app.  Typically,  a  navigation  bar carries links such as user id, logout, feedback, help, and so on. It appears on top-right of every app page. While creating a navigation bar, you can specify an image name, label, display sequence, and target location.
+
+ 
+
+12. USER INTERFACE : **User Interface Attributes**  
+
+The  app  user  interface  determines  default  characteristics  of  app and optimizes the display for the target environment. This is place where you define your app logo.
+
+ 
+
+13. USER INTERFACE : **Themes and Templates**  
+
+Instead of telling the App Builder how to design and style your pages using HTML,  CSS,  and  JavaScript  code  that  you  may  not  be  familiar  with,  you
+
+only apply theme and templates you want to use and the Oracle APEX engine does the rest of the job for you.  
+
+A  theme  is a named collection of templates that defines the look and feel of app user interface. Each theme contains templates for every type of app component and page control, including individual pages, regions,reports, lists, labels, menus, buttons, and list of values.  
+
+APEX engine constructs the appearance of each page in a app  using  Templates .  Templates  define  how  pages,  page  controls, and  page  components  display.  Templates  control  the  look  and  feel  of  the pages  in  your  app  using  snippets  of  HTML,  CSS,  JavaScript  and image icons. As you create your app, you specify templates for pages, regions,  reports,  lists,  labels,  menus,  buttons,  and  pop-up  lists  of  values.  
+
+Groups of templates are organized into named collections called themes.  
+
+The  App  Builder  also  allows  you  to  access  the  themes  and  template mechanism so you can create new ones according to your own requirements or  amend  existing  ones.  Oracle  APEX  ships  with  an  extensive  theme repository.  Administrators  can  add  themes  to  the  theme  repository,  as follows:  
+
+ 
+
+   Workspace administrators can create themes that are available to all  developers  within  the  workspace.  Such  themes  are  called workspace themes.  
+
+   Instance administrators can create public themes by adding them to the  Oracle  APEX  Administration  Services.  Once  added,  these public themes are available to all developers across all workspaces in an instance.  
+
+   Apps  you  create  with  the  Create  app  Wizard  use Universal Theme. Universal Theme - 42 features a responsive design, versatile UI components and enables developers to create web apps without extensive knowledge of HTML, CSS, or JavaScript. Responsive design enables you to design web pages so that the layout fits the available space regardless of the device on which  page  displays  (eg  desktop  computer,  laptop computer, tablet, or smartphone).
+
+ 
+
+14. FILES : **Static App / Workspace Files**  
+
+   Use these two links to upload, edit, and delete static files including images and  custom  style  sheets  and  JavaScript  files.  An  app  file  can  be referenced from a specific app only, whereas a workspace file can be accessed by any app in the workspace. In this book, you will use theStatic app Files option to upload your app logo.
+
+ 
+
+15. REPORTS : **Report Queries**  
+
+   A  report  query  is  a  printable  document,  which  can  be  integrated  with  an app  using  buttons,  list  items,  branches,  or  any  other  navigational components that allow for using URLs as targets. A report query is based on a  standard  SQL  query.  It  can  be  downloaded  as  a  PDF  document,  a  Word document  (RTF  based),  an  Excel  Spreadsheet  (HTML  based),  or  as  an HTML  file.  The  layout  of  a  report  query  is  customizable  using  RTF templates.
+
+ 
+
+16. REPORTS : **Report Layouts**  
+
+   Use  Report  Layouts  in  conjunction  with  a  report  region  or  report  query  to render  data  in  a  printer-friendly  format,  such  as  PDF,  Word,  or  Excel.  A
+
+report layout can be designed using the Template Builder Word plug-in and uploaded  as  a  file  of  type  RTF  or  XSL-FO.  Report  regions  use  a  generic XSL-FO layout, which is customizable.
+
+ 
+
+17. GLOBALIZATION : **Globalization Attributes**  
+
+   If  you  want  to  develop  apps  that  can  run  concurrently  in  different languages,  then  app  Express  is  the  right  platform  for  this.  In  the Globalization  interface,  you  can  specify  options  such  as  the  app Primary  Language,  Date/Time  format,  and  some  other  options  related  to app globalization.
+
+ 
+
+18. GLOBALIZATION : **Translate app**  
+
+    A  single  Oracle  database  and  Oracle  APEX  instance  can  support  an app  in  multiple  languages.  Translating  an  app  involves multiple  steps.  To  translate  an  app  developed  in  App  Builder,  you must :  
+
+       1. map  the  primary  and  target  language
+
+       2. seed  and  export  text  to  a translation file
+
+       3. translate the text
+
+       5. apply the translation file
+
+       6. publish the translated app.
+
+ 
+
+
+
+
+<br /><br /><br /><a name="shared"></a>
+# 3.2 Create Lists - collections of links rendered using a template
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm).....[URL](#url).....[Sales](#sales).....**SHARED C.**......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+### Shared Components you will create for the Sales Web app
+1. Lists
+2. List of Values (LOV)
+3. app Logo
+
+If you are logged off, log back in to the app development environment to  create  some  shared  components.  **To access Shared Components page** :
+1.  Select Database apps from the App Builder menu.
+2.  Click Edit icon (A) under Sales Web app.
+3.  On the next screen, use either of the two Shared Components icons (pyramid of 3).
+
+For each list entry, you specify display text, a target URL, and other properties to control when and how the list entry displays. You control the display of the list and the appearance of all list entries by linking the list to a template.
+ 
+
+<br /><br /><br />
+## List 1 Main top menu - add level-1 entries  **Setup, Orders, Reports**
+Main top menu is Desktop Navigation Menu List (APEX  created default **Home and Administration mnuitems** by   App  Builder  wizard).
+
+Under Navigation | Navigation Menu as a shared component for each new application. It is a hierarchical list of navigation, which appears either as a  responsive  side  bar  or  at  the  top  of  the  window.  Based  on  the  available space, the navigation bar either displays a full menu or collapses to a narrow icon bar. 
+
+  Default menu list (Desktop Navigation Menu) carries two item labeled: **Home and Administration** created  by   App  Builder  wizard.
+
+   Modify Desktop Navigation Menu List list to add more app menu entries : 
+   1.  In Shared Components -> Navigation section -> click Navigation Menu option
+   2.  On  the  Lists  page,  click  the  Desktop  Navigation  Menu  option, which carries two entries Home and Administration, created  by   App  Builder  wizard
+   3.  On  the  List  Details  page,  click  **Create  Entry  button**  (A) to create a **new menu item named Setup**. This menu entry **will have sub-entries** that will allow you to **access Products and Customers modules**. Fill in the values for this menu entry so :
+
+       1. Do not select anything in the first attribute (Parent  List  Entry), because  initially  you  will  create  level  one entries that do not have parent entries.
+       2. Click the pop-up LOV icon representing **Image/Class** attribute.    
+          From the Show list, select Font APEX, and from Category, select Web app.   
+          Click the Go button to refresh the view.    
+          Scroll down to the middle of the icons list and select **fa-database icon**. This image will be displayed for the  Setup  menu  at  run  time.  Note  that  you  can  select  any  image from the list or input its name directly in the Image/Class attribute.     
+        3. Type Setup in the List Entry Label field. This label will appear in the app menu.    
+           In the Target Type attribute you specify a page in the current app or any valid URL    
+           Since the Setup menu entry  itself  is  not  associated  to  any  app  page,  its  Target Type is set to **No Target**.  
+
+   4.  Using button labeled Create and Create Another, create **two more level-1 entries** :    
+
+       | Parent List Entry     | Image/Class     | List Entry Label | Target Type             | PageID |
+       | :----------------------- | :----------------: | :-------------- | :---------------------------- | -------: |
+       | No Parent List Item | eg fa-database  | **Setup**   | No Target                       |           |
+       | No Parent List Item | eg fa-send-o--  | **Orders** | Page in this app             | 4         |
+       | No Parent List Item | eg fa-table-arrow-up | **Reports** |  Page in this app | 1         |
+
+        After adding the last entry (Reports), **click Create List Entry** button. The Target Type and Page properties inform Oracle APEX where to land when a menu item is clicked, for example, the Orders entry will take you to page 4. 
+
+       These entries along with the Setup entry (created in step 3) will form the **main menu of our app** because we set No Parent List Item for all three entries.
+
+       Note that Setup entry has no target because it is not directly linked to any app page.
+
+   5. Using the same process you executed in the previous step, create following **submenus ee level-2 menu entries** :
+
+       | Parent List Entry     | Image/Class     | List Entry Label | Target Type             | PageID |
+       | :----------------------- | :----------------: | :-------------- | :---------------------------- | -------: |
+       | **Setup**               | eg ... | **Manage Customers** | Page in this app | 1 |
+       | Setup                       | eg ...  | **Manage Products** | Page in this app | 1 |
+       | **Reports**           | eg ..  | **Graphical Reports** | Page in this app | 1 |
+       | Reports                    | eg ...  | **Advance Reports** | Page in this app | 1 |
+
+       The first two entries will come under the main Setup menu item, while Reports menu will contain two child entries (Graphical Reports and Advance Reports).
+
+      TIP: If you make a mistake while creating these menu entries, you can rectify it. After creating the last entry, click the Create List Entry button on Create/Edit page to move back to the List Details page. On this page, click the menu entry you want to modify (under the Name column) to call its definition in Create/Edit page. Rectify the error and click the Apply Changes button.
+
+   6. Now create l**level 3 entries**  
+
+      Note that the **Page attribute for Monthly Review Report entry is set to zero**, because it will be invoked through a print request that will be configured in Chapter 9.
+
+        | Parent List Entry     | Image/Class     | List Entry Label | Target Type             | PageID |
+       | :----------------------- | :----------------: | :-------------- | :---------------------------- | -------: |
+       | **Graphical Reports** | eg ...| **Customer Orders** | Page in this app | 1 |
+       | Graphical Reports | eg ...| **Sales By Category/Products** | Page in this app | 1 |
+       | Graphical Reports | eg ...| **Sales By Category/Month** | Page in this app | 1 |
+       | Graphical Reports | eg ...| **Order Calendar** | Page in this app | 1 |
+       | Graphical Reports | eg ...| **Product Order Tree** | Page in this app | 1 |
+       | **Advance Reports** | eg ...| **Monthly Review Report** | Page in this app | 0 |
+       | Advance Reports | eg ...| **Customer Invoice** | Page in this app | 1 |
+
+       First 5 entries will appear as submenu choices under Graphical Reports menu. Similarly, Monthly Review Report and Customer Invoice will be placed under Advance Reports. All the previous settings will set up a hierarchical navigation for your app.
+
+        TIP: After making any modification in your app you can test it immediately. For example, after creating the navigation menu, hit the Run Page button (at top-right) to see the app menu.
+
+ 
+
+<br /><br /><br /><a name="rep_list"></a>
+## List 2 Reports List
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm).....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared).....**Rep.List**.....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home) 
+  
+   List 2 will have several links that will lead to different reports in your app.  Note that you created the same links in the navigation menu in the previous section **to call some of these reports from app menu**. Reports List being created here will be used on a **dedicated report page** to call respective reports - see Chapter 8 section 8.2.
+
+   1. Go to Application 80858 - Sales Web App | Shared Components | Navigation | Lists. There are 7 default (APEX created) lists.  
+      Click Create button to create a new list.  
+   2. Select **From Scratch** on the Source wizard screen and click Next.    
+      On the next screen, enter **Reports List** for Name, select **Static** as the list Type, and click Next.    
+      When you create a static list you define a list entry label and a target (either a page or URL).  
+   3. Enter the following values in Query or Static Values screen.  
+      Initially, the wizard allows you to create five entries. The remaining entries and Image/Class properties are created and set after saving the first five.  
+
+      | List Entry Label                           | Target PageID | Image/Class |
+      | :--------------------------------------- | ----------------: | :--------------|
+      | Customer Orders                          | 17                    |  |
+      | Sales by Category and Product    | 16                    | |
+      | Sales by Category / Month           | 5                     | |
+      | Order Calendar                             | 10                   | |
+      | Product Order Tree | 19 | |
+      | **Gantt Chart** | 20 | |
+      | Box Plot | 21 | |
+      | Pyramid Chart | 22 | |
+      | List View (Mobile) | 23 | |
+      | Column Toggle Report (Mobile) | 24 | |
+      | **Reflow Report (Mobile)** | 25 | |
+      | Monthly Review Report | 0 | |
+      | Customer Invoice | 50 | |
+
+   4. **After entering the first five list entries** 
+      1. click Next, accept default values in next screen, and click Create List button.    
+      2. You will be taken back to the Lists page, where you will see new list "Reports List"  
+      3. Modify list by clicking Reports List link in the Name column  
+      4. Click Create Entry button to add the sixth entry. Enter Product Order Tree in List Entry Label. Set Target Type to Page in this app and enter 19 in the Page attribute.   
+      5. Click Create and Create Another button to add the remaining entries, as shown in the table above   
+      7. Modify each entry by clicking its name in the List Details interface and add image references. Click the Apply Changes button after adding the image reference  
+
+
+
+<br /><br /><br /><a name="ord_wiz_list"></a>
+## List 3 "Order Wizard" List (wizard steps to create an order)
+   [Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm).....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared).....[Rep.List](#rep_list).....**Ord.WizList**.....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home) 
+   
+List 3 is another utilization of lists. Rather than associating list items to pages in the app, you will use it for visual representation. It will be used while creating orders in Chapter 7. In our app, we will create an order using a set of wizard steps in the following sequence:  
+1.    Identify Customer
+2.    Select Items
+3.    Order Summary   
+   
+<br />
+So :
+1.  Go to Shared Components | Navigation | Lists and click Create button
+2.  Select the first From Scratch option and click Next
+3.  Type **Order Wizard** in the Name box, set Type to Static, and click Next
+4.  On the Query or Static Values screen, enter the following  values and click Next
+
+   | List Entry Label | Target Page ID | List Entry Curr.for Cond. | Image/Class |
+   | :-------------   | -------------: | :------------------------ | -----: |
+   | Identify Customer |               | 11                        |        |
+   | Select Items     |                | 12                        |        |
+   | Order Summary    |                | 14                        |        |
+
+    5.  Click the Create List button on the Confirm screen.
+
+    6.  Modify the newly created Order Wizard list.
+
+    7.  Edit each list item, set **Target Type attribute to No Target** for all 3 list items.  
+        The No Target value is set because this list is intended to **display the current order  wizard step** where the user is **within the order processing module**, and **not to call a page** in the app.    
+        In  Current  List  Entry  section, set "List  Entry Current for Pages Type" to **Comma  Delimited  Page  List**  for  all 3  list  items,    
+        and  set  "List Entry Current for Condition" attribute  to **11, 12, 14**.   
+        Click  the  Apply  Changes  button  to  save  the modifications.
+
+        **List Entry Current for Pages Type** attribute specifies **when this list entry should be current**. Based on the value of this attribute, you define a **condition to evaluate**. When this condition is true then the list item becomes current. The template associated with list item gives users a visual indication about the active list item. The following figure illustrates the use of Order Wizard list. Being the first step in the order wizard, the Identify Customer list item is marked as current (when Page 11 is called to enter a new order), while the remaining  two  are  displayed  as  non-current.    After  selecting  a  customer, when you move on to the next step to select ordered items, the Select Items entry becomes current and the first and last entries become inactive.
+        ```
+                               -------------------------------
+                               |                                        |
+                               |                                        |
+        Non current    -------------------------------
+
+                      -------------------------------
+                      |                                        |
+                      |                                        |
+        Current  -------------------------------
+        ```
+
+ 
+
+
+
+
+<br /><br /><br /><br /><br /><a name="top_navig"></a>
+# 3.3 Desktop Navigation Bar
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm).....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared).....[Rep.List](#rep_list).....[Ord.WizList](ord_wiz_list).....**Top. Navig**.....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home) 
+
+Is also used to link various pages within app. Typically, a navigation bar is used to access Help pages and also carries a Sign Out link. The **location** of a navigation bar depends upon the associated page template. When you create a navigation bar, you specify an image name, label, display sequence, and target location (a URL or a page). The navigation bar used in our application will show feedback page icon, Page Help entry, About Page entry, the id of the currently logged in user and a Sign Out link. All these entries are created automatically when you create a new application.
+
+ 
+
+ 
+ 
+ 
+ <br /><br /><br /><br /><br /><a name="lov"></a>
+# 3.4 List of Values (LOV)
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm).....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared).....[Rep.List](#rep_list).....[Ord.WizList](ord_wiz_list).....[Top. Navig](top_navig).....**LOVs**.....[Home p.](#home)
+
+Is used to control input values and limits users selection. You can define two types of lists: Static and Dynamic. A static list of values is based on predefined display and return values. A **dynamic LOV is based on a SQL query**, and it is executed at runtime.
+
+ 
+
+1. LOV CATEGORIES (U, T) - STATIC
+
+    In our app we will have a **Products setup module** - three product categories. LOV will be utilized in Chapter 6 section 6.4.2.  
+    1. In Shared Components, click Lists of Values under the Other Components section.
+    2. Click the Create button (9 LOVs are created by APEX).
+    3. Select the From Scratch option and click Next.
+    4. Enter **Categories** for the LOV Name, select **Static** as the LOV type, and click Next.
+    5. Fill in the values as shown in following table and click Create LOV button.
+
+      | Sequence | Display value | Rerturn value |
+      | :------- | :------------ | :------------ | 
+      | 1 | Men                  | Men           |
+      | 2 | Women                | Women         |
+      | 3 | Kids                 | Kids          |
+
+     You just entered a pair of static Display and Return values. At runtime these entries will display in the order they are entered. Return Value does not display, but is the value that is returned as a user selection to the APEX engine.    
+
+ 
+
+2. LOV PRODUCTS WITH PRICE - DYNAMIC    
+  You will utilize this LOV in Chapter 7 section 7.4.2.
+  1. Click Create button in Lists of Values APEX page.
+  2. Select From Scratch and click Next.
+  3. Enter **Products with Price** in the Name box. Select Dynamic Type and click Next.
+  4. On the List of Values Source screen, select SQL Query for the Source Type, and enter the following query in the Enter a SQL SELECT statement box.
+     ```
+     select apex_escape.html(product_name) || ' [$' || list_price || ']' d
+        , product_id r
+     from demo_product_info
+     where product_avail = 'Y'
+     order by 1
+     ```
+
+  5. On the final Column Mappings screen, select R for Return Column, D for Display Column  and click the Create button to finish the wizard.
+
+ 
+
+    **APEX_ESCAPE.HTML function** is used to protect against XSS (Cross Site Scripting) attacks. It replaces characters that have special meaning in HTML with their escape sequence. It converts occurrence of :
+
+    ```
+    & to &
+    “ to "
+    < to <
+    > to >
+    ```
+
+ 
+
+ 
+
+3. LOV STATES - DYNAMIC
+
+  To fetch State names from DEMO_STATES table. The query fetches both columns from the table. The LOV will be used in Chapter 5 section 5.4.2, where it will be attached to an input form page item.
+  1. In Lists of Values, click the Create button.
+  2. Select the From Scratch option and click Next.
+  3. Enter **States** in Name box, select Dynamic for its type, and click Next.
+  4. On the List of Values Source screen, select SQL Query for Source Type, and enter  following query in the Enter a SQL SELECT statement box. Click Next.
+  ```
+  select state_name display_value, state_id return_value
+  from demo_states order by 1
+  ```
+
+  5. On the final Column Mappings screen, select RETURN_VALUE for Return Column, DISPLAY_VALUE for Display Column and click Create button to create the LOV.
+
+ 
+
+4. LOV NEW OR EXISTING CUSTOMER - STATIC
+
+  Will be incorporated in initial Order Wizard step (Chapter 7 Section 7.5.4) to select an existing customer for a new order or to create new one.
+  1. In Lists of Values, click Create.
+  2. Select From Scratch and click Next.
+  3. Enter **NEW OR EXISTING CUSTOMER** in Name box, select Static as its Type and click Next
+  4. Fill in display and return values as shown in following tbl and click Create LOV button.
+
+      | Sequence | Display value | Rerturn value |
+      | :------- | :------------ | :------------ | 
+      | 1 | Existing customer    | EXISTING      |
+      | 2 | New customer         | NEW           |
+
+ 
+
+
+
+<br /><br /><br /><br /><br /><a name="img"></a>
+# 3.5 Images
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm).....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared).....[Rep.List](#rep_list).....[Ord.WizList](ord_wiz_list).....[Top. Navig](top_navig).....[LOVs](lov)....**IMGs**.....[Home p.](#home)
+
+You can reference images within your app by uploading them to Images Repository. When you upload an image, you can specify whether it is available to all apps or a specific app. Images **uploaded as shared components** can be referenced throughout an app. They may 
+1. include images for application menus or buttons 
+2. or may represent icons that, when clicked, allow users to modify or delete data.
+ 
+**Images uploaded to the images repository should not be directly related to the app data** such as images of products and employees. Such images must be stored in the apps schema alongside the data to which the image is related. You will follow this approach **in Chapter 6 to save each products image along with other information in a DB table**.  
+
+APEX images are divided into two categories:  
+1. Workspace images are available to all applications for a given workspace
+2. App images are available for only one app
+
+### Add your app logo to images repository.
+Logo appears at every page top in app.
+1. Shared Components -> Files section -> click Static Application Files
+2. Click the Upload File button.
+3. Click the Choose Files button and select logo.ico file, available in the book code
+4. Click the upload button. After uploading the image, you need to **tell Oracle APEX to use this file as your app logo** :
+5. Shared Components -> User Interface section -> **User Interface Attributes**
+6. Logo section -> Image and Text for Logo
+7. Enter **#APP_IMAGES#oracle_apex.ico** in Image URL box,  
+   and enter **Sales Web App** in the Text box. An application logo can be an image, text, image and text, or based on custom markup.
+
+When you select a type for your app logo, additional attributes appear depending upon your selection. With this selection, your app logo and app name both will be displayed on each app page. The built-in substitution string (APP_IMAGES) is used to reference uploaded images, JavaScript, and cascading style sheets that are specific to a given app and are not shared over many apps. You must use this substitution string if you upload a file and make it specific to an app. Note that you must use the correct case for the image file name and extension, else the logo will not be displayed at runtime. Click the Apply Changes button.
+
+Run the app. 
+
+ 
+<br /><br /><br /><br /><br /><br /><a name="home"></a>
+# 4. Page Home (App Dashboard, default page)
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page)   [Environm](#environm).....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)....**Home page**.....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+ 
+**About Home Page**    
+   Represents objective of app (module). Is created as a blank slate and needs to be populated with **content relevant to your app (module) **-  stuff related to sales is :   
+   6 regions to present different views of sales data (see 2.6 and 2.9 Page Designer interface and how to access your workspace).  
+
+**Modify Home Page - 2 properties that are usually enough to set for the main page**   
+1. Sign in to your workspace -> in main menu click App Builder option -> click Edit icon under Sales Web App - see Figure 3-3 in chapter 3.  
+    
+2. Click Home page icon (if you’re browsing the page in Icon view). This action will **open definitions of Home page in Page Designer interface**.  
+    1. Modify Page Attributes **Home page Name and Title properties** with meaningful labels.  
+       Rendering tab to your left -> click root node  to refresh Property Editor (on the right side) with the main page properties. Set the properties mentioned in the following table and click the Save button (at the top-right corner).
+
+          | Property | Value         | Note |
+          | :------- | :------------ | -----------------------------------  |
+          | Name     | Sales Web App |  |
+          | Title    | Sales Web App | APEX engine uses title in place of **#TITLE# substitution string** used in page template inserted between the HTML tags <TITLE> and </TITLE>  |
+
+
+Use help :    Click a property in the Property Editor and then click the Help tab (in the Central pane).
+
+ 
+
+## Create Regions (stacked canvases) in Home Page   
+You put page items (Text Field, Select List, Radio Group, report, chart, static HTML content, buttons...) on a page under a specific region (page area, section that serves as a container for content ee to group page elements). Each region can have its **own template**, which controls its appearance.
+
+Some of our regions will use **Oracle JET Charts**. Oracle JET Charts (charting library) is a component of JET. These charts work on any modern browser regardless of platform, screen size, or features. JET is integrated Oracle JavaScript and CSS3 and HTML5 Extension, open source Toolkit 
+
+**To remove a component** (such as a region or an item) from a page, right-click the desired component in the Rendering section, and select Delete from the context menu. If you just created the component, click Undo (A) on the Toolbar to remove it from the page.
+
+
+
+<br /><br /><br /><a name="homereg1"></a>
+## Home Page region 1 (stacked canvas 1) : "Top Orders by Date"
+[Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6).....[Home buttons](#hbuttons).....[Home styles](#hstyles)
+
+Displays top five orders by date from DB using a **bar chart - horizontal bars=months and sumsales on x axe** - SQL (or PL/SQL function) populated - summarized sales figures (bars) for each date from Orders table. 
+
+!!!!! ***Rendering tab -> right-click Regions -> select Create Region*** to place new region = </> New under Content Body.
+
+**Click "</> New node" ** (future "Top Orders by Date" stacked canvas) and set common region properties in **Property Editor**. 
+
+Property Editor is **declarative (ee functional programming)** above some prog.language procedural code.
+
+<br /><br />
+## Set common region properties (attributes)**
+
+|  | Property | Value         | Help |
+|-:| :------- | :------------ | :-------------------------------- |
+| 1 | Title   | <span style="color:blue"><i><b>Top Orders by Date</b></i></span> |  Title should be unique to every region - **region purpose** . Region has **child node - component - named Attributes** - contains **region-specific properties** (region properties are common to all regions). Eg properties of a Static Content type region are different from a Chart region. |
+| 2 | Type    | Chart | = **page or page component purpose**. Default type is "**Static Content**" region with an empty source text eg **About section** on the right side of the App Builder interface region whose source is displayed text. After setting the second attribute (Type), you will be informed through the Messages tab that there **are some errors** on the page. These messages relate to some mandatory properties you will set accordingly in subsequent sections. |
+|   | Location |**Local Database** | or sourced from : 2.  **Remote DB**, connection is defined using REST Enabled SQL  or from 3. **Web Source eg RESTful web service** defined using Web Source Modules |
+|   | Type | SQL Query | or PL/SQL fn - how the data is queried  |
+| 3  | SQL Query | select order_day, sales from (select to_char(o.order_timestamp,'Mon DD, YYYY') order_day, SUM(o.order_total) sales from demo_orders o group by to_char(o.order_timestamp,'Mon DD, YYYY'), order_timestamp order by 2 desc nulls last) where rownum < 6 | order by 2 desc nulls last is in 11g DB, but order by 2 desc nulls last **fetch first 5 rows only**    - not in 11g DB  |
+| 4 | Start New Row | On (default) | DB apps created in Oracle APEX use **layout comprising rows with 12 columns** to position page elements. "On"  **puts region on a new row**.  Next region "Sales for This Month"  - Start New Row attribute it is set to Off to place that **region adjacent to this one**.  |
+| 5 | Column | Automatic  (default) | **Automatically finds a column position (col_ordnum 1 to 12) for the region**. There are **three regions on a single row, each region spans 4 columns**. Region1 will span from column number 1 to 4,  R2 from 5 to 8, R3 from 9 to 12  |
+| 6 | Column Span | 4 | narrows "Top Orders by Date" region |
+| 7 | Show Region Icon |  check mark to select this option | Under Template Options |
+|    | Body Height | 240px | Under Template Options  (Click OK to close dialog screen) |
+|    | Icon | fa-lg fa-apex | If **Template property** is set to default "Standard" value for a region, you can place an icon in region header. First, select Show Region Icon option (under Template Options) to display region icon in region header beside region title. Then, click the LOV for the Icon property (under Appearance), select a Style (for example, Large), and choose and icon from provided list.  |
+
+<br /><br />
+## Set region-specific properties
+Click Attributes node under new region and set the following region-specific properties :
+
+Set Type of this chart region to horizontal bar :
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 8 | Type   | Bar |
+| 9 | Orientation   | Horizontal |
+
+**Click the New sub-node under Series and set the following properties:**
+
+|  | Property | Value         | Help         |
+|-:| :------- | :------------ |:-------------- |
+| 10| Location (under Source) | Region Source | When you set the region type to Chart (2), a Series node is placed underAttributes with a New sub-node under it. In this node you specify Location (10) for the Series. Since an SQL Query has already been defined, we set it to Region Source, which points to the region’s SQL Query defined in the third attribute. By default, a chart is created with **one series (named New)**, but you can add more (see Chapter 8 section 8.3 steps 5 and 6).  |
+| 11| Label   | ORDER_DAY | Label attribute (11) is set to ORDER_DAY column to display values from this column as labels |
+| 12| Value   | SALES | to show sales figures (bars) |
+| 13| Type (under Link) | Redirect to Page in this application | |
+
+**Click No Link Defined under Target and set props in Link Builder dialog box:**
+
+ Define links on charts is done in properties 13-15. Links let you **call another app page for browsing details**.
+
+|  | Property | Value         |          Help      |
+|-:| :------- | :-------------- |:---------------- |
+| 14| Type   | Page in this application | When you click "No Link Defined" under Target prop., a small window titled Link Builder comes up, where you specify **target page details**. Once you set the link type to "Redirect to Page in this Application", a property named Target appears, where you provide the ID of the target application page you want to link with the chart (properties 14 and 15). The Template property (not indicated in the previous table) is set to Standard by default, which forms a **border around the region and displays the regions title across the top**.  |
+| 15| Page   | 4    (Click OK to close the dialog screen) | |
+
+
+To test your work from time to time eg after completing this region you can **save and run page** (by clicking the Save and Run Page button  at the top-right corner) to check how the region appears on it. At this stage, your Home page will show just **one region (Top Orders by Date)**. If you **click any bar in the chart, app tries to open Page 4 (Orders)** and throws an error, because Orders page does not exist. After completing Page 4 (Orders) in Chapter 7, when you run the Home page and click any of these links, Page 4 will be rendered carrying a list of orders.
+
+ 
+ 
+ <br /><br /><br /><a name="homereg2"></a>
+## Home Page region 2 (stacked canvas 2) : "Sales For This Month"
+[Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
+
+Page region 2 uses a **Badge List - 2 circles "Tot.sales and Tot.orders"**.  List is dynamically rendered based on a SQL Statement (or PL/SQL function) each time the page is viewed. Later on, we will transform it to present  fetched data in graphical format. 
+
+Create another region as previous region.
+
+<br /><br />
+## Set common region properties (attributes)**
+
+**Rendering tab to your left App builder -> Home icon (App 80858) -> Page Designer** -> right-click Regions -> select **Create Region** from context menu. New region will be created under previous one. Set  following properties for this region in Property Editor.  
+TIP:  If a region is not created in the desired location, **drag and drop it to the appropriate location** in the rendering tree.
+
+|  | Property | Value         |   Help
+|-:| :------- | :------------ | :------------ |
+| 1 | Title   | **Sales for This Month** | |
+| 2 | Type   | Classic Report | |
+|  | Location   | Local Database (default) | |
+|  | Type   | SQL Query | or **PL/SQL function** to fetch the desired data set. All columns you define in the query appear in a separate node (Columns) under region |
+| 3 | SQL Query   | select sum(o.order_total) total_sales,  count(distinct o.order_id) total_orders, count(distinct o.customer_id) total_customers from demo_orders o where order_timestamp >= to_date(to_char(sysdate,'YYYYMM') \|\| '01','YYYYMMDD') | |
+| 4 | Start New  Row   | Off | |
+| 5 | Column   | 5 | |
+| 7 | Body Height  (under Appearance -> Template  Options) | 240px | |
+
+
+### Create hidden page item to store first day of currmonth for behind processing
+
+**right-click Sales for this Month region and select Create Page Item** from the context menu. A **new node named Items** will be created with a new item named **P1_NEW**.  Hidden items can be seen in the **Page Designer**, but they do not appear on the page at run time.
+
+Click the new item and set the following properties:
+
+| Property         | Value         |          Help                              |
+| :--------------- | :------------ | :---------------------------------- |
+| Name             | P1_THIS_MONTH |  was P1_NEW |
+| Type             | Hidden        | |
+| Value Protected  | On (default)  | prevents item value from being manipulated when page is posted |
+| Type (under Source) | PL/SQL Expression | |
+| PL/SQL Expression   | to_char(sysdate ,'MM') \|\| '01'\|\| to_char(sysdate ,'YYYY') | or if Order Date column on Page 4 is rendered as 09-JAN-2017 :  '01-'\|\|to_char(sysdate ,'MON')\|\|'-'\|\|to_char(sysdate ,'YYYY') |
+
+Select **TOTAL_CUSTOMERS** column and set the Type attribute of this column to **Hidden Column** (invisible at run-time). 
+
+### TOTAL_SALES to transform it into a link
+
+**How to refer to a page item in links - present it as a substitution string : &P1_THIS_MONTH.  - terminated with a period !!** - see Value property in serial 6 in the following table. 
+
+Rendering section -> expand Columns node under the Sales for This Month region -> click TOTAL_SALES column - Figure 4-4.  Set following props :
+
+|  | Property | Value         |          Help                              |
+|-:| :------- | :------------ | :----------------------------------- |
+| 1 | Type   | Link | column is to be displayed as a link |
+| 2 | Format Mask   | in LOV select 5,234.10 | produces the mask 999G999G999G999G990D00 from list of values that shows  some common currency and date/time formats, 9 is optional digit, 0 is required digit, G is thousand separator, and D is for decimal point |
+
+Define link : Click **No Link Defined** under Target -> Link Builder dialog is opened -> set following properties.  To call another app page, it is suffice to transform a column into a link by setting  three values : Link, Page in this application, and Page Number. Recall that **in previous region you formed a similar kind of link**. 
+
+|  | Property | Value         |    Help               |
+|-:| :------- | :------------ | :-------------------- |
+| 3 | Type   | Page in this app | link should call a page in current app |
+| 4 | Page   | 4 | Target page number. Next prop. Name (5) and Value (6)  are values to be passed from currpg to targetpg. They form a filter argument to display current month's order on the target page (Page 4 - Orders, to be created in Chapter 7). Values for properties (5) and (6) are **usually picked from LOVs** using Page attribute, but due to **absence of Page 4 of our app**, we entered them  manually.  |
+| 5 | **Name** (under Set Items)   | IRGTE_ORDER_DATE | to specify session state for an item |
+| 6 | **Value** (under Set Items)   | &P1_THIS_MONTH.  (do not forget to add the trailing period) | to specify session state for an item |
+| 7 | Clear Cache   | RIR,4 | resets the interactive report on Page 4 |
+| 8 | Action   | Reset Pagination | resets pagination of the target page |
+
+**Click OK to close the Link Builder - Target dialog box**
+
+|  | Property | Value         | |
+|-:| :------- | :------------ | |
+| 9 | Link Text   | Text #TOTAL_SALES#  (select this value using the **Quick Pick button**) | column to be displayed as a link |
+
+In the current scenario, we used one name/value pair to **filter interactive report on the target page**. However, this section **allows you to set as many filters as you want**. **Each time you provide a value, another row is appended**, thus allowing you to enter another pair of name/value. You can use this section to also specify **target pages items in the Name column** and can set their values using the Value box.  
+
+For example, to set a customers  credit limit items value on the target page, enter the name of that item :  
+(P7_CREDIT_LIMIT) in the Name box and type the corresponding value (5000) in the Value box. This way, **when you call the target page, the value (5000) appears in the credit limit item**.
+
+Note that **column names are enclosed in # symbol when you specify them in Link Text attribute**. This is a **mandatory attribute** whose value can be selected using the Quick Pick button appearing next to it.
+
+At run-time the link is formed like this (if the application's Friendly URL attribute is turned off):  
+**f?p=145615:4:8824748217892::NO:RP,RIR,4:IRGTE_ORDER_DATE:01012018**  
+using the following syntax:  
+**f?p=&APP_ID.:Page:Sessionid::NO:RP,RIR,4:IRGTE\_(itemname):itemvalue** (stored in &P1_THIS_MONTH item). Table URL parameters :  
+
+| Argument      | Explanation         |
+| :--------------- | :-------------------- |
+| &APP_ID. | eg 80858.  The  expression  used here  is  called  a  **substitution  string  that  holds the  application  ID** used to make app more  portable.
+| :  |  colon  special  character  is argument  separator.  Since the URL contains no REQUEST argument, the position of this argument is left empty - see additional  colon  before  the  debug  argument (NO). |
+| 4 | target page 4 = Orders we are calling in URL |
+| Sessionid | number  (8824748217892)  appearing  in the URL is session ID of our app and is used **to create links between app pages**  by  maintaining  the  same  session  state among  them.  Note  that  session  ids  are managed automatically by Oracle APEX. |
+| NO | = do not enter the debug mode. References  debug  flag,  which  is  used  to display  app  processing  details. |
+| RP,RIR,4 | Placed in URL's ClearCache position, this argument **RP (Resets Pagination) for interactive report  on  Page  4**.  RIR=Reset  Interactive Report. Pagination =**info about numrows and currrownum  within result set**. You control  how  pagination  displays  by  making selections  from  **Pagination  Type  attribute**  in  Property  Editor (prop palete u F6i) -  style of links or buttons used to navigate to the next or previous page.  Clear  cache  section can have RIR or CIR or RP to reset, **clear, or reset**  pagination of primary default reports of all interactive report regions on the target page. |
+| IRGTE_ORDER_DATE | is  used  in itemNames position. IR (Interactive Report) string is used along with greater than and equal to operator  (GTE),  followed  by  an  item  name (ORDER_DATE  -  an  item  on  Page  4).  This argument  acts  as  a  filter  and  is  used  in conjunction  with itemValue (&P1_THIS_MONTH. mentioned underneath) to  only  display  current  month's  orders.  In simple  words  it  says:  **Order  date  of interactive  report  is  greater  than  or  equal  to item value**. |
+| &P1_THIS_MONTH. | Used  in  the  itemValue  position,  the  value stored in this hidden item is forwarded to the target page. **To create a filter** on an interactive report  in  a  link,  use  the  string IR\<operator>\_\<target  column  alias>  in  the ItemNames  section  of  the  URL  and  pass  the filter value in corresponding location in the ItemValues  section  of  the  URL.  See  section 2.7 in Chapter 2 for further details on Oracle APEX f?p syntax. Other operators you can use to filter an interactive report include: EQ = Equals (the default operator) LT = Less than GT = Greater than LTE = Less than or equal to GTE = Greater than or equal to LIKE = SQL LIKE operator N = Null To apply the filter, you must use correct date format  mask  in  the  SQL  query  for order_timestamp column. For example, if the Order Date column on Page 4 appears as  01-JAN-2017,  then  you  must  use 'DD/MON/YYYY' format mask. |
+
+
+<br /><br />
+## Set region-specific properties
+
+"Sales for This Month" region -> Click Attributes node -> Switch its **Template from "Standard" to "Badge List"** -> click **Template  Options**  ->  set  **Badge  Size  to  128px**,  **Layout  to  Span Horizontally** -> click OK.
+
+By setting these region properties, the derived one  row  summarized  report  will  be  presented  as  a  badge  list,  spanned horizontally.
+
+Also set Pagination Type to **No Pagination (Show All Rows)**.
+      
+Click Save and **Run Page button** to see this **region with two badges (circles) on it displaying 1. current month's sales and 2. number of orders placed**. 
+
+First badge - Current month's sales - acts as a link and leads you to Page 4 to display details of the summarized data. Since Page 4 will be created in Chapter 7,  you will get Page Not Found message if you click this badge.
+
+ 
+ 
+ 
+<br /><br /><br /><a name="homereg3"></a>
+## Home Page region 3 (stacked canvas 3) :  "Sales by Product region" - pie chart
+[Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
+
+Page region 3 shows **sale figures (sums as pie slices) visible when you move the mouse pointer over pie slices of pie chart** for individual products.
+
+Create another region as previous region.
+
+
+<br /><br />
+## Set common region properties (attributes)**
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 1 | Title   | **Sales by Product **|
+| 2 | Type   | Chart |
+|  | Location   | Local Database |
+|  | Type   | SQL Query |
+| 3 | SQL Query   | SELECT   p.product_name \|\| ' [$' \| \| p.list_price \|\| ']' product, SUM(oi.quantity * oi.unit_price) sales FROM     demo_order_items oi, demo_product_info p WHERE   oi.product_id = p.product_id GROUP BY p.product_id, p.product_name, p.list_price ORDER BY p.product_name desc |
+| 4 | Start New  Row   | Off |
+| 5 | Column   | 9 |
+| 5 | Column span  | 4 |
+| 7 | Body Height  (under Template  Options) | 240px |
+
+<br /><br />
+## Set region-specific properties
+Click the Attributes sub-node under new region and set following properties.
+
+|  | Property | Value         | Help         |
+|-:| :------- | :------------ | :------------ |
+| 8 | Type   | Pie | |
+| 9 | Show  (under Legend)   | Off  (default) | If you are creating a multi-series chart, then you can use legend (9) to identify each series on the chart. Using legend properties you can specify whether to display it, and if so, where it should be placed on the chart. You will use these properties in Chapter 8. |
+
+**Click the New sub-node under Series and set the following properties:**
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 10 | Location (under Source)  | Region Source |
+| 11 | Label   | PRODUCT |
+| 12 | Value   | SALES |
+| 13 | Show  (under Label)   | On (Specifies **whether the label(s) should be rendered on the chart**) |
+
+
+
+ 
+ 
+ <br /><br /><br /><a name="homereg4"></a>
+## Home Page region 4 (stacked canvas 4) : "Sales by Category" region
+[Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
+
+Page region 4 will present sale figures - **bars for each product category : Men, Women, and Accessories**.
+
+This time, we will add a region using the drag and drop APEX  feature. ***Drag Chart icon from Regions gallery and drop it under "Top Orders by Date region***. **Chart region will appear**.  Place  chart region at its proper location, if needed.
+
+
+<br /><br />
+## Set common region properties (attributes)**
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 1 | Title   | **Sales by Category**|
+| 2 | Type   | Chart |
+|  | Location   | Local Database |
+|  | Type   | SQL Query |
+| 3 | SQL Query   | SELECT p.category Category, sum(o.order_total) Sales FROM demo_orders o, demo_order_items oi, demo_product_info p WHERE o.order_id = oi.order_id AND oi.product_id = p.product_id GROUP BY category ORDER BY 2 desc |
+| 4 | Start New  Row   | On |
+| 5 | Column   | 1 |
+| 5 | Column span  | 4 |
+| 7 | Body Height  (under Template  Options) | 480px |
+
+
+<br /><br />
+## Set region-specific properties
+Click Attributes sub-node under new region and set following properties.
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 8 | Type   | Bar |
+| 9 | Show  (under Legend)   | Off  (default) |
+
+**Click the New sub-node under Series and set the following properties:**
+
+|  | Property | Value         |   Help         |
+|-:| :------- | :------------ | :------------ |
+| 10 | Location (under Source)  | **Region Source** | |
+| 11 | Label   | CATEGORY | |
+| 12 | Value   | SALES | |
+| 13 | Color  (under Appearance)  | #18A0C2 | or **Color Picker tool** - to change default chart color. |
 
 
 
 
 
-			 
+
+<br /><br /><br /><a name="homereg5"></a>
+## Home Page region 5 (stacked canvas 5) : "Top Customers" region
+[Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
+
+**Top  six  customers**  with  highest  orders  and  will present info **in text format**. 
+
+Create a new region by **dragging Classic Report icon**   from gallery and dropping it under  "Sales by Category" region. Source of a Classic Report is **SQL query**. Each time page is rendered, APEX evaluates query and displays result within  the  region.  Once  you  specify  row  and  column  properties  using following table, region will appear next to the Sales by Category region.
+
+
+<br /><br />
+## Set common region properties (attributes)**
+ 
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 1 | Title   | **Top Customers**|
+| 2 | Type   | Classic Report    (should be already set) |
+|  | Location   | Local Database |
+|  | Type   | SQL Query |
+| 3 | SQL Query   | SELECT b.cust_last_name \|\| ', ' \|\| b.cust_first_name \|\| ' - '\|\| count(a.order_id) \|\|' Order(s)' customer_name, SUM(a.ORDER_TOTAL) order_total,  b.customer_id id FROM   demo_orders a, DEMO_CUSTOMERS b WHERE a.customer_id = b.customer_id GROUP BY b.customer_id, b.cust_last_name \|\| ', ' \|\| b.cust_first_name ORDER BY NVL(SUM(a.ORDER_TOTAL),0) DESC |
+| 4 | Start New  Row   | Off |
+| 5 | Column   | 5 |
+| 5 | Column span  | 4 |
+| 7 | Body Height  (under Template  Options) | 240px |
+
+Rendering tab -> expand Columns node under "Top  Customers" region,  and **click CUSTOMER_NAME column**.  Set following properties to **transform this column into a link to  provide  drill-down**  capability. **APEX  specifies  CUSTOMER_NAME column in Link Text attribute**.
+ 
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 8 | Type   | Link |
+
+**Click No Link Defined under Target and set the following properties:**
+
+|  | Property | Value         |  Help
+|-:| :------- | :------------ | :------------ |
+| 9 | Type  | Page in this app | |
+| 10 | Page | 7 | |
+| 11 | Name   | P7_CUSTOMER_ID | This value refers to an item on Page 7 that will be populated with the value held in #ID# . It is forwarded to  Page 7 from the Home page to display **selected customer profile**. |
+| 12 | Value   | #ID# | references third column in above SELECT query. Standard procedure in APEX to **refer to a column value** is to enclose it between # symbols. To **refer page item we use substitution strings**. |
+| 13 | Clear Cache | 7 | |
+ 
+When we run this page,  each  customer's  name  appears  as  a  hyperlink,  clicking  which  calls customer's  profile  page  (Page  7).  We  set  Page  attribute  to  7,  which  is  the page we want to navigate to. We also forwarded the customer’s ID (#ID#) to Page 7. 
+
+Click  **ORDER_TOTAL**  column  and  set  Format  Mask  to  $5,234.10 = FML999G999G999G999G990D00. 
+
+Select  ID  column  and  set  **Type  property  (under  Identification)  to Hidden Column** to hide this column at run-time.
+
+
+<br /><br />
+## Set region-specific properties
+Click the Attributes sub-node under new region and set following properties.
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 1 | Pagination Type  | No Pagination (Show All Rows) |
+| 2 | Maximum Row to Process  (under Performance)  | 6 |
+| 3 | Type  (under Heading)  | None |
+
+**Pagination is suppressed** since we want to see only six records in the region. We also set Heading Type to None to **suppress column headings**.
+
+Click Save and Run Page button to test the progress.
+
+
+
+
+
+<br /><br /><br /><a name="homereg6"></a>
+## Home Page region 6 (stacked canvas 6) : "Top Products" region 
+[Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
+
+Similar to Top  Customers  region - **create this  region  by  copying  the  Top  Customers  region**. Displays  **six  top selling products**.
+
+**Right-click Top Customers region** -> **Duplicate** from context menu. Copy of source region will be appended just under it.
+
+
+<br /><br />
+## Set common region properties (attributes)**
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 1 | Title   | **Top Products**|
+| 2 | Type   | Classic Report    (should be already set) |
+|  | Location   | Local Database |
+|  | Type   | SQL Query |
+| 3 | SQL Query   | SELECT p.product_name\|\|' - '\|\|SUM(oi.quantity)\|\|' x' \|\|to_char(p.list_price,'L999G99')\|\|'' product, SUM(oi.quantity * oi.unit_price) sales, p.product_id FROM demo_order_items oi,    demo_product_info p WHERE oi.product_id = p.product_id GROUP BY p.Product_id, p.product_name, p.list_price ORDER BY 2 desc |
+| 4 | Start New  Row   | Off |
+| 5 | Column   | 9 |
+| 5 | Column span  | 4 |
+| 7 | Body Height  (under Template  Options) | 240px |
+
+Expand the Columns node and **click PRODUCT column** to set the following properties:
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 8 | Type   | Link |
+
+**Click No Link Defined under Target and set the following properties:**
+
+|  | Property | Value         |  Help
+|-:| :------- | :------------ | :------------ |
+| 9 | Type  | Page in this app | |
+| 10 | Page | 6 | |
+| 11 | Name   | P6_PRODUCT_ID | This value refers to an item on Page 7 that will be populated with the value held in #ID# . It is forwarded to  Page 7 from the Home page to display **selected customer profile**. |
+| 12 | Value   | #PRODUCT_ID# | references third column in above SELECT query. Standard procedure in APEX to **refer to a column value** is to enclose it between # symbols. To **refer page item we use substitution strings**. |
+| 13 | Clear Cache | 6 | |
+
+Click **SALES column** and set its Format Mask to $5,234.10. Select **PRODUCT_ID column** and set its Type property to **Hidden Column**.
+
+
+<br /><br />
+## Set region-specific properties
+Click the Attributes sub-node under new region and set following properties.
+
+|  | Property | Value         |
+|-:| :------- | :------------ |
+| 1 | Pagination Type  | No Pagination (Show All Rows) |
+| 2 | Maximum Row to Process  (under Performance)  | 6 |
+| 3 | Type  (under Heading)  | None |
+
+Click Save and Run Page button to see how all six regions appear on Home page.
+
+
+
+
+
+<br /><br /><br /> <a name="buttons"></a>
+## Create Buttons
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<br /><br /><br /> <a name="pgstyles"></a>
+## Styling Page Elements
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+ <a name="cust"></a>
+
+
+
+
+
+<br /><br /><br /><br /><br /><br /><a name="cust"></a>
+# 05. Page Managing Customers
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+ 
+
+
+
+
+<br /><br /><br /><br /><br /><br /> <a name="prod"></a>
+# 06. Page Set Up Products Catalog
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+
+
+
+
+<br /><br /><br /><br /><br /><br /> <a name="order"></a>
+# 07. Page Orders
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+ 
+
+
+
+
+<br /><br /><br /><br /><br /><br /><a name="gra_mob"></a>
+# 08. Graphical Reports & Mobile Integration
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+
+
+
+
+<br /><br /><br /><br /><br /><br /> <a name="advrep"></a>
+# 09. Produce Advance Reports
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+ 
+
+
+
+
+<br /><br /><br /><br /><br /><br /> <a name="authoriz"></a>
+# 10. Authorization - Managing Users & App Access
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+
+
+
+
+<br /><br /><br /><br /><br /><br /><a name="searchstylecal"></a>
+## 11.1 Faceted Search
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+
+
+<br /><br /><br /><a name="themeroll"></a>
+## 11.2 Theme Roller – Style Your Application
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+
+
+
+<br /><br /><br /><a name="themeroll"></a>
+## 11.3 Styling Buttons
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+
+
+
+<br /><br /><br /><a name="themeroll"></a>
+## 11.4 Manage Events via Calendar component
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+
+
+
+
+<br /><br /><br /><br /><br /><br /> <a name="deploy"></a>
+# 12. Deploy
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+<br /><br /><br />
+___
+[Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)

@@ -1,0 +1,30 @@
+<?php
+// J:\xampp\htdocs\z_Hollingworth\login\App\Views\Home\index.html
+//{% extends 'b ase.html' %}  ee  includes b ase.html !!
+use App\Config;
+$cnf = new Config;
+
+$title  = 'USR'; // for ibrowser tab
+$body   = '<h1>User CRUD</h1>';
+
+$footer = 'THIS VIEW IS '. __FILE__ 
+  .'<br /> &nbsp;  &nbsp; IT INCLUDES (EXTENDS) '
+  . dirname(dirname(__FILE__)) . '/base.html'
+  . '<br />$cnf->MODULE_RELURL='. $cnf->MODULE_RELURL // /z_Hollingworth/login/public 
+  . '<br />$cnf->MODULE_PATH='. $cnf->MODULE_PATH // J:\xampp\htdocs\z_Hollingworth\login
+  . '<br />$_SERVER[\'REQUEST_URI\']='. $_SERVER['REQUEST_URI'] // 
+;
+            $current_user = 'current_user';
+            $current_user_name = 'current_user_name';
+    //if ($current_user) { echo 'Hello '. $current_user_name
+    //} else { 
+        $body .=
+            '<a href="'. $cnf->MODULE_RELURL .'/signup/new">Sign up</a>'
+          . ' or <a href="'. $cnf->MODULE_RELURL .'/login">Log in</a>'
+          //. ' or <a href="/z_Hollingworth/login/public/login">Log in</a>'
+        ;
+    //}
+
+//http://localhost:8083/z_Hollingworth/login/public/login
+include $cnf->MODULE_PATH .'\App\Views\base.html' ;
+    //'J:\xampp\htdocs\z_Hollingworth\login\App\Views\base.html' ;

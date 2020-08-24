@@ -1,0 +1,3 @@
+<h1>Account activation</h1>
+
+<p>Thank you for signing up. Please <a href="{{ url }}">click here to activate your account</a>.</p>
