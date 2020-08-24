@@ -6,11 +6,17 @@ Author: phporacle
 Template: blog  
 Tag: Help, Markdown sintax, SimpleMDE  
 ~~  
-**See https://www.tutorialspoint.com/online_markdown_editor.php**
 
-https://www.w3schools.com/html/html_symbols.asp   
+>MD to HTML converters on inet :
+1. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**   
+2. or   https://www.browserling.com/tools/markdown-to-html (many converters)  
+3. or files convert :  https://products.aspose.app/pdf/conversion/md-to-html  to many formats  
+4. Links not working :     http://demo.showdownjs.com/ (no HTML source)  
+  NOT WORKING : https://daringfireball.net/projects/markdown/dingus    or   https://pandoc.org/try/ 
 
-https://www.degraeve.com/reference/specialcharacters.php
+>https://www.w3schools.com/html/html_symbols.asp   
+
+>https://www.degraeve.com/reference/specialcharacters.php
 
 #### [About SimpleMDE](#SimpleMDE)    https://github.com/sparksuite/simplemde-markdown-editor
 # 1. Content   
