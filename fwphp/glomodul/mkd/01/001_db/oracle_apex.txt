@@ -1,26 +1,24 @@
- ---  
-<a name="top"></a>
-2020.08.17  
+---  
+<a name="top"></a>2020.08.17  
 ## 1. Intro
 **Top**.....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
 .....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
+This txt on my Github :   https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/mkd/01/001_db/oracle_apex.txt  
+>Md to HTML converters on inet :   **http://demo.showdownjs.com/**  or  https://daringfireball.net/projects/markdown/dingus
+or https://pandoc.org/try/ or https://products.aspose.app/pdf/conversion/md-to-html  to many formats
+or https://markdowntohtml.com/   or   https://www.browserling.com/tools/markdown-to-html (and html to md and... many converters)
+
 https://drive.google.com/drive/my-drive    **2020_Riaz_Oracle_APEX_20_For_Beginner.pdf : **      URL to Download Book Code (no DDL)  https://tinyurl.com/oracleapex20  
 
-**Cloud Dev APEX : https://apex.oracle.com/pls/apex/f?p=4500:1000** is opened  (added is  :722441254522763:::::)  
+1. **Cloud Dev APEX : https://apex.oracle.com/pls/apex/f?p=4500:1000** is opened  (APEX add  :722441254522763:::::)  
+   or dev URL https://apex.oracle.com/pls/apex/f?p=4550  
+   To sign in Cloud Dev APEX : https://apex.oracle.com/en/  -> "Sign in" button which opens Login page  
+   After "p=" is app alias 4500 (appID) means eg sales-web-app4, possys is workspace.   1000 is pageID.
+2. **To leave APEX dev. envir**, click your name (appearing at top-right) and select Sign Out.    
+    
+3.  ** Cloud run Cloud APEX Sales app : https://apex.oracle.com/pls/apex/possys/r/sales-web-app4/home**  (APEX add  ?session=710994255959550)  
 
-** Cloud run APEX Sales app : https://apex.oracle.com/pls/apex/possys/r/sales-web-app4/home**  (added is  ?session=710994255959550)  
-
-dev URL https://apex.oracle.com/pls/apex/f?p=4550   
-After "p=" is app alias 4500 (appID) means eg sales-web-app4, possys is workspace.   1000 is pageID.
-
-
-**To leave Ora. APEX envir**, click your name (appearing at top-right) and select Sign Out.    
-
-To sign in : https://apex.oracle.com/en/  -> "Sign in" button which opens Login page or     
-
-**https://apex.oracle.com/pls/apex/f?p=4550**
- 
 
 
 
@@ -1391,7 +1389,7 @@ Use help :    Click a property in the Property Editor and then click the Help ta
 
  
 
-## Create Regions (stacked canvases) in Home Page   
+## 4.3 Create Regions (stacked canvases) in Home Page   
 You put page items (Text Field, Select List, Radio Group, report, chart, static HTML content, buttons...) on a page under a specific region (page area, section that serves as a container for content ee to group page elements). Each region can have its **own template**, which controls its appearance.
 
 Some of our regions will use **Oracle JET Charts**. Oracle JET Charts (charting library) is a component of JET. These charts work on any modern browser regardless of platform, screen size, or features. JET is integrated Oracle JavaScript and CSS3 and HTML5 Extension, open source Toolkit 
@@ -1791,11 +1789,136 @@ Click Save and Run Page button to see how all six regions appear on Home page.
 
 
 
+**END creating all regions.**
+
 <br /><br /><br /> <a name="buttons"></a>
-## Create Buttons
+## 4.4 Create Buttons on top of each region
 [Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
 .....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
+These buttons provide drill-down functionality and take user to relevant pages to dig further details for the provided summarized information.
+
+Some of these regions will have a pair of buttons (add and view) to create a new  record  and  to  browse  further  details  of  the  provided  information.  For instance, if you click the Add Order button in the Top Order by Date region, you will be redirected to Page 11 to add a new order.
+
+### 4.4.1 View Orders Button
+Used to view a list of all customer orders.
+
+To create this button, **right-click Top Orders by Date region** -> select Create Button from context menu. This way, the **button will be created in selected region**. A new node Region Buttons will be added with a button.
+
+Set following properties for the new button. Among these properties is
+Button Position, which provides you with over a dozen values. The best way
+to understand the other options is to try each one to see its effect.
+Property Value
+Button Name VIEW_ORDERS
+Label
+View Orders     (appears as a tooltip when you move over the button at
+run-time)
+Region Top Orders by Date (the region where the button will appear)
+Button Position Edit    (try other options as well to observe different positions)
+Button Template Icon   (the button will be displayed as an icon)Icon fa-chevron-right   (the name of an icon from the APEX’s repository)
+Action Redirect to Page in this Application
+Target
+Type = Page in this application
+Page = 4
+4.4.2 Add Order Button
+This one calls Order Wizard (to be created in Chapter 7) to place a new order.
+Right-click Region Buttons under the Top Orders by Date region and select
+Create Button. A new button will be added just under the previous one. Set
+the following properties for this new button:
+Property Value
+Button Name ADD_ORDER
+Label Enter New Order
+Region Top Orders by Date
+Button Position Edit
+Button Template Icon
+Icon fa-plus
+Action Redirect to Page in this Application
+Target
+Type = Page in this application
+Page = 11
+Clear Cache=11
+4.4.3  View Orders For This Month Button
+This button will drill-down into current month’s order details. As illustrated
+in the following figure, drag an icon button from the Buttons gallery and drop
+it in the EDIT position under the Sales for this Month region. A new button
+will be added to this region. Select it and set the properties mentioned just
+after  the  illustration.  The  link  properties  set  here  are  similar  to  those  set
+earlier in section 4.3.2.Figure 4-7
+Property Value
+Button Name VIEW_MONTH_ORDERS
+Label View Orders for This Month
+Region Sales for This Month
+Button Position Edit   (already set)
+Button Template Icon  (already set)
+Icon fa-chevron-right
+Action Redirect to Page in this ApplicationTarget
+Type = Page in this Application
+Page = 4
+Name = IRGTE_ORDER_DATE
+Value = &P1_THIS_MONTH.
+Clear Cache = RIR,4
+4.4.4  View Customers Button
+You’ll place two buttons in the Top Customers region. Create these buttons
+using either of the two methods applied above and set respective properties as
+mentioned below. The first button will be used to view a list of customers on
+Page 2 of the application.
+Property Value
+Button Name VIEW_CUSTOMERS
+Label View Customers
+Region Top Customers
+Button Position Edit
+Button Template Icon
+Icon fa-chevron-right
+Action Redirect to Page in this Application
+Target
+Type = Page in this Application
+Page = 2
+4.4.5  Add Customer Button
+This button is used to add a new customer record. When clicked, it will call
+Page 7 (Customers – to be created in the next chapter). The target page will
+appear on top of the Home page (as a modal dialog) carrying a blank form to
+enter  new  customer’s  credentials.  Right-click  the  VIEW_CUSTOMERS
+button and select Create Button from the context menu. Set the following
+properties for the new button.
+Property Value
+Button Name ADD_CUSTOMER
+Label Add Customer
+Region Top Customers
+Button Position Edit
+Button Template Icon
+Icon fa-plus
+Action Redirect to Page in this Application4.4.6  View Products Button
+Create the following two buttons in the Top Products region. The  first  one
+leads you to the main products page to display a list of all products.
+Property Value
+Button Name VIEW_PRODUCTS
+Label View Products
+Region Top Products
+Button Position Edit
+Button Template Icon
+Icon fa-chevron-right
+Action Redirect to Page in this Application
+Target
+Type = Page in this Application
+Page = 3
+4.4.7  Add Product Button
+This one calls Page 6 to add a new product.
+Property Value
+Button Name ADD_PRODUCT
+Label Add Product
+Region Top Products
+Button Position Edit
+Button Template Icon
+Icon fa-plus
+Action Redirect to Page in this Application
+Target
+Type = Page in this Application
+Page = 6
+Clear Cache = 6
+At this stage, all the seven buttons are placed at their proper locations with
+the  expected  functionalities  and  are  ready  for  partial  test.  To  remind  you
+again, these buttons will be productive only after creating all relevant pages
+indicated in their respective Target properties.
  
  
  
