@@ -1,13 +1,12 @@
 ---  
 <a name="top"></a>2020.08.17  
 ## 1. Intro
-**Top**.....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+**Top**.....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img).....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
 >This txt on my Github :   https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/mkd/01/001_db/oracle_apex.txt  (in Markdown format) is based on https://drive.google.com/drive/my-drive    **2020_Riaz_Oracle_APEX_20_For_Beginner.pdf : **,  URL to Download Book Code (no DDL)  https://tinyurl.com/oracleapex20  
 
 >MD to HTML converters on inet :
-1. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**   
+1. **https://www.tutorialspoint.com/online_markdown_editor.php**        or     https://markdowntohtml.com/
 2. or   https://www.browserling.com/tools/markdown-to-html (many converters)  
 3. or files convert :  https://products.aspose.app/pdf/conversion/md-to-html  to many formats  
 4. Links not working :     http://demo.showdownjs.com/ (no HTML source)  
@@ -1423,7 +1422,7 @@ Property Editor is **declarative (ee functional programming)** above some prog.l
 |  | Property | Value         | Help |
 |-:| :------- | :------------ | :-------------------------------- |
 | 1 | Title   | <span style="color:blue"><i><b>Top Orders by Date</b></i></span> |  Title should be unique to every region - **region purpose** . Region has **child node - component - named Attributes** - contains **region-specific properties** (region properties are common to all regions). Eg properties of a Static Content type region are different from a Chart region. |
-| 2 | Type    | Chart | = **page or page component purpose**. Default type is "**Static Content**" region with an empty source text eg **About section** on the right side of the App Builder interface region whose source is displayed text. After setting the second attribute (Type), you will be informed through the Messages tab that there **are some errors** on the page. These messages relate to some mandatory properties you will set accordingly in subsequent sections. |
+| 2 | Type    | Chart | = **page or page component purpose**. Default type is "**Static Content = HTML max 33.8 kB**" region with an empty source text eg **About section** on the right side of the App Builder interface region whose source is displayed text. After setting the second attribute (Type), you will be informed through the Messages tab that there **are some errors** on the page. These messages relate to some mandatory properties you will set accordingly in subsequent sections. |
 |   | Location |**Local Database** | or sourced from : 2.  **Remote DB**, connection is defined using REST Enabled SQL  or from 3. **Web Source eg RESTful web service** defined using Web Source Modules |
 |   | Type | SQL Query | or PL/SQL fn - how the data is queried  |
 | 3  | SQL Query | select order_day, sales from (select to_char(o.order_timestamp,'Mon DD, YYYY') order_day, SUM(o.order_total) sales from demo_orders o group by to_char(o.order_timestamp,'Mon DD, YYYY'), order_timestamp order by 2 desc nulls last) where rownum < 6 | order by 2 desc nulls last is in 11g DB, but order by 2 desc nulls last **fetch first 5 rows only**    - not in 11g DB  |
@@ -1803,54 +1802,52 @@ Click Save and Run Page button to see how all six regions appear on Home page.
 [Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
 .....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
-These buttons provide drill-down functionality and take user to relevant pages to dig further details for the provided summarized information.
-
-Some of these regions will have a pair of buttons (add and view) to create a new  record  and  to  browse  further  details  of  the  provided  information.  For instance, if you click the Add Order button in the Top Order by Date region, you will be redirected to Page 11 to add a new order.
+These buttons provide **drill-down** functionality and take user to relevant pages to dig further **details for summarized information**.  Eg buttons **add, view...** - click "Add Order" btn in "Top Order by Date" region -> redirect to page 11 to add new order.
 
 ### 4.4.1 View Orders Button
-Used to view a list of all customer orders.
+To view a list of all customer orders.
 
-To create this button, **right-click Top Orders by Date region** -> select Create Button from context menu. This way, the **button will be created in selected region**. A new node Region Buttons will be added with a button.
+To create this button, **right-click Top Orders by Date region** -> select Create Button from context menu. This way, **button will be created in selected region**. A **new node Region Buttons** will be added with a button.
 
-Set following properties for the new button. Among these properties is
-Button Position, which provides you with over a dozen values. The best way
-to understand the other options is to try each one to see its effect.
-Property Value
-Button Name VIEW_ORDERS
-Label
-View Orders     (appears as a tooltip when you move over the button at
-run-time)
-Region Top Orders by Date (the region where the button will appear)
-Button Position Edit    (try other options as well to observe different positions)
-Button Template Icon   (the button will be displayed as an icon)Icon fa-chevron-right   (the name of an icon from the APEX’s repository)
-Action Redirect to Page in this Application
-Target
-Type = Page in this application
-Page = 4
-4.4.2 Add Order Button
-This one calls Order Wizard (to be created in Chapter 7) to place a new order.
-Right-click Region Buttons under the Top Orders by Date region and select
-Create Button. A new button will be added just under the previous one. Set
-the following properties for this new button:
-Property Value
-Button Name ADD_ORDER
-Label Enter New Order
-Region Top Orders by Date
-Button Position Edit
-Button Template Icon
-Icon fa-plus
-Action Redirect to Page in this Application
-Target
-Type = Page in this application
-Page = 11
-Clear Cache=11
-4.4.3  View Orders For This Month Button
-This button will drill-down into current month’s order details. As illustrated
-in the following figure, drag an icon button from the Buttons gallery and drop
-it in the EDIT position under the Sales for this Month region. A new button
-will be added to this region. Select it and set the properties mentioned just
-after  the  illustration.  The  link  properties  set  here  are  similar  to  those  set
-earlier in section 4.3.2.Figure 4-7
+|  | Property | Value         |  Help
+|-:| :------- | :------------ | :------------ |
+| 1 | Button Name | VIEW_ORDERS |  |
+| 2 | Label | View Orders | appears as tooltip when you move over button at run-tim |
+| 3 | Region | Top Orders by Date | region where button will appear |
+| 4 | Button Position | Edit | over dozen values, try other options as well to observe different positions |
+| 5 | Button Template | Icon | button will be displayed as an icon |
+| 6 | Icon | fa-chevron-right | name of an icon from the APEX's repository |
+| 7 | Action | Redirect to Page in this App | |
+| 8 | Target | Type = Page in this app    Page = 4 | |
+|  |  |  | |
+
+
+
+### 4.4.2 Add Order Button
+Calls Order Wizard (to be created in Chapter 7) to place a new order.
+
+**Right-click Region Buttons under the Top Orders by Date region** -> select Create Button. A new button will be added under previous one. 
+
+|  | Property | Value         |  Help
+|-:| :------- | :------------ | :------------ |
+| 1 | Button Name | ADD_ORDER |  |
+| 2 | Label | Enter New Order | appears as tooltip when you move over button at run-tim |
+| 3 | Region | Top Orders by Date | region where button will appear |
+| 4 | Button Position | Edit | over dozen values, try other options as well to observe different positions |
+| 5 | Button Template | Icon | button will be displayed as an icon |
+| 6 | Icon | fa-plus | name of an icon from the APEX's repository |
+| 7 | Action | Redirect to Page in this App | |
+| 8 | Target | Type = Page in this app    Page = 11   Clear Cache=11 | |
+|  |  |  | |
+
+
+### 4.4.3  View Orders For This Month Button
+Drill-down into current month's order details. 
+
+**Drag an icon button from Buttons gallery** and drop it in the EDIT position under Sales for this Month region. A new button will be added to this region. 
+
+Select it and set the properties mentioned just after  the  illustration.  The  link  properties  set  here  are  similar  to  those  set earlier in section 4.3.2.Figure 4-7
+
 Property Value
 Button Name VIEW_MONTH_ORDERS
 Label View Orders for This Month
@@ -1864,7 +1861,8 @@ Page = 4
 Name = IRGTE_ORDER_DATE
 Value = &P1_THIS_MONTH.
 Clear Cache = RIR,4
-4.4.4  View Customers Button
+
+### 4.4.4  View Customers Button
 You’ll place two buttons in the Top Customers region. Create these buttons
 using either of the two methods applied above and set respective properties as
 mentioned below. The first button will be used to view a list of customers on
@@ -1880,7 +1878,8 @@ Action Redirect to Page in this Application
 Target
 Type = Page in this Application
 Page = 2
-4.4.5  Add Customer Button
+
+### 4.4.5  Add Customer Button
 This button is used to add a new customer record. When clicked, it will call
 Page 7 (Customers – to be created in the next chapter). The target page will
 appear on top of the Home page (as a modal dialog) carrying a blank form to
@@ -1894,7 +1893,9 @@ Region Top Customers
 Button Position Edit
 Button Template Icon
 Icon fa-plus
-Action Redirect to Page in this Application4.4.6  View Products Button
+Action Redirect to Page in this Application
+
+### 4.4.6  View Products Button
 Create the following two buttons in the Top Products region. The  first  one
 leads you to the main products page to display a list of all products.
 Property Value
@@ -1908,7 +1909,8 @@ Action Redirect to Page in this Application
 Target
 Type = Page in this Application
 Page = 3
-4.4.7  Add Product Button
+
+### 4.4.7  Add Product Button
 This one calls Page 6 to add a new product.
 Property Value
 Button Name ADD_PRODUCT
@@ -2035,13 +2037,38 @@ indicated in their respective Target properties.
 .....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
  
- 
+
  
  
  
 
  
 <br /><br /><br />
+Help region :
+```
+for c1 in 
+(
+    select page_title, help_text 
+    from apex_application_pages
+    where page_id = :P10061_PAGE_ID 
+       and application_id = :APP_ID
+)
+loop
+    if c1.help_text is null then
+        sys.htp.p('No help is available for this page.');
+    else
+        if substr(c1.help_text, 1, 3) != '<p>' then
+            sys.htp.p('<p>');
+        end if;
+
+        sys.htp.p(apex_application.do_substitutions(c1.help_text));
+
+        if substr(trim(c1.help_text), -4) != '</p>' then
+            sys.htp.p('</p>');
+        end if;
+    end if;
+end loop;
+```
 ___
 [Top](#top).....<a href="#apexws_cloud" id="lnkapexws_cloud">Apexws_cloud</a>.....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
 .....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)

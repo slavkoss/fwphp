@@ -11,9 +11,7 @@ abstract class Db_allsites extends Dbconn_allsites
 {
     // can be named AbstractEntity
     private $stmt;    //P D O  statement handler, I use it only in dd fn
-    
     private $dbobj;   // or $conn 
-    
     private $errmsg;  //handle our error not used in first versions, can be useful
 
 

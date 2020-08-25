@@ -11,7 +11,9 @@ abstract class Dbconn_allsites
     
     //for all tbls global read fn "rr" to read paginated ee to read rows block (recordset) :
     protected static $do_pgntion = null;
-
+    //To do : improve this (refactoring this code) 
+    //  For now J:\awww\www\zinc\Dbconn_allsites_mysql.php
+    //  is copied to J:\awww\www\zinc\Dbconn_allsites.php
     protected static $dbi = 'mysql' ; // mysql or oracle or any  d b i  you wish
     private static $hostpc = 'localhost';
     private static $dbname = 'z_blogcms';

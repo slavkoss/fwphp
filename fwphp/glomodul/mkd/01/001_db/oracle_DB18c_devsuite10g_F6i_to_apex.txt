@@ -4,13 +4,81 @@
 ## 1. INST / DEINST DB 18c from OracleXE184_Win64.zip
 **Top (DB 18c)**.....[APEX 20.1](#apex).....[Conv. F6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)
 
+https://dbahelp2018.wordpress.com/install-oracle-18c-xe-on-windows-10/
+
+If you don’t already have an account you will need to create one to download the s/w:
+https://profile.oracle.com/myprofile/account/create-account.jspx
+
+https://dbahelp2018.wordpress.com/install-oracle-18c-xe-on-windows-10/
+
 on Windows 10 pro 64 bit  Ver : 10.0.19041  
 1. **Deinstall 11g XE (615 MB)**  
-2. run as admin L:\\1_downloads\\data\\1_instalac\ora18c\\setup.exe  
+2. **run as admin** L:\\1_downloads\\data\\1_instalac\ora18c\\setup.exe  to 
+   1. DESTIN_DIR :        **J:\\app\\oraclexe\\product\\18.0.0** 
+   2. ORACLE_HOME :  DESTIN_DIR\dbhomeXE
+   3. ORACLE_BASE :   DESTIN_DIR
 3. When prompted, set database password to use for SYS, SYSTEM and PDBAADMIN accounts
+    alter user <username> identified by <password>;)
 4. Verify and remember the Oracle Home and other locations. Note that the spaces are not allowed in directory names.   
-5. Next hit Install to get it going.
+5. Next hit Install to get it going
+    Windows defender will alert for java firewall rule, I've changed this to 'Private networks, such as my home or work network'
 
+### Note the details for our XE DB:  
+Server: localhost  
+Port: 1521  
+Multitenant container DB : localhost:1521     Container DB will be called XE  
+Pluggable DB                    : XEPDB1     localhost:1521/XEPDB1  
+Enterprise Express URL  : https://localhost:5500/em  
+
+
+### Check DB in GUI Enterprise Manager Express  
+User Name: sys  
+Password: ...  
+Container name:  Leave blank  
+as sysdba: tick box  
+
+### SQLdeveloper 19.2.1
+https://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html
+
+Click **new connection**:  
+Name: **XEPDB1_sys**  
+Username: **sys**  
+Password: MYPSW  
+Save Password: check box  
+Role: **SYSDBA**  
+Hostname: localhost  
+Port: 1521  
+Service name: **xepdb1**  
+
+Then click test, should see : Status Success  
+Click Save -> Click Connect  
+You are now connected to 18c XE db.  
+
+### Can optionally update tnsnames.ora file
+ in s/w base dir/network/admin/tnsnames.ora file to add an connection alias for xepdb1 as below, for me that directory is : J:\\app\\oracle\\product\\18.0.0\\dbhomeXE\\network\\admin
+
+XEPDB1 =
+(DESCRIPTION =
+(ADDRESS = (PROTOCOL = TCP)(HOST = ACER-HOME-PC)(PORT = 1521))
+(CONNECT_DATA =
+(SERVER = DEDICATED)
+(SERVICE_NAME = XEPDB1)
+)
+)
+
+### Optional, Uninstall Oracle 18c XE and delete database (destructive) – CAUTION
+ (Will need a reboot at the end to complete, but can reboot later if needed)
+
+As per documentation: https://docs.oracle.com/en/database/oracle/oracle-database/18/xeinw/deinstalling-oracle-database-xe.html#GUID-DC36940C-D201-457B-A3D5-D6E2BB800120
+
+Use Add or Remove Programs to deinstall Oracle Database XE:  
+In the Windows Control Panel, select Add or Remove Programs.  
+Select Oracle Database 18c Express Edition.  
+Click Change/Remove or Uninstall.  
+Follow the prompts to deinstall Oracle Database Express Edition. After few minutes, the window will close and the deinstallation will be complete.  
+ 
+ 
+ 
  
 
  
@@ -32,7 +100,7 @@ https://matthiashoys.wordpress.com/2019/12/12/installation-of-apex-19-2-on-oracl
 
 ### 11111 Old APEX for deinstall
 
-**In J:\\apex_instl** or F:\\software\\apex19 or c\:\temp\\apex :  
+**In J:\\apex_instl** or F:\\software\\axepdb1pex19 or c\:\temp\\apex :  
          **ls shows files and 4 dirs : builder/   images/   core/   utilities/  **  
          On Unix/Linux: cd /home/usr1/apex19/apex  
 

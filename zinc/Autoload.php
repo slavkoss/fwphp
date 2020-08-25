@@ -13,7 +13,7 @@ if (strnatcmp(phpversion(),'5.4.0') >= 0) {
 
 class Autoload
 {
-   protected $pp1 ;
+   protected $pp1 ; //M O D U L E PROPERTIES PALLETE like in Oracle Forms
 
    public function __construct($pp1) {
                       //see (**2)

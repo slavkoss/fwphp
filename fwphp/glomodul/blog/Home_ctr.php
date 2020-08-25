@@ -6,7 +6,6 @@
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\blog ;
 use B12phpfw\core\zinc\Config_allsites ;
-
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_user;  //to Login_ Confirm_ SesUsrId
        //use B12phpfw\module\dbadapter\user\DB_ user ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
@@ -14,7 +13,8 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
 // May be named App, Router_dispatcher... :
 class Home_ctr extends Config_allsites
 {
-  //NO ATTRIBUTES -attr. are in parent classes
+        // NO ATTRIBUTES - attr. are in parent c l a s ses.
+        // $pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
 
   public function __construct(object $pp1)
   {

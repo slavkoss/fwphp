@@ -48,8 +48,15 @@ Tag: Help, Markdown sintax, SimpleMDE
 1. [Images](#Images)  
    
 1. [Code](#Code) and Syntax Highlighting:  
-   `code inline: backticks (altgr+7) around string or or <kbd>some_txt</kbd>`
-   `or block: eg three altgr+7php ...SOME CODE...  three altgr+7,    or four blanks at line beginning (in this list does not work)`
+   `Code inline : 1 backtick (altgr+7) around string or 4 spaces idented - in this list does not work`  
+   **Code block**: fenced by lines with three back-ticks eg three altgr+7php ...SOME CODE...  three altgr+7, or four blanks idented (at line beginning) - in this list does not work or `<kbd>some_txt</kbd>`
+   ```php
+   <?php
+   // blah, blah
+   echo 'blah, blah' ;
+   echo '<pre>blah='; print_r('blah, blah'); echo '</pre>';
+   ```
+   Code blocks are part of the Markdown spec, but **syntax highlighting isn't**. Many renderers like **Github's and Markdown Here** support syntax highlighting. Which languages are supported and **how those language names should be written** vary from renderer to renderer. **Markdown Here** supports highlighting for dozens of languages (and not-really-languages, like diffs and HTTP headers); to see the complete list, and how to write language names, see the **highlight.js demo page** http://softwaremaniacs.org/media/soft/highlight/test.html .
   
 1. [Tables](#Tables)  
    

@@ -17,9 +17,16 @@
 
     ?>
     <!DOCTYPE html><html lang="hr"><head><title>HTMLofMKD</title>
-       <link rel="stylesheet" href="/vendor/erusev/parsedown/styles/default.css">
-       <!--script src="/vendor/erusev/parsedown/highlight.pack.js"></script-->
+       <link rel="stylesheet" href="/vendor/highlight_js/styles/default.css">
+       <script src="/vendor/highlight_js/highlight.pack.js"></script>
        <!--script>hljs.initHighlightingOnLoad();</script-->
+       <script>
+          document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+              hljs.highlightBlock(block);
+            });
+          });
+       </script>
 
 
           </head> <body>

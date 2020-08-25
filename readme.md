@@ -9,7 +9,7 @@
     and  http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
     
 ## 1\.2 Download and unzip code from my Github repo
-1. https://github.com/slavkoss/fwphp - PHP code here is good for (more) large sites
+1. **https://github.com/slavkoss/fwphp** - PHP code here is good for (more) large sites
 2. In webserver doc root - my is J:\xampp\htdocs  or virtual host  J:\awww\www
 3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**      
     and in phpmyadmin import J:\awww\www\01_DDL_mysql_blog.sql in database z_blogcms (or in Oracle db 01_DDL_oracle_blog.sql).       
@@ -25,6 +25,7 @@ After that to understand how B12phpfw CRUD framework works (eg $db = new Home_ct
     In 2 scripts: singleton_B12phpfw.php and Home_ctr.php is everything important but is not easy to learn (same as any framework).    
 
 Explanations below are far less important than demo site, code download and modules mentioned above.
+Besides explanations below are difficult to understand - after battle philosophy very useful to improve basic ideas (principles).
 <br><br><br>
 
 
@@ -240,10 +241,193 @@ See to simple examples and have no namespaces  : very good coding :
 ## <a name="uml"></a>1\.5 B12phpfw core UML diagram - classes structure
 [Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     **UML**    [DM](#dm)     [IDE](#ide)     [CRUD](#crud)     [SW fw](#swfw)        
 
-For programmer this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ? Because we do not want write in each Home_ctr class code in 3 classes above.      
-Instead we **reuse code in 3 classes (globals)** above Home_ctr.     
+For program execution this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ? Because we do not want write in each Home_ctr class code in 3 classes above. Instead we **reuse code in 3 shared classes (globals)** above Home_ctr.  
 
-![B12phpfw core UML diagram](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
+![B12phpfw UML diagram](XXXB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
+#### 1a. DB : CORE CODE SHARED CONNECT CLASS
+Dbconn_allsites abstract cls SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
+```
+--------------------------------------------------------------------------------
+1a. DB : B12phpfw CORE SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
+--------------------------------------------------------------------------------
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\core\zinc ;
+//use PDO;
+//abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
+abstract class Dbconn_allsites
+--------------------------------------------------------------------------------
+    private static $instance   = null ; // singleton !
+    
+    //for all tbls global read fn "rr" to read paginated ee to read rows block (recordset) :
+    protected static $do_pgntion = null;
+    //To do : improve this (refactor this code) 
+    //  For now J:\awww\www\zinc\Dbconn_allsites_mysql.php
+    //  is copied to J:\awww\www\zinc\Dbconn_allsites.php
+    protected static $dbi = 'mysql' ; // mysql or oracle or any  d b i  you wish
+    private static $hostpc = 'localhost';
+    private static $dbname = 'z_blogcms';
+    private static $user   = 'root';
+    private static $pass   = '';
+--------------------------------------------------------------------------------
+  J:\awww\www\zinc\Dbconn_allsites.php (6 hits)
+ln 25:     private function __construct() { // no code
+// self::$instance=new PDO($dsn,'root',",$options);
+ln 28:     public static function get_or_new_dball($caller='') //or connect_db
+ln 55:     public static function getdbi($caller='') { return self::$dbi ; }
+ln 57:     public static function disconnect() { self::$instance = null; }
+ln 60:     //abstract protected function createEntity(array $row);
+ln 61:     //abstract protected static function jsmsg(array $msg);
+--------------------------------------------------------------------------------
+                                      A
+                                      |
+                                      |
+                                      |
+```
+#### 1b. DB : CORE CODE SHARED CRUD CLASS (MODEL code type AbstractEntity, DB adapter)
+Db_allsites abstract cls SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
+```
+--------------------------------------------------------------------------------
+1b. DB : B12PHPFW CORE SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
+--------------------------------------------------------------------------------
+namespace B12phpfw\core\zinc ;
+abstract class Db_allsites extends Dbconn_allsites
+--------------------------------------------------------------------------------
+    // can be named AbstractEntity
+    private $stmt;    //P D O  statement handler, I use it only in dd fn
+    private $dbobj;   // or $conn 
+    private $errmsg;  //handle our error not used in first versions, can be useful
+--------------------------------------------------------------------------------
+  J:\awww\www\zinc\Db_allsites.php (10 hits)
+ln 20:   private function __construct() // no code
+ln 27:    /*private static function _fatal_error_hndl() { */
+           C R U D  F U N C T I O N S  USED FOR ALL TBLS !! :
+ln 41:   public function cc( $db, $tbl, $flds, $what, $binds = [] ) //used for all  tabls !!
+ln 92:   public function rrnext($cursor){
+ln 100:  public function rrcount($tbl)
+ln 110:  public function rr_last_id($tbl) {
+ln 125:  public function rr( $sql, $binds = [], $caller = '' )
+ln 233:  public function uu( $db, $tbl, $flds, $where, $binds = [] )
+ln 292:  public function dd(string $tbl, int $id = NULL) //used f or all  t a b l e s !!
+
+ln 319:   static public function debugPDO($raw_sql, $parameters) {
+--------------------------------------------------------------------------------
+                                      A
+                                      |
+                                      |
+                                      |
+```
+#### 2. CONFIG AND UTILS (once called functions) : CORE CODE SHARED CLASS
+Conﬁg_allsites abstract cls SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
+```
+--------------------------------------------------------------------------------
+2. CONFIG AND UTILS: B12PHPFW CORE SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
+--------------------------------------------------------------------------------
+namespace B12phpfw\core\zinc ;
+abstract class Conﬁg_allsites extends Db_allsites
+--------------------------------------------------------------------------------
+  private $pp1 ; //was public. If using Composer autoloading classes set QS=''.
+--------------------------------------------------------------------------------
+  J:\awww\www\zinc\Config_allsites.php (19 hits)
+ln 26:   public function __construct(object $pp1, array $pp1_module_links)
+ln 223:  public function setp($property, $value){
+ln 230:  public function getp($property){
+ln 248:  static public function rlows($r) //all row fld names lowercase
+ln 265:  static public function escp($string) //ESCAPING OUTPUT
+ln 277:  public function Redirect_to($New_Location){
+ln 296:  public function ErrorMessage(){
+ln 305:  public function SuccessMessage(){
+// paginator:
+ln 326:  public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 )
+ln 420:  public function setcsrf() {
+ln 429:  public static function jsmsg($msg) 
+ln 460:  public function toArray($cls) {
+ln 465:  public function print_objvars($obj)
+ln 472:  public function print_clsmethods($obj)
+ln 480:  public function class_parentage($obj, $class)
+ln 494:  public function uname2clsses($username) { //was auth
+ln 508:  public function has_rights() {
+ln 527:     /* public function __set($name, $value) { */
+ln 552:     /* public function __get($name) { */
+--------------------------------------------------------------------------------
+                                      A
+                                      |
+                                      |
+                                      |
+```
+#### 3. MODULE CONTROLLER CODE 
+Home_ctr cls SHARED (GLOBAL) ON MODULE LEVEL, EG IN MSG (BLOG) MODULE
+```
+--------------------------------------------------------------------------------
+3. B12phpfw CORE SHARED (GLOBAL) ON MODULE LEVEL, EG MSG (BLOG) MODULE
+--------------------------------------------------------------------------------
+namespace B12phpfw\module\blog ;
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_user;  //to Login_ Confirm_ SesUsrId
+       //use B12phpfw\module\dbadapter\user\DB_ user ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
+
+// May be named App, Router_dispatcher... :
+class Home_ctr extends Config_allsites
+--------------------------------------------------------------------------------
+        // NO ATTRIBUTES - attr. are in parent c l a s ses.
+        // $pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
+--------------------------------------------------------------------------------
+  J:\awww\www\fwphp\glomodul\blog\Home_ctr.php (27 hits)
+ln 19:    public function __construct(object $pp1)
+ln 80:    protected function callf(string $akc, object $pp1)  //fnname, params
+ln 102:   private function Login_Confirm_SesUsrId(object $dm) {
+ln 108:   private function logout(object $pp1)
+ln 117:   private function loginfrm(object $pp1) //private
+ln 130:   private function login(object $pp1) //private
+ln 149:   private function home(object $pp1) //DI page prop.palette   
+ln 164:   private function dashboard(object $pp1) //private
+ln 179:   private function admins(object $pp1) //private
+ln 196:   private function read_user(object $pp1) //private
+ln 215:   private function categories(object $pp1) //private
+ln 229:   private function addnewpost(object $pp1) //private
+ln 244:   private function posts(object $pp1) //private
+ln 264:   private function filter_postcateg(object $pp1) //private
+ln 310:   private function read_post(object $pp1)
+ln 330:   private function editpost(object $pp1) //private
+ln 348:   private function edmkdpost(object $pp1) //private
+ln 374:   private function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
+ln 428:   private function kalendar(object $pp1) //private
+ln 440:   private function comments(object $pp1) //private
+ln 453:   private function upd_comment_stat(object $pp1) //private
+ln 480:   private function del_row_do(object $pp1) //used for all  t a b l e s !! //private
+ln 507:   private function upd_user_loggedin(object $pp1) //private
+ln 525:   private function errmsg(object $pp1, string $myerrmsg)
+ln 539:   private function contact(object $pp1)
+ln 546:   private function about(object $pp1)
+ln 554:   private function features(object $pp1)
+--------------------------------------------------------------------------------
+
+```
+#### 4. AUTOLOAD : CORE CODE SHARED CLASS TO AVOID INCLUDE COMMANDS
+Autoload cls SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
+```
+--------------------------------------------------------------------------------
+4. B12phpfw core global for all sites and groups of modules
+--------------------------------------------------------------------------------
+namespace B12phpfw\core\zinc ;
+class Autoload
+--------------------------------------------------------------------------------
+ln 18:  public function __construct($pp1) {
+ln 28:  /*private static function _fatal_error_hndl() { */
+ln 39:  private function get_path( // static ?
+ln 101: //public static function autoload($cls) //namespaced className
+ln 102: private function loader($nscls) //namespaced  c l a s s  name
+ln 144: private function fmt(string $txt, string $color, string $bold='')
+--------------------------------------------------------------------------------
+```
+
+
+
+
+
+
+
+
 <br /><br />
 
 Developed on home PC Windows 10 64 bit and Apache web server. Some details are to do in version 6.1 but all important is visible in current version 6.0. 
@@ -276,7 +460,9 @@ Explanations below are far less important than demo site and code download menti
 ## <a name="dm"></a>1\.6 DM (Domain model)
 [Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     ** DM**      [IDE](#ide)     [CRUD](#crud)     [SW fw](#swfw)     
 
-[UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) should have DM adapter class which is **pre CRUD code** like in Oracle Forms **pre-query**, pre-insert, pre-update... In Db_allsites class are **execute-query (here only creates cursor for read row by row loop in view scripts)**, on-insert, on-update... .        
+[UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) has DM adapter class **Tbl_crud** which is **pre CRUD code - calls cc, rr, uu, dd... methods** like in Oracle Forms **pre-query, pre-insert, pre-update... on-insert, on-update...**.
+
+In Db_allsites class is **eg execute-query code** - only creates cursor to (loop) read row by row in view scripts or in ctr scripts).        
 
 ### Events flow (E1) --- (E2)... - caseflow through Blog module (CRUD data skeleton)
 ```
