@@ -494,8 +494,7 @@ See very good coding (to simple examples and have no namespaces) :
 
 
 
-
-
+Simplest practice :
 1. Menus (Mnu module) are not based - no need, but can be based on B12phpfw which is best for CRUD modules like Oracle Forms form. 
 2. Most frequent (best ?) blog design today - Jazeb Akram, Abdul Wali, Edwin Diaz... I used it in Blog (Msg) module based on B12phpfw code skeleton
 3. WYSIWYG Markdown or HTML editing (Mkd module not based - no need, but can be based on B12phpfw is used for blog posts or any txt file). Blog posts may be :
