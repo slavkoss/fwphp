@@ -109,7 +109,12 @@ namespace B12phpfw\core\zinc ;
 
 ## 1b. Db_allsites abstract cls : DB CRUD ADAPTER  (MODEL code type DB adapter, AbstractEntity)
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
-<hr />
+
+
+-----
+
+
+
 namespace B12phpfw\core\zinc ;  
 abstract class Db_allsites **extends Dbconn_allsites**  
    // can be named AbstractEntity  
@@ -117,7 +122,12 @@ abstract class Db_allsites **extends Dbconn_allsites**
    private $stmt;    //P D O  statement handler, I use it only in dd fn  
    private $dbobj;   // or $conn  
    private $errmsg;  //handle our error not used in first versions, can be useful  
-<hr />
+
+
+-----
+
+
+
 // **Methods** in cls file J:\awww\www\zinc\Db_allsites.php (10 fns)  
 1.   private function \_\_construct() // no code
 27.    /*private static function _fatal_error_hndl() { */
@@ -131,22 +141,47 @@ C R U D  F U N C T I O N S  USED FOR ALL TBLS !! :
 292. public function dd(string $tbl, int $id = NULL) //used f or all  t a b l e s !!
 319: static public function debugPDO($raw_sql, $parameters) {
 
-<hr />
+
+
+-----
+
+
+
 /\\  
   !  
   !  
   !  
-<hr />
+
+
+-----
+
+
+
 ## 2. Conﬁg_allsites abstract cls : CONFIG AND UTILS (functions)
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
-<hr />
+
+
+-----
+
+
+
 namespace B12phpfw\core\zinc ;  
 abstract class Conﬁg_allsites **extends Db_allsites**  
-<hr />
+
+
+-----
+
+
+
   // **Attributes** 
   //$pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
   private $pp1 ; //was public. If using Composer autoloading classes set QS=''.  
-<hr />
+
+
+-----
+
+
+
 // **Methods** in cls file J:\awww\www\zinc\Config_allsites.php (19 fns) **less than 250 important lines**
 1.   public function \_\_construct(object $pp1, array $pp1_module_links)
      1. C H E C K  R E Q U I R E M E N T S
@@ -176,18 +211,33 @@ abstract class Conﬁg_allsites **extends Db_allsites**
 529. /* public function \_\_set($name, $value) {
 554. /* public function \_\_get($name) {
 
-<hr />
+
+
+-----
+
+
+
  /\\  
   !  
   !  
   !  
-<hr />
+
+
+-----
+
+
+
 ## 3. Home_ctr cls : MODULE CONTROLLER CODE
 B12PHPFW MODULE CODE. LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
 **$db = new Home_ctr($pp1) in index.php**. $db because extends Config_allsites, Db_allsites, Dbconn_allsites.  
 
 So $db object variable allows access to attributes and methods in all three. Such program skeleton is possibli overkill for modules which do not need CRUD like mnu, mkd...  
-<hr />
+
+
+-----
+
+
+
 // To access **module code** in blog folder (and in it's subdirs which are not needed) :  
 namespace B12phpfw\module\blog ;  
 // To access **conf. data, utils**... :  
@@ -200,7 +250,12 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud as **Tbl_crud_post_comment** ;
 class Home_ctr **extends Config_allsites**  // May be named **App, Router_dispatcher...**  
    // **Attributes**  - NO ATTRIBUTES - attr. are in parent c l a s s e s. !!  
    //$pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms declared in parent cls  
-<hr />
+
+
+-----
+
+
+
 // **Methods** in cls file J:\awww\www\fwphp\glomodul\blog\Home_ctr.php (27 fns)  
 1:  public function \_\_construct(object $pp1)  
 80:  protected function callf(string $akc, object $pp1)  //fnname, params  
@@ -234,15 +289,30 @@ class Home_ctr **extends Config_allsites**  // May be named **App, Router_dispat
 
 
 <br /><br />
-<hr />
+
+
+-----
+
+
+
 ## 4. Autoload cls included in index.php : TO AVOID INC. COMMANDS IN MANY SCRIPTS
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)  
-<hr />
+
+
+-----
+
+
+
 namespace B12phpfw\core\zinc ;  
 **class Autoload**  
    // **Attributes**  
    protected $pp1 ; //M O D U L E PROPERTIES PALLETE like in Oracle Forms  
-<hr />
+
+
+-----
+
+
+
 // **Methods** in cls file   J:\\awww\\www\\zinc\\Autoload.php (6 fns)
 1. **public function \_\_construct($pp1)**
    ```
@@ -278,7 +348,12 @@ namespace B12phpfw\core\zinc ;
    ```
 144. private function fmt(string $txt, string $color, string $bold='')
 
-<hr />
+
+
+-----
+
+
+
 
 
 
