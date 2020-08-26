@@ -1,5 +1,5 @@
 <?php
-
+// J:\awww\www\zinc\Autoload.php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
 
@@ -16,10 +16,8 @@ class Autoload
    protected $pp1 ; //M O D U L E PROPERTIES PALLETE like in Oracle Forms
 
    public function __construct($pp1) {
-                      //see (**2)
                       //not working but : ctrl+u in ibrowser !!!
                       //register_shutdown_function('self::_fatal_error_hndl');
-
      $this->pp1 = $pp1 ;
      spl_autoload_register(array($this, 'loader'));
      return null ;
@@ -36,20 +34,18 @@ class Autoload
       //}
    } */
 
-  private function get_path( // static ?
-       $nscls // namespaced cls name
-     , &$nsdir_routTBLclsdir 
-  )
+  private function get_path($nscls, &$nsdir_routTBLclsdir) // static ?
   {
+    // $ n s c l s  is namespaced cls name
     // returns cls_script_path
     $DS = DIRECTORY_SEPARATOR ;
 
     $nscls_linfmt = str_replace('\\',$DS, $nscls) ; //ON LINUX
     $clsname     = basename($nscls_linfmt) ;        //eg = Config_allsites
-    //eliminated cls name :
+    // Eliminated cls name from namespaced cls name :
     $last_nspart = basename(dirname($nscls_linfmt)) ; //=tasks, ON LINUX='.' !!! ???
     
-    //all possible dirs for cls script :
+    // 1. Loop through routing tbl (all possible dirs for cls script)
     $clsdirx = 0;
     while ($clsdirx < count($this->pp1->module_path_arr)):
       $scriptdir_path = str_replace('\\',$DS, $this->pp1->module_path_arr[$clsdirx]) ; //ON LINUX
@@ -83,23 +79,25 @@ class Autoload
               //1. file_exists($script=/srv/disk16/3266814/www/phporacle.eu5.net/fwphp/glomodul/blog/B12phpfw\module\blog\Home_ctr.php) 
               //and 2. $last_nspart=$routTBL_dirname
 
-      if ( $last_nspart             //=tasks
-           == $routTBL_dirname   //=tasks, then zinc
-           and file_exists($script) //J:/awww/www/zinc/Config_allsites.php
+      // 2. Last part = Eliminated cls name from namespaced cls name from  U R L
+      if ( $last_nspart          //from  U R L, eg tasks
+           == $routTBL_dirname   //eg tasks, then zinc
+           and file_exists($script) //eg J:/awww/www/zinc/Config_allsites.php
       )
       {
-        $nsdir_routTBLclsdir = $routTBL_dirname ; //=tasks
-        return $script ; //see (**3)
+        $nsdir_routTBLclsdir = $routTBL_dirname ; //eg tasks, also returned to caller
+        return $script ;
       }
 
       $clsdirx++ ;
     endwhile;
 
+    // not found :
     return $clsname .'; <--- put_this_in_caller' ;
   } //e n d  f n  get_ path
 
   //public static function autoload($cls) //namespaced className
-  private function loader($nscls) //namespaced  c l a s s  name
+  private function loader($nscls) //$ n s c l s is namespaced  c l a s s  name
   {
     $DS = DIRECTORY_SEPARATOR ;
     $vendornsp = $this->pp1->vendor_namesp_prefix ;
@@ -110,35 +108,35 @@ class Autoload
     $nsdir_routTBLclsdir   = '' ; //Possible CLASS SCRIPTS DIR is contained in $nscls
     $clsscript_path = $this->get_path(
           $nscls // namespaced cls name
-        , $nsdir_routTBLclsdir
+        , $nsdir_routTBLclsdir //returned eg tasks
     ) ;
-                  //see (**1)
 
-  // ********** 3. r e q u i r e  cls_ script_ path **********
-              //see (**5)
-  $clsscript_path = str_replace('\\',$DS, $clsscript_path) ; //ON LINUX
-  switch (true) {
-    case file_exists($clsscript_path) and $nsdir_routTBLclsdir <> '' :
-      require $clsscript_path ;
+
+    // ********** 2. r e q u i r e  cls_ script_ path **********
+    $clsscript_path = str_replace('\\',$DS, $clsscript_path) ; //ON LINUX
+    switch (true)
+    {
+      case file_exists($clsscript_path) and $nsdir_routTBLclsdir <> '' :
+        require $clsscript_path ;
+        break;
+
+      default: //E R R O R : NOT FOUND CLS SCRIPT or 
+        echo '<br />'.$this->fmt( __METHOD__ .', line '. __LINE__ .' SAYS: ', 'black')  ;
+        echo '<br />'.'NOT EXISTS CLS SCRIPT : "' . $this->fmt($clsscript_path, 'red' ,'bold') .'"';
+        echo '<br />'.'C l a s s : ' . $this->fmt($clsname . ' NOT FOUND', 'red' ,'bold') ;
+              echo ', may be  eg : '
+              . $this->fmt( 'use B12phpfw\\core\\zinc\\'. basename($clsscript_path, '.php') .' ?'
+              , 'blue', 'bold') .' - see stack trace (caller)';
+        echo '<br />'.$this->fmt(' module_path_arr = possible CLASS SCRIPTS DIRS assigned in index.php are :', 'black', 'bold');
+        echo '<pre>';
+        echo '$this->pp1='; print_r($this->pp1);
+        echo '$nscls='; print_r($nscls);
+        echo '</pre>';
+
       break;
+    }
 
-    default: //E R R O R : NOT FOUND CLS SCRIPT or 
-      echo '<br />'.$this->fmt( __METHOD__ .', line '. __LINE__ .' SAYS: ', 'black')  ;
-      echo '<br />'.'NOT EXISTS CLS SCRIPT : "' . $this->fmt($clsscript_path, 'red' ,'bold') .'"';
-      echo '<br />'.'C l a s s : ' . $this->fmt($clsname . ' NOT FOUND', 'red' ,'bold') ;
-            echo ', may be  eg : '
-            . $this->fmt( 'use B12phpfw\\core\\zinc\\'. basename($clsscript_path, '.php') .' ?'
-            , 'blue', 'bold') .' - see stack trace (caller)';
-      echo '<br />'.$this->fmt(' module_path_arr = possible CLASS SCRIPTS DIRS assigned in index.php are :', 'black', 'bold');
-      echo '<pre>';
-      echo '$this->pp1='; print_r($this->pp1);
-      echo '$nscls='; print_r($nscls);
-      echo '</pre>';
-
-    break;
-  }
-
-   } //e n d  f n  l o a d e r
+  } //e n d  f n  l o a d e r
 
 
   private function fmt(string $txt, string $color, string $bold='')

@@ -1,7 +1,13 @@
 ---
 <a name="top"></a>
-**Top**      <a href="#directories" id="lnkdirectories">Directories</a>    [UML](#uml)     [DM](#dm)      [IDE](#ide)    [CRUD](#crud)     [SW fw](#swfw)        
+**Top**.....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 # 1. My PHP menu & CRUD code skeleton (I named it B12phpfw)
+
+
+-----
+
+
+Developed on home PC Windows 10 64 bit and Apache web server. Tested on Oracle Linux and Apache web server. Some details are to do in version 6.1 but all important is visible in current version 6.0. 
 ## 1\.1 Demo site - free hosting with free Mysql
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - here are newest programs (may be more problems than heliohost). Also PHP on Linux is a bit different than on Windows.
 2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL)
@@ -32,7 +38,7 @@ Besides explanations below are difficult to understand - after battle philosophy
 
 <span id="directories"></span>
 ## 1\.3 B12phpfw directories (modules) structure
-[Top](#top)     **Directories**     [UML](#uml)     [DM](#dm)     [IDE](#ide)     [DM](#dm)     [CRUD](#crud)     [SW fw](#swfw)        
+[Top](#top).....**Dirs**.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
 See **info code :**        
 http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php       
@@ -238,190 +244,225 @@ See to simple examples and have no namespaces  : very good coding :
 
 
 
-## <a name="uml"></a>1\.5 B12phpfw core UML diagram - classes structure
-[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     **UML**    [DM](#dm)     [IDE](#ide)     [CRUD](#crud)     [SW fw](#swfw)        
+<a name="uml"></a>
+## 1\.5 B12phpfw UML diagram - classes structure - Attributes and Methods
+[Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
 For program execution this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ? Because we do not want write in each Home_ctr class code in 3 classes above. Instead we **reuse code in 3 shared classes (globals)** above Home_ctr.  
 
-![B12phpfw UML diagram](XXXB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
-#### 1a. DB : CORE CODE SHARED CONNECT CLASS
-Dbconn_allsites abstract cls SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
-```
---------------------------------------------------------------------------------
-1a. DB : B12phpfw CORE SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
---------------------------------------------------------------------------------
-//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\core\zinc ;
-//use PDO;
-//abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
-abstract class Dbconn_allsites
---------------------------------------------------------------------------------
-    private static $instance   = null ; // singleton !
+![B12phpfw_UMLdiagram.png is less practical and altered](XXXB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
+<hr />
+## 1a. Dbconn_allsites abstract cls : DB CONNECT
+B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
+<hr />
+//***B12phpfw***=vendor namespace prefix \ ***core***=processing (behavior) \ ***zinc***=cls dir name (POSITIONAL part of ns, CAREFULLY !) :  
+namespace B12phpfw\core\zinc ;  
+//use PDO;  //not needed  
+//***abstract means*** Cls or Method for inheritance to avoid code redundancy, not to cre obj  
+
+**abstract class Dbconn_allsites**  
+// **Attributes**  
+  private static $instance   = null ; // singleton !  
     
-    //for all tbls global read fn "rr" to read paginated ee to read rows block (recordset) :
-    protected static $do_pgntion = null;
-    //To do : improve this (refactor this code) 
-    //  For now J:\awww\www\zinc\Dbconn_allsites_mysql.php
-    //  is copied to J:\awww\www\zinc\Dbconn_allsites.php
-    protected static $dbi = 'mysql' ; // mysql or oracle or any  d b i  you wish
-    private static $hostpc = 'localhost';
-    private static $dbname = 'z_blogcms';
-    private static $user   = 'root';
-    private static $pass   = '';
---------------------------------------------------------------------------------
-  J:\awww\www\zinc\Dbconn_allsites.php (6 hits)
-ln 25:     private function __construct() { // no code
+  //for all tbls global read fn "rr" to read paginated ee to read rows block (recordset) :  
+  protected static $do_pgntion = null;  
+  
+  // Todo : improve next code (refactor) :  
+  //  For now (bad solution) code eg J:\awww\www\zinc\Dbconn_allsites_mysql.php  
+  //  is copied to J:\awww\www\zinc\Dbconn_allsites.php  
+  protected static $dbi = 'mysql' ; // mysql or oracle or any  d b i  you wish  
+  private static $hostpc = 'localhost';  
+  private static $dbname = 'z_blogcms';  
+  private static $user   = 'root';  
+  private static $pass   = '';  
+<hr />
+// **Methods** in cls file J:\awww\www\zinc\Dbconn_allsites.php (6 fns)
+1. private function \_\_construct() { // no code
 // self::$instance=new PDO($dsn,'root',",$options);
-ln 28:     public static function get_or_new_dball($caller='') //or connect_db
-ln 55:     public static function getdbi($caller='') { return self::$dbi ; }
-ln 57:     public static function disconnect() { self::$instance = null; }
-ln 60:     //abstract protected function createEntity(array $row);
-ln 61:     //abstract protected static function jsmsg(array $msg);
---------------------------------------------------------------------------------
-                                      A
-                                      |
-                                      |
-                                      |
-```
-#### 1b. DB : CORE CODE SHARED CRUD CLASS (MODEL code type AbstractEntity, DB adapter)
-Db_allsites abstract cls SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
-```
---------------------------------------------------------------------------------
-1b. DB : B12PHPFW CORE SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
---------------------------------------------------------------------------------
-namespace B12phpfw\core\zinc ;
-abstract class Db_allsites extends Dbconn_allsites
---------------------------------------------------------------------------------
-    // can be named AbstractEntity
-    private $stmt;    //P D O  statement handler, I use it only in dd fn
-    private $dbobj;   // or $conn 
-    private $errmsg;  //handle our error not used in first versions, can be useful
---------------------------------------------------------------------------------
-  J:\awww\www\zinc\Db_allsites.php (10 hits)
-ln 20:   private function __construct() // no code
-ln 27:    /*private static function _fatal_error_hndl() { */
-           C R U D  F U N C T I O N S  USED FOR ALL TBLS !! :
-ln 41:   public function cc( $db, $tbl, $flds, $what, $binds = [] ) //used for all  tabls !!
-ln 92:   public function rrnext($cursor){
-ln 100:  public function rrcount($tbl)
-ln 110:  public function rr_last_id($tbl) {
-ln 125:  public function rr( $sql, $binds = [], $caller = '' )
-ln 233:  public function uu( $db, $tbl, $flds, $where, $binds = [] )
-ln 292:  public function dd(string $tbl, int $id = NULL) //used f or all  t a b l e s !!
+28. public static function get_or_new_dball($caller='') //or connect_db
+55. public static function getdbi($caller='') { return self::$dbi ; }
+57. public static function disconnect() { self::$instance = null; }
+60. //abstract protected function createEntity(array $row);
+61. //abstract protected static function jsmsg(array $msg);
 
-ln 319:   static public function debugPDO($raw_sql, $parameters) {
---------------------------------------------------------------------------------
-                                      A
-                                      |
-                                      |
-                                      |
-```
-#### 2. CONFIG AND UTILS (once called functions) : CORE CODE SHARED CLASS
-Conﬁg_allsites abstract cls SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
-```
---------------------------------------------------------------------------------
-2. CONFIG AND UTILS: B12PHPFW CORE SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
---------------------------------------------------------------------------------
-namespace B12phpfw\core\zinc ;
-abstract class Conﬁg_allsites extends Db_allsites
---------------------------------------------------------------------------------
-  private $pp1 ; //was public. If using Composer autoloading classes set QS=''.
---------------------------------------------------------------------------------
-  J:\awww\www\zinc\Config_allsites.php (19 hits)
-ln 26:   public function __construct(object $pp1, array $pp1_module_links)
-ln 223:  public function setp($property, $value){
-ln 230:  public function getp($property){
-ln 248:  static public function rlows($r) //all row fld names lowercase
-ln 265:  static public function escp($string) //ESCAPING OUTPUT
-ln 277:  public function Redirect_to($New_Location){
-ln 296:  public function ErrorMessage(){
-ln 305:  public function SuccessMessage(){
-// paginator:
-ln 326:  public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 )
-ln 420:  public function setcsrf() {
-ln 429:  public static function jsmsg($msg) 
-ln 460:  public function toArray($cls) {
-ln 465:  public function print_objvars($obj)
-ln 472:  public function print_clsmethods($obj)
-ln 480:  public function class_parentage($obj, $class)
-ln 494:  public function uname2clsses($username) { //was auth
-ln 508:  public function has_rights() {
-ln 527:     /* public function __set($name, $value) { */
-ln 552:     /* public function __get($name) { */
---------------------------------------------------------------------------------
-                                      A
-                                      |
-                                      |
-                                      |
-```
-#### 3. MODULE CONTROLLER CODE 
-Home_ctr cls SHARED (GLOBAL) ON MODULE LEVEL, EG IN MSG (BLOG) MODULE
-```
---------------------------------------------------------------------------------
-3. B12phpfw CORE SHARED (GLOBAL) ON MODULE LEVEL, EG MSG (BLOG) MODULE
---------------------------------------------------------------------------------
-namespace B12phpfw\module\blog ;
-use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_user;  //to Login_ Confirm_ SesUsrId
-       //use B12phpfw\module\dbadapter\user\DB_ user ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
+<hr />
+/\\  
+  !  
+  !  
+  !  
+<hr />
+## 1b. Db_allsites abstract cls : DB CRUD ADAPTER  (MODEL code type DB adapter, AbstractEntity)
+B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
+<hr />
+namespace B12phpfw\core\zinc ;  
+abstract class Db_allsites **extends Dbconn_allsites**  
+   // can be named AbstractEntity  
+   // **Attributes**  
+   private $stmt;    //P D O  statement handler, I use it only in dd fn  
+   private $dbobj;   // or $conn  
+   private $errmsg;  //handle our error not used in first versions, can be useful  
+<hr />
+// **Methods** in cls file J:\awww\www\zinc\Db_allsites.php (10 fns)  
+1.   private function \_\_construct() // no code
+27.    /*private static function _fatal_error_hndl() { */
+C R U D  F U N C T I O N S  USED FOR ALL TBLS !! :
+41.   public function cc( $db, $tbl, $flds, $what, $binds = [] ) //used for all  tabls !!
+92.   public function rrnext($cursor){
+100. public function rrcount($tbl)
+110. public function rr_last_id($tbl) {
+125. public function rr( $sql, $binds = [], $caller = '' )
+233. public function uu( $db, $tbl, $flds, $where, $binds = [] )
+292. public function dd(string $tbl, int $id = NULL) //used f or all  t a b l e s !!
+319: static public function debugPDO($raw_sql, $parameters) {
 
-// May be named App, Router_dispatcher... :
-class Home_ctr extends Config_allsites
---------------------------------------------------------------------------------
-        // NO ATTRIBUTES - attr. are in parent c l a s ses.
-        // $pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
---------------------------------------------------------------------------------
-  J:\awww\www\fwphp\glomodul\blog\Home_ctr.php (27 hits)
-ln 19:    public function __construct(object $pp1)
-ln 80:    protected function callf(string $akc, object $pp1)  //fnname, params
-ln 102:   private function Login_Confirm_SesUsrId(object $dm) {
-ln 108:   private function logout(object $pp1)
-ln 117:   private function loginfrm(object $pp1) //private
-ln 130:   private function login(object $pp1) //private
-ln 149:   private function home(object $pp1) //DI page prop.palette   
-ln 164:   private function dashboard(object $pp1) //private
-ln 179:   private function admins(object $pp1) //private
-ln 196:   private function read_user(object $pp1) //private
-ln 215:   private function categories(object $pp1) //private
-ln 229:   private function addnewpost(object $pp1) //private
-ln 244:   private function posts(object $pp1) //private
-ln 264:   private function filter_postcateg(object $pp1) //private
-ln 310:   private function read_post(object $pp1)
-ln 330:   private function editpost(object $pp1) //private
-ln 348:   private function edmkdpost(object $pp1) //private
-ln 374:   private function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
-ln 428:   private function kalendar(object $pp1) //private
-ln 440:   private function comments(object $pp1) //private
-ln 453:   private function upd_comment_stat(object $pp1) //private
-ln 480:   private function del_row_do(object $pp1) //used for all  t a b l e s !! //private
-ln 507:   private function upd_user_loggedin(object $pp1) //private
-ln 525:   private function errmsg(object $pp1, string $myerrmsg)
-ln 539:   private function contact(object $pp1)
-ln 546:   private function about(object $pp1)
-ln 554:   private function features(object $pp1)
---------------------------------------------------------------------------------
+<hr />
+/\\  
+  !  
+  !  
+  !  
+<hr />
+## 2. Conﬁg_allsites abstract cls : CONFIG AND UTILS (functions)
+B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
+<hr />
+namespace B12phpfw\core\zinc ;  
+abstract class Conﬁg_allsites **extends Db_allsites**  
+<hr />
+  // **Attributes** 
+  //$pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
+  private $pp1 ; //was public. If using Composer autoloading classes set QS=''.  
+<hr />
+// **Methods** in cls file J:\awww\www\zinc\Config_allsites.php (19 fns) **less than 250 important lines**
+1.   public function \_\_construct(object $pp1, array $pp1_module_links)
+     1. C H E C K  R E Q U I R E M E N T S
+     2. DEFINE  A D R E S S E S  (NO CONSTANTS). Adresses = paths & relative paths
+        3.1 R O U T I N G - find URL parts for user events methods calls ee $uri_arr = explode(QS, $REQUEST_URI)
+        3.2 Assign  $ p p 1 = array of module properties
+     4. D I S P A T C H I N G = calls Home_ctr cls method (CONVENTION : i=ctrakcmethod)
+        which calls fns or includes view scripts (http jumps only to other module).
+        Dispatching using home class methods is based on Mini3 php fw.
+223. public function setp($property, $value){
+230. public function getp($property){
+248. static public function rlows($r) //all row fld names lowercase
+**From line 265 are Less important for fw functionality (and less or not used) :**
+265. static public function escp($string) //ESCAPING OUTPUT
+277. public function Redirect_to($New_Location){
+296. public function ErrorMessage(){
+305. public function SuccessMessage(){
+326. public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 ) // paginator
+420. public function setcsrf() {
+429. public static function jsmsg($msg) 
+460. public function toArray($cls) {
+465. public function print_objvars($obj)
+472. public function print_clsmethods($obj)
+480. public function class_parentage($obj, $class)
+494. public function uname2clsses($username) { //was auth
+508. public function has_rights() {
+529. /* public function \_\_set($name, $value) {
+554. /* public function \_\_get($name) {
 
-```
-#### 4. AUTOLOAD : CORE CODE SHARED CLASS TO AVOID INCLUDE COMMANDS
-Autoload cls SHARED (GLOBAL) FOR ALL SITES LEVEL (SAME FOR ALL SITES)
-```
---------------------------------------------------------------------------------
-4. B12phpfw core global for all sites and groups of modules
---------------------------------------------------------------------------------
-namespace B12phpfw\core\zinc ;
-class Autoload
---------------------------------------------------------------------------------
-ln 18:  public function __construct($pp1) {
-ln 28:  /*private static function _fatal_error_hndl() { */
-ln 39:  private function get_path( // static ?
-ln 101: //public static function autoload($cls) //namespaced className
-ln 102: private function loader($nscls) //namespaced  c l a s s  name
-ln 144: private function fmt(string $txt, string $color, string $bold='')
---------------------------------------------------------------------------------
-```
+<hr />
+ /\\  
+  !  
+  !  
+  !  
+<hr />
+## 3. Home_ctr cls : MODULE CONTROLLER CODE
+B12PHPFW MODULE CODE. LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
+**$db = new Home_ctr($pp1) in index.php**. $db because extends Config_allsites, Db_allsites, Dbconn_allsites.  
+
+So $db object variable allows access to attributes and methods in all three. Such program skeleton is possibli overkill for modules which do not need CRUD like mnu, mkd...  
+<hr />
+// To access **module code** in blog folder (and in it's subdirs which are not needed) :  
+namespace B12phpfw\module\blog ;  
+// To access **conf. data, utils**... :  
+use B12phpfw\core\zinc\Config_allsites ;  
+// To access **PDO DBI code layer** :  
+// **DB adapters**:  
+use B12phpfw\dbadapter\user\Tbl_crud as **Tbl_crud_user**;  //to Login_ Confirm_ SesUsrId  
+use B12phpfw\dbadapter\post_comment\Tbl_crud as **Tbl_crud_post_comment** ;  
+
+class Home_ctr **extends Config_allsites**  // May be named **App, Router_dispatcher...**  
+   // **Attributes**  - NO ATTRIBUTES - attr. are in parent c l a s s e s. !!  
+   //$pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms declared in parent cls  
+<hr />
+// **Methods** in cls file J:\awww\www\fwphp\glomodul\blog\Home_ctr.php (27 fns)  
+1:  public function \_\_construct(object $pp1)  
+80:  protected function callf(string $akc, object $pp1)  //fnname, params  
+102: private function Login_Confirm_SesUsrId(object $dm) {  
+108: private function logout(object $pp1)  
+117: private function loginfrm(object $pp1) //private  
+130: private function login(object $pp1) //private  
+149: private function home(object $pp1) //DI page prop.palette   
+164: private function dashboard(object $pp1) //private  
+179: private function admins(object $pp1) //private  
+196: private function read_user(object $pp1) //private  
+215: private function categories(object $pp1) //private  
+229: private function addnewpost(object $pp1) //private  
+244: private function posts(object $pp1) //private  
+264: private function filter_postcateg(object $pp1) //private  
+310: private function read_post(object $pp1)  
+330: private function editpost(object $pp1) //private  
+348: private function edmkdpost(object $pp1) //private  
+374: private function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='')  
+428: private function kalendar(object $pp1) //private  
+440: private function comments(object $pp1) //private  
+453: private function upd_comment_stat(object $pp1)  
+480: private function del_row_do(object $pp1) //used for all  t a b l e s !!  
+507: private function upd_user_loggedin(object $pp1)  
+525: private function errmsg(object $pp1, string $myerrmsg)  
+539: private function contact(object $pp1)  
+546: private function about(object $pp1)  
+554: private function features(object $pp1)  
 
 
+
+
+<br /><br />
+<hr />
+## 4. Autoload cls included in index.php : TO AVOID INC. COMMANDS IN MANY SCRIPTS
+B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)  
+<hr />
+namespace B12phpfw\core\zinc ;  
+**class Autoload**  
+   // **Attributes**  
+   protected $pp1 ; //M O D U L E PROPERTIES PALLETE like in Oracle Forms  
+<hr />
+// **Methods** in cls file   J:\\awww\\www\\zinc\\Autoload.php (6 fns)
+1. **public function \_\_construct($pp1)**
+   ```
+   public function __construct($pp1) {
+     $this->pp1 = $pp1 ;
+     spl_autoload_register(array($this, 'loader'));
+     return null ;
+   }
+   ```
+28.  /* private static function fatal error hndl() { */
+39.  private function **get\_path($nscls, &$nsdir\_routTBLclsdir)** // static ?
+   1. Loop all possible dirs for cls script
+   2. Last part = Eliminated cls name from namespaced cls name from  U R L
+   ```
+      if ( $last_nspart          //eg tasks from  U R L
+           == $routTBL_dirname   //eg tasks, then zinc
+           and file_exists($script) //eg J:/awww/www/zinc/Config_allsites.php
+      )
+      {
+        $nsdir_routTBLclsdir = $routTBL_dirname ; //eg tasks, also returned to caller
+        return $script ;
+      }
+   ```
+102. private function **loader($nscls)** //$ n s c l s is namespaced  c l a s s  name
+   1. get module cls script path 
+   2. r e q u i r e  cls script path
+   ```
+    $nsdir_routTBLclsdir   = '' ; //Possible CLASS SCRIPTS DIR is contained in $nscls
+    $clsscript_path = **$this->get_path**(
+          $nscls // namespaced cls name
+        , $nsdir_routTBLclsdir //returned eg tasks
+    ) ;
+   ```
+144. private function fmt(string $txt, string $color, string $bold='')
+
+<hr />
 
 
 
@@ -430,13 +471,11 @@ ln 144: private function fmt(string $txt, string $color, string $bold='')
 
 <br /><br />
 
-Developed on home PC Windows 10 64 bit and Apache web server. Some details are to do in version 6.1 but all important is visible in current version 6.0. 
-
 1. Menus (Mnu module) are not based - no need, but can be based on B12phpfw which is best for CRUD modules like Oracle Forms form. 
 2. Most frequent (best ?) blog design today - Jazeb Akram, Abdul Wali, Edwin Diaz... I used it in Blog (Msg) module based on B12phpfw code skeleton
 3. WYSIWYG Markdown or HTML editing (Mkd module not based - no need, but can be based on B12phpfw is used for blog posts or any txt file). Blog posts may be :
     1. oper. system files - practicaly unlimited size
-    2. or in MySQL/Oracle/or any DB : post (4000 characters I commented this in code), summary (4000 characters) and banner_img description (4000 characters) 
+    2. or in MySQL/Oracle/or any DB : post (4000 characters I commented this in code), summary (4000 characters) and banner_img description (4000 characters oracle 11g, 32 kB >=12c) 
 
 
 
@@ -458,7 +497,7 @@ Explanations below are far less important than demo site and code download menti
 
 
 ## <a name="dm"></a>1\.6 DM (Domain model)
-[Top](#top)     <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     ** DM**      [IDE](#ide)     [CRUD](#crud)     [SW fw](#swfw)     
+[Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....**DM**.....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
 [UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) has DM adapter class **Tbl_crud** which is **pre CRUD code - calls cc, rr, uu, dd... methods** like in Oracle Forms **pre-query, pre-insert, pre-update... on-insert, on-update...**.
 
@@ -1302,8 +1341,7 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 
 <br /><br />
 # <a name="ide"></a>2\. My developing environment (IDE)
-[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)   [DM](#dm)   **IDE**     [CRUD](#crud)     [SW fw](#swfw)        
-
+[Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....[DM](#dm).....**IDE**.....[CRUD](#crud).....[SW fw](#swfw)   
 
 
 ## 2\.1 [Git SCM distributed version control system](https://git-scm.com/downloads)
@@ -1424,8 +1462,9 @@ Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/
 
 
   
-# <a name="crud"></a>3\. PHP 7, Bootstrap 4 : DB tables rows PDO CRUD
-  [Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     [DM](#dm)     [IDE](#ide)     **CRUD**     [SW fw](#swfw)        
+<a name="crud"></a>
+# 3\. PHP 7, Bootstrap 4 : DB tbls rows PDO CRUD
+[Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....**CRUD**.....[SW fw](#swfw)   
 
 May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX . Only Javascript I need is dialog yes or no.
 
@@ -1459,7 +1498,7 @@ DISPATCHER  includes, calls and **http jumps only to other module**. So **we may
 
 **cc, rr, uu, dd** rows CRUD methods are used for all tables !!
 
-# 3\. 1 B12phpfw CRUD module code snippets
+# 3\.1 B12phpfw CRUD module code snippets
 - module bootstrap, configuration, router, dispatcher - see Domain model [DM](#dm).        
 
 Three module scripts and four scripts global for all sites are  B12phpfw (programs **skeleton** for links = menus and CRUD).        
@@ -1914,7 +1953,7 @@ https://github.com/TRPB/ImmutableMVC
 
 
 # <a name="swfw"></a>What is SW fw (Software framework)
-[Top](#top)      <a href="#directories" id="lnkdirectories">Directories</a>     [UML](#uml)     [DM](#dm)     [IDE](#ide)     [CRUD](#crud)    **SW fw**        
+[Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....**SW fw   
 
 See "What is SW fw (Software framework)" (using mkd in fwphp/glomodul/mkd/02/01\_fwphp/**PHP_DIP\_DI.txt/**)  which states :        
 
@@ -1958,4 +1997,4 @@ To be sure, use DI or IoC with DIP.
 I never understood enough fw authors explanations which is one of reasons why I do not believe them).   (font Century Gothic 16)      
 
 ___
-[Top](#top).....<a href="#directories" id="lnkdirectories">Directories</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
+[Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   

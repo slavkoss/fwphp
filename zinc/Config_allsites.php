@@ -70,8 +70,7 @@ abstract class Config_allsites extends Db_allsites
 
 
       // =============================================
-      // 2. DEFINE  A D R E S S E S  (NO CONSTANTS)
-      //    adresses = paths & relative paths
+      // 2. DEFINE  A D R E S S E S  (NO CONSTANTS). Adresses = paths & relative paths
       // =============================================
       if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR); //dirname, basename
       if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
@@ -323,7 +322,7 @@ abstract class Config_allsites extends Db_allsites
 //$pgordno_from_url     // requested  p a g e
 // nr.records in table
 // nr.records in table block to display
-public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 )
+public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 ) //paginator
 {
   $qs = QS;
   $total_pages = ceil($rtbl / $rblk);
@@ -516,6 +515,8 @@ $navbar .= " <a class='button'
     }
   }
 
+// see comments below
+} // e n d  c l s
 
 
 
@@ -635,4 +636,3 @@ $navbar .= " <a class='button'
               $app->run();
               */
 
-} // e n d  c l s  
