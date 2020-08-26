@@ -1,5 +1,4 @@
 <?php
-
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
 //use PDO;
