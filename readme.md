@@ -35,7 +35,7 @@ Besides explanations below are difficult to understand - after battle philosophy
 <br><br><br>
 
 
-
+![B12phpfw_UMLdiagram.png is less practical and altered](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
 
 <a name="uml"></a>
 ## 1\.5 B12phpfw UML diagram - classes structure - Attributes and Methods
@@ -44,7 +44,11 @@ Besides explanations below are difficult to understand - after battle philosophy
 For program execution this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ? Because we do not want write in each Home_ctr class code in 3 classes above. Instead we **reuse code in 3 shared classes (globals)** above Home_ctr.  
 
 
-<hr />
+
+
+-----
+
+
 ## 1a. Dbconn_allsites abstract cls : DB CONNECT
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
 <hr />
