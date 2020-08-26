@@ -35,7 +35,7 @@ Besides explanations below are difficult to understand - after battle philosophy
 <br><br><br>
 
 
-![B12phpfw_UMLdiagram.png is less practical and altered](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
+![B12phpfw_UMLdiagram.png is less practical and altered](XXXB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
 
 <a name="uml"></a>
 ## 1\.5 B12phpfw UML diagram - classes structure - Attributes and Methods
@@ -51,7 +51,11 @@ For program execution this hierarchy is as all attributes and methods in classes
 
 ## 1a. Dbconn_allsites abstract cls : DB CONNECT
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
-<hr />
+
+
+-----
+
+
 //***B12phpfw***=vendor namespace prefix \ ***core***=processing (behavior) \ ***zinc***=cls dir name (POSITIONAL part of ns, CAREFULLY !) :  
 namespace B12phpfw\core\zinc ;  
 //use PDO;  //not needed  
@@ -72,7 +76,12 @@ namespace B12phpfw\core\zinc ;
   private static $dbname = 'z_blogcms';   
   private static $user   = 'root';   
   private static $pass   = '';   
-<hr />
+
+
+-----
+
+
+
 // **Methods** in cls file J:\awww\www\zinc\Dbconn_allsites.php (6 fns)   
 1. private function \_\_construct() { // no code   
 // self::$instance=new PDO($dsn,'root',",$options);   
@@ -82,12 +91,22 @@ namespace B12phpfw\core\zinc ;
 60. //abstract protected function createEntity(array $row);   
 61. //abstract protected static function jsmsg(array $msg);   
 
-<hr />
+
+
+-----
+
+
+
 /\\   
   !   
   !   
   !   
-<hr />
+
+
+-----
+
+
+
 ## 1b. Db_allsites abstract cls : DB CRUD ADAPTER  (MODEL code type DB adapter, AbstractEntity)
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
 <hr />
