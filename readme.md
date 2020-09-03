@@ -7,8 +7,50 @@
 -----
 
 
-Developed on home PC Windows 10 64 bit and Apache web server. Tested on Oracle Linux and Apache web server. Some details are to do in version 6.1 but all important is visible in current version 6.0. 
-## 1\.1 Demo site - free hosting with free Mysql
+**Developed** on home PC on (newest) Windows 10 64 bit with XAMPP (Apache web server).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. 
+
+### Project notable goals  - reasons
+Notable package does something special, is also frequently innovative. 
+1. In my free time (my work for last 20 years was :  Oracle Forms 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
+   https://github.com/panique/mini3 is good but to small OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram : Udemy is good but older programming style.
+2. Develop **large sites** (more of them under web server root dir. path), PHP PDO CRUD (Create, Read, Upd, Del eg "users" table rows) in **any DB**.
+3. ***Innovative*** is : **Each module in own folder like Oracle Forms 6i form, Blazor and APEX pages**, no M, V, C folders.
+4. **Not to simple code : easy to understand,  small, reusable, namespaces for autoloading classes scripts, routing (URL parts) - dispatching (call or include), own debugging (Xdebug is not enough)...** compared to all PHP frameworks and learning sources.
+5. Present best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
+    https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
+
+Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **most probably do not nead B12phpfw** code skeleton, see their code, is simmilar to B12phpfw - few important **adresses tricks** (see them below on op.system and on web), **includes instead http// jump to pages** (this is interesting question).
+
+### To do
+Everything important is visible in current version 6.0 code. Some details are** to do** in version 6.1. (They are not needed for learning and own (more) sites developing based on  B12phpfw and many examples in group of modules in learning folder [WEBSERVER_ROOTPATH]\\fwphp\glomodul\\z_examples.)
+
+1. On Linux demo sites newest **core routing-dispatching code** improvements : some PHP statement works different than on Windows, so links do not work in msg module, but work in mnu and mkd modules) .
+2. Difficult parts are not many : 
+   1. PDO CRUD more DBI MySQL, Oracle... - any DB with DB adapter code I have only basic code - working - should be improved.  
+   2. Same for tables : sorting, cols filtering, rows filtering.  
+        Grid with updatable fields, I think, is not needed.
+3. Details like data formats (page fieds should be all characters like in Oracle APEX), computations are easy to find in other learning sources.
+4. No charts - see other learning sources.
+
+### Adresses on op.system and on web are difficult to understand
+and bad explained in all PHP frameworks and learning sources.
+
+1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 (dev1 is Apache vitual host).  
+
+   For **testing**  wsroot_path = **J:\\xampp\\htdocs** , wsroot_url =  http://localhost:8083 .
+   
+   For **production** are Linux demo sites, see below.  
+
+2. For mnu module **module_url** = http://dev1:8083/fwphp/www/ so module_towsroot = '../../' - I do not use it for mnu and mkd. 
+   
+      **$module_towsroot** variable in index.php is** always same value for both variables wsroot_path and wsroot_url**.
+      
+      For msg module in index.php : ** $module_towsroot = '../../../' ;** because module_path = J:\awww\www\fwphp\glomodul\blog and three times "../" means **path from blog dir to www dir ee to wsroot_path = 3 times up**.  So module_url = http://dev1:8083/fwphp/glomodul\blog  and 3 times up is http://dev1:8083 = wsroot_url.
+
+
+IIS wsroot_path = %SystemDrive%\\inetpub\\wwwroot = http://localhost, see Win icon -> IIS manager. For APEX learning on Oracle cloud open  https://apex.oracle.com/en/ click link "Get started" and install few demo apps before making own based on eg Riaz Ahmed 2020 year "Oracle APEX 20 For Beginners" (on 18c XE DB) .
+
+## 1\.1 Demo sites - free hosting with free Mysql
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - here are newest programs (may be more problems than heliohost). Also PHP on Linux is a bit different than on Windows.
 2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL)
 3. My blog :  http://phporacle.altervista.org
@@ -38,7 +80,7 @@ Besides explanations below are difficult to understand - after battle philosophy
 ![B12phpfw_UMLdiagram.png is less practical and altered](XXXB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
 
 <a name="uml"></a>
-## 1\.5 B12phpfw UML diagram - classes structure - Attributes and Methods
+# 1\.3 B12phpfw UML diagram - classes structure - Attributes and Methods
 [Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
 For program execution this hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why all attributes and methods are not in Home_ctr ? Because we do not want write in each Home_ctr class code in 3 classes above. Instead we **reuse code in 3 shared classes (globals)** above Home_ctr.  
@@ -49,7 +91,7 @@ For program execution this hierarchy is as all attributes and methods in classes
 -----
 
 
-## 1a. Dbconn_allsites abstract cls : DB CONNECT
+## 1\.3 1a. Dbconn_allsites abstract cls : DB CONNECT
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
 
 
@@ -107,7 +149,7 @@ namespace B12phpfw\core\zinc ;
 
 
 
-## 1b. Db_allsites abstract cls : DB CRUD ADAPTER  (MODEL code type DB adapter, AbstractEntity)
+## 1\.3 1b. Db_allsites abstract cls : DB CRUD ADAPTER  (MODEL code type DB adapter, AbstractEntity)
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
 
 
@@ -157,7 +199,7 @@ C R U D  F U N C T I O N S  USED FOR ALL TBLS !! :
 
 
 
-## 2. Conﬁg_allsites abstract cls : CONFIG AND UTILS (functions)
+## 1\.3 2. Conﬁg_allsites abstract cls : CONFIG AND UTILS (functions)
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
 
 
@@ -227,7 +269,7 @@ abstract class Conﬁg_allsites **extends Db_allsites**
 
 
 
-## 3. Home_ctr cls : MODULE CONTROLLER CODE
+## 1\.3 3. Home_ctr cls : MODULE CONTROLLER CODE
 B12PHPFW MODULE CODE. LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
 **$db = new Home_ctr($pp1) in index.php**. $db because extends Config_allsites, Db_allsites, Dbconn_allsites.  
 
@@ -295,7 +337,7 @@ class Home_ctr **extends Config_allsites**  // May be named **App, Router_dispat
 
 
 
-## 4. Autoload cls included in index.php : TO AVOID INC. COMMANDS IN MANY SCRIPTS
+## 1\.3 4. Autoload cls included in index.php : TO AVOID INC. COMMANDS IN MANY SCRIPTS
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)  
 
 
@@ -359,7 +401,7 @@ namespace B12phpfw\core\zinc ;
 
 <br /><br />
 <span id="directories"></span>
-## 1\.3 B12phpfw directories (modules) structure
+## 1\.4 B12phpfw directories (modules) structure
 [Top](#top).....**Dirs**.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
 See **info code :**        
@@ -520,7 +562,7 @@ Explanations below are far less important than demo site and code download menti
 
 
 
-## <a name="dm"></a>1\.6 DM (Domain model)
+## <a name="dm"></a>1\.5 DM (Domain model)
 [Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....**DM**.....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
 [UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) has DM adapter class **Tbl_crud** which is **pre CRUD code - calls cc, rr, uu, dd... methods** like in Oracle Forms **pre-query, pre-insert, pre-update... on-insert, on-update...**.
@@ -623,7 +665,7 @@ This example is step 2 in learning. Step 1 is dir (module) ...z_examples/02_MVC/
 </NotepadPlus>
 ```
 
-### 1\.6\.1 index.php
+### 1\.5\.1 index.php
 
 ```php
 <?php
@@ -671,7 +713,7 @@ exit(0);
 
 ```
 
-### 1\.6\.2 Home_ctr.php router, dispatcher
+### 1\.5\.2 Home_ctr.php router, dispatcher
 
 ```php
 <?php
@@ -848,7 +890,7 @@ class Home_ctr extends Config_allsites
 } // e n d  c l s  
 ```
 
-### 1\.6\.3 home.php - shows links assigned in Home_ctr.php for user interactions
+### 1\.5\.3 home.php - shows links assigned in Home_ctr.php for user interactions
 ```php
 <?php
 /**
@@ -930,7 +972,7 @@ $cursor = $Tbl_crud->rr_all($this);
 </div> <!-- /container -->
 ```
 
-### 1\.6\.4 create.php
+### 1\.5\.4 create.php
 ```php
 <?php
 /**
@@ -1029,7 +1071,7 @@ if ( !empty($_POST))
     </div> <!-- /container -->
 ```
 
-### 1\.6\.5 read.php - display user profile
+### 1\.5\.5 read.php - display user profile
 curl -s https://api.github.com/markdown/raw -X "POST" -H "Content-Type: text/plain" --data-binary "@J:/awww/www/readme.md" >> "C:\Users\ss\AppData\Local\Temp\readme.htm"
 
 See J:\\awww\\www\\vendor\\erusev\\parsedown\\styles>md2h.bat
@@ -1113,7 +1155,7 @@ while ($row = $this->rrnext($cursor)): {$r = $row ;} endwhile;
     </div> <!-- /container -->
 ```
 
-### 1\.6\.6 update.php
+### 1\.5\.6 update.php
 ```php
 <?php
 /**
@@ -1246,7 +1288,7 @@ if ( !empty($_POST) )
     </div> <!-- /container -->
 ```
 
-### 1\.6\.7 Tbl_crud.php - ORM, DM (Domain Model) adapter cls - pre CRUD class
+### 1\.5\.7 Tbl_crud.php - ORM, DM (Domain Model) adapter cls - pre CRUD class
 ```php
 <?php
 /**
@@ -1776,12 +1818,12 @@ class Autoload
       $script = $scriptdir_path . $clsname .'.php' ;
       $routTBL_dirname = basename($scriptdir_path) ;
 
-              if ('') { echo  '<br />'. '<br /> &nbsp;  &nbsp;  &nbsp; '
+              if ('') { echo  '<br />'. '<br />         '
                      . __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
                      echo 'IF BOTH DIR BELOW ARE EQUAL (GREEN) : $nsdir_routTBLclsdir=one_of_them '; print_r($nsdir_routTBLclsdir); 
-                     echo '<br /> &nbsp;  &nbsp;  &nbsp; '. '$nscls=';
+                     echo '<br />         '. '$nscls=';
                      print_r($nscls); echo ' $last_nspart = DIR IN NS = b asename(d irname(LINUXFMT $nscls))';
-                echo '<br /> &nbsp;  &nbsp;  &nbsp; routTBL_dirpath = LINUXFMT $this->pp1->module_path_arr[$clsdirx]=';
+                echo '<br />         routTBL_dirpath = LINUXFMT $this->pp1->module_path_arr[$clsdirx]=';
                      print_r($scriptdir_path);
                 if ($last_nspart == $routTBL_dirname) {
                   echo '<br />'. ' $last_nspart='; print_r($this->fmt($last_nspart, 'green', 'bold'));
@@ -1793,10 +1835,10 @@ class Autoload
                 echo '<br />$clsname='; print_r($clsname);
                 if (file_exists($script)) {
                   echo '<br />MUST BE : 1. file_exists(<b>$script='.$this->fmt($script, 'green', 'bold')
-                      .'</b>) <br /> &nbsp;  &nbsp;  &nbsp; and 2. \$last_nspart=\$routTBL_dirname';
+                      .'</b>) <br />         and 2. \$last_nspart=\$routTBL_dirname';
                 } else {
                   echo "<br />MUST BE : 1. file_exists(<b>\$script=$script</b>) "
-                     ."<br /> &nbsp;  &nbsp;  &nbsp; and 2. \$last_nspart=\$routTBL_dirname";
+                     ."<br />         and 2. \$last_nspart=\$routTBL_dirname";
                 }
               }
               //line 44 SAYS: $last_nspart=. $routTBL_dirname=blog $clsname=B12phpfw\module\blog\Home_ctr

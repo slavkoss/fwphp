@@ -4,17 +4,17 @@
 //http://dev1:8083/fwphp/glomodul/blog/?p/1/i/home/ 
 
 namespace B12phpfw\module\blog ;
+      //first namespace part B12phpfw is vendor's name space's prefix (functional ns part)
+      //2nd ns part m o d u l e is functional ns part = like Oracle form
+      //last before clsname if any (here 3rd) ns part blog or zinc are DIRs=POSITIONALnsParts, CAREFULLY !
 use B12phpfw\core\zinc\Autoload ;
-      //first namespace part B12phpfw is vendor ns prefix
-      //2nd ns part m o d u l e is functional part of ns = like Oracle form
-      //2nd ns part c o r e is functional part of ns = processing (behavior)
-      //3rd ns part zinc and blog (cls) are dirs = POSITIONAL parts of name spaces, CAREFULLY !
+      //2nd ns part c o r e is functional ns part = processing (behavior)
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_towsroot = '../../../' ;  //to web server doc root or our doc root by ISP
-$dirup_to_app = str_replace('\\','/', dirname(__DIR__) ) ; //to app eg glomodul
+$dirup_to_app = str_replace('\\','/', dirname(__DIR__) ) ; //to app dir eg "glomodul" dir and app
 
-$pp1 = (object) //=properties global array (like Oracle Forms property palette)
+$pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
   //1.1
   , 'module_towsroot'=>$module_towsroot
@@ -25,10 +25,10 @@ $pp1 = (object) //=properties global array (like Oracle Forms property palette)
         str_replace('\\','/', __DIR__ ).'/' //thismodule_cls_dir_path
       //dir of global clses for all sites :
       , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
-      //two master modules (tbls)
+      //two master modules (tbls) = blocks in Ora. Forms
       , $dirup_to_app.'/user/'
       , $dirup_to_app.'/post_category/'
-      //detail & subdet modules (tbls)
+      //detail & subdet modules (tbls) = blocks in Ora. Forms
       , $dirup_to_app.'/post/'
       , $dirup_to_app.'/post_comment/'
   ]

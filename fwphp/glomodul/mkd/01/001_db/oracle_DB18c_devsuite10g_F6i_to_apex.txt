@@ -11,6 +11,8 @@ https://profile.oracle.com/myprofile/account/create-account.jspx
 
 https://dbahelp2018.wordpress.com/install-oracle-18c-xe-on-windows-10/
 
+https://dbvisit.com/blog/oracle-database-18c-express-edition-getting-started-part-4 Linux, docker
+
 on Windows 10 pro 64 bit  Ver : 10.0.19041  
 1. **Deinstall 11g XE (615 MB)**  
 2. **run as admin** L:\\1_downloads\\data\\1_instalac\ora18c\\setup.exe  to 
@@ -29,13 +31,58 @@ Port: 1521
 Multitenant container DB : localhost:1521     Container DB will be called XE  
 Pluggable DB                    : XEPDB1     localhost:1521/XEPDB1  
 Enterprise Express URL  : https://localhost:5500/em  
-
-
-### Check DB in GUI Enterprise Manager Express  
-User Name: sys  
+#### Check DB in GUI Enterprise Manager Express  
+User Name: **sys**  
 Password: ...  
-Container name:  Leave blank  
+Container name:  **Leave blank**  (Enter a PDB name if you want to access a specific PDB or leave it blank to access the root container. )
 as sysdba: tick box  
+```
+select name, open_mode, cdb from v$database;
+NAME      OPEN_MODE            CDB
+--------- -------------------- ---
+XE        READ WRITE           YES
+
+show pdbs;
+SP2-0382: The SHOW PDBS command is not available
+
+ipconfig
+Ethernet adapter Ethernet:
+
+   Connection-specific DNS Suffix  . :
+   IPv4 Address. . . . . . . . . . . : 192.168.5.12
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.5.1
+
+Ethernet adapter Ethernet 3:
+
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::a099:c564:36e6:bf89%12
+   IPv4 Address. . . . . . . . . . . : 192.168.56.1
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+
+sqlplus system/MYPSW@192.168.5.12:1521/XEPDB1
+Connected.
+or
+conn system/MYPSW@sspc2:1521/XEPDB1
+Connected.
+or
+conn system/MYPSW@localhost:1521/XEPDB1
+Connected.
+
+show con_name
+sho user
+
+ALTER USER HR identified by hr account unlock;
+grant CONNECT,DBA,RESOURCE to HR IDENTIFIED BY HR;
+
+conn HR/HR@localhost:1521/XEPDB1
+Connected. - case sensitive !!
+
+select tname from tab;
+
+```
+
 
 ### SQLdeveloper 19.2.1
 https://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html
@@ -78,6 +125,16 @@ Click Change/Remove or Uninstall.
 Follow the prompts to deinstall Oracle Database Express Edition. After few minutes, the window will close and the deinstallation will be complete.  
  
  
+ 
+ ## Import data to 18c XE database from dump folder
+ sqlplus / AS SYSDBA  
+ALTER SESSION SET CONTAINER=XEPDB1;  
+CREATE DIRECTORY DUMP_DIR AS '\dump_folder';  
+GRANT READ, WRITE ON DIRECTORY DUMP_DIR TO SYSTEM;  
+
+impdp system/system_password@localhost:listnerport/xepdb1 full=Y EXCLUDE=SCHEMA:\"LIKE \'APEX_%\'\",SCHEMA:\"LIKE \'FLOWS_%\'\" directory=DUMP_DIR dumpfile=DB11G.dmp logfile=impdpDB11G.log  
+
+
  
  
  ## RMAN and export (expdp)
@@ -443,7 +500,71 @@ POSSYS app develop. : https://apex.oracle.com/pls/apex/f?p=4550:1
 <a name="f6i_to_apex"></a>
 # 3. Convert Oracle Forms 6i to APEX using frmf2xml utility
 [Top (DB 18c)](#top).....[APEX 20.1](#apex).....**Conv. F6i to APEX (Devsuite10g on WinXP)**
-```
+  
+## App f6i2apex in own WS wsconvf6 (or both POSSYS)
+to convert Oracle Forms 6i (9 or ...) to APEX app modules
+
+1. Convert fmb 6i to fmb 10
+2. Convert Oracle Forms to XML.
+   
+   Run Forms to XML Conversion tool, **Forms2XML**, to convert Forms modules in your app. This creates XML output files.  
+   **C:\\OraDS10Home1\\BIN\\frmf2xml.bat**  : frmf2xml.bat [options] file1 [file2...]  
+   In WinXP (Ora Virt. Box)   D:\OraDS10Home1\BIN  
+    ```
+    C:\OraDS10Home1\BIN\frmf2xml.bat L:\asg\possys6\tipdok.fmb  
+               Oracle Forms 10.1.2 Forms to XML Tool  
+               Copyright(c) 2001, 2005, Oracle.  All rights reserved.  
+               Processing module C:\OraDS10Home1\forms\test.fmb  
+    XML Module saved as L:\asg\possys6\tipdok_fmb.xml  
+    ```
+    >or C:\OraDS10Home1\BIN\frmf2xml.bat L:\asg\hr\poplist_dept2.fmb  
+    >XML Module saved as L:\asg\hr\poplist_dept2_fmb.xml
+
+3. Create an APEX Workspace wsconvf6  
+   Associate workspace with Oracle Forms application schema.
+
+4. Create migration project mercedes or hr and load app metadata XML
+   ### Upload Forms Module XML File to APEX
+   1. login to wsconvf6/admin/admin
+   2. Click App Builder icon.  
+   3. Click Oracle Forms **Migrations** on the right side of the page 
+   4. On  **App Migrations page**, **Migr. Tasks region -> App Migrations** , click **Create Project**. Enter project details:  
+        1. Project unique Name, no white spaces = **mercedes or hr or...**
+        2. Description = **mercedes user forms 6i converted to 10g migrated to APEX 20.1 (18.1)**  
+        3. Schema = mercedes  
+            Default schema is schema associated with your WS. If **multiple schemas (mercedes, hr, placa6) are associated with your WS**, all associated schemas appear in select list, arranged in alphabetical order. When this situation exists, select schema associated with the Oracle Forms you want to upload.  
+       4. Forms Module XML File = **L:\asg\possys6\tipdok.fmb** which contains the information of your converted Oracle FormModule   
+
+   5. Click Next.  Confirm page appears.
+
+    To add more files, click Upload Another File. 
+
+5. Analyze Oracle Forms app  
+   From App Migration Workshop, verify and adjust Forms app metadata. Identify business logic required in new APEX app. Refine scope of your conversion.
+
+   **File Name = 'tipdok_fmb.xml'**
+
+   | | Component                    |  Count  |  Equivalent Component  | Implementation Details | Included                                 | File Name                              | Applicable |  
+   | -: | :----------------------- | :-------- | :----------------------------- | :----------------------------- | :----------------------------- | :----------------------------- | :----------------------------- |
+   | 1 | Alerts                             | 6             | -                                                 | alert message can be stored as **Text Message in Shared Components** of APEX app. Text Messages can be used to build translatable text strings with substitution variables that can be called from PL/SQL packages, procedures, and functions. | - | tipdok_fmb.xml | yes |
+
+	
+Alerts	6	-	An alert message can be stored as a Text Message in the Shared Components of an Oracle Application Express application. Text Messages can be used to build translatable text strings with substitution variables that can be called from PL/SQL packages, procedures, and functions.	-	tipdok_fmb.xml	Yes
+
+6. Generate APEX App  
+   Create a new app using Create Application Wizard, in App Builder part of APEX, to cover functionality being migrated.
+7. Customize your APEX App  
+   Open your app and customize your generated app. You can change app attributes or add new pages to app.
+
+
+<br /><br />
+**Not working if form contains image** :  
+Processing module C:\\OraDS10Home1\\forms\\test.fmb  
+ERROR - an exception has been encountered: **\_jni_gra\_export\_image failed**  
+
+ <br /><br />
+ ## Links, help...
+ ```
 L:\3_sw_video\4_db\2_oracle\Complete_Oracle_SQL_Course_12c\000_12cX64_APEX_app_migration_guide.pdf   
 L:\2_knjige\oracle\apex\8_instal_oracle_10XE_APEX32_devsuite101_MOJ.txt  
 L:\2_knjige\oracle\apex\0_apex_dokum\AEMIG\overview-migration-process.htm  
@@ -466,19 +587,6 @@ http://www.oracle.com/technetwork/developer-tools/apex/application-express/podca
  
 https://www.youtube.com/watch?v=gg6Gy1VtqmA
 
-APEX requires only a web browser and no client software for development, deployment, or run time.
-
-Ora. Cloud run APEX "Sales" app : https://apex.oracle.com/pls/apex/possys/r/sales-web-app4/home
-Time sam testirao prvih 125 strana (od 400) pdf-a - radi ok. To su  cre i punjenje 5 tbl, meniji i 6 stacked canvasa (regions) čiji izvor su rekapitulacijski selecti - jedini kod koji pišem. Ostalo su propertiji u prop, paleti kao u Forms-ima.
-
-Loša vijest (i nije loša ako bi malop. bila na našem serveru ali je problem kao sa PHP-om Varaždin MS tehnologija, malop. druga tehnologija) :
-
-APEX >=5.1 requires Ora DB ver. *11.2.0.4 - no such DB XE !!!* (last 11g XE is *11.2.0.2.0* - 64bit Production - tu ide APEX ver 4.x). Zato sam prije par godina odustao od APEX-a. Dakle za APEX 20.1 treba 11g XE 18c iz 2018 godine koja dolazi sa APEX 18.x a nije teško instalirati APEX 20.1.
-
-1. Go to https://support.oracle.com
-2. Click Certifications
-3. Enter Oracle Application Express as Product
-4. Select APEX version from the Release list,
 
 You **must install Oracle Developer Suite (best on WinXP !!) to convert** Oracle Forms applications and Oracle Reports to XML format. 
 
@@ -488,48 +596,8 @@ Convert:
 3. PL/SQL library . PLL  files to . PLD  text files using the File Conversion option in Oracle Forms Builder
 
  
-  
-##  WS cf6 = Convert Oracle Forms 6i (9 or ...) to APEX
-In WinXP (Ora Virt. Box)   D:\OraDS10Home1\BIN  
-```
-frmf2xml [options] file1 [file2...]  
-
-C:\OraDS10Home1\BIN\frmf2xml.bat L:\asg\hr\poplist_dept2.fmb  
-XML Module saved as L:\asg\hr\poplist_dept2_fmb.xml
-
-C:\OraDS10Home1\BIN\frmf2xml.bat L:\asg\possys6\tipdok.fmb  
-XML Module saved as L:\asg\possys6\tipdok_fmb.xml  
-```
- 
-### Upload Forms Module XML File to APEX
-1. login to cf6/admin/admin = Access the **workspace cf6** you created for your conversion project.  
-2. Click the App Builder icon.  
-3. Click Oracle Forms **Migrations** on the right side of the page.  
-4. On the **App Migrations page**, click **Create Project**. Enter the project details:  
-    1. Project Name - **hr** Enter a unique name. The project name must be unique to your current workspace and should not contain any white spaces.  
-    2. Description - **hr user forms migrated to APEX 18.1**  
-    3. Schema - hr Select the schema that contains the database schema objects associated with the Oracle Forms application you want to convert.  
-   Default schema is the schema associated with your workspace. If multiple schemas are associated with your workspace, all associated schemas appear in the select list, arranged in alphabetical order. When this situation exists, select the schema associated with the Oracle Forms you want to upload.  
-   4. Forms Module XML File -**L:\asg\hr\poplist_dept2_fmb.xml** which contains the information of your converted Oracle FormModule  
-       Note that you must upload the converted Oracle FormModule file first.  
-5. Click Next.  The Confirm page appears.
-
-To add more files, click Upload Another File.  
-
  
  
-
-**C:\OraDS10Home1\BIN\frmf2xml.bat C:\OraDS10Home1\forms\test2.fmb**  
-C:\OraDS10Home1\BIN\frmf2xml.bat C:\OraDS10Home1\forms\test2.fmb  
-Oracle Forms 10.1.2 Forms to XML Tool  
-Copyright(c) 2001, 2005, Oracle.  All rights reserved.  
-Processing module C:\\OraDS10Home1\\forms\\test.fmb  
-XML Module saved as C:\\OraDS10Home1\\forms\\test.xml  
-
-**Not working if form contains image** :  
-Processing module C:\\OraDS10Home1\\forms\\test.fmb  
-ERROR - an exception has been encountered: **\_jni_gra\_export\_image failed**  
-
  
 
 **C:\\OraDS10Home1\\BIN\\frmf2xml.bat**
@@ -547,7 +615,7 @@ REM    You can only use the standard nine parameters, but these can include
 REM    wildcards in the filenames.
 REM
 
-REM Setup the path to include the necessary Forms dlls.
+REM Setup path to include necessary Forms dlls.
 set PATH=C:\OraDS10Home1\bin;%PATH%
 
 REM Run the tool with the required jar files added to the classpath

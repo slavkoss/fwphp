@@ -70,4 +70,16 @@ default:
 
 exit(0);
 
-//if (isset($_SESSION["UserId"])) { echo 'Admin'; }
+/* 
+if (isset($_SESSION["UserId"])) { echo 'Admin'; }
+
+
+////////////////// in .html :
+
+<!--script type="text/javascript">window.location = "https://notepad-plus-plus.org/downloads/";</script>
+<script type="text/javascript">window.location = "https://code.visualstudio.com/";</script>
+<script type="text/javascript">window.location = "http://brackets.io/";</script>
+<script type="text/javascript">window.location = "https://www.sublimetext.com/";</script-->
+
+
+*/

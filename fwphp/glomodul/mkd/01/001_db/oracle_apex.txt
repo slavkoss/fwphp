@@ -1,4 +1,4 @@
----  
+orders?clea---  
 <a name="top"></a>2020.08.17  Oracle Application Express 20.1.0.00.13  Copyright © 1999, 2020
 ## 1. Intro, content
 I. BASICS **Top**.....2.1 [Apexws_cloud](#Apexws_cloud).....2.2 [App. builder](#app_builder).....2.3 [Page](#page)  
@@ -323,22 +323,8 @@ Used to control input values and **limit users selection**. You can define two t
 2. dynamic LOV is based on a **SQL query**  and it is executed at runtime.
 
 ## 3.4.1 LOV CATEGORIES (U, T) - STATIC
-In our app we will have a **Products setup module** - three product categories. LOV will be utilized in Chapter 6 section 6.4.2.  
-1. Shared Components -> Other Components section -> Lists of Values APEX page
-2. Click Create button (9 LOVs are created by APEX).
-3. Select From Scratch option and click Next.
-4. Enter **Categories** for the LOV Name, select **Static** as the LOV type, and click Next.
-5. Fill in values as shown in following table. At runtime these entries will display in the order they are entered. Return Value does not display, but is the value that is returned as a user selection to the APEX engine.    
+See 6.4.2 Attach Categories LOV.
 
-   | Sequence | Display val | Rerturn val |
-   | :- | :---------------- | :-------------------- | 
-   | 1 | Men                    | Men                          |
-   | 2 | Women             | Women                   |
-   | 3 | Kids                    | Kids                           |
-
-   Click Create LOV button
-
- 
 
 ## 3.4.2 LOV PRODUCTS WITH PRICE - DYNAMIC    
 You will use this LOV in Chapter 7 section 7.4.2.
@@ -606,7 +592,7 @@ using the following syntax:
 | NO | = do not enter the debug mode. References  debug  flag,  which  is  used  to display  app  processing  details. |
 | RP,RIR,4 | Placed in URL's ClearCache position, this argument **RP (Resets Pagination) for interactive report  on  Page  4**.  RIR=Reset  Interactive Report. Pagination =**info about numrows and currrownum  within result set**. You control  how  pagination  displays  by  making selections  from  **Pagination  Type  attribute**  in  Property  Editor (prop palete u F6i) -  style of links or buttons used to navigate to the next or previous page.  Clear  cache  section can have RIR or CIR or RP to reset, **clear, or reset**  pagination of primary default reports of all interactive report regions on the target page. |
 | IRGTE_ORDER_DATE | is  used  in itemNames position. IR (Interactive Report) string is used along with greater than and equal to operator  (GTE),  followed  by  an  item  name (ORDER_DATE  -  an  item  on  Page  4).  This argument  acts  as  a  filter  and  is  used  in conjunction  with itemValue (&P1_THIS_MONTH. mentioned underneath) to  only  display  current  month's  orders.  In simple  words  it  says:  **Order  date  of interactive  report  is  greater  than  or  equal  to item value**. |
-| &P1_THIS_MONTH. | Used  in  the  itemValue  position,  the  value stored in this hidden item is forwarded to the target page. **To create a filter** on an interactive report  in  a  link,  use  the  string IR\<operator>\_\<target  column  alias>  in  the ItemNames  section  of  the  URL  and  pass  the filter value in corresponding location in the ItemValues  section  of  the  URL.  See  section 2.7 in Chapter 2 for further details on Oracle APEX f?p syntax. Other operators you can use to filter an interactive report include: EQ = Equals (the default operator) LT = Less than GT = Greater than LTE = Less than or equal to GTE = Greater than or equal to LIKE = SQL LIKE operator N = Null To apply the filter, you must use correct date format  mask  in  the  SQL  query  for order_timestamp column. For example, if the Order Date column on Page 4 appears as  01-JAN-2017,  then  you  must  use 'DD/MON/YYYY' format mask. |
+| &P1_THIS_MONTH. | Used  in  the  itemValue  position,  the  value stored in this hidden item is forwarded to the target page. **To create a filter** on an interactive report  in  a  link,  use  the  string IR\<operator>\_\<target  column  alias>  in  the ItemNames  section  of  the  URL  and  pass  the filter value in corresponding location in the IORDER_DATEtemValues  section  of  the  URL.  See  section 2.7 in Chapter 2 for further details on Oracle APEX f?p syntax. Other operators you can use to filter an interactive report include: EQ = Equals (the default operator) LT = Less than GT = Greater than LTE = Less than or equal to GTE = Greater than or equal to LIKE = SQL LIKE operator N = Null To apply the filter, you must use correct date format  mask  in  the  SQL  query  for order_timestamp column. For example, if the Order Date column on Page 4 appears as  01-JAN-2017,  then  you  must  use 'DD/MON/YYYY' format mask. |
 
 
 <br /><br />
@@ -1083,7 +1069,7 @@ Create two module pages via built-in wizard:
 1. Main App Builder interface ->  click  "**Sales Web Application's Edit icon**" (A) -> click "**Create Page**"  button  (B). 
    ### Create tbl IG page ID=2, Editing Enabled=Off (for "On" see [Sample Interactive Grids](#sampleIG))
    
-   >TIP:  To  **delete an app page**,  open page in  Page Designer by clicking its name -> select Delete from top-right Utils menu.
+   >TIP:  To  **delete page**,  open page in  Page Designer by clicking its name -> select **Delete from top-right Utils menu**.
 
 2.  On   first  wizard  screen,  select  **"Report"**  option ->  **report  of customers in an interactive grid**.
 
@@ -1302,7 +1288,7 @@ Page flds are in 2 columns, only "Tags" fld spans both cols. Save  your  changes
 .....Width=50.....Value Required=Off
 6. See 5.4.2 Change cust. column "P7_CUST_STATE" to hold predefined LOV! States list
 7. P7_CUST_POSTAL_CODE Label=Zip Code.....Sequence=80.....Start New Row=On.....Column=Automatic
-.....Column Span=6.....Template=RequiredLabel Column Span=2
+.....Column Span=6.....Template=Required.....Label Column Span=2
 .....Width=8.....Value Required=On
 8. P7_CREDIT_LIMIT Label=Credit Limit.....Sequence=90.....Start New Row=Off.....Column=Automatic
 .....New Column=On.....Column Span=Automatic.....Template=Required.....Label Column Span=2
@@ -1323,8 +1309,8 @@ Page flds are in 2 columns, only "Tags" fld spans both cols. Save  your  changes
 .....Width=100.....Value Required=Off
 
 
-## 5.4.2 Customer's column "P7_CUST_STATE" to hold app-shared LOV! States list
-app-shared means defined in app shared componebts in one place and reusable in all app modules pages.
+## 5.4.2 Customer's page column "P7_CUST_STATE"
+to hold app-shared dynamic LOV! States list. app-shared means defined in app shared componebts in one place and reusable in all app modules pages.
 
 ### 1. In Shared Components to fetch State names from DEMO_STATES table
 1. **Shared Components** -> Other Components section -> **"Lists of Values" APEX page** -> Click Create button
@@ -1332,7 +1318,9 @@ app-shared means defined in app shared componebts in one place and reusable in a
 3. Enter **States** in Name box, select **Dynamic for its type**, and click Next
 4. On List of Values Source screen, select **SQL Query for Source Type**, and enter  following query in **Enter SQL SELECT statement** box. Click Next
    ```
-   select state_name display_value, state_id return_value from demo_states order by 1
+   both VARCHAR2	30 :
+   select state_name display_value, st return_value from demo_states order by 1
+   --select state_name display_value, state_id return_value from demo_states order by 1
    ```
 5. On final Column Mappings screen, select RETURN_VALUE for Return Column, DISPLAY_VALUE for Display Column and **click Create button** to create the LOV.
 
@@ -1479,19 +1467,23 @@ page 177/419
 .....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
 ## 6.1 About Products Setup
-**Main  Products  Page  3,  CRud product**  -  Figure  6-1  will  have **3  different  views:  Icon,  Report,  and  Details**.  Initially,  wizard  will create  the  Report  View  version  that  you'll  modify  with  a  custom  SQL statement. Remaining two views (Detail and Icon) are placed on the page by  enabling  respective  properties  found  under   main  Products  region. Once  you  enable  Detail and Icon  views,  their **icons  appear on main Search  bar**.  Using  these  icons  you  can  switch  among  different  views  to browse  products  information.  
+**Main  Products  Page  3,  CRud product**  -  Figure  6-1  Products Interactive Report Page - will  have **3  different  views:  Icon,  Report,  and  Details**.  Initially,  wizard  will create  the  Report  View  version  that  you'll  modify  with  a  custom  SQL statement. Remaining two views (Detail and Icon) are placed on the page by  enabling  respective  properties  found  under   main  Products  region. Once  you  enable  Detail and Icon  views,  their **icons  appear on main Search  bar**.  Using  these  icons  you  can  switch  among  different  views  to browse  products  information.  
 
-**Product  Details  Page  6**  will  be created to CrUD product.
+**Product  Details  Page  6, CrUD product** .
 
-To create these two pages follow same approach as you did for Customers. Figure 6-1 Products Interactive Report Page
+To create these two pages follow same approach as you did for Customers.
 
->New stuff added to this module includes **image handling and styling**. This module  is  based  on DEMO_PRODUCT_INFO  table. Among  conventional  columns  exists  the  following  **four  special  columns  to handle images** in DB. Normally, specialized processing is required to  handle  images  in DB.  APEX  environment  has **eliminated  need  of  specialized  processing**  with  these additional columns to properly process images in BLOB column. 
+>New stuff added to this module 
+>   1.  technique to **incorporate style sheet in APEX page**
+>   2.  **image handling and styling**. This module  is  based  on DEMO_PRODUCT_INFO  table. Among  conventional  columns  exists  the  following  **four  special  columns  to handle images** in DB. Normally, specialized processing is required to  handle  images  in DB.  APEX  environment  has **eliminated  need  of  specialized  processing**  with  these additional columns to properly process images in BLOB column. 
 
-1. PRODUCT_IMAGE: This column uses BLOB data type. A BLOB (Binary Large Object) is an Oracle data type that can hold up to 4 GB of data. BLOBs are handy for storing digitized information, such as images, audio, and video. You can also store your document files like PDF, MS Word, MS Excel, MS PowerPoint and CSV to name a few.
+### Image handling and styling columns :
+
+1. PRODUCT_IMAGE: This column uses BLOB data type. **BLOB** (Binary Large Object) is Oracle data type that can hold **up to 4 GB** data. BLOBs we use for storing digitized information eg **images, audio, video, document files : PDF, MS Word, MS Excel, MS PowerPoint, CSV...**.
 
 2. MIMETYPE:  **Multipurpose  Internet  Mail  Extension**  (MIME)  type **identifies file format**. MIME type **enables apps (Internet browsers, e-mail apps...) to read (handle) file**. Eg  e-mail app  can  use MIME  type  to  detect  what  type is file attached to e-mail. MIME types are composed of a top-level media  type  followed  by  a  subtype  identifier,  separated  by  a  forward  slash character (/) eg image/jpeg. The top-level media type  is  a  general  categorization  about  **content of file**,  while subtype identifier specifically identifies **format of file**. 
 
-You can view via Object Browser in SQL Workshop after uploading such file types to the BLOB column in your table :
+You can view via Object Browser in SQL Workshop after uploading such file types to BLOB column in your table :
 
 | File Type | MIMETYPE Metadata| 
 | :------------------------- | :------------------- | 
@@ -1503,16 +1495,508 @@ You can view via Object Browser in SQL Workshop after uploading such file types 
 | POWERPOINT | application/vnd.openxmlformats-officedocument.presentationml.presentation | 
 | CSV | application/vnd.ms-excel | 
 
-3. FILENAME: A case-sensitive column name  used to store filename of BLOB, such as bag.jpg or CV.pdf.
+3. FILENAME: A case-sensitive column name  used to store **filename of BLOB, such as bag.jpg or CV.pdf**.
 
-4. IMAGE_LAST_UPDATE: A case-sensitive column name used to store the last update date of the BLOB.
+4. IMAGE_LAST_UPDATE: A case-sensitive column name used to store the last update date of BLOB.
 
-Besides image handling, you'll also learn technique to **incorporate style sheet in APEX page**. 
+
 
 
 ## 6.2 Create 2 Pgs for Products - tbl CRud report ID=3 & crUD form ID=6
-Same  approach  as for Customers. Here **interactive report** (see  2.3.3) to display a list of products **instead of an interactive grid**.
-1.  **Click Create  Page button**  in  App  Builder interface -> Sales web App 80858
+Same  approach  as for Customers. 
+
+1. Main App Builder interface -> click "**Sales Web Application's Edit icon**" -> click "**Create Page**" button
+   ### Create tbl IG page ID=3, Editing Enabled=Off (for "On" see [Sample Interactive Grids](#sampleIG))
+   >TIP: To **delete page**, open page in Page Designer by clicking its name -> select **Delete from top-right Utils menu**.
+
+2. On  first wizard screen, select **"Report"**  means  report of products in an interactive grid
+
+3. On next wizard screen, **click Interactive Grid**. This screen presents sub-categories of reports and requires a single selection the report will base on. The option you selected here means an **interactive grid will act as a report** to display all customers from DB.
+  
+4. On the next wizard screen, set following 
+   ### Properties of IG tbl page 3
+    | | Property | Value     | Help
+    |-:| :------- | :------------ | :------------ |
+    | 1 | Page Number | 3 | Main page of this module (form page to be created next will have number 6) |
+    | 2 | Page Name | **Products** | |
+    | 3 | Page Mode | **Normal** | How you want to see page. Or  **Modal** = Dialog is stand-alone page, appears only on top of its calling page and doesn't allow users to do anything else unless it is closed.  |
+    | 4 | Breadcrumb | Breadcrumb | = hierarchical list of links. **Breadcrumb shared component was created** by App Builder when you created this app (see Shared Components -> Navigation > Breadcrumbs). In this step, you selected same breadcrumb component and **added an entry name (Customers) to it**.  |
+    | 5 | Parent Entry | Home (Page 1) |  |
+    | 6 | Entry Name | Products | |
+
+
+5. On **Navigation Menu wizard screen**
+  ### Set menu item to call this page
+  1. set Navigation Preference = **Identify an existing navigation menu** entry for this page
+  2. set Existing Navigation Menu Entry = **Setup** - This step will make **Setup entry active in the main navigation menu** (created in Chapter 3, section 3.2.1) **when this page is accessed**.
+  3. click Next.
+
+6. On **Report Source screen**, set following properties. 
+
+    | | Property | Value     | Help
+    |-:| :------- | :------------ | :------------ |
+    | 1 | Editing Enabled | **Off** | form pg ID=6 edits cust records. Examples of editing rec. in interactive grid see later in this text |
+    | 2 | Source Type | **Table** | Tbl data to populate this interactive grid |
+    | 2 | Table/View Owner | | accept displayed value of Oracle **schema** (**POSSYS**) to which you are connected. |
+    | 2 | Table/View Name  drop-down list (from selected schema) | **DEMO_PRODUCT_INFO** (table) |  whose data will be displayed in IG.  **You can select only one table** from provided list. |
+
+   **Click arrow icon next to the Column section** to see table columns - **all columns from that table are selected (moved to the right pane in the Columns section)**. Columns we want to show in IG :  ...
+
+   Click **Create button** to finish report page creation process.
+   
+   Click Application eg 145615(=appID) breadcrumb at top-left to **leave Page Designer interface**
+
+
+
+
+## Create Page ID=6 to carry form "CrUD Products"
+
+1. Click **Create Page button** -> select **"Form"** option -> click another Form option on next wizard screen -> creates form page based on DB table. 
+
+  | | Property | Value     | Help
+  |-:| :------- | :------------ | :------------ |
+  | 1 | Page Number | 6 | **Page to carry form to CrUD Products** |
+  | 2 | Page Name | **Product Details** | |
+  | 3 | Page Mode | **Modal** Dialog | stand-alone page, appears on top of calling page |
+  | 4 | Breadcrumb | Breadcrumb |
+  | 5 | Parent Entry | Products (Page 3) | called from Page 3 |
+  | 6 | Entry Name | Product Details | |
+
+2. On **Navigation Menu** screen, set "Navigation Preference" = **Identify an existing navigation menu entry** for this page, set "Existing Navigation Menu Entry" = **Setup**, and click Next.
+
+3. On **Source screen**, set following properties and click Next. 
+
+  | | Property | Value     | Help
+  |-:| :------- | :------------ | :------------ |
+  | 1 | Data Source | Local DB | |
+  | 2 | Source Type | Table | |
+  | 2 | Table/View Owner | | accept displayed value of Oracle **schema** (POSSYS) to which you are connected. |
+  | 2 | Table/View Name | **DEMO_PRODUCT_INFO** (table) |  |
+
+4. This time, select all columns from DEMO_PRODUCT_INFO tbl to display **all of them in the input form (Page 6)** to populate backend DB tbl. For "Primary Key Type", select second option **Select Primary Key Column(s)**. Then, set first "Primary Key Column" attribute to **PRODUCT_ID**. **Click "Create" button** to complete form page creation process.
+  
+  >**Forms support up to 2 cols in PK**. For tbls using PK with more than two columns, ROWID option should be used. For further details, see Chapter 2.
+
+5. Access main App Builder interface by **clicking application ID breadcrumb** to see **two new pages** (Customers and Customer Details) with their respective page numbers. **Click Products Details (Page 6)** to open its definitions in Page Designer. 
+
+   **Expand Pre-Rendering node** and rename process **Initialize form Products Details as "Initialize Products Details"**. 
+
+   Click Processing tab and rename process **Process form Products Details to "Process Products Data"**. NOTE: If you see a different process name, then there is nothing to worry about as it sometimes happens due to change in APEX version. 
+
+   APEX is a low-code app dev. platform. Two pages you just created have** everything you need to view and manipulate data**. Products Page 2 contains IG in which you can view all customers data. 
+
+Click Product Details Page 6 to open it in Page Designer. On Rendering tab, expand Pre-Rendering node. Here, you will see an auto-generated process named **Initialize Products Details of Form Initialization type**. This Process is responsible to initialize form region items. Initialization can either be **fetching data from region source**, using PK value(s) or **simple initialization** of form region items. Process fetches and displays data in page items when you select product by clicking corresponding **edit icon on the reports page** and it initializes page items **when you create a new product record**. 
+
+Product Details region is a **Form type region**, which connects to local DB and fetches data from DEMO_PRODUCT_INFO table into relevant page items listed under Items node. Same page items are used to receive user input when new customer record is created. 
+
+In Buttons section, you will see a **bunch of auto-generated buttons** (Cancel, Delete, Save, and Create). **DB Action** property of these buttons specify function each button performs. When you click button (eg CREATE), corresponding DB action is submitted to process named **Process Customer Data**, which resides under Processing tab. This process is of Automatic Row Processing (DML) type and performs CrUD action on form region - Product Details region in current scenario.
+
+## 6.3 Modify Main page of module Products Page ID=3 tbl
+Holds interactive grid generated by wizard with some default data source values.
+
+### 6.3.1 Modify region Products Properties
+1.  click region Products of page 3 -> change Type "Table / View" to SQL Query
+2.  In SQL Query, replace existing SELECT statement with following to select (same in pge 6 crUD form) :  
+   ```
+   select PRODUCT_ID,  PRODUCT_NAME ,  PRODUCT_DESCRIPTION,  CATEGORY,  PRODUCT_AVAIL
+      , LIST_PRICE,  UNITS,         SALES,                CUSTOMERS, LAST_DATE_SOLD
+      , IMG,         ICON_LINK,     DETAIL_IMG,  DETAIL_IMG_NO_STYLE
+   from (
+      select p.product_id, p.product_name, p.product_description, p.category
+      , decode(p.product_avail, 'Y','Yes','N','No') product_avail
+      , p.list_price
+      , (select sum(quantity) from demo_order_items where product_id = p.product_id) units
+      , (
+          select sum(quantity * p.list_price) 
+          from demo_order_items where product_id = p.product_id
+      ) sales
+      , (
+          select count(o.customer_id) from demo_orders o, demo_order_items t 
+          where o.order_id = t.order_id and t.product_id = p.product_id group by p.product_id
+      ) customers
+      , (
+          select max(o.order_timestamp) od 
+          from demo_orders o, demo_order_items i 
+          where o.order_id = i.order_id and i.product_id = p.product_id
+      ) last_date_sold
+      , p.product_id img
+      , apex_util.prepare_url(p_url=>'f?p='||:app_id||':6:'||:app_session||'::::P6_PRODUCT_ID:'||p.product_id) icon_link
+      , decode( nvl(dbms_lob.getlength(p.product_image),0)
+          ,0,null,
+          '<img alt="'||p.product_name||'" title="'||p.product_name
+          ||'" style="border: 4px solid #CCC; -moz-border-radius: 4px; -webkit-border-radius: 4px;" '
+          ||'src="'||apex_util.get_blob_file_src('P6_PRODUCT_IMAGE',p.product_id)||'" height="75" width="75" />'
+      ) detail_img
+      , decode( nvl(dbms_lob.getlength(p.product_image),0)
+         ,0,null,
+         apex_util.get_blob_file_src('P6_PRODUCT_IMAGE',p.product_id)
+      ) detail_img_no_style
+      from  demo_product_info p
+   )
+
+   ```
+   p.product_id is **img** column in query above
+  
+   ### "icon_link"  to Product Details Page 6 (read_byprodID)
+   is  formed  using  **PREPARE_URL function** which is : 
+   1. used **to form links**
+   2. is part of **APEX_UTIL package**
+   3. **returns f?p=URL**. p_url is VARCHAR2 parameter  passed on to this fn  
+      apex_util.prepare_url(**p_url**=>'f?p='||:app_id||':6:'||:app_session||'::::**P6_PRODUCT_ID**:'||p.product_id) **icon_link**  
+   
+   ### "detail_img"  (and detail_img_no_style)
+   **holds products img**.  HTML img tag is used to display images of products in conjunction with **built-in APEX function  APEX_UTIL.GET_BLOB_FILE_SRC** - which enables us to format img display with **height and width** properties. Image is styled using CSS inline styling method. **getlength fn of dbms_lob package (dbms_lob.getlength)** is used to estimate BLOB column size in table to facilitate inclusion of download link in report. **If BLOB column size length is 0, BLOB is NULL and no download link is displayed**.
+
+3.  Products region -> Content Body -> **Expand Columns** node  and set meaningful column headings as follows:  
+   Product, Description, Category, Available, Price, Units, Sales, Customers, Last Sold, Image, Icon Link, Image Detail, and Detail Image No Style
+
+4.  Modify following columns. **We  can  use Ctrl+click  or  Shift+click  to  select  multiple cols to change Type properties at once**. 
+   
+   **Column : Property = Value...Help**
+   1. PRODUCT_ID : Type = **Hidden** Column...hidden to make it invisible at runtime
+   2. IMG :  Type = **Hidden** Column
+   3. ICON_LINK : Type = **Hidden** Column
+   4. DETAIL_IMG : **Escape special characters (under Security)** = Off (otherwise image will not appear)...**Each report column IN IR (not in IG)  !!** has property  **Escape  special  characters** by  default set  to  Yes - prevents Cross-Site Scripting (XSS) attacks and selecting **No renders** HTML tags stored in page item or in entries of **list of value**. 
+   5. DETAIL_IMG_NO_STYLE : Type = **Hidden** Column
+ 
+5.  By selecting Product Name column in Link Text  attribute you specify this report column to appear as a link. You created a **similar  kind  of  link to  call Customer Details  page**.  
+   ### **Click PRODUCT_NAME column to transform it into a link**
+   >1. **In  Interactive  Reports,  you  forward  a  value  to  target  page**  using  special  **substitution  strings  (enclosed  in  # symbols) **
+   >2.  as  compared  to  &Item.  notation  (for  example, &CUSTOMER_ID.), which you use in the Interactive Grid - see Chapter 5 Section 5.3.1 Step 10.
+
+   **Property Value**
+   1. **Click Link -> "Target"**  attribute
+   2. In opened dialog : Type = Page In this application,  Page = 6,  Name = P6_PRODUCT_ID,  Value = #PRODUCT_ID#
+   3. Link Text = **#PRODUCT_NAME# not &PRODUCT_NAME.**
+
+6.  If you **save and run** report page at this stage, **you will see an EDIT column** (represented with a **pencil icon**), which leads to details page. Since we have already created a link (on the Product Name column), we will eliminate this column so : 
+
+   Under **Products region, click its Attributes node, and set  in Properties pane "Link" Column = Exclude Link Column**. Figure 6-3
+
+7.  In same Attributes node, scroll down to **Icon View section** and  set following  properties.
+   
+   >By  default,  **most  interactive reports display as a report**. You can optionally display **columns as icons**.  When  configured,  an  **icon  (View  Icons)  appears  on  Search  bar**.  To  use  this  view,  you  must  specify  columns  to identify **icon, label, and target (that is link)**. As a best practice Type attribute of these columns is set to **hidden** (as you  did  in  step  4),  because  they  are  typically  **not  useful  for  end users**. Image Attributes property will style height and width of images.
+
+   **Property Value**
+   1. Show = On
+   2. Columns Per Row = 5     (to display 5 images on a single row in View Icons interface)
+   3. Link Column = ICON_LINK
+   4. Image Source Column = DETAIL_IMG_NO_STYLE
+   5. Label Column = PRODUCT_NAME
+   6. Image Attributes = width="75" height="75"
+
+8. ** Section "Detail View" under Icon View section** ->  turn  on Show property.  When  configured,  **View  Details  icon  appears  on  Search bar**.
+
+9.  In  **Before Rows attribute**  of Detail View you enter  HTML  code  to  be  displayed before  report  rows. Eg  you  can  use  **TABLE element to put DB content  in row/column format**. Besides adding HTML code, styling information can also be incorporated using  this  attribute. Code below uses custom CSS rules to override default Oracle APEX Interactive Report (**apexir**) styles.
+   ```
+   <style>
+    table.apexir_WORKSHEET_CUSTOM { 
+       border: none !important; 
+       box-shadow: none; 
+       -moz-box-shadow: none; 
+       -webkit-box-shadow: none;}
+
+    .apexir_WORKSHEET_DATA td {
+     border-bottom: none !important;}
+
+    table.reportDetail td {
+       padding: 2px 4px !important;
+       border: none !important;
+       font: 11px/16px Arial, sans-serif;}
+
+    table.reportDetail td.separator {
+       background: #F0F0F0 !important;
+       padding: 0 !important;
+       height: 1px !important;
+       padding: 0;
+       line-height: 2px !important;
+       overflow: hidden;}
+
+    table.reportDetail td h1 {margin: 0 !important}
+
+    table.reportDetail td img {
+       margin-top: 8px; 
+       border: 4px solid #CCC; 
+       -moz-border-radius: 4px; 
+       -webkit-border-radius: 4px;}
+   </style>
+   <table class="reportDetail">
+   ```
+   NOTE: Remember that all **APEX pages are HTML pages** controlled by HTML properties and cascading style sheet (CSS) settings. When you create an interactive report, Oracle APEX renders it based on CSS classes associated with current theme. Each APEX interactive report component has a CSS style definition that may be changed by applying standard CSS techniques to override defaults. CSS changes may be applied to :
+   1. single interactive report
+   2. page template to effect changes across several interactive reports
+   3. all page templates of a theme to enforce a common look and feel for all reports in an  application
+
+In the current step, **you are changing report appearance** by overriding built-in styles for table and subordinate elements.
+
+10.  **In "For Each Row" (post_query)**, enter following code applied to each record. **In every td element** you are **referencing interactive report  columns  and  labels  with substitution string (#)** and are **styling each record using inline CSS method**. 
+   
+   You used  **substitution  string  to  reference  table  column  names  and labels  of  page  items  as  #PRODUCT_NAME#  and #CATEGORY_LABEL#**.
+   ```
+    <tr><td rowspan="5" valign="top">
+       <img width="75" height="75" src="#DETAIL_IMG_NO_STYLE#"></td>
+       <td colspan="6"><h1><a href="#ICON_LINK#"><strong>#PRODUCT_NAME#</strong></a></h1></td>
+    </tr>
+
+    <tr>
+       <td><strong>#CATEGORY_LABEL#:</strong></td><td>#CATEGORY#</td>
+       <td><strong>#PRODUCT_AVAIL_LABEL#:</strong></td><td>#PRODUCT_AVAIL#   </td>
+       <td><strong>#LAST_DATE_SOLD_LABEL#:</strong></td><td>#LAST_DATE_SOLD#</td>
+    </tr>
+
+    <tr>
+       <td align="left"><strong>#PRODUCT_DESCRIPTION_LABEL#:</strong></td>
+       <td colspan="5">#PRODUCT_DESCRIPTION#</td>
+    </tr>
+
+    <tr>
+       <td style="padding-bottom: 0px;"><strong>#LIST_PRICE_LABEL#</strong></td>
+       <td style="padding-bottom: 0px;"><strong>#UNITS_LABEL#</strong></td>
+       <td style="padding-bottom: 0px;"><strong>#SALES_LABEL#</strong></td>
+       <td style="padding-bottom: 0px;"><strong>#CUSTOMERS_LABEL#</strong></td>
+    </tr>
+
+    <tr>
+       <td style="padding-top: 0px;">#LIST_PRICE#</td>
+       <td style="padding-top: 0px;">#UNITS#</td>
+       <td style="padding-top: 0px;">#SALES#</td>
+       <td style="padding-top: 0px;">#CUSTOMERS#</td>
+    </tr>
+
+    <tr>
+       <td colspan="7" class="separator"></td>
+    </tr>
+   ```
+
+11.  **In After Rows, enter `</table>`** to complete HTML code = HTML to be displayed after report rows. It is closing table tag to end HTML table. 
+
+12.  **Save  and  run page  3 products tbl from Manage Products  option  in Setup menu**
+   1. Click View Reports icon (1st left to Actions list)
+   2. Note that **Image Detail column is blank at the moment**, because **we do not have any product  image in tbl**.  This is column  which  will  hold images  of  products. 
+   
+   ### Add (upload) image  of  product
+   1. ** Click some link  in Product name column**  to  add  image  of  this  product.  
+   2. **On Product  Details page**, **???click "folder icon" representing Product Img field at page bottom**. This will bring up Open dialog box. 
+   3. Go to BookCode\Chapter6 folder and select **1_AirMax2090.png** file, and click Open
+   4. image name will be displayed in **Product Image  field**.
+   5. Click Apply  Changes  button  on Product Details  form  to  save  image.  The  image  will  appear  on  the  interactive  report  page.  Repeat  this  step  to  add  images  of  remaining products. Click **View Icons  (3rd left from "Actions list")** and **View Details (1st left from "Actions list")** options on the interactive report toolbar and see output (Fig. 6-4).
+
+13.  **Filter and order cols : **Click View  Reports  icon.  **Click Actions  menu**  in  interactive  report  and  select  Columns.  Make  sure  **all  columns (except  Description  and  Last  Sold)**  appear  in  Display  in  Report section.  You can use arrow  icons  to arrange  columns  in a desired **order**.  Click Apply  button.  Only columns  you selected will appear in interactive report.
+
+14.  Click Actions  menu  again  and  select  **Save  Report  (under Report)**. From Save drop-down list, select **As Default Report Settings**.  Set  Default  Report  Type  to  **Primary**  and  click  Apply. After modifying an interactive report  you must save it using this procedure,  otherwise  you’ll  lose  the  applied  settings  when  you subsequently  view  this  report.  Developers  can  save  two  types  of default  interactive  report:  **primary**  and  **alternative**.  Both  reports display on Report list on Search bar. **Primary default report (you just saved) cannot be renamed or deleted**.
+
+
+
+
+
+
+In next steps we **change default data source values** and **produce custom output using SQL query**.
+
+### 6.3.1 Modify Products Region Prop.
+Cols hdr, order, filter and cust name as link 
+
+1. In App Builder, click Customers page (Page 2) to open it in the Page Designer for modification.
+  ## Cols hdr, cols order, cols filter in tbl Products
+2. **Click Customers region under Content Body node**. Standard method to modify properties of page component is to click corresponding node. This action refreshes Properties section (located to your right) with properties of selected page component for alteration. 
+3. Change **Type (under Source section)** = SQL Query to see **default query generated for interactive grid**.
+  ```
+select ROWID,    CUSTOMER_ID,    CUST_FIRST_NAME,    CUST_LAST_NAME,    CUST_STREET_ADDRESS1,
+    CUST_STREET_ADDRESS2,    CUST_CITY,    CUST_STATE,    CUST_POSTAL_CODE,    CUST_EMAIL,
+    PHONE_NUMBER1,    PHONE_NUMBER2,    URL,    CREDIT_LIMIT,    TAGS
+from DEMO_CUSTOMERS
+  ```
+  Enter following SQL statement in SQL Query text area, replacing existing one: 
+  ```
+SELECT customer_id, cust_last_name || ', ' || cust_first_name customer_name
+   , CUST_STREET_ADDRESS1||decode(CUST_STREET_ADDRESS2, null, null, ', '||CUST_STREET_ADDRESS2) customer_address
+   , cust_city, cust_state, cust_postal_code
+FROM demo_customers
+  ```
+  Decode Syntax: decode( expression , search , result [, search , result]... [, default] ) 
+  If default is omitted, Oracle returns null. 
+
+4. Expand Customers region -> expand Columns node. Click column eg CUSTOMER_NAME and **change its heading (under Heading section in Properties pane) to Name**. Change headings of other cols : Address, City, State, and Postal Code
+5. In Columns node, click the **CUSTOMER_ID** column, and change it Type property from **Number Field to Hidden** to hide col at runtime. PK cols are added to DB tbls to enforce data integrity and are not displayed in apps. This is why such column's Type property is set to hidden to make them invisible at runtime.
+
+6. **Run page**. **Click Actions menu** (A) - select Columns. When you click column in left pane, right pane (D) shows its name and width. You can input a numeric value to **change width of col**. Using arrow icons (E), arrange selected columns in following **order**: Name, Address, City, State, and  Postal Code
+7. Click Save button in the Columns window to apply the changes.
+8. **After you modify interactive grid in runtime save it :** Click Actions menu -> Save from Report option, otherwise you’ll lose the applied settings when you access it later.
+
+9. **Click Edit Page2 (F) in the Developer Toolbar at the bottom of page** to access Page Designer.
+
+
+  ## Cust name as link in tbl Customers
+10. Click CUSTOMER_NAME column to set properties: **transforming cust name col into link that will lead to Page 7 cust. form**. 
+  >When you click customer's name in interactive grid report at runtime:
+    1. ID of that cust is stored in substitution string (&CUSTOMER_ID.) (G)
+    2. and is forwarded to corresponding page item (P7_CUSTOMER_ID) (H) on Page 7, which displays cust profile using this ID. 
+  
+  >You created similar kind of link in Chapter 4 for region "Sales for this Month".
+
+  Scroll down to Link section and **click "No Link Defined"** under Target to bring up **Link Builder dialog box** -> set link properties :
+ 
+  | | Property | Value     | Help
+  |-:| :------- | :------------ | :------------ |
+  | 1 | Type | Page in this app | |
+  | 2 | Page | 7 | |
+  | 3 | Name  | P7_CUSTOMER_ID | This value refers to an item on Page 7 that will be populated with the value held in #ID# . It is forwarded  to Page 7 from the Home page to display **selected customer profile**. |
+  | 4 | Value  | &CUSTOMER_ID. | references third column in above SELECT query. Standard procedure in APEX to **refer to a column value** is to enclose it between # symbols. To **refer page item we use substitution strings**. |
+  | 5 | Clear Cache | 7 | |
+ 
+  Use LOVs (I) in Set Items section to select item name (3) and value (4).
+
+11. **Close Link Builder dialog box using OK button**.
+12. **Save and run page**.  **Cust Name col will now appear as link**. Click any customer name to see details on Page 7, which pops up on top of Page 2.
+
+### 5.3.2 Button "Create" in tbl Customers
+To call Page 7 with a blank form from Page 2 - Customers :
+
+1. Rendering tab to your left click Customers interactive grid region -> set its **Template property to Standard** (was Interactiv). Selected template **will place title and border for interactive grid region**.
+
+ Right-click Customers region and from context menu select **Create Button**. Button named New will be added. Set properties for new button :
+
+  | | Property | Value     | Help
+  |-:| :------- | :------------ | :------------ |
+  | 1 | Button Name | CREATE | |
+  | 2 | Label | Create Customer | appears as tooltip when you move over button at run-time |
+  | 3 | Button Position | **Copy** | over dozen values, try other options as well to observe different positions |
+  | 4 | Hot | On | renders the button in dark color |
+  | 5 | Action | Redirect to Page in this App | (under Behavior) - **Creates link** to call Page 7. |
+  | 6 | Target | Type = Page in this app  Page = 7  Clear Cache =7 | **Creates link** to call Page 7. Clear Cache prop. makes all items on target pg 7 blank |
+
+2. **Save and run Page 2**, which should look similar to Figure 5-1.
+3. Click Create Customer button to call Customer Details Page 7 on top of calling page as a modal dialog.
+
+
+### 5.3.3 Button "Call PHP page" to Call PHP script - report from APEX
+https://www.youtube.com/watch?v=WLE9_1I_nA0
+
+Like 5.3.2, properties are :
+
+  | | Property | Value     | Help
+  |-:| :------- | :------------ | :------------ |
+  | 1 | Button Name | CallPHPpge | |
+  | 2 | Label | **Call PHP page** | appears as tooltip when you move over button at run-time |
+  | 3 | Button Position | **Copy** | over dozen values, try other options as well to observe different positions |
+  | 4 | Hot | Off | if On : renders the button in dark color |
+  | 5 | Action | Redirect to URL | (under Behavior) - **Creates link** to call PHP Page |
+  | 6 | URL | "http://192.168.../" or "http://dev1:8083/fwphp/www"  ?param1=&P26_PARAM | **Creates link** to call PHP Page |
+
+Open in new tab : ?
+
+
+## 5.4 Modify properties of crUD form Customer Details - Page 7
+With Page 7 cust. form being displayed in browser, **click Edit Page 7 in Developer Toolbar** at pge bottom to call this pge in PageDesigner.
+
+### 5.4.1 Modify Page Items Properties
+>**Like region placement** in 12 cols grid layout, done for six Home pge regions, pge items can also be placed using APEX's grid layout, as follows. 
+>**Width** property sets items width on page. 
+>If **Value Required** is set to Yes and **page item is visible**, APEX **automatically performs NOT NULL validation when page is submitted** and **you are asked to input a value** for field. If you set Value Required to No, no validation is performed and a NULL value is accepted. Value Required attribute works in conjunction with **Template = Required** to signify (označi) mandatory items visually. 
+
+### Page Id=7 Customer Details (profile) items properties and values
+Page flds are in 2 columns, only "Tags" fld spans both cols. Save your changes and call this Page 7 by **clicking any customer's name** on Page 2. It should come up with selected customer profile (Figure 5-6 Customer Details Page). Click each item under Items node and apply following properties. 
+
+1. P7_CUST_FIRST_NAME Label=**First Name**.....Sequence=20.....Start New Row=On.....Column=Automatic.....Column Span=Automatic 
+.....Template=Required.....**Label Column Span=2 (becomes visible in Layout section only after setting Template property) ** 
+.....Width=50.....Value Required=On
+2. P7_CUST_LAST_NAME Label=**Last Name**.....Sequence=30.....Start New Row=**Off**.....Column=Automatic
+.....New Column=On.....Column Span=Automatic.....Template=Required.....**Label Column Span=2**
+.....Width=**50**.....Value Required=On
+3. P7_CUST_STREET_ADDRESS1 Label=**Street Address**.....Sequence=40.....Start New Row=On.....Column=Automatic
+.....Column Span=Automatic.....Template=**Optional**.....Label Column Span=2
+.....Width=50.....Value Required=Off
+4. P7_CUST_STREET_ADDRESS2 Label=**Line 2**.....Sequence=50.....Start New Row=Off.....Column=Automatic
+.....New Column=On.....Column Span=Automatic.....Template=Optional.....Label Column Span=2
+.....Width=50.....Value Required=Off
+5. P7_CUST_CITY Label=City.....Sequence=60.....Start New Row=On.....Column=Automatic
+.....**Column Span=6**.....Template=Optional.....Label Column Span=2
+.....Width=50.....Value Required=Off
+6. See 5.4.2 Change cust. column "P7_CUST_STATE" to hold predefined LOV! States list
+7. P7_CUST_POSTAL_CODE Label=Zip Code.....Sequence=80.....Start New Row=On.....Column=Automatic
+.....Column Span=6.....Template=Required.....Label Column Span=2
+.....Width=8.....Value Required=On
+8. P7_CREDIT_LIMIT Label=Credit Limit.....Sequence=90.....Start New Row=Off.....Column=Automatic
+.....New Column=On.....Column Span=Automatic.....Template=Required.....Label Column Span=2
+.....Width=8.....Value Required=On
+9. P7_PHONE_NUMBER1 Label=Phone Number.....Sequence=100.....Start New Row=On.....Column=Automatic.....Column Span=Automatic
+.....Template=Optional.....Label Column Span=2.....Width=12.....Value Required=Off
+10. P7_PHONE_NUMBER2 Label=Alternate No.....Sequence=110.....Start New Row=Off.....Column=Automatic
+.....New Column=On.....Column Span=Automatic.....Template=Optional.....Label Column Span=2
+.....Width=12.....Value Required=Off
+11. P7_CUST_EMAIL Label=Email.....Sequence=120.....Start New Row=On.....Column=Automatic
+.....Column Span=Automatic.....Template=Required.....Label Column Span=2
+.....Width=50.....Value Required=On
+12. P7_URL Type=Text Field.....Label=URL.....Sequence=130.....Start New Row=Off.....Column=Automatic
+.....New Column=On.....Column Span=Automatic.....Template=Optional.....Label Column Span=2
+.....Width=50.....Value Required=Off
+13. P7_TAGS Type=Textarea.....Label=Tags.....Sequence=140.....Start New Row=On.....Column=Automatic
+.....Column Span=Automatic.....Template=Optional.....Label Column Span=2
+.....Width=100.....Value Required=Off
+
+
+## 5.4.2 Customer's page column "P7_CUST_STATE"
+to hold app-shared dynamic LOV! States list. app-shared means defined in app shared componebts in one place and reusable in all app modules pages.
+
+### 1. In Shared Components to fetch State names from DEMO_STATES table
+1. **Shared Components** -> Other Components section -> **"Lists of Values" APEX page** -> Click Create button
+2. Select **From Scratch** option and click Next
+3. Enter **States** in Name box, select **Dynamic for its type**, and click Next
+4. On List of Values Source screen, select **SQL Query for Source Type**, and enter following query in **Enter SQL SELECT statement** box. Click Next
+  ```
+  both VARCHAR2	30 :
+  select state_name display_value, st return_value from demo_states order by 1
+  --select state_name display_value, state_id return_value from demo_states order by 1
+  ```
+5. On final Column Mappings screen, select RETURN_VALUE for Return Column, DISPLAY_VALUE for Display Column and **click Create button** to create the LOV.
+
+
+<br /><br />
+### 2. P7_CUST_STATE prop. 
+Label=**State**.....Sequence=70.....Start New Row=**Off**.....Column=Automatic
+.....New Column=On.....Column Span=Automatic.....Template=**Required**.....**Label Column Span=2**
+.....Width=make it **null** (this item will be transformed into a select list).....Value Required=On
+
+
+<br /><br />
+### 3. Type Text Field change to -> Select List and Attach STATES LOV! to it (was created in 3.4.3)
+1. In Page Designer interface, **click P7_CUST_STATE item**.
+2. Change its Type property from **Text Field to Select List**.
+3. Set Type (under List of Values) to **Shared Components** and **select STATES for LOV**. This step ***attaches States LOV to page item***.
+4. **Turn off "Display Extra Values" property**. An item may have a **session state value**, which does not occur in its LOV definition. Select whether this LOV should display this extra session state value. If you choose not to display this extra session state value and there is no matching value in list of values definition, first value will be  selected value. Eg while creating new customer record you will see - Choose a State - as the first value in the list. This value is added to the list in following steps.
+5. **Turn on Display Null Value property**, which is default. Display Null Value property makes it possible for a user to choose a null value instead of one of the list items. If you set this property to Yes, additional properties appear on the screen for you to specify display value for this new entry. Eg "Choose State".
+6. **Enter - Choose State - in Null Display Value**. This step, along with the previous one, **generates a placeholder** that appears on top of the LOV asking for a selection whenever you call this page to create a new customer record. 
+7. Save your work.
+
+
+
+<br /><br />
+### 5.4.3 Apply Input Mask to Items
+Modify the **two phone number items in cust. form pgID=7** and set their **Value Placeholder property** (under Appearance) to 999-999-9999. When a new customer record is added, this placeholder is shown in the two phone number items to receive input in the specified format. As you type in values, the placeholders will be replaced by the numbers entered.
+
+### 5.4.4 Create Validation 1 (logic control of user input) - Check Customer field "P7_CREDIT_LIMIT"
+Field "Credit Limit" is used to assign a credit cap to each customer with a figure of $5,000. **If you enter a value more than the assigned cap**, you'll be prevented by presenting an appropriate message. NOTE: Validation error messages display when :
+1. validation fails the equality test
+2. or evaluates to FALSE
+3. or non-empty text string is returned.
+
+In left pane of Page 7 cust.form : click **Processing icon (was tab)** -> **right-click Validating node** -> **Create Validation** from context menu (Figure 5-7) -> Set following properties for this new validation :
+
+| | Property | Value             | Help
+|-:| :------------------------ | :----------------------- | :------------ |
+| 1 | Name              | **Check Credit Limit** | should be meaningful ! |
+| 2 | Type               | PL/SQL Expression | expression in valid PL/SQL syntax **that evaluates to true or false** |
+| 3 | PL/SQL Expression | **:P7_CREDIT_LIMIT <= 5000** | If true customer record is saved to DB. Note that **you use bind variables** (item name preceded with a colon) when you reference value of a session state variable from within PL/SQL code. |
+| 4 | Error Message | Customer's Credit Limit must be less than or equal to $5,000  | |
+
+
+
+
+
+
+
+## IR (Interactive report) (see  2.3.3) to display a list of products **instead of an interactive grid**.
+
+2.  1.  **Click Create  Page button**  in  App  Builder interface -> Sales web App 80858
 2.  **Click Form option, followed by Report with Form**  option. These two selections will create a report page (Figure 6-1) to display all product records from the table (selected in step 5) and a form page (Figure 6-6) to add, modify, and delete products. 
 3.  On the Page Attributes wizard screen, set the following properties and click Next.  The  form page (Page 6) is named Product Details and it will be linked to the report page (Products - Page 3).
    
@@ -1543,13 +2027,42 @@ Click  Create button to complete wizard.This time, **wizard creates two pages (3
 
 ### 6.3.1 Modify Region Properties
 1.  Click region named Report 1 and set its **Title to Products**
-2.  In SQL Query, replace existing SELECT statement with following to select :
+2.  In SQL Query, replace existing SELECT statement with following to select :  
  Was :
    ```
    select PRODUCT_ID,        PRODUCT_NAME,        PRODUCT_DESCRIPTION,        CATEGORY,        PRODUCT_AVAIL,
          LIST_PRICE,    PRODUCT_IMAGE,        MIMETYPE,        FILENAME,        IMAGE_LAST_UPDATE
    from DEMO_PRODUCT_INFO
    ```
+   
+   Demo app :
+   ```
+   PRODUCT_ID	PRODUCT_NAME	PRODUCT_DESCRIPTION	CATEGORY	PRODUCT_AVAIL	
+   LIST_PRICE	UNITS	SALES	CUSTOMERS	LAST_DATE_SOLD
+   IMG	ICON_LINK	DETAIL_IMG	DETAIL_IMG_NO_STYLE	TAGS
+   
+   select p.product_id,
+       p.product_name, 
+       p.product_description, 
+       p.category, 
+       decode(p.product_avail, 'Y','Yes','N','No') product_avail,
+       p.list_price,
+       (select sum(quantity) from demo_order_items where product_id = p.product_id) units,
+       (select sum(quantity * p.list_price) from demo_order_items where product_id = p.product_id) sales,       
+       (select count(o.customer_id) from demo_orders o, demo_order_items t where o.order_id = t.order_id and t.product_id = p.product_id group by p.product_id) customers,
+       (select max(o.order_timestamp) od from demo_orders o, demo_order_items i where o.order_id = i.order_id and i.product_id = p.product_id) last_date_sold,
+       p.product_id img,
+       apex_util.prepare_url(p_url=>'f?p='||:app_id||':6:'||:app_session||'::::P6_PRODUCT_ID,P6_BRANCH:'||p.product_id||','||3,p_dialog=> 'null') icon_link,
+       decode(nvl(dbms_lob.getlength(p.product_image),0),0,null,
+       '<img alt="'||apex_escape.html_attribute(p.product_name)||'" title="'||apex_escape.html_attribute(p.product_name)
+              ||'" style="border: 4px solid #CCC; -moz-border-radius: 4px; -webkit-border-radius: 4px;" '
+              ||'src="'||apex_util.get_blob_file_src('P6_PRODUCT_IMAGE',p.product_id)||'" height="75" width="75" />') detail_img,
+       decode(nvl(dbms_lob.getlength(p.product_image),0),0,null,
+       apex_util.get_blob_file_src('P6_PRODUCT_IMAGE',p.product_id))
+       detail_img_no_style,
+       tags
+from demo_product_info p
+   ```   
    
    ```
    select PRODUCT_ID,  PRODUCT_NAME ,  PRODUCT_DESCRIPTION,  CATEGORY,  PRODUCT_AVAIL
@@ -1734,22 +2247,23 @@ In the current step, **you are changing report appearance** by overriding built-
    2. **On Product  Details page**, **???click "folder icon" representing Product Img field at page bottom**. This will bring up Open dialog box. 
    3. Go to BookCode\Chapter6 folder and select **1_AirMax2090.png** file, and click Open
    4. image name will be displayed in **Product Image  field**.
-   5. Click Apply  Changes  button  on Product Details  form  to  save  image.  The  image  will  appear  on  the  interactive  report  page.  Repeat  this  step  to  add  images  of  remaining products. Click the View Icons and View Details options on the interactive report toolbar and see the output, as illustrated in the following figure.
+   5. Click Apply  Changes  button  on Product Details  form  to  save  image.  The  image  will  appear  on  the  interactive  report  page.  Repeat  this  step  to  add  images  of  remaining products. Click **View Icons  (3rd left from "Actions list")** and **View Details (1st left from "Actions list")** options on the interactive report toolbar and see output (Fig. 6-4).
 
-13.  Click View  Reports  icon.  Click Actions  menu  in  interactive  report  and  select  Columns.  Make  sure  all  columns (except  Description  and  Last  Sold)  appear  in  Display  in  Report section.  You can use arrow  icons  to arrange  columns  in a desired order.  Click Apply  button.  Only columns  you selected will appear in interactive report.
+13.  **Filter and order cols : **Click View  Reports  icon.  **Click Actions  menu**  in  interactive  report  and  select  Columns.  Make  sure  **all  columns (except  Description  and  Last  Sold)**  appear  in  Display  in  Report section.  You can use arrow  icons  to arrange  columns  in a desired **order**.  Click Apply  button.  Only columns  you selected will appear in interactive report.
 
 14.  Click Actions  menu  again  and  select  **Save  Report  (under Report)**. From Save drop-down list, select **As Default Report Settings**.  Set  Default  Report  Type  to  **Primary**  and  click  Apply. After modifying an interactive report  you must save it using this procedure,  otherwise  you’ll  lose  the  applied  settings  when  you subsequently  view  this  report.  Developers  can  save  two  types  of default  interactive  report:  **primary**  and  **alternative**.  Both  reports display on Report list on Search bar. **Primary default report (you just saved) cannot be renamed or deleted**.
 
 
 ## 6.4 Modify Product Details (form) Page 6
-The Page Designer toolbar carries a section called **Page Selector**. Enter a page number in the field and click Go. To navigate to the previous or next page, click Navigate to Next Page (up arrow) and Navigate to Previous Page (down arrow). Figure 6-5 Using the Page Selector **call Page 6** in the Page Designer. **Click root node**  and set the following properties to **adjust the dimension of the Product Details page**. The img rule provided in the inline CSS property will  make  products  images  responsive.  The  ::before  selector  (used  in  the second rule) will insert the word Nike before images of products - see Figure 6-6.
+### Adjust dimension of Product Details page
+Page Designer toolbar carries a section called **Page Selector** - **fld** : enter page number and click Go. Navigate to **Next/prev Page (up/down arrow)** -  Figure 6-5. Using Page Selector **call Page 6** in Page Designer. **Click root node**  and set following properties.
 
 **Property Value**
 1. Title = Product Details
 2. Width (under Dialog) = 900
 3. Height = 620
 4. Maximum Width = 1000
-5. Inline  (under CSS)
+5.  Img rule in inline CSS property (under CSS) to make  products  images  responsive.  ::before  selector  (used in second rule) will insert word 'Nike' before images of products - see Figure 6-6.
    ```
     img {
     width: 100%;
@@ -1769,23 +2283,53 @@ The Page Designer toolbar carries a section called **Page Selector**. Enter a pa
    ```
 
 ### 6.4.1 Making Page Item Mandatory
-1.  Make the product name item (P6_PRODUCT_NAME) mandatory using the following properties:
+P6_PRODUCT_NAME, P6_CATEGORY, P6_PRODUCT_AVAIL,  and  P6_LIST_PRICE 
+1.  Click  on  P6_PRODUCT_NAME  item,  **press  and  hold  the  Ctrl  key** , and then **click the other items to select them all**
 
    **Property Value**
    1. Template  (under Appearance) Required
    2. Value Required  (under Validation) On
 
-2.  Also  set  the  above  two  properties  for  P6_CATEGORY, P6_PRODUCT_AVAIL,  and  P6_LIST_PRICE  page  items. Click  on  P6_CATEGORY  item,  press  and  hold  the  Ctrl  key  on your keyboard, and then click the other two items to select them all. This way you can set properties for multiple items at once. 3.  Set the Template property of P6_PRODUCT_DESCRIPTION and P6_PRODUCT_IMAGE page items to Optional.
+2.  Set Template property of P6_PRODUCT_DESCRIPTION and P6_PRODUCT_IMAGE page items to Optional.
 
-### 6.4.2 Attach Categories LOV
-We created a list of values (CATEGORIES) in Chapter 3 section 3.4.1. Here we’re going to use that list to display  predefined values of categories in a Select List. First, you will change the Category item from Text to a Select List, and then you’ll define the list of values (LOV) to which the item will bound. Recall that you used this process in the Manage Customers module to display STATES LOV. In the Items node under the Product Details region, click the P6_CATEGORY item and amend the following properties in the Property Editor:
 
-**Property Value**
-1. Type  (under Identification) = Select List
-2. Type  (under List of Values) = Shared Component
-3. List of Values = CATEGORIES
-4. Display Extra Values = Off 
-5. Display Null Value = Off
+### 6.4.2 Attach Categories LOV! to page item P6_CATEGORY
+
+### 1. In Shared Components 3.4.1 LOV CATEGORIES (U, T) - STATIC to fetch Product categories from list
+1. Shared Components (pyramid of 3) -> Other Components section -> **Lists of Values APEX page**
+2. Click Create button (9 LOVs are created by APEX).
+3. Select From Scratch option and click Next.
+4. LOV Name = **Categories**, select LOV type = **Static**, click Next.
+5. Fill in values as shown in following table. At runtime these entries will display in order they are entered. Return Value does not display, but is the value that is returned to APEX engine as user selection (user event).  
+
+   | Sequence | Display val | Rerturn val (user event) | Help                                        |
+   | -: | :----------------------- | :---------------------------- | :----------------------------- |
+   | 1 | Mens                               | Mens                                     | Men ?|
+   | 2 | Womens                        | Womens                              | Women ? |
+   | 3 | Accessories                  | Accessories                        | Kids ? |
+
+6. Click Create LOV button
+
+
+<br /><br />
+### 2. P6_CATEGORY prop. 
+Label=**Category**.....Sequence=70.....Start New Row=**On**.....Column=Automatic
+.....New Column=On.....Column Span=Automatic.....Template=**Required**.....**Label Column Span=2**
+.....Width=make it **null**  (this item will be transformed into a select list).....Value Required=On
+
+
+<br /><br />
+### 3. Type Text Field change to -> Select List and Attach Categories LOV! to it
+Here we're going to use LOV Categories to which page item P6_CATEGORY will bound, to display  predefined values of categories in Select List  - see Manage Customers module to display STATES LOV.
+1. Page Designer interface -> Items node under Product Details region **click P6_CATEGORY item**.
+2. In Property Editor (right pane) change its Type property  (under Identification)  from **Text Field to Select List**.
+3.  Set Type (under List of Values) to **Shared Components** and **select CATEGORIES for LOV**. This step ***attaches Categories LOV to page item P6_CATEGORY***.
+4.  **Turn  off  "Display  Extra  Values"  property**
+5.  **Turn  off  Display  Null  Value  property**
+6.  Save your work.
+
+
+
 
 ### 6.4.3 Attach LOV to Product Available Column
 Next, you will change the Product Available field to a Switch comprising two options:  On  and  Off.  Just  like  the  previous  steps,  here  as  well,  you’re changing the item type from Text to Switch. At runtime, this item will show two options to specify whether the selected product is available or not. If you ignore  this  exercise  and  leave  the  item  to  its  default  type,  users  can  enter whatever value they like, resulting in compromising application’s integrity. This  is  a  good  example  to  restrict  users  to  select  valid  values.  Select  the P6_PRODUCT_AVAIL item and set the following properties. Note that the last two properties in the table sets Y (which stands for On) as the default value for this item.
@@ -5279,6 +5823,9 @@ drop sequence DEMO_PRODUCT_INFO_SEQ;
 
 ### prompt 1. DEMO_ CUSTOMERS
 ```
+--update DEMO_CUSTOMERS set CUST_STREET_ADDRESS2 ='aaaa bbbbb' where CUSTOMER_ID=10 ;
+--SELECT CUST_STREET_ADDRESS2, CUSTOMER_ID from DEMO_CUSTOMERS order by CUST_LAST_NAME desc ; 
+
 CREATE table "DEMO_CUSTOMERS" (
     "CUSTOMER_ID"          NUMBER NOT NULL,
     "CUST_FIRST_NAME"      VARCHAR2(20) NOT NULL,
@@ -5297,6 +5844,10 @@ CREATE table "DEMO_CUSTOMERS" (
     constraint  "DEMO_CUSTOMERS_PK" primary key ("CUSTOMER_ID")
 )
 /
+
+	-- CONSTRAINT "DEMO_CUST_CREDIT_LIMIT_MAX" CHECK (credit_limit <= 5000) ENABLE, 
+	 --CONSTRAINT "DEMO_CUSTOMERS_PK" PRIMARY KEY ("CUSTOMER_ID") USING INDEX  ENABLE, 
+	 --CONSTRAINT "DEMO_CUSTOMERS_UK" UNIQUE ("CUST_FIRST_NAME", "CUST_LAST_NAME") USING INDEX  ENABLE
 
 alter table "DEMO_CUSTOMERS" modify (
   "CREDIT_LIMIT" NUMBER(9,2)
@@ -5320,6 +5871,9 @@ end;
 
 ### prompt 2. DEMO_ PRODUCT_ INFO
 ```
+--update DEMO_PRODUCT_INFO set CATEGORY ='aaaa' where PRODUCT_ID=8 ;
+--SELECT PRODUCT_NAME, CATEGORY, PRODUCT_ID from DEMO_PRODUCT_INFO order by PRODUCT_NAME  ; 
+
 CREATE table "DEMO_PRODUCT_INFO" (
     "PRODUCT_ID"          NUMBER NOT NULL,
     "PRODUCT_NAME"        VARCHAR2(50),
@@ -5331,9 +5885,12 @@ CREATE table "DEMO_PRODUCT_INFO" (
     "MIMETYPE"            VARCHAR2(255),
     "FILENAME"            VARCHAR2(400),
     "IMAGE_LAST_UPDATE"   TIMESTAMP(6) WITH LOCAL TIME ZONE,
+    "TAGS" VARCHAR2(4000), 
     constraint  "DEMO_PRODUCT_INFO_PK" primary key ("PRODUCT_ID")
 )
 /
+
+--alter table "DEMO_PRODUCT_INFO" add column TAGS VARCHAR2(4000) ;
 
 CREATE sequence "DEMO_PRODUCT_INFO_SEQ" 
 /
@@ -5351,15 +5908,27 @@ end;
 ### prompt 3. DEMO_ STATES (no PK)
 ```
 CREATE table "DEMO_STATES" (
-    "STATE_ID"   VARCHAR2(2),
-    "STATE_NAME" VARCHAR2(25)
+    --"STATE_ID"   VARCHAR2(2),
+    "ST"   VARCHAR2(30),
+    "STATE_NAME" VARCHAR2(30)
 )
 /
 ```
 
 
 ### prompt 4. DEMO_ ORDERS
+update DEMO_ORDERS set ORDER_TIMESTAMP = ORDER_TIMESTAMP + 3600 * 48
+
 ```
+Formatting of the TIMESTAMP datatype with fractional seconds:  
+SELECT TO_CHAR(ORDER_TIMESTAMP,'DD.MM.YYYY HH24:MI:SS.FF3') ORDER_TIMESTAMP, ORDER_ID from DEMO_ORDERS order by ORDER_ID desc ; 
+prompt   ORDER_TIMESTAMP=30.08.2020 20:18:21:000	   ORDER_ID=10
+
+update DEMO_ORDERS set ORDER_TIMESTAMP = TO_TIMESTAMP('01.09.2020 11:10:55.888','DD.MM.RRRR HH24:MI:SS.FF3') where ORDER_ID=10 ;
+SELECT TO_CHAR(ORDER_TIMESTAMP,'DD.MM.YYYY HH24:MI:SS.FF3') ORDER_TIMESTAMP, ORDER_ID from DEMO_ORDERS order by ORDER_ID desc ; 
+rem Commit statement not applicable. All statements are **automatically committed**. 
+
+
 CREATE table "DEMO_ORDERS" (
     "ORDER_ID"        NUMBER NOT NULL,
     "CUSTOMER_ID"     NUMBER NOT NULL,
