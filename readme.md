@@ -76,10 +76,11 @@ Explanations below are far less important than demo site, code download and modu
 Besides explanations below are difficult to understand - after battle philosophy very useful to improve basic ideas (principles).
 <br><br><br>
 
-
-![B12phpfw_UMLdiagram.png is less practical and altered](XXXB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")    
-
 <a name="uml"></a>
+[B12phpfw_UMLdiagram.png](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")  
+![B12phpfw_UMLdiagram.png is less practical and altered](xxxB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")  
+
+I prefer text below :
 # 1\.3 B12phpfw UML diagram - classes structure - Attributes and Methods
 [Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
@@ -414,7 +415,7 @@ But basics are same : HexArch (Hexagonal architecture) application of DDD (Domai
 2. application directory : src/Controller contains ~ code in my  Config_allsites cls  and Home_ctr cls
 3. **Domain (model)** code in directory src/Domain contains ~ code in my  Dbconn_allsites cls and Db_allsites cls
 4. **Infrastructure (or Common)** dir contains dependencies that app code needs to work - my zinc dir
-See at this text end  [4.  **"What is SW fw"**](#swfw).
+See [**"What is SW fw"**](#swfw).
 
 ![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/   OR       
  ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\xampp\\htdocs ee   http://localhost:8083/  OR       
@@ -1759,10 +1760,12 @@ class Dbconn_allsites
 
 
 ### GLOBAL FOR ALL SITES SCRIPT 4: Autoload.php
-6 kB contains autoload class which includes :
-1. namespaced classes global for all sites
-2. or different modules classes
-3. or external classes
+Autoload.php, 8 kB, contains autoload class which includes :
+1. namespaced classes **shared** (global) for all sites
+2. or **module** classes
+3. or **external** classes
+
+Code :
 ```php
 <?php
 // J:\awww\www\zinc\Autoload.php
@@ -2114,10 +2117,17 @@ TraversyMVC (has video) and Mini3 are simplified, with some (many?) differences 
 
 
 <br /><br />
-> // https://community.notepad-plus-plus.org/topic/17366/how-to-install-emmet-plugin/2
+MD to HTML converters on inet :
+1. **Notepad++ plugin https://github.com/nea/MarkdownViewerPlusPlus** then in npp Settings -> Import -> Import plugin(s)
+2. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**   
+3. or (many converters)   https://www.browserling.com/tools/markdown-to-html   
+4. or files convert to many formats :  https://products.aspose.app/pdf/conversion/md-to-html    
+5. Links not working :     http://demo.showdownjs.com/ (no HTML source)  
+  NOT WORKING : https://daringfireball.net/projects/markdown/dingus    or   https://pandoc.org/try/ 
 
-Meta Chuh 26 Mar 2019, 15:45  
-@Alexander–Rudenko
+
+<br /><br />
+https://community.notepad-plus-plus.org/topic/17366/how-to-install-emmet-plugin/2   Meta Chuh 26 Mar 2019, 15:45   @Alexander–Rudenko
 
 #### Old notepad++ plugin manager is not compatible with notepad++ 7.6 and above.
  -it will write files to wrong locations.

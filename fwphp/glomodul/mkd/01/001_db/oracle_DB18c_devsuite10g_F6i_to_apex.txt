@@ -1,17 +1,35 @@
 ---  
 <a name="top"></a>
+**Top**.....[Instalac 18c XE](#inst18cxe).....[Instalac APEX 20.1](#apex).....[Conv. 6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)
 2020.08.17  
-# 1. INST / DEINST DB 18c from OracleXE184_Win64.zip
-**Top (DB 18c)**.....[APEX 20.1](#apex).....[Conv. F6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)
 
-https://dbahelp2018.wordpress.com/install-oracle-18c-xe-on-windows-10/
+**conn SYSTEM/MYPSW as SYSDBA**  
+or SYS  
 
-If you don’t already have an account you will need to create one to download the s/w:
-https://profile.oracle.com/myprofile/account/create-account.jspx
+**conn SYSTEM/MYPSW@XE  as SYSDBA**  
+>ALTER USER SYSTEM identified by MYPSW account unlock;
 
-https://dbahelp2018.wordpress.com/install-oracle-18c-xe-on-windows-10/
+**conn system/MYPSW@sspc2:1521/XEPDB1 as SYSDBA**  
 
-https://dbvisit.com/blog/oracle-database-18c-express-edition-getting-started-part-4 Linux, docker
+conn hr/hr@sspc2:1521/XEPDB1
+
+
+
+
+<br /><br /><br /><a name="inst18cxe"></a>
+# 1. INST / DEINST DB 18c XE 
+release 18.0.0.0.0 ver 18.4.0.0.0   from OracleXE184_Win64.zip
+
+[Top](#top).....**Instalac 18c XE**.....[Instalac APEX 20.1](#apex).....[Conv. F6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)
+
+### https://dbahelp2018.wordpress.com/install-oracle-18c-xe-on-windows-10/
+>Sources: https://docs.oracle.com/en/database/oracle/oracle-database/18/xeinw/  
+>Big articles https://dbvisit.com/blog/oracle-database-18c-express-edition-getting-started-part-4 Linux, docker  
+
+>If you don’t already have an account you will need to create one to download the s/w:  
+>https://profile.oracle.com/myprofile/account/create-account.jspx  
+
+https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html
 
 on Windows 10 pro 64 bit  Ver : 10.0.19041  
 1. **Deinstall 11g XE (615 MB)**  
@@ -22,30 +40,40 @@ on Windows 10 pro 64 bit  Ver : 10.0.19041
 3. When prompted, set database password to use for SYS, SYSTEM and PDBAADMIN accounts
     alter user <username> identified by <password>;)
 4. Verify and remember the Oracle Home and other locations. Note that the spaces are not allowed in directory names.   
-5. Next hit Install to get it going
-    Windows defender will alert for java firewall rule, I've changed this to 'Private networks, such as my home or work network'
+5. Next **hit Install** to get it going
+    Windows defender will alert for java firewall rule, I've changed this to **'Private networks**, such as my home or work network'
 
-### Note the details for our XE DB:  
+### Note details for our XE DB:  
 Server: localhost  
 Port: 1521  
-Multitenant container DB : localhost:1521     Container DB will be called XE  
+Multitenant container DB : localhost:1521     **Container DB will be called XE**  
 Pluggable DB                    : XEPDB1     localhost:1521/XEPDB1  
 Enterprise Express URL  : https://localhost:5500/em  
+
+Click Finish, to close installer
+
+
+<br /><br />
 #### Check DB in GUI Enterprise Manager Express  
 User Name: **sys**  
 Password: ...  
 Container name:  **Leave blank**  (Enter a PDB name if you want to access a specific PDB or leave it blank to access the root container. )
 as sysdba: tick box  
+
+
+<br /><br /><br />
+**select name, open_mode, cdb from v$database ;**
 ```
-select name, open_mode, cdb from v$database;
 NAME      OPEN_MODE            CDB
 --------- -------------------- ---
 XE        READ WRITE           YES
 
 show pdbs;
-SP2-0382: The SHOW PDBS command is not available
+SP2-0382: The SHOW PDBS command is not available (on 18c XE)
+```
 
-ipconfig
+**ipconfig**
+```
 Ethernet adapter Ethernet:
 
    Connection-specific DNS Suffix  . :
@@ -57,33 +85,44 @@ Ethernet adapter Ethernet 3:
 
    Connection-specific DNS Suffix  . :
    Link-local IPv6 Address . . . . . : fe80::a099:c564:36e6:bf89%12
-   IPv4 Address. . . . . . . . . . . : 192.168.56.1
+   IPv4 Address. . . . . . . . . . . : 192.168.56.1 (Oracle Linux on Virtual Box)
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
    Default Gateway . . . . . . . . . :
 
 sqlplus system/MYPSW@192.168.5.12:1521/XEPDB1
 Connected.
 or
-conn system/MYPSW@sspc2:1521/XEPDB1
-Connected.
-or
 conn system/MYPSW@localhost:1521/XEPDB1
 Connected.
 
-show con_name
-sho user
+or
+```
+**conn system/MYPSW@sspc2:1521/XEPDB1**
 
-ALTER USER HR identified by hr account unlock;
+**CONN SYS as SYSDBA**
+
+**ALTER SYSTEM SET SEC_CASE_SENSITIVE_LOGON = FALSE SCOPE=BOTH;**  
+SHOW PARAMETER SEC_CASE_SENSITIVE_LOGON  
+
+```
+SQL> show con_name
+-- XEPDB1
+sho user
+-- USER is "HR"
+
+ALTER USER hr identified by hr account unlock;
 grant CONNECT,DBA,RESOURCE to HR IDENTIFIED BY HR;
 
 conn HR/HR@localhost:1521/XEPDB1
-Connected. - case sensitive !!
+Connected. - case sensitive if we do not SEC_CASE_SENSITIVE_LOGON = FALSE !!
+
+
 
 select tname from tab;
 
 ```
 
-
+<br /><br />
 ### SQLdeveloper 19.2.1
 https://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html
 
@@ -101,6 +140,7 @@ Then click test, should see : Status Success
 Click Save -> Click Connect  
 You are now connected to 18c XE db.  
 
+<br /><br />
 ### Can optionally update tnsnames.ora file
  in s/w base dir/network/admin/tnsnames.ora file to add an connection alias for xepdb1 as below, for me that directory is : J:\\app\\oracle\\product\\18.0.0\\dbhomeXE\\network\\admin
 
@@ -113,6 +153,8 @@ XEPDB1 =
 )
 )
 
+
+<br /><br />
 ### Optional, Uninstall Oracle 18c XE and delete database (destructive) – CAUTION
  (Will need a reboot at the end to complete, but can reboot later if needed)
 
@@ -125,7 +167,7 @@ Click Change/Remove or Uninstall.
 Follow the prompts to deinstall Oracle Database Express Edition. After few minutes, the window will close and the deinstallation will be complete.  
  
  
- 
+ <br /><br /><br />
  ## Import data to 18c XE database from dump folder
  sqlplus / AS SYSDBA  
 ALTER SESSION SET CONTAINER=XEPDB1;  
@@ -136,8 +178,8 @@ impdp system/system_password@localhost:listnerport/xepdb1 full=Y EXCLUDE=SCHEMA:
 
 
  
- 
- ## RMAN and export (expdp)
+ <br /><br />
+ ## Export (expdp) vs RMAN
  both backup tables, and they both support flashback database, but there are some important differences:
 
 Data Pump Export (expdp) - The export utility is a "logical" backup, usually done by specifying specific tables.  If you fail to do a "consistent" export, or if you fail to include related tables and use RESTRICTED and CONSISTENT mode (with referential integrity constraints), you may not be able to recover properly.  Export is often used as a supplement to RMAN, usually for the restore of specific tables.
@@ -159,12 +201,14 @@ Advantages & disadvantages of RMAN:
 6. Allows incremental backups (block change tracking)
 7. Interfaces with media management systems (TMS)
  
- Tutorial : https://support.dbagenesis.com/knowledge-base/oracle-data-pump-utility-expdp-impdp/  
+Tutorial : https://support.dbagenesis.com/knowledge-base/oracle-data-pump-utility-expdp-impdp/  
 Video : https://www.youtube.com/watch?v=b0o4tb7P_xg  or https://www.youtube.com/watch?v=rPqcnOZK984  
 Link to articles: https://support.dbagenesis.com  eg https://support.dbagenesis.com/knowledge-base/install-oracle-linux-on-virtualbox/  
 
 
 
+<br /><br />
+## expdp
 ### 1. create OS level directory
 which will be used by Oracle for performing exports and imports :  
 \# mkdir -p /u02/dp_exp_dir  
@@ -207,7 +251,7 @@ SYS                ORACLE_HOME                  J:\app\oraclexe\product\18.0.0\d
 15 rows selected.
 ```
 
-
+<br />
 ### 2. Perform Data Pump Export
 In case you want to know all the options available with expdp utility, you can use below command  
 $ expdp help=y  
@@ -225,7 +269,7 @@ To take **row** level export
 $ expdp directory=datapump dumpfile=emprows_bkp.dmp logfile=emprows_bkp.log tables='SCOTT.EMP' query=\"where deptno=10\"  
 
 
-
+<br />
 ### 3. Performing Data Pump Import
 In case you want to know all the options available with impdp utility, you can use below command  
 $ impdp help=y  
@@ -285,17 +329,16 @@ To call the above export PAR file :
 <br /><br /><br />
 <a name="apex"></a>
 ## 2. INST / DEINST apex_20.1_en.zip ON DB 18c
-[Top (DB 18c)](#top).....**APEX 20.1**.....[Conv. F6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)
+[Top](#top).....[Instalac 18c XE](#inst18cxe).....**Instalac APEX 20.1**.....[Conv. F6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)
 
 on Windows 10 pro 64 bit  Ver : 10.0.19041  DB 18c
 BY VINISH KAPOOR ON APRIL 3, 2019 on Windows and Unix/Linux systems :   
 https://www.foxinfotech.in/2020/04/installing-oracle-apex-20-1.html   
-https://www.foxinfotech.in/2019/04/install-oracle-apex-19-1-in-eleven-easy-steps.html  
 BY VINISH KAPOOR ON APRIL 26, 2020 :   
 https://www.foxinfotech.in/2019/04/install-oracle-apex-19-1-in-eleven-easy-steps.html   
 
 https://matthiashoys.wordpress.com/2019/12/12/installation-of-apex-19-2-on-oracle-18c-xe-express-edition/
-**apex_20.1_en.zip**, **NOOO !!!** : Win 10 64 bit Oracle DB 11g XE Release 11.2.0.2.0 - 64bit Production   
+**apex_20.1_en.zip**, **NOOO !!! ON** : Win 10 64 bit Oracle DB 11g XE Release 11.2.0.2.0 - 64bit Production   
 
 ### 11111 Old APEX for deinstall
 
@@ -336,7 +379,7 @@ DROP USER APEX_040000 CASCADE;
 DROP USER APEX_200100 CASCADE;
 ```
 
-### 33333 Install Apex 20.1 on Windows 10 pro 64 bit  Ver : 10.0.19041
+### 33333 Instalac Apex 20.1 on Windows 10 pro 64 bit  Ver : 10.0.19041
 ```
 Run all Apex 20.1 installation scripts from J:\apex_instl\apex (F:\software\apex19\apex)  
 -- apex dir is from J:\apex_instl\1_apex_20.1_en.zip !!!
@@ -499,7 +542,7 @@ POSSYS app develop. : https://apex.oracle.com/pls/apex/f?p=4550:1
 <br /><br /><br />
 <a name="f6i_to_apex"></a>
 # 3. Convert Oracle Forms 6i to APEX using frmf2xml utility
-[Top (DB 18c)](#top).....[APEX 20.1](#apex).....**Conv. F6i to APEX (Devsuite10g on WinXP)**
+[Top](#top).....[Instalac 18c XE](#inst18cxe).....[Instalac APEX 20.1](#apex).....**Conv. F6i to APEX (Devsuite10g on WinXP)**
   
 ## App f6i2apex in own WS wsconvf6 (or both POSSYS)
 to convert Oracle Forms 6i (9 or ...) to APEX app modules
@@ -626,4 +669,4 @@ C:\OraDS10Home1\jdk\bin\java -classpath C:\OraDS10Home1\forms\java\frmxmltools.j
 
 <br /><br /><br />
 ___
-[Top (DB 18c](#top).....[APEX 20.1](#apex).....[Conv. 6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)
+[Top](#top).....[Instalac 18c XE](#inst18cxe).....[Instalac APEX 20.1](#apex).....[Conv. 6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)

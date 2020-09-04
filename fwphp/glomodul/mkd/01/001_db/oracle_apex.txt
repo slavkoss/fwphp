@@ -1,4 +1,3 @@
-orders?clea---  
 <a name="top"></a>2020.08.17  Oracle Application Express 20.1.0.00.13  Copyright © 1999, 2020
 ## 1. Intro, content
 I. BASICS **Top**.....2.1 [Apexws_cloud](#Apexws_cloud).....2.2 [App. builder](#app_builder).....2.3 [Page](#page)  
@@ -6,8 +5,8 @@ I. BASICS **Top**.....2.1 [Apexws_cloud](#Apexws_cloud).....2.2 [App. builder](#
 
 II. APP .....**2.9 [Sales web app - DDL, add data](#sales)**
 
-III. SHARED COMPOMENTS .....**3.2  [SHARED C. (lists)](#shared)**......3.2 [Rep.List](#rep_list).....3.2 [Ord.WizList](#ord_wiz_list)  
-.....3.3 [Top. Navig](#top_navig).....3.4 [LOVs](#lov)....3.5 [IMGs](#img)
+III. SHARED COMPOMENTS .....**3.2  [SHARED C. (lists) 3.2.1 Menu](#shared)**......3.2.2 [Rep.List](#rep_list).....3.2.3 [Ord.WizList](#ord_wiz_list)  
+.....3.3 [Top. right Navig](#top_navig).....3.4 [LOVs](#lov)....3.5 [IMGs](#img)
 
 IV. APP PAGES .....4. [Home p.](#home).....4.4 [Buttons](#buttons).....4.5 [PgStyles](#pgstyles).....5. [Cust](#cust).....6. [Product](#prod).....7. [Order](#order)  
 .....8. [Graph. & Mobile](#gra_mob).....9. [Adv. Rep](#advrep)  
@@ -15,7 +14,7 @@ IV. APP PAGES .....4. [Home p.](#home).....4.4 [Buttons](#buttons).....4.5 [PgSt
 
 >This txt on my Github :   https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/mkd/01/001_db/oracle_apex.txt  (in Markdown format) is based on https://drive.google.com/drive/my-drive    **2020_Riaz_Oracle_APEX_20_For_Beginner.pdf : **,  URL to Download Book Code (no DDL)  https://tinyurl.com/oracleapex20  
 
->[MD to HTML converters on inet](md2html) :
+>[MD to HTML converters on inet](#md2html)  
 
 
 <br /><br /><br /><a name="Apexws_cloud"></a>
@@ -59,8 +58,12 @@ IV. APP PAGES .....4. [Home p.](#home).....4.4 [Buttons](#buttons).....4.5 [PgSt
 
 
 <br /><a name="goAPEXConcepts"></a>
- # 2. Oracle APEX Concepts [2.2-2.8](#app_builder)
-## 2.1 Exercises online on  Ora. servers (free) [Own APEX Workspace on Oracle cloud](#Apexws_cloud) 
+ # 2. Oracle APEX Concepts 
+
+### 2.1 Exercises online on  Ora. servers (free) [Own APEX Workspace on Oracle cloud](#Apexws_cloud) 
+
+ ### [2.2-2.8](#app_builder)
+
 <br /><a name="sales"></a>
 # 2.9  Start Building Sales app. 80858
 
@@ -407,13 +410,14 @@ Run the app.
  
 <br /><br /><br /><br /><br /><br /><a name="home"></a>
 # 4. Page Home (App Dashboard, default page)
+with 6 stacked canvases (blocks)
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page)   [Environm](#environm).....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)....**Home page**.....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
  
-**About Home Page**    
+**4.1 About Home Page**    
    Represents objective of app (module). Is created as a blank slate and needs to be populated with **content relevant to your app (module) **-  stuff related to sales is :   
    6 regions to present different views of sales data (see 2.6 and 2.9 Page Designer interface and how to access your workspace).  
 
-**Modify Home Page - 2 properties that are usually enough to set for the main page**   
+**4.2 Modify Home Page - 2 properties that are usually enough to set for the main page**   
 1. Sign in to your workspace -> in main menu click App Builder option -> click Edit icon under Sales Web App - see Figure 3-3 in chapter 3.  
     
 2. Click Home page icon (if you’re browsing the page in Icon view). This action will **open definitions of Home page in Page Designer interface**.  
@@ -429,7 +433,7 @@ Rendering tab to your left -> click root node  to refresh Property Editor (on th
 
  
 
-## 4.3 Create Regions (stacked canvases) in Home Page   
+## 4.3 Create Regions (stacked canvases - blocks) in Home Page   
 You put page items (Text Field, Select List, Radio Group, report, chart, static HTML content, buttons...) on a page under a specific region (page area, section that serves as a container for content ee to group page elements). Each region can have its **own template**, which controls its appearance.
 
 Some of our regions will use **Oracle JET Charts**. Oracle JET Charts (charting library) is a component of JET. These charts work on any modern browser regardless of platform, screen size, or features. JET is integrated Oracle JavaScript and CSS3 and HTML5 Extension, open source Toolkit 
@@ -439,7 +443,7 @@ Some of our regions will use **Oracle JET Charts**. Oracle JET Charts (charting 
 
 
 <br /><br /><br /><a name="homereg1"></a>
-## Home Page region 1 (stacked canvas 1) : "Top Orders by Date"
+## Home Page region 1 : "Top Orders by Date"
 [Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6).....[Home buttons](#hbuttons).....[Home styles](#hstyles)
 
 Displays top five orders by date from DB using a **bar chart - horizontal bars=months and sumsales on x axe** - SQL (or PL/SQL function) populated - summarized sales figures (bars) for each date from Orders table. 
@@ -502,7 +506,7 @@ To test your work from time to time eg after completing this region you can **sa
  
  
  <br /><br /><br /><a name="homereg2"></a>
-## Home Page region 2 (stacked canvas 2) : "Sales For This Month"
+## Home Page region 2 : "Sales For This Month"
 [Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
 
 Page region 2 uses a **Badge List - 2 circles "Tot.sales and Tot.orders"**.  List is dynamically rendered based on a SQL Statement (or PL/SQL function) each time the page is viewed. Later on, we will transform it to present  fetched data in graphical format. 
@@ -612,7 +616,7 @@ First badge - Current month's sales - acts as a link and leads you to Page 4 to 
  
  
 <br /><br /><br /><a name="homereg3"></a>
-## Home Page region 3 (stacked canvas 3) :  "Sales by Product region" - pie chart
+## Home Page region 3 :  "Sales by Product region" - pie chart
 [Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
 
 Page region 3 shows **sale figures (sums as pie slices) visible when you move the mouse pointer over pie slices of pie chart** for individual products.
@@ -658,7 +662,7 @@ Click the Attributes sub-node under new region and set following properties.
  
  
  <br /><br /><br /><a name="homereg4"></a>
-## Home Page region 4 (stacked canvas 4) : "Sales by Category" region
+## Home Page region 4 : "Sales by Category" region
 [Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
 
 Page region 4 will present sale figures - **bars for each product category : Men, Women, and Accessories**.
@@ -706,7 +710,7 @@ Click Attributes sub-node under new region and set following properties.
 
 
 <br /><br /><br /><a name="homereg5"></a>
-## Home Page region 5 (stacked canvas 5) : "Top Customers" region
+## Home Page region 5 : "Top Customers" region
 [Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
 
 **Top  six  customers**  with  highest  orders  and  will present info **in text format**. 
@@ -771,7 +775,7 @@ Click Save and Run Page button to test the progress.
 
 
 <br /><br /><br /><a name="homereg6"></a>
-## Home Page region 6 (stacked canvas 6) : "Top Products" region 
+## Home Page region 6 : "Top Products" region 
 [Top](#top).....[Home reg.1](#homereg1).....[Home reg.2](#homereg2).....[Home reg.3](#homereg3).....[Home reg.4](#homereg4).....[Home reg.5](#homereg5).....[Home reg.6](#homereg6)....[Home buttons](#hbuttons).....[Home styles](#hstyles)
 
 Similar to Top  Customers  region - **create this  region  by  copying  the  Top  Customers  region**. Displays  **six  top selling products**.
@@ -834,7 +838,7 @@ Click Save and Run Page button to see how all six regions appear on Home page.
 <br /><br /><br /> <a name="buttons"></a>
 ## 4.4 Create Buttons on top of each region
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....**Buttons**.....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
 These buttons provide **drill-down** functionality and take user to relevant pages to dig further **details for summarized information**.  Eg buttons **add, view...** - click "Add Order" btn in "Top Order by Date" region -> redirect to page 11 to add new order.
 
@@ -980,7 +984,7 @@ These buttons **will be productive after creating pages indicated in their Targe
 <br /><br /><br /> <a name="pgstyles"></a>
 ## 4.5 Styling Page Elements - 6 regions light gray
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....**PgStyles**.....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
 
 CSS provides way to control style of a web page  without  changing  its  structure.  When  used  properly,  a  CSS  separates visual properties such as color, margins, and fonts from the structure of the HTML  document.   APEX  includes  themes  containing  templates  to reference their own CSS. The style rules defined in each CSS for a particular theme also determine the way reports and regions display. 
@@ -1047,7 +1051,7 @@ In the next chapter, you will learn about **Interactive Grid** and how to create
 tbl ID=2 CRud & form ID=7 crUD - profile   page 133/419
 
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....**Cust**.....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
  
 ## 5.1 CRUD DEMO_CUSTOMERS tbl
 1. R Browse and search customer records
@@ -1464,7 +1468,7 @@ Save page and run it. Now you will see immediate reflection of your modification
 page 177/419
 
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....**Prod**.....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
 ## 6.1 About Products Setup
 **Main  Products  Page  3,  CRud product**  -  Figure  6-1  Products Interactive Report Page - will  have **3  different  views:  Icon,  Report,  and  Details**.  Initially,  wizard  will create  the  Report  View  version  that  you'll  modify  with  a  custom  SQL statement. Remaining two views (Detail and Icon) are placed on the page by  enabling  respective  properties  found  under   main  Products  region. Once  you  enable  Detail and Icon  views,  their **icons  appear on main Search  bar**.  Using  these  icons  you  can  switch  among  different  views  to browse  products  information.  
@@ -2508,7 +2512,7 @@ Play  around  with  this  module  by  tweaking  the  saved  properties  to  see 
 page 201/419
 
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....**Order**.....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
  
 ## 7.1 About Sale Orders
 This chapter will teach you how to create professional looking order forms.
@@ -5034,7 +5038,7 @@ storing it in your database.
 page 304/419
 
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....**Graph. & Mobile**.....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
 
 
@@ -5043,7 +5047,7 @@ page 304/419
 <br /><br /><br /><br /><br /><br /> <a name="advrep"></a>
 # 09. Produce Advance Reports
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....**Adv. Rep**.....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
  
 
 
@@ -5052,7 +5056,7 @@ page 304/419
 <br /><br /><br /><br /><br /><br /> <a name="authoriz"></a>
 # 10. Authorization - Managing Users & App Access
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....**Authoriz**.....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
 
 
 
@@ -5061,30 +5065,30 @@ page 304/419
 <br /><br /><br /><br /><br /><br /><a name="searchstylecal"></a>
 ## 11.1 Faceted Search
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz)....**Search**.....[Style Theme r.](#themeroll).....[Style buttons](#style_buttons).....[Calendar](#calendar).....[ Deploy](#deploy)
 
 
 
 <br /><br /><br /><a name="themeroll"></a>
 ## 11.2 Theme Roller – Style Your Application
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search, style, calendar](#searchstylecal).....**Style Theme r.**.....[Style buttons](#style_buttons).....[Calendar](#calendar).....[ Deploy](#deploy)
 
 
 
 
-<br /><br /><br /><a name="themeroll"></a>
+<br /><br /><br /><a name="style_buttons"></a>
 ## 11.3 Styling Buttons
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz)....[Search, style, calendar](#searchstylecal).....[Style Theme r.](#themeroll).....**Style buttons**.....[Calendar](#calendar).....[ Deploy](#deploy)
 
 
 
 
-<br /><br /><br /><a name="themeroll"></a>
+<br /><br /><br /><a name="calendar"></a>
 ## 11.4 Manage Events via Calendar component
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz)....[Search, style, calendar](#searchstylecal).....[Style Theme r.](#themeroll).....[Style buttons](#style_buttons).....**Calendar**.....[ Deploy](#deploy)
 
 
 
@@ -5093,7 +5097,7 @@ page 304/419
 <br /><br /><br /><br /><br /><br /> <a name="deploy"></a>
 # 12. Deploy
 [Top](#top).....[Apexws_cloud](#Apexws_cloud).....[App. builder](#app_builder).....[Page](#page).....[Environm](#environm) .....[URL](#url).....[Sales](#sales).....[SHARED C.](#shared)......[Rep.List](#rep_list).....[Ord.WizList](#ord_wiz_list).....[Top. Navig](#top_navig).....[LOVs](#lov)....[IMGs](#img)
-.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....[ Deploy](#deploy)
+.....[Home p.](#home).....[Buttons](#buttons).....[PgStyles](#pgstyles).....[Cust](#cust).....[Prod](#prod).....[Order](#order).....[Graph. & Mobile](#gra_mob).....[Adv. Rep](#advrep).....[Authoriz](#authoriz).....[Search Style Cal.](#searchstylecal).....**Deploy**  
 
 ## 12.1 About App Deployment dev to production environment
 Consists  of  two  steps :  Export desired  components  to  a  script file and  import script  file  into  your production  environment. Decide where and how app will run.
