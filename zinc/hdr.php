@@ -37,5 +37,7 @@ switch (true) {
   if (isset($css6)) echo '<link rel="stylesheet" href="'.$css6.'">';
   
   ?>
+
+
 </head>
 <body>

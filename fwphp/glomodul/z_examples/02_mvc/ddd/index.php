@@ -1,5 +1,9 @@
 <?php
-
+/**
+* http://localhost:8000/
+* http://localhost:8000/gallery-images/
+* http://localhost:8000/gallery-images/?page=2&size=5
+*/
 //namespace B12phpfw\module\blog ;
 use B12phpfw\core\zinc\Autoload ;
 use App\Config\Application;

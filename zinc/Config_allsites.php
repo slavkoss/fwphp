@@ -101,7 +101,11 @@ abstract class Config_allsites extends Db_allsites
       //CONVENTION : URL query string is key(=property name) - value pairs
       //   We want $this->u r i q = stdClass Object ( [i] => categories 
       //   or [i] =>any Home_ctr method, than its_first_parameter=>paramvalue... )
-      $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
+
+      //Error on Linux : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
+      //Error on win: $REQUEST_URI = filter_input($_SERVER['REQUEST_URI'], FILTER_SANITIZE_STRING);
+      $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;
+
       $uri_arr = explode(QS, $REQUEST_URI) ; 
       $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); 
               //or rtrim(str_replace($w sroot_path, '', $m odule_path),'/') ;
@@ -391,7 +395,7 @@ $navbar .= " <a class='button'
           <a class='button' 
              title='Rows {$first_rinblock} - {$last_rinblock}'
           " . '</a>'
-       .' Total count '.$rtbl
+       .' Total count '.$rtbl .' (eg 25 on page)'
           //."href='{$qs}p/1/pgn/all$mtd_to_inc_view'>ALL"
           //title='No pagination (f or c t r l + F)'
           //.' Tot.pages '.$total_pages

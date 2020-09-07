@@ -24,28 +24,28 @@ Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and 
 ### To do
 Everything important is visible in current version 6.0 code. Some details are** to do** in version 6.1. (They are not needed for learning and own (more) sites developing based on  B12phpfw and many examples in group of modules in learning folder [WEBSERVER_ROOTPATH]\\fwphp\glomodul\\z_examples.)
 
-1. On Linux demo sites newest **core routing-dispatching code** improvements : some PHP statement works different than on Windows, so links do not work in msg module, but work in mnu and mkd modules) .
+1. On Linux demo sites newest **core routing-dispatching code** improvements : some PHP statement works different than on Windows, so links do not work in msg module, but work in mnu and mkd modules) .  
+   DONE in wsroot_path\zinc\Config_allsites.php :  
+   //Error on Linux : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
+   //Error on win: $REQUEST_URI = filter_input($_SERVER['REQUEST_URI'], FILTER_SANITIZE_STRING);  
+   $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
 2. Difficult parts are not many : 
    1. PDO CRUD more DBI MySQL, Oracle... - any DB with DB adapter code I have only basic code - working - should be improved.  
    2. Same for tables : sorting, cols filtering, rows filtering.  
-        Grid with updatable fields, I think, is not needed.
-3. Details like data formats (page fieds should be all characters like in Oracle APEX), computations are easy to find in other learning sources.
-4. No charts - see other learning sources.
+        Grid with updatable fields, I think, is not needed.  
+3. Details like data formats (page fieds should be all characters like in Oracle APEX), computations are easy to find in other learning sources.  
+4. No charts - see other learning sources.  
 
 ### Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
 
 1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 (dev1 is Apache vitual host).  
-
    For **testing**  wsroot_path = **J:\\xampp\\htdocs** , wsroot_url =  http://localhost:8083 .
-   
    For **production** are Linux demo sites, see below.  
 
 2. For mnu module **module_url** = http://dev1:8083/fwphp/www/ so module_towsroot = '../../' - I do not use it for mnu and mkd. 
-   
-      **$module_towsroot** variable in index.php is** always same value for both variables wsroot_path and wsroot_url**.
-      
-      For msg module in index.php : ** $module_towsroot = '../../../' ;** because module_path = J:\awww\www\fwphp\glomodul\blog and three times "../" means **path from blog dir to www dir ee to wsroot_path = 3 times up**.  So module_url = http://dev1:8083/fwphp/glomodul\blog  and 3 times up is http://dev1:8083 = wsroot_url.
+   **$module_towsroot** variable in index.php is** always same value for both variables wsroot_path and wsroot_url**.
+   For msg module in index.php : ** $module_towsroot = '../../../' ;** because module_path = J:\awww\www\fwphp\glomodul\blog and three times "../" means **path from blog dir to www dir ee to wsroot_path = 3 times up**.  So module_url = http://dev1:8083/fwphp/glomodul\blog  and 3 times up is http://dev1:8083 = wsroot_url.
 
 
 IIS wsroot_path = %SystemDrive%\\inetpub\\wwwroot = http://localhost, see Win icon -> IIS manager. For APEX learning on Oracle cloud open  https://apex.oracle.com/en/ click link "Get started" and install few demo apps before making own based on eg Riaz Ahmed 2020 year "Oracle APEX 20 For Beginners" (on 18c XE DB) .

@@ -10,8 +10,8 @@
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     //exit(0) ;
                     echo '</pre>'; }
-
-$rblk = 10;
+$css1 = $pp1->wsroot_url . 'zinc/exp_collapse.css';
+$rblk = 25;
 
 //if (isset($uriq->p)) { //Fatal error: Cannot use isset() on the result of an expression
 if (isset($uriq->p) and null !== $uriq->p) {
@@ -182,7 +182,7 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
         ?>
 
         <br />
-        <div class="card">
+      <div class="card">
 
 
 
@@ -208,12 +208,20 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
                 echo $rcnt->COUNT_ROWS ; ?>
               </span>
 
+              <br />Click txt name below to see summary.
             </div><!-- e n d  2. a r t i c l e  c a t e g o r y -->
 
 
 
-            <!-- 1. a r t i c l e  O S  f i l e  n a m e Read OS txt article &rang;&rang;-->
-            <h3 class="card-title" style="color:darkblue;">
+
+
+        <!-- ******************** Open/close summary, img... **************** -->
+        <button type="button" class="collapsible">
+
+            <!-- 1. a r t i c l e  O S  f i l e  n a m e Read OS txt article &rang;&rang;
+                h3 class="xxcard-title"
+            -->
+            <h5 style="color:gray;">
                 <?php echo ''
                   //. ($category_from_url?$ordno.'. ':'')
                   . str_replace('!', "&nbsp;", str_pad(
@@ -224,7 +232,11 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
             <a href="<?=$pp1->read_post?>id/<?=$r->id?>" style="float:right;">
               <span class="btn btn-info">More</span>
             </a>
-            </h3><!-- e n d  1. a r t i c l e  O S  f i l e  n a m e -->
+            </h5><!-- e n d  1. a r t i c l e  O S  f i l e  n a m e -->
+
+
+        </button>
+        <div class="content" style="display:none;" >
 
 
 
@@ -249,59 +261,63 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
 
 
-          <!-- 4. a r t i c l e  i m a g e -->
-          <?php
-          //J://awww//www//fwphp//glomodul//blog//Uploads//mvc_M_V_data_flow.jpg
-          $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp(
-             (null == $r->image ? 'NON EXISTENT' : $r->image)
-          ));
-          $tmp_imgurlrel = 'Uploads/'.self::escp($r->image) ;
-          if (file_exists($tmp_imgpath)) { ?>
-            <img src="<?=$tmp_imgurlrel?>" class="img-fluid card-img-top"
-                 title = "<?='$r->image='. $r->image .', $tmp_imgpath='
-                             .$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
-                 style="max-height:450px;" 
-                 alt="" />
+            <!-- 4. a r t i c l e  i m a g e -->
             <?php
-          } 
-
-          $tmp_imgpath = str_replace('/',DS, $pp1->wsroot_path
-               . 'zinc'.DS.'img'.DS.'img_big'.DS.self::escp(
+            //J://awww//www//fwphp//glomodul//blog//Uploads//mvc_M_V_data_flow.jpg
+            $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp(
                (null == $r->image ? 'NON EXISTENT' : $r->image)
-          ) ) ;
-          $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($r->image) ;
-                        if ('') {self::jsmsg( [ //b asename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
-                           ,'$tmp_imgurlrel'=>$tmp_imgurlrel
-                           ] ) ; }
-          if ($r->image and file_exists($tmp_imgpath)) { ?>
-              <img src="<?=$tmp_imgurlrel?>"
-                   title = "<?='$r->image='. $r->image .', $tmp_imgpath='.$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
-                   class="img-fluid card-img-top"
+            ));
+            $tmp_imgurlrel = 'Uploads/'.self::escp($r->image) ;
+            if (file_exists($tmp_imgpath)) { ?>
+              <img src="<?=$tmp_imgurlrel?>" class="img-fluid card-img-top"
+                   title = "<?='$r->image='. $r->image .', $tmp_imgpath='
+                               .$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
                    style="max-height:450px;" 
-              /><?php
-          } ?><!-- e n d  4. a r t i c l e  i m a g e -->
+                   alt="" />
+              <?php
+            } 
+
+            $tmp_imgpath = str_replace('/',DS, $pp1->wsroot_path
+                 . 'zinc'.DS.'img'.DS.'img_big'.DS.self::escp(
+                 (null == $r->image ? 'NON EXISTENT' : $r->image)
+            ) ) ;
+            $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($r->image) ;
+                          if ('') {self::jsmsg( [ //b asename(__FILE__).
+                             __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
+                             ,'$tmp_imgurlrel'=>$tmp_imgurlrel
+                             ] ) ; }
+            if ($r->image and file_exists($tmp_imgpath)) { ?>
+                <img src="<?=$tmp_imgurlrel?>"
+                     title = "<?='$r->image='. $r->image 
+                     .', $tmp_imgpath='.$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
+                     class="img-fluid card-img-top"
+                     style="max-height:450px;" 
+                /><?php
+            } ?><!-- e n d  4. a r t i c l e  i m a g e -->
 
 
           <!-- 5. i m a g e  d e s c r i p t i on -->
-          <div class="card-body">
-            <p><?php
+            <div class="card-body">
+              <p><?php
 
-                       echo '<h5>Image description</h5>' ;
+                         echo '<h5>Image description</h5>' ;
 
-               $tmptxt = self::escp($r->img_desc) ; //$tmptxt = $r->img_desc ;
-               //$lnklabel = substr(strstr(self::escp($r->img_desc), '{{lnktxt}}'), 10,9) ;
-               echo 
-               str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
-               //str_replace('{{href}}','<a href="', str_replace('{{/href}}','">'.$lnklabel.'</a>',
-                      nl2br($tmptxt)
-               ));
-                     //echo '<br />('.__DIR__ .DS.'Uploads'.DS.$r->image.')' ; ?>
-            </p>
-          </div><!-- e n d  5. i m a g e  d e s c r i p t i on -->
+                 $tmptxt = self::escp($r->img_desc) ; //$tmptxt = $r->img_desc ;
+                 //$lnklabel = substr(strstr(self::escp($r->img_desc), '{{lnktxt}}'), 10,9) ;
+                 echo 
+                 str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
+                 //str_replace('{{href}}','<a href="', str_replace('{{/href}}','">'.$lnklabel.'</a>',
+                        nl2br($tmptxt)
+                 ));
+                       //echo '<br />('.__DIR__ .DS.'Uploads'.DS.$r->image.')' ; ?>
+              </p>
+            </div><!-- e n d  5. i m a g e  d e s c r i p t i on -->
+
+        </div> <!-- class="content" (Collapsible) Summary, img...-->
+        <!-- ******************** E N D Open/close summary, img... **************** -->
 
 
-        </div>
+      </div>
         <br /><br> <?php
       } endwhile;
 
@@ -322,10 +338,37 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
 </div>
 
-<!-- HEADER END 
+<!-- HEADER END -->
 
-<?php
-          /*
+
+<script>
+/*
+var coll = document.getElementsByClassName("collapsible");
+var i;
+      alert("xxxxxxxx coll.length="+coll.length);
+
+for (i = 0; i < coll.length; i++) {
+      alert("aaaaaaaaa bbbbbbbbb");
+  //coll[i].addEventListener("click", function() {
+    //this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    //var content = document.getElementById("item1").nextElementSibling.innerHTML;
+    //if (content.style.display === "block") { 
+      content.style.display = "none";
+    //} else { content.style.display = "block"; }
+  //}
+  //);
+}
+  //$('#year').text(new Date().getFullYear());
+*/
+</script>
+
+
+<script src="<?=$pp1->wsroot_url?>zinc/exp_collapse.js" 
+        language='JScript' type='text/javascript'></script>
+
+
+          <!-- /*
           $q rywhere = "'1'='1'" ;
           $binds = [
                   ['placeh'=>':first_rinblock', 'valph'=>$first_rinblock, 'tip'=>'int']
@@ -337,3 +380,4 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
             ) ;
           $numcols = $c_limitedSQL->columnCount(); //$numcols = ocinumcols($c_col_info);
           */
+          -->

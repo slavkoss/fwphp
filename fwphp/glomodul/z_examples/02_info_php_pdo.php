@@ -11,41 +11,8 @@
     //NOT J:/wlaragon64/www/vendor/autoload.php
     // Laragon vhost: {name}.dev -> I made dev1
     //DocumentRootList=J:\wlaragon64\www||J:\wlaragon64\www\dev1
-function getPDODriverList($p_comma = " , ", $p_display = true){
-  
- $ARR_DRIVERS = array();
- $CountDrivers = 0;
- foreach(PDO::getAvailableDrivers() AS $DRIVERS) :
-       
-     $CountDrivers++;
-     $ARR_DRIVERS[$CountDrivers] = $DRIVERS;
-  
- endforeach;
-  
- $_GET_DRIVER_LIST = implode($p_comma, $ARR_DRIVERS);
-  
- if( $p_display ): echo $_GET_DRIVER_LIST; else : return $_GET_DRIVER_LIST; endif;
-  
- }
 
-function getServerAddress() {
-if(array_key_exists('SERVER_ADDR', $_SERVER))
-    return $_SERVER['SERVER_ADDR'];
-elseif(array_key_exists('LOCAL_ADDR', $_SERVER))
-    return $_SERVER['LOCAL_ADDR'];
-elseif(array_key_exists('SERVER_NAME', $_SERVER))
-    return gethostbyname($_SERVER['SERVER_NAME']);
-else {
-    // Running CLI
-    if(stristr(PHP_OS, 'WIN')) {
-        return gethostbyname(php_uname("n"));
-    } else {
-        $ifconfig = shell_exec('/sbin/ifconfig eth0');
-        preg_match('/addr:([\d\.]+)/', $ifconfig, $match);
-        return $match[1];
-    }
-  }
-}
+
 
 echo __FILE__.' SAYS : '.'<br />';
 
@@ -107,9 +74,11 @@ echo '<pre>PDO::getAvailableDrivers()='; print_r(PDO::getAvailableDrivers()); ec
 echo "Installed PDO drivers my fn getPDODriverList : " . getPDODriverList(" , ", false); 
 
 
- 
+
+
+
 // ******************************************
-echo "<h1>1. PHP PDO MySQL</h1>";
+echo "<h1>1. MySQL PHP PDO</h1>";
 // ******************************************
 pdomysql:
 define('DB_HOST', 'localhost');
@@ -169,30 +138,55 @@ foreach ($attributes as $val) {
              catch (PDOException $pdoEx)
              {
                  echo "<h3>Database Error .. Details :</h3><br /> {$pdoEx->getMessage()}";
-                 //goto phpinfolabel;
+                 goto pdooci ; //phpinfolabel;
              }
              
+?>
+
+<h3>
+ <a href="http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/oracle_DB18c_devsuite10g_F6i_to_apex.txt">
+ Install Oracle DB 18c XE
+ </a>
+</h3>
+
+<?php
+
+
+
 
 
 pdooci:
-
+// ******************************************
+echo "<h1>2. Oracle DB 18c XE PHP PDO</h1>";
+// ******************************************
 global $DSN, $USR, $PSW;
 $USR = 'hr';
 $PSW = 'hr';
 
 //  Data Source Name :
 $USERDOMAIN = getenv('USERDOMAIN', true) ?: getenv('USERDOMAIN') ;
-//$DSN = 'oci:dbname=sspc2/XE:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
-$DSN = 'oci:dbname='.
-  $USERDOMAIN
-  //filter_var( $_SERVER['HTTP_HOST'] . '/', FILTER_SANITIZE_URL )
-  .'/XE:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
+//11g XE : $DSN = 'oci:dbname=sspc2/XE:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
+//18c XE : $DSN = 'oci:dbname=sspc2/ora7:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
+$DSN = 'oci:dbname='
+  . $USERDOMAIN //filter_var( $_SERVER['HTTP_HOST'] . '/', FILTER_SANITIZE_URL )
+  .':1521/XEPDB1'
+  //.':pooled;charset=UTF8' //charset=UTF8 EE8MSWIN1250
+; 
 
 
-// ******************************************
-echo "<h1>2. PHP PDO Oracle \$DSN = $DSN, hr/hr, ERRMODE_EXCEPTION, ATTR_PERSISTENT=true</h1>";
-// ******************************************
+?>
+<p>
+ERROR if we use alias of XEPDB1 : because <b>PHP does not see tnsnames.ora</b> ee ora7 alias of XEPDB1 (plugable DB name) :
+<br /><b>XE (container DB) and XEPDB1 (plugable DB) are visible to DB clients even if tnsnames.ora does not exist.</b>
+</p>
+<dl><dd>
+$DSN = 'oci:dbname=SSPC2:1521/<b>ora7</b>', hr/hr, ERRMODE_EXCEPTION, ATTR_PERSISTENT=true
 
+<br />J:\awww\www\fwphp\glomodul\z_examples\02_info_php_pdo.php, 219 SAYS: SQLSTATE[HY000]: <br />pdo_oci_handle_factory: ORA-12514: TNS:listener does not currently know of service
+<br />requested in connect descriptor (ext\pdo_oci\oci_driver.c:723)
+</dd></dl>
+<p><b>$DSN=<?=$DSN?></b>, $USR=<?=$USR?> $PSW=<?=$PSW?>, ERRMODE_EXCEPTION, ATTR_PERSISTENT=true</p>
+<?php
 
 $conn  = null; // objct variabla db instance
     //$pdo_options[PDO::ATTR_ERRMODE]    = PDO::ERRMODE_EXCEPTION;
@@ -202,14 +196,16 @@ $conn  = null; // objct variabla db instance
       //$conn=new PDOOCI\PDO($DSN, $USR, $PSW, $pdo_options);
       //$conn=new PDO($DSN, $USR, $PSW, $pdo_options);
       $conn=new PDO($DSN, $USR, $PSW);
-      print(__FILE__.', '.__LINE__.' SAYS: <h3>PHP PDO OCI CONNECTED!</h3>');
+      print(__FILE__.', '.__LINE__.' SAYS: <h3>PHP PDO OCI CONNECTED!
+        $conn=new PDO($DSN, $USR, $PSW);
+         </h3>');
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-      $conn->setAttribute(PDO::ATTR_PERSISTENT, true );
+      //$conn->setAttribute(PDO::ATTR_PERSISTENT, true );
     } catch(PDOException $e) {
       //msg_conn_failed();
       //die($e->getMessage());
       print('<h3>'.__FILE__.', '.__LINE__.' SAYS: '.$e->getMessage()).'</h3>';
-      goto phpinfolabel;
+      goto ocilabel ; //phpinfolabel
     }
 
     
@@ -233,94 +229,120 @@ foreach ($attributes as $val) {
 }
     
     
-
-try {
-  $sth = $conn->prepare(
-  //$sth = $this->db->prepare('SELECT '
-  'SELECT
-     hr.employees.*,
-     hr.departments.department_id   AS department_id2,
+     //hr.employees.*,
+$sql = "
+SELECT
      hr.employees.employee_id       AS employee_id1,
+     hr.departments.department_id   AS department_id2,
+     hr.employees.job_id            AS job_id1,
+     hr.employees.manager_id        AS manager_id1,
+
      hr.employees.first_name        AS first_name1,
      hr.employees.last_name         AS last_name1,
-     hr.employees.hire_date         AS hire_date1,
-     hr.employees.job_id            AS job_id1,
-     hr.employees.salary            AS salary1,
-     hr.employees.commission_pct    AS commission_pct1,
-     hr.employees.manager_id        AS manager_id1,
      employees1.first_name          AS manager_first_name,
-     employees1.last_name           AS manager_last_name
- FROM
-     hr.departments left
-     JOIN hr.employees ON hr.departments.department_id = hr.employees.department_id
-     LEFT JOIN hr.employees employees1 ON hr.employees.manager_id = employees1.employee_id
+     employees1.last_name           AS manager_last_name,
+
+     hr.employees.hire_date         AS hire_date1,
+     hr.employees.salary            AS salary1,
+     hr.employees.commission_pct    AS commission_pct1
+ FROM hr.departments
+    left JOIN hr.employees
+      ON hr.departments.department_id = hr.employees.department_id
+    LEFT JOIN hr.employees employees1 
+      ON hr.employees.manager_id = employees1.employee_id
  WHERE  rownum < ?
-    '
-);
-  $sth->execute([2]); //bindvars
+" ;
+try {
+  //$sth = $this->db->prepare('SELECT '
+  $sth = $conn->prepare($sql);
+
+  $sth->execute([2]); //anonymus bindvars
+
   $sth->setFetchMode(PDO::FETCH_OBJ);
   $row = $sth->fetch();
+
+  // V I E W
   echo '<pre>'; print_r($row); echo '</pre>';
     
 } catch( PDOException  $e ) {
      echo '<pre>errrrrr aaaaaaaa'; print_r($e); echo '</pre>';
 }
 
+?>
+<pre>
+PS J:\app\oraclexe\product\18.0.0\dbhomeXE\bin> Sqlplus hr/hr@ora7
+SQL*Plus: Release 18.0.0.0.0 - Production on Sun Sep 6 10:50:21 2020
+Version 18.4.0.0.0  Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+Connected to: Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
+
+SQL> desc employees
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                               NOT NULL NUMBER(6)
+ FIRST_NAME                                         VARCHAR2(20)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ EMAIL                                     NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                       VARCHAR2(20)
+ HIRE_DATE                                 NOT NULL DATE
+ JOB_ID                                    NOT NULL VARCHAR2(10)
+ SALARY                                             NUMBER(8,2)
+ COMMISSION_PCT                                     NUMBER(2,2)
+ MANAGER_ID                                         NUMBER(6)
+ DEPARTMENT_ID                                      NUMBER(4)
+</pre>
+<?php
 
 
 
-
-
-
-
-
+ocilabel:
 
 //require 'xxx.php';
 // ******************************************
-echo "<h1>3. PHP oci_ pconnect</h1>";
+echo "<h1>3. Oracle DB 18c XE PHP oci_ pconnect</h1>";
 // ******************************************
 
-$db = "(DESCRIPTION =
-(ADDRESS = (PROTOCOL = TCP)(HOST = sspc2)(PORT = 1521))
-(CONNECT_DATA =
-  (SERVER = DEDICATED)
-  (SERVICE_NAME = XE)
-)
-)";
-$conn = oci_pconnect('hr'
-, 'hr'
-, $db
-);
+// C O N T R O L L E R
+?>
+      <p>PARAMETER $connstring if FULL form contains xepdb1 = DB SERVICE_NAME.
+      <br />This connect string in tnsnames.ora is named XEPDB1 - same as name of default pluggable DB created during install. Contains users : all sample schemas, APEX apps...
 
-if (!$conn) {
-    $e = oci_error();
-    $e = htmlentities($e['message'], ENT_QUOTES);
-    echo '<br />***** 11111. UNSUCCESSFULL oci_ connect ***** '.$e;
-    //trigger_error($e, E_USER_ERROR);
-} 
+      <p>PARAMETER $connstring if EASY form contains XEPDB1 = name of default pluggable DB created during install
+<pre>
+         DATA FLOW M -> V and M -> C, SIGNALS FLOW C -> M -> V 
+                                                   <----------
+</pre>
+DATA FLOW M -> V is data to present to user.
+<br />DATA FLOW M -> C triggers C code or V events (click link or button...)
+<?php
+
+// M O D E L
+$conn = oci_conn(
+  "
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = sspc2)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = xepdb1)
+    )
+  )
+  "
+
+  , 'Full connect string like in tnsnames.ora') ;
+
+emp_tbl_v($conn) ;
+
+
+$conn = oci_conn(
+    // usr/psw@
+    "sspc2:1521/XEPDB1"
+  , 'Easy connect string') ;
+//$conn_easy = oci_conn_easystring('Easy connect string') ;
+
+emp_tbl_v($conn) ;
 
 
 
-
-//$conn = oci_pconnect('hr', 'hr', 'sspc1/XE'); //, 'UTF8'  AL32UTF8
-$conn = oci_pconnect('hr', 'hr', 'sspc2'); //, 'UTF8'  AL32UTF8
-if (!$conn) {
-    $e = oci_error();
-    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-}
-
-$stid = oci_parse($conn, 'SELECT * FROM employees where rownum < 6');
-oci_execute($stid);
-
-echo "<table border='1'>\n";
-while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
-    echo "<tr>\n";
-    foreach ($row as $item) {
-        echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
-    }
-    echo "</tr>\n";
-}
-echo "</table>\n";
 
 
 
@@ -328,7 +350,106 @@ echo "</table>\n";
 
 
 phpinfolabel:
+echo '<br /><br /><hr />'; include(dirname(dirname(dirname(__DIR__))) .'/zinc/showsource.php');
 //phpinfo();
+// ************************ E N D
+
+
+
+
+function emp_tbl_v($conn = null)
+{
+  // V I E W  F N  DATA FLOW M -> V and M -> C, SIGNALS FLOW C -> M -> V 
+  //                                                         <----------
+  $stid = oci_parse($conn, 'SELECT * FROM employees where rownum < 3');
+
+  oci_execute($stid);
+
+  echo "<table border='1'>\n  ";
+  while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
+      echo "<tr>\n";
+      foreach ($row as $item) {
+          echo "    <td>" 
+            . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") 
+            . "</td>\n";
+      }
+      echo "</tr>\n";
+  }
+  echo "</table>\n";
+
+
+} ;
+
+
+
+
+function oci_conn($connstring, $helptxt)
+{
+
+  $conn = oci_pconnect("hr", "hr", $connstring);
+
+  if (!$conn) {
+      $e = oci_error();
+      $e = htmlentities($e['message'], ENT_QUOTES);
+      echo '<br />***** 11111. UNSUCCESSFULL oci_ connect ***** '.$e;
+      //trigger_error($e, E_USER_ERROR);
+      return null; //goto ocilabel2 ; //phpinfolabel
+  } else { ?>
+
+    <h2>Successful $conn = oci_pconnect("hr", "hr", $connstring);  : <?=$helptxt?></h2>
+      <?='<pre>$connstring='. $connstring .'</pre>'?>
+
+    <?php
+    return $conn ;
+  }
+
+} ;
+
+
+
+
+
+
+function getPDODriverList($p_comma = " , ", $p_display = true){
+  
+ $ARR_DRIVERS = array();
+ $CountDrivers = 0;
+ foreach(PDO::getAvailableDrivers() AS $DRIVERS) :
+       
+     $CountDrivers++;
+     $ARR_DRIVERS[$CountDrivers] = $DRIVERS;
+  
+ endforeach;
+  
+ $_GET_DRIVER_LIST = implode($p_comma, $ARR_DRIVERS);
+  
+ if( $p_display ): echo $_GET_DRIVER_LIST; else : return $_GET_DRIVER_LIST; endif;
+  
+ }
+
+function getServerAddress() {
+if(array_key_exists('SERVER_ADDR', $_SERVER))
+    return $_SERVER['SERVER_ADDR'];
+elseif(array_key_exists('LOCAL_ADDR', $_SERVER))
+    return $_SERVER['LOCAL_ADDR'];
+elseif(array_key_exists('SERVER_NAME', $_SERVER))
+    return gethostbyname($_SERVER['SERVER_NAME']);
+else {
+    // Running CLI
+    if(stristr(PHP_OS, 'WIN')) {
+        return gethostbyname(php_uname("n"));
+    } else {
+        $ifconfig = shell_exec('/sbin/ifconfig eth0');
+        preg_match('/addr:([\d\.]+)/', $ifconfig, $match);
+        return $match[1];
+    }
+  }
+}
+
+
+
+
+
 
 
 /*

@@ -51,3 +51,5 @@
    <hr />This script is <?=__FILE__?>
   <?php  
 //} //e n d  i f  D B G
+
+echo '<br /><br /><hr />'; include(dirname(dirname(dirname(__DIR__))) .'/zinc/showsource.php');
