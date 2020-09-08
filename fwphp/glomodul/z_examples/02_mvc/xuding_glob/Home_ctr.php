@@ -150,7 +150,7 @@ class Home_ctr extends Config_allsites
       <body>
       <main><?php
 
-          include $pp1->wsroot_path . 'fwphp/glomodul/z_help/oop_help/00_OOP01_basics_intro.php';
+          include $pp1->wsroot_path . 'fwphp/glomodul/z_help/php_oop/00_OOP01_basics_intro.php';
           //also works : require $pp1->module_path . 'help.php';
       //require $pp1->wsroot_path . 'zinc/ftr.php';
       

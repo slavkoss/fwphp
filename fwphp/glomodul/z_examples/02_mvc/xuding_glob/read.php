@@ -9,7 +9,8 @@
 //namespace B12phpfw ;
 use B12phpfw\dbadapter\xuding_glob\Tbl_crud ;
 
-use \Parsedown ; //in global namespace (version 1.7.4 stil has no namespace)
+//The use statement with non-compound name 'Parsedown' has no effect
+//use \Parsedown ; //in global namespace (version 1.7.4 stil has no namespace)
 
 //require 'J:\\awww\\www\\vendor\\erusev\\parsedown\\Parsedown.php' ;
 require '../../../../../vendor/erusev/parsedown/Parsedown.php' ;

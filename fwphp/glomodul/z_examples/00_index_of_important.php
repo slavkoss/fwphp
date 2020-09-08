@@ -111,10 +111,13 @@
           
           <dd>
             <a href="01_php_bootstrap/flexmoj/FLEX_minisite2017"
-            title="">Basic site</a>  module code idea (no B12phpfw). It is easy to use Bootstrap 4 instead of FLEX but pages are slower (good exercize).
+            title="">Basic site main menu module code idea (no B12phpfw)</a>. It is easy to use Bootstrap 4 instead of FLEX but pages are slower (good exercize).
 
             <br /><a href="php_patterns/singleton_B12phpfw.php?i/read_post/"
-            title="">Basic CRUD code idea</a> in B12phpfw, ee how to use B12phpfw code for CRUD. In 2 scripts: singleton_B12phpfw.php and Home_ctr.php is everything important but is not easy to learn, same as any framework (but easyer -:) ).
+            title="">Basic B12phpfw CRUD code idea 1</a> : In 2 scripts: Home_ctr.php, singleton_B12phpfw.php. It is not easy to learn, same as any framework (but easyer -:).
+
+            <br /><a href="02_mvc/xuding_glob/index.php"
+            title="">Basic B12phpfw CRUD code idea 2</a> : how to use B12phpfw code for CRUD admins table rows.
 
 
           </dd>
@@ -127,13 +130,13 @@
 
     </div><!-- id="positioner"-->
 
-               <h2>Tests menu</h2>
+               <h2>Tests menu is lsweb module</h2>
 <p>
 
 <!-- http://dev1:8083/fwphp/glomodul 
      J:\awww\www\fwphp\glomodul\z_examples\index.php
 -->
-Using lsweb module browse and run 
+Using <b>lsweb module</b> browse and run any PHP script : 
   <a href="../lsweb/Lsweb.php/?cmd=<?=str_replace('\\','/', __DIR__ )?>">Other examples</a>
 
 </p>

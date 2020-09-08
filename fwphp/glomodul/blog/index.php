@@ -12,7 +12,7 @@ use B12phpfw\core\zinc\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_towsroot = '../../../' ;  //to web server doc root or our doc root by ISP
-$dirup_to_app = str_replace('\\','/', dirname(__DIR__) ) ; //to app dir eg "glomodul" dir and app
+$app_dir_path = str_replace('\\','/', dirname(__DIR__) ) ; //to app dir eg "glomodul" dir and app
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
@@ -26,11 +26,11 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
       //dir of global clses for all sites :
       , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
       //two master modules (tbls) = blocks in Ora. Forms
-      , $dirup_to_app.'/user/'
-      , $dirup_to_app.'/post_category/'
+      , $app_dir_path.'/user/'
+      , $app_dir_path.'/post_category/'
       //detail & subdet modules (tbls) = blocks in Ora. Forms
-      , $dirup_to_app.'/post/'
-      , $dirup_to_app.'/post_comment/'
+      , $app_dir_path.'/post/'
+      , $app_dir_path.'/post_comment/'
   ]
 ] ;
 

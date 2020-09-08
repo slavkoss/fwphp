@@ -68,11 +68,11 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
   public function cc($db, $vv) {
     //  1. c r e  r o w   
     $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-    $flds     = "username,email" ;
-    $qrywhat = "VALUES(:username,:email)" ;
+    $flds     = "username,aname" ;
+    $qrywhat = "VALUES(:username,:name)" ;
     $binds = [
       ['placeh'=>':username', 'valph'=>$vv[0], 'tip'=>'str']
-     ,['placeh'=>':email',    'valph'=>$vv[1], 'tip'=>'str']
+     ,['placeh'=>':name',    'valph'=>$vv[1], 'tip'=>'str']
     ] ;
     $cursor = $db->cc($db, $this->tbl, $flds, $qrywhat, $binds);
 
@@ -94,11 +94,11 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
   // on-update
   public function uu($db, $vv) {
     //  1. u p d  r o w   
-    $flds     = "SET aname=:AName, email=:Aemail, abio=:abio" ;
+    $flds     = "SET aname=:AName, abio=:abio" ; //, email=:Aemail
     $qrywhere = "WHERE id=:AdminId" ;
     $binds = [
       ['placeh'=>':AName',  'valph'=>$vv[0], 'tip'=>'str']
-     ,['placeh'=>':Aemail', 'valph'=>$vv[1], 'tip'=>'str']
+     //,['placeh'=>':Aemail', 'valph'=>$vv[1], 'tip'=>'str']
      ,['placeh'=>':AdminId','valph'=>$vv[2], 'tip'=>'int']
      ,['placeh'=>':abio',   'valph'=>$vv[3], 'tip'=>'str']
     ] ;

@@ -25,12 +25,12 @@ if ( !empty($_POST) )
 {
         // keep track validation errors
         $anameError = null;
-        $emailError = null;
+        $userError = null;
 
         // keep track post values
         $username  = $_POST['username']; //hidden !!
         $aname     = $_POST['aname'];
-        $email     = $_POST['email'];
+        $user     = $_POST['user'];
         $abio      = $_POST['abio'];
 
         // validate input
@@ -40,16 +40,16 @@ if ( !empty($_POST) )
             $valid = false;
         }
 
-        if (empty($email)) {
-            $emailError = 'Please enter Email Address';
+        if (empty($user)) {
+            $userError = 'Please enter user last, first name';
             $valid = false;
-        } else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
+        } /*else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
             $emailError = 'Please enter a valid Email Address';
             $valid = false;
-        }
+        } */
 
         if ($valid) {
-          $fldvals = [$aname, $email, $id, $abio] ;
+          $fldvals = [$aname, $user, $id, $abio] ;
           $Tbl_crud = new Tbl_crud ;
           $Tbl_crud->uu($this, $fldvals);
           //echo "<h3>Updated id=$id </h3>" ;
@@ -61,7 +61,7 @@ if ( !empty($_POST) )
           while ($row = $this->rrnext($cursor)): {$r = $row ;} endwhile;
           $username = $r->username ;
           $aname    = $r->aname ;
-          $email    = $r->email ;
+          $user     = $r->aname ;
           $abio     = $r->abio ;
 }
     ?>
@@ -90,13 +90,13 @@ if ( !empty($_POST) )
               </div>
             </div>
 
-            <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
-              <label class="control-label">Email Address</label>
+            <div class="control-group <?php echo !empty($userError)?'error':'';?>">
+              <label class="control-label">User</label>
               <div class="controls">
-                  <input name="email" type="text" placeholder="Email Address" 
-                         value="<?php echo !empty($email)?$email:'';?>">
-                  <?php if (!empty($emailError)): ?>
-                      <span class="help-inline"><?php echo $emailError;?></span>
+                  <input name="user" type="text" placeholder="User last, first name" 
+                         value="<?php echo !empty($user)?$user:'';?>">
+                  <?php if (!empty($userError)): ?>
+                      <span class="help-inline"><?php echo $userError;?></span>
                   <?php endif;?>
               </div>
             </div>
@@ -106,8 +106,8 @@ if ( !empty($_POST) )
               <div class="controls">
                   <input name="abio" type="text" placeholder="Biography" 
                          value="<?php echo !empty($abio)?$abio:'';?>">
-                  <?php //if (!empty($emailError)): ?>
-                      <span class="help-inline"><?php //echo $emailError;?></span>
+                  <?php //if (!empty($...)): ?>
+                      <span class="help-inline"><?php //echo $...Error;?></span>
                   <?php //endif;?>
               </div>
             </div>

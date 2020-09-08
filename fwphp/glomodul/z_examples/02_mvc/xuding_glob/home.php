@@ -29,7 +29,7 @@ $cursor = $Tbl_crud->rr_all($this);
 <!--             U S E R  T B L  R E A D -->
 <div class="container">
 <div class="row">
-      <h3>USERS TABLE CRUD PDO MySQL/Oracle BOOTSTRAP OOP MVC šđčćž</h3>
+      <h3>ADMINS TABLE CRUD PDO MySQL/Oracle BOOTSTRAP OOP MVC šđčćž</h3>
 </div>
 
 <div class="row">
@@ -39,7 +39,7 @@ $cursor = $Tbl_crud->rr_all($this);
 
   <table class="table table-striped table-bordered">
 
-  <thead><tr><th>Name</th><th>Email Address</th><th>Action</th></tr></thead>
+  <thead><tr><th>User Name (click to update)</th><th>Name</th><th>Action</th></tr></thead>
 
   <tbody>
       <?php
@@ -52,7 +52,7 @@ $cursor = $Tbl_crud->rr_all($this);
 
       <td><a class="btn" href="<?=$pp1->u . $id?>"><?=self::escp($r->username)?></a></td>
 
-      <td><?=self::escp($r->email)?></td>
+      <td><?=self::escp($r->aname)?></td>
 
       <td width=9%>
          <a id="erase_row" class="btn btn-danger"

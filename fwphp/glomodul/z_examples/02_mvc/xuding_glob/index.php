@@ -8,11 +8,11 @@
 * For more code comments see blog module J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
 */
 namespace B12phpfw\xuding_glob ; // because Home_ ctr
-use B12phpfw\core\zinc\Autoload ;
+use B12phpfw\core\zinc\Autoload as Autoload;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_towsroot = '../../../../../' ;  //to web server doc root or our doc root by ISP
-$dirup_to_app = str_replace('\\','/', dirname(__DIR__) ) ; //to app eg glomodul
+$app_dir_path = str_replace('\\','/', dirname(__DIR__) ) ; //to app eg glomodul
 
 $pp1 = (object)
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
@@ -24,8 +24,8 @@ $pp1 = (object)
   , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
         str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
       , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
-      //, $dirup_to_app.'/user/', $dirup_to_app.'/post_category/' //two master modules (tbls)
-      //, $dirup_to_app.'/post/', $dirup_to_app.'/post_comment/'  //detail & subdet modules (tbls)
+      //, $app_dir_path.'/user/', $app_dir_path.'/post_category/' //two master modules (tbls)
+      //, $app_dir_path.'/post/', $app_dir_path.'/post_comment/'  //detail & subdet modules (tbls)
   ] 
 ] ;
 

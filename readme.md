@@ -21,22 +21,24 @@ Notable package does something special, is also frequently innovative.
 
 Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **most probably do not nead B12phpfw** code skeleton, see their code, is simmilar to B12phpfw - few important **adresses tricks** (see them below on op.system and on web), **includes instead http// jump to pages** (this is interesting question).
 
-### To do
+## To do
 Everything important is visible in current version 6.0 code. Some details are** to do** in version 6.1. (They are not needed for learning and own (more) sites developing based on  B12phpfw and many examples in group of modules in learning folder [WEBSERVER_ROOTPATH]\\fwphp\glomodul\\z_examples.)
 
-1. On Linux demo sites newest **core routing-dispatching code** improvements : some PHP statement works different than on Windows, so links do not work in msg module, but work in mnu and mkd modules) .  
-   DONE in wsroot_path\zinc\Config_allsites.php :  
-   //Error on Linux : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
-   //Error on win: $REQUEST_URI = filter_input($_SERVER['REQUEST_URI'], FILTER_SANITIZE_STRING);  
-   $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
+1. On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   **DONE** in wsroot_path\zinc\Config_allsites.php :  
+   Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
+   No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
+   
 2. Difficult parts are not many : 
-   1. PDO CRUD more DBI MySQL, Oracle... - any DB with DB adapter code I have only basic code - working - should be improved.  
+   1. PDO CRUD more DBI MySQL, Oracle... - any DB with DB adapter code. I have only basic code - working - should be improved.  
+
    2. Same for tables : sorting, cols filtering, rows filtering.  
         Grid with updatable fields, I think, is not needed.  
-3. Details like data formats (page fieds should be all characters like in Oracle APEX), computations are easy to find in other learning sources.  
+
+3. Details like data formats (page fieds should be all characters like in Oracle APEX), computations... are easy to find in other learning sources.  
+
 4. No charts - see other learning sources.  
 
-### Adresses on op.system and on web are difficult to understand
+## Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
 
 1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 (dev1 is Apache vitual host).  
@@ -74,6 +76,40 @@ After that to understand how B12phpfw CRUD framework works (eg $db = new Home_ct
 
 Explanations below are far less important than demo site, code download and modules mentioned above.
 Besides explanations below are difficult to understand - after battle philosophy very useful to improve basic ideas (principles).
+
+
+
+<br><br><br>
+Package contains modules (folders) in ownWebServer_or_hosting_DOCROOT_PATH = "/". My DOCROOT_PATHs ('/') are :
+
+1. on Windows my home PC Apache virtual host J:\awww\www for development and J:\xampp\htdocs for testing
+2. on Linux free demo sites for production /phporacle.eu5.net on Freehostingeu and /home/slavkoss/public_html on Heliohost - you can easily make own.
+3. on Oracle Linux on my home PC Virtual Box machine
+
+Each module is in own (functional) folder like Oracle Forms someForm.fmb, Blazor and APEX pages - is best to develop more large sites. Oracle Forms authors knew this 2 dozen years ago.
+
+No M,V,C folders which, seems are mistake, delusion : putting coding technik (M,V,C code separation) in foreground instead pages (each page in own folder = module). M,V,C code separation idea is beter explained good old structured programming idea - M and V code manager = C, processing code may be M = CRUD DB table rows, output code = V. M,V,C code in one script is valid MVC coding ! 
+
+Interesting is that PHP frameworks authors and learning code authors do not even mention **M,V,C folders reflecting code separation in opposition (antithesis) to functional folders - modules reflecting business functions (business logic)**. Is it one sells what one has ee no lies, no sells ? If is, is ugly.
+
+First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH. Modules (functional folders) are :
+
+1. 50 kB "mnu" module, in folder /fwphp/www, is Main Menu code. "fwphp" folder is one site (may be more sites on same folder level). "www" folder is mnu module. Is not based on core CRUD code skeleton (possible, but not need). 
+
+2. 60 kB "mkd" module, in folder /fwphp/glomodul/mkd, to write help pages in Markdown WYSIWYG editor (plus Simplemde code, or may be HTML editor Summernote code or ...), with mkd2html and html2mkd conversion. Is not based on core CRUD code skeleton (possible, but not need).
+
+"fwphp" folder is one site, "glomodul" is group of shared modules reused in other modules, or testing modules or...
+
+3. 90 kB, "core" module in folder /zinc is CRUD code skeleton (I call it B12phpfw) is shared (global) for all sites. "core" module is in folders /zinc 90 kB plus /zinc/themes (bootstrap) 392 kB and /zinc/img 200 kB (my /zinc/img/img_big is 30 MB but is not in this package).
+
+4. 86 kB  "msg" or "blog" module in folder /fwphp/glomodul/**msg** 86 kB. Blog Is based on "core" CRUD code skeleton like every CRUD module should be.
+   Uses   core (**zinc**) shares, two master modules (tbls) = $app_dir_path.'/**user**/'  100 kB and $app_dir_path.'/**post_category**/' 10kB, two detail & subdet modules (tbls)  $app_dir_path.'/**post**/' 50 kB and $app_dir_path.'/**post_comment**/' 15 kB  
+   where app_dir_path is glomodul dir = application dir
+
+5. 3 MB folders - a lot of testing / learning modules. See /fwphp/glomodul/z_examples/00_index_of_important.php
+
+
+
 <br><br><br>
 
 <a name="uml"></a>
@@ -683,7 +719,7 @@ use B12phpfw\core\zinc\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_towsroot = '../../../../../' ;  //to web server doc root or our doc root by ISP
-$dirup_to_app = str_replace('\\','/', dirname(__DIR__) ) ; //to app eg glomodul
+$app_dir_path = str_replace('\\','/', dirname(__DIR__) ) ; //to app eg glomodul
 
 $pp1 = (object)
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
@@ -695,8 +731,8 @@ $pp1 = (object)
   , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
         str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
       , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
-      //, $dirup_to_app.'/user/', $dirup_to_app.'/post_category/' //two master modules (tbls)
-      //, $dirup_to_app.'/post/', $dirup_to_app.'/post_comment/'  //detail & subdet modules (tbls)
+      //, $app_dir_path.'/user/', $app_dir_path.'/post_category/' //two master modules (tbls)
+      //, $app_dir_path.'/post/', $app_dir_path.'/post_comment/'  //detail & subdet modules (tbls)
   ] 
 ] ;
 
