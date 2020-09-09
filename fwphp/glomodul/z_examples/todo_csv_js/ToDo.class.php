@@ -1,44 +1,10 @@
 <?php
-    /* IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+  /*
+  EZAMA contact:leizmo@gmail.com
+  */
 
-     By downloading, copying, installing or using the software you agree to this license.
-     If you do not agree to this license, do not download, install,
-     copy or use the software.
-
-
-            License Agreement
-           For  PHP TODO Tasks Manager package   V 1.0.0
-
-    Copyright (C) 2018, Akpe Aurelle Emmanuel Moïse Zinsou, all rights reserved.
-
-    Redistribution and use in source and binary forms, with or without modification,
-    are permitted provided that the following conditions are met:
-
-      * Redistribution's of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
-
-      * Redistribution's in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
-
-      * The name of the copyright holders may not be used to endorse or promote products
-     derived from this software without specific prior written permission.
-
-    This software is provided by the copyright holders and contributors "as is" and
-    any express or implied warranties, including, but not limited to, the implied
-    warranties of merchantability and fitness for a particular purpose are disclaimed.
-    In no event shall Akpe Aurelle Emmanuel Moïse Zinsou or contributors be liable for
-    any direct, indirect, incidental, special, exemplary, or consequential damages(including,
-    but not limited to, procurement of substitute goods or services;loss of use,  data, or
-    interruption) however caused and on any theory of profits; or business liability,
-    whether  in contract, strict liability, or tort (including negligence or otherwise)
-    arising in any way out of the use of this software, even if advised of the possibility
-    of such damage.
-
-    EZAMA contact:leizmo@gmail.com*/
-
-    class createToDo
-    {
+class createToDo
+{
      protected $headers=false,$data=array();
 
      public function setHeader($array=array()){
@@ -102,14 +68,14 @@
        return $this->data;
      }
 
-    }
+}
 
 
 
 
 
-    class CSV_Data
-    {
+class CSV_Data
+{
 
      protected $cache = array();
      protected $lang;
@@ -225,7 +191,7 @@
       }
       fclose($fp);
      }
-    }
+}
 
 
 
@@ -233,8 +199,8 @@
 
 
 
-    class manageToDo  extends CSV_Data
-    {
+class manageToDo  extends CSV_Data
+{
      protected $headers,$todo,$count_all=false,$count_checked=false,$count_unchecked=false,$get_unchecked,$get_checked;
      public function __construct($file){
       parent::__construct($file);
@@ -394,5 +360,4 @@
       }
 
      }
-    }
-?>
+}

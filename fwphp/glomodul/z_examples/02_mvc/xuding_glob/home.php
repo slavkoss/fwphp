@@ -29,17 +29,17 @@ $cursor = $Tbl_crud->rr_all($this);
 <!--             U S E R  T B L  R E A D -->
 <div class="container">
 <div class="row">
-      <h3>ADMINS TABLE CRUD PDO MySQL/Oracle BOOTSTRAP OOP MVC šđčćž</h3>
+      <h3>Admins table CRUD PDO MySQL or Oracle or... Bootstrap 4 OOP MVC šđčćž</h3>
 </div>
 
 <div class="row">
 
-  <p><a href="<?=$pp1->c?>" class="btn btn-success">Create</a></p>
-  <p><a href="<?=$pp1->h?>" class="btn btn-info">Help DM</a></p>
+  <p><a href="<?=$pp1->c?>" class="btn btn-success">Create</a></p> &nbsp;  &nbsp; 
+  <p><a href="<?=$pp1->h?>" class="btn btn-info">Help DM</a></p> &nbsp;  &nbsp; 
 
   <table class="table table-striped table-bordered">
 
-  <thead><tr><th>User Name (click to update)</th><th>Name</th><th>Action</th></tr></thead>
+  <thead><tr><th>User Name (click to update)</th><th>Name</th><th>Del.ID</th><th>Profile</th></tr></thead>
 
   <tbody>
       <?php
@@ -55,17 +55,17 @@ $cursor = $Tbl_crud->rr_all($this);
       <td><?=self::escp($r->aname)?></td>
 
       <td width=9%>
-         <a id="erase_row" class="btn btn-danger"
+         <a id="erase_row" class="btn btn-danger" title = "Delete row ID=<?=$id?>"
             onclick="
             var vodg ;
             vodg = jsmsgyn('Erase row <?=$id?> ?','') ; // '' means no URL to redirect
             //alert('vodg='+vodg) ; // if OK vodg=1, if CANCEL vodg=0
             if ( vodg == 1 ) { location.href= '<?=$pp1->d . $id?>/'; }
             "
-         >Del <?=$id?></a>
+         > <?=$id?></a>
       </td>
 
-      <td width=5%><a class="btn" href="<?=$pp1->r . $id?>">Profile</a></td>
+      <td width=5%><a class="btn btn-primary" href="<?=$pp1->r . $id?>">Show</a></td>
 
       </tr> <?php
     }

@@ -263,6 +263,23 @@ abstract class Config_allsites extends Db_allsites
     }
 
     // S E C U R I T Y  M E T H O D S
+        // filter input - same as  e s c p ?
+        private function secure_input($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+        protected function secure_form($form)
+        {
+            foreach ($form as $key => $value)
+            {
+                $form[$key] = $this->secure_input($value);
+            }
+        }
+
     //prevent XSS attacks by ESCAPING OUTPUT. XSS = cross-site scripting attack
     // - XSS attacks hacker injects malicious client-side code into output of your page
     static public function escp($string) //ESCAPING OUTPUT

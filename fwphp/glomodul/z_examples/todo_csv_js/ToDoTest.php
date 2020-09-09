@@ -5,36 +5,62 @@
 "first", "24-10-2018", "", "", "2", "", "", "1"
 "first3", "24-10-2018", "", "", "2", "", "", "1"
 "15", "24-10-2018", "mama mia", "", "2", "", "", "1"
+
+
+Note that while specifying yours headers with the methods createToDo::setHeader(),
+the first header will always be taken as index(primary id) and the last header as done/undone case.
+
+Use PHPclasses forum to suggest improvement ,report bug and send feedback
+Or contact me at leizmo@gmail.com. 
 */
 require_once('ToDo.class.php');
-echo '<pre>';
+//echo '<pre>';
 
-/* create a TODO file*/
+// **********************************
+// 1. create TODO file
+// **********************************
 //start your todo file; you can use your own one dimension array here to specify your heders
 $x=new createToDo(); 
 
 $x->setHeader(
   ["name", "date", "description", "accountable", "subprocess of", "todo"]
 );//or add your headers eg   , "start", "check"
+
+echo '<p><b>print_r($x->get_headers())</b></p>';
 echo '<pre>'.'$x->headers='; print_r($x->get_headers()); echo '</pre>';
 
-$x->add(0,["r o w","2018-10-24","","","","1"]);// add a thing to do
-$x->add(1,["r o w2","24-10-2018","","","","1"]);// add a another thing to do
-$x->toggle_rnums(0,1);//$position,$new = change some todo position if necessary
+// add things to do
+$x->add(0,["00001","2018-10-24","c s v  r o w 1 Todo 1","","","1"]);
+$x->add(1,["00002","24-10-2018","c s v  r o w 2 Todo 2","","","0"]);
+
+//$x->toggle_rnums(0,1);//$position,$new = change some todo position if necessary
 
 
 $x->makefile('todo.csv');
 
-$y=new manageToDo('todo.csv');// start you todo file manager
-echo '<pre>'.'1st date: ='; print_r($y->get('date','r o w')); echo '</pre>';
-echo '<pre>'.'1st todo: ='; print_r($y->get('todo','r o w')); echo '</pre>';
 
-echo '<pre>'.'2nd date: ='; print_r($y->get('date','r o w2')); echo '</pre>';
+// **********************************
+// 2. start you todo file manager
+// **********************************
+$y=new manageToDo('todo.csv');
 
+echo '1st description='; print_r($y->get('description','00001')); ;
+echo '<br />'.'date='; print_r($y->get('date','00001')); 
+echo '<br />'.'todo/done='; print_r($y->get('todo','00001')); 
+
+echo '<br /><br />2nd description='; print_r($y->get('description','00002')); ;
+echo '<br />'.'date='; print_r($y->get('date','00002'));
+echo '<br />'.'todo/done='; print_r($y->get('todo','00002')); 
+
+echo '<h3>All c s v  r o w s  print_r($x->get_data())</h3>';
 echo '<pre>'.'$x->data='; print_r($x->get_data()); echo '</pre>';
 
 
 exit(0) ;
+
+
+
+
 
 
 $x->delete(0);//d elete a todo by position  if necessary
