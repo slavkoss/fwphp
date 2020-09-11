@@ -1,11 +1,12 @@
 <?php
 /** 
-* J:\awww\www\fwphp\glomodul\mkd\Mkd.php
-* #cs04. module ctr code
+* J:\awww\www\fwphp\glomodul\mkd\z_Mkd_OOP_NOT_NEEDED.php
+*    ALSO FRAMEWORK IS NOT NEEDED
+*
 */
 namespace B12phpfw ;
 
-class Mkd // or Config_mkd extends Config_allsites or Home_C extends Controller...
+class z_Mkd_OOP_NOT_NEEDED // or Config_mkd extends Config_allsites or Home_C extends Controller...
 {
   public
       $keywords   = 'OOP, MVC, PHP, framework, flatfiles CMS, markdown, HTML'

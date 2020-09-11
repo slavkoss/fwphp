@@ -7,8 +7,9 @@
 * #cs01. means Codeflow Step 1: bootstrap script (2=init, config, routing, 3=dispaching)
 */
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
-//$controller = $dispatch->newController(); //$apl->run explains nothing
 
+//     1. B O O T S T R A P  (c o n f i g,  i n i t) :
+//$controller = $dispatch->newController(); //$apl->run explains nothing
 //$module_towsroot = '../../../' ; //inet provider doc root for us - www or htdocs or...
 
 date_default_timezone_set("Europe/Zagreb"); //Asia/Karachi
@@ -24,10 +25,15 @@ if (strnatcmp(phpversion(),'5.4.0') >= 0) {
                         //if (isset($_SESSION)) {print '<br />$_SESSION='; print_r($_SESSION);  }
                         echo '</pre>';
                         }
-                        //works, but for view scripts we do not need c l a s s e s
-                        //require('Mkd.php');  $mkd  = new Mkd($module_towsroot) ;  //$xxx = new xxx;
-include 'config_module.php';
 
+//    2. C O N T R O L L E R  (M-C-V data flow):
+
+//works, but for view scripts we do not need c l a s s e s
+//require('z_Mkd_OOP_NOT_NEEDED.php');  $mkd  = new z_Mkd_OOP_NOT_NEEDED($module_towsroot) ;  
+//    3. M O D E L :
+include 'model.php';
+
+//    4. V I E W S :
 switch (true) {
 case isset($_GET['edit']):  //$mkd->edit(rtrim($_GET['edit'],'/')); 
   $fle_to_edit_path = rtrim($_GET['edit'],'/') ;
@@ -38,9 +44,7 @@ case isset($_POST['edithid']):  //$mkd->edit(rtrim($_GET['edit'],'/'));
 case isset($_GET['showhtml']): //$mkd->md2htm(rtrim($_GET['showhtml'],'/')); 
   $fle_to_displ_path = rtrim($_GET['showhtml'],'/') ;
   include 'showhtml.php'; break;
-//case isset($_GET['akcija']): echo "\nakcija=" . $_GET['akcija'] ;
-//  $fle_to_edit_path = rtrim($_GET['akcija'],'/') ;
-//  include 'edit.php'; break;
+
 default: $title = 'Dirs&txts to mkd edit'; include('home.php'); break; //list of  mkd or txt files
 } // e n d  s w i t c h    //header("location:f rm.php");
 

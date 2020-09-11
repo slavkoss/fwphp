@@ -14,7 +14,6 @@ $modulename              = 'MKD' ;
 $dir                     = __DIR__ ;
 
     $data[] = '';
-    $dir = __DIR__ ;
 
     $wsroot_path = str_replace('\\','/', realpath($module_towsroot)).'/' ; 
     $modul_rel_path = rtrim(ltrim(str_replace('\\','/', __DIR__ .'/'), $wsroot_path),'/') ;
@@ -50,8 +49,10 @@ $dir                     = __DIR__ ;
            new \RecursiveDirectoryIterator($dir)
          , \RecursiveIteratorIterator::SELF_FIRST
       );
+
       $data[] .= '<ol>';
       $dirname_prev = '';
+
       foreach($objects as $name => $object)
       {
         $md_fle_path = 
@@ -70,14 +71,13 @@ $dir                     = __DIR__ ;
             if ($dirname_prev == $dirname) {$data[] .= '<br />';} 
             else {
               $dirname_prev = $dirname ;
-              $data[] .= '<br /><li></b>'.$dirname.'</b><br />';
+              $data[] .= '<br /><br /><li></b>'.$dirname.'</b><br />';
             }
           }
 
           $flename = basename($md_fle_path);
 
-          //also works $module_ url.
-          $fle_edit_url = '?edit='.$md_fle_path ;
+          $fle_edit_url = '?edit='.$md_fle_path ;  //also works $module_ url
           $md_fle_url = $md_fle_url = '?showhtml='.$md_fle_path ; //see md2htm()
 
           $data[] .= 
@@ -88,6 +88,7 @@ $dir                     = __DIR__ ;
 
         }              //echo '<pre>'.'$object='; print_r($object); echo '</pre>';
       }
+
       $data[] .= '</li></ol>';  //echo in View
                         if ('0') { 
                         //if ($module_arr['dbg'] and !$module_arr['style']) { 

@@ -654,7 +654,8 @@ Caution:
 When you deinstall Oracle Database XE, all components, including data files, the database, and the software, are removed. Because the deinstallation process removes all files from the directory in which Oracle Database XE is installed, back up any files from the directory (if needed) before you deinstall. The database will no longer be operational after deinstallation. You can deinstall Oracle Database XE using one of the following methods:
 1. Deinstalling Using User Interface
 2. Deinstalling Using Silent Mode
-3. 11.1 Deinstalling Using User Interface
+
+### Deinstalling Using User Interface
 
 Use Add or Remove Programs to deinstall Oracle Database XE:
 1. In the Windows Control Panel, select Add or Remove Programs.
@@ -846,179 +847,6 @@ prompt
 prompt
  ```
  
- 
-
- 
- 
- 
- <br /><br /><br />
- # Exp / Imp Data between DB XE 11.2 and XE 18c
- ## Exp / Imp Data for non-APEX Users
-APEX was not used in your 11.2 XE database.
-### Exporting Data
-1. To export data** from your 11.2 XE** DB, perform the following steps:
-   1. Create a directory **dump_folder** on local file system for the  **DUMP_DIR directory object**
-   2. Connect to 11.2 XE DB as user  SYS  using  SYSDBA  privilege
-   3. Create directory object  DUMP_DIR  and grant  READ  and  WRITE  privileges on DUMP_DIR  directory to SYSTEM  user
-   ```
-   sqlplus / AS SYSDBA
-   CREATE DIRECTORY DUMP_DIR AS 'C:\temp\dump';
-   GRANT READ, WRITE ON DIRECTORY DUMP_DIR TO SYSTEM;
-   ```
-   4. To create a  dump  folder, run following command from Windows command prompt:  
-   `mkdir C:\temp\dump`
-   5. Export data from your 11.2 XE database to dump folder  
-   ```
-  expdp system/system_password full=Y EXCLUDE=SCHEMA:\"LIKE \'APEX_%\'\",SCHEMA:\"LIKE \'FLOWS_%\'\" directory=DUMP_DIR dumpfile=DB11G.dmp logfile=expdpDB11G.log
-  ```
-2. Deinstall Oracle Database XE 11.2 if installation of 18c XE is planned on the same system. See Deinstalling DB XE Software in DB XE Installation Guide 11g Release 2 (11.2) for  Microsoft Windows.
-3. Install Oracle Database XE 18c.
- 
-### Importing Data 
-1. To import data in your 18c XE database, perform the following steps:
-   1. Connect to the 18c XE database as user  SYS  using the  SYSDBA  privilege.
-   2. Create directory object  DUMP_DIR  and grant  READ  and  WRITE  privileges on the directory to the  SYSTEM  user.
-   ```
-   sqlplus / AS SYSDBA
-   ALTER SESSION SET CONTAINER=XEPDB1;
-   CREATE DIRECTORY DUMP_DIR AS '\dump_folder';
-   GRANT READ, WRITE ON DIRECTORY DUMP_DIR TO SYSTEM;
-   ```
-   3. Import data to the 18c XE database from the dump folder. 
-   ```
-   impdp system/system_password@localhost:listnerport/xepdb1 full=Y EXCLUDE=SCHEMA:\"LIKE \'APEX_%\'\",SCHEMA:\"LIKE \'FLOWS_%\'\"  directory=DUMP_DIR  dumpfile=DB11G.dmp logfile=impdpDB11G.log  
-   ```
-   You can ignore the following errors:
-   1. ORA-39083: Object type TABLESPACE:"SYSAUX" failed to create with error
-   2. ORA-31685: Object type USER:"SYS" failed due to insufficient privileges
-   3. ORA-39083: Object type PROCACT_SYSTEM failed to create with error
-   4. ORA-01917: user or role 'APEX_040000' does not exist
-   5. ORA-31684 "already exists" errors
-
-
- 
- 
-## Import data to 18c XE database from dump folder
- sqlplus / AS SYSDBA  
-ALTER SESSION SET CONTAINER=XEPDB1;  
-CREATE DIRECTORY DUMP_DIR AS '\dump_folder';  
-GRANT READ, WRITE ON DIRECTORY DUMP_DIR TO SYSTEM;  
-
-impdp system/system_password@localhost:listnerport/xepdb1 full=Y EXCLUDE=SCHEMA:\"LIKE \'APEX_%\'\",SCHEMA:\"LIKE \'FLOWS_%\'\" directory=DUMP_DIR dumpfile=DB11G.dmp logfile=impdpDB11G.log  
-
-
-
-
-
-Migrating Data and Applications
-You can migrate data and applications in and out of your XE database using various
-methods.
-You can export tables and data from one XE installation and import them into another.
-Oracle recommends you use 11g Release 2 and higher to export your data.
-Migrating from Oracle Database XE 18c to Oracle Database Enterprise Edition 18c is
-supported via the unplug, plug scenario only. You can unplug a PDB from XE 18c
-database and plug it into another Enterpise Edition 18c database of the same release.
-Migrating from Oracle Database XE 18c to any of the other Oracle Database 18c
-offerings is not supported.
-Upgrade from Oracle Database XE 11.2 to Oracle Database XE 18c is not supported.
-Procedure to Unplug a PDB from 18c XE and Plug into 18c EE
-A Pluggable Database (PDB) created in Oracle Database XE 18c can be migrated to
-another Multitenant Container Database (CDB) Enterprise Edition (EE) 18c.
-The standard plug compatibility requirements apply. See Oracle Multitenant
-Administrator’s Guide for more information about general prerequisites for PDB
-creation.
-For example, you want to unplug your xepdb1 out of the XE 18c XE CDB and plug it in
-another 18c EE CDB.
-• Use SQL*Plus to close the PDBs before they can be unplugged.
-Note:
-The pdb database may not have been opened, so you may receive an
-error that the PDB is already closed.
-sqlplus / as sysdba
-ALTER PLUGGABLE DATABASE xepdb1 CLOSE IMMEDIATE;
-• Unplug the closed PDB and specify the path and name of the XML file.
-ALTER PLUGGABLE DATABASE xepdb1 UNPLUG INTO '\tmp\xepdb1.xml';
-• Drop the closed PDB and keep the data files.
-DROP PLUGGABLE DATABASE xepdb1 KEEP DATAFILES;
-• Log in to your EE environment. The xepdb1 metadata file should be available from
-that system.
-• Run the DBMS_PDB.CHECK_PLUG_COMPATIBILITY function to determine
-whether the unplugged PDB is compatible with the CDB.
-SET SERVEROUTPUT ON
-DECLARE
-  compatible CONSTANT VARCHAR2(3) := 
-    CASE DBMS_PDB.CHECK_PLUG_COMPATIBILITY(
-           pdb_descr_file => '\tmp\xepdb1.xml',
-           pdb_name       => 'XEPDB1')
-    WHEN TRUE THEN 'YES'
-    ELSE 'NO'
-END;
-BEGIN
-  DBMS_OUTPUT.PUT_LINE(compatible);
-END;
-/
-• If the PDB is compatible with the CDB, you can plug xepdb1 into the 18c EE
-database.
-Use the data files of the unplugged PDB to plug the PDB into another CDB without
-any copy.
-CREATE PLUGGABLE DATABASE newxepdb USING '\tmp\xepdb1.xml' NOCOPY TEMPFILE REUSE;
-• Verify the status and open mode of the plugged PDB.
-SELECT pdb_name, STATUS FROM cdb_pdbs WHERE pdb_name='NEWXEPDB';
-SELECT OPEN_MODE FROM V$PDBS WHERE NAME='NEWXEPDB';
-• If the PDB is in  MOUNTED  state, then open the PDB.
-ALTER PLUGGABLE DATABASE newxepdb OPEN;
-• This example assumes:
-– The XML file accurately describes the current locations of the files. Therefore,
-the SOURCE_FILE_NAME_CONVERT clause
-or SOURCE_FILE_DIRECTORY clause is not required.
-– The files are in the correct location. Therefore, NOCOPY is included.
-– Storage limits are not required for the PDB. Therefore, the STORAGE clause
-is not required.
-– A file with the same name as the temp file specified in the XML file exists in
-the target location. Therefore, the TEMPFILE REUSE clause is required.
-• Run catalog, catproc and utrlp on the plugged in NEWXEPDB.
-sqlplus / as sysdba
-SQL> SHOW PDBS;
-CON_ID CON_NAME         OPEN MODE  RESTRICTED
------- ---------------- ---------- ----------        
-2      PDB$SEED         READ ONLY  NO         
-3      ORCLPDB          READ WRITE NO         
-4      NEWXEPDB         READ WRITE YES
-SQL> ALTER SESSION SET CONTAINER=newxepdb;
-SQL> SPOOL catalog.log
-SQL> @%ORACLE_HOME%\rdbms\admin\catalog
-SQL> SPOOL OFF;
-SQL> SPOOL catproc.log
-SQL> @%ORACLE_HOME%\rdbms\admin\catproc
-SQL> SPOOL OFF;
-SQL> SPOOL utlrp.log
-SQL> @%ORACLE_HOME%\rdbms\admin\utlrp
-SQL> SPOOL OFF;
-SELECT COMP_NAME, STATUS, VERSION FROM DBA_REGISTRY;
-COMP_NAME                           STATUS       VERSION
------------------------------------ ------------ ------------
-Oracle Database Catalog Views       VALID        18.0.0.0.0
-Oracle Database Packages and Types  VALID        18.0.0.0.0
-Oracle Real Application Clusters    OPTION OFF   18.0.0.0.0
-JServer JAVA Virtual Machine        VALID        18.0.0.0.0
-Oracle XDK                          VALID        18.0.0.0.0
-Oracle Database Java Packages       VALID        18.0.0.0.0
-OLAP Analytic Workspace             VALID        18.0.0.0.0
-Oracle XML Database                 VALID        18.0.0.0.0
-Oracle Workspace Manager            VALID        18.0.0.0.0
-Oracle Text                         VALID        18.0.0.0.0
-Oracle Multimedia                   VALID        18.0.0.0.0
-Spatial                             VALID        18.0.0.0.0
-Oracle OLAP API                     VALID        18.0.0.0.0
-Oracle Label Security               VALID        18.0.0.0.0
-Oracle Database Vault               VALID        18.0.0.0.0
-SQL> SELECT OWNER, OBJECT_NAME FROM DBA_INVALID_OBJECTS WHERE STATUS = 'INVALID';
-no rows selected
-Note:
-• See Plugging an Unplugged Pluggable Database for more information
-about plugging in an unplugged pluggable database.
-• See Oracle Multitenant Administrator’s Guide for more information about
-plugging in an unplugged PDB.
-
 
 
 
@@ -1175,6 +1003,14 @@ To call the above export PAR file :
 <br /><br /><br /><a name="instapex"></a>
 ## 2. INST / DEINST apex_20.1_en.zip ON DB 18c
 [Top](#top).....[Instalac 18c XE](#inst18cxe).....**Instalac APEX 20.1**.....[Conv. F6i to APEX (Devsuite10g on WinXP)](#f6i_to_apex)
+
+ Requires  release 20.1 requires an Oracle Database release 11.2.0.4,   Oracle REST Data Services (ORDS) 19.x or later.  
+ **NOT ON** : Win 10 64 bit Oracle DB 11g XE Release 11.2.0.2.0 - 64bit Production !!!  
+ 
+ apex_20.1_en.zip from http://www.oracle.com/technetwork/developer-tools/apex/downloads/index.html
+ 
+ 
+
 ### tnsping xepdb1    or xe
 ```
 PS J:\app\oraclexe\product\18.0.0\dbhomeXE\bin> tnsping xe
@@ -1203,13 +1039,9 @@ BY VINISH KAPOOR ON APRIL 26, 2020 :
 
 https://matthiashoys.wordpress.com/2019/12/12/installation-of-apex-19-2-on-oracle-18c-xe-express-edition/  
 
-
-1. **apex_20.1_en.zip**, **NOT ON** : Win 10 64 bit Oracle DB 11g XE Release 11.2.0.2.0 - 64bit Production !!!  
-   from https://www.oracle.com/technetwork/developer-tools/apex/downloads/index.html
+1. `Run all Apex 20.1 installation scripts from J:\apex_instl\apex (F:\software\apex19\apex) `
    
-2. `Run all Apex 20.1 installation scripts from J:\apex_instl\apex (F:\software\apex19\apex) `
-   
-3. `cd J:\apex_instl\apex`
+2. `cd J:\apex_instl\apex`
 
 4. sqlplus / as sysdba     or sqlplus sys/syspsw@xe as sysdba  
    @apexins.sql SYSAUX SYSAUX TEMP /i/  
@@ -1262,7 +1094,103 @@ https://matthiashoys.wordpress.com/2019/12/12/installation-of-apex-19-2-on-oracl
 
 **http://localhost:8181/apex/apex_admin**  
 
-SELECT * FROM ALL_USERS WHERE USERNAME LIKE 'APEX%'
+set linesize 200  
+COLUMN USERNAME HEADING USERNAME FORMAT A40  
+COLUMN USER_ID HEADING USER_ID FORMAT A20  
+COLUMN DEFAULT_COLLATION HEADING DEFAULT_COLLATION FORMAT A20  
+SELECT * FROM ALL_USERS WHERE USERNAME LIKE 'APEX%';  
+```
+USERNAME                                    USER_ID CREATED   COM O INH DEFAULT_COLLATION    IMP ALL
+---------------------------------------- ---------- --------- --- - --- -------------------- --- ---
+APEX_200100                              ########## 07-SEP-20 YES Y NO  USING_NLS_COMP       NO  NO
+APEX_INSTANCE_ADMIN_USER                 ########## 07-SEP-20 YES Y NO  USING_NLS_COMP       NO  NO
+APEX_PUBLIC_USER                         ########## 07-SEP-20 YES Y NO  USING_NLS_COMP       NO  NO
+```
+
+When Oracle Application Express installs, it creates three new database accounts:
+1. APEX_180100 - The account that owns the Oracle Application Express schema and metadata.
+2. FLOWS_FILES - The account that owns the Oracle Application Express uploaded files.
+3. APEX_PUBLIC_USER - The minimally privileged account is used for Oracle Application Express configuration with Oracle REST Data Services or Oracle HTTP Server and mod_plsql.
+
+If you configured RESTful Web services, then these additional accounts will be created:
+1. APEX_REST_PUBLIC_USER - The account used when invoking RESTful Services definitions stored in Oracle Application Express.
+2. APEX_LISTENER - The account used to query RESTful Services definitions stored in Oracle Application Express.
+
+
+
+
+### DB 18c REST quick start
+### Step 1: Install cURL that supports SSL
+
+The examples used in this document use the cURL command-line tool to demonstrate how to access the Oracle Database REST API. To connect securely to the REST server, you must install a version of cURL that supports SSL. CURL is a command-line tool and library for** transferring data with URLs**. 
+
+https://www.thewindowsclub.com/how-to-install-curl-on-windows-10  
+curl --help shows Win 10 Curl : 2020.09.19 curl-7.72.0_4-win64-mingw.zip
+```
+C:\WINDOWS\system32>curl --version
+curl 7.55.1 (Windows) libcurl/7.55.1 WinSSL
+Release-Date: 2017-11-14, security patched: 2019-11-05
+```
+
+```
+"J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Cmder_sps\vendor\git-for-windows\mingw64\bin\curl.exe" --version --version
+curl 7.71.1 (x86_64-w64-mingw32) libcurl/7.71.1 OpenSSL/1.1.1g (Schannel) zlib/1.2.11 brotli/1.0.7 libidn2/2.3.0 libssh2/1.9.0 nghttp2/1.41.0
+Release-Date: 2020-07-01
+```
+
+or :  
+Git for Windows will install CURL along with it. Add it to your Windows path, and you will be able to execute it from anywhere. Press start button, and type "system var".
+
+or :  
+To install cURL on your system:  
+
+In your browser, navigate to the cURL home page at **https://curl.haxx.se/windows/**  -> curl for 64 bit  
+https://curl.haxx.se/windows/dl-7.72.0_4/curl-7.72.0_4-win64-mingw.zip, built and statically linked with :
+1. **OpenSSL 1.1.1g **[64bit/32bit]
+2. brotli 1.0.9 [64bit/32bit]
+3. libssh2 1.9.0 [64bit/32bit]
+4. nghttp2 1.41.0 [64bit/32bit]
+5. zlib 1.2.11 [64bit/32bit]
+6. zstd 1.4.5 [64bit/32bit]
+
+When running cURL from a Windows command shell only, you must provide an **SSL certificate authority (CA) file** or bundle **to authenticate against the Verisign CS certificate**.
+
+Navigate to the cURL CA Extract page at http://curl.haxx.se/docs/caextract.html and download the **cacert.pem SSL CA certificate file in the folder where you installed cURL**.
+
+Open a command window, navigate to directory where you installed cURL, and set the cURL environment variable, CURL_CA_BUNDLE, to the location of the SSL CA certificate file. For example, on a Windows system you would enter:
+
+C:\curl> set CURL_CA_BUNDLE=cacert.pem
+
+You are now ready to send REST requests to the Database REST API instance using cURL. See Authentication, and Use cURL.
+```
+J:\symenu\z_aplpsy\curl\bin
+```
+
+
+
+
+To be able to create workspace in PDB you need configure "Oracle REST Data services" **for each PDB you want to use**.
+
+Based on "**Oracle REST data Services Installation and Configuration Guide** (E25066-10)" chapter 2.1 "Configuring Multiple Databases" you should:
+issue commands from your apex 4.2.x directory:
+
+java -jar ords.war setup --database <database_name>
+
+Note: For <database_name> provide PDB service_name or SID, not CDB!
+
+java -jar ords.war map-url --type base-patch --workspace-id <workspace_name> <path_prefix> <database_name>
+
+Make sure you restart "Oracle REST Data Services".
+
+Access Apex Administration Services - please use newly configured link:
+
+http://<host_name>/ords/<workspace_name>/apex_admin
+
+Enter credentials you used previously during "Configuring Multiple Databases" for PDB apex access. Make note that <workspace_name> is just alias, the workspace does not exists yet, but after login you are allowed to create workspace(s) in PDB finally. Additional workspaces in the same PDB can be accessed via link displayed above, so you need configure "Oracle RESTData Listener" for each PDB just once ideally.
+
+This worked for me, hopefully it works for you too.
+
+
 
 APEX data is stored in pluggable database, while default connection in SQL Plus is to root container cdb$root.
 

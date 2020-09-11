@@ -1,12 +1,14 @@
 <?php
 // J:\awww\www\fwphp\glomodul\mkd\home.php
+
 //      L I S T  OF D I R S & T X T S  TO  M K D  E D I T
+
                         if(''){ echo '<h2>' .'lin='. __LINE__ .' *** '.__FILE__ .' SAYS *** šđčćž</h2>';
                         //echo '<br />'.'$ctr_ ordno='.$ctr_ ordno .'=...' ;
                         if (isset($_GET)) {print '<br />$_GET='; echo '<pre>'; print_r($_GET); echo '</pre>';
                         } echo '<br />'; }
       /**
-      *           D I S P L A Y  T O P  L I N K S
+      *      1. D I S P L A Y  T O P  L I N K S  (none here)
       */
 ?>
 <!DOCTYPE html>
@@ -22,11 +24,18 @@
 
 
 <body>
-<main><!--2.  m a i n  - container for a r t i c l e  &  a s i d e -->
 
-  <article><!-- m a i n . a r t i c l e -->
+<!--
+      2.  m a i n  - container for a r t i c l e  &  a s i d e
+-->
+<main>
+
+  <!-- 
+      2.1 m a i n . a r t i c l e
+  -->
+  <article>
     <div>
-      You can edit any txt using URL like this: ...?edit=J:\awww\www\fwphp\glomodul\adrs\README.md/
+      You can edit any txt using URL query like this: ...?edit=J:\awww\www\fwphp\glomodul\adrs\README.md/
       <br /><a href="<?=$readme_edit_path?>" 
          title="<?=$readme_edit_path?> = SimpleMDE edit">
       Edit readme.md</a>
@@ -46,7 +55,10 @@
   </article><!-- e n d  m a i n . a r t i c l e -->
 
 
-  <aside><!-- m a i n . a s i d e  right column for links -->
+  <!-- 
+       2.2 m a i n . a s i d e  right column for links
+  -->
+  <aside>
       Side mnu important links (modules)
       <p>This page - Rich text edit on web</p>
       <p><a href="/<?=$modulglo_rel_path?>mkd/" target="_blank">

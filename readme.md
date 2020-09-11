@@ -40,6 +40,8 @@ Everything important is visible in current version 6.0 code. Some details are** 
 
 4. No charts - see other learning sources.  
 
+5. More security.
+
 ## Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
 
