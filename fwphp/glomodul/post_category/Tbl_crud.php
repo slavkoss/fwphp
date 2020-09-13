@@ -1,6 +1,7 @@
 <?php
 /**
 *  J:\awww\www\fwphp\glomodul\post_category\Tbl_crud.php
+*         (PRE) CRUD class - DAO (Data Access Object) or data mapper
 */
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)

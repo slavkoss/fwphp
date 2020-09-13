@@ -1415,99 +1415,164 @@ See http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_config_ssl_tls/ftp.txt
 <br /><br />
 <a name="ora11g"></a>
 [Top](#top) | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)  | [Deploy](#deploy) | [Lin. site access](#linsite) | **[Ora 11g](#ora11g)**
-## 8\. Install Ora 11g XE 
+# 8\. Install Ora 11g XE, ver. 11.2.0.2.0
+**on Ora Linux 64 bit**  
+See  [mikesmithers](https://mikesmithers.wordpress.com/2015/03/01/installing-oracle-xe-on-centos/)    
+>cd $HOME/Downloads   or cd ~/Downloads
+
+[root@oralin76 ora11gxe]# **mkdir ora11gxe**  
+cd ora11gxe  
+ls -alF  
+
+**cp //media/sf_JWIN/a_instl/oralinux/oracle-xe-11.2.0-1.0.x86_64.rpm.zip .**  
+**chmod 776 oracle-xe-11.2.0-1.0.x86_64.rpm.zip**  
+```
+done :   -rwxr-x---. to -rwxrwxrw-.
+```
+**unzip oracle-xe-11.2.0-1.0.x86\_64.rpm.zip**  
+```
+Archive:  oracle-xe-11.2.0-1.0.x86_64.rpm.zip
+   creating: Disk1/                      - here are .rmm and 2 dirs
+   creating: Disk1/upgrade/
+  inflating: Disk1/upgrade/gen_inst.sql  
+   creating: Disk1/response/
+  inflating: Disk1/response/xe.rsp   
+  inflating: Disk1/oracle-xe-11.2.0-1.0.x86_64.rpm
+```
+cd Disk1
+
+### rpm -ivh oracle-xe-11.2.0-1.0.x86\_64.rpm  
+Preparing... /var/tmp/rpm-tmp.rBXMH8: line 257: [: 18446744073692774399: integer expression expected  
+/var/tmp/rpm-tmp.rBXMH8: line 271: [: 18446744073692774399: integer expression expected  
+Updating / installing...   1:oracle-xe-11.2.0-1.0  
+Executing post-install steps... You must run '/etc/init.d/oracle-xe configure' as the root user to configure the database.  
+
+### /etc/init.d/oracle-xe configure  
+This will configure on-boot properties of 11g XE. The following questions will determine whether  DB should be starting upon system boot,  ports it will use,  passwords that will be used for DB accounts.  
+Press ENTER to accept the defaults. Ctrl-C will abort.  
+Specify the HTTP port that will be used for Oracle Application Express \[8080\]:**8085**  
+Specify a port that will be used for the database listener \[**1521**\]:  
+Specify a password to be used for database accounts - same password will be used for SYS and SYSTEM. Oracle recommends the use of different passwords for each database account. This can be done after  initial configuration:  
+Do you want Oracle Database 11g Express Edition to be started on boot (y/n) \[y\]:**y**  
+Starting Oracle Net Listener...Done      Configuring database...Done     Starting Oracle Database 11g Express Edition instance...Done  
+**Installation completed successfully.**  
+
+We need to **re-boot Linux** so that Linux menu items in App -> Other are visible. 
+
+NOTE : from this point on **you can stop being root** (although you may need to sudo occasionally).
+
+To confirm that your database is up and running :  
+conn system/pwd  
+select sysdate from dual  
+/  
+
+
+
+
+
+### Setting (sorting out) DB XE Environment Variables  
+Log on with root permissions is not needed.  
+do not exit (from root user)  
+DB XE provides a script that sets environment variables :  
+**cd /u01/app/oracle/product/11.2.0/xe/bin**  
+[ora@oralin76 bin]$ cat /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh  
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe  
+export ORACLE_SID=XE  
+export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`  
+export PATH=$ORACLE_HOME/bin:$PATH  
+   
+No need : `gedit ./oracle_env.sh`
+
+sudo gedit /u01/app/oracle/product/11.2.0/xe/bin/nls_lang.sh  
+`At end : NLS_LANG=${nlslang}.${charset} should be :  NLS_LANG="${nlslang}.${charset}"`  
+
+**. ./oracle_env.sh**
+```
+echo $ORACLE_HOME
+echo $ORACLE_SID
+echo $NLS_LANG
+echo $PATH
+
+[ora@oralin76 bin]$ echo $ORACLE_HOME
+/u01/app/oracle/product/11.2.0/xe
+
+[ora@oralin76 bin]$ echo $ORACLE_SID
+XE
+
+[ora@oralin76 bin]$ echo $NLS_LANG
+AMERICAN_AMERICA.AL32UTF8
+
+[ora@oralin76 bin]$ echo $PATH
+/u01/app/oracle/product/11.2.0/xe/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/var/lib/snapd/snap/bin:/home/ora/.local/bin:/home/ora/bin
+```
+
+Oracle bin directory is now at the start of $PATH.
+
+We need to ensure that these **environment variables are set for all sessions** :  
+sudo cp /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh /etc/profile.d/  
+
+To check this, you can start a new terminal session and echo the environment variables to make sure they have been set.  
+
+Getting the Menu Items to Work - make sure that the oracle user, as well as your own user, is a member of the dba group :  
+sudo usermod -a -G dba oracle  
+sudo usermod -a -G dba ss  
+
+sudo grep dba /etc/group  
+dba:x:1001:oracle  
+
+### Enabling "Getting Started" Desktop Icon to open the DB Home Page of APEX app
+**Right-click icon and select Properties**.  
+In the Permissions Tab check the box to "Allow executing file as program".  
+
+Icon has transformed into Oracle beehive and is now called "Get Started With 11g XE".
+
+Installation on Red Hat system is reasonably painless when compared with doing the same thing on a Debian system.
+
+
+
+run it :  
+`./oracle/env.sh`  
+
+cd /etc/skel  
+ls -la | grep .bash\_profile  
+Edit login or profile files so that these environment variables are set each time you log in or open a new shell :  
+`gedit .bash\profile`  
+enter the following line at end ` /etc/skel/.bash\profile` :  
+` /u01/app/oracle/product/11.2.0/xe/bin/oracle\_env.sh`  
+
+Starting Oracle Database XE  
+To start the database manually, run this command as root user:  
+** /etc/init.d/oracle-xe start**      or    **/etc/init.d/oracle-xe stop  
+or :  
+**After you have installed Oracle Database XE, DB is up and running and you can start it if it is currently stopped:  
+      Main menu (on Gnome)->Oracle Database 11g Express Edition  
+      or  Applications->Other menu (on KDE),  
+      and then click Start Database or Run SQL Command Line or...  
+
+Connect to the database using the user name SYSTEM, and supply the password that you created during configuration.  
+ conn sys/ss141 as SYSDBA   (system can not)  
+
+  
+[](https://linuxconfig.org/apache-webserver-httpd-service-installation-on-redhat-7-linux)
+
+
+
+
+
+<br /><br />
 On ssoralin73@oralin73 Ora Linux 7.3 64 bit
 
 1-- \[ssoralin73@oralin73 ~\]$  
 su -  
-links             = browser  
+**links**             = browser  
 ctrl+shift+t    = new tab terminal  
 su -  
-mc  (Midnight commander)  
+**mc**  (Midnight commander)  
 in ms's left pane:      cd **/media/****sf\_2\_oralinux/  
 **in ms's right pane:    cd **/home/ssoralin73  
 F5 (copy)   oracle-xe-11.2.0-1.0.x86\_64.rpm.zip left -> right  
 **
 
-new tab terminal  
-su -  
-cd **/home/ssoralin73**  
-chmod 776 oracle-xe-11.2.0-1.0.x86\_64.rpm.zip  
-unzip oracle-xe-11.2.0-1.0.x86\_64.rpm.zip  
-
-creating: Disk1/  
-creating: Disk1/upgrade/  
-inflating: Disk1/upgrade/gen\_inst.sql   
-creating: Disk1/response/  
-inflating: Disk1/response/xe.rsp    
-inflating: Disk1/oracle-xe-11.2.0-1.0.x86\_64.rpm   
-
-2-- su -  
-     cd **/home/ssoralin73/**Disk1  
- 1\. rpm -ivh oracle-xe-11.2.0-1.0.x86\_64.rpm  
-You must run '/etc/init.d/oracle-xe configure' as the root user to configure the database.
-
-3--   2\. /etc/init.d/oracle-xe configure  
-This will configure on-boot properties of Oracle Database 11g Express  
-Edition. The following questions will determine whether  
-database should be starting upon system boot,  
-ports it will use,  
-passwords that will be used for database accounts.  
-Press ENTER to accept the defaults. Ctrl-C will abort.  
-Specify the HTTP port that will be used for Oracle Application Express \[8080\]:8085  
-Specify a port that will be used for the database listener \[1521\]:  
-Specify a password to be used for database accounts. Note that the same  
-password will be used for SYS and SYSTEM. Oracle recommends the use of different passwords for each database account. This can be done after  
-initial configuration:  
-Confirm the password:  
-Do you want Oracle Database 11g Express Edition to be started on boot (y/n) \[y\]:n  
-Starting Oracle Net Listener...Done  
-Configuring database...Done  
-Starting Oracle Database 11g Express Edition instance...Done  
-Installation completed successfully.
-
-4-- Setting the Oracle Database XE Environment Variables  
-Log on with root permissions is not needed.  
-do not exit (from root user)  
-DB XE provides a script that sets environment variables :  
-**cd /u01/app/oracle/product/11.2.0/xe/bin**  
-**gedit ./oracle\_env.sh**
-
-Noting to change hear:  
-\# **/u01/app/oracle/product/11.2.0/xe/bin**/**oracle\_env.sh**  
-export ORACLE\_HOME=/u01/app/oracle/product/11.2.0/xe/bin  
-               without /bin at end !!  
-export ORACLE\_SID=XE  
-export NLS\_LANG=\`$ORACLE\_HOME/bin/nls\_lang.sh\`  
-export PATH=$ORACLE\_HOME/bin/$PATH
-
-see for NLS\_LANG :  
-[https://mikesmithers.wordpress.com/2015/03/01/installing-oracle-xe-on-centos/](https://mikesmithers.wordpress.com/2015/03/01/installing-oracle-xe-on-centos/)  
-
-run it :  
-**3.   ./oracle\_env.sh**  
-
-cd /etc/skel  
-ls -la | grep .bash\_profile  
-Edit login or profile files so that these environment variables are set each time you log in or open a new shell :  
-**gedit** .bash\_profile  
-enter the following line at end  /etc/skel/.bash\_profile :  
-**4.  /u01/app/oracle/product/11.2.0/xe/bin/oracle\_env.sh**
-
-5-- Starting Oracle Database XE  
-To start the database manually, run this command as root user:  
-**5.  /etc/init.d/oracle-xe start**      or    **/etc/init.d/oracle-xe stop  
-or :  
-**After you have installed Oracle Database XE, DB is up and running and you can start it if it is currently stopped:  
-      Main menu (on Gnome)->Oracle Database 11g Express Edition  
-      or 6\. Applications->Other menu (on KDE),  
-      and then click Start Database or Run SQL Command Line or...  
-
-Connect to the database using the user name SYSTEM, and supply the password that you created during configuration.  
-7\. conn sys/ss141 as SYSDBA   (system can not)  
-
-  
-[](https://linuxconfig.org/apache-webserver-httpd-service-installation-on-redhat-7-linux)
 
   
 
@@ -1525,7 +1590,95 @@ Connect to the database using the user name SYSTEM, and supply the password that
 
 \# For more information, see sysctl.conf(5) and sysctl.d(5).  
 fs.file-max = 6815744  
-########
+
+
+# Install Ora 11g, ver. 11.2.0.1.0
+**on Windows 10 64 bit**  
+You need an Oracle account and a **license** that allows you to upgrade to 11.2.0.4
+
+Download for windows :  https://www.oracle.com/database/technologies/112010-win64soft.html  
+
+**https://www.geeksforgeeks.org/how-to-install-oracle-database-11g-on-windows/**  
+
+https://support.oracle.com/portal/  
+
+Extract :
+1. Extract both files in same directory
+2. Go to Folder database -> Stage -> Components Copy all the content of this Folder
+3. Go to Main Database -> Stage Paste the copied content in Components Folder
+
+Install :
+1. Database Folder -> Right click the setup.exe file and choose Run as Administrator
+2. "Envir. does not meet min requir." - Click Yes to continue. This will start Oracle Universal Installer
+3. leave these fields empty and click on Next  or Provide your Email Address to receive alerts from Oracle
+4. Select any of the three different Installation Options 
+   1. **cre and conf db** - Install Oracle Server Software and want to Create Database also.
+   2.  or only db sw -  to Install Oracle Server only.
+   3.  or upgrade existing  db
+5. Choose between Server Class and **Desktop Class** Ignore the warning related to the Admin Password.
+6. Configure basic settings :
+   1. Oracle base : J:\app\ss
+   2. SW location : **J:\app\ss\product\11.2.0\dbhome_1**
+   3. DB file location : J:\app\ss\oradata
+   4. DB edition : Enterprise 3,34 GB
+   5. Char set :Default (EE8MSWIN1250)
+   6. Global DB name : orcl
+   7. Admin psw : MYPSW
+7. Oracle Universal Installer(OUI) will check for the Prerequisites such as Hardware compatibility
+8. Click on Finish to start Installation process. 
+9. Click OK to finish the installation.
+10. Copy the localhost link provided to open your Enterprise Manager. 
+   The Database Control URL is https://localhost:1158/em
+   Management Repository has been placed in secure mode wherein Enterprise Manager data will be encrypted.  The encryption key has been placed in the file: J:/app/ss/product/11.2.0/dbhome_1/localhost_orcl/sysman/config/emkey.ora.   Please ensure this file is backed up as the encrypted data will become unusable if this file is lost.
+   
+   For security reasons, all users are locked except for the following users: SYS and SYSTEM If you have enabled Local Management with Oracle Enterprise Manager, the SYSMAN and DBSNMP accounts are also unlocked. These accounts provide Enterprise Manager with access to the database so it can gather monitoring data and so you can perform administration tasks with Enterprise Manager. If you have enabled Central Management with Oracle Enterprise Manager, the DBSNMP is unlocked, as well as the SYS and SYSTEM user accounts. You can use this page of the Assistant to unlock other database users; or, you can also unlock users at a later time using Oracle Enterprise Manager or the command line tool, SQLPlus. The following table describes the columns in the table of database users.
+   User Name   Lock Account? - Select or clear this column to unlock the account and reset the user password. New Password If you unlock a database user account, you must enter a password for the user in this field. Confirm Password Enter the password again to verify the password. 
+   
+   Click the Close Button and you are done with the Installation Process.
+
+Getting Started with Oracle Enterprise Manager :  
+There are two ways to start Oracle Enterprise Manager:
+1. One way https://localhost:1158/em is using the Link provided in last step of Installation Process.
+   Note: In case if you misplace this link in the future, follow the next step to start it the other way.
+
+2. Go to Start Menu and Search Oracle Folder -> Click on Database Control -> Oracle (Your Global Database Name)  
+   This will take you to the Login Screen of your Oracle Enterprise Manager. Click Advanced -> Proceed To Localhost if  
+   ERR_CERT_AUTHORITY_INVALID -> Login with your Credentials and begin using 11g DB.
+
+
+
+
+
+<br /><br /><br /><br />
+### Download   for Linux :
+https://www.oracle.com/database/technologies/112010-linx8664soft.html  
+https://oracle-base.com/articles/11g/oracle-db-11gr2-installation-on-oracle-linux-6  
+
+Oracle Database 11g Release 2 (11.2) (64-bit) on Oracle Linux 6 (64-bit). The article is based on a server installation with a minimum of 2G swap, with SELinux set to permissive and the firewall disabled. 
+
+Unzip both zip files and 7 path zip-s and you will see **"database" folder created**.
+
+/etc/hosts
+
+127.0.0.1       localhost.localdomain  localhost  
+192.168.0.181   ol6-112.localdomain    ol6-112 
+`<ip address >  <full name of machine >   <short name of your machine>` 
+
+
+
+oracle@t01odsdev201:/opt/oracle/11.2.0.3 INT$  **cd database**  
+oracle@t01odsdev201:/opt/oracle/11.2.0.3/database INT$  ls  
+doc  install  readme.html  response  rpm  runInstaller  sshsetup  stage  welcome.html  
+oracle@t01odsdev201:/opt/oracle/11.2.0.3/database INT$ **export DISPLAY=10.109.38.156:0**  
+oracle@t01odsdev201:/opt/oracle/11.2.0.3/database INT$ **./runInstaller**  
+Starting Oracle Universal Installer...
+
+Checking Temp space: must be greater than 120 MB.   Actual 3893 MB    Passed
+Checking swap space: must be greater than 150 MB.   Actual 9565 MB    Passed
+Checking monitor: must be configured to display at least 256 colors.    Actual 16777216    Passed
+
+Preparing to launch Oracle Universal Installer from /tmp/OraInstall2013-09-05_03-55-01PM. Please wait ...oracle@t01odsdev201
+
 
   
 
@@ -1778,5 +1931,69 @@ VBoxManage storagectl, page 173 and chapter 8.17, VBoxManage storageattach, page
 – To pause or save a VM that is currently running or change some of its settings, use           
 VBoxManage controlvm. See chapter 8.13, VBoxManage controlvm, page 162.            
 
+
+# moj.txt on desktop
+```
+**********if ERROR clipboard sharing not working use instead ver 6.1.4 older ver 6.1.2 (6.1.3 also not working)
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 6.1.2 Guest Additions for Linux........
+VirtualBox Guest Additions installer
+Removing installed version 6.1.4 of VirtualBox Guest Additions...
+Copying additional installer modules ...
+Installing additional modules ...
+VirtualBox Guest Additions: Starting.
+VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel 
+modules.  This may take a while.
+VirtualBox Guest Additions: To build modules for other installed kernels, run
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup <version>
+VirtualBox Guest Additions: or
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup all
+VirtualBox Guest Additions: Building the modules for kernel 
+4.14.35-1902.300.11.el7uek.x86_64.
+VirtualBox Guest Additions: Running kernel modules will not be replaced until 
+the system is restarted
+Press Return to close this window...
+
+
+
+************** NOT WORKING ver. 6.1.4 :
+
+## 30-MART-2020    vbox 6.1.4
+
+sudo /opt/lampp/manager-linux-x64.run         
+sudo /opt/lampp/xampp start       
+
+
+#### sudo gedit /etc/hosts    
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4          
+#::1         localhost localhost.localdomain localhost6 localhost6.localdomain6  
+
+
+[ora@localhost VBox_GAs_6.1.4]$ sudo ./VBoxLinuxAdditions.run
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for ora: 
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 6.1.4 Guest Additions for Linux........
+VirtualBox Guest Additions installer
+Copying additional installer modules ...
+Installing additional modules ...
+VirtualBox Guest Additions: Starting.
+VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel 
+modules.  This may take a while.
+VirtualBox Guest Additions: To build modules for other installed kernels, run
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup <version>
+VirtualBox Guest Additions: or
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup all
+VirtualBox Guest Additions: Building the modules for kernel 
+4.14.35-1818.3.3.el7uek.x86_64.
+[ora@localhost VBox_GAs_6.1.4]$ 
+```
 
 

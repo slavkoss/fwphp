@@ -1,15 +1,9 @@
 <?php
  // Example 26-1: functions.php
   $dbhost  = 'localhost';    // Unlikely to require changing
-  $dbname  = 'socnet_nixon';   //robinsnest Modify these...
+  $dbname  = 'z_socnet_nix';   //robinsnest Modify these...
   $dbuser  = 'root';   //robinsnest ...variables according
   $dbpass  = '';   //rnpassword ...to your installation
-/*
-  $dbhost  = 'localhost';    // Unlikely to require changing
-  $dbname  = 'robinsnest';   // Modify these...
-  $dbuser  = 'robinsnest';   // ...variables according
-  $dbpass  = 'rnpassword';   // ...to your installation
-*/
 
   $appname = "Socnet"; // ...and preference
   $connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);

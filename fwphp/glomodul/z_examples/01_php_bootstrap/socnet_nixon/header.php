@@ -23,7 +23,7 @@
   <html lang="hr-HR">
   <head>
      <title><?=$appname.' '.$userstr?></title>
-     <link rel='stylesheet' href='styles.css' type='text/css'>
+     <link rel='stylesheet' href='style.css' type='text/css'>
   </head>
        
   <body>

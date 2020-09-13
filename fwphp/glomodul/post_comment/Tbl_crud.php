@@ -1,6 +1,7 @@
 <?php
 /**
 *  J:\awww\www\fwphp\glomodul\post_comment\Db_post_comment.php
+*         (PRE) CRUD class - DAO (Data Access Object) or data mapper
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_comment ;

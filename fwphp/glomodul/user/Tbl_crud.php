@@ -1,5 +1,8 @@
 <?php
-// J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
+/**
+*  J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
+*         (PRE) CRUD class - DAO (Data Access Object) or data mapper
+*/
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\user ;
 use B12phpfw\module\blog\Home_ctr ;
@@ -7,14 +10,6 @@ use B12phpfw\module\blog\Home_ctr ;
 //use Model\UserInterface,
 //    Model\User ; //entity
 
-// 2. PdoAdapter.php (1 is namespace LibraryDatabase; interface DatabaseAdapterInterface)
-// Gateway class - separate DBI layer. Better : data mappers that interact more cleanly with our domain (bussiness) objects.  Domain logic into a Domain Model and wrap it with a series of Service Layers.
-//DESIGN PATTERNS solves a specific problem. Design pattern is not a tool; it is description or template that describes how to solve a specific problem.
-// 1. MVC - fat model (layer) and skinny controllers, eg validation is performed at the model level.
-//M parts : business logic, CRUD db operations, data mapper pattern and services, and so on.
-// 2. FACTORY DESIGN PATTERN creates objects that are needed to be used. 
-// 3. OBSERVER PATTERN in which an object calls different observers on a specific event or task on it. This is mainly used for event handling.
-// 4. SINGLETON PATTERN used when there is a requirement that only a single object of a class be used throughout the application's execution. A singleton object can't be serialized and cloned.
 class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 {
   protected $tbl = "admins";
@@ -201,10 +196,6 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 
 
 
-
-
-
-
   // on-insert
   //public function cc(UserInterface $user) {
   public function cc(object $db, array $vv) {
@@ -276,8 +267,28 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 
 
 /**
-* step 4 (pre) CRUD class - Data Access Object or mapper, as we affectionately (dearly) call it
+* step 4 (PRE) CRUD class - DAO (Data Access Object) or mapper (affectionately, dearly nickname)
+* STEPS ARE : 1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
+* STEP_3=rout/disp : fw core calls method in Home_ctr cls (parent::__construct)
+
 * constructing model objects from data in our DB, and saving data back to DB
+
+* 2.PdoAdapter.php is DAO (1 is namespace LibraryDatabase; interface DBAdapterInterface)
+* 
+* Data access object (DAO) is a pattern that provides an abstract (public) interface to some DB or other persistence mechanism (implementation of DAO).
+* 
+* By mapping app calls to  persistence layer, DAO is not  exposing DB details - isolation which supports single responsibility principle.
+* 
+ Gateway class - separate DBI layer. Better : data mappers that interact more cleanly with our domain (bussiness) objects.  Domain logic into a Domain Model and wrap it with a series of Service Layers.
+
+
+DESIGN PATTERNS solves a specific problem. Design pattern is not a tool; it is description or template that describes how to solve a specific problem.
+ 1. MVC - fat model (layer) and skinny controllers, eg validation is performed at the model level.
+M parts : business logic, CRUD db operations, data mapper pattern and services, and so on.
+ 2. FACTORY DESIGN PATTERN CREATES OBJECTS that are needed to be used. 
+ 3. OBSERVER PATTERN in which an object calls different observers on a specific event or task on it. This is mainly used FOR EVENT HANDLING.
+ 4. SINGLETON PATTERN used when there is a requirement that ONLY A SINGLE OBJECT OF A CLASS BE USED THROUGHOUT THE APPLICATION'S EXECUTION. A singleton object can't be serialized and cloned.
+
 *
 *    or User_db.php, or UserMapper.php :
 *       namespace ModelMapper;  use Model\UserInterface, Model\User;

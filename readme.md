@@ -9,54 +9,10 @@ CRUD module example code 7 scripts:
 -----
 
 
+
 **Developed** on home PC on (newest) Windows 10 64 bit with XAMPP (Apache web server).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. 
-
-### Project notable goals  - reasons
-Notable package does something special, is also frequently innovative. 
-1. In my free time (my work for last 20 years was :  Oracle Forms 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
-   https://github.com/panique/mini3 is good but to small OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram : Udemy is good but older programming style.
-2. Develop **large sites** (more of them under web server root dir. path), PHP PDO CRUD (Create, Read, Upd, Del eg "users" table rows) in **any DB**.
-3. ***Innovative*** is : **Each module in own folder like Oracle Forms 6i form, Blazor and APEX pages**, no M, V, C folders.
-4. **Not to simple code : easy to understand,  small, reusable, namespaces for autoloading classes scripts, routing (URL parts) - dispatching (call or include), own debugging (Xdebug is not enough)...** compared to all PHP frameworks and learning sources.
-5. Present best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
-    https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
-
-Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **most probably do not nead B12phpfw** code skeleton, see their code, is simmilar to B12phpfw - few important **adresses tricks** (see them below on op.system and on web), **includes instead http// jump to pages** (this is interesting question).
-
-## To do
-Everything important is visible in current version 6.0 code. Some details are** to do** in version 6.1. (They are not needed for learning and own (more) sites developing based on  B12phpfw and many examples in group of modules in learning folder [WEBSERVER_ROOTPATH]\\fwphp\glomodul\\z_examples.)
-
-1. On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   **DONE** in wsroot_path\zinc\Config_allsites.php :  
-   Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
-   No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
-   
-2. Difficult parts are not many : 
-   1. PDO CRUD more DBI MySQL, Oracle... - any DB with DB adapter code. I have only basic code - working - should be improved.  
-
-   2. Same for tables : sorting, cols filtering, rows filtering.  
-        Grid with updatable fields, I think, is not needed.  
-
-3. Details like data formats (page fieds should be all characters like in Oracle APEX), computations... are easy to find in other learning sources.  
-
-4. No charts - see other learning sources.  
-
-5. More security.
-
-## Adresses on op.system and on web are difficult to understand
-and bad explained in all PHP frameworks and learning sources.
-
-1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 (dev1 is Apache vitual host).  
-   For **testing**  wsroot_path = **J:\\xampp\\htdocs** , wsroot_url =  http://localhost:8083 .
-   For **production** are Linux demo sites, see below.  
-
-2. For mnu module **module_url** = http://dev1:8083/fwphp/www/ so module_towsroot = '../../' - I do not use it for mnu and mkd. 
-   **$module_towsroot** variable in index.php is** always same value for both variables wsroot_path and wsroot_url**.
-   For msg module in index.php : ** $module_towsroot = '../../../' ;** because module_path = J:\awww\www\fwphp\glomodul\blog and three times "../" means **path from blog dir to www dir ee to wsroot_path = 3 times up**.  So module_url = http://dev1:8083/fwphp/glomodul\blog  and 3 times up is http://dev1:8083 = wsroot_url.
-
-
-IIS wsroot_path = %SystemDrive%\\inetpub\\wwwroot = http://localhost, see Win icon -> IIS manager. For APEX learning on Oracle cloud open  https://apex.oracle.com/en/ click link "Get started" and install few demo apps before making own based on eg Riaz Ahmed 2020 year "Oracle APEX 20 For Beginners" (on 18c XE DB) .
-
 ## 1\.1 Demo sites - free hosting with free Mysql
+See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/54) or [here](http://phporacle.heliohost.org/fwphp/glomodul/blog/?i/read_post/id/54)
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - here are newest programs (may be more problems than heliohost). Also PHP on Linux is a bit different than on Windows.
 2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL)
 3. My blog :  http://phporacle.altervista.org
@@ -80,6 +36,55 @@ After that to understand how B12phpfw CRUD framework works (eg $db = new Home_ct
     
     http://dev1:8083/fwphp/glomodul/z_examples/02_mvc/xuding_glob/index.php is simplest table rows [CRUD module](#SimplestCRUD) .
 
+
+
+## 1\.3 Project notable goals  - reasons
+Notable package does something special, is also frequently innovative. 
+1. In my free time (my work for last 20 years was :  Oracle Forms 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
+   https://github.com/panique/mini3 is good but to small OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram : Udemy is good but older programming style.
+2. Develop **large sites** (more of them under web server root dir. path), PHP PDO CRUD (Create, Read, Upd, Del eg "users" table rows) in **any DB**.
+3. ***Innovative*** is : **Each module in own folder like Oracle Forms 6i form, Blazor and APEX pages**, no M, V, C folders.
+4. **Not to simple code : easy to understand,  small, reusable, namespaces for autoloading classes scripts, routing (URL parts) - dispatching (call or include), own debugging (Xdebug is not enough)...** compared to all PHP frameworks and learning sources.
+5. Present best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
+    https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
+
+Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **most probably do not nead B12phpfw** code skeleton, see their code, is simmilar to B12phpfw - few important **adresses tricks** (see them below on op.system and on web), **includes instead http// jump to pages** (this is interesting question).
+
+## 1\.4 To do
+Everything important is visible in current version 6.0 code. Some details are** to do** in version 6.1. (They are not needed for learning and own (more) sites developing based on  B12phpfw and many examples in group of modules in learning folder [WEBSERVER_ROOTPATH]\\fwphp\glomodul\\z_examples.)
+
+1. On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   **DONE** in wsroot_path\zinc\Config_allsites.php :  
+   Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
+   No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
+   
+2. Difficult parts are not many : 
+   1. PDO CRUD more DBI MySQL, Oracle... - any DB with DB adapter code. I have only basic code - working - should be improved.  
+
+   2. Same for tables : sorting, cols filtering, rows filtering.  
+        Grid with updatable fields, I think, is not needed.  
+
+3. Details like data formats (page fieds should be all characters like in Oracle APEX), computations... are easy to find in other learning sources.  
+
+4. No charts - see other learning sources.  
+
+5. More security.
+
+## 1\.5 Adresses on op.system and on web are difficult to understand
+and bad explained in all PHP frameworks and learning sources.
+
+1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 (dev1 is Apache vitual host).  
+   For **testing**  wsroot_path = **J:\\xampp\\htdocs** , wsroot_url =  http://localhost:8083 .
+   For **production** are Linux demo sites, see below.  
+
+2. For mnu module **module_url** = http://dev1:8083/fwphp/www/ so module_towsroot = '../../' - I do not use it for mnu and mkd. 
+   **$module_towsroot** variable in index.php is** always same value for both variables wsroot_path and wsroot_url**.
+   For msg module in index.php : ** $module_towsroot = '../../../' ;** because module_path = J:\awww\www\fwphp\glomodul\blog and three times "../" means **path from blog dir to www dir ee to wsroot_path = 3 times up**.  So module_url = http://dev1:8083/fwphp/glomodul\blog  and 3 times up is http://dev1:8083 = wsroot_url.
+
+
+IIS wsroot_path = %SystemDrive%\\inetpub\\wwwroot = http://localhost, see Win icon -> IIS manager. For APEX learning on Oracle cloud open  https://apex.oracle.com/en/ click link "Get started" and install few demo apps before making own based on eg Riaz Ahmed 2020 year "Oracle APEX 20 For Beginners" (on 18c XE DB) .
+
+
+<br /><br />
 Explanations below are far less important than demo site, code download and modules mentioned above.
 Besides explanations below are difficult to understand - after battle philosophy very useful to improve basic ideas (principles).
 
@@ -1555,8 +1560,9 @@ My PHP IDE is **Symenu** as launcher for all SW (portable if possible) below :
     Freecommander       
     Q-dir          
 3.  **BROWSER**: Firefox, Google Chrome, Cyberfox, Pale Moon
-4.  **DEPLOY (INSTALL)**: Composer  
-    Git and Github      
+4.  **DEPLOY (INSTALL)**: Composer, Git  
+5.  Winscp **FTP client**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\zinc\Dbconn_allsites.php`;
+    
 
 ##  2\.3 [Composer](https://getcomposer.org/download/)
 
