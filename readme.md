@@ -17,6 +17,7 @@ See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul
 2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL)
 3. My blog :  http://phporacle.altervista.org
     and  http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
+4. My fwphp site (may be more : fwphp2, 3...) : http://SSPC2:8083/
     
 ## 1\.2 Download and unzip code from my Github repo
 1. **https://github.com/slavkoss/fwphp** - PHP code here is good for (more) large sites

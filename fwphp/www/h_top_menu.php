@@ -158,10 +158,12 @@
               <div class="card-body">
               
                 <!--h3>Sign Up Today text-center </h3-->
-                <!--p>Please fill out this form to register</p-->
+                <!--p>Please fill out this form to register</p
+                href="/<?=$path_rel_examples?>00_index_of_important.php"
+                -->
                 <b>Important links (modules)</b>
                  &nbsp;  &nbsp; <a class="btn btn-outline-light" target="_blank" 
-                href="/<?=$path_rel_examples?>00_index_of_important.php">INFO</a>
+                href="laragon.php">INFO</a>
                 <!--p>Rich text edit on web <br /> <a class="btn btn-outline-light" target="_blank" href="http://dev1:8083/fwphp/glomodul/mkd/">Mkd - Markdown & Parsedown</a></p-->
 
                 
