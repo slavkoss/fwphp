@@ -2,7 +2,7 @@
 // J:\awww\www\fwphp\glomodul\help_sw\test\01info\00info_php_pdo.php
 //require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 
-//use PDOOCI\PDO; // later is PDO MySQL !!!
+//use P DOO CI\PDO; // later is PDO MySQL !!!
 //use B12phpfw\db\_4DbConnGlbl;
 //$db = _4DbConnGlbl::get_or_new_dball();
 //$this->db = _4DbConnGlbl::get_or_new_dball();
@@ -93,7 +93,7 @@ try {
 catch (PDOException $e) {
     echo "<h3>PHP PDO MySQL is NOT working!</h3>";
     //die($e->getMessage());
-    //goto phpinfolabel;
+    //goto p hpinfol abel;
 }
 
 
@@ -122,9 +122,6 @@ foreach ($attributes as $val) {
 //}
 
 
-
-
-
             try {
                  //if (!in_array("oci8",PDO::getAvailableDrivers(),TRUE))
                  if (!in_array("oci",PDO::getAvailableDrivers(),TRUE))
@@ -138,7 +135,7 @@ foreach ($attributes as $val) {
              catch (PDOException $pdoEx)
              {
                  echo "<h3>Database Error .. Details :</h3><br /> {$pdoEx->getMessage()}";
-                 goto pdooci ; //phpinfolabel;
+                 //goto pdooci ; //p hpinfol abel;
              }
              
 ?>
@@ -155,16 +152,21 @@ foreach ($attributes as $val) {
 
 
 
-pdooci:
+//pdooci:
 // ******************************************
 echo "<h1>2. Oracle DB 18c XE PHP PDO</h1>";
 // ******************************************
-global $DSN, $USR, $PSW;
-$USR = 'hr';
-$PSW = 'hr';
+//works : Sqlplus HR/HR@XEPDB1     Sqlplus HR/HR@ora7
+//        Sqlplus HR/HR@SSPC2:1521/XEPDB1
 
-//  Data Source Name :
-$USERDOMAIN = getenv('USERDOMAIN', true) ?: getenv('USERDOMAIN') ;
+//global $DSN, $USR, $PSW;
+global $DSN, $USR, $PSW;
+$USR = 'hr'; //case insensitive
+$PSW = 'HR'; //case sensitive
+
+//Data Source Name : SERVER_NAME=dev1   SERVER_PORT=8083   HTTP_HOST=dev1:8083
+//$USERDOMAIN = getenv('USERDOMAIN', true) ?: getenv('USERDOMAIN') ; //dev1:8083
+$USERDOMAIN = filter_var( $_SERVER['SERVER_NAME'] , FILTER_SANITIZE_URL ) ;
 //11g XE : $DSN = 'oci:dbname=sspc2/XE:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
 //18c XE : $DSN = 'oci:dbname=sspc2/ora7:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
 $DSN = 'oci:dbname='
@@ -175,28 +177,34 @@ $DSN = 'oci:dbname='
 
 
 ?>
+
+<dl><dd>
 <p>
-ERROR if we use alias of XEPDB1 : because <b>PHP does not see tnsnames.ora</b> ee ora7 alias of XEPDB1 (plugable DB name) :
+ERROR if we use ora7 (alias of XEPDB1) : because <b>PHP does not see tnsnames.ora</b> also does not see ora7 alias of XEPDB1 (plugable DB name) :
 <br /><b>XE (container DB) and XEPDB1 (plugable DB) are visible to DB clients even if tnsnames.ora does not exist.</b>
 </p>
-<dl><dd>
-$DSN = 'oci:dbname=SSPC2:1521/<b>ora7</b>', hr/hr, ERRMODE_EXCEPTION, ATTR_PERSISTENT=true
 
-<br />J:\awww\www\fwphp\glomodul\z_examples\02_info_php_pdo.php, 219 SAYS: SQLSTATE[HY000]: <br />pdo_oci_handle_factory: ORA-12514: TNS:listener does not currently know of service
-<br />requested in connect descriptor (ext\pdo_oci\oci_driver.c:723)
+If $DSN = $DSN = 'oci:dbname=' . $USERDOMAIN .':1521/XEPDB1'
+  <br />='oci:dbname=SSPC2:1521/<b>ora7</b>', hr/hr, ERRMODE_EXCEPTION, ATTR_PERSISTENT=true
+
+<br />Then SQLSTATE[HY000]: pdo_oci_handle_factory: ORA-12514: TNS:listener does not currently know of service requested in connect descriptor (ext\pdo_oci\oci_driver.c:723)
 </dd></dl>
-<p><b>$DSN=<?=$DSN?></b>, $USR=<?=$USR?> $PSW=<?=$PSW?>, ERRMODE_EXCEPTION, ATTR_PERSISTENT=true</p>
+
+
+<p><b>$DSN is : <?=$DSN?></b>, $USR=<?=$USR?> $PSW=<?=$PSW?>, ERRMODE_EXCEPTION, ATTR_PERSISTENT=true</p>
+
+
 <?php
 
-$conn  = null; // objct variabla db instance
+$conn  = null; // object variabla db instance
     //$pdo_options[PDO::ATTR_ERRMODE]    = PDO::ERRMODE_EXCEPTION;
     //$pdo_options[PDO::ATTR_PERSISTENT] = true;  
     try
     {
-      //$conn=new PDOOCI\PDO($DSN, $USR, $PSW, $pdo_options);
+      //$conn=new P DOO CI\PDO($DSN, $USR, $PSW, $pdo_options);
       //$conn=new PDO($DSN, $USR, $PSW, $pdo_options);
       $conn=new PDO($DSN, $USR, $PSW);
-      print(__FILE__.', '.__LINE__.' SAYS: <h3>PHP PDO OCI CONNECTED!
+      print(__FILE__.', '.__LINE__.' SAYS: <h3>PHP PDO OCI CONNECTED : 
         $conn=new PDO($DSN, $USR, $PSW);
          </h3>');
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -204,8 +212,9 @@ $conn  = null; // objct variabla db instance
     } catch(PDOException $e) {
       //msg_conn_failed();
       //die($e->getMessage());
-      print('<h3>'.__FILE__.', '.__LINE__.' SAYS: '.$e->getMessage()).'</h3>';
-      goto ocilabel ; //phpinfolabel
+      print('<br />'.__FILE__.', '.__LINE__.' SAYS: ');
+      print('<h3>'.$e->getMessage()).'</h3>';
+      goto ocilabel ; //p hpinfol abel
     }
 
     
@@ -232,25 +241,24 @@ foreach ($attributes as $val) {
      //hr.employees.*,
 $sql = "
 SELECT
-     hr.employees.employee_id       AS employee_id1,
-     hr.departments.department_id   AS department_id2,
-     hr.employees.job_id            AS job_id1,
-     hr.employees.manager_id        AS manager_id1,
+     emps.employee_id            employee_id1,
+     departments.department_id   department_id2,
+     emps.job_id                 job_id1,
+     emps.manager_id             manager_id1,
 
-     hr.employees.first_name        AS first_name1,
-     hr.employees.last_name         AS last_name1,
-     employees1.first_name          AS manager_first_name,
-     employees1.last_name           AS manager_last_name,
+     emps.first_name             first_name1,
+     emps.last_name              last_name1,
+     mngrs.first_name            manager_first_name,
+     mngrs.last_name             manager_last_name,
 
-     hr.employees.hire_date         AS hire_date1,
-     hr.employees.salary            AS salary1,
-     hr.employees.commission_pct    AS commission_pct1
- FROM hr.departments
-    left JOIN hr.employees
-      ON hr.departments.department_id = hr.employees.department_id
-    LEFT JOIN hr.employees employees1 
-      ON hr.employees.manager_id = employees1.employee_id
+     emps.hire_date              hire_date1,
+     emps.salary                 salary1,
+     emps.commission_pct         commission_pct1
+ FROM departments
+    LEFT JOIN employees emps ON departments.department_id = emps.department_id
+    LEFT JOIN employees mngrs ON emps.manager_id = mngrs.employee_id
  WHERE  rownum < ?
+ ORDER BY emps.last_name
 " ;
 try {
   //$sth = $this->db->prepare('SELECT '
@@ -262,7 +270,7 @@ try {
   $row = $sth->fetch();
 
   // V I E W
-  echo '<pre>'; print_r($row); echo '</pre>';
+  echo '<pre>SELF JOIN EXAMPLE First row (ORDER BY employees.last_name) '; print_r($row); echo '</pre>';
     
 } catch( PDOException  $e ) {
      echo '<pre>errrrrr aaaaaaaa'; print_r($e); echo '</pre>';
@@ -291,11 +299,14 @@ SQL> desc employees
  MANAGER_ID                                         NUMBER(6)
  DEPARTMENT_ID                                      NUMBER(4)
 </pre>
+
+
+
+
+<br /><br />
 <?php
-
-
-
 ocilabel:
+
 
 //require 'xxx.php';
 // ******************************************
@@ -349,7 +360,7 @@ emp_tbl_v($conn) ;
 
 
 
-phpinfolabel:
+//phpinfolabel:
 echo '<br /><br /><hr />'; include(dirname(dirname(dirname(__DIR__))) .'/zinc/showsource.php');
 //phpinfo();
 // ************************ E N D
@@ -386,17 +397,17 @@ function emp_tbl_v($conn = null)
 function oci_conn($connstring, $helptxt)
 {
 
-  $conn = oci_pconnect("hr", "hr", $connstring);
+  $conn = oci_pconnect("hr", "HR", $connstring);
 
   if (!$conn) {
       $e = oci_error();
       $e = htmlentities($e['message'], ENT_QUOTES);
       echo '<br />***** 11111. UNSUCCESSFULL oci_ connect ***** '.$e;
       //trigger_error($e, E_USER_ERROR);
-      return null; //goto ocilabel2 ; //phpinfolabel
+      return null; //goto oc ilabe l2 ; //p hpinfol abel
   } else { ?>
 
-    <h2>Successful $conn = oci_pconnect("hr", "hr", $connstring);  : <?=$helptxt?></h2>
+    <h3>psw is CASE SENSITIVE : Successful $conn = oci_pconnect("hr", "HR", $connstring);  : <?=$helptxt?></h3>
       <?='<pre>$connstring='. $connstring .'</pre>'?>
 
     <?php
@@ -529,7 +540,7 @@ try {
     //.' WHERE '.$this->id1name.' = ?');
   $sth->execute([100]); //bindvars
   //$sth->execute([$this->id1_get]); //bindvars
-  $sth->setFetchMode(PDOOCI\PDO::FETCH_OBJ);
+  $sth->setFetchMode(P DOO CI\PDO::FETCH_OBJ);
   $row = $sth->fetch();
   //$this->B1rec[$r->SIFRA_TIP_DOC] =
     //new _TipDokMdlEntity(

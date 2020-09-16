@@ -16,7 +16,7 @@
       .'&line=55&prev=10000&next=10000' ;
 
     ?>
-    <!DOCTYPE html><html lang="hr"><head><title>HTMLofMKD</title>
+    <!DOCTYPE html><html lang="hr"><head><title><?=basename($fle_to_displ_path)?></title>
        <link rel="stylesheet" href="/zinc/themes/mini3.css">
        <!--link rel="stylesheet" href="/vendor/highlight_js/styles/default.css"-->
        <!--Ugly, no lines in tbls -->

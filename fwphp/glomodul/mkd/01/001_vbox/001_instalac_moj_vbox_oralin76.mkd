@@ -1592,60 +1592,6 @@ F5 (copy)   oracle-xe-11.2.0-1.0.x86\_64.rpm.zip left -> right
 fs.file-max = 6815744  
 
 
-# Install Ora 11g, ver. 11.2.0.1.0
-**on Windows 10 64 bit**  
-You need an Oracle account and a **license** that allows you to upgrade to 11.2.0.4
-
-Download for windows :  https://www.oracle.com/database/technologies/112010-win64soft.html  
-
-**https://www.geeksforgeeks.org/how-to-install-oracle-database-11g-on-windows/**  
-
-https://support.oracle.com/portal/  
-
-Extract :
-1. Extract both files in same directory
-2. Go to Folder database -> Stage -> Components Copy all the content of this Folder
-3. Go to Main Database -> Stage Paste the copied content in Components Folder
-
-Install :
-1. Database Folder -> Right click the setup.exe file and choose Run as Administrator
-2. "Envir. does not meet min requir." - Click Yes to continue. This will start Oracle Universal Installer
-3. leave these fields empty and click on Next  or Provide your Email Address to receive alerts from Oracle
-4. Select any of the three different Installation Options 
-   1. **cre and conf db** - Install Oracle Server Software and want to Create Database also.
-   2.  or only db sw -  to Install Oracle Server only.
-   3.  or upgrade existing  db
-5. Choose between Server Class and **Desktop Class** Ignore the warning related to the Admin Password.
-6. Configure basic settings :
-   1. Oracle base : J:\app\ss
-   2. SW location : **J:\app\ss\product\11.2.0\dbhome_1**
-   3. DB file location : J:\app\ss\oradata
-   4. DB edition : Enterprise 3,34 GB
-   5. Char set :Default (EE8MSWIN1250)
-   6. Global DB name : orcl
-   7. Admin psw : MYPSW
-7. Oracle Universal Installer(OUI) will check for the Prerequisites such as Hardware compatibility
-8. Click on Finish to start Installation process. 
-9. Click OK to finish the installation.
-10. Copy the localhost link provided to open your Enterprise Manager. 
-   The Database Control URL is https://localhost:1158/em
-   Management Repository has been placed in secure mode wherein Enterprise Manager data will be encrypted.  The encryption key has been placed in the file: J:/app/ss/product/11.2.0/dbhome_1/localhost_orcl/sysman/config/emkey.ora.   Please ensure this file is backed up as the encrypted data will become unusable if this file is lost.
-   
-   For security reasons, all users are locked except for the following users: SYS and SYSTEM If you have enabled Local Management with Oracle Enterprise Manager, the SYSMAN and DBSNMP accounts are also unlocked. These accounts provide Enterprise Manager with access to the database so it can gather monitoring data and so you can perform administration tasks with Enterprise Manager. If you have enabled Central Management with Oracle Enterprise Manager, the DBSNMP is unlocked, as well as the SYS and SYSTEM user accounts. You can use this page of the Assistant to unlock other database users; or, you can also unlock users at a later time using Oracle Enterprise Manager or the command line tool, SQLPlus. The following table describes the columns in the table of database users.
-   User Name   Lock Account? - Select or clear this column to unlock the account and reset the user password. New Password If you unlock a database user account, you must enter a password for the user in this field. Confirm Password Enter the password again to verify the password. 
-   
-   Click the Close Button and you are done with the Installation Process.
-
-Getting Started with Oracle Enterprise Manager :  
-There are two ways to start Oracle Enterprise Manager:
-1. One way https://localhost:1158/em is using the Link provided in last step of Installation Process.
-   Note: In case if you misplace this link in the future, follow the next step to start it the other way.
-
-2. Go to Start Menu and Search Oracle Folder -> Click on Database Control -> Oracle (Your Global Database Name)  
-   This will take you to the Login Screen of your Oracle Enterprise Manager. Click Advanced -> Proceed To Localhost if  
-   ERR_CERT_AUTHORITY_INVALID -> Login with your Credentials and begin using 11g DB.
-
-
 
 
 

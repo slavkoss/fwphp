@@ -2031,7 +2031,25 @@ To be sure, use DI or IoC with DIP.
 
 I never understood enough fw authors explanations which is one of reasons why I do not believe them).   (font Century Gothic 16)      
 
-___
+***  
+## Links
+http://dev1:8083/fwphp/glomodul/mkd/?edit=001_MDcheatsheet.txt  
+
+http://dev1:8083/fwphp/www/  
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/01_oracle_DB_18c_instalac.txt  
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/02_oracle_APEX_20_1_instalac.txt  
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/03_1oracle_apex_sales_module.txt  
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/03_2oracle_apex_sales_apl_cloud.txt  
+
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/devsuite10g_instalac.txt  
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/devsuite10g_F6i_to_apex.txt  
+
+
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_vbox/001_instalac_moj_vbox_oralin76.mkd  
+http://dev1:8083/fwphp/glomodul/mkd/?showhtml=J:/awww/www/readme.md  
+
+
+
 [Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
 

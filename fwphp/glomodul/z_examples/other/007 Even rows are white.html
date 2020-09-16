@@ -1,0 +1,50 @@
+<h2>Even rows are white</h2>
+
+<div style="background:#bbb">the current value of $i is 1</div>
+<div style="background:#eee">the current value of $i is 2</div>
+
+<div style="background:#bbb">the current value of $i is 3</div>
+<div style="background:#eee">the current value of $i is 4</div>
+
+<div style="background:#bbb">the current value of $i is 5</div>
+<div style="background:#eee">the current value of $i is 6</div>
+
+<div style="background:#bbb">the current value of $i is 7</div>
+<div style="background:#eee">the current value of $i is 8</div>
+
+<div style="background:#bbb">the current value of $i is 9</div>
+<div style="background:#eee">the current value of $i is 10</div>
+
+
+<pre>for($i=1;$i<=10;$i++){
+    $color = ($i%2) ? 'bbb' : 'eee' ;
+    echo '&lt;div style="background:#'.$color.'">the current value of $i is '.$i.'&lt;/div>';
+}
+
+
+function randomColor(){
+$rcolor = '#';
+for($i=0; $i &lt; 6; $i++){
+  $rNum = rand(0,15);
+  switch ($rNum) {
+  case 10:$rNum='A';
+  break;
+  case 11:$rNum='B';
+  break;
+  case 12:$rNum='C';
+  break;
+  case 13:$rNum='D';
+  break;
+  case 14:$rNum='E';
+  break;
+  case 15:$rNum='F';
+  break;
+  }
+  $rcolor .= $rNum;
+}
+//$rcolor = '#FF0000';
+return $rcolor;
+}
+echo '<div style="padding:15px;background-color:'.randomColor().';color:'.randomColor().'">this 
+will have a random background color</div>';
+</pre>

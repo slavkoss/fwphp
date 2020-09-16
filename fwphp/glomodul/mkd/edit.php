@@ -34,9 +34,10 @@
                 href="/vendor/simplemde/simplemde.min.css"
                 parent::getconf('URLALLSITES_VENDOR')
                 title="/vendor/simplemde/simplemde.min.css"
+                EDMKD4
           -->
           <!DOCTYPE html><html lang="hr"><head>
-             <title>EDMKD4 <?=basename($fle_to_edit_path)?></title>
+             <title>ED <?=basename($fle_to_edit_path)?></title>
           <link rel="stylesheet" type="text/css" href="/vendor/simplemde/simplemde.min.css">
           <!--link rel="stylesheet" type="text/css" href="/vendor/simplemde/highlight.min.js"-->
 <!--script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>

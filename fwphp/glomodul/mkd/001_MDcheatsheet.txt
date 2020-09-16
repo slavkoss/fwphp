@@ -1,6 +1,6 @@
 <hr />
 ~~  
-Title: MD cheatsheet and SimpleMDE JS based Markdown Editor  
+Title:   MD cheatsheet and SimpleMDE JS based Markdown Editor  
 Published: 2018-03-20  
 Author: phporacle  
 Template: blog  
