@@ -77,7 +77,7 @@ abstract class Config_allsites extends Db_allsites
 
       $module_towsroot = $pp1->module_towsroot ;
       //module dir (f or autoload clses) (rtrim(ltrim(... has error !!) :
-      $module_path = $pp1->module_path_arr[0] ; 
+      $module_path = $pp1->module_path_arr[0] ; //see index.php ! 
             //str_replace('\\','/', $module_dir .'/') ; //rtrim(ltrim(... has error !!
       $imgrel_path = 'zinc/img/'; // img_big/oop_help/
 
@@ -87,7 +87,7 @@ abstract class Config_allsites extends Db_allsites
       // see (**2)
 
       $wsroot_path = str_replace('\\','/', realpath($module_towsroot) .'/') ; 
-      
+
       // http://dev1:8083/    //= 1. U R L_P R O T O C O L :
       $wsroot_url = ( (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' )
               // 2. URL_DOM AIN = dev1:8083 :
@@ -105,15 +105,17 @@ abstract class Config_allsites extends Db_allsites
       //Error on Linux : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
       //Error on win: $REQUEST_URI = filter_input($_SERVER['REQUEST_URI'], FILTER_SANITIZE_STRING);
       $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;
-
       $uri_arr = explode(QS, $REQUEST_URI) ; 
       $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); 
               //or rtrim(str_replace($w sroot_path, '', $m odule_path),'/') ;
       $module_url = $wsroot_url.$module_relpath.'/';
 
       // -----------------------------------------------------------------
-      //                 URL query array  u r i q
-      //       is URL query string = url part after QS (=?)
+      //                 URL query array  $ u r i q
+      //    $ u r i q  is URL query string = url part after QS (=?)
+      // We transform URL to $ u r i q = key-value pairs (Home_ctr knows what they are !!) :
+      // key='i' means "in Home_ctr include script or call method", 
+      // key's value is name of included script or call method
       // -----------------------------------------------------------------
       $uri_qrystring = '' ;
       if (isset($uri_arr[1])) { $uri_qrystring = $uri_arr[1] ; }
@@ -122,6 +124,7 @@ abstract class Config_allsites extends Db_allsites
                         // or: if (isset($_SERVER['QUERY_STRING'])) {
                         //     $uri_qrystring_arr = explode('/', $_SERVER['QUERY_STRING']) ; }
 
+      // We transform URL to $ u r i q = key-value pairs (Home_ctr knows what they are !!) :
                          //foreach($uri_ qrystring_arr as $k=>$v) or :
       $uriq = [] ;
       for ( $ii = 0 ; //expr1 executed once unconditionally at loop begin. Or: ,$x=1,...

@@ -22,7 +22,7 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
   , 'module_version'=>'6.0.4.0 Msg', 'vendor_namesp_prefix'=>'B12phpfw'
   //1.3 F o r  A u t o l o a d
   , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
-        str_replace('\\','/', __DIR__ ).'/' //thismodule_cls_dir_path
+        str_replace('\\','/', __DIR__ ).'/' //=$module_path=thismodule_cls_dir_path
       //dir of global clses for all sites :
       , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
       //two master modules (tbls) = blocks in Ora. Forms

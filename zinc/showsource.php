@@ -1,27 +1,27 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>
 <?php
 $ds = DIRECTORY_SEPARATOR ;
 // http://dev1:8083/zinc/showsource.php?file=J:/awww/www/fwphp/glomodul/mkd/02/02_domain_model/DM_Gervasio_part2.txt&line=55&next=171
 // J:\awww\www\zinc\showsource.php
 //http://dev1:8083/fwphp/glomodul/mkd/?showhtml=02/02_domain_model/DM_Gervasio_part2.txt
 
-// ako nema param. datoteka ispise svoj kod:
-$file = ( isset($_GET['file'])
-   ? str_replace('/',$ds, $_GET['file']) : str_replace('/',$ds, $_SERVER['SCRIPT_FILENAME']) 
-);
+// if no param. displays this script code :
+      switch (true) {
+        case isset($file) and $file > '' :
+          $file = str_replace('\\','/', $file);
+          break;
+        case isset($_GET['file']) and $_GET['file'] > '' :
+          $file = str_replace('\\','/', $_GET['file']);
+          break;
+        default :
+          $file = str_replace('\\','/', $_SERVER['SCRIPT_FILENAME']) ;
+      }
 
-$file = str_replace($ds.$ds, $ds, $file) ;
-echo $file ; 
+//echo basename($file) ; 
+//bgcolor="lightgray"
+//<div class="jumbotron jumbotron-fluid">
 ?>
-</title>
-<meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
-</head>
 
-
-<body bgcolor="white">
+<div class="container">
 <?php
 //bgcolor="#E0E0E0"
 //Cezary Tomczak http://gosu.pl/software/mygosulib.html
@@ -35,151 +35,160 @@ $prev = isset($_GET['prev']) ? $_GET['prev'] : 10000;
 $next = isset($_GET['next']) ? $_GET['next'] : 10000;
 
 //NE: require_once($_SERVER['DOCUMENT_ROOT'].'/inc/utl/view_fn.inc');
-    //if ($prev != 10000 || $next != 10000) {
+  //if ($prev != 10000 || $next != 10000) {
 $shows_path = str_replace('/',$ds
-                  , $_SERVER['SCRIPT_FILENAME']);
-// ispisan je dio koda <font color="#FF00FF">$id</font>  
-echo <<<EOT
-<div style="font-family: tahoma; font-size:14px;">       
-   Kod skripte: <strong>$file</strong> šđčćž 
-   <br />
-   Kod skripte 
-   <a href="$_SERVER[PHP_SELF]"?file=$file&line=$line&prev=10000&next=10000>$shows_path</a> koja prikazuje kod (za vlastiti kod ne slati joj param. "file=...", ne inkludira se view_fn.inc)
-</div>
-EOT;
+                , $_SERVER['SCRIPT_FILENAME']
+                //, $file
+);
+
+
+        //echo "<h4>XXXXXXXXX $file</h4>" ;
+// ispisan je dio koda <font color="#FF00FF">$id</font>
+// $_SERVER[PHP_SELF] je index.php
+?>
+<p class="lead">
+ Kod skripte: <strong><?=$file?></strong> šđčćž 
+ <br />
+ Pozvana iz  
+ <a href="<?=$_SERVER['PHP_SELF']?>"?file=<?=$file?>&line=<?=$line?>&prev=10000&next=10000><?=$shows_path?></a>
+
+ <br /><br />
+ Skripta <?=__FILE__?> prikazuje kod (za vlastiti kod ne slati joj param. "file=...", ne inkludira se view_fn.inc)
+
+<?php
 //.urlencode($file) <pre>
 //.'&next=10000#'.($line - 15)
 //.urlencode($file)
-    //}
+  //}
 
 showSource($file, $line, $prev, $next);
 
-/* //staro:
-$a = explode('&', $QUERY_STRING);
-$i = 0;
-while ($i < count($a)) {
-    $b = split('=', $a[$i]);
-    echo 'Value for parameter ', htmlspecialchars(urldecode($b[0])),
-         ' is ', htmlspecialchars(urldecode($b[1])), "<br />\n";
-    $i++;
-}
-*/
 
-
-
+// ********************************************************
+//<div style="font-family: tahoma; font-size: 1em;">
 function showSourceLnk($id, $file, $lcurr = 10, $lprev = 10, $lnext = 10) {
-echo <<<EOT
-<div style="font-family: tahoma; font-size: 10px;">
-  <a href="/util/ShowSource.php
-       ?file=$file&amp;id=$id&amp;line=$lcurr&amp;prev=$lprev&amp;next=$lnext"
-     target="_blank">$id</a> u $file</div>
-EOT;
+?>
+<a href="/util/ShowSource.php
+     ?file=$file&amp;id=$id&amp;line=$lcurr&amp;prev=$lprev&amp;next=$lnext"
+   target="_blank"><?=$id?></a> u <?=$file?></div>
+</p>
+
+<?php
 }
 
-function showSource($file, $line, $prev = 10, $next = 10) {
-    if (!(file_exists($file) && is_file($file))) {
-        return trigger_error( 
-            "showSource(): ne postoji skripta ~~~".$file.'~~~'
-                              , E_USER_ERROR);
-        return false;
-    }
-         $wai = __FILE__ .' lin='. __LINE__ .' fn='. __FUNCTION__ .'()'.' cls=' .__CLASS__ ;
-    //read code
-    ob_start();
-    highlight_file($file);
-    $data = ob_get_contents();
-    ob_end_clean();
+function showSource($file, $line, $prev = 10, $next = 10) 
+{
+  if (!(file_exists($file) && is_file($file))) {
+      return trigger_error( 
+          "showSource(): ne postoji skripta ~~~".$file.'~~~'
+                            , E_USER_ERROR);
+      return false;
+  }
+       $wai = __FILE__ .' lin='. __LINE__ .' fn='. __FUNCTION__ .'()'.' cls=' .__CLASS__ ;
+  //read code
+  ob_start();
 
-    //seperate lines
-    $data  = explode('<br />', $data);
-    $count = count($data) - 1;
   
-    //count which lines to display
-    $start = $line - $prev;
-    if ($start < 1) {
-        $start = 1;
-    }
-    $end = $line + $next;
-    if ($end > $count) {
-        $end = $count + 1;
-    }
+  highlight_file($file);
 
-         if (0) { //($p1['kon']['test']) {
-         echo '<pre>'.'<strong>'. $wai;
-            echo "\nfile=" . $file; //print_r($utl->ubitsget()); //var_dump
-            echo "\nline=" . $line .' prev=' . $prev .' next=' . $next;
-            echo " count=" . $count .' start=' . $start .' end=' . $end;
-         echo '</strong></pre>';
-         }
-    
-    //color for numbering lines
-    $highlight_default = ini_get('highlight.default');
 
-    //displaying
-    echo '<table cellspacing="0" cellpadding="0"><tr>';
-    echo '<td style="vertical-align: top;"><code style="background-color: #FFFFCC; color: #666666;">';
+  $data = ob_get_contents();
+  ob_end_clean();
 
-    for ($x = $start; $x <= $end; $x++) {
-        echo '<a name="'.$x.'"></a>';
-        echo ($line == $x ? '<font style="background-color: red; color: white;">' : '');
-        echo str_repeat('&nbsp;', (strlen($end) - strlen($x)) + 1);
-        echo $x;
-        echo '&nbsp;';
-        echo ($line == $x ? '</font>' : '');
-        echo '<br />';
-    }
-    echo '</code></td><td style="vertical-align: top;"><code>';
+  //seperate lines
+  $data  = explode('<br />', $data);
+  $count = count($data) - 1;
+
+  //count which lines to display
+  $start = $line - $prev;
+  if ($start < 1) {
+      $start = 1;
+  }
+  $end = $line + $next;
+  if ($end > $count) {
+      $end = $count + 1;
+  }
+
+       if (0) { //($p1['kon']['test']) {
+       echo '<pre style="font-size:1.1em">'.'<strong>'. $wai;
+          echo "\nfile=" . $file; //print_r($utl->ubitsget()); //var_dump
+          echo "\nline=" . $line .' prev=' . $prev .' next=' . $next;
+          echo " count=" . $count .' start=' . $start .' end=' . $end;
+       echo '</strong></pre>';
+       }
+  
+  //color for numbering lines
+  $highlight_default = ini_get('highlight.default');
+
+  //displaying
+
+  ?>
+  <table cellspacing="0" cellpadding="0">
+  <?php
     while ($start <= $end) {
-        echo '&nbsp;' . $data[$start - 1] . '<br />';
+      echo '<tr>' ;
+
+        echo '<td style="font-size: 1.2em; vertical-align: top;"><span>' 
+           . $start . ' &nbsp; </span></td>';
+
+        echo '<td style="font-size: 1.2em; vertical-align: top;"><span>' 
+           . $data[$start - 1] . '</span></td>';
+
+      echo '</tr>' ;
         ++$start;
     }
-    echo '</code></td>';
-    echo '</tr></table>';
+  ?>
+  </table>
+  <?php
 
-    if ($prev != 10000 || $next != 10000) {
-        echo '<div style="font-family: tahoma; font-size: 14px;">';
-        echo '<br /><a
-          href="'.@$_SERVER['PHP_SELF']
-                 .'?file='.urlencode($file).'&line='.$line
-                 .'&prev=10000&next=10000#'.($line - 15).'">View Full Source</a>' ;
-        print "</div>";
-    }
+
+
+
+
+  if ($prev != 10000 || $next != 10000) {
+      echo '<div style="font-family: tahoma; font-size: 16px;">';
+      echo '<br /><a
+        href="'.@$_SERVER['PHP_SELF']
+               .'?file='.urlencode($file).'&line='.$line
+               .'&prev=10000&next=10000#'.($line - 15).'">View Full Source</a>' ;
+      print "</div>";
+  }
 
 }
 
 function txt2file($filecontent, $filename, $show_msg = '', $msg = '') {
-    if (!$handle = fopen($filename, 'wt')) {
-         //echo "Ne mogu otvoriti ($filename)";
-         return("Ne mogu otvoriti datoteku ($filename)"); //exit;
-    }
-    if (fwrite($handle, $filecontent) === FALSE) {
-        //echo "Ne mogu upisivati u ($filename)";
-        return("Ne mogu upisivati u datoteku ($filename)"); //exit;
-    } fclose($handle); return ($show_msg == 'show_msg') ? $msg : '';
+  if (!$handle = fopen($filename, 'wt')) {
+       //echo "Ne mogu otvoriti ($filename)";
+       return("Ne mogu otvoriti datoteku ($filename)"); //exit;
+  }
+  if (fwrite($handle, $filecontent) === FALSE) {
+      //echo "Ne mogu upisivati u ($filename)";
+      return("Ne mogu upisivati u datoteku ($filename)"); //exit;
+  } fclose($handle); return ($show_msg == 'show_msg') ? $msg : '';
 }
 // http://php.net/manual/en/language.variables.scope.php
 function next_rbr()
 { // static var exists only in local fn scope, but it does not lose 
-  // its value when program execution leaves this scope
-  // Static declarations are resolved in compile-time.
-    static $a = 0;
-    echo $a;
-    $a++;
+// its value when program execution leaves this scope
+// Static declarations are resolved in compile-time.
+  static $a = 0;
+  echo $a;
+  $a++;
 }
 function test_recursion()
 {
-    static $count = 0;
-    $count++;
-    echo $count;
-    if ($count < 10) {
-        test();
-    }
-    $count--;
+  static $count = 0;
+  $count++;
+  echo $count;
+  if ($count < 10) {
+      test();
+  }
+  $count--;
 }
 
 ///////////////////////////
 
 
 ?>
-</body>
-</html>
+
+</div>
