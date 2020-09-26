@@ -3,25 +3,51 @@
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
+
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Db_allsites ;
 use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
 use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_category;
 //use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
 
+//           1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"]))
 {
-  $tbl_o_post = new Tbl_crud_post ;
-  $tbl_o_post->cc($dm);
-  //$id = $tbl_o_post->rr_last_id($dm);
-} //Ending of Submit Button If-Condition
+  // returns string
+  Tbl_crud_post::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
+} //E n d  Submit Button If-Condition
+
 
 //               2. R E A D  D B T B L R O W S
-//$cursor = $this->rr("SELECT * FROM category ORDER BY title", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-$tbl_o_category = new Tbl_crud_category ;
-$c_category = $tbl_o_category->rr_all($dm);
+// returns object :
+$cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'"
+  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
+                  //echo __FILE__ .' SAYS: <pre>$cursor_LOVcategory for LOV ='; print_r($cursor_LOVcategory); echo '</pre>';
+                  //displays : $cursor_LOVcategory=PDOStatement Object
+                  //( [queryString] => SELECT * FROM category WHERE '1'='1' ORDER BY title )
+//$cursor_LOVcategory_saved = $cursor_LOVcategory ;
+$rr =(object)[];
+$SrNo = 0; 
+while ( $rr= Tbl_crud_category::rrnext($cursor_LOVcategory) and isset($rr->title) ): {
+  ++$SrNo ;          //echo '<pre>$rr->title='; print_r($rr->title); echo '</pre>';
+} endwhile; 
+$LOVcategory_nrrows = $SrNo ;
+                    /*if ($SrNo == 0): {
+                      echo '<b>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: </b><pre>NO CATEGORIES $rr='; print_r($rr); echo '</pre>';
+                                       //displays : 13 CATEGORIES, $rr=stdClass Object
+                                       // ( [scalar] => )
+                    } else: {
+                      echo '<b>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: </b>'.$SrNo .'  CATEGORIES, <pre>$rr='; print_r($rr); echo '</pre>';
+                    } endif ; */
+
+//$cursor_LOVcategory = $cursor_LOVcategory_saved ;
+$cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
+              //echo '<pre>$cursor_LOVcategory='; print_r($cursor_LOVcategory); echo '</pre>';
 
 
-      require $pp1->wsroot_path . 'zinc/hdr.php';
-      require_once("navbar_admin.php");
+
+require $pp1->wsroot_path . 'zinc/hdr.php';
+require_once("navbar_admin.php");
 //        2. G U I  to get user action
 ?>
     <!-- HEADER -->
@@ -53,7 +79,9 @@ $c_category = $tbl_o_category->rr_all($dm);
             <div class="form-group">
               <label for="title"> <span class="FieldInfo"> Post Title: </span></label>
                <input class="form-control" type="text" name="PostTitle" id="title" 
-                      title="Oper.system file name eg post_aboutwhatever.txt" placeholder="Type oper.system file name eg post_aboutwhatever.txt here" value="">
+                      title="Eg post_aboutwhatever.txt is Oper.system file name"
+                      placeholder="Eg post_aboutwhatever.txt is oper.system file name" 
+                      value="">
             </div>
 
 
@@ -61,20 +89,26 @@ $c_category = $tbl_o_category->rr_all($dm);
               <label for="CategoryTitle"> <span class="FieldInfo"> Chose Category </span></label>
 
               <select class="form-control" id="CategoryTitle"  name="Category">
-                 <?php
-                $SrNo = 0;
-                while ($rr= $this->rrnext($c_category))
+                <?php
+                if ($LOVcategory_nrrows == 0) { ?>
+                     <option>NO ROWS FOR LOV</option>
+                  </select><?php
+                } else
                 {
-                  //all row fld names lowercase
-                  switch ($this->getdbi())
+
+                  $SrNo = 0;
+                  while ( $rr= Tbl_crud_category::rrnext($cursor_LOVcategory) and isset($rr->id)):
                   {
-                    case 'oracle' : $rr = $dm->rlows($rr) ; break; 
-                    default: break;
-                  }
-                  ?>
-                  <option> <?=$rr->title?></option>     <?php 
-                 } ?>
-              </select>
+                    //all row fld names lowercase
+                    switch (Db_allsites::getdbi()) { case 'oracle' : $rr = self::rlows($rr) ; break; default: break; }
+                    ?>
+
+                    <option> <?=$rr->title?> </option><?php 
+
+                   } endwhile; ?>
+                  </select>
+
+                <?php }  ?>
 
             </div>
 
@@ -125,17 +159,6 @@ $c_category = $tbl_o_category->rr_all($dm);
 
 
 <!-- End Main Area 
-                  /*$sql = "INSERT INTO posts(datetime,title,category,author,image,post)";
-                  $sql .= "VALUES(:dateTime,:postTitle,:categoryName,:adminname,:imageName,:postDescription)";
-                  $this->p repareSQL($sql); 
-                  $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-                  $this->b indvalue(':dateTime', $DateTime, \PDO::PARAM_STR);
-                  $this->b indvalue(':postTitle', $PostTitle, \PDO::PARAM_STR);
-                  $this->b indvalue(':categoryName', $Category, \PDO::PARAM_STR);
-                  $this->b indvalue(':adminname', $Admin, \PDO::PARAM_STR);
-                  $this->b indvalue(':imageName', $Image, \PDO::PARAM_STR);
-                  $this->b indvalue(':postDescription', $PostText, \PDO::PARAM_STR);
-                  $c ursor = $this->e xecute();*/
 -->
 
 

@@ -1,4 +1,7 @@
 <?php
+use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
+use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
 
 //$pp1  = $this->getp('pp1') ;
 
@@ -29,16 +32,16 @@
     <div class="card-body">
       <a href="<?=$pp1->filter_postcateg?>">ALL</a>&nbsp;&nbsp;&nbsp;
         <?php
-        //$cursor = $this->r r('', $this, 'category', "'1'='1' ORDER BY title", '*') ;
-        $cursor = $this->rr("SELECT * FROM category ORDER BY title", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-        while ($r = $this->rrnext($cursor))
-          { //all row fld names lowercase
-            switch (self::$dbi) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
+        $cursor = Tbl_crud_category::rr($sellst='*', $qrywhere="'1'='1' ORDER BY title", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+        while ($r = Tbl_crud_category::rrnext($cursor) and isset($r->title)):
+        { //all row fld names lowercase
+            switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
             ?>
             <a href="<?=$pp1->filter_postcateg?><?=$r->title?>/p/1">
              <span class="heading"> <?=$r->title?></span> </a>&nbsp;&nbsp;&nbsp;
             <?php 
-         } ?>
+        } endwhile; ?>
     </div>
   </div>
 
@@ -52,38 +55,34 @@
     </div>
     <div class="card-body">
       <?php
-      switch (self::$dbi)
+      switch (Db_allsites::getdbi())
       {
         case 'oracle' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
-          self::$do_pgntion = '1';
-          $cursor = $this->rr("SELECT * FROM posts ORDER BY datetime desc"
-              , $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
+          Db_allsites::setdo_pgntion('1') ;
+
+          $cursor = Tbl_crud_post::rr($sellst='*', $qrywhere="'1'='1' ORDER BY datetime desc", $binds  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
         break;
         case 'mysql' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':rblk', 'valph'=>5, 'tip'=>'int'];
-          self::$do_pgntion = '1';
-          // Invalid parameter number: number of bound variables does not match number of tokens in J:\awww\www\zinc\Db_allsites.php:198 Stack trace: #0 J:\awww\www\zinc\Db_allsites.php(198): PDOStatement->execute() #1 J:\awww\www\fwphp\glomodul\blog\home_side_area.php(68): 
-          $binds =[] ;
-          $cursor = $this->rr(
-          "SELECT * FROM posts ORDER BY datetime desc" // LIMIT :first_rinblock, :rblk
-               , $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
+          Db_allsites::setdo_pgntion('1') ;
+          $cursor = Tbl_crud_post::rr($sellst='*', $qrywhere="'1'='1' ORDER BY datetime desc", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
         break;
         default:
                 echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-                    .'D B I '. self::$dbi .' does not exist' . '</h3>';
-          //$this->Redirect_to($pp1->filter_page) ;
+                    .'D B I '. Db_allsites::getdbi() .' does not exist' . '</h3>';
+          //Db_ allsites::Redirect_to($pp1->filter_page) ;
           break;
       }
 
 
-      $ii=0 ; while ($r = $this->rrnext($cursor))
+      $ii=0 ; while ( $r = Tbl_crud_post::rrnext($cursor) and isset($r->id) ):
       {
         if ($ii>9) break ;
         //all row fld names lowercase
-        switch (self::$dbi) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
+        switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
         ?>
         <a href="<?=$pp1->filter_postcateg?><?=$r->category?>">
          <span class="heading"> <?=$r->category?></span> </a>&nbsp;&nbsp;&nbsp;
@@ -112,7 +111,7 @@
         <hr>
         <?php
         $ii++ ;
-      } ?>
+      } endwhile; ?>
     </div> <!--e n d <div class="card-body"-->
   </div> <!--e n d <div class="card"-->
 
@@ -149,9 +148,4 @@
     <?='<small class="text-muted">'. __FILE__ .'</small>'?>
 
 </div>
-<!-- Side Area End 
-                          //$sql = "S ELECT * FROM category ORDER BY title";
-                          //$this->p repareSQL($sql); $this->e xecute();;
-                          //while ($r = $this->f etchNext())
-                          //if Executedsql than err : Call to a member function f etchNext() on bool
--->
+<!-- Side Area End -->

@@ -1,20 +1,29 @@
 <?php
-//J:\awww\www\fwphp\glomodul4\blog\posts.php
+declare(strict_types=1);
+// J:\awww\www\fwphp\glomodul\post\posts.php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
+
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Db_allsites ;
 use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
 use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
-                  //echo '<pre>$p p1='; print_r($pp1); echo '</pre><br />';
+                  //echo '<pre>$ p p 1='; print_r($pp1); echo '</pre><br />';
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+
+//           1. S U B M I T E D  A C T I O N S
 
 //               2. R E A D  D B T B L R O W S
 //no sense to put this in controller (Home_ctr) because details cursor can not be there ! :
-$tbl_o_post = new Tbl_crud_post ;
-$c_posts = $tbl_o_post->rr_all($dm, $category_from_url);
+$cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[]
+  , $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ 
+           , 'category_from_url'=>$category_from_url
+    ]
+) ;
 
 
 ?>
-<!-- HEADER & n avbar_ admin2 -->
+<!-- HEADER & n avbar_ ad min2 -->
 <header class="bg-dark text-white py-3">
   <div class="container">
     <div class="row">
@@ -45,7 +54,7 @@ $c_posts = $tbl_o_post->rr_all($dm, $category_from_url);
 
         <thead class="thead-dark">
         <tr>
-          <th>#</th><th>Title</th><th>Category</th><th>Date&Time</th><th>Author</th><th>Banner</th><th>Comments</th><th>Action</th><!--th>L ive P review</th-->
+          <th>#</th><th>Title</th><th>Category</th><th>Date&Time</th><th>Author</th><th>Banner</th><th>Comments</th><th>Edit</th><th>Delete</th><!--th>L ive P review</th-->
         </tr>
         </thead>
 
@@ -54,12 +63,11 @@ $c_posts = $tbl_o_post->rr_all($dm, $category_from_url);
 
 
         $Sr = 0;
-        // $this is $dm=domain model = cls hierarchy in UML diagram
-        while ($r = $this->rrnext($c_posts)): 
+        while ($r = Tbl_crud_post::rrnext($cursor_post) and isset($r->id)): 
         {
           $Sr++;
           //all row fld names lowercase
-          switch ($dm->getdbi()) { case 'oracle' : $r = $dm->rlows($r) ; break; default: break; }
+          switch (Db_allsites::getdbi()) { case 'oracle' : $r = Config_allsites::rlows($r) ; break; default: break; }
           ?>
           <tr>
           <td><?=$Sr?></td>
@@ -104,25 +112,25 @@ $c_posts = $tbl_o_post->rr_all($dm, $category_from_url);
           <td><img src="Uploads/<?=$r->image?>" width="170px;" height="50px"></td>
           <td>
             <?php
-
-            $tbl_o_post_comment = new Tbl_crud_post_comment ;
-            // $dm = domain model = cls hierarchy in UML diagram ($this )
             // A p p r o v e d  c o m m e n t s  c o u n t  count_post_comment_aproved
-            $rows_on = $tbl_o_post_comment->rr_count_aproved($dm, $r->id, 'ON');
+            $rows_on = Tbl_crud_post_comment::rr_count_aproved($r->id, 'ON');
             if ($rows_on>0) { ?> <span class="badge badge-success"><?=$rows_on?></span> <?php } 
             // D i s a p p r o v e d  c o m m e n t s  c o u n t
-            $rows_off = $tbl_o_post_comment->rr_count_aproved($dm, $r->id, 'OFF');
+            $rows_off = Tbl_crud_post_comment::rr_count_aproved($r->id, 'OFF');
             if ($rows_off>0) { ?> <span class="badge badge-danger"><?=$rows_off?></span> <?php } ?>
           </td>
 
 
           <td>
-            <a href="<?=$pp1->editpost?>id/<?=$r->id?>"><span class="btn btn-warning"> Edit</span></a>
+            <a href="<?=$pp1->editpost?>id/<?=$r->id?>"><span class="btn btn-warning"> Ed</span></a>
+            <!--   -->
+          </td>
+          <td>
             <!--   -->
            <a id="erase_row" class="btn btn-danger"
               onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
               if (yes == '1') { location.href= '<?=$pp1->del_row?>t/posts/id/<?=$r->id?>/'; }"
-           >Del <?=$r->id?></a>
+           ><?=$r->id?></a>
           </td>
           <!--td>
 

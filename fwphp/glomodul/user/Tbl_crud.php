@@ -1,72 +1,125 @@
 <?php
+declare(strict_types=1);
+/**
+* J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
+*     This c l a s s is for one module - does know module's CRUD
+*          DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI
+*         (PRE) CRUD class - DAO (Data Access Object) or data mapper
+* Other such scripts should be (may be not ?) for csv persistent storage, web services...
+*
+* DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
+* MVC is code separation not functionality !
+*/
 /**
 *  J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
 *         (PRE) CRUD class - DAO (Data Access Object) or data mapper
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\user ;
-use B12phpfw\module\blog\Home_ctr ;
-//use B12phpfw\core\zinc\Config_ allsites ;
-//use Model\UserInterface,
-//    Model\User ; //entity
 
-class Tbl_crud //extends AbstractDataMapper implements User_db_intf
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\module\blog\Home_ctr ;
+use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin ;
+
+use B12phpfw\core\zinc\Interf_Tbl_crud ;
+use B12phpfw\core\zinc\Db_allsites ;
+//use Model\UserInterface, //    Model\User ; //entity
+
+// Gateway class - separate DBI layers
+class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implements User_db_intf
 {
-  protected $tbl = "admins";
+  static protected $tbl = "admins";
+
+
+  /**
+  * Like Oracle forms triggers - P R E / O N  D E L E T E"  AND  "O N  D E L E T E"
+  * Called from 1. link $pp1->del_row in table view script eg c a t e g o r i e s.php 
+  *     2. H o m e _ c t r  'del_row' => QS.'i/del_ row_ do/', del_ row_ do() 
+  */
+  static public function dd( object $pp1, array $other=[] ): string
+  { 
+    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    return '' ;
+  }
 
 
   // *******************************************
   //                     R E A D
   // *******************************************
   // pre-query
-  public function rr_all(object $db) {
+  static public function rr(
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  {
     // open cursor (execute-query loop is in view script)
-    $cursor = $db->rr("SELECT * FROM $this->tbl ORDER BY username", [], __FILE__ .', ln '. __LINE__ ) ;
-    $db::disconnect(); //NOT problem ON LINUX
+    $cursor = Db_allsites::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
+  }
+
+
+  static public function rrnext(object $cursor): object
+  { 
+               //while ( 
+    $rx = Db_allsites::rrnext($cursor) ;
+               //): { $row = $rx ; } endwhile;
+    if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
   // pre-query
-  public function rr(object $db, int $id) {
-    // open cursor (execute-query loop is in view script)
-    $cursor = $db->rr("SELECT * FROM admins WHERE id=:AdminId ORDER BY aname"
-        , [ ['placeh'=>':AdminId', 'valph'=>$id, 'tip'=>'int']
-          ] , __FILE__ .' '.', ln '. __LINE__) ;
-    //while ($row = $db->rrnext($cursor)): {$r = $row ;} endwhile;
-    $db::disconnect();
+  static public function rr_all( string $sellst, string $qrywhere="'1'='1'"
+     , array $binds=[], array $other=[]): object  //returns $cursor
+  {
+    if ($filterfldval) 
+    {
+      //WHERE FILTEREDFLD_HERE = :filterfldval ORDER BY datetime desc"
+      //eg [ ['placeh'=>':category_from_url', 'valph'=>$filterfldval, 'tip'=>'str'] ]
+      $cursor = Db_allsites::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+    }
+    else{
+      // default SQL query
+      $cursor =  Db_allsites::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+         , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    }
+
+    //$Db_allsites::disconnect(); //problem ON LINUX
     return $cursor ;
   }
 
 
 
 
+  // -----------------------------------------
+  // R E A D  fns not in  i n t e r f a c e
+  // -----------------------------------------
+  static public function ChkUsrNameExists(string $username)
+  {
+    // called only before add admin to warn "Username Exists. Try Another One!"
+    $cursor_admin = self::rr($sellst='*', $qrywhere="username=:username"
+      , $binds = [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
+          ] 
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+   $row = ''; while ( $r = Db_allsites::rrnext($cursor_admin) and isset($r->id) ):
+    {$row = $r ;} endwhile; 
+                       echo '<pre>'. __METHOD__ .' SAYS : $row='; print_r($row); echo '</pre>';
+    if (isset($r->username) and $r->username == $username) {return true;}
+    else {return false;}
+
+  }
 
 
-  public function Login_Confirm_SesUsrId(){
+  static public function Login_Confirm_SesUsrId(){
     if (isset($_SESSION["userid"])) { return true;
     }  else {
       $_SESSION["ErrorMessage"]="You are not logged in, log in is required  f o r  action you want !";
-      //$dm->Redirect_to($dm->pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
+      //Config_allsites::Redirect_to(Config_allsites::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
     }
   }
 
-  public function ChkUsrNameExists(string $username, object $db){
-    // called only before add admin to warn "Username Exists. Try Another One!"
-    //$db sees Home_ctr, Config_allsites and Db_allsites objects, 
-    $cursor = $db->rr("SELECT username FROM admins WHERE username=:username" 
-        , [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
-          ] 
-    , __FILE__ .' '.', ln '. __LINE__) ;
-
-    while ($row = $db->rrnext($cursor)): {$r = $row ;} endwhile; //c_, R_, U_, D_
-    if (isset($r->username) and $r->username == $username) {return true;}
-    else {return false;}
-  }
 
 
-
-
-  public function logout(object $db){
+  static public function logout(object $db){
     //our admins tbl - U serName may or not be  d b  s h e m a  name :
     if (isset($_SESSION['userid']))    $_SESSION['userid']    = null ;
     if (isset($_SESSION['username']))  $_SESSION['username']  = null ;
@@ -75,7 +128,7 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
     if (isset($_SESSION['cncts']->username)) $_SESSION['cncts']->username = null ;
     //
     session_destroy() ;
-    $db->Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
+    Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
   }
   //e n d  S E S S  I O N  M E T H O D S
 
@@ -83,7 +136,7 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 
 
 
-  public function login(object $db, $pp1, string $goscript='') // login
+  static public function login(object $db, $pp1, string $goscript='') // login
   {
                 if ('') {$db->jsmsg( [ //b asename(__FILE__).
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>''
@@ -91,23 +144,26 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
                 ] ) ; }
       $r = '';
                   if ('') {  //if ($module_ arr->dbg) {
-                    echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                    echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</span>' ;
+                    
+                    echo '<br /><span style="color: fuchsia; font-size: normal; font-weight: normal;"">' .'CHK isset($_POST["Submit"])='. isset($_POST["Submit"]) .'</span>' ; 
+
+                    echo '<br /><span style="color: fuchsia; font-size: normal; font-weight: normal;"">' .'CHK $_POST["username"]='. $_POST["username"] .'</span>' ;
+
+                    echo '<br /><span style="color: fuchsia; font-size: normal; font-weight: normal;"">' .'CHK $_POST["password"]='. $_POST["password"] .'</span>' ;
+
                   echo '<pre>';
                   //echo '<b>$_GET</b>='; print_r($_GET); 
-                  //echo '<b>$db->uriq</b>='; print_r($db->uriq); 
                   echo '<b>$_POST</b>='; print_r($_POST); 
                   //echo '<b>$_SESSION</b>='; print_r($_SESSION); 
                   echo '<b>$pp1</b>='; print_r($pp1); 
                   echo '</pre><br />'; 
-                  //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
-                  exit(0) ;
+                  exit(0) ; //to avoid redirto
                   }
       // define variables and set to empty values
       $username = $password = ''; //$nameErr = $passwordErr = '';
       //if ($_SERVER["REQUEST_METHOD"] == "POST") 
-      if (!isset($_POST["Submit"]))
-      {
-        $_SESSION["ErrorMessage"]="l o g i n() is not called from l o g i n _ f r m  script";
+      if (!isset($_POST["Submit"])) { $_SESSION["ErrorMessage"]="l o g i n() is not called from l o g i n _ f r m  script";
         goto redirto ; //return ;
       } else {
           if (empty($_POST["username"])) { 
@@ -116,7 +172,8 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
           } else { $username = $db->escp($_POST["username"]);
             // check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
-              $_SESSION["ErrorMessage"] = "Only letters and white space are allowed in name!";
+              $_SESSION["ErrorMessage"] = '<span style="color: violet; font-size: large; font-weight: bold;">'
+              ."Only letters and white space are allowed in name!".'</span>';
               goto redirto ;
             }
           }
@@ -140,16 +197,18 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
                        .'<br />';
                       echo '</pre>'; }
       }
-      //$qrywhere = "username=:username AND password=:password" ;
-      // c u r s o r  of one  r o w :
-      //$c_r = $db->r r( '1', $db, 'admins', "$qrywhere", '*'
-      $c_r = $db->rr("SELECT * FROM admins WHERE username=:username AND password=:password" 
-        , [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
-          , ['placeh'=>':password', 'valph'=>$password, 'tip'=>'str'] ] 
-      , __FILE__ .' '.', ln '. __LINE__) ;
-      $r = $db->rrnext($c_r);
+
+      $cursor_usr = Db_allsites::rr(
+          "SELECT * FROM admins WHERE username=:username AND password=:password" 
+        , $binds=[
+            ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
+          , ['placeh'=>':password', 'valph'=>$password, 'tip'=>'str'] 
+          ] 
+        , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+      ) ;
+      $r = Db_allsites::rrnext($cursor_usr);
       //all row fld names lowercase
-          switch ($db->getdbi()) 
+          switch (Db_allsites::getdbi()) 
           {
             case 'oracle' : $r = $db->rlows($r) ; break; 
             default: break;
@@ -161,6 +220,7 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
                     echo '<br /><b>$password</b>='; print_r($password); 
                     echo '<br /><b>$r</b>='; print_r($r); 
                     echo '</pre><br />'; 
+                    exit(0) ; //to avoid redirto
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     }
       //if (isset($r->username) and $r->username == $username) { return $Found_Account = $r;
@@ -171,7 +231,7 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
       switch (true) 
       {
         case isset($_SESSION["userid"]) and $_SESSION["userid"] : 
-          $db->Redirect_to($goscript) ; //$pp1->dashboard
+          Config_allsites::Redirect_to($goscript) ; //$pp1->dashboard
           break ;
         case $r : 
           $_SESSION["userid"]     =$r->id;
@@ -179,12 +239,12 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
           $_SESSION["adminname"]  =$r->aname;
           $_SESSION["SuccessMessage"] = "Wellcome ".$_SESSION["adminname"]."!";
 
-          $db->Redirect_to($goscript); //$pp1->dashboard
+          Config_allsites::Redirect_to($goscript); //$pp1->dashboard
           break;
         default:
           $_SESSION["username"]     = $username;
           //$_SESSION["ErrorMessage"] ="Incorrect username/password";
-          $db->Redirect_to($pp1->loginfrm);
+          Config_allsites::Redirect_to($pp1->loginfrm);
           break;
       }
 
@@ -195,53 +255,121 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
   // *******************************************
 
 
-
-  // on-insert
-  //public function cc(UserInterface $user) {
-  public function cc(object $db, array $vv) {
+  // *******************************************
+  //                   C R E A T E,  U,  D
+  // *******************************************
+  // on-insert    //public f unction c c(UserInterface $user) {
+  //returns id or 'err_cc' :
+  static public function cc( //string $flds, string $qrywhat, array $binds=[],
+     object $pp1, array $other=[]): string
+  {
                 if ('1') { 
                   echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
-                  //echo '<pre>URL query array $this->uriq='; print_r($this->uriq); echo '</pre>';
-                        // $this->uriq=stdClass Object( [i] => u  [d] => 79 )
+                             //echo '<pre>URL query array $this->uriq='; print_r($this->uriq); echo '</pre>';
+                             // $this->uriq=stdClass Object( [i] => u  [d] => 79 )
                   echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
                   echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
-                  echo '<pre>$vv='; print_r($vv); echo '</pre>';
+
+                  //echo '<pre>$flds='; print_r($flds); echo '</pre>';
+                  //echo '<pre>$valsins='; print_r($qrywhat); echo '</pre>';
+                  //echo '<pre>$binds='; print_r($binds); echo '</pre>';
                   //exit(0);
                 }
+                /*
+                  $_GET=Array
+                  (
+                      [i/admins/] => 
+                  )
+
+                  $_POST=Array
+                  (
+                      [username] => 22
+                      [Name] => 22
+                      [password] => 2222
+                      [Confirmpassword] => 2222
+                      [Submit] => 
+                  )
+
+                  $flds=datetime,username,password,aname,addedby
+
+                  $valsins=VALUES(:dateTime,:username,:password,:aName,:adminname)
+
+                  $binds=Array
+                  (
+                      [0] => Array
+                          (
+                              [placeh] => :dateTime
+                              [valph] => 2020-09-21 17:25:41
+                              [tip] => str
+                          )
+                  ...
+                */
+
     //  1. c r e  r o w
-    $CurrentTime = time(); 
-    $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime); //'2020-01-18 13:01:33'
-    $flds     = "datetime,username,password,aname,addedby" ;  //"username,email"
-    $qrywhat = "VALUES(:dateTime,:username,:password,:aName,:adminname)" ;
-    $binds = [
-      ['placeh'=>':dateTime',  'valph'=>$vv[0], 'tip'=>'str']
-     ,['placeh'=>':username',  'valph'=>$vv[1], 'tip'=>'str']
-     ,['placeh'=>':password',  'valph'=>$vv[2], 'tip'=>'str']
-     ,['placeh'=>':aName',     'valph'=>$vv[3], 'tip'=>'str']
-     ,['placeh'=>':adminname', 'valph'=>$vv[4], 'tip'=>'str']
-    ] ;
-    $cursor = $db->cc($db,$this->tbl,$flds,$qrywhat,$binds);
 
-    // 2. g e t  i d
-    $c_r = $db->rr("SELECT max(id) id FROM $this->tbl" 
-        , [] //[ ['placeh'=>':AdminId', 'valph'=>$id, 'tip'=>'int'] ]
-        , __FILE__ .' '.', ln '. __LINE__) ;
-    while ($row = $db->rrnext($c_r)): {$r = $row ;} endwhile; 
 
-    $db::disconnect();
 
-    $id = (int)$r->id ; // $id = $db::escp($r->id) ; //F5 to refresh page to see n ew user.
-    if($cursor){$_SESSION["SuccessMessage"]="Admin adminname {$vv[3]}"
-       .", id $id added Successfully by admin {$vv[4]}. Refresh page (F5) to see added row!";
-    }else { $_SESSION["ErrorMessage"]= "Something went wrong. Try Again !"; }
-    //$db->Redirect_to($db->pp1->c);
+  $CurrentTime = time();
+  $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime); //'2020-01-18 13:01:33'
 
-    return $id; 
+  $username        = $_POST["username"];
+  $Name            = $_POST["Name"];
+  //$DateTime        = $_POST["DateTime"];
+      $CurrentTime = time();
+      $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+  $password        = $_POST["password"];
+  $Confirmpassword = $_POST["Confirmpassword"];
+  $Admin           = $_SESSION["username"];
+
+  //   1.1. V A L I D A T I O N
+  if(empty($username)||empty($password)||empty($Confirmpassword)){
+    $_SESSION["ErrorMessage"]= "All fields must be filled out";
+    Config_allsites::Redirect_to($pp1->admins);
+  }elseif (strlen($password)<4) {
+    $_SESSION["ErrorMessage"]= "password should be greater than 3 characters";
+    Config_allsites::Redirect_to($pp1->admins);
+  }elseif ($password !== $Confirmpassword) {
+    $_SESSION["ErrorMessage"]= "password and Confirm password should match";
+    Config_allsites::Redirect_to($pp1->admins);
+  }elseif (self::ChkUsrNameExists($username)) {
+    $_SESSION["ErrorMessage"]= "Username Exists. Try Another One! ";
+    Config_allsites::Redirect_to($pp1->admins);
+  }else{
+    //  1.2 I N S E R T  D B T B L R O W
+    // Query to insert admin in DB When everything is fine
+
+    //I N S E R T  I N T O  t b l
+   $flds="datetime,username,password,aname,aheadline,abio,addedby" ;
+   $valsins="VALUES(:dateTime,:username,:password,:aName,:aheadline,:abio,:adminname)" ;
+   $binds=[
+        ['placeh'=>':dateTime',  'valph'=>$DateTime, 'tip'=>'str']
+       ,['placeh'=>':username',  'valph'=>$username, 'tip'=>'str']
+       ,['placeh'=>':password',  'valph'=>$password, 'tip'=>'str']
+       ,['placeh'=>':aName',     'valph'=>$Name    , 'tip'=>'str']
+       ,['placeh'=>':aheadline', 'valph'=>'~~~aheadline varchar(30)~~~', 'tip'=>'str']
+       ,['placeh'=>':abio',     'valph'=>'~~~abio varchar(500)~~~', 'tip'=>'str']
+       ,['placeh'=>':adminname', 'valph'=>$Admin   , 'tip'=>'str']
+       ] ;
+
+    $cursor = Db_allsites::cc( self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__] );
+
+    //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
+    //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre usr). Try Again !"; }
+
+
+    Config_allsites::Redirect_to($pp1->admins);
+  }  // e n d  N O  V A L I D A T I O N  E R R O R S
+
+
+
+
+    // 2. g e t  i d  - see D b _ a l l s i t e s  rr_ last_ id($tbl)
+
 
   }
 
   // on-update
-  public function uu(object $db, array $vv) {
+  static public function uu(object $db, array $vv) {
     //  1. u p d  r o w
     $flds     = "SET aname=:AName, email=:Aemail, abio=:abio" ;
     $qrywhere = "WHERE id=:AdminId" ;
@@ -251,7 +379,7 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
      ,['placeh'=>':AdminId','valph'=>$vv[2], 'tip'=>'int']
      ,['placeh'=>':abio',   'valph'=>$vv[3], 'tip'=>'str']
     ] ;
-    $cursor = $db->uu($db, $this->tbl, $flds, $qrywhere, $binds);
+    $cursor = $db->uu($db, self::$tbl, $flds, $qrywhere, $binds);
     $db::disconnect();
     //header("Location: index.php");
     return null ;
@@ -260,7 +388,9 @@ class Tbl_crud //extends AbstractDataMapper implements User_db_intf
 
   //public function dd($id) {  } //no need, 
   //dd is jsmsgyn dialog in home.php + call dd() in Home_ctr d() method
-
+  // *******************************************
+  //             E N D  C R E A T E,  U,  D
+  // *******************************************
 
 
 }
@@ -295,7 +425,7 @@ M parts : business logic, CRUD db operations, data mapper pattern and services, 
 *       Class User_db extends AbstractDataMapper implements User_db_intf
 * called from view CRUD scripts c reate.php, r ead.php... 
 *    when usr clicks link/button or any (CRUD) URL is entered in ibrowser  
-* calls Db_ allsites method cc() (=on-insert tbl-row), rr()...
+* calls Db_ allsites method c c() (=on-insert tbl-row), rr()...
 *
 * Admin_ crud separates CRUD code skeleton (B12phpfw) from data source (DB or web service or...).
 * Admin_ crud is ORM (TBL ADAPTER) CLASS. When instantiated it is DM object of row in memory

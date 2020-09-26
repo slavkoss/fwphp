@@ -1,5 +1,6 @@
-# Laragon portable info
-**laragon.7z**, 19 MB - PHP 5.4, MySQL 5.1 - easy to add newer tools - see below.
+# Laragon portable info (alike for non portable versions)
+Finally work well Windows adresses (paths) and web adresses (URLs).  
+**laragon.7z**, 19 MB - PHP 5.4, MySQL 5.1 - easy to add newer tools - see below.  
 
 PHP version: 7.4.10 [info](http://localhost:8083/fwphp/glomodul/z_examples/00_index_of_important.php "phpinfo()")  
 Document Root: J:/awww/www  
@@ -70,6 +71,130 @@ SHA256 hash matches
 cf1adc96dcdc46360a90f10df98fefb3bfd9e5a243b52645021dc590682cffb3
 
 Acess phpMyAdmin at: [http://localhost:8083/phpmyadmin](http://localhost:8083/phpmyadmin)
+
+
+### 2.6 Add Xdebug 
+https://xdebug.org/wizard  
+
+List all loaded modules. Xdebug should appear twice there (once under 'PHP Modules' and once under 'Zend Modules').  
+**php -m**  
+**displays : Cannot load Xdebug** - it was built with configuration API320190902,TS,VC15, whereas running engine is API320190902,NTS,VC15 
+
+So instructions below help not completly, we must download NTS win. binaries from :  
+https://xdebug.org/download  
+php_xdebug-2.9.7-7.4-vc15-nts-x86_64.dll  
+
+In J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\php.ini must be :  
+; NTS win binary, NOT php_xdebug-2.9.7-7.4-vc15-x86_64.dll !  
+zend_extension = J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\ext\php_xdebug-2.9.7-7.4-vc15-nts-x86_64.dll  
+
+J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64>php -m now displays :
+```
+[PHP Modules]
+bcmath
+calendar
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+gd
+hash
+iconv
+intl
+json
+libxml
+mbstring
+mysqli
+mysqlnd
+oci8
+openssl
+pcre
+PDO
+pdo_mysql
+PDO_OCI
+Phar
+readline
+Reflection
+session
+SimpleXML
+SPL
+sqlite3
+standard
+tokenizer
+xdebug <=========
+xml
+xmlreader
+xmlwriter
+xsl
+zip
+zlib
+
+[Zend Modules]
+Xdebug <=========
+```
+
+#### Installation Wizard
+This page helps you finding which file to download, and how to configure PHP to get Xdebug running. Please paste the full output of phpinfo() (either a copy & paste of the HTML version, the HTML source or eg  
+**in J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\  
+php -i > php_i.txt**  
+and submit form to receive tailored download and installation instructions. See code [here](https://github.com/xdebug/xdebug.org/blob/master/src/XdebugVersion.php).
+
+**in J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\  
+php -i > php_i.txt**  
+### Summary for Laragon PHP in J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\
+1. Xdebug installed: no
+2. Server API: Command Line Interface
+3. Windows: yes - Compiler: MS VC 15 - Architecture: x64
+4. Zend Server: no
+5. PHP Version: 7.4.10
+6. Zend API nr: 320190902
+7. PHP API nr: 20190902
+8. Debug Build: no
+9. Thread Safe Build: no
+10. OPcache Loaded: no
+11. Extensions directory: J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\ext
+
+Instructions  
+1. Download php_xdebug-2.9.7-7.4-vc15-nts-x86_64.dll  
+   http://xdebug.org/files/php_xdebug-2.9.7-7.4-vc15-x86_64.dll
+2. Move the downloaded file to J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\ext
+3. Edit J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\php.ini and add line 
+   zend_extension = J:\awww\bin\php\php-7.4.10-nts-Win32-vc15-x64\ext\php_xdebug-2.9.7-7.4-vc15-x86_64.dll
+
+**in J:\ylaragon\bin_NOT_NEEDED\php_NOT_NEEDED\php-7.4.10-nts-Win32-vc15-x64
+php -i > php_i.txt**  
+### Summary for Lartagon PHP
+...  
+
+
+**in J:\xampp\php>php\  
+php -i > php_i.txt**  
+### Summary for XAMPP PHP in J:\xampp\php\
+1. XXdebug installed: no
+2. SServer API: Command Line Interface
+3. WWindows: yes - Compiler: MS VC 15 - Architecture: x64
+4. ZZend Server: no
+5. PPHP Version: 7.4.3
+6. ZZend API nr: 320190902
+7. PPHP API nr: 20190902
+8. DDebug Build: no
+9. TThread Safe Build: yes
+10. OPcache Loaded: no
+11. Configuration File Path: C:\WINDOWS
+12. Configuration File: J:\xampp\php\php.ini
+13. Extensions directory: J:\xampp\php\ext
+
+Instructions
+1. Download php_xdebug-2.9.7-7.4-vc15-x86_64.dll  
+   http://xdebug.org/files/php_xdebug-2.9.7-7.4-vc15-x86_64.dll
+2. Move the downloaded file to J:\xampp\php\ext
+3. Edit J:\xampp\php\php.ini and add the line  
+   zend_extension = J:\xampp\php\ext\php_xdebug-2.9.7-7.4-vc15-x86_64.dll
+
+
 
 ## 3\. Install PHP's Oracle OCI8 extension (works with both Apache & Nginx)
 1.  Download OCI8 extension to access Oracle DB **php\_oci8-2.2.0-7.4-nts-vc15-x64.zip** from [https://pecl.php.net/package/oci8/2.2.0/windows](https://pecl.php.net/package/oci8/2.2.0/windows) . Use 'pecl install oci8' to install for PHP 7. I only unzip **php\_oci8\_12c.dll** **147456 B**, 2019.12.04 in :`  

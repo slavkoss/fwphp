@@ -17,10 +17,10 @@ if(isset($_POST["Submit"]))
   //   1.1. V A L I D A T I O N
   if (strlen($AHeadline)>30) {
       $_SESSION["ErrorMessage"] = "Headline Should be less than 30 characters";
-      $this->Redirect_to($pp1->upd_user_loggedin);
+      Config_allsites::Redirect_to($pp1->upd_user_loggedin);
   }elseif (strlen($ABio)>500) {
       $_SESSION["ErrorMessage"] = "Bio should be less than than 500 characters";
-      $this->Redirect_to($pp1->upd_user_loggedin);
+      Config_allsites::Redirect_to($pp1->upd_user_loggedin);
 
   //  1.2 U P D A T E  D B T B L R O W
   }else{
@@ -38,14 +38,14 @@ if(isset($_POST["Submit"]))
       }
       $cursor = $this->uu($this,'admins',$flds,$qrywhere,$binds);
                         //$this->p repareSQL($sql); $p reparedsql = $this->e xecute();
+      if($cursor){ $_SESSION["SuccessMessage"]="Details Updated Successfully";
+      }else {$_SESSION["ErrorMessage"]= "Something went wrong (usr upd). Try Again !";}
 
 
       move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
 
-      if($cursor){ $_SESSION["SuccessMessage"]="Details Updated Successfully";
-      }else {$_SESSION["ErrorMessage"]= "Something went wrong. Try Again !";}
 
-      $this->Redirect_to($pp1->upd_user_loggedin);
+      Config_allsites::Redirect_to($pp1->upd_user_loggedin);
     }
 } //Ending of Submit Button If-Condition
 

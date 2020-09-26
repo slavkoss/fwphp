@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 // J:\awww\www\zinc\Autoload.php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
 
 //if (!isset($_SESSION)) { session_start(); }
-if (strnatcmp(phpversion(),'5.4.0') >= 0) {
+if (strnatcmp(phpversion(),'7.0.0') >= 0) {
       if (session_status() == PHP_SESSION_NONE) { session_start(); }
 } else { 
   if(session_id() == '') { session_start(); } 
@@ -117,7 +118,7 @@ class Autoload
     switch (true)
     {
       case file_exists($clsscript_path) and $nsdir_routTBLclsdir <> '' :
-        require $clsscript_path ;
+        require_once $clsscript_path ;
         break;
 
       default: //E R R O R : NOT FOUND CLS SCRIPT or 

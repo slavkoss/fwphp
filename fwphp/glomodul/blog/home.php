@@ -1,5 +1,15 @@
 <?php
+declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 //J:\awww\www\fwphp\glomodul4\blog\home.php
+use B12phpfw\core\zinc\Db_allsites ;
+
+use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
+//use PDO; //Warning: The use statement with non-compound name 'PDO' has no effect 
+    //App\Library\DatabaseObjectTrait::openConnection(basename(__FILE__));
+    //$this->dbobj = Db_ allsites::get_or_new_dball(basename(__FILE__));
+//$Tbl_crud_post = new Tbl_crud_post ;
+//$Tbl_crud_post_comment = new Tbl_crud_post_comment ;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
@@ -68,9 +78,10 @@ if( $search_from_submit ) {
 
 if( $category_from_url ) {
   $qrywhere .= ' and category = :category_from_url' ;
-  $binds[]=['placeh'=>':category_from_url', 'valph'=>$category_from_url, 'tip'=>'str'];
+  $binds[]  =['placeh'=>':category_from_url', 'valph'=>$category_from_url, 'tip'=>'str'];
 }
-
+$cursor_rowcnt =  Tbl_crud_post::rr( $sellst='COUNT(*) COUNT_ROWS'
+  , $qrywhere, $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
@@ -79,10 +90,7 @@ if( $category_from_url ) {
                       echo '<br />$binds='; print_r($binds) ;
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     echo '</pre>'; }
-
-$c_rcnt = $this->rr("SELECT COUNT(*) COUNT_ROWS FROM posts WHERE $qrywhere", $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
-while ($row_cnt = $this->rrnext($c_rcnt)): {$rcnt = $row_cnt ;} endwhile;
-$rcnt =  $rcnt->COUNT_ROWS ;
+$rcnt = Tbl_crud_post::rrnext($cursor_rowcnt)->COUNT_ROWS ;
 
 
 
@@ -93,7 +101,7 @@ $first_rinblock   = $pgn_links['first_rinblock'];
 $last_rinblock    = $pgn_links['last_rinblock'];
 
 if( $pgordno_from_url ) {
-  switch (self::$dbi)
+  switch (Db_allsites::getdbi())
   {
     case 'oracle' : 
       $qrywhere .= " ORDER BY datetime desc" ; //LIMIT :first_rinblock, :last_rinblock
@@ -107,9 +115,9 @@ if( $pgordno_from_url ) {
     break;
     default: 
       echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-                .'D B I '. self::$dbi .' does not exist' . '</h3>';
+                .'D B I '. Db_allsites::getdbi() .' does not exist' . '</h3>';
       break;
-    //default: $this->Redirect_to($pp1->filter_page) ; break;
+    //default: Config_allsites::Redirect_to($pp1->filter_page) ; break;
   }
   
 }
@@ -122,21 +130,21 @@ if( $pgordno_from_url ) {
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     echo '</pre>'; }
 
-//command for all tables global read fn "rr" to read paginated ee to read rows block (recordset) :
-self::$do_pgntion = '1'; 
-$c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
-   , __FILE__ .' '.', ln '. __LINE__ ) ;
+Db_allsites::setdo_pgntion('1') ; 
+$cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
+  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+
 ?>
 
 
 
 
-<!-- HEADER -->
+<!-- CENTER -->
 <div class="container">
   <div class="row mt-4">
 
     <!-- Main Area Start  -  P A G E  T I T L E -->
-    <div class="col-sm-8 ">
+    <div class="col-sm-8">
 
       <?php // $pgordno_ from_url $category_ from_url  $search_ from_submit
         $t1 = 'Blog' ;
@@ -154,7 +162,7 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
 
       <!-- 1. p a g e  t i t l e -->
-      <h1 class="lead"><b><?=$t1?></b> Responsive CMS Blog (PHP, PDO, Bootstrap 5, jQuery only for Bootstrap, no AJAX)</h1>
+      <h1 class="lead"><b><?=$t1?></b> Responsive CMS Blog (PHP, PDO, Bootstrap 4, jQuery only for Bootstrap, no AJAX)</h1>
       <!--h4><=$t1></h4-->
 
 
@@ -162,17 +170,18 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
       echo $pgn_links['navbar']; //P G N  L I N K S
 
       $ordno = 0 ;
-      while ($r = $this->rrnext($c_posts)): //r e a d  r o w  n e x t
+      //r e a d  r o w  n e x t :
+      while ( $r = Tbl_crud_post::rrnext($cursor_posts) and isset($r->id) ): 
       { 
         ++$ordno ; //all row fld names lowercase
-            switch (self::$dbi) 
+            switch (Db_allsites::getdbi()) 
             { 
               case 'oracle' : $r = self::rlows($r) ; break; 
               default: 
                 //echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-                //    .'D B I '. self::$dbi .' does not exist' . '</h3>';
+                //    .'D B I '. Db_allsites::getdbi() .' does not exist' . '</h3>';
               break; 
-            } //default: $this->Redirect_to($pp1->filter_page) ; break;
+            } //default: Config_allsites::Redirect_to($pp1->filter_page) ; break;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
@@ -181,13 +190,18 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
                     echo '</pre>'; }
         ?>
 
+
+
+
         <br />
-      <div class="card">
+        <div class="card">
 
-
-
-
-            <!-- 2. a r t i c l e  c a t e g o r y    small class="text-muted"-->
+            <!-- 2. a r t i c l e  c a t e g o r y    small class="text-muted"
+               what is $ p p 1->filter_ postcateg - see Home_ctr :
+                   urlqrystring_name: => urlqrystring_value:
+                  'filter_ postcateg' => QS.'i/filter_ postcateg/c/'
+                  and private function filter_postcateg(object $pp1) 
+            -->
             <div class="card-body">Category 
                 <a href="<?=$pp1->filter_postcateg?><?=self::escp($r->category)?>/p/1">
                  <?=self::escp($r->category)?> </a>
@@ -203,9 +217,12 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
               <span style="float:right;" class="badge badge-dark text-light">Comments:
                 <?php
-                $c_r = $this->rr("SELECT count(*) COUNT_ROWS FROM comments WHERE post_id='$r->id' AND status='ON'", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-                while ($row = $this->rrnext($c_r)): {$rcnt = $row ;} endwhile; //c_, R_, U_, D_
-                echo $rcnt->COUNT_ROWS ; ?>
+                $cursor_rowcnt = Tbl_crud_comment::rr($sellst='COUNT(*) COUNT_ROWS'
+                  ,$qrywhere="post_id='$r->id' AND status='ON'"
+                  ,$binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+                ) ;
+                $rcnt = Tbl_crud_comment::rrnext($cursor_rowcnt)->COUNT_ROWS ;
+                echo $rcnt ; //->COUNT_ROWS ?>
               </span>
 
               <br />Click txt name below to see summary.
@@ -215,7 +232,7 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
 
 
-        <!-- ******************** Open/close summary, img... **************** -->
+        <!-- *********exp_collapse Open/close summary, img...********** -->
         <button type="button" class="collapsible">
 
             <!-- 1. a r t i c l e  O S  f i l e  n a m e Read OS txt article &rang;&rang;
@@ -224,9 +241,9 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
             <h5 style="color:gray;">
                 <?php echo ''
                   //. ($category_from_url?$ordno.'. ':'')
-                  . str_replace('!', "&nbsp;", str_pad(
-                        $first_rinblock + $ordno - 1
-                    , 6, '!', STR_PAD_LEFT) ) .'. '
+                  . str_replace('!', "&nbsp;", 
+                      str_pad( (string)($first_rinblock + $ordno - 1), 6, '!', STR_PAD_LEFT)
+                    ) .'. '
                   . self::escp($r->title); ?>
 
             <a href="<?=$pp1->read_post?>id/<?=$r->id?>" style="float:right;">
@@ -234,11 +251,11 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
             </a>
             </h5><!-- e n d  1. a r t i c l e  O S  f i l e  n a m e -->
 
+        </button><!-- type="button" class="collapsible" -->
 
-        </button>
+
+        <!-- *********exp_collapse Open/close summary, img...********** -->
         <div class="content" style="display:none;" >
-
-
 
             <!-- 3. a r t i c l e  s u m m a r y -->
             <div class="card-body">
@@ -248,12 +265,12 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
                        echo '<h5>Article summary</h5>' ;
 
-              //echo nl2br(self::escp($r->summary));
-              echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
+                //echo nl2br(self::escp($r->summary));
+                echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
                       nl2br(self::escp($r->summary))
                    ));
               } else {
-                $this->readmkdpost($pp1, '','only_help'); //means  i n c l u d e  here html 
+                //Db_allsites::readmkdpost($pp1, '','only_help'); //means  i n c  here html 
               }
               ?>
             </h4>
@@ -317,7 +334,7 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
         <!-- ******************** E N D Open/close summary, img... **************** -->
 
 
-      </div>
+      </div><!-- class="card"-->
         <br /><br> <?php
       } endwhile;
 
@@ -327,57 +344,20 @@ $c_posts = $this->rr( "SELECT * FROM posts WHERE $qrywhere", $binds
 
       echo '<small class="text-muted">'. __FILE__ .'</small>' ;
       ?>
-    </div>
+    </div><!-- class="col-sm-8"-->
     <!-- Main Area End-->
 
 
 
      <?php require_once("home_side_area.php"); ?>
 
-  </div>
+  </div><!-- class="row mt-4"-->
 
-</div>
+</div><!-- class="container"-->
 
-<!-- HEADER END -->
-
-
-<script>
-/*
-var coll = document.getElementsByClassName("collapsible");
-var i;
-      alert("xxxxxxxx coll.length="+coll.length);
-
-for (i = 0; i < coll.length; i++) {
-      alert("aaaaaaaaa bbbbbbbbb");
-  //coll[i].addEventListener("click", function() {
-    //this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    //var content = document.getElementById("item1").nextElementSibling.innerHTML;
-    //if (content.style.display === "block") { 
-      content.style.display = "none";
-    //} else { content.style.display = "block"; }
-  //}
-  //);
-}
-  //$('#year').text(new Date().getFullYear());
-*/
-</script>
+<!-- CENTER END -->
 
 
-<script src="<?=$pp1->wsroot_url?>zinc/exp_collapse.js" 
-        language='JScript' type='text/javascript'></script>
-
-
-          <!-- /*
-          $q rywhere = "'1'='1'" ;
-          $binds = [
-                  ['placeh'=>':first_rinblock', 'valph'=>$first_rinblock, 'tip'=>'int']
-                , ['placeh'=>':last_rinblock',  'valph'=>$last_rinblock, 'tip'=>'int']
-          ] ;
-          $c_limitedSQL = $this->r r('', $this, $tbl //c= cursor
-              , $qrywhere, '*', $binds, 'do_ora_pgn', $pp1->dbi_obj
-              //, "$q rywhere O RDER BY ... L IMIT :first_rinblock,5", '*' //mysql
-            ) ;
-          $numcols = $c_limitedSQL->columnCount(); //$numcols = ocinumcols($c_col_info);
-          */
-          -->
+<!--see ftr.php script src="<=$pp1->wsroot_url?>zinc/exp_collapse.js" 
+        language='JScript' type='text/javascript'>
+</script-->

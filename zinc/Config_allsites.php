@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
 *  J:\awww\www\zinc\Config_allsites.php
 * cs02. I N C L U D E D  only i n  i n d e x.p h p 
@@ -6,11 +7,10 @@
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
+//use B12phpfw\core\zinc\Config_allsites ;
 
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
-//extends  = ISA ("is a something") relation = not "conf is contained in db" but 
-//"conf is addition to db" - technicaly could be in db (is not for sake of clear code)
-abstract class Config_allsites extends Db_allsites
+abstract class Config_allsites //extends Db_allsites
 {
   // can be named AbstractEntity
   /** 
@@ -19,6 +19,7 @@ abstract class Config_allsites extends Db_allsites
   * ****************************************************
   */
   //url parameters (url query string) after QS='?' are key-value pairs
+
   //M O D U L E  & GLOBAL (COMMON) PROPERTIES (for all sites) PALLETE like Oracle Forms
   private $pp1 ; //was public. If using Composer autoloading classes set QS=''.
 
@@ -30,7 +31,7 @@ abstract class Config_allsites extends Db_allsites
     //STEP_1=n ew autol STEP_2=CONF   view/rout/disp preCRUD onCRUD
     //STEP_3=ROUT/DISP is in this parent::__construct : fw core calls method in Home_ctr cls
     
-    //1.requirements_ok, 2.adresses (no constants), 3.routing, 4.dispatching
+    //1.r equirements_ok, 2.adresses (no constants), 3.routing, 4.dispatching
 
       date_default_timezone_set("Europe/Zagreb"); //Asia/Karachi
 
@@ -41,21 +42,21 @@ abstract class Config_allsites extends Db_allsites
            // =============================================
            // 1. C H E C K  R E Q U I R E M E N T S
            // =============================================
-           //$requirements_ok = true;
-           $required_version = '5.6.0';
-           if (version_compare(phpversion(), $required_version) < 0)
+           //$r equirements_ok = true;
+           $minphp_version = '7.0.0';
+           if (version_compare(phpversion(), $minphp_version) < 0)
            { printf( "<strong>PHP too old</strong>: You're running PHP %s, but 
-                     <strong>PHP %s is required</strong> to run this program !<br />\n"
-                     , phpversion(), $required_version);
-             //$requirements_ok = false;
+                     <strong>PHP %s is minimal PHP version needed</strong> to run this program !<br />\n"
+                     , phpversion(), $minphp_version);
+             //$r equirements_ok = false;
              exit(0) ;
            }
            //if (! function_exists('ocilogon'))
            /*if (! function_exists('PDO::prepare'))
              { echo "<strong>PHP has no Oracle OCI support</strong>: Your PHP installation doesn't have the 
                      <a href=\"http://www.php.net/manual/en/ref.oci8.php\">OCI8 module</a> 
-                     installed which is required to run this program !<br />\n";
-              $requirements_ok = false;
+                     installed which is r equired to run this program !<br />\n";
+              $r equirements_ok = false;
               exit(0) ;
              } */
 
@@ -63,8 +64,8 @@ abstract class Config_allsites extends Db_allsites
              { echo "<h3>PHP has no session support</h3>: 
              Your PHP installation doesn't have the 
              <a href=\"http://www.php.net/manual/en/ref.session.php\">Session module</a> 
-             installed which is required to run this program !<br />\n";
-              $requirements_ok = false;
+             installed which is needed to run this program !<br />\n";
+              //$r equirements_ok = false;
               exit(0) ;
              }
 
@@ -227,6 +228,7 @@ abstract class Config_allsites extends Db_allsites
 
   //UNIVERSAL prop. setter to assign prop. :  __set MAGIC METHOD or:
   public function setp($property, $value){
+    //not working static fn if(property_exists('Config_allsites', $property)){
     if(property_exists($this, $property)){
       $this->$property = $value;
     }
@@ -251,12 +253,15 @@ abstract class Config_allsites extends Db_allsites
       /**
       *  RENAME  R O W  C O L U M N S  TO LOWERCASE  FOR ORACLE
       */
-    static public function rlows($r) //all row fld names lowercase
+    static public function rlows(object $r) //all row fld names lowercase
     {
       foreach ((array)$r as $key => $val) {
         switch (true) {
           case $key == 'DATETIME2' : //datetime is reserved word in Oracle DB
             $rlows['datetime'] = $val ;
+            break;
+          //case is_numeric($val) :
+          //  break;
           default:
             $rlows[strtolower($key)] = $val;
             break;
@@ -265,39 +270,30 @@ abstract class Config_allsites extends Db_allsites
       return (object)$rlows;
     }
 
-    // S E C U R I T Y  M E T H O D S
-        // filter input - same as  e s c p ?
-        private function secure_input($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
+    // S E C U R I T Y  M E T H O D S :
 
-        protected function secure_form($form)
-        {
-            foreach ($form as $key => $value)
-            {
-                $form[$key] = $this->secure_input($value);
-            }
-        }
-
-    //prevent XSS attacks by ESCAPING OUTPUT. XSS = cross-site scripting attack
-    // - XSS attacks hacker injects malicious client-side code into output of your page
-    static public function escp($string) //ESCAPING OUTPUT
+    static public function escp(string $string) //ESCAPING OUTPUT
     {
+      // filter input - secure_ input
+      //prevent XSS attacks by ESCAPING OUTPUT. XSS = cross-site scripting attack
+      // - XSS attacks hacker injects malicious client-side code into output of your page
       $data = trim($string);
       $data = stripslashes($data);
       //scalpel - recommended : ONLY encodes a small set of the most problematic chars :
-      return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+      return htmlspecialchars($data, ENT_QUOTES, 'UTF-8'); //or htmlspecialchars($data);
       // hammer - can cause display problems : encode ANY char that has an HTML entity equivalent
       //return h tmlentities($string, ENT_QUOTES, 'UTF-8');
     }
 
+    static protected function secure_form($form) {
+        foreach ($form as $key => $value) {
+            $form[$key] = self::escp($value);
+        }
+    }
 
 
-    public function Redirect_to($New_Location){
+
+    static public function Redirect_to($New_Location){
                         if ('') {self::jsmsg( [ //b asename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE header(...'
                           ,'aaaaaa'=>'bbbbbb'
@@ -398,7 +394,7 @@ public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $ur
           " <a class='button'
                href='{$qs}p/{$pg}{$mtd_to_inc_view}'
           " .'>';
-        $navbar .= $fmt_tmp1.str_pad($pg, 3, '0', STR_PAD_LEFT).$fmt_tmp2 ;
+        $navbar .= $fmt_tmp1.str_pad((string)($pg), 3, '0', STR_PAD_LEFT).$fmt_tmp2 ;
         $navbar .=  '</a>';
       }
 
@@ -478,7 +474,7 @@ $navbar .= " <a class='button'
 
 
     /**
-     * Get the entity fields
+     * Get entity fields
      */
     public function toArray($cls) {
         return get_object_vars($cls);
@@ -541,122 +537,4 @@ $navbar .= " <a class='button'
 
 // see comments below
 } // e n d  c l s
-
-
-
-
-    /**
-     * Map the setting of non-existing fields to a mutator when
-     * possible, otherwise use the matching field
-     */
-    /* public function __set($name, $value) {
-        $field = "_" . strtolower($name);
-
-        if (!property_exists($this, $field)) {
-            throw n ew InvalidArgumentException(
-                "Setting the field '$field' is not valid for this entity.");
-        }
-
-        $mutator = "set" . ucfirst(strtolower($name));
-        if ( method_exists($this, $mutator)
-             and is_callable(array($this, $mutator))
-        ) {
-            $this->$mutator($value) ;
-        }
-        else {
-            $this->$field = $value;
-        }
-
-        return $this;
-    } */
-
-    /**
-     * Map the getting of non-existing properties to an accessor when 
-     * possible, otherwise use the matching field
-     */
-    /* public function __get($name) {
-        $field = "_" . strtolower($name);
-
-        if (!property_exists($this, $field)) {
-            throw n ew InvalidArgumentException(
-                "Getting the field '$field' is not valid for this entity.");
-        }
-
-        $accessor = "get" . ucfirst(strtolower($name));
-        return (method_exists($this, $accessor) &&
-            is_callable(array($this, $accessor)))
-            ? $this->$accessor() : $this->field;
-    } */
-
-
-
-
-    // (**1)
-    //require __DIR__ . '/conn_dbi_obj.php'; //Oracle or MySQL or... (as you wish)
-                  //not here parent::__construct($p p1);
-                  //not here get_or_new_dball, but only in private fn set_d bobj!!
-
-          // to be called from  J S :
-          //LINUX (not Windows) Warning: Cannot modify header information - headers already sent by (output started at /home/slavkoss/public_html/zinc/Config_allsites.php:35) in /home/slavkoss/public_html/zinc/Config_allsites.php on line 249
-          //SCRIPT LANGUAGE="JavaScript">
-          /*f unction jsmsgyn(p_todo, p_url) {
-            var ret;
-            var r = confirm(p_todo);
-            if (r == true) { 
-               ret = '1';
-               if (p_url) { location.href=p_url; }
-            } else { ret = '0'; }
-            //The button you pressed is displayed in the result window.
-            //document.getElementById("demo").innerHTML = ret;
-            return ret ;
-          } */
-          // /SCRIPT>
-
-
-      // (**2)
-                /**
-                http://dev1:8083/fwphp/glomodul/z_examples/01_phpinfo.php?aaa/111
-                $_SERVER['DOCUMENT_ROOT']   J:/awww/www/ 
-
-                $_SERVER['REQUEST_METHOD']   GET
-                $_SERVER['REQUEST_URI']   /fwphp/glomodul/z_examples/01_phpinfo.php?aaa/111
-                $_SERVER['SCRIPT_NAME']   /fwphp/glomodul/z_examples/01_phpinfo.php 
-
-                $_SERVER['PHP_SELF']
-
-                $_SERVER['QUERY_STRING']   aaa/111
-
-                $_SERVER['REQUEST_SCHEME']   http 
-                $_SERVER['SERVER_NAME']      dev1 
-                $_SERVER['SERVER_PORT']      8083
-                $_SERVER['HTTP_HOST']        dev1:8083 
-
-                SERVER_ADDR is the address of the server PHP code is run on. 
-                REMOTE_ADDR = IP address from which the user is viewing the current page
-                            = IP address the request arrived on
-                on localhost REMOTE_ADDR is same as SERVER_ADDR
-
-                On PHP 5.2, one must write
-                $ip = getenv('REMOTE_ADDR', true) ? getenv('REMOTE_ADDR', true) : getenv('REMOTE_ADDR') 
-                */
-
-              /*
-              // (**3)  Slim does same as  __ c o n s t r u c t  so :
-              use Psr\Http\Message\ResponseInterface as Response;
-              use Psr\Http\Message\ServerRequestInterface as Request;
-              use Slim\Factory\AppFactory;
-
-              require __DIR__ . '/../vendor/autoload.php';
-
-              $app = AppFactory::create();
-
-              $app->get('/hello/{name}', f unction (Request $request, Response $response, array $args) 
-              {
-                  $name = $args['name'];
-                  $response->getBody()->write("Hello, $name");
-                  return $response;
-              });
-
-              $app->run();
-              */
 

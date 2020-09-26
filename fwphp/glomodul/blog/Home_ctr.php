@@ -1,18 +1,28 @@
 <?php
+declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 // J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
 // DEFAULT CTR ONLY ONE FOR MODULE-IN-OWN-DIR IS ENOUGH, but may be more.
-//,'$caller'=>$caller IS ALLWAYS i n d e x . p h p
+// c a l l e r IS ALLWAYS i n d e x . p h p
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\blog ;
+
 use B12phpfw\core\zinc\Config_allsites ;
+//use B12phpfw\core\zinc\Db_allsites ;
+//use B12phpfw\core\zinc\Interf_Tbl_crud ;
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_user;  //to Login_ Confirm_ SesUsrId
-       //use B12phpfw\module\dbadapter\user\DB_ user ;
+use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
+use B12phpfw\dbadapter\post\Tbl_crud         as Tbl_crud_post ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
 
+//use PDO;
+
+//extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_allsites" but :
+//"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites (is not for sake of code reusability and clear code)
 // May be named App, Router_dispatcher... :
-class Home_ctr extends Config_allsites
+class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 {
+  //protected $dbobj;
         // NO ATTRIBUTES - attr. are in parent c l a s ses.
         // $pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
 
@@ -21,7 +31,6 @@ class Home_ctr extends Config_allsites
                         if ('') { self::jsmsg( [ //b asename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
-                           //,'self::$d bi'=>self::$dbi
                            ] ) ; 
                         }
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
@@ -29,12 +38,15 @@ class Home_ctr extends Config_allsites
     // R O U T I N G  T A B L E  - module links, (IS OK FOR MODULES IN OWN DIR)
     $pp1_module = [ 
       'PP1_ MODULE' => '~~~~~in view script eg href = $pp1->login~~~~~',
-          //, 'cncts'                 => (object)[] //c o n n e c t  (states) a t t r i b u t e s
-    //  all module links (menu items) should be here :
+    //all module views links (menu items) should be here :
+    //urlqrystring_name => (part of) urlqrystring_value (last part is in view script !)
+    // LINK SINTAX in view script is eg $ p p 1->filter_ postcateg
     'loginfrm'        => QS.'i/loginfrm/' , 
     'login'           => QS.'i/login/' , 
     'logout'          => QS.'i/logout/r/i|loginfrm|' ,
+
     'del_row'         => QS.'i/del_row_do/' , //used for all tables !!
+
     'filter_page'     => QS.'p/' , // i/home/
     //
     'dashboard'       => QS.'i/dashboard/' ,
@@ -47,9 +59,9 @@ class Home_ctr extends Config_allsites
 
     'posts'           => QS.'i/posts/' ,
        //in view h ome.php after c/ we add categ. name so :
-       //<a href="<=filter_ postcateg><=h tmlentities($r->c ategory)>">
+       //<a href="<=filter_ postcateg><=h escp($r->c ategory)>">
        // filter_ postcateg is  m ethod  name in this  c lass
-       'filter_postcateg' => QS.'i/filter_postcateg/c/' ,
+       'filter_postcateg' => QS.'i/filter_postcateg/c/',
        'addnewpost'      => QS.'i/addnewpost/' ,
        'read_post'       => QS.'i/read_post/' ,
        'editpost'        => QS.'i/editpost/' ,
@@ -87,30 +99,63 @@ class Home_ctr extends Config_allsites
     ) ;
   }
 
-
-
           //******************************************
           //       DISPATCH  M E T H O D S
           // they call other methods or include script
           // CALLED FROM Config_ allsites __c onstruct
           // so: $this->callf($akc, $pp1) ;
           //******************************************
+  private function del_row_do(object $pp1) //used for all  t a b l e s !! //private
+  {
+                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
+                              if (isset($pp1->uriq) and null !== $pp1->uriq)
+                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_row_do [t] => category [id] => 21
+                              else { echo ' not set' ; } 
+                              exit(0) ;
+                              }
+    //$this->dd($pp1->uriq->t, $pp1->uriq->id) ;
+    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
+    $tbl = $pp1->uriq->t ;
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+    switch ($tbl)
+    {
+      case 'comments' : // $pp1->uriq->id
+        Tbl_crud_comment::dd($pp1, $other);
+        Config_allsites::Redirect_to($pp1->comments) ; break;
+      case 'posts' :
+        Tbl_crud_post::dd($pp1, $other);
+        Config_allsites::Redirect_to($pp1->posts) ; break;
+
+      case 'admins' :
+        Tbl_crud_user::dd($pp1, $other);
+        Config_allsites::Redirect_to($pp1->admins) ; break;
+      case 'category' :
+        Tbl_crud_category::dd($pp1, $other);
+        Config_allsites::Redirect_to($pp1->categories) ; break;
+      default: 
+        echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
+            .'T a b l e '. $pp1 .' does not exist' . '</h3>';
+        //Config_allsites::Redirect_to($pp1->filter_page) ;
+        break;
+    }
+
+  }
+
+
   /**
        1. S E S S I O N  M E T H O D S
   */
 
   private function Login_Confirm_SesUsrId(object $dm) {
-    //$dm = $this = domain model = globals for all sites (eg for CRUD...) & for curr.module
-    $Db_user = new Tbl_crud_user ; //tbl mtds and attr use globals for all sites !!
-    $Db_user->Login_Confirm_SesUsrId();
+    Tbl_crud_user::Login_Confirm_SesUsrId();
   }
 
   private function logout(object $pp1)
   {
     //$this = $dm = domain model = globals for all sites / curr.module (eg for CRUD...)
-    $dm = $this ;
-    $Db_user = (new Tbl_crud_user)->logout($dm) ;
-    //$Db_user = n ew Tbl_crud_user ; $Db_user->logout($dm);
+    //$dm = $this ;
+    //$Db_user = (new Tbl_crud_user)->logout($dm) ;
+    $Db_user = Tbl_crud_user::logout($pp1) ;
   }
 
   // U S E R  R E A D
@@ -129,9 +174,7 @@ class Home_ctr extends Config_allsites
 
   private function login(object $pp1) //private
   {
-    //$dm = $this ; //this = globals for all sites are for CRUD... !!
-    //$Db_ user = n ew Tbl_ crud_ user ;  $Db_ user->login($dm, $pp1, $pp1->dashboard) ;
-    (new Tbl_crud_user)->login($this, $pp1, $pp1->dashboard) ;
+    Tbl_crud_user::login($this, $pp1, $pp1->dashboard) ;
   }
 
 
@@ -148,15 +191,16 @@ class Home_ctr extends Config_allsites
 
   private function home(object $pp1) //DI page prop.palette   
   {
-    //As of PHP5, object variable doesn't contain object itself as value. It only contains object identifier. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a copy of the identifier, which points to same object.
+    //As of PHP5, object variable doesn't contain object itself as value. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a copy of the identifier, which points to same object.
 
+    $title = 'MSG HOME';
     $uriq = $pp1->uriq ;
 
-      $title = 'MSG HOME';
-
       require $pp1->wsroot_path . 'zinc/hdr.php';
+
       require("navbar.php");
       require $pp1->module_path . 'home.php';
+
       require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
@@ -181,13 +225,13 @@ class Home_ctr extends Config_allsites
  
     $this->Login_Confirm_SesUsrId($this);
     
-    $dm = $this ;  // = domain model = globals for all sites are for CRUD... & for curr.module
-    $Db_user = new Tbl_crud_user ; //tbl mtds and attr use globals for all sites !!
+    //$dm = $this ;  // = domain model = globals for all sites are for CRUD... & for curr.module
+    //$Db_user = new Tbl_crud_user ; //tbl mtds and attr use globals for all sites !!
 
     $title = 'Admin Page' ;
-    //Warning: Cannot modify header information :
-    //require $pp1->wsroot_path . 'zinc/hdr.php';
-    //require_once("navbar_admin.php");
+                  //Warning: Cannot modify header information :
+                  //require $pp1->wsroot_path . 'zinc/hdr.php';
+                  //require_once("navbar_admin.php");
     require $pp1->module_path . '../user/admins.php';
     //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
@@ -215,8 +259,8 @@ class Home_ctr extends Config_allsites
   private function categories(object $pp1) //private
   {
 
-    $dm = $this ;            //globals for all sites (eg for CRUD...) !!
-    $this->Login_Confirm_SesUsrId($dm);
+    //$dm = $this ; //globals for all sites (eg for CRUD...) !!
+    $this->Login_Confirm_SesUsrId($this); //$dm
 
     $title = 'MSG Categories' ;
     require $pp1->wsroot_path . 'zinc/hdr.php';
@@ -230,8 +274,8 @@ class Home_ctr extends Config_allsites
   {
 
     // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/
-    $dm = $this ;            //globals for all sites (eg for CRUD...) !!
-    $this->Login_Confirm_SesUsrId($dm);
+    //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
+    $this->Login_Confirm_SesUsrId($this);
 
       $title = 'Add Post' ;
       //require $pp1->wsroot_path . 'zinc/hdr.php';
@@ -243,14 +287,14 @@ class Home_ctr extends Config_allsites
   //        p o s t s  v i e w  t b l
   private function posts(object $pp1) //private
   {
+    //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
 
-    $dm = $this ;            //globals for all sites (eg for CRUD...) !!
+    if ( isset($pp1->uriq) ) { $uriq = $pp1->uriq ; } else {$uriq = (object)[] ;}
 
-    $uriq = $pp1->uriq ;
-    $category_from_url = ( isset($uriq->c) and null !== $pp1->uriq->c ) 
-       ? $pp1->uriq->c : '' ;
+    $category_from_url = 
+       ( isset($uriq->c) and null !== $pp1->uriq->c ) ? $pp1->uriq->c : '' ;
 
-    $this->Login_Confirm_SesUsrId($dm);
+    $this->Login_Confirm_SesUsrId($this);
 
     $title = 'Posts' ;
     require_once("navbar_admin.php");
@@ -264,8 +308,6 @@ class Home_ctr extends Config_allsites
   private function filter_postcateg(object $pp1) //private
   {
     if ( isset($pp1->uriq) ) { $uriq = $pp1->uriq ; } else {$uriq = (object)[] ;}
-    $category_from_url = ( isset($uriq->c) and null !== $pp1->uriq->c ) 
-       ? $pp1->uriq->c : '' ;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
@@ -278,18 +320,22 @@ class Home_ctr extends Config_allsites
                     echo '</pre>'; }
 
     //p=posts or home
-    //if ( (null !== $pp1->uriq->p) and $pp1->uriq->p == 'posts' ) 
+
+    //      CATEG. NAME is in view h ome.php after c/ :
+    $category_from_url = 
+      ( isset($uriq->c) and null !== $pp1->uriq->c ) ? $pp1->uriq->c : '' ;
+
     if ( (isset($pp1->uriq->p)) and $pp1->uriq->p == 'posts' ) 
     {
-      $dm = $this ;            //globals for all sites (eg for CRUD...) !!
+      //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
 
-      $this->Login_Confirm_SesUsrId($dm);
+      $this->Login_Confirm_SesUsrId($this);
 
       $title = 'Posts' ;
       require_once("navbar_admin.php");
-        require $pp1->wsroot_path . 'zinc/hdr.php';
-        require $pp1->module_path . '../post/posts.php';  
-        require $pp1->wsroot_path . 'zinc/ftr.php';
+      require $pp1->wsroot_path . 'zinc/hdr.php';
+         require $pp1->module_path . '../post/posts.php';  
+      require $pp1->wsroot_path . 'zinc/ftr.php';
 
     } else  {
         //http://dev1:8083/fwphp/glomodul/blog/?i/filter_postcateg/c/Movies/p/1
@@ -297,7 +343,7 @@ class Home_ctr extends Config_allsites
         $title = 'MSG HOME';
         require $pp1->wsroot_path . 'zinc/hdr.php'; // MODULE_PATH
         require_once("navbar.php");
-        require $pp1->module_path . 'home.php';
+           require $pp1->module_path . 'home.php';
         require $pp1->wsroot_path . 'zinc/ftr.php';
     }
 
@@ -319,11 +365,14 @@ class Home_ctr extends Config_allsites
     $IdFromURL = $uriq->id ; 
 
     $title = 'Full Post Page' ;
-    $css1 = 'styles.css' ;
-    require $pp1->wsroot_path . 'zinc/hdr.php';
-    require_once("navbar.php");
-    require $pp1->module_path . '../post/read_post.php';  
-    require $pp1->wsroot_path . 'zinc/ftr.php';
+    //$css1  = 'styles.css' ;
+
+    require_once $pp1->wsroot_path . 'zinc/hdr.php';
+
+      require_once("navbar.php");
+      require $pp1->module_path . '../post/read_post.php';  
+
+    require_once $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
   //        e d i t  p o s t 
@@ -332,9 +381,9 @@ class Home_ctr extends Config_allsites
     $uriq = $pp1->uriq ;
     //$SarchQueryParameter = $this->ctr akc par_ arr['id'] ; //$_ GET["id"] :
     $IdFromURL = $uriq->id ;
-    $dm = $this ;            //globals for all sites (eg for CRUD...) !!
+    //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
 
-    $this->Login_Confirm_SesUsrId($dm);
+    $this->Login_Confirm_SesUsrId($this);
 
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
@@ -351,7 +400,7 @@ class Home_ctr extends Config_allsites
     //for now c r e / d e l  op.system file in op.system
     //see read_ post.php  href="<=$pp1->ed mkdpost>flename/<=$r->title>/id/<=$r->id>"
 
-    //$this->Redirect_to(" http://dev1:8083/fwphp/glomodul/mkd/?edit=" . "J:/awww/www/fwphp/glomodul/blog/msgmkd/001. Menu_CRUD.txt"
+    //Config_allsites::Redirect_to(" http://dev1:8083/fwphp/glomodul/mkd/?edit=" . "J:/awww/www/fwphp/glomodul/blog/msgmkd/001. Menu_CRUD.txt"
 
     //http://dev1:8083/fwphp/glomodul/blog/?i/ed mkdpost/flename/001.%20Menu_CRUD.txt/id/54
                   if ('') {  //if ($module_ arr['dbg']) {
@@ -362,7 +411,7 @@ class Home_ctr extends Config_allsites
                   echo '</pre><br />'; 
                   }
     //http://dev1:8083/fwphp/glomodul/mkd/?edit=J:/awww/www/fwphp/glomodul/blog/msgmkd/001.%20Menu_CRUD.txt
-    $this->Redirect_to(
+    Config_allsites::Redirect_to(
          dirname($pp1->module_url)."/mkd/?edit="
                            //"http://dev1:8083/fwphp/glomodul/mkd/?edit="
          . "{$pp1->module_path}msgmkd/{$uriq->flename}"
@@ -452,8 +501,8 @@ class Home_ctr extends Config_allsites
   //         u p d  c o m m e n t _ s t a t
   private function upd_comment_stat(object $pp1) //private
   {
-    $dm = $this ; // Domain Model is B12phpfw CRUD code skeleton
-    $Tbl_crud_post_comment = new Tbl_crud_post_comment ;
+    //$dm = $this ; // Domain Model is B12phpfw CRUD code skeleton
+    //$Tbl_crud_post_comment = new Tbl_crud_post_comment ;
     //copy of an already created object can be made by cloning it. 
                               if ('') { echo '<br /><h3>'.__METHOD__ .', line '. __LINE__ .' SAYS:</h3>'
                               .'<br />works if redirect commented U R L  query array ='.'$this->u riq=' ;
@@ -461,54 +510,28 @@ class Home_ctr extends Config_allsites
                               { echo '<pre>'; print_r($pp1->uriq) ; echo '</pre>'; }
                               else { echo ' uriq arr. not set<br />' ; } 
                               echo 'c l a s s  name of $this='.get_class($this);
-                              echo '<br />c l a s s  name of $dm='.get_class($dm);
+                              echo '<br />c l a s s  name of $this='.get_class($this);
                               echo '<br />c l a s s  name of $Tbl_crud_post_comment='. get_class($Tbl_crud_post_comment);
                               }
                               // outputs :
                               //c l a s s name of $this=B12phpfw\Home_ctr
-                              //c l a s s name of $dm=B12phpfw\Home_ctr
+                              //c l a s s name of $this=B12phpfw\Home_ctr
                               //c l a s s name of $Tbl_crud_post_comment=B12phpfw\Tbl_crud_post_comment
 
-    $Tbl_crud_post_comment->upd_comment_stat($pp1, $dm);
-    $this->Redirect_to($pp1->comments);
+    Tbl_crud_post_comment::upd_comment_stat($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+    Config_allsites::Redirect_to($pp1->comments);
 
   }
 
 
-
-
-  private function del_row_do(object $pp1) //used for all  t a b l e s !! //private
-  {
-                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
-                              if (isset($pp1->uriq) and null !== $pp1->uriq)
-                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_row_do [t] => category [id] => 21
-                              else { echo ' not set' ; } 
-                              exit(0) ;
-                              }
-      $this->dd($pp1->uriq->t, $pp1->uriq->id) ;
-      // R e d i r e c t = r e f r e s h  t b l  v i e w :
-      switch ($pp1->uriq->t)
-      {
-        case 'admins' : $this->Redirect_to($pp1->admins) ; break;
-        case 'category' : $this->Redirect_to($pp1->categories) ; break;
-        case 'posts' : $this->Redirect_to($pp1->posts) ; break;
-        case 'comments' : $this->Redirect_to($pp1->comments) ; break;
-        default: 
-          echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-                .'T a b l e '. $pp1->uriq->t .' does not exist' . '</h3>';
-          //$this->Redirect_to($pp1->filter_page) ;
-          break;
-      }
-
-  }
 
 
 
   private function upd_user_loggedin(object $pp1) //private
   {
     //     A D M I N  P R O F I L E  navbar admin -> My Profile
-      $dm = $this ;            //globals for all sites (eg for CRUD...) !!
-      $this->Login_Confirm_SesUsrId($dm);
+      //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
+      $this->Login_Confirm_SesUsrId($this);
 
       $AdminId = $_SESSION["userid"];
 

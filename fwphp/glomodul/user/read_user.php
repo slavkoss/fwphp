@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 //J:\awww\www\fwphp\glomodul4\blog\read_user.php
 //require 'J:\\awww\\www\\vendor\\erusev\\parsedown\\Parsedown.php' ;
                       if ('') {  //if ($module_ arr->dbg) {
@@ -10,7 +11,7 @@
     $c_r = $this->rr("SELECT * FROM admins WHERE username=:username" 
         , [ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str']
           ] 
-    , __FILE__ .' '.', ln '. __LINE__) ;
+    , $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ) ;
 while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
 if (!isset($r)) {  //if ($module_ arr->dbg) {
 echo '<h4>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h4>'
@@ -47,7 +48,7 @@ if (file_exists($tmp_img_dir_path . $r->aimage)) { } else {
 if (isset($r->username) and $r->username == $usrname_requested) {
 }else {
   $_SESSION["ErrorMessage"]="Bad Request !!";
-  $this->Redirect_to($pp1->filter_page."1/i/home/");
+  Config_allsites::Redirect_to($pp1->filter_page."1/i/home/");
 }
 
 

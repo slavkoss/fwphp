@@ -1,6 +1,12 @@
 <?php
+declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 //J:\awww\www\fwphp\glomodul4\blog\dashboard.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//namespace B12phpfw ;
+//namespace B12phpfw\dbadapter\user ;
+use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
+use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 //use PDO;
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
@@ -32,10 +38,7 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
           <h1 class="lead">Posts</h1>
           <h4 class="display-5"><i class="fab fa-readme"></i>
             <?php 
-              echo $this->rrcount('posts') ; //read1_ or_get_c('1', $this, 'posts')->COUNT_ROWS
-              //or : $c_r = $this->R_ get_crs('1', $this, 'posts') ; //->COUNT_ROWS
-              //while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
-              //echo $r->COUNT_ROWS ;
+              echo Db_allsites::rrcount('posts') ; 
             ?>
           </h4>
         </div>
@@ -45,7 +48,7 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
         <div class="card-body">
           <h1 class="lead">Comments</h1>
           <h4 class="display-5"><i class="fas fa-comments"></i>
-          <?=$this->rrcount('comments')?></h4>
+          <?=Db_allsites::rrcount('comments')?></h4>
         </div>
       </div>
 
@@ -53,7 +56,7 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
         <div class="card-body">
           <h1 class="lead">Categories</h1>
           <h4 class="display-5"><i class="fas fa-folder"></i>
-              <?=$this->rrcount('category')?>
+              <?=Db_allsites::rrcount('category')?>
           </h4>
         </div>
       </div>
@@ -61,9 +64,9 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
       <div class="card text-center bg-dark text-white mb-3">
         <div class="card-body">
           <h1 class="lead">Admins</h1>
-          <!-- $this->R_ get_crs('1', $this, 'admins')->COUNT_ROWS -->
+          <!--  -->
           <h4 class="display-5"><i class="fas fa-users"></i>
-               <?=$this->rrcount('admins')?></h4>
+               <?=Db_allsites::rrcount('admins')?></h4>
         </div>
       </div>
 
@@ -89,35 +92,46 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
         <?php
 
         $SrNo = 0;
-      switch (self::$dbi)
+      switch (Db_allsites::getdbi())
       {
         case 'oracle' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
-          self::$do_pgntion = '1';
-          //$cursor = $this->r r('', $this, 'posts', "'1'='1' ORDER BY datetime desc", '*',$binds, __FILE__ .', line '. __LINE__  ) ; 
-          $cursor = $this->rr("SELECT * FROM posts ORDER BY datetime desc", $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
+          Db_allsites::setdo_pgntion('1') ;
+          $cursor = Db_allsites::rr("SELECT * FROM posts ORDER BY datetime desc"
+            , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
         break;
         case 'mysql' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':rblk', 'valph'=>6, 'tip'=>'int'];
-          self::$do_pgntion = '1';
-          $cursor = $this->rr("SELECT * FROM posts ORDER BY datetime desc LIMIT :first_rinblock, :rblk", $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
+          Db_allsites::setdo_pgntion('1') ;
+          //$cursor = Db_ allsites::r r("SELECT * FROM posts ORDER BY datetime desc LIMIT :first_rinblock, :rblk", $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
+          $cursor_posts = Tbl_crud_post::rr($sellst='*'
+             , $qrywhere= "'1'='1' ORDER BY datetime desc LIMIT :first_rinblock, :rblk"
+             , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+          ) ;
       }
-      while ($r = $this->rrnext($cursor))
-        { //all row fld names lowercase
-          switch (self::$dbi) { case 'oracle' : $r = self::rlows($r) ; break; 
-          default: break; } //echo '<h2>'. self::$dbi .' d oes not exist' . '</h2>';
+      //while ($r = Db_ allsites::r rn ext($c ursor) and isset($r->id)):
+      while ( $r = Tbl_crud_post::rrnext($cursor_posts) and isset($r->id) ): 
+      { //all row fld names lowercase
+          switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; 
+          default: break; } //echo '<h2>'.Db_allsites::getdbi(). d oes not exist'.'</h2>';
           $SrNo++;
-          //$c_r   = $this->r r('1', $this, 'comments', "post_id=$r->id AND status='ON'",) ; //c=cursor
-          $c_r = $this->rr("SELECT count(*) COUNT_ROWS FROM comments WHERE post_id=$r->id AND status='ON'", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-          while ($row = $this->rrnext($c_r)): {$rcnt = $row ;} endwhile; //c_, R_, U_, D_
-          $Total_approved = $rcnt->COUNT_ROWS ;
-          //$c_r   = $this->r r('1', $this, 'comments', "post_id=$r->id AND (status='OFF' or status < '0')",) ; //c=cursor
-          $c_r = $this->rr("SELECT count(*) COUNT_ROWS FROM comments WHERE post_id=$r->id AND status='OFF'", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-          while ($row = $this->rrnext($c_r)): {$rcnt = $row ;} endwhile; //c_, R_, U_, D_
-          $Total_disapproved = $rcnt->COUNT_ROWS ;
+
+          //c_, R_, U_, D_
+          $cursor_rowcnt_comments = Tbl_crud_comment::rr($sellst='count(*) COUNT_ROWS'
+            , $qrywhere="post_id=$r->id AND status='ON'"
+            , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+          ) ;
+          $Total_approved = Tbl_crud_comment::rrnext($cursor_rowcnt_comments)->COUNT_ROWS ;
+
+          $cursor_rowcnt_comments = Tbl_crud_comment::rr($sellst='count(*) COUNT_ROWS'
+            , $qrywhere="post_id=$r->id AND status='OFF'"
+            , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+          ) ;
+          $Total_disapproved = Tbl_crud_comment::rrnext($cursor_rowcnt_comments)->COUNT_ROWS ;
           ?>
+
             <tr>
               <td><?=$SrNo?></td><td><?=$r->title?></td><td><?=$r->datetime?></td>
               <td><?=$r->category?></td><td><?=$r->author?></td>
@@ -139,7 +153,7 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
               </td>
             </tr>
           <?php 
-        } ?>
+        } endwhile; ?>
         </tbody>
       </table>
 
@@ -150,8 +164,8 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 </section>
 <!-- Main Area End
                         //$sql = "S ELECT * FROM posts ORDER BY datetime desc LIMIT 0,6";
-                        //$this->p repareSQL($sql); $this->e xecute();;
-                        //while ($r = $this->f etchNext()) 
+                        //Db_allsites::p repareSQL($sql); Db_allsites::e xecute();;
+                        //while ($r = Db_allsites::f etchNext()) 
  -->
 
 

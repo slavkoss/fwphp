@@ -3,9 +3,10 @@
 // http://dev1:8083/fwphp/glomodul/blog/?i/J:|awww|www|fwphp|glomodul|kalendar|inc|kalendar_flex
 //if (!defined('URLMODUL_CSS')) { define('URLMODUL_CSS', $module_relpath.'/css'); }
 namespace B12phpfw ;
+use B12phpfw\core\zinc\Db_allsites ;
 //J:\awww\www\fwphp\glomodul\post\read_msg_tbl_kalendar_flex.css
 
-switch (self::$dbi) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
+switch (Db_allsites::getdbi()) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
   default: $tmp_datetime = 'datetime' ; break; }
 
 $css_files = ["/zinc/themes/read_msg_tbl_kalendar_flex.css"];
@@ -78,7 +79,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
         ]
     , __FILE__ .' '.', ln '. __LINE__ ) ;
     if (!($r = $this->rrnext($cursor))) { //empty  d a y square (no  p o s t s)
-        switch (self::$dbi)
+        switch (Db_allsites::getdbi())
         {
           case 'oracle' : $r = self::rlows($r) ; break;
           default: break;

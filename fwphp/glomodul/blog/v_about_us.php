@@ -11,7 +11,7 @@
     <!-- Main Area Start-->
     <div class="col-sm-8 ">
       <h1>About us</h1>
-      <h1 class="lead">Responsive CMS Blog (PHP, PDO, Bootstrap 5, jQuery only for Bootstrap, no AJAX)</h1>
+      <h1 class="lead">Responsive CMS Blog (PHP, PDO, Bootstrap 4, jQuery only for Bootstrap, no AJAX)</h1>
 
         aaaaaaa  aaaaaa
 

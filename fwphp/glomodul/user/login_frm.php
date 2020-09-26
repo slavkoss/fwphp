@@ -18,7 +18,7 @@ $pp1  = $this->getp('pp1') ;
                        ,'aaaaaaa'=>'bbbbbbb'
                     ] ) ; }
 if(isset($_SESSION["userid"]) and $_SESSION["userid"]){ 
-   $this->Redirect_to($pp1->dashboard);
+   Config_allsites::Redirect_to($pp1->dashboard);
 } else {
                     if ('') {self::jsmsg( [ basename(__FILE__) //. __METHOD__ 
                     .', line '. __LINE__ .' SAYS'=>' '
@@ -95,8 +95,9 @@ $title = 'Log in' ;
 
 
           <form class="" action="<?=$pp1->login?>" method="post">
+
             <div class="form-group">
-              <label for="username"><span class="FieldInfo">USERNAME eg a or w (first add such user in phpMyAdmin or in Tables->Admins page):</span></label>
+              <label for="username"><span class="FieldInfo">USERNAME eg a or w (first add such user Tables->Admins page or in in phpMyAdmin) :</span></label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text text-white bg-info"> 
@@ -120,6 +121,7 @@ $title = 'Log in' ;
             </div>
 
             <input type="submit" name="Submit" class="btn btn-info btn-block" value="Login">
+
           </form>
 
 

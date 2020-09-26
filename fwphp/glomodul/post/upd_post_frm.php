@@ -2,71 +2,32 @@
 //J:\awww\www\fwphp\glomodul4\blog\upd_post_frm.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
+use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_category;
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"]))
 {
-  $PostTitle   = $_POST["PostTitle"];
-  $Category    = $_POST["Category"];
-  $Target      = "Uploads/".basename($_FILES["Image"]["name"]);
-  $Image       = $_FILES["Image"]["name"];
-  $img_desc    = $_POST["img_desc"];
-  $SummaryText = $_POST["SummaryDescription"];
-  //$PostText  = $_POST["PostDescription"];
-
-  //   1.1. V A L I D A T I O N
-  if(empty($PostTitle)){
-    $_SESSION["ErrorMessage"]= "Title Cant be empty";
-    $this->Redirect_to($pp1->posts);
-  }elseif (strlen($PostTitle)<5) {
-    $_SESSION["ErrorMessage"]= "Post Title should be greater than 5 characters";
-    $this->Redirect_to($pp1->posts);
-  }elseif (strlen($img_desc)>4999) {
-    $_SESSION["ErrorMessage"]= "Image Description should be less than than 4000 characters";
-    $this->Redirect_to($pp1->posts);
-  }elseif (strlen($SummaryText)>4999) {
-    $_SESSION["ErrorMessage"]= "Summary Description should be less than than 4000 characters";
-    $this->Redirect_to($pp1->posts);
-  //}elseif (strlen($PostText)>9999) {
-  //  $_SESSION["ErrorMessage"]= "Post Description should be less than than 10000 characters";
-  //  $this->Redirect_to($pp1->posts);
-  }else{
-
-  //  1.2 U P D A T E  D B T B L R O W
-    // NOT USED : post='$PostText' I replaced it with mkd file
-    // Query to Update Post in DB When everything is fine   
-
-    $flds     = "SET title=:PostTitle, category=:Category
-                   , summary=:SummaryText, img_desc=:img_desc" ;
-    $qrywhere = "WHERE id=:IdFromURL" ;
-    $binds = [
-      ['placeh'=>':PostTitle',  'valph'=>$PostTitle, 'tip'=>'str']
-     ,['placeh'=>':Category',   'valph'=>$Category, 'tip'=>'str']
-     ,['placeh'=>':SummaryText','valph'=>$SummaryText, 'tip'=>'str']
-     ,['placeh'=>':img_desc',   'valph'=>$img_desc, 'tip'=>'str']
-     ,['placeh'=>':IdFromURL',  'valph'=>$IdFromURL, 'tip'=>'int']
-    ] ;
-    if (!empty($_FILES["Image"]["name"])) {
-      $flds    .= ", image=:Image" ;
-      $binds[] = ['placeh'=>':Image', 'valph'=>$Image, 'tip'=>'str'] ;
-    }
-    $cursor = $this->uu($this,'posts',$flds,$qrywhere,$binds);
-
-
-    move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
-    //var_dump($cursor);
-    if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";
-    }else { $_SESSION["ErrorMessage"]= "Post Update went wrong. Try Again !"; }
-    $this->Redirect_to($pp1->posts);
-  }
+  $cursor = Tbl_crud_post::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+  Config_allsites::Redirect_to($pp1->posts);
 } //E n d  of Submit Button If-Condition
 
 
     require $pp1->wsroot_path . 'zinc/hdr.php';
     require_once("navbar_admin.php");
-//        2. G U I  to get user action
+
+//               2. R E A D  D B T B L R O W S
+// returns object :
+$cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'"
+  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
+
+
+
+//        3. G U I  to get user action
 ?>
     <!-- HEADER -->
-    <header class="bg-dark text-white py-3">
+    <!--header class="bg-dark text-white py-3">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -74,7 +35,7 @@ if(isset($_POST["Submit"]))
           </div>
         </div>
       </div>
-    </header>
+    </header-->
     <!-- HEADER END -->
 
      <!-- Main Area -->
@@ -84,29 +45,25 @@ if(isset($_POST["Submit"]))
       <?php
        echo $this->ErrorMessage();
        echo $this->SuccessMessage();
-       //$c_r = $this->r r('1', $this, 'posts', "id='$IdFromURL'", '*') ;
-       $c_r = $this->rr("SELECT * FROM posts WHERE id=$IdFromURL", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-       while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
-          switch (self::$dbi)
-          {
-            case 'oracle' : $r = self::rlows($r) ; break; 
-            default: break;
-          }
-         $TitleToBeUpdated    = $r->title;
-         $CategoryToBeUpdated = $r->category;
-         $ImageToBeUpdated    = $r->image;
-         $PostToBeUpdated     = $r->post;
-         $summaryToBeUpdated  = $r->summary;
-         $img_descToBeUpdated = $r->img_desc;
-       //}
+       //$cursor_post_byid = $this->rr("SELECT * FROM posts WHERE id=$IdFromURL", [], __FILE__ .' '.', ln '. __LINE__ ) ;
+       // returns object :
+       $rr = Tbl_crud_post::rr_byid( $IdFromURL, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+
+      switch (Db_allsites::getdbi()) { case 'oracle' : $rr = self::rlows($rr) ; break; default: break; }
+         $TitleToBeUpdated    = $rr->title;
+         $CategoryToBeUpdated = $rr->category;
+         $ImageToBeUpdated    = $rr->image;
+         $PostToBeUpdated     = $rr->post;
+         $summaryToBeUpdated  = $rr->summary;
+         $img_descToBeUpdated = $rr->img_desc;
        ?>
-      <form class="" action="<?=$pp1->editpost?>id/<?php echo $IdFromURL; ?>" 
+      <form class="" action="<?=$pp1->editpost?>id/<?=$IdFromURL?>" 
             method="post" enctype="multipart/form-data">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-body bg-dark">
 
             <div class="form-group">
-              <label for="title"> <span class="FieldInfo"> Post Title: </span></label>
+              <label for="title"> <span class="FieldInfo"> Post <?=$IdFromURL?> Title: </span></label>
                <input class="form-control" type="text" name="PostTitle" id="title" placeholder="Type title here" value="<?php echo $TitleToBeUpdated; ?>">
             </div>
 
@@ -121,12 +78,10 @@ if(isset($_POST["Submit"]))
               <!-- LOV  C a t e g o r i e s  from  D B -->
               <select class="form-control" id="CategoryTitle"  name="Category">
                  <?php 
-            //$c_r = $this->r r('', $this, 'category', '1', 'id,title') ;
-            $c_r = $this->rr("SELECT * FROM category ORDER BY title", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-            while ($row = $this->rrnext($c_r)):
+            //while ($rr = $this->rrnext($c_r)):
+            while ($rr= Tbl_crud_category::rrnext($cursor_LOVcategory) and isset($rr->id)):
             {
-              $rr = $row ;
-              switch (self::$dbi)
+              switch (Db_allsites::getdbi())
               {
                 case 'oracle' : $rr = self::rlows($rr) ; break; 
                 default: break;

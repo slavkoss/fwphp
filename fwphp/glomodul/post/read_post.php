@@ -1,44 +1,17 @@
 <?php
-//J:\awww\www\fwphp\glomodul4\blog\read_post.php
+// J:\awww\www\fwphp\glomodul\post\read_post.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
+use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 
 //    1. S U B M I T E D  A C T I O N S
 // mostly M O D E L  C O D E (why M-V data flow : if this code is in  c t r  we have fat c t r)
 if(isset($_POST["Submit"])){
-  $Name    = $_POST["CommenterName"];
-  $Email   = $_POST["CommenterEmail"];
-  $Comment = $_POST["CommenterThoughts"];
-
-  //   1.1. V A L I D A T I O N
-  if(empty($Name)||empty($Email)||empty($Comment)){
-    $_SESSION["ErrorMessage"]= "All fields must be filled out";
-    $this->Redirect_to($pp1->read_post."id/{$IdFromURL}");
-  }elseif (strlen($Comment)>500) {
-    $_SESSION["ErrorMessage"]= "Comment length should be less than 500 characters";
-    $this->Redirect_to($pp1->read_post."id/{$IdFromURL}");
-  }else{
-
-    //  1.2 I N S E R T  D B T B L R O W
-    // Query to insert comment in DB When everything is fine
-    //I NSERT INTO $t bl ($f lds) $w hat
-    $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-    $flds     = "datetime,name,email,comment,approvedby,status,post_id" ;
-    $qrywhat  = "VALUES(:dateTime,:name,:email,:comment,'Pending','OFF',:IdFromURL)" ;
-    $binds = [
-      ['placeh'=>':dateTime', 'valph'=>$DateTime, 'tip'=>'str']
-     ,['placeh'=>':name',     'valph'=>$Name, 'tip'=>'str']
-     ,['placeh'=>':email',    'valph'=>$Email, 'tip'=>'str']
-     ,['placeh'=>':comment',  'valph'=>$Comment, 'tip'=>'str']
-     ,['placeh'=>':IdFromURL','valph'=>$IdFromURL, 'tip'=>'int']
-    ] ;
-    $cursor = $this->cc($this,'comments',$flds,$qrywhat,$binds);
-
-    //var_dump($cursor);
-    if($cursor){ $_SESSION["SuccessMessage"]="Comment Submitted Successfully";
-    }else { $_SESSION["ErrorMessage"]="Something went wrong. Try Again !"; }
-
-    $this->Redirect_to($pp1->read_post."id/{$IdFromURL}");
-  }
+  Tbl_crud_comment::cc($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+  Config_allsites::Redirect_to($pp1->read_post."id/{$pp1->uriq->id}"); //$IdFromURL
 } //Ending of Submit Button If-Condition
 
 
@@ -69,48 +42,48 @@ if(isset($_POST["Submit"])){
       if(isset($_POST["SearchButton"]))
       {
         $Search = $_POST["Search"];
-
-        $qrywhere = "title LIKE :search1
+        //$c ursor_posts=$this->r r("SELECT * FROM posts WHERE $qrywhere ORDER BY datetime desc"
+        $cursor_posts = Tbl_crud_post::rr($sellst='*', $qrywhere="
+              title LIKE :search1
               OR category LIKE :search2
               OR datetime LIKE :search3
               OR img_desc LIKE :search4
               OR summary LIKE :search5
-              " ; //OR post LIKE :search
-
-        $cursor = $this->rr("SELECT * FROM posts WHERE $qrywhere ORDER BY datetime desc"
-        , [
-           ['placeh'=>':search1', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
-          ,['placeh'=>':search2', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
-          ,['placeh'=>':search3', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
-          ,['placeh'=>':search4', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
-          ,['placeh'=>':search5', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
-          ]
-       , __FILE__ .' '.', ln '. __LINE__ ) ;
+              ORDER BY datetime" 
+          , $binds=[
+             ['placeh'=>':search1', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ,['placeh'=>':search2', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ,['placeh'=>':search3', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ,['placeh'=>':search4', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ,['placeh'=>':search5', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ]
+          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+       ) ;
       }
       // default SQL query
       else{
         if (!isset($IdFromURL)) {
           $_SESSION["ErrorMessage"]="Bad Request !";
-          $this->Redirect_to($pp1->filter_page."1/i/home/");
+          Config_allsites::Redirect_to($pp1->filter_page."1/i/home/");
         }
 
-        $qrywhere = "id=:IdFromURL" ;
-        $cursor = $this->rr("SELECT * FROM posts WHERE $qrywhere ORDER BY datetime desc"
-          , [
+        //$this->r r("SELECT * FROM posts WHERE $qrywhere ORDER BY datetime desc"
+        $cursor_posts = Tbl_crud_post::rr($sellst='*', $qrywhere= "id=:IdFromURL"
+          , $binds=[
              ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
             ]
-        , __FILE__ .' '.', ln '. __LINE__ ) ;
-
+          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+        ) ;
       }
 
-     while ($r = $this->rrnext($cursor)) //while ($r = $this->f etchNext())
+      //while ($r = $this->rrnext($c ursor_posts)):
+      while ( $r = Tbl_crud_post::rrnext($cursor_posts) and isset($r->id) ):
       { //echo '<pre>'.__DIR__ .DS.'Uploads'.DS.$r->image.'</pre>';
-        switch (self::$dbi)
+        switch (Db_allsites::getdbi())
         {
           case 'oracle' : $r = self::rlows($r) ; break; 
           default: break;
-        }
-      ?>
+        } ?>
         <div class="card">
 
 
@@ -133,7 +106,8 @@ if(isset($_POST["Submit"])){
                            ,'$tmp_imgurlrel'=>$tmp_imgurlrel
                            ] ) ; }
           if ($r->image and file_exists($tmp_imgpath)) { ?>
-              <img src="<?=$tmp_imgurlrel?>" style="max-height:450px;" class="img-fluid card-img-top" />
+              <img src="<?=$tmp_imgurlrel?>" style="max-height:450px;" 
+                   class="img-fluid card-img-top" />
               <?php
           } ?>
 
@@ -152,7 +126,8 @@ if(isset($_POST["Submit"])){
               <a href="<?=$pp1->editpost?>id/<?=$r->id?>" 
                  class="btn btn-primary btn-block"  
                  title = "Edit database table row"
-              > <span class="btn btn-info">Edit post data in database table row &rang;&rang; </span> </a>
+              > <span class="btn btn-info">
+                  Edit post data in database table row &rang;&rang; </span> </a>
             </p>
 
             <div><p class="card-title">
@@ -160,17 +135,23 @@ if(isset($_POST["Submit"])){
               <a href="<?=$pp1->edmkdpost?>flename/<?=$r->title?>/id/<?=$r->id?>" 
                  class="btn btn-success btn-block" 
                  title = "Markdown edit text in FILE (not in database !)"
-              > <span class="btn btn-info">Edit post in <?php echo self::escp($r->title); ?> (We cre/del .txt in op.system. TODO: cre/del .txt here) &rang;&rang; </span> </a>
+              > <span class="btn btn-info">Edit post in <?php echo self::escp($r->title); ?> 
+                  (We cre/del .txt in op.system. TODO: cre/del .txt here) &rang;&rang; </span>
+              </a>
             </p></div>
 
 
-            <small class="text-muted">Category: <span class="text-dark">
+            <small class="text-muted">Category:
 
-              <a href="<?=$pp1->filter_postcateg?><?=self::escp($r->category)?>"> 
-                 <?=self::escp($r->category)?> </a></span> & Written by <span class="text-dark">
-              <a href="<?=$pp1->read_user?>username/<?php echo self::escp($r->author); ?>">
-                 <?=self::escp($r->author)?></a>
-                 </span> On <span class="text-dark"><?php echo self::escp($r->datetime); ?></span>
+              <span class="text-dark">
+                <a href="<?=$pp1->filter_postcateg?><?=self::escp($r->category)?>"> 
+                   <?=self::escp($r->category)?> </a>
+              </span> & Written by 
+
+              <span class="text-dark">
+                <a href="<?=$pp1->read_user?>username/<?php echo self::escp($r->author); ?>">
+                   <?=self::escp($r->author)?></a>
+              </span> On <span class="text-dark"><?php echo self::escp($r->datetime); ?></span>
 
             </small>
 
@@ -184,13 +165,14 @@ if(isset($_POST["Submit"])){
                      ));
               ?>
             </p>
-              <?php $this->readmkdpost($pp1, $r->title, ''); //means  i n c l u d e  here html ?>
+              //means  i n c l u d e  here html :
+              <?php $this->readmkdpost($pp1, $r->title, ''); ?>
             </p>
 
           </div>
         </div>
-      <br>
-      <?php   } ?>
+        <br><?php
+      } endwhile; ?>
 
 
 
@@ -206,13 +188,17 @@ if(isset($_POST["Submit"])){
       <br><br>
     <?php
         $qrywhere = "post_id=:IdFromURL" ;
-        $cursor = $this->rr("SELECT * FROM comments WHERE $qrywhere ORDER BY datetime desc"
-          , [
+        //$cursor_comments = $this->r r("SELECT * FROM comments WHERE $qrywhere ORDER BY datetime desc"
+        $cursor_comments = Tbl_crud_comment::rr($sellst='*' // or "SELECT ...
+          , $qrywhere="post_id=:IdFromURL ORDER BY datetime desc"
+          , $binds=[
              ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
             ]
-        , __FILE__ .' '.', ln '. __LINE__ ) ;
+          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+        ) ;
 
-    while ($r = $this->rrnext($cursor))
+    //while ($r = $this->rrnext($cursor_comments)):
+    while ($r = Tbl_crud_comment::rrnext( $cursor_comments) and isset($r->id) ):
     { ?>
       <div>
         <div class="media CommentBlock">
@@ -226,7 +212,7 @@ if(isset($_POST["Submit"])){
       </div>
       <hr>
     <?php
-  } ?>
+  } endwhile; ?>
 
     <!--  Fetching existing comment END -->
 

@@ -1,10 +1,14 @@
 <?php
+declare(strict_types=1);
 //J:\awww\www\fwphp\glomodul4\blog\categories.php
 
 //namespace B12phpfw ; //FUNCTIONAL and POSITIONAL see below MODULE_&_ITS_DIR_NAME
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_category ;
-use B12phpfw\dbadapter\post_category\Tbl_crud ;
+
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
                 if ('') { $tbl_o = new Tbl_crud ;
@@ -13,22 +17,22 @@ use B12phpfw\dbadapter\post_category\Tbl_crud ;
                    ,'$id'=>$tbl_o->rr_last_id($dm)
                 ] ) ; }
 
-$tbl_o = new Tbl_crud ; //Db_post_category
+//           1. S U B M I T E D  A C T I O N S
+//$tbl_o = new Tbl_crud ; //Db_post_category
 if(isset($_POST["Submit"]))
 {
-  //           1. S U B M I T E D  A C T I O N S
-  $tbl_o->cc($dm);
-  //$id = $tbl_o->rr_last_id($dm);
+  // returns string
+  Tbl_crud_category::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //E n d  Submit Button If-Condition
 
 //               2. R E A D  D B T B L R O W S
-$cursor = $tbl_o->rr_all($dm);
+$cursor = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__, 'filterfldval'=>''] )  //returns $cursor
 
 
 //               3. G U I  (FRM) to get user action
 ?>
     <!-- HEADER -->
-    <header class="bg-dark text-white py-3">
+    <!--header class="bg-dark text-white py-3">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -36,7 +40,7 @@ $cursor = $tbl_o->rr_all($dm);
           </div>
         </div>
       </div>
-    </header>
+    </header-->
     <!-- HEADER END -->
 
      <!-- Main Area -->
@@ -44,8 +48,8 @@ $cursor = $tbl_o->rr_all($dm);
   <div class="row">
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
-       echo $dm->ErrorMessage();
-       echo $dm->SuccessMessage();
+       echo Config_allsites::ErrorMessage();
+       echo Config_allsites::SuccessMessage();
        ?>
 
 
@@ -86,18 +90,19 @@ $cursor = $tbl_o->rr_all($dm);
 
       $SrNo = 0;
 
-      while ($r = $dm->rrnext($cursor))
+      //$rcnt = Tbl_crud_post::rrnext($cursor_rowcnt)->COUNT_ROWS ;
+      while ($r = Tbl_crud_category::rrnext($cursor) and isset($r->id))  
       {
         $SrNo++;
           //all row fld names lowercase
-          switch ($dm->getdbi())
+          switch (Db_allsites::getdbi())
           {
             case 'oracle' : $r = $dm->rlows($r) ; break; 
             default: break;
           }
         ?>
         <tr>
-          <td><?php echo self::escp($SrNo); ?></td>
+          <td><?=$SrNo?></td>
           <td><?php echo self::escp($r->datetime); ?></td>
           <td><?php echo self::escp($r->title); ?></td>
           <td><?php echo self::escp($r->author); ?></td>

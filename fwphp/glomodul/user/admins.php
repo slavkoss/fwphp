@@ -1,7 +1,10 @@
 <?php
+declare(strict_types=1);
 // J:\awww\www\fwphp\glomodul4\user\admins.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
-
+use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\dbadapter\user\Tbl_crud   as Tbl_crud_admin ;
+use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 //namespace B12phpfw\dbadapter\user ;
 //use B12phpfw\dbadapter\user\Tbl_crud ;
@@ -10,49 +13,8 @@ namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"])){
-  $username        = $_POST["username"];
-  $Name            = $_POST["Name"];
-  //$DateTime        = $_POST["DateTime"];
-      $CurrentTime = time();
-      $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-  $password        = $_POST["password"];
-  $Confirmpassword = $_POST["Confirmpassword"];
-  $Admin           = $_SESSION["username"];
-
-  //   1.1. V A L I D A T I O N
-  if(empty($username)||empty($password)||empty($Confirmpassword)){
-    $_SESSION["ErrorMessage"]= "All fields must be filled out";
-    $this->Redirect_to($pp1->admins);
-  }elseif (strlen($password)<4) {
-    $_SESSION["ErrorMessage"]= "password should be greater than 3 characters";
-    $this->Redirect_to($pp1->admins);
-  }elseif ($password !== $Confirmpassword) {
-    $_SESSION["ErrorMessage"]= "password and Confirm password should match";
-    $this->Redirect_to($pp1->admins);
-  }elseif ($Db_user->ChkUsrNameExists($username, $dm)) {
-    $_SESSION["ErrorMessage"]= "Username Exists. Try Another One! ";
-    $this->Redirect_to($pp1->admins);
-  }else{
-    //  1.2 I N S E R T  D B T B L R O W
-    // Query to insert admin in DB When everything is fine
-
-    //INSERT INTO $tbl ($flds) $what
-    $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-    $flds     = "datetime,username,password,aname,addedby" ;
-    $qrywhat = "VALUES(:dateTime,:username,:password,:aName,:adminname)" ;
-    $binds = [
-      ['placeh'=>':dateTime',  'valph'=>$DateTime, 'tip'=>'str']
-     ,['placeh'=>':username',  'valph'=>$username, 'tip'=>'str']
-     ,['placeh'=>':password',  'valph'=>$password, 'tip'=>'str']
-     ,['placeh'=>':aName',     'valph'=>$Name, 'tip'=>'str']
-     ,['placeh'=>':adminname', 'valph'=>$Admin, 'tip'=>'str']
-    ] ;
-    $cursor = $this->cc($this,'admins',$flds,$qrywhat,$binds);
-
-    if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
-    }else { $_SESSION["ErrorMessage"]= "Something went wrong. Try Again !"; }
-    $this->Redirect_to($pp1->admins);
-  }
+  // returns string
+  Tbl_crud_admin::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //Ending of Submit Button If-Condition
 
 //Warning: Cannot modify header information :
@@ -62,7 +24,7 @@ if(isset($_POST["Submit"])){
 //        2. G U I  to get user action
 ?>
     <!-- HEADER -->
-    <header class="bg-dark text-white py-3">
+    <!--header class="bg-dark text-white py-3">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -70,7 +32,7 @@ if(isset($_POST["Submit"])){
           </div>
         </div>
       </div>
-    </header>
+    </header-->
     <!-- HEADER END -->
 
      <!-- Main Area -->
@@ -89,25 +51,33 @@ if(isset($_POST["Submit"])){
             <h1>Add Admin</h1>
           </div>
 
+
           <div class="card-body bg-dark">
             <div class="form-group">
-              <label for="username"> <span class="FieldInfo"> username: </span></label>
-               <input class="form-control" type="text" name="username" id="username"  value="">
+              <label for="username"> <span class="FieldInfo"> Username: </span></label>
+               <input class="form-control" type="text" 
+                      name="username" id="usernameID"  value="">
             </div>
+
             <div class="form-group">
               <label for="Name"> <span class="FieldInfo"> Name: </span></label>
-               <input class="form-control" type="text" name="Name" id="Name" value="">
+               <input class="form-control" type="text" 
+                      name="Name" id="NameID" value="">
                <small class="text-muted">*Optional</small>
             </div>
+
             <div class="form-group">
-              <label for="password"> <span class="FieldInfo"> password: </span></label>
-               <input class="form-control" type="password" name="password" id="password" value="">
+              <label for="password"> <span class="FieldInfo"> Password: </span></label>
+               <input class="form-control" type="password" 
+                      name="password" id="passwordID" value="">
             </div>
             <div class="form-group">
               <label for="Confirmpassword"> <span class="FieldInfo"> Confirm password:</span></label>
-               <input class="form-control" type="password" name="Confirmpassword" id="Confirmpassword"
+               <input class="form-control" type="password" 
+                      name="Confirmpassword" id="ConfirmpasswordID"
                      value="">
             </div>
+
 
             <div class="row">
               <div class="col-lg-6 mb-2">
@@ -135,16 +105,19 @@ if(isset($_POST["Submit"])){
         </thead>
         <tbody>
       <?php
-      $cursor = $this->rr("SELECT * FROM admins ORDER BY aname", [], __FILE__ .' '.', ln '. __LINE__) ;
+      //$c ursor = $this->r r("SELECT * FROM admins ORDER BY aname", [], __FILE__ .' '.', ln '. __LINE__) ;
+        $cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
+          , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
       $SrNo = 0;
-      while ($r = $this->rrnext($cursor))
+      //while ($r = $this->r rn ext($c ursor)):
+      while ( $r = Tbl_crud_post::rrnext($cursor_admins) and isset($r->id) ):
       {
         $SrNo++;
-          //all row fld names lowercase
-          switch ($dm->getdbi()) { case 'oracle' : $r = $dm->rlows($r) ; break; default: break; }
+        //all row fld names lowercase
+        switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
         ?>
             <tr>
-              <td><?=self::escp($SrNo)?></td>
+              <td><?=$SrNo?></td>
               <td><?=self::escp($r->datetime)?></td>
               <td><?=self::escp($r->username)?></td>
               <td><?=self::escp($r->aname)?></td>
@@ -157,7 +130,7 @@ if(isset($_POST["Submit"])){
                  >Del <?=$r->id?></a>
               </td>
         <?php
-      } ?>
+      } endwhile; ?>
         </tbody>
       </table>
     </div>

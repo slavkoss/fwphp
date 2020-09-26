@@ -50,9 +50,9 @@
                 <div class="col-md-3">
                   <a href="/<?=$path_rel_glomodul?>mkd/"
                      class="btn btn-warning btn-block"
-                     title="Rich text edit on web. Mkd means Markdown & Parsedown. CRUD of .txt or .md or .mkd texsts."
+                     title="Rich text edit on web. SimpleMDE & Parsedown. CRUD of .txt or .md or .mkd oper.sys texsts. Summernote add is easy."
                      target="_blank">
-                    <i class="fa fa-plus"></i>Mkd edit txt files
+                    <i class="fa fa-plus"></i>Edit txt files
                   </a>
                 </div><!--data-toggle="modal" data-target="#addUserModal"-->
 
@@ -118,9 +118,9 @@
                 <div class="col-md-3">
                   <a href="/<?=$path_rel_examples?>01_PHP_bootstrap/ACXE2/"
                      class="btn btn-warning btn-block"
-                     title="Users equipment or messages or...any master-detil. CRUD PDO of Oracle 11g XE DB tbl rows."
+                     title="Users equipment (or messages or...) - any master-detail. CRUD PDO of Oracle 11g XE DB tbl rows."
                      target="_blank">
-                    <i class="fa fa-plus"></i>ACXE Oracle 11g
+                    <i class="fa fa-plus"></i>ACXE (Ora.DB)
                   </a>
                 </div><!--data-toggle="modal" data-target="#addUserModal"-->
 
