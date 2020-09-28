@@ -45,7 +45,7 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
       <?php
        echo $this->ErrorMessage();
        echo $this->SuccessMessage();
-       //$cursor_post_byid = $this->rr("SELECT * FROM posts WHERE id=$IdFromURL", [], __FILE__ .' '.', ln '. __LINE__ ) ;
+
        // returns object :
        $rr = Tbl_crud_post::rr_byid( $IdFromURL, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 

@@ -5,6 +5,8 @@ declare(strict_types=1);
       This c l a s s is for all sites - does not know modules CRUD
     Other such scripts should be for csv persistent storage, web services...
 */
+
+// *************** FUNCTION 1. N A M E S P A C E S  ***************
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
 use B12phpfw\core\zinc\Config_allsites ;
@@ -22,6 +24,8 @@ trait Db_allsites
   *
   *Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
   */
+
+// *************** FUNCTION 2. S H A R E S  ***************
     private static $instance = null ; //singleton! or protected static $DBH;
 
     private static $do_pgntion; //used in home.php...
@@ -117,8 +121,6 @@ trait Db_allsites
   }
 
 
-  //  public static function disconnect() { self::$instance = null; }
-
   /**
    * closeConnection Close App DB Conn
    * @return Null
@@ -157,7 +159,7 @@ trait Db_allsites
 
 
 
-
+// *************** FUNCTION 3. C R U D  S H A R E S  ***************
   //used f or all  t a b l e s !!  , int $id = NULL
   static public function dd(object $pp1, array $other)
   {
@@ -171,11 +173,11 @@ trait Db_allsites
                               echo '<pre>$id='; print_r($id) ; echo '</pre>';
                               exit(0) ;
                               }
-      $sql = "DELETE FROM $tbl WHERE id=:id"; //FROM a dmins WHERE id='$id'";
+      $dmldd = "DELETE FROM $tbl WHERE id=:id"; // *************** d d (
 
       //$cursor is prepared sql dml object eg rows group object f or  r e a d n e x t
-      //same as self::prepareSQL($sql);  was $this->stmt
-      $stmt = self::$dbobj->prepare($sql); 
+      //same as self::prepareSQL($dmldd);  was $this->stmt
+      $stmt = self::$dbobj->prepare($dmldd); 
 
       $stmt->bindValue(':id',    $id,    \PDO::PARAM_INT); //PARAM_STR
       $Executed = $stmt->execute(); //self::e xecute();
@@ -233,7 +235,7 @@ trait Db_allsites
   * To access table rows we must read this cursor !!
   */
   //c=cursor - used f or all  t a b l e s !! was read_row
-  static public function rr( $dmlrr, $binds = [], $other = [] )
+  static public function rr( $dmlrr, $binds = [], $other = [] ) // *************** r r (
   {
                 if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
                 echo '<pre>';
@@ -305,13 +307,11 @@ trait Db_allsites
     //e n d             B I N D I N G
 
     execute_sql:
+                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' SAYS :<br />';
+                $tmp = self::debugPDO($dmlrr, $binds, $ph_val_arr) ; }
+                //exit() is in d ebugPDO
                 if ('') {echo '<h3>[P D O  DEBUG] '.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
-                echo '<pre>';
-                echo '$dmlrr=' . $dmlrr ;
-                echo '<br />$binds='; print_r($binds) ;
-                echo '<br />'.'self::debugPDO($dmlrr, $ph_val_arr)='. self::debugPDO($dmlrr, $ph_val_arr) ;
-                              //.'<br />'.' &nbsp;  &nbsp; $sql_1st_rblk_arr=' . json_encode($sql_1st_rblk_arr)
-                              //.'<br />'.' &nbsp;  &nbsp; $sql_partlimit_arr=' . json_encode($sql_partlimit_arr)
+                  //echo '<br />'.' &nbsp;  &nbsp; $sql_1st_rblk_arr=' . json_encode($sql_1st_rblk_arr) .'<br />'.' &nbsp;  &nbsp; $sql_partlimit_arr=' . json_encode($sql_partlimit_arr)
                 echo //'<br />'.'$o nerow=' . $o nerow
                 '<br />'.'self::$d bi=' . self::$dbi ;
                   echo '<br />$sql_1st_rblk_arr='; print_r($sql_1st_rblk_arr) ;
@@ -339,7 +339,10 @@ trait Db_allsites
 
     self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
 
-    $sql = "INSERT INTO $tbl($flds) $valsins";
+    $last_id1 = self::rr_last_id($tbl) ;
+                if ('') { echo '<h2>'. __METHOD__ .'</h2>, line '. __LINE__ .' SAYS :<br />';
+                } 
+    $dmlcc = "INSERT INTO $tbl($flds) $valsins"; // *************** c c (
                         if ('') {self::jsmsg( [ //b asename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE d b o b j'
                            ,'self::$d bi'=>self::$dbi
@@ -349,7 +352,7 @@ trait Db_allsites
                         }
 
 
-    $cursor = self::$dbobj->prepare($sql);
+    $cursor = self::$dbobj->prepare($dmlcc);
 
     $ph_val_arr = [] ;
     if (count($binds) > 0) { // ------------
@@ -371,22 +374,19 @@ trait Db_allsites
 
       }
     } // ----------------------------------
-                  if ('1') { echo '<b>'. __METHOD__ .'</b>' .', line '. __LINE__ .' SAYS :<br />' ;
-                    echo '<pre>' ; print_r(str_replace('VALUES(', '<br />VALUES('
-                      , self::debugPDO($sql, $ph_val_arr)) );
-                    echo '</pre>'; //exit();
-                  } 
-                //useful f or debugging: you can see SQL behind above construction by using:
-                //echo '[ P D O DEBUG ]: ' . self::debugP D O($sql,$ph_val_arr); exit();
+                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' SAYS :<br />';
+                  $tmp = self::debugPDO($dmlcc, $binds, $ph_val_arr) ; } 
+                //exit() is in d ebugPDO
     $Executed = $cursor->execute(); //$this->e xecute();
-    $last_id = self::rr_last_id($tbl) ;
+    $last_id2 = self::rr_last_id($tbl) ;
 
-      if ($Executed) {$_SESSION["SuccessMessage"]="Last row id $last_id Added Successfully ! ";
-      }else { $_SESSION["ErrorMessage"]="Adding Went Wrong. Try Again !"; }
+    if ($last_id2 > $last_id1) // if ($Executed) 
+    { $_SESSION["SuccessMessage"]="Last row id $last_id2 Added Successfully ! ";
+    } else { $_SESSION["ErrorMessage"]="Adding Went Wrong. Try Again !"; }
 
     //return $cursor ;
 
-  }
+  } //e n d  c c (
 
 
 
@@ -398,9 +398,9 @@ trait Db_allsites
   {
     self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__); // u u(...
 
-    $sql = "UPDATE $tbl $flds $where";
+    $dmluu = "UPDATE $tbl $flds $where"; // *************** u u (
 
-    $cursor = self::$dbobj->prepare($sql);
+    $cursor = self::$dbobj->prepare($dmluu);
 
     $ph_val_arr = [] ;
     if (count($binds) > 0) { // ------------
@@ -421,13 +421,14 @@ trait Db_allsites
                break;
           }
           //if same ph more times eg title LIKE :search OR category LIKE :search... :
-          //not working $sql = str_replace($arr['placeh'], $arr['valph'], $sql) ;
+          //not working $dmluu = str_replace($arr['placeh'], $arr['valph'], $dmluu) ;
           //   see :search1,2...
       }
     } // ----------------------------------
+                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' SAYS :<br />';
+                $tmp = self::debugPDO($dmluu, $binds, $ph_val_arr) ; }
+                //exit() is in d e b u g P D O
                 if ('') {
-                  //useful f or debugging: you can see SQL behind above construction by using:
-                  //echo '[ P D O  DEBUG ]: ' . self::debugP DO($sql,$ph_val_arr);
                   /*
                   self::jsmsg( [ //b asename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
@@ -437,10 +438,11 @@ trait Db_allsites
                    echo '<h3>'. __METHOD__ .' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
                    echo '<pre>$_GET ='; print_r($_GET); echo '</pre><br />';
                    echo '<pre>$_POST ='; print_r($_POST); echo '</pre><br />';
-                   echo '<pre>$sql ='; print_r($sql); echo '</pre><br />';
-                   echo '<pre>$ph_val_arr ='; print_r($ph_val_arr); echo '</pre><br />';
-                   echo '<pre>$this->u riq ='; print_r($this->getp('uriq')); echo '</pre><br />'; //not $this->u riq // $this->u riq =stdClass Object( [d] => 39 )
-                  exit();
+
+                   //echo '<pre>$this->u riq ='; print_r($this->getp('uriq')); echo '</pre><br />'; //not $this->u riq // $this->u riq =stdClass Object( [d] => 39 )
+
+
+                  //exit();
                 }
 
 
@@ -450,7 +452,7 @@ trait Db_allsites
     return $cursor ;
 
 
-  }
+  } //e n d  u u (
 
 
   //e n d   ~~~~~~~~~~~~~ C R U D ~~~~~~~~~~~~~~~~
@@ -458,18 +460,20 @@ trait Db_allsites
 
 
 
-  static public function debugPDO($raw_sql, $parameters) {
-    $keys = array();
-    $values = $parameters;
-    foreach ($parameters as $key => $value): {
-        // check if named parameters (':param') or anonymous parameters ('?') are used
+  static public function debugPDO(
+    string $dmlxx, array $binds, array $ph_val_arr): string
+  {
+    $keys   = array();
+    $values = $ph_val_arr; // parameters
+    foreach ($ph_val_arr as $key => $value): {
+        // 1. check if named p arameters (':param') or anonymous p arameters ('?') are used
         if (is_string($key)) {
             $keys[] = '/' . $key . '/';
         } else {
             $keys[] = '/[?]/';
         }
 
-        // bring parameter into human-readable format
+        // 2. bring parameter into human-readable format
         if (is_string($value)) {
             $values[$key] = "'" . $value . "'";
         } elseif (is_array($value)) {
@@ -482,9 +486,20 @@ trait Db_allsites
                         echo "<pre>"; echo "[DEBUG] Keys:"; print_r($keys);
                         echo "\n[DEBUG] Values: "; print_r($values); echo "</pre>";
                        */
-    $raw_sql = preg_replace($keys, $values, $raw_sql, 1, $count);
+    $dmlxx_binded = preg_replace($keys, $values, $dmlxx, 1, $count);
 
-    return $raw_sql;
+    echo '<pre>$dmlxx ='; echo($dmlxx); echo '</pre><br />';
+
+    echo '<pre>$binds='; print_r($binds) ;
+
+    echo '<pre>$ph_val_arr ='; print_r($ph_val_arr); echo '</pre>';
+
+    echo '<pre>$dmlxx_binded =';
+        echo( str_replace( 'VALUES(', '<br />VALUES(', $dmlxx_binded ) ) ;
+   echo '</pre>';
+
+    exit() ; 
+    return $dmlxx_binded;
   }
 
 

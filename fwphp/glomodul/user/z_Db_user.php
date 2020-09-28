@@ -1,5 +1,6 @@
 <?php
 /**
+* old name, now it is Tbl_ crud
 *  J:\awww\www\fwphp\glomodul\user\z_Db_user.php
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)

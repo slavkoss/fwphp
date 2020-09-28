@@ -51,7 +51,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
   static public function rr_byid( int $id, array $other=[] ): object
   { 
     $cursor =  Db_allsites::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
-    ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'str'] ]
+    ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
     ,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
     ) ;
     $rx = Db_allsites::rrnext($cursor) ;
@@ -99,45 +99,48 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
 
   }
 
-
+  static public function get_submitted_cc(): array //return '1'
+  {
+    $submitted = [
+     $_POST["PostTitle"]
+    ,$_POST["Category"]
+    ,"Uploads/".basename($_FILES["Image"]["name"])
+    ,$_SESSION["username"]
+    ,$_FILES["Image"]["name"] 
+    ,$_POST["img_desc"] // self::escp($_POST["img_desc"])
+    ,$_POST["SummaryDescription"]
+    //$_POST["PostDescription"]; //in op.system file
+    ,strftime("%Y-%m-%d %H:%M:%S",time())
+    ] ;
+    return $submitted ;
+  }
   //  c c(UserInterface $user) {
   static public function cc( object $pp1, array $other=[]): string //return id or 'err_c c'
   {
     // 1. S U B M I T E D  F L D V A L S - P R E / O N  I N S E R T
-    $PostTitle   = $_POST["PostTitle"];
-    $Category    = $_POST["Category"];
-    $Target      = "Uploads/".basename($_FILES["Image"]["name"]);
-    $Admin       = $_SESSION["username"];
-    $imageName   = $_FILES["Image"]["name"];
-    //$img_desc    = self::escp($_POST["img_desc"]) ;
-    //$img_desc    = htmlspecialchars($_POST["img_desc"], ENT_QUOTES, 'UTF-8');
-    $img_desc    = $_POST["img_desc"] ;
-    //preg_replace('/\s+/', ' ', $input);
-    $SummaryText = $_POST["SummaryDescription"];
-    //$PostText  = $_POST["PostDescription"]; //in op.system file
-    $CurrentTime = time(); $datetime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+      $submitted_cc = self::get_submitted_cc() ;
+      list( $PostTitle, $Category, $Target, $Admin, $imageName, $img_desc
+            , $SummaryText, $datetime
+      ) = $submitted_cc ;
+      $_SESSION["submitted_cc"] = $submitted_cc ;
+
 
     // 2. C C  V A L I D A T I O N
-    $valid = true;
-    if(empty($PostTitle)){ $valid = false;
-      $_SESSION["ErrorMessage"]= "Title Cant be empty";
-      $dm->Redirect_to($pp1->addnewpost);
-    }elseif (strlen($PostTitle)<5) { $valid = false;
-      $_SESSION["ErrorMessage"]= "Post Title should be greater than 5 characters";
-      $dm->Redirect_to($pp1->addnewpost);
+    $valid = '1' ;
+    switch (true) {
+      case (empty($PostTitle)||empty($Category)): 
+        $valid = "Title and Category Cant be empty"; break ;
+      case (strlen($PostTitle)<5): $valid = "Post Title is minimum 5 characters"; break ;
+      case (strlen($img_desc)>4000): $valid = "Image Description is max 4000 characters"; break ;
+      case (strlen($SummaryText)>4000): $valid = "Summary is max 4000 characters"; break ;
+      //default: break;
+    }
 
-    }elseif (strlen($img_desc)>3999) { $valid = false;
-      $_SESSION["ErrorMessage"]= "Image Description should be less than than 4000 characters";
-      $dm->Redirect_to($pp1->addnewpost);
-
-    }elseif (strlen($SummaryText)>3999) { $valid = false;
-      $_SESSION["ErrorMessage"]= "Summary Description should be less than than 4000 characters";
-      $dm->Redirect_to($pp1->addnewpost);
-    } //elseif (strlen($PostText)>9999) {
-    //  $_SESSION["ErrorMessage"]= "Post Description should be less than than 1000 characters";
-    //  $dm->Redirect_to($pp1->addnewpost);
-    //}
-    if (!$valid) {goto fnend ;}
+    if ($valid === '1') {} else {
+      $_SESSION["ErrorMessage"]= $valid ;
+      Config_allsites::Redirect_to($pp1->addnewpost);
+      goto fnend ; //exit(0) ;
+    }
 
     // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
     $flds     = "datetime,title,category,author,image, post, summary, img_desc" ;
@@ -152,7 +155,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
      ,['placeh'=>':SummaryText',  'valph'=>$SummaryText, 'tip'=>'str']
      ,['placeh'=>':img_desc',     'valph'=>$img_desc, 'tip'=>'str']
     ] ;
-    //$cursor = $dm->cc($dm, self::$tbl, $flds, $valsins, $binds);
+
     $cursor = Db_allsites::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
 
     move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
@@ -167,7 +170,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
   }
 
 
-  static public function get_submitted(): array //return '1'
+  static public function get_submitted_uu(): array //return '1'
   {
     $submitted = [
        $_POST["PostTitle"]
@@ -180,11 +183,11 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     ] ;
     return $submitted ;
   }
-
+  // O N - U P D A T E (P R E - U P D A T E)
   static public function uu( object $pp1, array $other=[]): string //return id or 'err_c c'
   {
     // 1. S U B M I T E D  F L D V A L S - P R E  U P D A T E
-    list( $PostTitle, $Category, $Target, $Image, $img_desc, $SummaryText ) = self::get_submitted() ; //$PostText
+    list( $PostTitle, $Category, $Target, $Image, $img_desc, $SummaryText ) = self::get_submitted_uu() ; //$PostText
 
     // 2. U U  V A L I D A T I O N
     $valid = '1' ;
@@ -196,6 +199,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
       //default: break;
     }
     if ($valid === '1') {} else {
+      $_SESSION["ErrorMessage"]= $valid ;
       Config_allsites::Redirect_to($pp1->posts);
       goto fnend ; //exit(0) ;
     }

@@ -20,7 +20,8 @@ $pp1  = $this->getp('pp1') ;
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><a href="<?=$pp1->dashboard?>" class="nav-link">Dashboard</a></li>
       <li class="nav-item"><a href="" class="nav-link">|</a></li>
-      <li class="nav-item"><a href="<?=$pp1->admins?>" class="nav-link">Admins</a></li>
+      <li class="nav-item"><a href="<?=$pp1->admins?>" 
+        title="ctrl key + click to open link in new tab" class="nav-link">Admins</a></li>
       <li class="nav-item"><a href="<?=$pp1->categories?>" class="nav-link">Categories</a></li>
       <li class="nav-item"><a href="<?=$pp1->posts?>" class="nav-link">Msgs (Posts)</a></li>
       <li class="nav-item"><a href="<?=$pp1->comments?>" class="nav-link">Comments</a></li>

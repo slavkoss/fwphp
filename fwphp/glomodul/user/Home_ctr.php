@@ -2,6 +2,7 @@
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
 use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 //use B12phpfw\module\dbadapter\user\DB_user ; //to Login_ Confirm_ SesUsrId
 //use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
 
@@ -16,17 +17,29 @@ class Home_ctr extends Config_allsites
                            ] ) ; 
                         }
     if (!defined('QS')) define('QS', '?');
-    //if link in view is not here : Error 403, Access forbidden! Notice Undefined property in URL
-    $pp1_module = [ // r o u t i n g  t a b l e
-      'PP1_ MODULE' => '~~~~~in view script eg href = $pp1->u . $id~~~~~'
-      ,'h'   => QS.'i/home/'         //$pp1->h
-      ,'sitehome' => QS.'i/sitehome/' //$pp1->sitehome
-      ,'c'   => QS.'i/c/'            //$pp1->c
-      ,'r'   => QS.'i/r/id/'         //$pp1->r . $id   profile
-      ,'u'   => QS.'i/u/id/'         //$pp1->u . $id   in view script href = $pp1->u . $id
-      //,'upd_user_loggedin' => QS.'i/upd_user_loggedin/' //also profile
-      ,'d'   => QS.'i/d/' //$pp1->d . $id   in view script href = $pp1->d . $id
-      //,'d'   => QS.'i/d/t/admins/id/' //$pp1->d . $id   in view script href = $pp1->d . $id
+    /**
+    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
+    *  ------------------------------------------------------------------------------
+    *  LINK ALIAS IN VIEW SCRIPT (eg ldd) => HOME METHOD TO CALL (eg del_row_do)
+    *  ------------------------------------------------------------------------------
+    * LINK ALIAS ldd = urlqrystring_part1 = $pp1->ldd = QS.'i/del_row_do/id/', 
+    *     last part $id knows view script, so URLqry='i/del_row_do/id/'.$id, 
+    * ALL VIEWS LINKS OF MODULE SHOULD BE HERE.
+    * If link in view is not here : Error 403, Access forbidden! Undefined property in URL.
+    */
+    $pp1_module = [ 
+      'PP1 USR MODULE' => '~~~~~urlqrystringpart_name-s in view script eg href = $pp1->u . $id~~~~~'
+      ,'home_usr'   => QS.'i/home_usr/'
+      ,'admins'     => QS.'i/home_usr/'
+      ,'cre_usr'    => QS.'i/cre_usr/'
+      //link $pp1->ldd.$id in view script admins.php calls del_row_do method here :
+      ,'ldd'        => QS.'i/del_row_do/id/'
+      ,'read_user'  => QS.'i/read_user/id/' //$pp1->read_user.$id (not $pp1->r)  profile
+      ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/' //also profile
+      //ed_usr = LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
+      //,'ed_ usr' => QS.'i/ed_ usr/id/' //in view script: $pp1->ed_ usr.$id 
+
+      ,'sitehome'   => QS.'i/sitehome/' //$pp1->sitehome
       //$this->uriq->i/home_fn, t/tbl_name, id/idval key/value
       //in home.php onclick does jsmsgyn dialog,  home_fn "d" calls dd() (no need include script)
       // -------------------------
@@ -76,7 +89,24 @@ class Home_ctr extends Config_allsites
   //   - link in $pp1_module_links or button 
   //   - or URL is entered in ibrowser adress field
   // *************************************************
-  public function c(object $pp1)
+
+  private function del_row_do(object &$pp1) // *************** SHARED  d d (
+  {
+    //parameter $pp1 is AUTOMATICALLY sent in all h o m e fns from callf fn !!
+                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
+                              if (isset($pp1->uriq) and null !== $pp1->uriq)
+                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_row_do [t] => category [id] => 21
+                              else { echo ' not set' ; } 
+                              exit(0) ;
+                              }
+    $pp1->uriq->t = 'admins' ; //$tbl = $pp1->uriq->t ;
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+    Tbl_crud_admin::dd($pp1, $other);
+    Config_allsites::Redirect_to($pp1->admins) ;
+
+  }
+
+  public function cre_usr(object $pp1)
   {
     //         i n s  f o r m is in home.php before tbl display
       $title = 'USER CRud';
@@ -87,6 +117,11 @@ class Home_ctr extends Config_allsites
       //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
+
+  public function home_usr(object $pp1)
+  {
+    $this->home($pp1) ;
+  }
   public function home(object $pp1)
   {
     //        t b l  r e a d, display
@@ -106,10 +141,10 @@ class Home_ctr extends Config_allsites
 
   // U S E R  R E A D
 
-  public function r(object $pp1)
+  public function read_user(object $pp1)
   {
     //r o w  r e a d
-      $title = 'USER READ PROFILE';
+      $title = 'USER SHOW PROFILE';
       require $pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar.php");
         require $pp1->module_path . 'read.php';
@@ -147,17 +182,32 @@ class Home_ctr extends Config_allsites
   }
 
 
+  private function Login_Confirm_SesUsrId(object $dm) {
+    Tbl_crud_admin::Login_Confirm_SesUsrId();
+  }
 
-
-
-  public function u(object $pp1)
+  private function upd_user_loggedin(object $pp1) //private
   {
+    // U P D A T E  A D M I N  P R O F I L E  no need navbar admin -> My Profile
+      //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
+      $title = 'USER UPDATE';
+      $this->Login_Confirm_SesUsrId($this);
+      //require $pp1->wsroot_path . 'zinc/hdr.php';
+        //require_once("navbar_admin.php");
+        require $pp1->module_path . 'upd_user_loggedin_frm.php';  
+                  //require $pp1->module_path . '../user/upd_user_loggedin_frm.php';  
+      //require $pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+  /*public function ed_usr(object $pp1)
+  {
+    //LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
       $title = 'USER UPDATE';
       require $pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar.php");
         require $pp1->module_path . 'update.php';
       require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
+  } */
 
   public function d(object $pp1)
   {
@@ -169,10 +219,10 @@ class Home_ctr extends Config_allsites
     //$this->dd() ;
     $this->dd($pp1->uriq->t, $pp1->uriq->id) ;
     // R e d i r e c t = r e f r e s h  t b l  v i e w :
-    $this->Redirect_to($pp1->h) ;
+    $this->Redirect_to($pp1->home_usr) ;
       /* switch ($this->uriq->t)
       {
-        case 'admins' : $this->Redirect_to($pp1->h) ; break;
+        case 'admins' : $this->Redirect_to($pp1->home_usr) ; break;
         default: 
           echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '.'T a b l e '. $this->uriq->t 
           .' does not exist (put it in home.php, in del link !)'.'</h3>';

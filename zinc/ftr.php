@@ -23,12 +23,17 @@ switch (true) {
     <div class="row">
       <div class="col">
 
-        <p class="lead text-center"> 
+        <!--bigger font: p class="lead text-center"--> 
+        <p class="small text-center"> 
           | <span id="year"></span> &copy; phporacle (Slavko Srakočić, Zagreb) MIT licence All right Reserved.</p>
-        <p class="text-center small"><a style="color: white; text-decoration: none; cursor: pointer;" 
-          href="https://github.com/slavkoss/fwphp" 
-          target="_blank">PHP 7 PDO DBI <?=''?> | Bootstrap 4.3.1 
-          <br>&trade; B12phpfw on <?=PHP_OS.', '.php_uname()?></a></p>
+
+        <p class="small text-center">
+          PHP 7 PDO DBI | Bootstrap 4.3.1 
+          <a style="color: yellow; text-decoration: none; cursor: pointer;" 
+             href="https://github.com/slavkoss/fwphp" 
+             target="_blank"><br />&trade; B12phpfw </a>
+          on <?='PHP_OS '.PHP_OS.', php_uname(): '.php_uname()?>
+        </p>
 
 
        </div> <!-- e n d  c o l-->

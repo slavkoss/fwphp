@@ -1,63 +1,38 @@
 <?php
-// J:\awww\www\fwphp\glomodul\user\upd_user_loggedin_frm.php
+// J:\awww\www\fwphp\glomodul\user\upd_ user_loggedin_frm.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
+
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
+// Why i n c  h d r  and  f t r  must be here - in  v i e w  script :
+//Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\navbar_admin.php:26) in J:\awww\www\zinc\Config_allsites.php on line 306
                          //var_dump($_SESSION);
-
+$AdminId = (int)$pp1->uriq->id ;  //$A dminId = $_SESSION["userid"];
 //    1. S U B M I T E D  A C T I O N S
-if(isset($_POST["Submit"]))
+if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 {
-  $AName     = $_POST["Name"];
-  $AHeadline = $_POST["Headline"];
-  $ABio      = $_POST["Bio"];
-  $Image     = $_FILES["Image"]["name"];
-  $Target    = "Uploads/".basename($_FILES["Image"]["name"]);
-
-  //   1.1. V A L I D A T I O N
-  if (strlen($AHeadline)>30) {
-      $_SESSION["ErrorMessage"] = "Headline Should be less than 30 characters";
-      Config_allsites::Redirect_to($pp1->upd_user_loggedin);
-  }elseif (strlen($ABio)>500) {
-      $_SESSION["ErrorMessage"] = "Bio should be less than than 500 characters";
-      Config_allsites::Redirect_to($pp1->upd_user_loggedin);
-
-  //  1.2 U P D A T E  D B T B L R O W
-  }else{
-      $flds     = "SET aname=:AName, aheadline=:AHeadline, abio=:ABio" ;
-      $qrywhere = "WHERE id=:AdminId" ;
-      $binds = [
-        ['placeh'=>':AName',     'valph'=>$AName, 'tip'=>'str']
-       ,['placeh'=>':AHeadline', 'valph'=>$AHeadline, 'tip'=>'str']
-       ,['placeh'=>':ABio',      'valph'=>$ABio, 'tip'=>'str']
-       ,['placeh'=>':AdminId',   'valph'=>$AdminId, 'tip'=>'int']
-      ] ;
-      if (!empty($_FILES["Image"]["name"])) {
-        $flds    .= ", aimage=:Image" ;
-        $binds[] = ['placeh'=>':Image', 'valph'=>$Image, 'tip'=>'str'] ;
-      }
-      $cursor = $this->uu($this,'admins',$flds,$qrywhere,$binds);
-                        //$this->p repareSQL($sql); $p reparedsql = $this->e xecute();
-      if($cursor){ $_SESSION["SuccessMessage"]="Details Updated Successfully";
-      }else {$_SESSION["ErrorMessage"]= "Something went wrong (usr upd). Try Again !";}
-
-
-      move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
-
-
-      Config_allsites::Redirect_to($pp1->upd_user_loggedin);
-    }
-} //Ending of Submit Button If-Condition
+  $cursor = Tbl_crud_admin::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+  Config_allsites::Redirect_to($pp1->home_usr);
+} //E n d  of Submit Button If-Condition
 
 
 
 
     //        2. G U I  to get user action
-    $c_r = $this->rr("SELECT * FROM admins WHERE id=:AdminId" 
-        , [ ['placeh'=>':AdminId', 'valph'=>$AdminId, 'tip'=>'int']
+       // returns object :
+    $rr = Tbl_crud_admin::rr_byid( $AdminId, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+    /*$c_r = $this->rr("SELECT * FROM admins WHERE id=:A dminId" 
+        , [ ['placeh'=>':A dminId', 'valph'=>$A dminId, 'tip'=>'int']
           ] 
     , __FILE__ .' '.', ln '. __LINE__) ;
-    while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
+    while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_ */
+
+
+      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require_once("navbar_admin.php");
 ?>
 <!-- HEADER -->
 <header class="bg-dark text-white py-3">
@@ -67,15 +42,15 @@ if(isset($_POST["Submit"]))
 
       <h1>
         @User: <span class="text-dark">
-          <a href="<?=$pp1->read_user?>username/<?php echo self::escp($r->username); ?>"
+          <a href="<?=$pp1->read_user?>username/<?php echo self::escp($rr->username); ?>"
              title="Show profile">
-             <?=self::escp($r->username)?></a>
+             <?=self::escp($rr->username)?></a>
                  </span>
 
-        <i class="fas fa-user text-success mr-2"></i>User name: <?=$r->aname?>
+        <i class="fas fa-user text-success mr-2"></i>User name: <?=$rr->aname?>
       </h1>
 
-      <XXXsmall> &nbsp;&nbsp;&nbsp; Usr headline: <?=$r->aheadline?></XXXsmall>
+      <XXXsmall> &nbsp;&nbsp;&nbsp; Usr headline: <?=$rr->aheadline?></XXXsmall>
 
       </div>
     </div>
@@ -93,25 +68,25 @@ if(isset($_POST["Submit"]))
     <div class="col-md-3">
       <div class="card">
         <div class="card-header bg-dark text-light">
-          <h4> <?php echo $r->aname; ?></h4>
+          <h4> <?php echo $rr->aname; ?></h4>
         </div>
         <div class="card-body">
-          <img src="Uploads/<?php echo $r->aimage; ?>" class="block img-fluid mb-3" alt="">
-          <div class="">Biography: <?=$r->abio?>  </div>
+          <img src="Uploads/<?php echo $rr->aimage; ?>" class="block img-fluid mb-3" alt="">
+          <div class="">Biography: <?=$rr->abio?>  </div>
         </div>
 
       </div>
     </div>
 
 
-    <!-- Righ Area -->
+    <!-- Right Area -->
     <div class="col-md-9" style="min-height:400px;">
       <?php
        echo $this->ErrorMessage();
        echo $this->SuccessMessage();
        ?>
 
-      <form class="" action="<?=$pp1->upd_user_loggedin?>" 
+      <form class="" action="<?=$pp1->upd_user_loggedin . $AdminId?>" 
             method="post" enctype="multipart/form-data">
 
 
@@ -125,13 +100,13 @@ if(isset($_POST["Submit"]))
             <div class="form-group">
                <input class="form-control" type="text" name="Name" id="title" 
                       title="Your name" placeholder="Your name" 
-                      value="<?=$r->aname?>">
+                      value="<?=$rr->aname?>">
             </div>
 
             <div class="form-group">
                <input class="form-control" type="text" name="Headline" id="title" 
                       title="Headline (eg I am boring user)" placeholder="Headline" 
-                      value="<?=$r->aheadline?>">
+                      value="<?=$rr->aheadline?>">
                   <small class="text-muted">
                   Add a professional headline like, 'Engineer' at XYZ or 'Architect' </small>
                   <span class="text-danger">Not more than 30 characters</span>
@@ -140,7 +115,7 @@ if(isset($_POST["Submit"]))
             <div class="form-group">
                <textarea  class="form-control" name="Bio" id="Post"  rows="8" cols="80"
                           title="Your Biography" placeholder="Your Biography" 
-               ><?=$r->abio?>
+               ><?=$rr->abio?>
                </textarea>
             </div>
 
@@ -153,9 +128,10 @@ if(isset($_POST["Submit"]))
 
 
             <div class="row">
+              <!-- was $pp1-> dashboard  Back To Dashboard -->
               <div class="col-lg-6 mb-2">
-                <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block">
-                   <i class="fas fa-arrow-left"></i> Back To Dashboard</a>
+                <a href="<?=$pp1->home_usr?>" class="btn btn-warning btn-block">
+                   <i class="fas fa-arrow-left"></i> Back To Home</a>
               </div>
 
               <div class="col-lg-6 mb-2">
@@ -175,3 +151,6 @@ if(isset($_POST["Submit"]))
   </div>
 
 </section><!-- End Main Area -->
+
+<?php
+require $pp1->wsroot_path . 'zinc/ftr.php';

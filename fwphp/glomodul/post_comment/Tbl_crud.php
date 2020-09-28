@@ -99,7 +99,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
 
 
 
-  static public function get_submitted(): array //return '1'
+  static public function get_submitted_cc(): array //return '1'
   {
     // 1. S U B M I T E D  F L D V A L S - P R E / O N  U P D A T E
     $submitted = [
@@ -115,7 +115,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
   {
     $id= $pp1->uriq->id ;
     // 1. S U B M I T E D  F L D V A L S - P R E  I N S E R T
-    list( $Name, $Email, $Comment ) = self::get_submitted() ;
+    list( $Name, $Email, $Comment ) = self::get_submitted_cc() ;
 
     // 2. C C  V A L I D A T I O N
     $valid = '1' ;
@@ -126,6 +126,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
       //default: break;
     }
     if ($valid === '1') {} else {
+      $_SESSION["ErrorMessage"]= $valid ;
       Config_allsites::Redirect_to($pp1->read_post."id/{$id}"); //$IdFromURL
       goto fnend ; //exit(0) ;
     } 

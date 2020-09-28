@@ -1,12 +1,13 @@
 <?php
 /**
+*       LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED
 * step 3
 * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\update.php
 * http://dev1:8083/fwphp/glomodul/z_examples/02_mvc/03xuding_glob/index.php?i/u/id/79
 *
 * called from Home_ ctr cls method  u() when usr clicks link/button or any URL is entered in ibrowser  
-* calls Tbl_ crud cls method uu()     =pre-update
-* which calls Db_ allsites method uu() =on-update
+* calls Tbl_ crud cls method u u()     =pre-update
+* which calls Db_ allsites method u u() =on-update
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;

@@ -1,8 +1,7 @@
 <?php
 
-//$u riq = $this->g etp('u riq') ;
-$pp1  = $this->getp('pp1') ;
-
+//          B U T T O N S
+//$pp1  = $this->getp('pp1') ;
 ?>
 <div class="col-lg-3 mb-2">
   <a href="<?=$pp1->addnewpost?>" class="btn btn-primary btn-block">

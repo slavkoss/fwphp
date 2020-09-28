@@ -1,5 +1,8 @@
 <?php
 /**
+* ALTER TABLE `admins` ADD `email` VARCHAR(100) NULL AFTER `addedby`;
+* http://sspc2:8083/fwphp/glomodul/user/
+* J:\awww\www\fwphp\glomodul\user\index.php
 * STEP_1=AUTOL 2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
 * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
 *        Instantiates Home_ ctr cls - router, dispatcher
@@ -17,7 +20,8 @@ $dirup_to_app = str_replace('\\','/', dirname(__DIR__) ) ; //to app eg glomodul
 
 //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
 $pp1 = (object)
-[   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+[   'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
+                             // or $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
   //1.1
   , 'module_towsroot'=>$module_towsroot
   //1.2

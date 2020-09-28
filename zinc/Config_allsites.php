@@ -303,8 +303,10 @@ abstract class Config_allsites //extends Db_allsites
                            //, '$dsn'=>$dsn
                            ] ) ; 
                         }
-      header("Location:".$New_Location);
-      exit;
+      //server-side redirection and the target="_blank" is client-side directive
+      header("Location:".$New_Location); // also 'http://www.example.com'
+      ?><!--script type="text/javascript">window.open('<=$New_Location?>');</script--><?php
+      die() ; //exit;
     }
 
 

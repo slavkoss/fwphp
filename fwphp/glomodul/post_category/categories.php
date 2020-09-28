@@ -19,8 +19,7 @@ use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 
 //           1. S U B M I T E D  A C T I O N S
 //$tbl_o = new Tbl_crud ; //Db_post_category
-if(isset($_POST["Submit"]))
-{
+if(isset($_POST["Submit"])) {
   // returns string
   Tbl_crud_category::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //E n d  Submit Button If-Condition

@@ -16,9 +16,15 @@ class Autoload
 {
    protected $pp1 ; //M O D U L E PROPERTIES PALLETE like in Oracle Forms
 
-   public function __construct($pp1) {
+   public function __construct(&$pp1) {
                       //not working but : ctrl+u in ibrowser !!!
                       //register_shutdown_function('self::_fatal_error_hndl');
+     //$a='hello';  variable variable $$a='world'; is same as $hello='world';
+     //   echo "$a ${$a}"; is same as echo "$a $hello";
+     //arrays: ${$a[1]} to use $a[1] as a variable 
+     //   or ${$a}[1] to use $$a as the variable and then the [1]index from that variable
+     $pp1->stack_trace[]=str_replace('\\','/', __FILE__ ).', lin='.__LINE__ 
+        .' ('. __METHOD__ .')';
      $this->pp1 = $pp1 ;
      spl_autoload_register(array($this, 'loader'));
      return null ;
@@ -40,6 +46,8 @@ class Autoload
     // $ n s c l s  is namespaced cls name
     // returns cls_script_path
     $DS = DIRECTORY_SEPARATOR ;
+    $this->pp1->stack_trace[]= __METHOD__ .', lin='.__LINE__ 
+      .' $nscls='. $nscls;
 
     $nscls_linfmt = str_replace('\\',$DS, $nscls) ; //ON LINUX
     $clsname     = basename($nscls_linfmt) ;        //eg = Config_allsites

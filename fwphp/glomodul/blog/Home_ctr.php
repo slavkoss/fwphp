@@ -5,12 +5,13 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 // c a l l e r IS ALLWAYS i n d e x . p h p
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+// *************** FUNCTION 1. N A M E S P A C E S  ***************
 namespace B12phpfw\module\blog ;
 
 use B12phpfw\core\zinc\Config_allsites ;
 //use B12phpfw\core\zinc\Db_allsites ;
 //use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_user;  //to Login_ Confirm_ SesUsrId
+use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 use B12phpfw\dbadapter\post\Tbl_crud         as Tbl_crud_post ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
@@ -22,10 +23,10 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
 // May be named App, Router_dispatcher... :
 class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 {
-  //protected $dbobj;
-        // NO ATTRIBUTES - attr. are in parent c l a s ses.
-        // $pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
+  // NO ATTRIBUTES - attr. are in parent c l a s ses.
+  // $pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
 
+  // *************** FUNCTION 2. S H A R E S  ***************
   public function __construct(object $pp1)
   {
                         if ('') { self::jsmsg( [ //b asename(__FILE__).
@@ -35,12 +36,20 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
                         }
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
-    // R O U T I N G  T A B L E  - module links, (IS OK FOR MODULES IN OWN DIR)
+    /**
+    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
+    *  ------------------------------------------------------------------------------
+    *  LINK ALIAS IN VIEW SCRIPT (eg ldd) => HOME METHOD TO CALL (eg del_row_do)
+    *  ------------------------------------------------------------------------------
+    * LINK ALIAS ldd (link for delete) = urlqrystring_part1 = $pp1->ldd = QS.'i/del_row_do/id/', 
+    *     last part $id knows view script, so URLqry='i/del_row_do/id/'.$id, 
+    * ALL VIEWS LINKS OF MODULE SHOULD BE HERE.
+    * If link in view is not here : Error 403, Access forbidden! Undefined property in URL.
+    */
     $pp1_module = [ 
-      'PP1_ MODULE' => '~~~~~in view script eg href = $pp1->login~~~~~',
-    //all module views links (menu items) should be here :
-    //urlqrystring_name => (part of) urlqrystring_value (last part is in view script !)
-    // LINK SINTAX in view script is eg $ p p 1->filter_ postcateg
+      'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~',
+    //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
+    //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
     'loginfrm'        => QS.'i/loginfrm/' , 
     'login'           => QS.'i/login/' , 
     'logout'          => QS.'i/logout/r/i|loginfrm|' ,
@@ -51,9 +60,12 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     //
     'dashboard'       => QS.'i/dashboard/' ,
 
-    'admins'          => QS.'i/admins/' ,
+    'home_usr'        => QS.'i/admins/' ,
+    //                   link $pp1->admins calls admins or home_usr method here
+    'admins'          => QS.'i/admins/' , 
        'read_user'       => QS.'i/read_user/' ,
-       'upd_user_loggedin' => QS.'i/upd_user_loggedin/' ,
+       'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/' ,
+       //'ed_usr' => QS.'i/ed_ usr/id/', //$pp1->ed_ usr.$id in view script
 
     'categories'      => QS.'i/categories/' ,
 
@@ -80,16 +92,13 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
     parent::__construct($pp1, $pp1_module);
 
-    //$pp1 = $this->getp('pp1') ;
-
-
 
   } // e n d  f n  __ c o n s t r u c t
 
 
-  //           **** D I S P A T C H I N G
-          //$accessor = "get" . ucfirst(strtolower($akc));
-  protected function callf(string $akc, object $pp1)  //fnname, params
+                //$accessor = "get" . ucfirst(strtolower($akc));
+  protected function callf( // **** D I S P A T C H I N G
+    string $akc, object $pp1)  //fnname, params
   {
     //this fn calls method $ a k c in Home_ ctr which has parameters in  $ p p 1
     //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
@@ -105,11 +114,12 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
           // CALLED FROM Config_ allsites __c onstruct
           // so: $this->callf($akc, $pp1) ;
           //******************************************
-  private function del_row_do(object $pp1) //used for all  t a b l e s !! //private
+  //used for all  t a b l e s !! 
+  private function del_row_do(object $pp1) // *************** SHARED  d d (
   {
                               if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
                               if (isset($pp1->uriq) and null !== $pp1->uriq)
-                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_row_do [t] => category [id] => 21
+                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_ row_do [t] => category [id] => 21
                               else { echo ' not set' ; } 
                               exit(0) ;
                               }
@@ -127,7 +137,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
         Config_allsites::Redirect_to($pp1->posts) ; break;
 
       case 'admins' :
-        Tbl_crud_user::dd($pp1, $other);
+        Tbl_crud_admin::dd($pp1, $other);
         Config_allsites::Redirect_to($pp1->admins) ; break;
       case 'category' :
         Tbl_crud_category::dd($pp1, $other);
@@ -142,53 +152,45 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
   }
 
 
+  private function errmsg(object $pp1, string $myerrmsg)
+  {
+      // h d r  is  in  p a g e  which  i n c l u d e s  t h i s  p a g e
+      //require $pp1->wsroot_path . 'zinc//hdr.php'; //or __DIR__
+      $title = 'MSG ERRPAGE';
+      require $pp1->module_path . '/error.php';
+      require $pp1->wsroot_path . 'zinc//ftr.php';
+  }
+
+
+
+
   /**
-       1. S E S S I O N  M E T H O D S
+  * *************** FUNCTION 3.  S E S S I O N  M E T H O D S ***************
   */
 
-  private function Login_Confirm_SesUsrId(object $dm) {
-    Tbl_crud_user::Login_Confirm_SesUsrId();
+  private function Login_Confirm_SesUsrId() {
+    Tbl_crud_admin::Login_Confirm_SesUsrId();
   }
 
   private function logout(object $pp1)
   {
     //$this = $dm = domain model = globals for all sites / curr.module (eg for CRUD...)
-    //$dm = $this ;
-    //$Db_user = (new Tbl_crud_user)->logout($dm) ;
-    $Db_user = Tbl_crud_user::logout($pp1) ;
+    //$dm = $this ; //$Db_user = (new Tbl_crud_admin)->logout($dm) ;
+    $Db_user = Tbl_crud_admin::logout($pp1) ;
   }
-
-  // U S E R  R E A D
-  private function loginfrm(object $pp1) //private
-  {
-    //called from link, Config_ allsites based on url (calling link) calls  f n  l o g i n
-    //$p p1  = $t his->g etp('p p1') ;
-                if ('') {self::jsmsg( [ //b asename(__FILE__).
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>''
-                   ,'aaa'=>'bbb'
-                ] ) ; }
-      require $pp1->wsroot_path . 'zinc/hdr.php';
-      require $pp1->module_path . '../user/login_frm.php';  
-      require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
-
-  private function login(object $pp1) //private
-  {
-    Tbl_crud_user::login($this, $pp1, $pp1->dashboard) ;
-  }
-
 
   //e n d  1. S E S S  I O N  M E T H O D S
 
 
   /**
-        2. C R U D  M E T H O D S
+  * *************** FUNCTION 4. C R U D  M E T H O D S ***************
   */
 
   /**
       2.1 I N C L U D E D  P A G E  S C R I P T S
   */
 
+  // *************** FUNCTION COMPAUND MODULE BLOG ***************
   private function home(object $pp1) //DI page prop.palette   
   {
     //As of PHP5, object variable doesn't contain object itself as value. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a copy of the identifier, which points to same object.
@@ -207,8 +209,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
   private function dashboard(object $pp1) //private
   {
-    //$this = $dm = domain model = globals for all sites (eg for CRUD...) & for curr.module
-    $this->Login_Confirm_SesUsrId($this); 
+    $this->Login_Confirm_SesUsrId();
 
     $title = 'MSG Dashboard';
     require $pp1->wsroot_path . 'zinc/hdr.php';
@@ -219,21 +220,61 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
 
 
+
+  private function kalendar(object $pp1) //private
+  {
+    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->module_path . '../post/read_msg_tbl_kalendar_flex.php';
+    require $pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+
+
+
+
+  // *************** FUNCTION 5. I N C L U D E  P A G E S  WITHOUT  C R U D ***************
+
+  private function contact(object $pp1)
+  {
+      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->module_path . 'v_contact_us.php';
+      require $pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+  private function about(object $pp1)
+  {
+    //$param1 = ... ;
+    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->module_path . 'v_about_us.php';
+    require $pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+  private function features(object $pp1)
+  {
+    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->module_path . 'v_features.php';
+    require $pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+
+
+  // *************** FUNCTION SIMPLE MODULE TBL1  A D M I N S ***************
+
+  // U S E R  R E A D
+
   //        u s e r s  r e a d
   private function admins(object $pp1) //private
   {
- 
-    $this->Login_Confirm_SesUsrId($this);
-    
-    //$dm = $this ;  // = domain model = globals for all sites are for CRUD... & for curr.module
-    //$Db_user = new Tbl_crud_user ; //tbl mtds and attr use globals for all sites !!
-
+    $this->Login_Confirm_SesUsrId();
     $title = 'Admin Page' ;
+    // http skip is ok for other module :
+    ?><!--script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user'?>');</script--><?php
+    Config_allsites::Redirect_to( dirname($pp1->module_url) .'/user' );
                   //Warning: Cannot modify header information :
                   //require $pp1->wsroot_path . 'zinc/hdr.php';
                   //require_once("navbar_admin.php");
-    require $pp1->module_path . '../user/admins.php';
-    //require $pp1->wsroot_path . 'zinc/ftr.php';
+             //require $pp1->module_path . '../user/admins.php';
+             //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
   //  user profile
@@ -255,12 +296,52 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
   }
 
 
+  private function loginfrm(object $pp1) //private
+  {
+    //called from link, Config_ allsites based on url (calling link) calls  f n  l o g i n
+    //$p p1  = $t his->g etp('p p1') ;
+                if ('') {self::jsmsg( [ //b asename(__FILE__).
+                   __METHOD__ .', line '. __LINE__ .' SAYS'=>''
+                   ,'aaa'=>'bbb'
+                ] ) ; }
+      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->module_path . '../user/login_frm.php';  
+      require $pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+  private function login(object $pp1) //private
+  {
+    Tbl_crud_admin::login($this, $pp1, $pp1->dashboard) ;
+  }
+
+
+  private function upd_user_loggedin(object $pp1) //private
+  {
+    //     A D M I N  P R O F I L E  navbar admin -> My Profile
+      //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
+      $this->Login_Confirm_SesUsrId();
+
+      //$AdminId = $_SESSION["userid"];
+
+      $title = 'MSG u s r u p d ';
+             // Why i n c  h d r  and  f t r  must be in  v i e w  script :
+             //Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\navbar_admin.php:26) in J:\awww\www\zinc\Config_allsites.php on line 306
+      //require $pp1->wsroot_path . 'zinc/hdr.php';
+      //require_once("navbar_admin.php");
+      require $pp1->module_path . '../user/upd_user_loggedin_frm.php';  
+      //require $pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+
+
+
+  // *************** FUNCTION SIMPLE MODULE TBL2  C A T E G O R Y ***************
   //        c a t e g o r i e s  t b l
   private function categories(object $pp1) //private
   {
 
     //$dm = $this ; //globals for all sites (eg for CRUD...) !!
-    $this->Login_Confirm_SesUsrId($this); //$dm
+    $this->Login_Confirm_SesUsrId(); //$dm
 
     $title = 'MSG Categories' ;
     require $pp1->wsroot_path . 'zinc/hdr.php';
@@ -270,12 +351,15 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
   }
 
 
+
+
+  // *************** FUNCTION SIMPLE MODULE TBL3  P O S T S ***************
   private function addnewpost(object $pp1) //private
   {
 
     // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/
     //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
-    $this->Login_Confirm_SesUsrId($this);
+    $this->Login_Confirm_SesUsrId();
 
       $title = 'Add Post' ;
       //require $pp1->wsroot_path . 'zinc/hdr.php';
@@ -294,7 +378,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $category_from_url = 
        ( isset($uriq->c) and null !== $pp1->uriq->c ) ? $pp1->uriq->c : '' ;
 
-    $this->Login_Confirm_SesUsrId($this);
+    $this->Login_Confirm_SesUsrId();
 
     $title = 'Posts' ;
     require_once("navbar_admin.php");
@@ -329,7 +413,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     {
       //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
 
-      $this->Login_Confirm_SesUsrId($this);
+      $this->Login_Confirm_SesUsrId();
 
       $title = 'Posts' ;
       require_once("navbar_admin.php");
@@ -383,7 +467,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $IdFromURL = $uriq->id ;
     //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
 
-    $this->Login_Confirm_SesUsrId($this);
+    $this->Login_Confirm_SesUsrId();
 
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
@@ -474,22 +558,15 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
   }
 
 
-  private function kalendar(object $pp1) //private
-  {
-    require $pp1->wsroot_path . 'zinc/hdr.php';
-    require $pp1->module_path . '../post/read_msg_tbl_kalendar_flex.php';
-    require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
 
 
 
-
-
+  // *************** FUNCTION SIMPLE MODULE TBL4  C O M M E N T S ***************
   //          p o s t  c o m m e n t s
   private function comments(object $pp1) //private
   {
 
-    $this->Login_Confirm_SesUsrId($this);
+    $this->Login_Confirm_SesUsrId();
 
     $title = 'Comments' ;
     require $pp1->wsroot_path . 'zinc/hdr.php';
@@ -527,59 +604,6 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
 
 
-  private function upd_user_loggedin(object $pp1) //private
-  {
-    //     A D M I N  P R O F I L E  navbar admin -> My Profile
-      //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
-      $this->Login_Confirm_SesUsrId($this);
-
-      $AdminId = $_SESSION["userid"];
-
-      $title = 'MSG u s r u p d ';
-      require $pp1->wsroot_path . 'zinc/hdr.php';
-      require_once("navbar_admin.php");
-      require $pp1->module_path . '../user/upd_user_loggedin_frm.php';  
-      require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
-
-
-
-
-    private function errmsg(object $pp1, string $myerrmsg)
-    {
-        // h d r  is  in  p a g e  which  i n c l u d e s  t h i s  p a g e
-        //require $pp1->wsroot_path . 'zinc//hdr.php'; //or __DIR__
-        $title = 'MSG ERRPAGE';
-        require $pp1->module_path . '/error.php';
-        require $pp1->wsroot_path . 'zinc//ftr.php';
-    }
-
-
-
-
-  // P A G E S  WITHOUT  C R U D
-
-  private function contact(object $pp1)
-  {
-      require $pp1->wsroot_path . 'zinc/hdr.php';
-      require $pp1->module_path . 'v_contact_us.php';
-      require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
-
-  private function about(object $pp1)
-  {
-    //$param1 = ... ;
-    require $pp1->wsroot_path . 'zinc/hdr.php';
-    require $pp1->module_path . 'v_about_us.php';
-    require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
-
-  private function features(object $pp1)
-  {
-    require $pp1->wsroot_path . 'zinc/hdr.php';
-    require $pp1->module_path . 'v_features.php';
-    require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
 
 } // e n d  c l s  C onfig_ m ini3
 
@@ -597,73 +621,3 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     * script/method or calls some (global method) or...
     */
 
-                /*
-                if ('') {self::jsmsg( [ //b asename(__FILE__).
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
-                   ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
-                   ,'$this->u riq'=>$this->getp('uriq')
-                ] ) ; }
-
-
-                if ('') {self::jsmsg( [ //b asename(__FILE__).
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE call akc'
-                   ,'$this->p p1->dbi_ obj'=>(
-                       isset($pp1->dbi_obj) and null !== $pp1->dbi_obj
-                     ) ? $pp1->dbi_obj : 'NOT SET'
-                   //, '$dsn'=>$dsn
-                   ] ) ; }
-                 */
-
-      /**
-      *           **** D I S P A T C H I N G
-      * coud be here, in modules Home_ ctr (see code in Config_ allsites is global for all sites)
-      * but better here, in fn  c a l l f  (less and simpler coding, home ctr fns are MUST)
-      */
-        //fn  c a l l f  is called before this from Config_ allsites
-                //$pp1 = $this->getp('pp1') ; //get property
-        //$akc = $pp1->uriq->i ; 
-               //$this->callf($akc, $pp1) ; //code in Config_ allsites
-        //$this->$akc($pp1) ;
-
-
-  /**
-  * p ublic f unction c a l l f (string $fnname, object $pp1)
-  * CONVENTION: Must be same fnname (eg posts) in $pp1 index and in $pp1 value :
-  *   eg link : 'posts' => QS.'i/posts/' ee 'fnname' => QS.'i/fnname/'
-  * CALLED only from Config_allsites __construct so :
-        //fn params are in  p p 1 = properties palette = all settings
-        $pp1 = $this->getp('pp1') ; //get property
-        $akc = $pp1->uriq->i ; 
-        $this->callf($akc, $pp1) ; // OR
-        //$this->$akc($pp1) ;
-  * CALLS Home_ ctr PRIVATE method
-  * WHY :
-  */
-
-
-    // m k d  txt to  H T M L  must be require_ once
-    //require_once( /srv/disk16/3266814/www/phporacle.eu5.net/vendor/erusev/parsedown/parsedown.php )
-    //                     /phporacle.eu5.net/vendor/erusev/parsedown
-    //    failed to open stream
-    //For Linux MUST BE /phporacle.eu5.net/fwphp/glomodul/blog, as "/" is root
-    //$_SERVER['SCRIPT_FILENAME'] = /home/www/phporacle.eu5.net/fwphp/glomodul/z_examples/01_phpinfo.php
-    //$_SERVER['DOCUMENT_ROOT'] = /home/www/phporacle.eu5.net
-    //$_SERVER['HTTP_HOST'] = phporacle.eu5.net
-    //$_SERVER['PHP_SELF'] = /fwphp/glomodul/z_examples/01_phpinfo.php
-    //echo PHP_OS; or php_uname() 
-    /*
-      if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-          echo 'This is a server using Windows!';
-      } else {
-          echo 'This is a server not using Windows!';
-      }
-          // *nix
-          echo DIRECTORY_SEPARATOR; // /
-          echo PHP_SHLIB_SUFFIX;    // so
-          echo PATH_SEPARATOR;      // :
-
-          // Win*
-          echo DIRECTORY_SEPARATOR; // \
-          echo PHP_SHLIB_SUFFIX;    // dll
-          echo PATH_SEPARATOR;      // ;
-    */

@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 // J:\awww\www\fwphp\glomodul4\user\admins.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\user ;
 use B12phpfw\core\zinc\Db_allsites ;
 use B12phpfw\dbadapter\user\Tbl_crud   as Tbl_crud_admin ;
 use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
@@ -11,15 +13,31 @@ use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
+
+if (isset ($_SESSION["submitted_cc"])) {
+  list( $DateTime, $username, $Name, $password, $Admin
+      , $Confirmpassword
+  ) = $_SESSION["submitted_cc"] ;
+  unset ($_SESSION["submitted_cc"]) ;
+} else {
+  $tmp = ['','','','','',''] ; //self::get_ submitted_cc() ;
+  list( $DateTime, $username, $Name, $password, $Admin
+        , $Confirmpassword
+  ) = $tmp ;
+  //in Tbl_ crud : $_SESSION["submitted_cc"] = ... ;
+}
+
+
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"])){
+
   // returns string
   Tbl_crud_admin::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //Ending of Submit Button If-Condition
 
 //Warning: Cannot modify header information :
-    require $pp1->wsroot_path . 'zinc/hdr.php';
-    require_once("navbar_admin.php");
+require $pp1->wsroot_path . 'zinc/hdr.php';
+require_once("navbar_admin.php");
 
 //        2. G U I  to get user action
 ?>
@@ -44,45 +62,48 @@ if(isset($_POST["Submit"])){
        echo $this->SuccessMessage();
        ?>
 
-
+      <!-- 
+                A D M I N  F O R M   $pp1->admins
+      -->
       <form class="" action="<?=$pp1->admins?>" method="post">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-header">
-            <h1>Add Admin</h1>
+            <h2>Add Admin for user level rights (authorization)</h2>
           </div>
-
 
           <div class="card-body bg-dark">
             <div class="form-group">
               <label for="username"> <span class="FieldInfo"> Username: </span></label>
                <input class="form-control" type="text" 
-                      name="username" id="usernameID"  value="">
+                      name="username" id="usernameID"  value="<?=$username?>">
             </div>
 
             <div class="form-group">
               <label for="Name"> <span class="FieldInfo"> Name: </span></label>
                <input class="form-control" type="text" 
-                      name="Name" id="NameID" value="">
+                      name="Name" id="NameID" value="<?=$Name?>">
                <small class="text-muted">*Optional</small>
             </div>
 
             <div class="form-group">
               <label for="password"> <span class="FieldInfo"> Password: </span></label>
                <input class="form-control" type="password" 
-                      name="password" id="passwordID" value="">
+                      name="password" id="passwordID" value="<?=$password?>">
             </div>
             <div class="form-group">
               <label for="Confirmpassword"> <span class="FieldInfo"> Confirm password:</span></label>
-               <input class="form-control" type="password" 
+               <input class="form-control" type="password" value="<?=$Confirmpassword?>"
                       name="Confirmpassword" id="ConfirmpasswordID"
                      value="">
             </div>
 
-
+            <!-- **********Two big b u t t o n s  after  f o r m************ 
+                 Back To Dashboard is $pp1-> dashboard
+            -->
             <div class="row">
               <div class="col-lg-6 mb-2">
-                <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block">
-                   <i class="fas fa-arrow-left"></i> Back To Dashboard</a>
+                <a href="<?=$pp1->home_usr?>" class="btn btn-warning btn-block">
+                   <i class="fas fa-arrow-left"></i> Back To User home</a>
               </div>
               <div class="col-lg-6 mb-2">
                 <button type="submit" name="Submit" class="btn btn-success btn-block">
@@ -93,14 +114,22 @@ if(isset($_POST["Submit"])){
           </div>
         </div>
       </form>
+      <!-- 
+         e n d       A D D  A D M I N  F O R M 
+      -->
 
 
+      <!-- 
+                A D M I N S  T A B L E
+      -->
       <h2>Existing Admins</h2>
       <table class="table table-striped table-hover">
         <thead class="thead-dark">
           <tr>
-            <th>No. </th><th>Date&Time</th><th>username</th><th>Admin Name</th>
+            <th>No.&nbsp;Del ID</th><th>Date&Time</th><th>Username</th><th>Admin Name</th>
             <th>Added by</th><th>Action</th>
+            <!--th>No. </th><th>Date&Time</th><th>username</th><th>Admin Name</th>
+            <th>Added by</th><th>Action</th-->
           </tr>
         </thead>
         <tbody>
@@ -110,25 +139,60 @@ if(isset($_POST["Submit"])){
           , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
       $SrNo = 0;
       //while ($r = $this->r rn ext($c ursor)):
-      while ( $r = Tbl_crud_post::rrnext($cursor_admins) and isset($r->id) ):
+      while ( $r = Tbl_crud_admin::rrnext($cursor_admins) and isset($r->id) ):
       {
+        $id = $r->id ;
         $SrNo++;
         //all row fld names lowercase
         switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
         ?>
+            <!-- after /r/ (r means redirect) is nickname of inc/call, see $p p1 = [ ... -->
             <tr>
-              <td><?=$SrNo?></td>
-              <td><?=self::escp($r->datetime)?></td>
-              <td><?=self::escp($r->username)?></td>
-              <td><?=self::escp($r->aname)?></td>
-              <td><?=self::escp($r->addedby)?></td>
-              <!-- after /r/ (r means redirect) is nickname of inc/call, see $p p1 = [ ... -->
-              <td>
+              <!-- ********** 1. No.&nbsp;Del ID ************ -->
+              <td width=16%>
+                 <!--str_pad( $SrNo, 5 - strlen($SrNo), '&nbsp;', STR_PAD_LEFT )
+                     str_repeat('&nbsp;', 5 - strlen($SrNo)) . $SrNo
+                 -->
+                 <?=str_repeat('&nbsp;', 5 - strlen((string)$SrNo)) . $SrNo?>
                  <a id="erase_row" class="btn btn-danger"
-                    onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
-                    if (yes == '1') { location.href= '<?=$pp1->del_row?>t/admins/id/<?=$r->id?>/'; }"
-                 >Del <?=$r->id?></a>
+                    onclick="var yes ; yes = jsmsgyn('Erase row <?=$id?>?','') ;
+                    if (yes == '1') { location.href= '<?=$pp1->ldd.$id?>/'; }"
+                    title="Delete tbl row ID=$id"
+                 ><?=str_repeat('&nbsp;', 8 - strlen($id)) . $id ?></a>
               </td>
+
+
+              <!-- ********** 2. Date&Time ************ -->
+              <td><?=self::escp($r->datetime)?></td>
+
+
+              <!-- ********** 3. Username ************ -->
+                <td>
+                <!-- https://getbootstrap.com/docs/4.0/components/buttons/ -->
+                <a class="btn btn-link" href="<?=$pp1->upd_user_loggedin . $id?>"
+                   title="Edit tbl row"
+                ><?=self::escp($r->username)?></a>
+              </td>
+
+              <!-- ********** 4. Admin Name ************ -->
+              <td><?=self::escp($r->aname)?></td>
+              <!-- ********** 5. Added by ************ -->
+              <td><?=self::escp($r->addedby)?></td>
+
+              <!-- ********** 6. Action ************ -->
+              <td width=16%>
+                <a class="btn btn-success" href="<?=$pp1->read_user . $id?>"
+                   title="Read - show user profile"
+                >R</a>
+
+                <a class="btn btn-warning" href="<?=$pp1->loginfrm . $id?>"
+                   title="Login"
+                >Login</a>
+                <!--a class="btn btn-secondary" href="<?=$pp1->logout . $id?>"
+                   title="Logout"
+                >Lout</a-->
+              </td>
+
         <?php
       } endwhile; ?>
         </tbody>

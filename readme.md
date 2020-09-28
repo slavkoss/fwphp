@@ -10,7 +10,7 @@ CRUD module example code 7 scripts:
 
 
 
-**Developed** on home PC on (newest) Windows 10 64 bit with Laragon (was XAMPP),  Apache web server.  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. 
+**Developed** on home PC on (newest) Windows 10 64 bit with Laragon,  Apache web server.  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. 
 ## 1\.1 Demo sites - free hosting with free Mysql
 See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/54) or [here](http://phporacle.heliohost.org/fwphp/glomodul/blog/?i/read_post/id/54)
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - here are newest programs (may be more problems than heliohost). Also PHP on Linux is a bit different than on Windows.
@@ -20,12 +20,27 @@ See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul
 4. My fwphp site (may be more : fwphp2, 3...) : http://SSPC2:8083/
     
 ## 1\.2 Download and unzip code from my Github repo
-1. **https://github.com/slavkoss/fwphp** - PHP code here is good for (more) large sites
-2. In webserver doc root - my is J:\xampp\htdocs  or virtual host  J:\awww\www
-3. Unpack fwphp-master.zip (with many adds < 3 MB) : 3 subfolders : **fwphp,  vendor (from 00_vendor.zip file) and zinc**      
-    and in phpmyadmin import J:\awww\www\01_DDL_mysql_blog.sql in database z_blogcms (or in Oracle db 01_DDL_oracle_blog.sql).       
 
-After that to understand how B12phpfw CRUD framework works (eg $db = new Home_ctr($pp1) ; //Home\_ ctr (or App) class "inherits" index.php ee "inherits" $ p p 1), you should learn/try two modules like Oracle FORMS forms .fmb :     
+Download from **https://github.com/slavkoss/fwphp**
+
+First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH    
+
+Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
+
+1. 2 folders : vendor (from 00_vendor.zip file) and zinc   
+
+2. Menu module  /fwphp/www  folder
+
+3. Markdown content management  /fwphp/glomodul/mkd folder (module)  
+
+4. Basic (learning, tutorial)  CRUD module:  /fwphp/glomodul/z_examples/02_mvc/xuding_glob folder (module)
+     In phpmyadmin import in My SQL J:\awww\www\01_DDL_mysql_blog.sql in database z_blogcms  
+
+5. CRUD (same DDL as xuding_glob module): msg-blog module  /fwphp/glomodul/blog, ...user, ...post_category, ...post, ...post_comment (all in glomodul dir)
+    blog module works with other 4 modules in innovative way (see /fwphp/glomodul/blog/index.php).
+
+
+To understand how B12phpfw CRUD framework works (eg $db = new Home_ctr($pp1) ; //Home\_ ctr (or App) class "inherits" index.php ee "inherits" $ p p 1), you should learn/try two modules like Oracle FORMS forms .fmb :     
 1. J:\awww\www\fwphp\glomodul\z_examples\01_php_bootstrap\flexmoj\FLEX_minisite2017          
     http://dev1:8083/fwphp/glomodul/z_examples/01_php_bootstrap/flexmoj/FLEX_minisite2017        
     This module shows basic site module code idea (I think best site pages navigation - B12phpfw is needed only for CRUD !).      
@@ -44,7 +59,7 @@ Notable package does something special, is also frequently innovative.
 1. In my free time (my work for last 20 years was :  Oracle Forms 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
    https://github.com/panique/mini3 is good but to small OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram : Udemy is good but older programming style.
 2. Develop **large sites** (more of them under web server root dir. path), PHP PDO CRUD (Create, Read, Upd, Del eg "users" table rows) in **any DB**.
-3. ***Innovative*** is : **Each module in own folder like Oracle Forms 6i form, Blazor and APEX pages**, no M, V, C folders.
+3. ***Innovative*** is : **Each module in own folder like Oracle Forms 6i form, Blazor and APEX pages**, no M,V,C folders.
 4. **Not to simple code : easy to understand,  small, reusable, namespaces for autoloading classes scripts, routing (URL parts) - dispatching (call or include), own debugging (Xdebug is not enough)...** compared to all PHP frameworks and learning sources.
 5. Present best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
     https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
@@ -81,8 +96,8 @@ Everything important is visible in current version 6.0 code. Some details are** 
 ## 1\.5 Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
 
-1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 (dev1 is Apache vitual host).  
-   For **testing**  wsroot_path = **J:\\xampp\\htdocs** , wsroot_url =  http://localhost:8083 .
+1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 or http://localhost:8083 !! (dev1 is Apache vitual host).  
+   For **testing**  wsroot_path = `J:\ylaragon\www` , wsroot_url =  http://dev1:8083 or http://localhost:8083 !!
    For **production** are Linux demo sites, see below.  
 
 2. For mnu module **module_url** = http://dev1:8083/fwphp/www/ so module_towsroot = '../../' - I do not use it for mnu and mkd. 
@@ -102,7 +117,7 @@ Besides explanations below are difficult to understand - after battle philosophy
 <br><br><br>
 Package contains modules (folders) in ownWebServer_or_hosting_DOCROOT_PATH = "/". My DOCROOT_PATHs ('/') are :
 
-1. on Windows my home PC Apache virtual host J:\awww\www for development and J:\xampp\htdocs for testing
+1. on Windows my home PC Apache virtual host `J:\awww\www` for development and `J:\ylaragon\www` for testing
 2. on Linux free demo sites for production /phporacle.eu5.net on Freehostingeu and /home/slavkoss/public_html on Heliohost - you can easily make own.
 3. on Oracle Linux on my home PC Virtual Box machine
 
@@ -148,7 +163,7 @@ I prefer UML below :
 -----
 
 
-## 1\.6 1a. DBI: Dbconn_allsites abstract cls : DB CONNECT
+## 1\.6 1a. DBI: NO MORE in ver. 7 Dbconn_allsites abstract cls : DB CONNECT
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
 
 
@@ -488,12 +503,12 @@ B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CR
 But basics are same : HexArch (Hexagonal architecture) application of DDD (Domain Driven Design) :  example img gallery code https://github.com/oumarkonate/hexagonal-architecture 
 1. **application** directory : src/Config contains ~ code in my Config_allsites cls
 2. application directory : src/Controller contains ~ code in my  Config_allsites cls  and Home_ctr cls
-3. **Domain (model)** code in directory src/Domain contains ~ code in my  Dbconn_allsites cls and Db_allsites cls
+3. **Domain (model)** code in directory src/Domain contains ~ code in my Db_allsites cls
 4. **Infrastructure (or Common)** dir contains dependencies that app code needs to work - my zinc dir
 See [**"What is SW fw"**](#swfw).
 
 ![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/   OR       
- ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\xampp\\htdocs ee   http://localhost:8083/  OR       
+ ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\ylaragon\\www (was J:\\xampp\\htdocs) ee   http://localhost:8083/  (http://SSPC2:8083/ ) OR       
  ![B12phpfw favicon PRODUCTION DOCROOT](B12phpfw_3PRODUCTION_DOCROOT.ico "B12phpfw_3PRODUCTION_DOCROOT.ico") **PRODUCTION (DEMO) DOCROOT** http://phporacle.eu5.net/       
 |   
 In Windows **tree /A** shows :
@@ -584,9 +599,9 @@ In Windows **tree /A** shows :
 |   |   before cls_dir is FUNCTIONAL part of name space, any string "\" separated 
 |   |   cls_dir='post' is POSITIONAL part of ns, CAREFULLY it is dir name!
 |   |   If we change dir names than we must change also cls_dir in ns in scripts !
-|   |-- class Dbconn_allsites - global data source adapter
-|   |-- class Db_allsites extends Dbconn_allsites - global data source adapter
-|   |-- class Config_allsites extends Db_allsites - routing, dispatching, utils (helpers)
+|   |-- DB conn parameters Dbconn_allsites
+|   |-- class Db_allsites - global data source adapter (includes Dbconn_allsites)
+|   |-- class Config_allsites - routing, dispatching, utils (helpers)
 |   |-- class Pgn - PAGINATION
 |   |
 |   |
@@ -1597,7 +1612,7 @@ My PHP IDE is **Symenu** as launcher for all SW (portable if possible) below :
 
 ##  2\.3 [Composer](https://getcomposer.org/download/)
 
-I use newest XAMPP 64 bit xampp-portable-windows-x64-7.3.7-1-VC15.7z on newest Windows 10, 64 bit. WAMP not any more because is not fully portable and Composer needs coding displayed below and it is only for Windows. It seems WAMP is not giving newest/simplest solutions as XAMPP does.
+I use Laragon portable laragon.7z, 19 MB on newest Windows 10, 64 bit. Not any more xampp-portable-windows-x64-7.3.7-1-VC15.7z, 79 MB. WAMP not any more because is not fully portable,  Composer needs coding displayed below and it is only for Windows. It seems WAMP is not giving newest/simplest solutions as Laragon does.
 
         WAMP does not like PHP in Windows PATH variable, so :
         1. I installed Composer-Setup.exe and removed PHP from PATH. 
@@ -1644,18 +1659,30 @@ May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best 
 
 See readme_thoughts.md.  
 
-# 3\.1 B12phpfw core (CRUD) code
+# 3\.1 B12phpfw core (CRUD) code - How to get ONLY banana ?
 See readme_thoughts.md.  
 
-
-
-
-<br /><br /><br />
+<br /><br />
 It is not easy to see need to eg for user module convert code from procedural MVC to OOP MVC with namespaces and autoloading  For navigation (url-s, links) code is same - OOP does not help. Procedural MVC user module code is more clear and readable. So why is OOP better ?
 
-Some say: "is OOP mistake ?" - eg **lack of reusability in OOP** - to get banana (some method or attribute) you get also gorilla holding banana and whole gorilla\`s jungle (all higher classes with complicated dependencies). It is why B12phpfw code skeleton is for CRUD modules, I do not use it in mnu and mkd modules.
+Some say: "is OOP mistake ?" - eg **lack of reusability in OOP** - to get banana (some method or attribute) you get also gorilla holding banana and whole gorilla\`s jungle (all **higher classes with complicated dependencies**). It is why B12phpfw code skeleton is for CRUD modules, I do not use it in mnu and mkd modules.
 
-Eg Interfaces help to get ONLY banana, but coding is complicated - I could find only strong-talk-weak-work code examples about this subject.
+Eg Interfaces help to get ONLY banana, but coding is complicated - I could find only strong-talk-weak-work code examples about this subject.  
+1. So my not complicated **interface Interf_Tbl_crud** I made **to standardize coding Tbl_crud classes**. Each simple ee **one table module** like "invoice items" module has own dir and own Tbl_crud class leading to more than 100 Tbl_crud.php model adapter scripts in big application (eg material and financial book keeping).
+```
+*  J:\awww\www\zinc\Interf_Tbl_crud.php (4 hits)
+* 9:   static public f unction rr(
+* 12:  static public f unction rrnext(object $cursor): object ;  //returns $cursor
+* 16:  static public f unction rr_all(
+* 23:  static public f unction cc(object $pp1, array $other): string ;
+```
+
+2. With **DBI trait Db_allsites** I eliminated two higher DB classes. So if banana (some method or attribute) is **rr (read) from more tables** it is not in two higher DB classes which seems simplest solution but caused complicated coding in version 6.   Eg invoice module works with two (or three - bill) tables : invoice and invoice_items. Simmilar "simplest solution" three dirs M,V,C is bad,  I have -:) for 3dirs lovers who put coding technik (M,V,C code separation) in foreground instead pages (functionality, business logic), eg invoice page. How unimportant is coding technik (M,V,C code separation) in functionality, business logic story, but M,V,C code separation is most important in coding, in each script.
+
+   rr banana is not in jungle any more, gorilla and jungle is only one abstract class Config_allsites which is de facto $pp1 = properties.
+
+   **Banana $pp1 = properties palette** may cause difficulties in aggregate (compound, composed, multiplex) modules like Blog, Invoice... but $pp1 is inevitably (imminence, necessity) gorilla-jungle and can not be further simplified. I worked 20 years in $pp1 and globals jungle (Oracle Forms 6i) not so well grounded as here. 
+
 
 See [https://phpthewrongway.com/](https://phpthewrongway.com/), or Joe Armstrong why OOP sucks [http://harmful.cat-v.org/software/OO\_programming/why\_oo\_sucks](http://harmful.cat-v.org/software/OO_programming/why_oo_sucks).
 
@@ -1677,27 +1704,27 @@ I did much simpler B12phpfw code based on ideas in Jazeb Akram CMS blog and Mini
     1. video 8/2016 Paul Amissah [https://freecourseweb.com/building-database-web-app-php-oop-pdo-ajax-mysql/](https://freecourseweb.com/building-database-web-app-php-oop-pdo-ajax-mysql/) :  PHP, procedural MVC PDO MySQL, Bootstrap, AJAX jQuery - good basic code. **Not good are (as in almost all tutorials)** : names, globals,  code snippets composing - no single entry point ee including scripts instead http jumping in scripts
     3.  video Shan Shah 2019 [https://desirecourse.com/login-registration-and-profile-management-in-php-mysql-2018/](https://desirecourse.com/login-registration-and-profile-management-in-php-mysql-2018/),
     4.  video Learn\_OOP\_PHP\_By\_Building\_Complete\_Website\_by\_Traversy\_2018 [bad example](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/traversymvc) to complisated, despite some good code snippets.
-    5.  Inanz, Hopkins, Xuding... to simple examples good only for total beginers (dummies).
+    5.  Inanz, Hopkins, Xuding... to simple examples good only for clear ideas and for total beginers (dummies).
 
-I made many changes (I hope improvements) which I did because I do not like proposed solutions in best php frameworks and in learning sources mentioned above  (especcialy coding eg Traversy tutorial). Globals are not well coded there. I think that eg invoice php code should be in **own folder - module - like Oracle forms invoice.fmb** (not all forms/reports in 3 folders: M, V, C). **Application** glomodul consists of group of modules subgroups - unlimited levels  eg subgroup [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z\_examples](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples)
+I made many changes (I hope improvements) which I did because I do not like proposed solutions in best php frameworks and in learning sources mentioned above  (especcialy coding eg Traversy tutorial). Shares (reusables, globals) are not well coded there. I think that eg invoice php code should be in **own folder - module - like Oracle forms invoice.fmb** (not all forms/reports in 3 folders: M,V,C). **Application** glomodul consists of group of modules subgroups - unlimited levels  eg subgroup [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z\_examples](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples)
 
 **Modules subgroups - unlimited levels**. This is important difference ! Can Laravel, Yii, Phalcon work this way (important for large applications) ?
 
-I think that should be simple/fast/professional : **globals**, routing, dispaching, functional namespaces & classes loading , web rich text editing...  
-It is why I spended so many hours on this (huge time wasting which should do tools-software authors, not tools-software users like me).
+I think that should be simple/fast/professional : **shares**, routing, dispaching, functional namespaces & classes loading , web rich text editing...  
+It is why I spent so many hours on this (huge time wasting which should do tools-software authors, not tools-software users like me).
 
 
   
     
   
 
-## Code with functional namespaces & class to autoload : global, module-local and external classes
+## Code with functional namespaces & class to autoload : shared, module-local and external classes
 
 This code skeleton seems complicated compared with [https://github.com/panique/\*\*mini3](https://github.com/panique/**mini3)\*\* which is may be best fw code template for smaller projects (and learning PHP).
 
-For large projects **SHARES - GLOBALS - REUSABLES** which I use here are very important, same as **modules in own folders (not all in 3 dirs M, V, C)**.
+For large projects **SHARES - GLOBALS - REUSABLES** which I use here are very important, same as **modules in own folders (not all in only 3 dirs M,V,C)**.
 
-About globals see discussion :  
+About shares (globals) see discussion :  
 [https://medium.com/@sameernyaupane/php-software-architecture-part-1-mvc-1c7bf042a695](https://medium.com/@sameernyaupane/php-software-architecture-part-1-mvc-1c7bf042a695)  
 [https://medium.com/@sameernyaupane/php-software-architecture-part-2-the-alternatives-1bd54e7f7b6d](https://medium.com/@sameernyaupane/php-software-architecture-part-2-the-alternatives-1bd54e7f7b6d)  
 [https://blog.ircmaxell.com/2014/11/alternatives-to-mvc.html](https://blog.ircmaxell.com/2014/11/alternatives-to-mvc.html)       
@@ -1706,7 +1733,7 @@ About globals see discussion :
 <br /><br /><br />
 During winter 2019/2020 year (much to late because I tested lot what others did) I made Version 6. of **menu and CRUD PHP code skeleton (own framework named "B12phpfw")** - core code is ~ 50 kB.  Version 7. : PHP 7 and trait DBI is in October 2020.  
 <br />
-Why ?  I do not like proposed solutions in  in best php frameworks (Laravel, Simfony, Yii...) and learning sources (internet, books). I think that eg module invoice php code should be in own folder like Oracle Forms form invoice.fmb (not all forms/reports in 3 folders: M, V, C). I think that should be simple/fast/professional :
+Why ?  I do not like proposed solutions in  in best php frameworks (Laravel, Simfony, Yii...) and learning sources (internet, books). I think that eg module invoice php code should be in own folder like Oracle Forms form invoice.fmb (not all forms/reports in 3 folders: M,V,C). I think that should be simple/fast/professional :
 **globals**, routing, dispaching, classes loading , web rich text editing - it is why I wasted many hours coding my B12phpfw (huge time wasting which should do software authors, not sw users-programers like me).      
 
 Why I do not like proposed solutions and what I did to (I hope) improve them. <span style="color:red;">Red colored features are main reasons for B12phpfw, but I improved also other features.</span> :      
@@ -1847,7 +1874,7 @@ One of (Apache) WEB SERVER DOCROOT-s (see B12phpfw directories (modules) structu
 |   |   |-- controller.php   # **NO** but **in module dir global abstract DISPATCHER (RESPONSE) class**             
 |   |   |                    # **Home\_ctr  (<span style="color:blue;">level 4<span>)** extends Config\_allsites         
 |   |   |__ model.php        # **NO, no model class for each table** but **in zinc dir global abstract CRUD class               
-|   |                        # Db_allsites  (<span style="color:blue;">level 2<span>)** extends Dbconn_allsites             
+|   |                        # Db_allsites  (<span style="color:blue;">level 2<span>)** includes Dbconn_allsites             
 |   |                        # In Db_allsites are **cc, rr, uu, dd methods** instead model class for each table !        
 |   |                        # cc, rr, uu, dd methods are like Oracle Forms           
 |   |                        # pre-insert, pre- and execute- query, pre-update instead model class for each table !         
@@ -1856,7 +1883,7 @@ One of (Apache) WEB SERVER DOCROOT-s (see B12phpfw directories (modules) structu
 |   |-- config               # **NO** config dir but **in zinc dir global abstract CONFIG & ROUTING (REQUEST) class**            
 |   |   |                    # **Config_allsites  (level 3)** extends Db_allsites (see core UML diagram). 
 |   |   |                    # Here is property palette array.           
-|   |   |-- database.php     # **NO** but in zinc dirabstract class **Dbconn_allsites  (<span style="color:blue;">level 1<span>)**        
+|   |   |-- database.php     # = in zinc **Dbconn_allsites.php**        
 |   |   |__ session.php            
 |   |                     
 |   |__ helpers              # **NO** helpers dir, but in zinc dir global abstract classes Db_allsites and Config_allsites.          

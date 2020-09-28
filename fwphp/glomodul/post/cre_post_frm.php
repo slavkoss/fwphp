@@ -135,11 +135,11 @@ require_once("navbar_admin.php");
             </div-->
 
 
-
+            <!-- Back To Dashboard  $pp1->dashboard -->
             <div class="row">
               <div class="col-lg-6 mb-2">
-                <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block">
-                   <i class="fas fa-arrow-left"></i> Back To Dashboard</a>
+                <a href="<?=$pp1->posts?>" class="btn btn-warning btn-block">
+                   <i class="fas fa-arrow-left"></i> Back To Posts</a>
               </div>
               <div class="col-lg-6 mb-2">
                 <button type="submit" name="Submit" class="btn btn-success btn-block">
@@ -158,8 +158,7 @@ require_once("navbar_admin.php");
 
 
 
-<!-- End Main Area 
--->
+<!-- End Main Area -->
 
 
 <?php require $pp1->wsroot_path . 'zinc/ftr.php'; ?>
