@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace B12phpfw\core\zinc ;
 
 //if (!isset($_SESSION)) { session_start(); }
-if (strnatcmp(phpversion(),'7.0.0') >= 0) {
-      if (session_status() == PHP_SESSION_NONE) { session_start(); }
-} else { 
-  if(session_id() == '') { session_start(); } 
-}
+//if (strnatcmp(phpversion(),'5.4.0') >= 0) {
+   if (session_status() == PHP_SESSION_NONE) { session_start(); }
+//} else { if(session_id() == '') { session_start(); } }
 
 
 class Autoload
@@ -30,16 +28,6 @@ class Autoload
      return null ;
    }
 
-   /*private static function _fatal_error_hndl() {
-      //not needed at script end define('PROGRAM_EXECUTION_SUCCESSFUL', true);
-      //if ( ! defined(PROGRAM_EXECUTION_SUCCESSFUL)) {
-        // fatal error has occurred
-        if($error !== NULL && $error['type'] === E_ERROR) {
-           $error = error_get_last();
-           echo '<pre>$error='; echo '$error='; print_r($error); echo '</pre>';
-        }
-      //}
-   } */
 
   private function get_path($nscls, &$nsdir_routTBLclsdir) // static ?
   {
@@ -157,6 +145,24 @@ class Autoload
     ob_end_clean(); //ob_ end_flush(), ob_ get_flush()...
     return $fmtedtxt ;
   } //e n d  f n  f m t
+
+
+
+
+
+   /*private static function _fatal_error_hndl() {
+      //not needed at script end define('PROGRAM_EXECUTION_SUCCESSFUL', true);
+      //if ( ! defined(PROGRAM_EXECUTION_SUCCESSFUL)) {
+        // fatal error has occurred
+        if($error !== NULL && $error['type'] === E_ERROR) {
+           $error = error_get_last();
+           echo '<pre>$error='; echo '$error='; print_r($error); echo '</pre>';
+        }
+      //}
+   } */
+
+
+
 
 } //e n d  c l a s s  A u t o l o a d
 

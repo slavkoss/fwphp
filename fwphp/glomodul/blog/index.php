@@ -20,7 +20,7 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
   , 'module_towsroot'=>$module_towsroot
   //1.2
   , 'module_version'=>'6.0.4.0 Msg', 'vendor_namesp_prefix'=>'B12phpfw'
-  //1.3 F o r  A u t o l o a d
+  //1.3 F o r  A u t o l o a d - dirnames we  i n c  clsscripts from
   , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
         str_replace('\\','/', __DIR__ ).'/' //=$module_path=thismodule_cls_dir_path
       //dir of global clses for all sites :

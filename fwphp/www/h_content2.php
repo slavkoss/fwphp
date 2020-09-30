@@ -1,3 +1,7 @@
+<?php
+$tmp     = $img_url . 'ic_done_white_32dp.png' ;
+$img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
+?>
   <!-- C O N T E N T 2  CREATE HEAD -->
   <section id="create-head-section" class="bg-primary">
     <div class="container">
@@ -18,7 +22,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h3>2.1 Create your passion (Msg share, ACXE2, Mini3 PDO, kalendar, joke...)</h3>
+          <h3>2.1 Create your passion (Msg share, ACXE2, Mini3 PDO, kalendar...)</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus provident... </p>
           
           <div class="d-flex flex-row">

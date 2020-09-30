@@ -1,13 +1,53 @@
 <?php
 // J:\awww\www\fwphp\www\index.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+namespace B12phpfw\site_home\www ;
+use B12phpfw\core\zinc\Autoload ;
 
-date_default_timezone_set("Europe/Zagreb"); //Asia/Karachi
-      $CurrentTime = time();
-      $DateTime = strftime("%Y.%m.%d %H:%M:%S",$CurrentTime);
-if (strnatcmp(phpversion(),'5.4.0') >= 0) {
-      if (session_status() == PHP_SESSION_NONE) { session_start(); }
-} else { if(session_id() == '') { session_start(); } }
+//1. settings - properties - assign global variables to use them in any code part
+$module_towsroot = '../../' ;  //to web server doc root or our doc root by ISP
+//$app_glomodul_dir_path = str_replace('\\','/', dirname(__DIR__) ) .'/glomodul';
+
+//MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
+$pp1 = (object)
+[   'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
+                             // or $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+  //1.1
+  , 'module_towsroot'=>$module_towsroot
+  //1.2
+  , 'module_version'=>'7.0.4.0 Mnu', 'vendor_namesp_prefix'=>'B12phpfw'
+  //1.3 F o r  A u t o l o a d - dirnames we  i n c  clsscripts from
+  , 'module_path_arr'=>[
+       str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
+      //dir of global clses for all sites :
+      , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
+      //, $app_glomodul_dir_path.'/some_dirname_we_inc_clsscript_from/'
+  ] 
+] ;
+
+//2. global cls loads classes scripts automatically
+require($pp1->module_towsroot.'zinc/Autoload.php');
+new Autoload($pp1);
+                if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
+                   .', line '. __LINE__ .' SAYS'=>' '
+                   ,'where am I'=>'AFTER  A u t o l o a d'
+                ] ) ; }
+
+//3. process request from ibrowser & send response to ibrowser :
+//1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
+//STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
+$db = new Home_ctr($pp1) ; //also instatiates all higher cls-es : Config_ allsites
+
+
+exit(0);
+
+
+
+
+
+
+
+
+/*
 
 require('adresses.php');
                   if ('') {  //if ($module_ arr['dbg']) {
@@ -17,9 +57,8 @@ require('adresses.php');
                   echo '<b>$_ GET</b>='; print_r($_GET); 
                   echo '</pre>'; 
                   }
-//include_once '/zinc/lang/lang/hr.php'; 
-include_once($all_sites_glo_path.'lang/lang.php');
-//if(!isset($_SESSION['lang'])) { include_once '/zinc/lang/lang/hr.php'; }
+
+//if(!isset($_SESSION['l ang'])) { include_once '/zinc/l ang/l ang/hr.php'; }
 
 switch (true) {
 case isset($_GET['hlp1']): $title ='FAQ'; include('help.php');
@@ -68,7 +107,7 @@ default:
 } // e n d  s w i t c h    //header("location:f rm.php");
 
 
-exit(0);
+*/
 
 /* 
 if (isset($_SESSION["UserId"])) { echo 'Admin'; }

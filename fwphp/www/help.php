@@ -140,9 +140,8 @@ if ('') //if ($autoload_arr['dbg'])
     <br>
                
 
-              <!-- title='Aplication advanced type "(User`s) M essages" : "Todo - Done"'>___KALENDAR (TODO type)___ -->
-              <!-- J:\awww\www\fwphp\glomodul\user_post_kalendar_fmb  -->
-              <a  href="/<?=$path_rel_glomodul?>user_post_kalendar_fmb/kalendar/" 
+              <!--  -->
+              <a  href="/<?=$app_glomodul_dir_path?>user_post_kalendar_fmb/kalendar/" 
                       title='60 kB. See "Flexbox kalendar". TODO like MKD and MSG.'>Kalendar original</a>
           <!-- ************************************************** -->
 
@@ -275,7 +274,7 @@ if ('') //if ($autoload_arr['dbg'])
           <!-- title="Learning examples"-->
               My tests &amp; Demos
         
-        <a href="/<?=$path_rel_glomodul?>lsweb/lsweb.php/?cmd=' . $wsroot_path.$path_rel_help?>"
+        <a href="/<?=$app_glomodul_dir_path?>lsweb/lsweb.php/?cmd=' . $wsroot_path.$path_rel_help?>"
            target="_blank">ALL HELP SW (lsweb)</a>
         &nbsp; <a href="/<?=$path_rel_examples?>" target="_blank" title="Help dir">Help dir</a>
         &nbsp; 
@@ -444,7 +443,7 @@ RewriteRule ^(.*)$ <strong>index.php</strong>?pid=$1 [QSA,L]   </pre>
     <a href="http://phporacle.altervista.org/"  title="phporacle blog">myblog</a>
 
      <!-- http://dev1:8083/fwphp/glomodul/lsweb/l sweb.php/?cmd=J:/awww/www//fwphp/glomodul/help_sw -->
-     &nbsp;<a href="/<?=$path_rel_glomodul?>lsweb/lsweb.php/?cmd='.$pathzbig?>"  
+     &nbsp;<a href="/<?=$app_glomodul_dir_path?>lsweb/lsweb.php/?cmd='.$pathzbig?>"  
            title="phporacle blog articles downloaded on my local PC">myblog</a> on homePC (lsweb, zbig)
 
     </p>

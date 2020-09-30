@@ -2,18 +2,23 @@
   /**
   *    D I S P L A Y  P A G E   V I E V  code for  m k d  f o r m
   */
-//  public function edit($fle_to_edit_path)
-//  {
-    $md_fle_url     = $md_fle_url ; //QS.'home/md2htm/'.$fle_to_edit_path;
-    $frmaction_url_edit  = "?edit=$fle_to_edit_path" ; //QS.'home/edit/'.$fle_to_edit_path ;
-    $frmaction_url_showhtml  = "?showhtml=$fle_to_edit_path" ; //QS.'home/edit/'.$fle_to_edit_path ;
+//http://sspc2:8083/fwphp/glomodul/mkd/index.php?i/edit/path/001_MDcheatsheet.txt
+//http://sspc2:8083/fwphp/glomodul/mkd/index.php?i/edit/path/001_MDcheatsheet.txt\
+//http://sspc2:8083/fwphp/glomodul/mkd/index.php?i/edit/path/01\001_config_ssl_tls\hosts.txt
+//$frmaction_url_edit  = '?i/edit/path/'. str_replace('/','\\', $fle_to_edit_path) ;
+$frmaction_url_edit  = '?i/edit/path/'. $fle_to_edit_path ;
+//"?edit=$fle_to_edit_path" ;
+
+//http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/path/J:\awww\www\\readme.md
+$frmaction_url_showhtml  = '?i/showhtml/path/'. str_replace('/','\\', $fle_to_edit_path) ;
+//"?showhtml=$fle_to_edit_path" ;
                             if ('') 
                             { echo '<pre>'.__FILE__ .', lin='. __LINE__
                                 .'<br />     <b>*** '.__METHOD__ .'  SAYS *** šðèæž</b>';
                             print '<br />$fle_ to_edit_path='; print_r($fle_to_edit_path);
                             print '<br />$frmaction_ url_edit='; print_r($frmaction_url_edit);
                             print '<br />$frmaction_ url_showhtml='; print_r($frmaction_url_showhtml);
-                            print '<br />$fle_ md2htm_urlqry='; print_r($md_fle_url);
+                            //print '<br />$fle_ md2htm_urlqry='; print_r($md_fle_url);
                             echo '</b></pre><br />'; }
            /*<!--
                     IS  R E A D  OR  U P D A T E  T X T  ?

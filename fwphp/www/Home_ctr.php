@@ -1,15 +1,15 @@
 <?php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\module\user ;
+namespace B12phpfw\site_home\www ;
 use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
-//use B12phpfw\module\dbadapter\user\DB_user ; //to Login_ Confirm_ SesUsrId
-//use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
+//use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
+
 
 class Home_ctr extends Config_allsites
 {
   public function __construct(object $pp1)
   {
+    $DateTime = strftime( "%Y.%m.%d %H:%M:%S", time() );
                         if ('') { self::jsmsg( [ //basename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
@@ -29,29 +29,41 @@ class Home_ctr extends Config_allsites
     */
     $pp1_module = [ 
       'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
+      ,'app_glomodul_dir_path' => str_replace('\\','/', dirname(__DIR__) ) .'/glomodul'
       //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
       //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
-      ,'home_usr'   => QS.'i/home_usr/'
-      ,'admins'     => QS.'i/home_usr/'
-      ,'cre_usr'    => QS.'i/cre_usr/'
+      ,'home_mnu'   => QS.'i/home/'
       //link $pp1->ldd.$id in view script admins.php calls del_row_do method here :
-      ,'ldd'        => QS.'i/del_row_do/id/'
-      ,'read_user'  => QS.'i/read_user/id/' //$pp1->read_user.$id (not $pp1->r)  profile
-      ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/' //also profile
-      //ed_usr = LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
-      //,'ed_ usr' => QS.'i/ed_ usr/id/' //in view script: $pp1->ed_ usr.$id 
-
       ,'sitehome'   => QS.'i/sitehome/' //$pp1->sitehome
-      //$this->uriq->i/home_fn, t/tbl_name, id/idval key/value
-      //in home.php onclick does jsmsgyn dialog,  home_fn "d" calls dd() (no need include script)
       // -------------------------
       ,'loginfrm' => QS.'i/loginfrm/'
       ,'login'    => QS.'i/login/' 
       ,'logout'   => QS.'i/logout/r/i|loginfrm|' //logout & r=redirect
+      //
+      ,'lnghr'    => QS.'i/setlnghr/'
+      ,'lngen'    => QS.'i/setlngen/'
+      //
+      //             P A G E S :
+      ,'mkd'         => QS.'i/mkd/'
+      ,'lsweb'       => QS.'i/lsweb/'
+      ,'phpmyadmin'  => QS.'i/phpmyadmin/'
+      ,'phpmanual'   => QS.'i/phpmanual/'
+      //
+      ,'msg'         => QS.'i/msg/'
+      ,'acxe'        => QS.'i/acxe/'
+      ,'examples'    => QS.'i/examples/'
     ] ;
 
     //step 3 : fw core calls method in this cls : see home_fn above
     parent::__construct($pp1, $pp1_module);
+
+    //if (isset($_SESSION["UserId"])) { echo 'Admin'; }
+    //see Config_allsites.php :  date_default_timezone_set("Europe/Zagreb"); //Asia/Karachi
+    //see Autoload.php :  session_start()
+
+    //$lang = $pp1->lang ;
+    //If (!isset($_GET['lang']) {$_GET['lang'] = $lang ; }
+    //if(!isset($_SESSION['lang'])) { include_once 'zinc/lang/lang/'. $lang .'.php' ;} 
 
                 if ('') { /* self::jsmsg( [ //basename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
@@ -92,47 +104,7 @@ class Home_ctr extends Config_allsites
   //   - or URL is entered in ibrowser adress field
   // *************************************************
 
-  private function del_row_do(object &$pp1) // *************** SHARED  d d (
-  {
-    //parameter $pp1 is AUTOMATICALLY sent in all h o m e fns from callf fn !!
-                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
-                              if (isset($pp1->uriq) and null !== $pp1->uriq)
-                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_row_do [t] => category [id] => 21
-                              else { echo ' not set' ; } 
-                              exit(0) ;
-                              }
-    $pp1->uriq->t = 'admins' ; //$tbl = $pp1->uriq->t ;
-    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
-    Tbl_crud_admin::dd($pp1, $other);
-    Config_allsites::Redirect_to($pp1->admins) ;
-
-  }
-
-  public function cre_usr(object $pp1)
-  {
-    //         i n s  f o r m is in home.php before tbl display
-      $title = 'USER CRud';
-      //require $pp1->wsroot_path . 'zinc/hdr.php';
-        //require_once("navbar.php");
-        //require $pp1->module_path . 'create.php';
-        require $pp1->module_path . 'home.php'; //create.php not used
-      //require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
-
-
-  public function home_usr(object $pp1)
-  {
-    $this->home($pp1) ;
-  }
-  public function home(object $pp1)
-  {
-    //        t b l  r e a d, display
-      $title = 'USER CRud';
-      //require $pp1->wsroot_path . 'zinc/hdr.php'; //Warning: Cannot modify header information
-        require("navbar_admin.php");
-        require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
-      //require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
+  // M E T H O D S  C A L L E D  BY  L I N K S  IN  V I E W  SCRIPTS
 
   public function sitehome(object $pp1)
   {
@@ -140,18 +112,105 @@ class Home_ctr extends Config_allsites
   }
 
 
-
-  // U S E R  R E A D
-
-  public function read_user(object $pp1)
+  public function home_usr(object $pp1)
   {
-    //r o w  r e a d
-      $title = 'USER SHOW PROFILE';
-      require $pp1->wsroot_path . 'zinc/hdr.php';
-        //require_once("navbar.php");
-        require $pp1->module_path . 'read.php';
-      require $pp1->wsroot_path . 'zinc/ftr.php';
+    $this->home($pp1) ;
   }
+
+
+  public function home(object $pp1)
+  {
+    //        M A I N  S I T E  M N U
+      $title = 'MNU';
+                 //require $pp1->wsroot_path . 'zinc/hdr.php'; //Warning: Cannot modify header information
+        //require("h_top_toolbar.php"); //navbar_admin.php
+        require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
+        //require $pp1->wsroot_path . 'zinc/ftr.php';
+  }
+
+
+  public function mkd(object $pp1)
+  {
+    // http://sspc2:8083/fwphp/glomodul/mkd/
+    $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/mkd/' ) ;
+  }
+
+  public function lsweb(object $pp1)
+  {
+    $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/lsweb/lsweb.php' ) ;
+  }
+
+
+  public function phpmyadmin(object $pp1)
+  {
+    $this->Redirect_to( $pp1->wsroot_url .'phpmyadmin' ) ;
+  }
+
+
+  public function phpmanual(object $pp1)
+  {
+    // http://sspc2:8083/phpmanual/index.html
+    // http://sspc2:8083/fwphp/www/shell_exec.php?p=J:\awww\www\0_phpmanual.chm
+    $this->Redirect_to( $pp1->wsroot_url .'code_snippets.html' ) ;
+
+    /* <div class="col-md-3">
+      <a 
+      href="shell_exec.php?p=<=realpath($pp1->wsroot_path.'../').DS>0_phpmanual.chm"
+         class="btn btn-primary btn-block" target="_blank"
+      >PHP manual</a>
+    </div> */
+
+    //wants download : $this->Redirect_to( $pp1->wsroot_url .'0_phpmanual.chm' ) ;
+    
+    // NOT WORKING: both realpath($pp1->wsroot_path) and wsroot_url
+    //embed src="files/Brochure.pdf" type="application/pdf"
+    //><embed src="<=realpath($pp1->wsroot_path). DS .'0_phpmanual.chm'>" type="application/mshelp" width="100%" height="600px" /><php
+    
+    // welcome.pdf - ok, phpmanual.chm  NOT WORKING
+    //$this->Redirect_to( $pp1->module_url 
+    //  .'shell_exec.php?p='.realpath($wsroot_path.'../../') .DS.'phpmanual.chm' ) ;
+  }
+
+
+  public function msg(object $pp1)
+  {
+    // http://sspc2:8083/fwphp/www/
+    $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/blog/' ) ;
+  }
+
+
+  public function acxe(object $pp1)
+  {
+    // http://sspc2:8083/fwphp/www/
+    // J:\awww\www\fwphp\glomodul\z_examples\ora11g\ACXE2
+    $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/z_examples/ora11g/ACXE2/' ) ;
+  }
+
+  public function examples(object $pp1)
+  {
+    // http://sspc2:8083/fwphp/www/
+    // J:\awww\www\fwphp\glomodul\z_examples\ora11g\ACXE2
+    $this->Redirect_to(
+       dirname($pp1->module_url) .'/glomodul/z_examples/00_index_of_important.php' ) ;
+  }
+
+
+
+
+
+  private function setlnghr(object $pp1)
+  {
+    //echo __METHOD__ .'------------------';
+    $pp1->lang = $_GET['lang'] = 'hr' ;
+    $this->home($pp1) ;
+  }
+
+  private function setlngen(object $pp1)
+  {
+    $pp1->lang = $_GET['lang'] = 'en' ;
+    $this->home($pp1) ;
+  }
+
 
 
   private function logout(object $pp1)
@@ -186,51 +245,6 @@ class Home_ctr extends Config_allsites
 
   private function Login_Confirm_SesUsrId(object $dm) {
     Tbl_crud_admin::Login_Confirm_SesUsrId();
-  }
-
-  private function upd_user_loggedin(object $pp1) //private
-  {
-    // U P D A T E  A D M I N  P R O F I L E  no need navbar admin -> My Profile
-      //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
-      $title = 'USER UPDATE';
-      $this->Login_Confirm_SesUsrId($this);
-      //require $pp1->wsroot_path . 'zinc/hdr.php';
-        //require_once("navbar_admin.php");
-        require $pp1->module_path . 'upd_user_loggedin_frm.php';  
-                  //require $pp1->module_path . '../user/upd_user_loggedin_frm.php';  
-      //require $pp1->wsroot_path . 'zinc/ftr.php';
-  }
-
-  /*public function ed_usr(object $pp1)
-  {
-    //LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
-      $title = 'USER UPDATE';
-      require $pp1->wsroot_path . 'zinc/hdr.php';
-        //require_once("navbar.php");
-        require $pp1->module_path . 'update.php';
-      require $pp1->wsroot_path . 'zinc/ftr.php';
-  } */
-
-  public function d(object $pp1)
-  {
-                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: '
-                              .'<br />U R L  query array ='.'$this->uriq=' ;
-                              if (isset($this->uriq))
-                                { echo '<pre>'; print_r($this->uriq) ; echo '</pre>'; }
-                              else { echo ' not set' ; } }
-    //$this->dd() ;
-    $this->dd($pp1->uriq->t, $pp1->uriq->id) ;
-    // R e d i r e c t = r e f r e s h  t b l  v i e w :
-    $this->Redirect_to($pp1->home_usr) ;
-      /* switch ($this->uriq->t)
-      {
-        case 'admins' : $this->Redirect_to($pp1->home_usr) ; break;
-        default: 
-          echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '.'T a b l e '. $this->uriq->t 
-          .' does not exist (put it in home.php, in del link !)'.'</h3>';
-          break;
-      } */
-
   }
 
 

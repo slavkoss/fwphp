@@ -1,12 +1,19 @@
 <?php
 //<!-- J:\awww\www\fwphp\www\h_top_toolbar.php -->
 // http://dev1:8083/fwphp/www/
-$tmp = $img_url . 'ic_view_module_white_24dp.png' ;
 
+// $img_url = $wsroot_url . $imgrel_path ; //$imgrel_path = 'zinc/img/';
+// $img_url = $pp1->img_url ;
+$tmp = $img_url . 'ic_view_module_white_24dp.png' ;
 $img_url_modules_link = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
+
 $tmp = $img_url . 'ic_supervisor_account_black_24dp.png' ;
 $img_url_users_link   =  '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
 
+$tmp = $img_url . 'ic_settings_black_24dp.png' ;
+$img_url_settings_link = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
+
+//( ! ) Notice: Undefined variable: Modules_Login in J:\awww\www\fwphp\www\h_top_toolbar.php on line 114
 
 ?>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
@@ -73,7 +80,7 @@ $img_url_users_link   =  '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
     <!-- 
            MULTILANGUAGE DROP DOWN MENU 
       <li class="nav-item"><a href="<=Q S>h" class="nav-link"><b>H</b>elp</a></li>
-      
+      QS link <?=QS?> = home.php
     -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown mr-3">
@@ -82,11 +89,11 @@ $img_url_users_link   =  '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
       </a>
               <div class="dropdown-menu">
 
-                  <a href="<?=QS?>lang=hr" class="dropdown-item" target="_blank"
+                  <a href="<?=$pp1->lnghr?>lang=hr" class="dropdown-item" target="_blank"
                      title=""
                   ><?=$img_url_users_link?> Croatian</a>
 
-                  <a href="<?=QS?>lang=en" class="dropdown-item" target="_blank"
+                  <a href="<?=$pp1->lngen?>lang=en" class="dropdown-item" target="_blank"
                      title=""
                   ><?=$img_url_settings_link?> English</a>
 
@@ -105,11 +112,11 @@ $img_url_users_link   =  '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
     <ul class="navbar-nav ml-auto">
     <li class="nav-item dropdown mr-3">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-         title="Links to modules (php scripts dirs like Oracle Forrms fmb modules)">
-         <?=$img_url_modules_link.$Modules_Login?>
+         title="Links to modules (php scripts dirs like Oracle Forms fmb modules)">
+         <?php //echo $img_url_modules_link.$Modules_Login ; ?>
       </a>
               <div class="dropdown-menu">
-                  <!-- profile.php  $wsroot_url.$path_rel_glomodul.'/user/' -->
+                  <!-- profile.php  $wsroot_url.$app_glomodul_dir_path.'/user/' -->
                   <a href="<?='../glomodul/user/'?>" 
                      class="dropdown-item" target="_blank">
                  <?=$img_url_users_link?>Users (Register/Login/Loguut)

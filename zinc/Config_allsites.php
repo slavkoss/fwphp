@@ -35,9 +35,9 @@ abstract class Config_allsites //extends Db_allsites
 
       date_default_timezone_set("Europe/Zagreb"); //Asia/Karachi
 
-      if (strnatcmp(phpversion(),'5.4.0') >= 0) {
+      /*see Autoload.php : if (strnatcmp(phpversion(),'5.4.0') >= 0) {
             if (session_status() == PHP_SESSION_NONE) { session_start(); }
-      } else { if(session_id() == '') { session_start(); } }
+      } else { if(session_id() == '') { session_start(); } } */
 
            // =============================================
            // 1. C H E C K  R E Q U I R E M E N T S
@@ -67,7 +67,7 @@ abstract class Config_allsites //extends Db_allsites
              installed which is needed to run this program !<br />\n";
               //$r equirements_ok = false;
               exit(0) ;
-             }
+           }
 
 
       // =============================================
@@ -107,7 +107,11 @@ abstract class Config_allsites //extends Db_allsites
       //Error on win: $REQUEST_URI = filter_input($_SERVER['REQUEST_URI'], FILTER_SANITIZE_STRING);
       $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;
       $uri_arr = explode(QS, $REQUEST_URI) ; 
-      $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); 
+
+      // URL is eg http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme.md
+      //FIRST PART of REQUEST_ URI is : eg /fwphp/glomodul/mkd/
+      $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); //it is not
+      
               //or rtrim(str_replace($w sroot_path, '', $m odule_path),'/') ;
       $module_url = $wsroot_url.$module_relpath.'/';
 
@@ -119,9 +123,24 @@ abstract class Config_allsites //extends Db_allsites
       // key's value is name of included script or call method
       // -----------------------------------------------------------------
       $uri_qrystring = '' ;
-      if (isset($uri_arr[1])) { $uri_qrystring = $uri_arr[1] ; }
+
+      //SECOND PART of REQUEST_ URI is after QS (=?): eg i/edit/path/J:\awww\www\readme.md
+      if (isset($uri_arr[1])) {
+        $uri_qrystring = $uri_arr[1] ;
+        //edit is Home_ctr method, path (in any URL) must be Windows path 
+        //(also for Linux !! which we later change in Linux path)
+        $offset_path = strpos($uri_qrystring, 'path/');
+
+        //path (in any URL) MUST BE Windows path which we later change in Linux path :
+        //path key must be last key (or delimited with something...) :
+        $uri_qrystring = substr($uri_qrystring, 0, $offset_path+5) 
+         . str_replace( '/','\\', substr($uri_qrystring, $offset_path+5) ) 
+        ;
+      }
+
       $uri_qrystring_arr = [] ;
       $uri_qrystring_arr = explode('/', $uri_qrystring) ;
+      // = array :  [0] => i    [1] => edit    [2] => path    [3] => J:\awww\www\readme.md
                         // or: if (isset($_SERVER['QUERY_STRING'])) {
                         //     $uri_qrystring_arr = explode('/', $_SERVER['QUERY_STRING']) ; }
 
@@ -133,6 +152,7 @@ abstract class Config_allsites //extends Db_allsites
             $ii++ ) :              //expr3 is evaluated at iteration end
       {
         if (isset($uri_qrystring_arr[$ii + 1])) {
+          //    key                        keyvalue is next arr.element
           $uriq[$uri_qrystring_arr[$ii]] = $uri_qrystring_arr[++$ii] ;
         }
         else {
@@ -146,7 +166,7 @@ abstract class Config_allsites //extends Db_allsites
 
 
       $pp1 = (array)$pp1 ;
-      $pp1['uriq'] = (object)$uriq ;
+      $pp1['uriq'] = (object)$uriq ; //u r l  q u e r y  a r r a y
       //$this->setp('uriq', (object)$uriq) ; //$this->u riq = (object)$u riq ;
 
       // **************************** E N D  R O U T I N G
@@ -160,13 +180,16 @@ abstract class Config_allsites //extends Db_allsites
           //atr. assigned f or autol.cls in index.php and home ctr before $ p p 1 :
           //, 'autoloads'             => []
           //
-          , 'A D R E S S E S  in Config_allsites.php'    => '~~~~~~~~~~~~~~~~'
+          , 'A D R E S S E S  in Config_allsites.php' => 'cs02. R O U T I N G ~~~~~~~~~~~~~~~~'
           //, 'vendor_namesp_prefix'=> $vendor_namesp_prefix
           , 'module_towsroot'     => $module_towsroot
           , 'wsroot_path'         => $wsroot_path
           , 'wsroot_url'          => $wsroot_url
           , 'imgrel_path'         => $imgrel_path
+          , 'img_url'             => $wsroot_url . $imgrel_path
+          , 'lang'                => 'en'
           , 'module_path'         => $module_path
+
           , 'uri_arr'             => $uri_arr
           , 'module_relpath'      => $module_relpath
           , 'module_url'          => $module_url
@@ -182,12 +205,12 @@ abstract class Config_allsites //extends Db_allsites
       //$this->set_default_cls_states_atr($this->p p1);
                   if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
-                    .'Coding step cs03. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
+                    .'Coding step c s 0 2. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
                   echo '<pre>';
                   echo '<b>$_ GET</b>='; print_r($_GET); 
                   echo '<b>$_POST</b>='; print_r($_POST); 
                   echo '<b>$_SESSION</b>='; print_r($_SESSION); 
-                  echo '<br /><b>$this->p p1</b>='; print_r($this->getp('pp1'));
+                  echo '<br /><b>$this->p p 1</b>='; print_r($this->getp('pp1'));
                   echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>    ='; print_r($_SERVER['REQUEST_URI']); 
                   echo '<br /><b>uri_arr is exploded string REQUEST_URI '.$_SERVER['REQUEST_URI'].' (on QS=?)</b>'
                   .'<br />0 is $module_relpath,'
@@ -214,6 +237,16 @@ abstract class Config_allsites //extends Db_allsites
     * DISPATCHER: calls Home_ctr cls method (CONVENTION : i=ctrakcmethod)
     * which calls fns or includes view scripts (http jumps only to other module)
     * Dispatching using home class methods is based on Mini3 php fw.
+    *              E x a m p l e s  INVALID  U R L s  :
+    * 1. http://phporacle.eu5.net/fwphp/glomodul/mkd/?edit=001_MDcheatsheet.txt
+    * 2. http://phporacle.eu5.net/fwphp/glomodul/mkd/?edit=01/001_php/B12phpfw.mkd
+    * or txt, md, mkd anywhere :
+    * 3. http://sspc2:8083/fwphp/glomodul/mkd/?edit=J:/awww/www/readme.md
+    * ? in "?edit" is QS (U R L Query Separator)
+    *             E x a m p l e s  VALID  U R L s  :
+    * Must be present "i/m" where m=Home_ctr_method_name which includes script 
+    * or calls any method in any class in clsscripts dirlist in index.php !!, so :
+    * http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/"J:/awww/www/readme.md"
     *****************************************************
     */
         unset($pp1) ; //for easier debugging if next 2 lines are switched

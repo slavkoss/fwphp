@@ -1,3 +1,7 @@
+<?php
+$tmp     = $img_url . 'ic_done_black_32dp.png' ;
+$img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
+?>
   <!-- C O N T E N T 3  SHARE HEAD -->
   <section id="share-head-section" class="bg-primary">
     <div class="container">

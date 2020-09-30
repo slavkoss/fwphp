@@ -35,16 +35,16 @@ $all_sites_glo_path = $wsroot_path.'zinc/' ;
 $site_dir       = 'fwphp/' ; //basename(__DIR__)
 //we have only one (eg glomodul) group of global modules per subsite (eg fwphp) !!
 $glomodul_dir      = 'glomodul/' ;
-$path_rel_glomodul = $site_dir.$glomodul_dir ;
+$app_glomodul_dir_path = $site_dir.$glomodul_dir ;
 
-$path_rel_examples = $path_rel_glomodul .'z_examples/' ;
-$path_rel_help     = $path_rel_glomodul .'z_help/' ;
+$path_rel_examples = $app_glomodul_dir_path .'z_examples/' ;
+$path_rel_help     = $app_glomodul_dir_path .'z_help/' ;
 
 $zbig_url       = $wsroot_url .'zbig/';
 $zbig_path      = $wsroot_path .'zbig/';
 
 //                 img-s
-$img_url = $wsroot_url . 'zinc/img/' ;
+$img_url = $wsroot_url . 'zinc/img/' ; //$imgrel_path = 'zinc/img/';
 $img_path       = $wsroot_path . 'zinc/img/' ;
 //NOT SO : <i class="material-icons">view_module</i>Modules
 $tmp = $img_url . 'ic_view_module_white_24dp.png' ;

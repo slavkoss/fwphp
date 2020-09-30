@@ -16,7 +16,7 @@ use B12phpfw\core\zinc\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_towsroot = '../../../' ;  //to web server doc root or our doc root by ISP
-$dirup_to_app = str_replace('\\','/', dirname(__DIR__) ) ; //to app eg glomodul
+$app_dir_path = str_replace('\\','/', dirname(__DIR__) ) ; //eg glomodul
 
 //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
 $pp1 = (object)
@@ -26,12 +26,12 @@ $pp1 = (object)
   , 'module_towsroot'=>$module_towsroot
   //1.2
   , 'module_version'=>'6.0.4.0 Users', 'vendor_namesp_prefix'=>'B12phpfw'
-  //1.3 F o r  A u t o l o a d
+  //1.3 F o r  A u t o l o a d - dirnames we  i n c  clsscripts from
   , 'module_path_arr'=>[
        str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
       //dir of global clses for all sites :
       , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
-      , $dirup_to_app.'/blog/'
+      , $app_dir_path.'/blog/'
   ] 
 ] ;
 

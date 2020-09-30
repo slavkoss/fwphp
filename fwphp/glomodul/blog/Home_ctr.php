@@ -47,46 +47,46 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     * If link in view is not here : Error 403, Access forbidden! Undefined property in URL.
     */
     $pp1_module = [ 
-      'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~',
+      'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
     //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
     //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
-    'loginfrm'        => QS.'i/loginfrm/' , 
-    'login'           => QS.'i/login/' , 
-    'logout'          => QS.'i/logout/r/i|loginfrm|' ,
+    ,'loginfrm'        => QS.'i/loginfrm/'
+    ,'login'           => QS.'i/login/'
+    ,'logout'          => QS.'i/logout/r/i|loginfrm|'
 
-    'del_row'         => QS.'i/del_row_do/' , //used for all tables !!
+    ,'del_row'         => QS.'i/del_row_do/' //used for all tables !!
 
-    'filter_page'     => QS.'p/' , // i/home/
+    ,'filter_page'     => QS.'p/' // i/home/
     //
-    'dashboard'       => QS.'i/dashboard/' ,
+    ,'dashboard'       => QS.'i/dashboard/'
 
-    'home_usr'        => QS.'i/admins/' ,
+    ,'home_usr'        => QS.'i/admins/'
     //                   link $pp1->admins calls admins or home_usr method here
-    'admins'          => QS.'i/admins/' , 
-       'read_user'       => QS.'i/read_user/' ,
-       'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/' ,
+    ,'admins'          => QS.'i/admins/'
+       ,'read_user'       => QS.'i/read_user/'
+       ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/'
        //'ed_usr' => QS.'i/ed_ usr/id/', //$pp1->ed_ usr.$id in view script
 
-    'categories'      => QS.'i/categories/' ,
+    ,'categories'      => QS.'i/categories/'
 
-    'posts'           => QS.'i/posts/' ,
+    ,'posts'           => QS.'i/posts/'
        //in view h ome.php after c/ we add categ. name so :
        //<a href="<=filter_ postcateg><=h escp($r->c ategory)>">
        // filter_ postcateg is  m ethod  name in this  c lass
-       'filter_postcateg' => QS.'i/filter_postcateg/c/',
-       'addnewpost'      => QS.'i/addnewpost/' ,
-       'read_post'       => QS.'i/read_post/' ,
-       'editpost'        => QS.'i/editpost/' ,
-       'edmkdpost'       => QS.'i/edmkdpost/' ,
-       'readmkdpost'     => QS.'i/readmkdpost/' ,
+       ,'filter_postcateg' => QS.'i/filter_postcateg/c/'
+       ,'addnewpost'      => QS.'i/addnewpost/'
+       ,'read_post'       => QS.'i/read_post/'
+       ,'editpost'        => QS.'i/editpost/'
+       ,'edmkdpost'       => QS.'i/edmkdpost/'
+       ,'readmkdpost'     => QS.'i/readmkdpost/'
 
-    'comments'        => QS.'i/comments/' ,
-       'upd_comment_stat' => QS.'i/upd_comment_stat/' , //approvecomments
+    ,'comments'        => QS.'i/comments/'
+       ,'upd_comment_stat' => QS.'i/upd_comment_stat/' //approvecomments
     // V I E W S :
-    'kalendar'        => QS.'i/kalendar/' ,
-    'about_us'        => QS.'i/about/' ,
-    'contact_us'      => QS.'i/contact/' ,
-    'features'        => QS.'i/features/'
+    ,'kalendar'        => QS.'i/kalendar/'
+    ,'about_us'        => QS.'i/about/'
+    ,'contact_us'      => QS.'i/contact/'
+    ,'features'        => QS.'i/features/'
     //e n d  R O U T I N G  T A B L E
         ] ;
 

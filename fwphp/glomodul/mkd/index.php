@@ -4,49 +4,45 @@
 * http://dev1:8083/fwphp/glomodul4/mkd/?Home/edit/J:/awww/www/readme.md
 *
 *        M K D  M O D U L E  S I N G L E  E N T R Y  P O I N T
-* #cs01. means Codeflow Step 1: bootstrap script (2=init, config, routing, 3=dispaching)
+* #c s 0 1. Codeflow Step 1: bootstrap script, single entry point in module mkd
+* cs01=bootstraping, 2=INIT, config, routing, 3=dispaching, 4. PROCESSING (model, business logic), 5. OUTPUT (view)
 */
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+namespace B12phpfw\flatFilesEd\mkd ;
+use B12phpfw\core\zinc\Autoload ;
 
-//     1. B O O T S T R A P  (c o n f i g,  i n i t) :
-//$controller = $dispatch->newController(); //$apl->run explains nothing
-//$module_towsroot = '../../../' ; //inet provider doc root for us - www or htdocs or...
+//1. settings - properties - assign global variables to use them in any code part
+$module_towsroot = '../../../' ;  //to web server doc root or our doc root by ISP
+//$app_glomodul_dir_path = str_replace('\\','/', dirname(__DIR__) ) .'/glomodul';
 
-date_default_timezone_set("Europe/Zagreb"); //Asia/Karachi
-      $CurrentTime = time();
-      $DateTime = strftime("%Y.%m.%d %H:%M:%S",$CurrentTime);
-if (strnatcmp(phpversion(),'5.4.0') >= 0) {
-      if (session_status() == PHP_SESSION_NONE) { session_start(); }
-} else { if(session_id() == '') { session_start(); } }
-                        if(''){ echo '<h2>' .'lin='. __LINE__ .' *** '.__FILE__ .' SAYS *** šđčćž</h2>';
-                        echo '<pre>'; 
-                        if (isset($_GET)) {print '<br />$_GET='; print_r($_GET);  }
-                        //if (isset($_POST)) {print '<br />$_POST='; print_r($_POST);  }
-                        //if (isset($_SESSION)) {print '<br />$_SESSION='; print_r($_SESSION);  }
-                        echo '</pre>';
-                        }
+//MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
+$pp1 = (object)
+[   'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
+                             // or $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+  //1.1
+  , 'module_towsroot'=>$module_towsroot
+  //1.2
+  , 'module_version'=>'7.0.4.0 Mkd', 'vendor_namesp_prefix'=>'B12phpfw'
+  //1.3 F o r  A u t o l o a d - dirnames we  i n c  clsscripts from
+  , 'module_path_arr'=>[
+       str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
+      //dir of global clses for all sites :
+      , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
+      //, $app_glomodul_dir_path.'/some_dirname_we_inc_clsscript_from/'
+  ] 
+] ;
 
-//    2. C O N T R O L L E R  (M-C-V data flow):
+//2. global cls loads classes scripts automatically
+require($pp1->module_towsroot.'zinc/Autoload.php');
+new Autoload($pp1);
+                if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
+                   .', line '. __LINE__ .' SAYS'=>' '
+                   ,'where am I'=>'AFTER  A u t o l o a d'
+                ] ) ; }
 
-//works, but for view scripts we do not need c l a s s e s
-//require('z_Mkd_OOP_NOT_NEEDED.php');  $mkd  = new z_Mkd_OOP_NOT_NEEDED($module_towsroot) ;  
-//    3. M O D E L :
-include 'model.php';
+//3. process request from ibrowser & send response to ibrowser :
+//1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
+//STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
+$db = new Home_ctr($pp1) ; //also instatiates all higher cls-es : Config_ allsites
 
-//    4. V I E W S :
-switch (true) {
-case isset($_GET['edit']):  //$mkd->edit(rtrim($_GET['edit'],'/')); 
-  $fle_to_edit_path = rtrim($_GET['edit'],'/') ;
-  include 'edit.php'; break;
-case isset($_POST['edithid']):  //$mkd->edit(rtrim($_GET['edit'],'/')); 
-  $fle_to_edit_path = rtrim($_POST['edithid'],'/') ;
-  include 'edit.php'; break;
-case isset($_GET['showhtml']): //$mkd->md2htm(rtrim($_GET['showhtml'],'/')); 
-  $fle_to_displ_path = rtrim($_GET['showhtml'],'/') ;
-  include 'showhtml.php'; break;
-
-default: $title = 'Dirs&txts to mkd edit'; include('home.php'); break; //list of  mkd or txt files
-} // e n d  s w i t c h    //header("location:f rm.php");
 
 exit(0);
-

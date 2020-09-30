@@ -1,3 +1,10 @@
+<?php
+$tmp = $img_url . 'ic_supervisor_account_black_24dp.png' ;
+$img_url_users_link   =  '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
+
+$tmp     = $img_url . 'ic_done_black_32dp.png' ;
+$img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
+?>
   <!-- C O N T E N T 1  EXPLORE HEAD -->
   <section id="explore-head-section">
     <div class="container">
@@ -34,19 +41,14 @@
                  <?=$img_url_users_link?>Singleton</a>
 
                   <a style="display: inline;"
-                     href="/<?=$path_rel_examples.'pagination_hr_countries/'?>" 
-                     class="dropdown-item" target="_blank">
-                 <?=$img_url_users_link?>Pagination</a>
-
-                  <a style="display: inline;"
-                     href="/<?=$path_rel_glomodul.'oraedoop/'?>" 
+                     href="/<?=$app_glomodul_dir_path.'oraedoop/'?>" 
                      class="dropdown-item" target="_blank">
                  <?=$img_url_users_link?>Oraedoop</a>
 
                   <!--
                      http://localhost:8083/adminer/adminer/?oracle 
                      http://dev1:8083/fwphp/glomodul/adminer/adminer/?oracle 
-                     $path_rel_glomodul.'adminer/adminer'.QS.'oracle'
+                     $app_glomodul_dir_path.'adminer/adminer'.QS.'oracle'
                   -->
                   <a style="display: inline;"
                      href="http://localhost:8083/adminer/adminer/?oracle" 

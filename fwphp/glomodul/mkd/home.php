@@ -8,7 +8,7 @@
                         if (isset($_GET)) {print '<br />$_GET='; echo '<pre>'; print_r($_GET); echo '</pre>';
                         } echo '<br />'; }
       /**
-      *      1. D I S P L A Y  T O P  L I N K S  (none here)
+      *      1. H D R  -  D I S P L A Y  T O P  L I N K S  (none here)
       */
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1 shrink-to-fit=no">
   <title><?=$title?></title>
   
-  <!--link rel="stylesheet" href="/zinc/themes/bootstrap/css/bootstrap.min.css"-->
+  <!--link rel="stylesheet" h ref="/zinc/themes/bootstrap/css/bootstrap.min.css"-->
   <link rel="stylesheet" href="/zinc/themes/flex_2cols.css">
 </head>
 
@@ -26,72 +26,57 @@
 <body>
 
 <!--
-      2.  m a i n  - container for a r t i c l e  &  a s i d e
+  2.  m a i n  - container for a r t i c l e  &  a s i d e  (flex_2cols.css)
 -->
 <main>
 
   <!-- 
-      2.1 m a i n . a r t i c l e
+      2.1 m a i n . a r t i c l e 
   -->
   <article>
-    <div>
-      You can edit any txt using URL query like this: ...?edit=J:\awww\www\fwphp\glomodul\adrs\README.md/
-      <br /><a href="<?=$readme_edit_path?>" 
-         title="<?=$readme_edit_path?> = SimpleMDE edit">
-      Edit readme.md</a>
-      &nbsp;
-      <a href="<?=$readme_showhtml_path?>" 
-         title="<?=$readme_showhtml_path?> = Parsedown markdown txt to html">
-      HTML</a>
-
-    </div>
-
-
     <?php
       /**
-      *   D i s p l a y  m o d e l  d a t a  (GUI BLOCK, LIST OF) FILES
+      *   D I S P L A Y  M O D E L  D A T A  - DIRS AND FILES
+      *   (GUI BLOCK) - LIST OF FILES LIKE IN lsweb M O D U L E
       */
-      foreach($data as $htmlline) { echo $htmlline; } ?>
+      include_once $pp1->module_path . 'model.php';
+      if (isset($data)) {
+        foreach($data as $htmlline) { echo $htmlline; } 
+      } ?>
   </article><!-- e n d  m a i n . a r t i c l e -->
 
 
   <!-- 
-       2.2 m a i n . a s i d e  right column for links
+       2.2 m a i n . a s i d e  right column for links...
+           J:\awww\www\readme.md
   -->
   <aside>
-      Side mnu important links (modules)
-      <p>This page - Rich text edit on web</p>
-      <p><a href="/<?=$modulglo_rel_path?>mkd/" target="_blank">
-         <strong>Mkd - Markdown &amp; Parsedown</strong></a>
-      </p>
-      &nbsp;<h3>I. Model (PDO)</h3>
+      Side mnu important links (modules)...
 
-      <p>1. CRUD Ora 11g</p>
-      <p>&nbsp;<a href="<?=$helpsw_url?>test/todolist/web" target="_blank">Todolist</a> 
-      (SQLite)&nbsp;&nbsp; <a href="/<?=$test_rel_path?>/books/ACXE2/" target="_blank">oci8 
-      -&gt;PDO ACXE2</a></p>
-      <p>&nbsp;<a href="/<?=$test_rel_path?>/books/wishPDO/" target="_blank">wish Ora PDO</a>&nbsp; </p>
 
-      <p>2. CRUD MySQL</p>
-      <p>&nbsp;<a href="/<?=$modulglo_rel_path?>msg_share/" target="_blank">
-         <strong>MSG SHARE</strong></a> (B12phpfw ver.5)
-      </p>
-      <p>&nbsp;<a href="/<?=$test_rel_path?>01_MVC_learn/03mini3fw/" target="_blank" 
-         title="Excellent, &lt; 75 kB. Simmilar to my B12phpfw. 
-         Minuses : too many folders, no module folders but 3 dirs M,V,C.">
-         Songs <b>Mini3</b> PDO</a> &nbsp;
-      </p>
+      <br /><br /><a href=
+         "<?php $readme_path = str_replace('/','\\',$pp1->wsroot_path) . '\readme.md'; echo $pp1->edit . $readme_path ?>" 
+         title="<?=$pp1->edit . $readme_path?> = SimpleMDE edit">
+      Edit readme.md</a>
 
-      <p>&nbsp;</p>
-      <h3>II. VIEW</h3>
-      <p>
-        <a href="<?=$helpsw_url?>test/bootstrap/index.php" target="_blank" 
-           title="6 beautiful static Bootstrap projects - templates">Six Bootstrap templates (PHP)</a>
-      </p>
-      <p>
-        <a href="<?=$zbig_url?>bootstrap/index.html" target="_blank" 
-           title="6 beautiful static Bootstrap projects - templates">Six Bootstrap templates (HTML)</a>
-      </p>
+      &nbsp;
+      <a href="<?=$pp1->showhtml . $readme_path?>" 
+         title="<?=$pp1->showhtml . $readme_path?> = Parsedown markdown txt to html">
+      HTML</a>
+
+      <br /><br /><br /><hr />
+        <b>path key</b> (in any URL, not only in mkd module - <b>example below</b>) MUST BE <u>Windows path</u>, which, where needed, we later change in Linux path.
+        <br /><br />path key must be <u>last key</u> or delimited with something...(lot of not needed coding, see code_snippets.php in more folders).
+
+
+      <pre>
+You can edit any txt using URL query "i/edit/path/J:\awww\www\readme.md" like this:
+<br />http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/<b>path</b>/J:\awww\www\readme.md
+
+You can display any markdown txt using URL like this:
+<br />http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/<b>path</b>/J:\awww\www\readme.md</pre>
+
+
 
       <p>
          &nbsp;
@@ -110,6 +95,8 @@
  </pre>
 
   </aside><!-- e n d  m a i n . a s i d e  right column for links -->
+
+
 
 
 </main><!-- e n d  m a i n  - container for a r t i c l e  &  a s i d e -->

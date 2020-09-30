@@ -6,30 +6,33 @@
     * CALLS (extern) Parsedown to display txt from content subfolder
     */
 
-    require $wsroot_path.'vendor/erusev/parsedown/Parsedown.php';
+    require $pp1->wsroot_path.'vendor/erusev/parsedown/Parsedown.php';
     $pdown = new \Parsedown; // Parsedown cls has no namespace
 
-    $fle_displ_url = '?edit='.$fle_to_displ_path .'/' ;
+    //http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\\readme.md
+    //$fle_ displ_url = '?edit='.$fle_ to_displ_path .'/' ;
+    //$fle_displ_url = '?i/edit/path/'.str_replace('/','\\', $fle_to_displ_path .'/') ;
+    $fle_displ_url = '?i/edit/path/'. $fle_to_displ_path ;
     //http://dev1:8083/zinc/showsource.php?file=J:/awww/www/fwphp/glomodul/mkd/02/02_domain_model/DM_Gervasio_part2.txt&line=55&prev=10000&next=10000
     //http://dev1:8083/zinc/showsource.php?file=02/02_domain_model/DM_Gervasio_part2.txt&line=55&prev=10000&next=10000
     $colored_fle_displ_url = '/zinc/showsource.php?file='. realpath($fle_to_displ_path)
       .'&line=55&prev=10000&next=10000' ;
 
     ?>
-    <!DOCTYPE html><html lang="hr"><head><title><?=basename($fle_to_displ_path)?></title>
+    <!DOCTYPE html><html lang="hr">
+    <head>
+    <title><?=basename($fle_to_displ_path)?></title>
        <link rel="stylesheet" href="/zinc/themes/mini3.css">
        <!--link rel="stylesheet" href="/vendor/highlight_js/styles/default.css"-->
        <!--Ugly, no lines in tbls -->
        <!--script src="/vendor/highlight_js/highlight.pack.js"></script-->
-       <script>
-          /*
+       <!--script>
           document.addEventListener('DOMContentLoaded', (event) => {
             document.querySelectorAll('pre code').forEach((block) => {
               hljs.highlightBlock(block);
             });
           });
-          */
-       </script>
+       </script-->
 
 
           </head> <body>

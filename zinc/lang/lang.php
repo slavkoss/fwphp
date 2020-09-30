@@ -1,5 +1,7 @@
 <?php
 //session_start();
+if(!isset($_GET['lang'])) { $_GET['lang'] = $pp1->lang ; } ;
+
 if(isset($_GET['lang'])) {
   switch ($_GET['lang']) {
   case 'hr' : unset($_SESSION['lang']); //$_SESSION['lang']=true;
