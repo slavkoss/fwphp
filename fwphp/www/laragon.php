@@ -2,12 +2,11 @@
     <head>
     
        <title>laragon.txt</title>
-       <link rel="stylesheet" href="/zinc/themes/mini3.css">
     
        <title>HTMLofMKD</title>
 
        <link rel="stylesheet" href="/zinc/themes/mini3.css">
-       <!--link rel="stylesheet" href="/vendor/highlight_js/styles/default.css"-->
+       <!--link rel="stylesheet" href="/vendor/highlight_js/styles/default.c ss"-->
        <!--Ugly, no lines in tbls -->
        <!--script src="/vendor/highlight_js/highlight.pack.js"></script-->
   <style>

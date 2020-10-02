@@ -45,12 +45,13 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
 <!-- Main Area -->
 <section class="container py-2 mb-4">
   <div class="row">
-    <div class="col-lg-12">
+
+    <div class="bg-light col-lg-12">
       <?php
        echo $this->ErrorMessage();
        echo $this->SuccessMessage();
        ?>
-      <table class="table table-striped table-hover">
+      <br /><table class="table table-striped table-hover">
 
         <thead class="thead-dark">
         <tr>
@@ -143,7 +144,9 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
 
       </table>
 
-    </div>
-  </div>
+    </div><!-- E N D  d i v  o f  t b l-->
+
+  </div><!-- E N D  class="row"-->
+
 </section>
 <!-- Main Area End -->

@@ -52,7 +52,7 @@ switch (true) {
         h3 class="xxcard-title"
     -->
     <h5 style="color:gray;">
-      <?php echo self::escp('CLICK ME ! - Own debugging (Xdebug is not enough)'); ?>
+      <?php echo self::escp('CLICK ME ! - Own debugging for logical errors (Xdebug is for sintax errors)'); ?>
       <!--a href="" style="float:right;"><span class="btn btn-info">More</span></a-->
     </h5><!-- e n d  1. a r t i c l e  O S  f i l e  n a m e -->
 </button><!-- type="button" class="collapsible" -->
@@ -66,7 +66,7 @@ style="color: yellow;"   class="card" class="content
     // https://www.php.net/manual/en/language.oop5.basic.php
     //Inside a class definition, $this refers to the current object, while  self  refers to the current class.
 
-    //r equire_once($this->p p1->wsroot_path.'zinc/ftr.php');   class="alert alert-success"
+    //r equire_ once($this->p p1->wsroot_path.'zinc/ftr.php');   class="alert alert-success"
     //text-decoration: none;   background:black;
 
     echo '<pre style="color:black; background:white;">'; // style="background:black;"
@@ -76,15 +76,12 @@ style="color: yellow;"   class="card" class="content
 
       //if ( isset($pp1) and is_object($pp1) ) {...  is solution for : echo '<h5>Msg (blog) module has no problem, but Mnu module displays: Fatal error: Uncaught Error: <br />Using $this when not in object context in J:\awww\www\zinc\ftr.php</h5>';
 
+      echo '<h3>'.'~~~~~~~~~'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>' ; 
+
       echo 'PHP_OS='. PHP_OS .', php_uname()=' . php_uname() ;
       echo '<br />'.'$_SERVER[\'DOCUMENT_ROOT\']='.$_SERVER['DOCUMENT_ROOT']  ;
       echo '<br />'.'$_SERVER[\'REQUEST_URI\']='.$_SERVER['REQUEST_URI']  ;
       echo '<br />'.'$_SERVER[\'QUERY_STRING\']='.$_SERVER['QUERY_STRING']  ;
-
-
-
-      echo '<br />'.'~~~~~~~~~<b>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</b>' ; 
-
 
 
         //if (isset($this))  //try 
@@ -99,11 +96,36 @@ style="color: yellow;"   class="card" class="content
         } //catch(Exception $e) { echo $e->getMessage(); }
 
 
+        //     C O N F I G S :
         echo '<b>$_ GET</b>='; print_r($_GET); 
         echo '<b>$_POST</b>='; print_r($_POST); 
-        //echo '<b>$_SESSION</b>='; print(json_encode($_SESSION,JSON_PRETTY_PRINT)); 
         echo '<b>$_SESSION</b>='; print_r($_SESSION); 
         echo '<br />';
+
+
+
+                  //       R O U T I N G :
+                    echo '<h3>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>'
+                    .'Coding step c s 0 2. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
+                  //echo '<br /><b>$this->p p 1</b>='; print_r($this->getp('pp1'));
+                  //
+                  echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>    ='; print_r($_SERVER['REQUEST_URI']); 
+
+                  echo '<br /><br /><b>$p p1->uri_ arr is exploded string $_SERVER[\'REQUEST_URI\']'
+                  .' (part1 before QS=? and part2 after QS)</b>'
+                  .'<br />part1 index 0 is <b>$p p1->module_ relpath=</b>'. $pp1->module_relpath
+                  .'<br />part2 index 1 is <b>$p p1<>uri_ qrystring</b> = key-value pairs ee = url parameters after QS = '. $pp1->uri_qrystring
+                  .'  <br />$this->p p1->uri_ arr='; print_r($this->getp('pp1')->uri_arr);
+
+                  echo '<br /><br /><b>EXPLODED $p p1->uri_ qrystring (on /) is'
+                  .' $this->p p1->uri_ qrystring_ arr</b>=';
+                      print_r($this->getp('pp1')->uri_qrystring_arr);
+                  //echo '<br /><b>key-value pairs in one assoc arr line =  $u riq</b>='; print_r($u riq);
+                  echo '<br />From $p p1->uri_ qrystring_ arr <b>method in Home_ ctr and method parameters : $this->u riq</b>='; print_r($this->getp('pp1')->uriq);
+
+
+
+
         //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
 
     } ?>

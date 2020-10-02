@@ -37,15 +37,14 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
 //2. global cls loads classes scripts automatically
 require($pp1->module_towsroot.'zinc/Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); 
-                if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
-                   .', line '. __LINE__ .' SAYS'=>' '
-                   ,'where am I'=>'AFTER  A u t o l o a d'
-                ] ) ; }
 
 //3. process request from ibrowser & send response to ibrowser :
-//1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
-//STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
-$db = new Home_ctr($pp1) ; //Home_ ctr "inherits" index.php ee inherits $p p 1
+//Home_ ctr "inherits" index.php ee inherits $p p 1
+$module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
+        if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'where am I'
+           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and $conf = new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
+        ] ) ; }
 
 exit(0);
 

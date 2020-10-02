@@ -30,142 +30,151 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
       </div>
     </header-->
     <!-- HEADER END -->
+
+
     <!-- Main Area Start -->
-    <section class="container py-2 mb-4">
-      <div class="row" style="min-height:30px;">
-        <div class="col-lg-12" style="min-height:400px;">
-          <?php
-           echo $this->ErrorMessage();
-           echo $this->SuccessMessage();
-           ?>
+<section class="container py-2 mb-4">
+  <div class="row" style="min-height:30px;">
 
 
-                <!-- ********************** -->
-                <h2>Un-Approved Comments</h2>
-                <!-- ********************** -->
+    <div class="bg-light col-lg-12" style="min-height:400px;">
+      <?php
+       echo $this->ErrorMessage();
+       echo $this->SuccessMessage();
+       ?>
 
-          <table class="table table-striped table-hover">
-            <thead class="thead-dark">
-              <tr>
-                <th>No. </th><th>Date&Time</th><th>Name</th><th>Comment</th><th>Appr</th><th>Del</th><th>Post</th>
-              </tr>
-            </thead>
-          <?php
-        $cursor_comments = Tbl_crud_comment::rr($sellst='*' 
-          , $qrywhere="status='OFF' or status < '0' ORDER BY datetime desc"
-          , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
-        ) ;
+
+            <!-- ********************** -->
+            <br /><h2 class="bg-dark">Un-Approved Comments</h2>
+            <!-- ********************** -->
+
+      <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th>No. </th><th>Date&Time</th><th>Name</th><th>Comment</th><th>Appr</th><th>Del</th><th>Post</th>
+          </tr>
+        </thead>
+      <?php
+      $cursor_comments = Tbl_crud_comment::rr($sellst='*' 
+        , $qrywhere="status='OFF' or status < '0' ORDER BY datetime desc"
+        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+      ) ;
       $SrNo = 0;
       while ($r = Tbl_crud_comment::rrnext( $cursor_comments) and isset($r->id) ):
       {
-            $SrNo++;
-          //all row fld names lowercase
-          switch (Db_allsites::getdbi())
-          {
-            case 'oracle' : $r = $this->rlows($r) ; break; 
-            default: break;
-          }
-          ?>
-          <tbody>
-            <tr>
-              <td><?php echo self::escp($SrNo); ?></td>
-              <td><?php echo self::escp($r->datetime); ?></td>
-              <td><?php echo self::escp($r->name); ?></td>
-              <td><?php 
-                switch (Db_allsites::getdbi()) { case 'oracle' : echo self::escp($r->commenttxt); break; 
-                  default: echo self::escp($r->comment); break; }
-                ?>
-              </td>
-
-              <!-- Approve -->
-              <td>
-              <a title="Set status=ON" 
-                 href="<?=$pp1->upd_comment_stat?>id/<?=$r->id?>/stat/ON/"
-                 class="btn btn-success"><?=$r->id?></a>
-              </td>
-
-              <td>
-                <a id="erase_row" class="btn btn-danger"
-                   title = "Delete row id <?=$r->id?>"
-                   onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
-                    if (yes == '1') { location.href= '<?=$pp1->del_row?>t/comments/id/<?=$r->id?>/'; }"
-                ><?=$r->id?></a>
-              </td>
-              <!-- See Post -->
-              <td style="min-width:140px;"> <a class="btn btn-primary"
-                  title = "Show post id <?=$r->post_id?>"
-                  href="<?=$pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
-                        <?=$r->post_id?></a>
-              </td>
-            </tr>
-          </tbody>
-          <?php
-        } endwhile; ?>
-
-
-
-
-
-          </table>
-                <!-- ********************** -->
-                 <h2>Approved Comments</h2>
-                <!-- ********************** -->
-
-          <table class="table table-striped table-hover">
-            <thead class="thead-dark">
-              <tr>
-           <th>No. </th><th>Date&Time</th><th>Name</th><th>Comment</th><th>ApprBy</th><th>Disapp</th><th></th><th>Post</th>
-              </tr>
-            </thead>
-          <?php
-        $cursor_comments = Tbl_crud_comment::rr($sellst='*' 
-          , $qrywhere="status='ON' or status < '0' ORDER BY datetime desc"
-          , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
-        ) ;
-          $SrNo = 0;
-          while ($r = Tbl_crud_comment::rrnext( $cursor_comments) and isset($r->id) ):
-          {
-            $SrNo++;
-            //all row fld names lowercase
-            switch (Db_allsites::getdbi())
-            {
-              case 'oracle' : $r = $this->rlows($r) ; break; 
-              default: break;
-            }
+        $SrNo++;
+      //all row fld names lowercase
+      switch (Db_allsites::getdbi())
+      {
+        case 'oracle' : $r = $this->rlows($r) ; break; 
+        default: break;
+      }
+      ?>
+      <tbody>
+        <tr>
+          <td><?php echo self::escp($SrNo); ?></td>
+          <td><?php echo self::escp($r->datetime); ?></td>
+          <td><?php echo self::escp($r->name); ?></td>
+          <td><?php 
+            switch (Db_allsites::getdbi()) { case 'oracle' : echo self::escp($r->commenttxt); break; 
+              default: echo self::escp($r->comment); break; }
             ?>
-            <tbody>
-            <tr>
-              <td><?php echo self::escp($SrNo); ?></td>
-              <td><?php echo self::escp($r->datetime); ?></td>
-              <td><?php echo self::escp($r->name); ?></td>
-              <td><?php 
-                switch (Db_allsites::getdbi()) { case 'oracle' : echo self::escp($r->commenttxt); break; 
-                  default: echo self::escp($r->comment); break; }
-                ?>
-              </td>
-              <td><?php echo self::escp($r->approvedby); ?></td>
-              <!-- DisAprove -->
-              <td style="min-width:140px;"> 
-                 <a title="Set status=OFF" 
-                    href="<?=$pp1->upd_comment_stat?>id/<?=$r->id?>/stat/OFF/"
-                    class="btn btn-warning"> <?=$r->id?> </a>
-              </td>
+          </td>
 
-              <td>
+          <!-- Approve -->
+          <td>
+          <a title="Set status=ON" 
+             href="<?=$pp1->upd_comment_stat?>id/<?=$r->id?>/stat/ON/"
+             class="btn btn-success"><?=$r->id?></a>
+          </td>
 
-              </td>
-              <!-- go to Post page -->
-              <td style="min-width:140px;"> <a class="btn btn-primary"
-                 href="<?=$pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
-                     <?=$r->post_id?></a> </td>
-            </tr>
-            </tbody>
-          <?php
-        } endwhile; ?>
-          </table>
-        </div>
-      </div>
-    </section>
+          <td>
+            <a id="erase_row" class="btn btn-danger"
+               title = "Delete row id <?=$r->id?>"
+               onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
+                if (yes == '1') { location.href= '<?=$pp1->del_row?>t/comments/id/<?=$r->id?>/'; }"
+            ><?=$r->id?></a>
+          </td>
+          <!-- See Post -->
+          <td style="min-width:140px;"> <a class="btn btn-primary"
+              title = "Show post id <?=$r->post_id?>"
+              href="<?=$pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
+                    <?=$r->post_id?></a>
+          </td>
+        </tr>
+      </tbody>
+      <?php
+      } endwhile; ?>
+
+      </table>
+
+
+
+
+            <!-- ********************** -->
+             <h2 class="bg-dark">Approved Comments</h2>
+            <!-- ********************** -->
+
+      <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+          <tr>
+       <th>No. </th><th>Date&Time</th><th>Name</th><th>Comment</th><th>ApprBy</th><th>Disapp</th><th></th><th>Post</th>
+          </tr>
+        </thead>
+      <?php
+      $cursor_comments = Tbl_crud_comment::rr($sellst='*' 
+        , $qrywhere="status='ON' or status < '0' ORDER BY datetime desc"
+        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+      ) ;
+      $SrNo = 0;
+      while ($r = Tbl_crud_comment::rrnext( $cursor_comments) and isset($r->id) ):
+      {
+        $SrNo++;
+        //all row fld names lowercase
+        switch (Db_allsites::getdbi())
+        {
+          case 'oracle' : $r = $this->rlows($r) ; break; 
+          default: break;
+        }
+        ?>
+        <tbody>
+        <tr>
+          <td><?php echo self::escp($SrNo); ?></td>
+          <td><?php echo self::escp($r->datetime); ?></td>
+          <td><?php echo self::escp($r->name); ?></td>
+          <td><?php 
+            switch (Db_allsites::getdbi()) { case 'oracle' : echo self::escp($r->commenttxt); break; 
+              default: echo self::escp($r->comment); break; }
+            ?>
+          </td>
+          <td><?php echo self::escp($r->approvedby); ?></td>
+          <!-- DisAprove -->
+          <td style="min-width:140px;"> 
+             <a title="Set status=OFF" 
+                href="<?=$pp1->upd_comment_stat?>id/<?=$r->id?>/stat/OFF/"
+                class="btn btn-warning"> <?=$r->id?> </a>
+          </td>
+
+          <td>
+
+          </td>
+          <!-- go to Post page -->
+          <td style="min-width:140px;"> <a class="btn btn-primary"
+             href="<?=$pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
+                 <?=$r->post_id?></a> </td>
+        </tr>
+        </tbody>
+      <?php
+      } endwhile; ?>
+      </table>
+
+
+    </div><!-- E N D  d i v  o f  t b l-->
+
+
+  </div>
+
+</section>
 <!--  Main Area End 
                           //$sql = "S ELECT * FROM comments WHERE s tatus='ON' ORDER BY datetime desc";
                           //$this->p repareSQL($sql); $this->e xecute();;

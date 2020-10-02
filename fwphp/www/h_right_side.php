@@ -75,7 +75,7 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
                   <!-- long yellow button class="btn btn-warning btn-block" -->
                   <a class="btn btn-outline-light" target="_blank"
                      href="<?=$pp1->mkd?>"
-                     title="Rich text edit on web. SimpleMDE & Parsedown. CRUD of .txt or .md or .mkd oper.sys texsts. Summernote add is easy."
+                     title="Redirect_to( <?=dirname($pp1->module_url) .'/glomodul/mkd/'?> ). Mkd module. Rich text edit on web. SimpleMDE & Parsedown. CRUD of .txt or .md or .mkd oper.sys texsts. Summernote add is easy."
                      target="_blank">
                     Edit txt files
 
@@ -110,17 +110,17 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
                   <a href="<?=$pp1->examples?>"
                      title=""
                      class="btn btn-outline-light" target="_blank">
-                    Examp
+                    Examples
                   </a>
                 </span><!--data-toggle="modal" data-target="#addUserModal"-->
 
 
-                <span>
                 <!-- http://sspc2:8083/fwphp/www/shell_exec.php?p=J:\awww\0_phpmanual.chm -->
-                  <a href="<?=$pp1->phpmanual?>"
+                <!--span>
+                  <a href="<=$pp1->phpmanual>"
                      class="btn btn-outline-light" target="_blank"
                   >Code</a>
-                </span><!--data-toggle="modal" data-target="#addUserModal"-->
+                </span--><!--data-toggle="modal" data-target="#addUserModal"-->
 
 
               </div><!-- E N D  Utilities -->

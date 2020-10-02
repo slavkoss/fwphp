@@ -24,11 +24,6 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
     //        2. G U I  to get user action
        // returns object :
     $rr = Tbl_crud_admin::rr_byid( $AdminId, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
-    /*$c_r = $this->rr("SELECT * FROM admins WHERE id=:A dminId" 
-        , [ ['placeh'=>':A dminId', 'valph'=>$A dminId, 'tip'=>'int']
-          ] 
-    , __FILE__ .' '.', ln '. __LINE__) ;
-    while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_ */
 
 
       require $pp1->wsroot_path . 'zinc/hdr.php';
@@ -122,7 +117,7 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
             <div class="form-group">
               <div class="custom-file">
               <input class="custom-file-input" type="File" name="Image" id="imageSelect" value="">
-              <label for="imageSelect" class="custom-file-label">Select Image </label>
+              <label for="imageSelect" class="custom-file-label">Choose Image </label>
               </div>
             </div>
 

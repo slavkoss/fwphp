@@ -37,12 +37,11 @@ class Home_ctr extends Config_allsites
       ,'sitehome'   => QS.'i/sitehome/' //$pp1->sitehome
       // -------------------------
       ,'edit'      => QS.'i/edit/path/'
-      ,'showhtml'  => QS.'i/showhtml/path/' 
+      ,'showhtml'  => QS.'i/showhtml/path/'
     ] ;
 
     //step 3 : fw core calls method in this cls : see home_fn above
     parent::__construct($pp1, $pp1_module);
-
 
                 if ('') { /* self::jsmsg( [ //basename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
@@ -59,15 +58,6 @@ class Home_ctr extends Config_allsites
 
   } // e n d  f n  __ c o n s t r u c t
 
-  //           **** D I S P A T C H I N G
-          //$accessor = "get" . ucfirst(strtolower($akc));
-  public function callf(string $akc, object $pp1)  //fnname, params
-  {
-    return ( 
-      ( //method_exists($this, $akc) and
-      is_callable(array($this, $akc)) ) ? $this->$akc($pp1) : '0'
-    ) ;
-  }
 
 
 
@@ -76,26 +66,27 @@ class Home_ctr extends Config_allsites
           // they call other methods or include script
           // CALLED FROM Config_ allsites __c onstruct
           //******************************************
+          //$accessor = "get" . ucfirst(strtolower($akc));
+  public function call_module_method(string $akc, object $pp1)  //fnname, params
+  {
+    if ( is_callable(array($this, $akc)) ) { // and method_exists($this, $akc)
+      return $this->$akc($pp1) ;
+    } else {
+      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+      echo 'Home_ ctr method "<b>'. $akc .'</b>" is not callable.' ;
+      echo ' See how is created method name in Config_ allsites code snippet c s 0 2. R O U T I N G."' ;
+      return '0' ;
+    }
+  }
+
 
   // *************************************************
-  // Called own methods when user clicks 
-  //   - link in $pp1_module_links or button 
-  //   - or URL is entered in ibrowser adress field
+  // Called own methods when user
+  //   - clicks button 
+  //   - or enters  U R L in ibrowser adress field
   // *************************************************
 
   // M E T H O D S  C A L L E D  BY  L I N K S  IN  V I E W  SCRIPTS
-
-  public function sitehome(object $pp1)
-  {
-    $this->Redirect_to('/');
-  }
-
-
-  public function home_usr(object $pp1)
-  {
-    $this->home($pp1) ;
-  }
-
 
   public function home(object $pp1)
   {
@@ -103,6 +94,7 @@ class Home_ctr extends Config_allsites
     $title = 'MNU';
                  //require $pp1->wsroot_path . 'zinc/hdr.php'; //Warning: Cannot modify header information
         //require("h_top_toolbar.php"); //navbar_admin.php
+    $pp1->readme_path = str_replace('/','\\',$pp1->wsroot_path) . 'readme.md';
     require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
         //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
@@ -115,11 +107,11 @@ class Home_ctr extends Config_allsites
       // URL is eg http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme.md
       // Config_ allsites.php extracts this from U R L above :
       $this->u riq=stdClass Object (
-          [i] => edit <-----this is this method used in callf method
+          [i] => edit <-----this is this method used in call_module_method method
           [path] => J:\awww\www\readme.md ) */
     // 
     //$this->Redirect_to( $pp1->module_url .'/edit.php/' ) ; //view should not be in ctr !
-    //$fle_to_edit_path = rtrim($pp1->uriq->path,'/')  ; //rtrim($_GET['edit'],'/') ;
+    //$fle_ to_edit_path = rtrim($pp1->uriq->path,'/')  ; //rtrim($_GET['edit'],'/') ;
     $fle_to_edit_path = str_replace('/','\\', rtrim($pp1->uriq->path,'/'));
     include 'edit.php';
   }
@@ -128,11 +120,24 @@ class Home_ctr extends Config_allsites
   public function showhtml(object $pp1)
   {
     $title = basename($pp1->uriq->path) ;
-    //http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/path/=01\001_config_ssl_tls\hosts.txt
-    //$fle_to_displ_path = rtrim($pp1->uriq->path,'/')  ;
     $fle_to_displ_path = str_replace('/','\\', rtrim($pp1->uriq->path,'/'));
+    //http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/path/J:awwwwww\readme.md
+    //http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/path/=01\001_config_ssl_tls\hosts.txt
     include 'showhtml.php';
 
+  }
+
+
+
+  public function sitehome(object $pp1)
+  {
+    $this->Redirect_to('/');
+  }
+
+
+  public function home_usr(object $pp1)
+  {
+    $this->home($pp1) ;
   }
 
 

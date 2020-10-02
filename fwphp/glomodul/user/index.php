@@ -9,6 +9,7 @@
 * step 1 in Module  U S E R  T B L  C R U D on B12phpfw CRUD code skeleton. 
 * see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
 * For more code comments see blog module J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
+* cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic), cs05. OUTPUT (view)
 */
 //c o r e = processing (behavior), z i n c = cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
@@ -38,26 +39,26 @@ $pp1 = (object)
 //2. global cls loads classes scripts automatically
 require($pp1->module_towsroot.'zinc/Autoload.php');
 new Autoload($pp1);
-                if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
-                   .', line '. __LINE__ .' SAYS'=>' '
-                   ,'where am I'=>'AFTER  A u t o l o a d'
-                ] ) ; }
 
 //3. process request from ibrowser & send response to ibrowser :
-//1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
-//STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
-$db = new Home_ctr($pp1) ; //also instatiates all higher cls-es : Config_ allsites
-            // Db_ allsites.php may be named abstract class AbstractDataMapper.php
-            //  - encapsulates AS MUCH MAPPING LOGIC AS POSSIBLE
-            //   - couple of generic row object finders (get cursor, not record sets)
-            //   - read row objects is in Tblname_crud domain objects so I do not do so :
-            //     logic required for pulling in data from a specified table which is then used
-            //     for reconstituting domain objects in a valid state. Because reconstitutions
-            //     should be delegated down the hierarchy to refined implementations, 
-            //     newrow_obj() (createEntity()) method has been DECLARED ABSTRACT.
+//Home_ ctr "inherits" index.php ee inherits $p p 1
+$module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
+        if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'where am I'
+           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and $conf = new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
+        ] ) ; }
+
 
 exit(0);
 
+// Db_ allsites.php may be named abstract class AbstractDataMapper.php
+//  - encapsulates AS MUCH MAPPING LOGIC AS POSSIBLE
+//   - couple of generic row object finders (get cursor, not record sets)
+//   - read row objects is in Tblname_crud domain objects so I do not do so :
+//     logic required for pulling in data from a specified table which is then used
+//     for reconstituting domain objects in a valid state. Because reconstitutions
+//     should be delegated down the hierarchy to refined implementations, 
+//     newrow_obj() (createEntity()) method has been DECLARED ABSTRACT.
 
 
 /*

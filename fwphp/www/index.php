@@ -1,5 +1,11 @@
 <?php
-// J:\awww\www\fwphp\www\index.php
+/**
+* J:\awww\www\fwphp\www\index.php     http://sspc2:8083/fwphp/www/
+*
+*        M N U  M O D U L E  S I N G L E  E N T R Y  P O I N T
+* #c s 0 1. Codeflow Step 1: bootstrap script, single entry point in module mkd
+* cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic), cs05. OUTPUT (view)
+*/
 namespace B12phpfw\site_home\www ;
 use B12phpfw\core\zinc\Autoload ;
 
@@ -27,23 +33,16 @@ $pp1 = (object)
 //2. global cls loads classes scripts automatically
 require($pp1->module_towsroot.'zinc/Autoload.php');
 new Autoload($pp1);
-                if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
-                   .', line '. __LINE__ .' SAYS'=>' '
-                   ,'where am I'=>'AFTER  A u t o l o a d'
-                ] ) ; }
 
 //3. process request from ibrowser & send response to ibrowser :
-//1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
-//STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
-$db = new Home_ctr($pp1) ; //also instatiates all higher cls-es : Config_ allsites
-
+//Home_ ctr "inherits" index.php ee inherits $p p 1
+$module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
+        if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'where am I'
+           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and $conf = new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
+        ] ) ; }
 
 exit(0);
-
-
-
-
-
 
 
 
@@ -58,49 +57,12 @@ require('adresses.php');
                   echo '</pre>'; 
                   }
 
-//if(!isset($_SESSION['l ang'])) { include_once '/zinc/l ang/l ang/hr.php'; }
+//if(!isset($_SESSION['l ang'])) { include_ once '/zinc/l ang/l ang/hr.php'; }
 
 switch (true) {
 case isset($_GET['hlp1']): $title ='FAQ'; include('help.php');
   break;
-case isset($_GET['hlp2']): $title ='CSSplay';
-  include($wsroot_path.$path_rel_examples.'05_predlozak_cssplay_3cols&Rside_tableles.php');
-  break;
-case isset($_GET['hlp3']): $title ='phpenthusiast';
-  include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/index.php');
-  break;
-case isset($_GET['hlp4']): $title ='DM, DDD';
-  include($wsroot_path.$path_rel_help .'OOP_help/index.php');
-  //include(realpath($path_rel_help) .'OOP_help/index.php');
-  break;
-// ------------- 
-case isset($_GET['b_tmplts']): $title ='Bootstrap tmplts HOME';
-  include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/index.php');
-  break;
-case isset($_GET['b_tmplts_socnet']): $title ='Bootstrap tmplts Socnet';
-  include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/03socnet/index.php');
-  break;
-case isset($_GET['b_tmplts_blog']): $title ='Bootstrap tmplts Blog';
-  include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/04blog/index.php');
-  break;
-case isset($_GET['b_tmplts_site']): $title ='Bootstrap tmplts Site';
-  include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/05site/index.php');
-  break;
-case isset($_GET['b_tmplts_portfoligrid']): $title ='Bootstrap tmplts Portfoligrid';
-  include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/06portfoligrid/index.php');
-  break;
-//
-case isset($_GET['b_tmplts_01help']): $title ='Bootstrap tmplts Help module';
-  include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/01help/index.php');
-  break;
-case isset($_GET['b_tmplts_02help']): $title ='Bootstrap tmplts Help us';
-  include($wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/02help/index.php');
-  break;
-// ------------- 
-// ------------- 
-//case isset($_GET['adr']): $title ='URL-s';
-  //include($wsroot_path.$site_dir.$glomodul_dir .'adrs/index.php');
-  //break; 
+//...
 default: 
   $title = 'HOME'; include('home.php'); 
   break;

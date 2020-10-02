@@ -39,10 +39,11 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     /**
     * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
     *  ------------------------------------------------------------------------------
-    *  LINK ALIAS IN VIEW SCRIPT (eg ldd) => HOME METHOD TO CALL (eg del_row_do)
+    *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
     *  ------------------------------------------------------------------------------
-    * LINK ALIAS ldd (link for delete) = urlqrystring_part1 = $pp1->ldd = QS.'i/del_row_do/id/', 
-    *     last part $id knows view script, so URLqry='i/del_row_do/id/'.$id, 
+    * LINK ALIAS l d d (link for delete) = urlqrystring_part1 
+    *             = $pp1->l d d = QS.'i/del_ row_do/id/', 
+    *    last part $id knows view script, $pp1->l d d . $id
     * ALL VIEWS LINKS OF MODULE SHOULD BE HERE.
     * If link in view is not here : Error 403, Access forbidden! Undefined property in URL.
     */
@@ -50,19 +51,23 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
       'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
     //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
     //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
+    ,'home_blog'        => QS.'i/home/'
+    ,'ldd'               => QS.'i/del_row_do/id/' //used for all tables !!
+                //Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
+         //,'del_row'         => QS.'i/del_ row_do/id/' //used for all tables !!
+    ,'filter_page'     => 'p/' //QS.'p/'   // i/home_blog/
+
+    //
+    // T A B L E S  (M O D E L S)
+    ,'dashboard'       => QS.'i/dashboard/'
+    //
+    ,'home_usr'        => QS.'i/admins/'
+    ,'admins'          => QS.'i/admins/'
+    //
     ,'loginfrm'        => QS.'i/loginfrm/'
     ,'login'           => QS.'i/login/'
     ,'logout'          => QS.'i/logout/r/i|loginfrm|'
-
-    ,'del_row'         => QS.'i/del_row_do/' //used for all tables !!
-
-    ,'filter_page'     => QS.'p/' // i/home/
     //
-    ,'dashboard'       => QS.'i/dashboard/'
-
-    ,'home_usr'        => QS.'i/admins/'
-    //                   link $pp1->admins calls admins or home_usr method here
-    ,'admins'          => QS.'i/admins/'
        ,'read_user'       => QS.'i/read_user/'
        ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/'
        //'ed_usr' => QS.'i/ed_ usr/id/', //$pp1->ed_ usr.$id in view script
@@ -82,6 +87,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
     ,'comments'        => QS.'i/comments/'
        ,'upd_comment_stat' => QS.'i/upd_comment_stat/' //approvecomments
+    //
     // V I E W S :
     ,'kalendar'        => QS.'i/kalendar/'
     ,'about_us'        => QS.'i/about/'
@@ -96,24 +102,29 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
   } // e n d  f n  __ c o n s t r u c t
 
 
-                //$accessor = "get" . ucfirst(strtolower($akc));
-  protected function callf( // **** D I S P A T C H I N G
-    string $akc, object $pp1)  //fnname, params
-  {
-    //this fn calls method $ a k c in Home_ ctr which has parameters in  $ p p 1
-    //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
-    return ( 
-      ( //method_exists($this, $akc) and
-      is_callable(array($this, $akc)) ) ? $this->$akc($pp1) : '0'
-    ) ;
-  }
-
           //******************************************
           //       DISPATCH  M E T H O D S
           // they call other methods or include script
           // CALLED FROM Config_ allsites __c onstruct
           // so: $this->callf($akc, $pp1) ;
           //******************************************
+                //$accessor = "get" . ucfirst(strtolower($akc));
+  protected function call_module_method( // also other module method !!
+    string $akc, object $pp1)  //fnname, params
+  {
+    //this fn calls method $ a k c in Home_ ctr which has parameters in  $ p p 1
+    //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
+    if ( is_callable(array($this, $akc)) ) { // and method_exists($this, $akc)
+      return $this->$akc($pp1) ;
+    } else {
+      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+      echo 'Home_ ctr method "<b>'. $akc .'</b>" is not callable.' ;
+      echo ' See how is created method name in Config_ allsites code snippet c s 0 2. R O U T I N G."' ;
+      return '0' ;
+    }
+
+  }
+
   //used for all  t a b l e s !! 
   private function del_row_do(object $pp1) // *************** SHARED  d d (
   {
@@ -123,7 +134,18 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
                               else { echo ' not set' ; } 
                               exit(0) ;
                               }
-    //$this->dd($pp1->uriq->t, $pp1->uriq->id) ;
+
+        self::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'ERASING IS NOT IN COMPOUND MODULE !'
+           ,'INFO '=>'ERASING IS NOT IN COMPOUND MODULE (eg blog) !, but in single modules eg post category'
+           //,'After .. '=>'..., ...'
+        ] ) ;
+        
+        //Config_allsites::Redirect_to($pp1->posts) ;
+        // to $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/mkd/' ) ;
+        //Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
+
+    /*
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
     $tbl = $pp1->uriq->t ;
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
@@ -148,7 +170,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
         //Config_allsites::Redirect_to($pp1->filter_page) ;
         break;
     }
-
+    */
   }
 
 
@@ -174,8 +196,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
   private function logout(object $pp1)
   {
-    //$this = $dm = domain model = globals for all sites / curr.module (eg for CRUD...)
-    //$dm = $this ; //$Db_user = (new Tbl_crud_admin)->logout($dm) ;
+    //$dm = $this = domain model = globals for all sites
     $Db_user = Tbl_crud_admin::logout($pp1) ;
   }
 
@@ -198,6 +219,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $title = 'MSG HOME';
     $uriq = $pp1->uriq ;
 
+      $css1 = 'NO' ; 
       require $pp1->wsroot_path . 'zinc/hdr.php';
 
       require("navbar.php");

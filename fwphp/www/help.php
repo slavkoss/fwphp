@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1 shrink-to-fit=no">
   <title><?=$title?></title>
   
-  <!--link rel="stylesheet" href="/zinc/themes/bootstrap/css/bootstrap.min.css"-->
+  <!--link rel="stylesheet" href="/zinc/themes/bootstrap/css/bootstrap.min.c ss"-->
   <link rel="stylesheet" href="/zinc/themes/flex_2cols.css">
 </head>
 
@@ -23,7 +23,7 @@
     <div class="alert alert-success">
 
 <?php
-//require_once($this->pp1->wsroot_path.'zinc/ftr.php');   class="alert alert-success"
+//require_ once($this->pp1->wsroot_path.'zinc/ftr.php');   class="alert alert-success"
 //text-decoration: none;   background:black;
   
 if ('') //if ($autoload_arr['dbg']) 
@@ -349,7 +349,7 @@ RewriteRule ^(.*)$ <strong>index.php</strong>?pid=$1 [QSA,L]   </pre>
     <!-- ************************************************** -->
     <!--
                O N E  C O N T E N T  C O L U M N  B E L O W  C O L .   1,2,3
-             --><?php //require_once 'home_03_content.php'; ?>
+             --><?php //require_ once 'home_03_content.php'; ?>
     <p>&nbsp;</p>
 
 

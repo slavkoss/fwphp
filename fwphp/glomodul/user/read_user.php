@@ -8,11 +8,20 @@ declare(strict_types=1);
                       //exit(0) ;
                       }
 //<!-- Fetching Existing Data -->
-    $c_r = $this->rr("SELECT * FROM admins WHERE username=:username" 
-        , [ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str']
-          ] 
-    , $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ) ;
-while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile; //c_, R_, U_, D_
+    //$c_r = $this->rr("SELECT * FROM admins WHERE username=:username" 
+    //    , [ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str']
+    //      ] 
+    //, $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ) ;
+//while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile;
+
+$cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "username=:username"
+    , $binds=[ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str'] ]
+    , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+$SrNo = 0;
+while ( $row = Tbl_crud_admin::rrnext($cursor_admins) and isset($r->id) ): {
+  $r = $row ;
+} endwhile;
+
 if (!isset($r)) {  //if ($module_ arr->dbg) {
 echo '<h4>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h4>'
    .'<span style="color: violet; font-size: large; font-weight: bold;">'

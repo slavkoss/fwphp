@@ -24,7 +24,7 @@ abstract class Config_allsites //extends Db_allsites
   private $pp1 ; //was public. If using Composer autoloading classes set QS=''.
 
 
-  public function __construct(object $pp1, array $pp1_module_links)
+  public function __construct(object $pp1, array $pp1_module)
   {
     // see (**1)
 
@@ -45,11 +45,11 @@ abstract class Config_allsites //extends Db_allsites
            //$r equirements_ok = true;
            $minphp_version = '7.0.0';
            if (version_compare(phpversion(), $minphp_version) < 0)
-           { printf( "<strong>PHP too old</strong>: You're running PHP %s, but 
+           { printf( "<h2>PHP too old</h2>: You're running PHP %s, but 
                      <strong>PHP %s is minimal PHP version needed</strong> to run this program !<br />\n"
                      , phpversion(), $minphp_version);
              //$r equirements_ok = false;
-             exit(0) ;
+             //exit(0) ;
            }
            //if (! function_exists('ocilogon'))
            /*if (! function_exists('PDO::prepare'))
@@ -61,12 +61,12 @@ abstract class Config_allsites //extends Db_allsites
              } */
 
            if (! function_exists('session_start'))
-             { echo "<h3>PHP has no session support</h3>: 
+             { echo "<h32PHP has no session support</h2>: 
              Your PHP installation doesn't have the 
              <a href=\"http://www.php.net/manual/en/ref.session.php\">Session module</a> 
              installed which is needed to run this program !<br />\n";
               //$r equirements_ok = false;
-              exit(0) ;
+              //exit(0) ;
            }
 
 
@@ -105,37 +105,47 @@ abstract class Config_allsites //extends Db_allsites
 
       //Error on Linux : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
       //Error on win: $REQUEST_URI = filter_input($_SERVER['REQUEST_URI'], FILTER_SANITIZE_STRING);
+
+      // URL eg http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme.md
+      // $REQUEST_ URI eg /fwphp/glomodul/mkd/?i/showhtml/path/J:aww\wwww\readme.md :
       $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;
       $uri_arr = explode(QS, $REQUEST_URI) ; 
 
       // URL is eg http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme.md
-      //FIRST PART of REQUEST_ URI is : eg /fwphp/glomodul/mkd/
-      $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); //it is not
+      //FIRST PART of REQUEST_ URI is module_ relpath : eg /fwphp/glomodul/mkd/
+      $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); //it is not $moduledir_relpath !!
       
               //or rtrim(str_replace($w sroot_path, '', $m odule_path),'/') ;
       $module_url = $wsroot_url.$module_relpath.'/';
 
-      // -----------------------------------------------------------------
-      //                 URL query array  $ u r i q
-      //    $ u r i q  is URL query string = url part after QS (=?)
-      // We transform URL to $ u r i q = key-value pairs (Home_ctr knows what they are !!) :
-      // key='i' means "in Home_ctr include script or call method", 
-      // key's value is name of included script or call method
-      // -----------------------------------------------------------------
+      /** -----------------------------------------------------------------
+      *                  URL query array  $ u r i q
+      *  $ u r i q  is from URL query string = url part after QS (=?)
+      *  We transform URL to $ u r i q = key-value pairs (Home_ctr knows what they are !!) :
+      *     key='i' means "in Home_ctr include script or call method", 
+      *     key's value is name of included script or call method
+      *  -----------------------------------------------------------------
+      */
       $uri_qrystring = '' ;
 
-      //SECOND PART of REQUEST_ URI is after QS (=?): eg i/edit/path/J:\awww\www\readme.md
-      if (isset($uri_arr[1])) {
+        /** ---------------------------------------
+        *            PATH KEY (IN ANY URL)
+        *  ---------------------------------------
+        * PART2 of REQUEST_ URI is after QS (=?): eg i/edit/path/J:\awww\www\readme.md
+        * edit is method in Home_ctr, for path (in any URL) CONVENTIONS are :
+        *   1. path key must be last key (or delimited with something...) :
+        *   2. path key value MUST BE Windows path (which we later change in Linux path) :
+        *      (also for Linux !! which we later change in Linux path)
+        */
+      if (isset($uri_arr[1])) { // PART2 of REQUEST_ URI
         $uri_qrystring = $uri_arr[1] ;
-        //edit is Home_ctr method, path (in any URL) must be Windows path 
-        //(also for Linux !! which we later change in Linux path)
         $offset_path = strpos($uri_qrystring, 'path/');
-
-        //path (in any URL) MUST BE Windows path which we later change in Linux path :
-        //path key must be last key (or delimited with something...) :
-        $uri_qrystring = substr($uri_qrystring, 0, $offset_path+5) 
-         . str_replace( '/','\\', substr($uri_qrystring, $offset_path+5) ) 
-        ;
+        if (!($offset_path === false)) { // found needle in haystack
+          $uri_qrystring = substr($uri_qrystring, 0, $offset_path+5) //eg i/edit/path/
+           // eg J:\awww\www\readme.md :
+           . str_replace( '/','\\', substr($uri_qrystring, $offset_path+5) ) 
+          ;
+        }
       }
 
       $uri_qrystring_arr = [] ;
@@ -152,8 +162,8 @@ abstract class Config_allsites //extends Db_allsites
             $ii++ ) :              //expr3 is evaluated at iteration end
       {
         if (isset($uri_qrystring_arr[$ii + 1])) {
-          //    key                        keyvalue is next arr.element
-          $uriq[$uri_qrystring_arr[$ii]] = $uri_qrystring_arr[++$ii] ;
+          // key eg                         keyvalue is next arr.element
+          $uriq[$uri_qrystring_arr[$ii]] = rtrim($uri_qrystring_arr[++$ii], '\\') ;
         }
         else {
           if (!isset($uri_qrystring_arr[0]) or !$uri_qrystring_arr[0] ) 
@@ -190,37 +200,58 @@ abstract class Config_allsites //extends Db_allsites
           , 'lang'                => 'en'
           , 'module_path'         => $module_path
 
+          , 'uri_qrystring'       => $uri_qrystring
+          , 'uri_qrystring_arr'   => $uri_qrystring_arr
           , 'uri_arr'             => $uri_arr
           , 'module_relpath'      => $module_relpath
           , 'module_url'          => $module_url
-          , 'uri_qrystring_arr'   => $uri_qrystring_arr
           //
           , 'ROUTES (LINKS)  IN  M O D U L E  CTR Home_ctr.php' => '~~~~~~~~~~~~~~~~~'
         ] ;
 
-        $pp1 += $pp1_module_links ;
+      $pp1 += $pp1_module ;
 
       $this->setp('pp1', (object)$pp1) ; //$this->p p1 = (object)$p p1 ;
-
+      $pp1 = $this->pp1 ;
       //$this->set_default_cls_states_atr($this->p p1);
+                  // IMPORTANT FOR FINDING ROUTING LOGICAL ERRORS 
+                  // Xdebug shoes only sintactical errors !
                   if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
                     .'Coding step c s 0 2. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
                   echo '<pre>';
-                  echo '<b>$_ GET</b>='; print_r($_GET); 
-                  echo '<b>$_POST</b>='; print_r($_POST); 
-                  echo '<b>$_SESSION</b>='; print_r($_SESSION); 
-                  echo '<br /><b>$this->p p 1</b>='; print_r($this->getp('pp1'));
-                  echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>    ='; print_r($_SERVER['REQUEST_URI']); 
-                  echo '<br /><b>uri_arr is exploded string REQUEST_URI '.$_SERVER['REQUEST_URI'].' (on QS=?)</b>'
-                  .'<br />0 is $module_relpath,'
-                  .'<br />1 is $uri_qrystring = key-value pairs ee = url parameters after QS.'
-                  .'  <br />$this->p p1->uri_arr='; print_r($this->getp('pp1')->uri_arr);
-                  echo '<br /><b>exploded $uri_qrystring (on /) is'
-                  .'<br />$this->p p1->uri_qrystring_arr</b>=';
+                  //     C O N F I G S :
+                  //echo '<b>$_ GET</b>='; print_r($_GET); 
+                  //echo '<b>$_POST</b>='; print_r($_POST); 
+                  //echo '<b>$_SESSION</b>='; print_r($_SESSION); 
+                  //echo '<br /><b>$this->p p 1</b>='; print_r($this->getp('pp1'));
+                  //
+
+                  //       R O U T I N G  see ftr 
+                    echo '<h3>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>'
+                    .'Coding step c s 0 2. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
+                  //echo '<br /><b>$this->p p 1</b>='; print_r($this->getp('pp1'));
+                  //
+                  echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>='; print_r($_SERVER['REQUEST_URI']); 
+
+                  echo '<br /><br />$this->p p1->uri_ arr='; print_r($this->getp('pp1')->uri_arr);
+                  echo '<b>$p p1->uri_ arr is exploded string $_SERVER[\'REQUEST_URI\'] (part1 before QS=? and part2 after QS)</b>';
+
+                  echo '<br />part1 index 0 is <b>$p p1->module_ relpath=</b>'
+                    . '<b><span style="color:blue; font-size:1.4em;">'
+                      . $pp1->module_relpath .'</span></b>';
+                  
+                  echo '<br />part2 index 1 is <b>$p p1->uri_ qrystring</b> = key-value pairs ee = url parameters after QS = <b><span style="color:blue; font-size:1.4em;">'
+                      . $pp1->uri_qrystring .'</span></b>';
+                  
+
+                  echo '<br /><br /><b>EXPLODED $p p1->uri_ qrystring (on /) is'
+                  .' $this->p p1->uri_ qrystring_ arr</b>=';
                       print_r($this->getp('pp1')->uri_qrystring_arr);
                   //echo '<br /><b>key-value pairs in one assoc arr line =  $u riq</b>='; print_r($u riq);
-                  echo '<br /><b>$this->u riq</b>='; print_r($this->getp('pp1')->uriq);
+                  echo '<br />From $p p1->uri_ qrystring_ arr <b>method in Home_ ctr and method parameters : $this->u riq</b>='; print_r($this->getp('pp1')->uriq);
+
+
                   echo '</pre>'; 
                   }
                     /*.'<span style="color: red; font-size: large; font-weight: bold;">'
@@ -252,7 +283,7 @@ abstract class Config_allsites //extends Db_allsites
         unset($pp1) ; //for easier debugging if next 2 lines are switched
         $pp1 = $this->getp('pp1') ; //fn params are in  p p 1
         $akc = $pp1->uriq->i ;      //fn name (by user entered URL we put in uriq array)
-        $this->callf($akc, $pp1) ; //protected fn (in child cls) calls private fns (in child cls)
+        $this->call_module_method($akc, $pp1) ; //protected fn (in child cls) calls private fns (in child cls)
         // OR (fns in child cls must be public, not private to be called from here) :
         //Fatal error: Uncaught Error: Call to private method B12phpfw\Home_ctr::home() from context 'B12phpfw\Config_allsites' 
         //$this->$akc($pp1) ; 
@@ -327,15 +358,13 @@ abstract class Config_allsites //extends Db_allsites
 
 
     static public function Redirect_to($New_Location){
-                        if ('') {self::jsmsg( [ //b asename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE header(...'
-                          ,'aaaaaa'=>'bbbbbb'
-                           //, 'New_Location'=>$New_Location
-                           //,'self::$d bi'=>self::$dbi
-                           //,'$caller'=>$caller
-                           //, '$dsn'=>$dsn
-                           ] ) ; 
-                        }
+                  if ('') {  //if ($module_ arr['dbg']) {
+                  echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'; 
+                  echo '<pre>$_GET='; echo '<b>$_ GET</b>='; print_r($_GET); echo '</pre>'; 
+                  }
+        if ('') { self::jsmsg( [ //str_replace('\\','/',__FILE__ ) or __METHOD__
+            __METHOD__ .', line '. __LINE__ .' SAYS'=>'where am I'
+        ] ) ; }
       //server-side redirection and the target="_blank" is client-side directive
       header("Location:".$New_Location); // also 'http://www.example.com'
       ?><!--script type="text/javascript">window.open('<=$New_Location?>');</script--><?php

@@ -74,7 +74,7 @@ trait Db_allsites
   {
     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
     , self::$db_username, self::$db_userpwd) 
-    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_once !!
+    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
 
     self::$dsn = self::$dbi.':host='.self::$db_hostname.';dbname='.self::$db_name.';' ;
 
@@ -163,16 +163,15 @@ trait Db_allsites
   //used f or all  t a b l e s !!  , int $id = NULL
   static public function dd(object $pp1, array $other)
   {
+                    if ('') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ;
+                    //echo '<pre>$pp1->uriq='; print_r($pp1->uriq) ; echo '</pre>';
+                    exit(0) ;
+                    }
     $tbl = $pp1->uriq->t ;
     $id  = $pp1->uriq->id ;
     if(NULL !== $id)
     {
       self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__); //d d(...
-                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
-                              echo '<pre>$tbl='; print_r($tbl) ; echo '</pre>';
-                              echo '<pre>$id='; print_r($id) ; echo '</pre>';
-                              exit(0) ;
-                              }
       $dmldd = "DELETE FROM $tbl WHERE id=:id"; // *************** d d (
 
       //$cursor is prepared sql dml object eg rows group object f or  r e a d n e x t

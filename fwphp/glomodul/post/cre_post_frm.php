@@ -22,10 +22,7 @@ if(isset($_POST["Submit"]))
 // returns object :
 $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'"
   , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
-                  //echo __FILE__ .' SAYS: <pre>$cursor_LOVcategory for LOV ='; print_r($cursor_LOVcategory); echo '</pre>';
-                  //displays : $cursor_LOVcategory=PDOStatement Object
-                  //( [queryString] => SELECT * FROM category WHERE '1'='1' ORDER BY title )
-//$cursor_LOVcategory_saved = $cursor_LOVcategory ;
+
 $rr =(object)[];
 $SrNo = 0; 
 while ( $rr= Tbl_crud_category::rrnext($cursor_LOVcategory) and isset($rr->title) ): {

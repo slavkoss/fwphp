@@ -56,11 +56,28 @@ To understand how B12phpfw CRUD framework works (eg $db = new Home_ctr($pp1) ; /
 
 ## 1\.3 Project notable goals  - reasons
 Notable package does something special, is also frequently innovative. 
-1. In my free time (my work for last 20 years was :  Oracle Forms 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
-   https://github.com/panique/mini3 is good but to small OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram : Udemy is good but older programming style.
-2. Develop **large sites** (more of them under web server root dir. path), PHP PDO CRUD (Create, Read, Upd, Del eg "users" table rows) in **any DB**.
-3. ***Innovative*** is : **Each module in own folder like Oracle Forms 6i form, Blazor and APEX pages**, no M,V,C folders.
-4. **Not to simple code : easy to understand,  small, reusable, namespaces for autoloading classes scripts, routing (URL parts) - dispatching (call or include), own debugging (Xdebug is not enough)...** compared to all PHP frameworks and learning sources.
+
+1. In my free time (my work for last 20 years was :  Oracle Forms& Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
+   https://github.com/panique/mini3 is good but to small.   OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram (Udemy) is good but older programming style.
+   
+2. Develop **large sites** (more of them under web server root dir. path).
+
+3. ***Innovative*** is : 
+   1. each module in own folder like Oracle Forms 6i form, Blazor and APEX pages ee no M,V,C folders
+   2. routing : URL parts in key-keyvalue form
+   3. dispatching : call or include like https://github.com/panique/mini3
+   4. **simple module** - one table CRUD eg "users" table or **compound module** - more tables CRUD eg my msg (Blog) module or invoice... 
+
+4. Compared to all PHP frameworks and learning sources  : 
+   1. easier to understand (as much as possible)
+   2. smallest code
+   3. reusable (shares, globals)
+   4. namespaces for autoloading classes scripts
+   5. routing (URL parts in key-keyvalue form) and dispatching (call or include)
+   6. own debugging to find logical errors (Xdebug is not enough - shows only sintax errors)
+   7. PHP PDO CRUD (Create, Read, Upd, Del) in **any DB** **simple module** eg "users" table rows or **compound module** eg my msg (Blog) module or invoice... 
+   8. examples are not to simple code
+   
 5. Present best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
     https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
 

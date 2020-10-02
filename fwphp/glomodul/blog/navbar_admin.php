@@ -10,7 +10,7 @@ $pp1  = $this->getp('pp1') ;
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
   <div class="container">
-    <a href="<?=$pp1->filter_page?>1/i/home/" class="navbar-brand">Home</a>
+    <a href="<?=$pp1->home_blog.$pp1->filter_page?>1/" class="navbar-brand">Home</a>
     
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
       <span class="navbar-toggler-icon"></span>
@@ -20,11 +20,11 @@ $pp1  = $this->getp('pp1') ;
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><a href="<?=$pp1->dashboard?>" class="nav-link">Dashboard</a></li>
       <li class="nav-item"><a href="" class="nav-link">|</a></li>
-      <li class="nav-item"><a href="<?=$pp1->admins?>" 
+      <li class="nav-item"><a target="_blank"  href="<?=$pp1->admins?>" 
         title="ctrl key + click to open link in new tab" class="nav-link">Admins</a></li>
-      <li class="nav-item"><a href="<?=$pp1->categories?>" class="nav-link">Categories</a></li>
-      <li class="nav-item"><a href="<?=$pp1->posts?>" class="nav-link">Msgs (Posts)</a></li>
-      <li class="nav-item"><a href="<?=$pp1->comments?>" class="nav-link">Comments</a></li>
+      <li class="nav-item"><a target="_blank" href="<?=$pp1->categories?>" class="nav-link">Categories</a></li>
+      <li class="nav-item"><a target="_blank" href="<?=$pp1->posts?>" class="nav-link">Msgs (Posts)</a></li>
+      <li class="nav-item"><a target="_blank" href="<?=$pp1->comments?>" class="nav-link">Comments</a></li>
       <li class="nav-item"><a href="" class="nav-link">|</a></li>
     </ul>
     <ul class="navbar-nav ml-auto">

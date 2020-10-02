@@ -24,7 +24,7 @@ if(isset($_POST["Submit"])) {
   Tbl_crud_category::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //E n d  Submit Button If-Condition
 
-//               2. R E A D  D B T B L R O W S
+//               2. R E A D  D B  T B L  R O W S
 $cursor = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__, 'filterfldval'=>''] )  //returns $cursor
 
 
@@ -42,29 +42,46 @@ $cursor = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[]
     </header-->
     <!-- HEADER END -->
 
-     <!-- Main Area -->
+     <!-- Main Area 
+
+  <section id="explore-section" class="bg-light text-muted py-5">
+  
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6">
+          <img src="<?=$img_url?>mvc_M_V_data_flow.jpg" alt="" class="img-fluid mb-3 rounded-circle">
+  
+        </div>
+
+
+
+    <div class="bg-light offset-lg-1 col-lg-10" style="min-height:400px;">
+
+     -->
 <section class="container py-2 mb-4">
   <div class="row">
+
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
        echo Config_allsites::ErrorMessage();
        echo Config_allsites::SuccessMessage();
        ?>
 
-
       <form class="" action="<?=$pp1->categories?>" method="post">
         <div class="card bg-secondary text-light mb-3">
+
           <div class="card-header">
-
                        <h1>Add Category</h1>
-
           </div>
+
           <div class="card-body bg-dark">
             <div class="form-group">
               <label for="title"> <span class="FieldInfo"> Categroy Title: </span></label>
                <input class="form-control" type="text" name="category_title" id="title"
                       placeholder="Type title here" value="">
             </div>
+
             <div class="row">
               <div class="col-lg-6 mb-2">
                 <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block"><i class="fas fa-arrow-left"></i> Back To Dashboard</a>
@@ -76,14 +93,21 @@ $cursor = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[]
               </div>
             </div>
           </div>
+
         </div>
       </form>
 
-                    <h2>Existing Categories</h2>
+    </div><!-- E N D  d i v  o f  f o r m-->
 
+    <div class="bg-light offset-lg-1 col-lg-10" style="min-height:400px;">
+            <!-- ********************** -->
+            <br /><h2 class="bg-dark">Existing Categories</h2>
+            <!-- ********************** -->
       <table class="table table-striped table-hover">
         <thead class="thead-dark">
-        <tr><th>No. </th><th>Date&amp;Time</th><th> Category Name</th><th>Creator Name</th><th>Action</th> </tr></thead>
+          <tr><th>No. </th><th>Date&amp;Time</th><th> Category Name</th><th>Creator Name</th><th>Action</th>
+          </tr>
+        </thead>
         <tbody>
       <?php
 
@@ -107,19 +131,22 @@ $cursor = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[]
           <td><?php echo self::escp($r->author); ?></td>
           <td>
            <!--  /*
-
+              location.href= '<=$pp1->del_row>t/category/id/<=$r->id>/'
+              r/i|/
            */ -->
-                 <a id="erase_row" class="btn btn-danger"
-                    onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
-                    if (yes == '1') { location.href= '<?=$pp1->del_row?>t/category/id/<?=$r->id?>/'; }"
-                 >Del <?=$r->id?></a>
+           <a id="erase_row" class="btn btn-danger"
+              onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
+              if (yes == '1') { location.href= '<?=$pp1->ldd.$r->id?>/'; }"
+            >Del <?=$r->id?></a>
           </td>
          <?php
       } ?>
       </tbody>
       </table>
-    </div>
-  </div>
+
+    </div><!-- E N D  d i v  o f  t b l-->
+
+  </div><!-- E N D  class="row"-->
 
 </section>
 

@@ -4,7 +4,7 @@
 *   homeCtrClsAkcName may be "examples"
 * J:\awww\www\fwphp\glomodul\z_examples\index.php
 *
-* simplest.css or mini3.css
+* simplest.c ss or mini3.c ss
 */
 ?>
 
@@ -13,7 +13,7 @@
 <head><title>EXAMPLES</title>
   <meta charset="utf-8">
   <link rel="shortcut icon" href="/zinc/img/favicon.ico">
-  <link type="text/css" rel="stylesheet" media="all" href="/zinc/themes/simplest.css" />
+  <link type="text/css" rel="stylesheet" media="all" href="/zinc/themes/mini3.css" />
   <style></style><!--script src="utl_inc.js"></script-->
 </head>
 

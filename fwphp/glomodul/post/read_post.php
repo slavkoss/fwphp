@@ -42,7 +42,6 @@ if(isset($_POST["Submit"])){
       if(isset($_POST["SearchButton"]))
       {
         $Search = $_POST["Search"];
-        //$c ursor_posts=$this->r r("SELECT * FROM posts WHERE $qrywhere ORDER BY datetime desc"
         $cursor_posts = Tbl_crud_post::rr($sellst='*', $qrywhere="
               title LIKE :search1
               OR category LIKE :search2
@@ -67,7 +66,6 @@ if(isset($_POST["Submit"])){
           Config_allsites::Redirect_to($pp1->filter_page."1/i/home/");
         }
 
-        //$this->r r("SELECT * FROM posts WHERE $qrywhere ORDER BY datetime desc"
         $cursor_posts = Tbl_crud_post::rr($sellst='*', $qrywhere= "id=:IdFromURL"
           , $binds=[
              ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
@@ -188,7 +186,6 @@ if(isset($_POST["Submit"])){
       <br><br>
     <?php
         $qrywhere = "post_id=:IdFromURL" ;
-        //$cursor_comments = $this->r r("SELECT * FROM comments WHERE $qrywhere ORDER BY datetime desc"
         $cursor_comments = Tbl_crud_comment::rr($sellst='*' // or "SELECT ...
           , $qrywhere="post_id=:IdFromURL ORDER BY datetime desc"
           , $binds=[

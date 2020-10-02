@@ -43,7 +43,17 @@
       if (isset($data)) {
         foreach($data as $htmlline) { echo $htmlline; } 
       } ?>
+
+
+<?php include $pp1->wsroot_path . 'zinc/ftr.php'; ?>
+
+
   </article><!-- e n d  m a i n . a r t i c l e -->
+
+
+
+
+
 
 
   <!-- 
@@ -53,16 +63,18 @@
   <aside>
       Side mnu important links (modules)...
 
+      <!-- http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme.md -->
+      <br /><br /><a target="_blank" href="<?=$pp1->edit . $pp1->readme_path?>"
+         title="<?=$pp1->edit . $pp1->readme_path?> = SimpleMDE edit"
+      >Edit readme.md
+      </a>
 
-      <br /><br /><a href=
-         "<?php $readme_path = str_replace('/','\\',$pp1->wsroot_path) . '\readme.md'; echo $pp1->edit . $readme_path ?>" 
-         title="<?=$pp1->edit . $readme_path?> = SimpleMDE edit">
-      Edit readme.md</a>
+      <!-- http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/path/J:\awww\www\readme.md -->
+      &nbsp; <a target="_blank" href="<?=$pp1->showhtml . $pp1->readme_path?>" 
+         title="<?=$pp1->showhtml . $pp1->readme_path?> = Parsedown markdown txt to html"
+      >HTML</a>
 
-      &nbsp;
-      <a href="<?=$pp1->showhtml . $readme_path?>" 
-         title="<?=$pp1->showhtml . $readme_path?> = Parsedown markdown txt to html">
-      HTML</a>
+
 
       <br /><br /><br /><hr />
         <b>path key</b> (in any URL, not only in mkd module - <b>example below</b>) MUST BE <u>Windows path</u>, which, where needed, we later change in Linux path.

@@ -1,11 +1,9 @@
 <?php
 /**
-* J:\awww\www\fwphp\glomodul4\mkd\index.php   http://dev1:8083/fwphp/glomodul4/mkd/
-* http://dev1:8083/fwphp/glomodul4/mkd/?Home/edit/J:/awww/www/readme.md
+* J:\awww\www\fwphp\glomodul\mkd\   http://sspc2:8083/fwphp/glomodul/mkd/
+* http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme.md
 *
 *        M K D  M O D U L E  S I N G L E  E N T R Y  P O I N T
-* #c s 0 1. Codeflow Step 1: bootstrap script, single entry point in module mkd
-* cs01=bootstraping, 2=INIT, config, routing, 3=dispaching, 4. PROCESSING (model, business logic), 5. OUTPUT (view)
 */
 namespace B12phpfw\flatFilesEd\mkd ;
 use B12phpfw\core\zinc\Autoload ;
@@ -34,15 +32,15 @@ $pp1 = (object)
 //2. global cls loads classes scripts automatically
 require($pp1->module_towsroot.'zinc/Autoload.php');
 new Autoload($pp1);
-                if ('') {Db_allsites::jsmsg( [ basename(__FILE__) //. __METHOD__ 
-                   .', line '. __LINE__ .' SAYS'=>' '
-                   ,'where am I'=>'AFTER  A u t o l o a d'
-                ] ) ; }
+
 
 //3. process request from ibrowser & send response to ibrowser :
-//1=autol STEP_2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
-//STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
-$db = new Home_ctr($pp1) ; //also instatiates all higher cls-es : Config_ allsites
+//Home_ ctr "inherits" index.php ee inherits $p p 1
+$module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
+        if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'where am I'
+           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and $conf = new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
+        ] ) ; }
 
 
 exit(0);

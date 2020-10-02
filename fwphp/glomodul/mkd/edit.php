@@ -5,16 +5,16 @@
 //http://sspc2:8083/fwphp/glomodul/mkd/index.php?i/edit/path/001_MDcheatsheet.txt
 //http://sspc2:8083/fwphp/glomodul/mkd/index.php?i/edit/path/001_MDcheatsheet.txt\
 //http://sspc2:8083/fwphp/glomodul/mkd/index.php?i/edit/path/01\001_config_ssl_tls\hosts.txt
-//$frmaction_url_edit  = '?i/edit/path/'. str_replace('/','\\', $fle_to_edit_path) ;
-$frmaction_url_edit  = '?i/edit/path/'. $fle_to_edit_path ;
-//"?edit=$fle_to_edit_path" ;
+
+$frmaction_url_edit  = '?i/edit/path/'. $fle_to_edit_path ; //"?edit=$fle_ to_edit_path"
 
 //http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/path/J:\awww\www\\readme.md
-$frmaction_url_showhtml  = '?i/showhtml/path/'. str_replace('/','\\', $fle_to_edit_path) ;
-//"?showhtml=$fle_to_edit_path" ;
+//$frmaction_ url_showhtml  = '?i/showhtml/path/'. str_replace('/','\\', $fle_ to_edit_path) ;
+$frmaction_url_showhtml  = '?i/showhtml/path/'. $fle_to_edit_path ;
+//"?showhtml=$fle_ to_edit_path" ;
                             if ('') 
                             { echo '<pre>'.__FILE__ .', lin='. __LINE__
-                                .'<br />     <b>*** '.__METHOD__ .'  SAYS *** öËÊû</b>';
+                                .'<br />     <b>*** '.__METHOD__ .'  SAYS *** ≈°ƒëƒçƒá≈æ</b>';
                             print '<br />$fle_ to_edit_path='; print_r($fle_to_edit_path);
                             print '<br />$frmaction_ url_edit='; print_r($frmaction_url_edit);
                             print '<br />$frmaction_ url_showhtml='; print_r($frmaction_url_showhtml);
@@ -160,10 +160,11 @@ $frmaction_url_showhtml  = '?i/showhtml/path/'. str_replace('/','\\', $fle_to_ed
                     // http://dev1:8083/fwphp/glomodul/mkd/?showhtml=J:/awww/www/readme.md
                     name: "showhtml",
                     action: function showhtmlFunction(editor){
-                       window.location.href = '<?=$frmaction_url_showhtml?>';
+                       window.location.href = 
+                         '<?=str_replace('\\','\\\\',$frmaction_url_showhtml)?>';
                     },
                     className: "fa fa-eye no-disable", // fa fa-list
-                    title: 'Show html: <?=$frmaction_url_showhtml?>',
+                    title: 'Show html: <?=str_replace('\\','\\\\',$frmaction_url_showhtml)?>',
                 }
                 , "fullscreen"
                 , {

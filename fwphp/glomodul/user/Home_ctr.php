@@ -11,7 +11,7 @@ class Home_ctr extends Config_allsites
   public function __construct(object $pp1)
   {
                         if ('') { self::jsmsg( [ //basename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
+                           str_replace('\\','\\\\',__METHOD__) .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
                            //,'self::$d bi'=>self::$dbi
                            ] ) ; 
@@ -68,15 +68,6 @@ class Home_ctr extends Config_allsites
 
   } // e n d  f n  __ c o n s t r u c t
 
-  //           **** D I S P A T C H I N G
-          //$accessor = "get" . ucfirst(strtolower($akc));
-  public function callf(string $akc, object $pp1)  //fnname, params
-  {
-    return ( 
-      ( //method_exists($this, $akc) and
-      is_callable(array($this, $akc)) ) ? $this->$akc($pp1) : '0'
-    ) ;
-  }
 
 
 
@@ -85,24 +76,35 @@ class Home_ctr extends Config_allsites
           // they call other methods or include script
           // CALLED FROM Config_ allsites __c onstruct
           //******************************************
+          //$accessor = "get" . ucfirst(strtolower($akc));
+  public function call_module_method(string $akc, object $pp1)  //fnname, params
+  {
+    if ( is_callable(array($this, $akc)) ) { // and method_exists($this, $akc)
+      return $this->$akc($pp1) ;
+    } else {
+      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+      echo 'Home_ ctr method "<b>'. $akc .'</b>" is not callable.' ;
+      echo ' See how is created method name in Config_ allsites code snippet c s 0 2. R O U T I N G."' ;
+      return '0' ;
+    }
+  }
 
   // *************************************************
-  // Called own methods when user clicks 
-  //   - link in $pp1_module_links or button 
-  //   - or URL is entered in ibrowser adress field
+  // Called own methods when user
+  //   - clicks button 
+  //   - or enters  U R L in ibrowser adress field
   // *************************************************
 
   private function del_row_do(object &$pp1) // *************** SHARED  d d (
   {
-    //parameter $pp1 is AUTOMATICALLY sent in all h o m e fns from callf fn !!
+    //parameter $pp1 is AUTOMATICALLY sent in all h o m e fns from call_module_method fn !!
                               if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
                               if (isset($pp1->uriq) and null !== $pp1->uriq)
                               { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_row_do [t] => category [id] => 21
                               else { echo ' not set' ; } 
                               exit(0) ;
                               }
-    $pp1->uriq->t = 'admins' ; //$tbl = $pp1->uriq->t ;
-    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+    $other=[ 'caller'=>__METHOD__ .', ln '.__LINE__ ] ;
     Tbl_crud_admin::dd($pp1, $other);
     Config_allsites::Redirect_to($pp1->admins) ;
 

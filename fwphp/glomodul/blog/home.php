@@ -344,8 +344,7 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
 
       echo '<small class="text-muted">'. __FILE__ .'</small>' ;
       ?>
-    </div><!-- class="col-sm-8"-->
-    <!-- Main Area End-->
+    </div><!-- Main (left) Area E n d--><!-- E N D class="col-sm-8"-->
 
 
 

@@ -63,7 +63,7 @@ class Home_ctr extends Config_allsites
 
     //$lang = $pp1->lang ;
     //If (!isset($_GET['lang']) {$_GET['lang'] = $lang ; }
-    //if(!isset($_SESSION['lang'])) { include_once 'zinc/lang/lang/'. $lang .'.php' ;} 
+    //if(!isset($_SESSION['lang'])) { include_ once 'zinc/lang/lang/'. $lang .'.php' ;} 
 
                 if ('') { /* self::jsmsg( [ //basename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
@@ -80,15 +80,7 @@ class Home_ctr extends Config_allsites
 
   } // e n d  f n  __ c o n s t r u c t
 
-  //           **** D I S P A T C H I N G
-          //$accessor = "get" . ucfirst(strtolower($akc));
-  public function callf(string $akc, object $pp1)  //fnname, params
-  {
-    return ( 
-      ( //method_exists($this, $akc) and
-      is_callable(array($this, $akc)) ) ? $this->$akc($pp1) : '0'
-    ) ;
-  }
+
 
 
 
@@ -97,11 +89,23 @@ class Home_ctr extends Config_allsites
           // they call other methods or include script
           // CALLED FROM Config_ allsites __c onstruct
           //******************************************
+          //$accessor = "get" . ucfirst(strtolower($akc));
+  public function call_module_method(string $akc, object $pp1)  //fnname, params
+  {
+    if ( is_callable(array($this, $akc)) ) { // and method_exists($this, $akc)
+      return $this->$akc($pp1) ;
+    } else {
+      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+      echo 'Home_ ctr method "<b>'. $akc .'</b>" is not callable.' ;
+      echo ' See how is created method name in Config_ allsites code snippet c s 0 2. R O U T I N G."' ;
+      return '0' ;
+    }
+  }
 
   // *************************************************
-  // Called own methods when user clicks 
-  //   - link in $pp1_module_links or button 
-  //   - or URL is entered in ibrowser adress field
+  // Called own methods when user
+  //   - clicks button 
+  //   - or enters  U R L in ibrowser adress field
   // *************************************************
 
   // M E T H O D S  C A L L E D  BY  L I N K S  IN  V I E W  SCRIPTS
@@ -121,16 +125,19 @@ class Home_ctr extends Config_allsites
   public function home(object $pp1)
   {
     //        M A I N  S I T E  M N U
-      $title = 'MNU';
+    $title = 'MNU';
                  //require $pp1->wsroot_path . 'zinc/hdr.php'; //Warning: Cannot modify header information
         //require("h_top_toolbar.php"); //navbar_admin.php
-        require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
+    require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
         //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
 
   public function mkd(object $pp1)
   {
+            if ('1') {self::jsmsg( [ //basename(__FILE__) or  __METHOD__
+               __METHOD__ .', line '. __LINE__ .' SAYS'=>'where am I'
+            ] ) ; }
     // http://sspc2:8083/fwphp/glomodul/mkd/
     $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/mkd/' ) ;
   }

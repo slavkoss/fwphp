@@ -31,7 +31,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
   <div class="row">
 
 
-     <!-- Left Side Area Start -->
+     <!-- S U M S  - Left Side Area Start -->
     <div class="col-lg-2 d-none d-md-block">
       <div class="card text-center bg-dark text-white mb-3">
         <div class="card-body">
@@ -72,11 +72,12 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 
 
     </div>
-    <!-- Left Side Area End -->
+    <!-- Left Side Area E n d  s u m s-->
 
 
-    <!-- Right Side Area Start -->
-    <div class="col-lg-10">
+
+    <!-- T B L  - Right Side Area Start -->
+    <div class="bg-light col-lg-10">
       <?php
        echo $this->ErrorMessage();
        echo $this->SuccessMessage();
@@ -98,14 +99,16 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
           Db_allsites::setdo_pgntion('1') ;
+
           $cursor = Db_allsites::rr("SELECT * FROM posts ORDER BY datetime desc"
             , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
         break;
+
         case 'mysql' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':rblk', 'valph'=>6, 'tip'=>'int'];
           Db_allsites::setdo_pgntion('1') ;
-          //$cursor = Db_ allsites::r r("SELECT * FROM posts ORDER BY datetime desc LIMIT :first_rinblock, :rblk", $binds, __FILE__ .' '.', ln '. __LINE__ ) ;
+
           $cursor_posts = Tbl_crud_post::rr($sellst='*'
              , $qrywhere= "'1'='1' ORDER BY datetime desc LIMIT :first_rinblock, :rblk"
              , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
@@ -157,8 +160,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
         </tbody>
       </table>
 
-    </div>
-    <!-- Right Side Area End -->
+    </div><!-- Right Side Area E n d  t b l -->
 
   </div>
 </section>

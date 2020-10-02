@@ -56,6 +56,8 @@ require_once("navbar_admin.php");
      <!-- Main Area -->
 <section class="container py-2 mb-4">
   <div class="row">
+
+
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
        echo $this->ErrorMessage();
@@ -113,17 +115,19 @@ require_once("navbar_admin.php");
             </div>
           </div>
         </div>
-      </form>
-      <!-- 
-         e n d       A D D  A D M I N  F O R M 
-      -->
+      </form><!--  e n d       A D D  A D M I N  F O R M -->
 
+
+
+      <h2>Existing Admins</h2>
+    </div><!-- E N D  d i v  o f  f o r m-->
 
       <!-- 
                 A D M I N S  T A B L E
       -->
-      <h2>Existing Admins</h2>
-      <table class="table table-striped table-hover">
+    <div class="bg-light offset-lg-1 col-lg-10" style="min-height:400px;">
+
+      <br /><table class="table table-striped table-hover">
         <thead class="thead-dark">
           <tr>
             <th>No.&nbsp;Del ID</th><th>Date&Time</th><th>Username</th><th>Admin Name</th>
@@ -134,11 +138,9 @@ require_once("navbar_admin.php");
         </thead>
         <tbody>
       <?php
-      //$c ursor = $this->r r("SELECT * FROM admins ORDER BY aname", [], __FILE__ .' '.', ln '. __LINE__) ;
-        $cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
+      $cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
           , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
       $SrNo = 0;
-      //while ($r = $this->r rn ext($c ursor)):
       while ( $r = Tbl_crud_admin::rrnext($cursor_admins) and isset($r->id) ):
       {
         $id = $r->id ;
@@ -197,8 +199,11 @@ require_once("navbar_admin.php");
       } endwhile; ?>
         </tbody>
       </table>
-    </div>
-  </div>
+
+
+    </div><!-- E N D  d i v  o f  t b l-->
+
+  </div><!-- E N D  class="row"-->
 
 </section>
 

@@ -38,6 +38,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   */
   static public function dd( object $pp1, array $other=[] ): string
   {
+    $pp1->uriq->t = self::$tbl ;
     $cursor =  Db_allsites::dd( $pp1, $other ) ;
     return '' ;
   }
