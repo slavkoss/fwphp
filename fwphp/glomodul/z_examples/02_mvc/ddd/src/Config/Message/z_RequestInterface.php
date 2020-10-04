@@ -3,7 +3,7 @@
 namespace App\Config\Message;
 
 /**
- * Interface RequestInterface
+ * Interface R equestInterface
  */
 interface RequestInterface
 {

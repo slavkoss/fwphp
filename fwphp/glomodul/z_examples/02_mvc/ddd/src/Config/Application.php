@@ -3,16 +3,16 @@
 
 namespace App\Config;
 
-use App\Controller\GalleryController;
-use App\Controller\HomeController;
+//use App\Controller\GalleryController;
+//use App\Controller\HomeController;
 
-use App\Config\Message\Request;
+//use App\Config\Message\Request;
 
-use App\Domain\GalleryManager;
+//use App\Domain\GalleryManager;
 
-use App\Infrastructure\ApiClient;
-use App\Infrastructure\GalleryDriver;
-use App\Infrastructure\GalleryRepository;
+//use App\Infrastructure\ApiClient;
+//use App\Infrastructure\GalleryDriver;
+//use App\Infrastructure\GalleryRepository;
 
 /*
 use GuzzleHttp\Client;
@@ -24,7 +24,7 @@ class Application
 {
     public function run(object $pp1): void
     {
-        $config = new Config();
+        //$config = new Config();
                             //$logger = new Logger('gallery_images_log');
                             /*try {
                                 $logger->pushHandler(new StreamHandler($config->getParameter('LOGS_PATH'), Logger::WARNING));
@@ -35,12 +35,12 @@ class Application
         // Instanciate dependencies
                             //   not GuzzleHttp and Monolog
                             //$apiClient = new ApiClient(new Client(), $logger);
-        $apiClient = new ApiClient();
+        //$apiClient = new ApiClient();
 
-        $galeryDriver = new GalleryDriver($apiClient);
+        //$galeryDriver = new GalleryDriver($apiClient);
 
-        $repository = new GalleryRepository($galeryDriver);
-        $manager = new GalleryManager($repository);
+        //$repository = new GalleryRepository($galeryDriver);
+        //$manager = new GalleryManager($repository);
 
         // Define route
         $router = new Router($pp1);

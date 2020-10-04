@@ -1,17 +1,9 @@
 <?php
 /**
 * STEP_1=AUTOL 2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
-* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
-*        Instantiates Home_ ctr cls - router, dispatcher
-* step 1 in Module  U S E R  T B L  C R U D on B12phpfw CRUD code skeleton. 
-* see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
-* For more code comments see blog module J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\domain_m_lazy_load\domain_m_lazy_load_complicated\index.php
 */
 namespace B12phpfw ;
-
-if (strnatcmp(phpversion(),'5.4.0') >= 0) {
-      if (session_status() == PHP_SESSION_NONE) { session_start(); }
-} else { if(session_id() == '') { session_start(); } }
 
 //$dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ; 
 $pp1 = (object)

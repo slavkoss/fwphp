@@ -113,7 +113,7 @@ class Home_ctr extends Config_allsites
   public function cre_usr(object $pp1)
   {
     //         i n s  f o r m is in home.php before tbl display
-      $title = 'USER CRud';
+      $title = 'USER Crud';
       //require $pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar.php");
         //require $pp1->module_path . 'create.php';
@@ -148,7 +148,8 @@ class Home_ctr extends Config_allsites
   public function read_user(object $pp1)
   {
     //r o w  r e a d
-      $title = 'USER SHOW PROFILE';
+      $title = 'USER SHOW PROFILE (cRud)';
+      $css1 = 'NO';
       require $pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar.php");
         require $pp1->module_path . 'read.php';

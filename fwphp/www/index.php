@@ -21,7 +21,7 @@ $pp1 = (object)
   , 'module_towsroot'=>$module_towsroot
   //1.2
   , 'module_version'=>'7.0.4.0 Mnu', 'vendor_namesp_prefix'=>'B12phpfw'
-  //1.3 F o r  A u t o l o a d - dirnames we  i n c  clsscripts from
+  //1.3 Dirs where are CLASS SCRIPTS TO INCLUDE AUTOMATICALLY (A u t o l o a d)
   , 'module_path_arr'=>[
        str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
       //dir of global clses for all sites :

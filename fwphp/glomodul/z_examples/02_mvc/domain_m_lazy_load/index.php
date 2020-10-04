@@ -8,15 +8,22 @@
 require 'Admins.php';
 require 'Posts.php';
 
-$admin = new Admins('111');
-echo '<pre>$admin='; print_r($admin); echo '</pre><br />';
+echo '<h2>Master - Detail</h2>';
 
+echo '<h3>Set ($admin = new Admins(\'111\')) / Get (var_dump($admin)) one row Master data - only id (from DB)</h3>' ;
+$admin = new Admins('111');
+echo '<pre>var_dump($admin)='; var_dump($admin); echo '</pre><br />';
+echo '<pre>print_r($admin->id)='; print_r($admin->id); echo '</pre><br />';
+
+echo '<h3>Set (Get) / Get print_r($admin)() rows Details of Master (from DB)</h3>' ;
 $posts = $admin->posts ; //$posts = $admin->set_posts();
-echo '<pre>$id='; print_r($admin->id); echo '</pre><br />';
+echo '<pre>print_r($admin)='; print_r($admin); echo '</pre><br />';
+
+
+echo '<h3>Get one Master - Detail 1 rows</h3>' ;
 //echo '<pre>$posts='; print_r($admin->posts); echo '</pre><br />'; //private !!!
 echo '<pre>PRIVATE !!! : $admin->get_post(1)='; print_r($admin->get_post(1)); echo '</pre><br />'; //private !!!
 
-echo '<pre>$admin='; print_r($admin); echo '</pre><br />';
 
 
 /*foreach ($admin as $adm) {

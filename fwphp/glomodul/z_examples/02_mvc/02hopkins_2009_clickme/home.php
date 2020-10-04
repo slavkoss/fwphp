@@ -179,8 +179,7 @@ updates M data.<br></ol>
 </span><br><span class="auto-style1"><strong>[L2]</strong></span> <span style="color:#333333">
     <span class="posted-on">
     <time class="entry-date published" datetime="2009-08-10T00:38:57+00:00">
-    August 10, 2009</time> </span>author <strong>Adlian</strong> : Data flow <strong>C&lt;-&gt;M, C&lt;-&gt;V (which I prefer. I also 
-    prefer entity classes</strong>). <br>
+    August 10, 2009</time> </span>author <strong>Adlian</strong> : Data flow. <br>
     <a href="../../02L2adlian_mvc_2009/"><strong>
     ../../02L2adlian_mvc_2009/</strong></a> <br>
 <span style="color:#333333">
@@ -193,7 +192,7 @@ updates M data.<br></ol>
 (<span style="color:#333333">no PSR-4 autoload</span>).
     <span style="color:#333333"> <br>(If you do not understand [L1] and [L2] - forget 
 (PHP) programming.)</span><br>
-<br><span class="auto-style1"><strong>[L3]</strong></span> MINI3 - Simple beginning MVC classes 
+<br><span class="auto-style1"><strong>[L3] BEST </strong></span>&nbsp;MINI3 - Simple beginning MVC classes 
         <span style="color:#333333">: namespaces (Composer's </span>PSR-4 autoload 
         classes) - 
 good idea: <strong>SONGS APP</strong>: <br> <span style="color:#333333">

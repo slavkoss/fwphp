@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use App\Config\Config;
-use App\Config\Message\Request;
-use App\Config\Message\Response;
+use App\Config\Config;           //fn getParameter - gets paths
+use App\Config\Message\Request;  //$_SERVER['REQUEST_METHOD'], $_SERVER["CONTENT_TYPE"]
+use App\Config\Message\Response; //return $this->content;
 //use Psr\Log\LoggerInterface;
 
 class HomeController
 {
-    use ControllerTrait;
+    use ControllerTrait; //fns render and getTemplate
 
     /** @var Request */
     private $request;

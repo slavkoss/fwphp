@@ -10,7 +10,8 @@ use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ Se
 // Why i n c  h d r  and  f t r  must be here - in  v i e w  script :
 //Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\navbar_admin.php:26) in J:\awww\www\zinc\Config_allsites.php on line 306
                          //var_dump($_SESSION);
-$AdminId = (int)$pp1->uriq->id ;  //$A dminId = $_SESSION["userid"];
+//$AdminId = (int)$pp1->uriq->id ;
+$AdminId = (int)$_SESSION["userid"];
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 {

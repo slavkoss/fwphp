@@ -3,15 +3,15 @@
 * ALTER TABLE `admins` ADD `email` VARCHAR(100) NULL AFTER `addedby`;
 * http://sspc2:8083/fwphp/glomodul/user/
 * J:\awww\www\fwphp\glomodul\user\index.php
-* STEP_1=AUTOL 2=conf 3=view/rout/disp 4=preCRUD 5=onCRUD
-* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
 *        Instantiates Home_ ctr cls - router, dispatcher
+*
 * step 1 in Module  U S E R  T B L  C R U D on B12phpfw CRUD code skeleton. 
-* see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
-* For more code comments see blog module J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
 * cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic), cs05. OUTPUT (view)
+* see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
 */
-//c o r e = processing (behavior), z i n c = cls dir (POSITIONAL part of ns, CAREFULLY !)
+
+//m o d u l e = processing (behavior), u s e r = cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
 use B12phpfw\core\zinc\Autoload ;
 
@@ -27,7 +27,7 @@ $pp1 = (object)
   , 'module_towsroot'=>$module_towsroot
   //1.2
   , 'module_version'=>'6.0.4.0 Users', 'vendor_namesp_prefix'=>'B12phpfw'
-  //1.3 F o r  A u t o l o a d - dirnames we  i n c  clsscripts from
+  //1.3 Dirs where are CLASS SCRIPTS TO INCLUDE AUTOMATICALLY (A u t o l o a d)
   , 'module_path_arr'=>[
        str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
       //dir of global clses for all sites :

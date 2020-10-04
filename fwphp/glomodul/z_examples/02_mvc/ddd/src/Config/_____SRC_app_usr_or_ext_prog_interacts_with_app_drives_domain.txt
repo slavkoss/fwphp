@@ -1,16 +1,20 @@
-HexArch DDD - Hexagonal architecture also called PORTS & ADAPTERS
-=================================================================
-HexArch is a case of application of DDD (Domain Driven Design).
-HexArch permits to SEPARATE app code (module as Oracle Forms .fmb) in three parts :
-App (application code), D (domain code = business logic), I (infrastructure code).
+# HexArch DDD - Hexagonal architecture also called PORTS & ADAPTERS
+HexArch is a case of application of DDD (Domain Driven Design).  
+HexArch permits to SEPARATE app code (module code as Oracle Forms .fmb) in three parts :  
+1. App = application (module) code, drives domain. User or the external programs interact with app.
+2. D - domain = business logic code, drives infrastructure
+3. I - infrastructure code - dependencies that app needs to work.
 
-   Eg https://github.com/oumarkonate/hexagonal-architecture
-                            UML diagram of
-   Module (application) that solicits (request, beg) 
-   external (to HexArch) API to READ & display images on a web page :
+Hexagonal architecture, traits... by Oumar KONATE  
+https://github.com/oumarkonate/hexagonal-architecture  
+http://oumarkonate.com/  
+
+UML diagram of  
+   Module (application) that solicits (request, beg)  
+   external (to HexArch) API to READ & display images on a web page :  
 
   ** are elements in B12phpfw equivalent to HexArch
-
+```
    *************************** APPLICATION CODE **************************
       APPLICATION IS CONTROLLER (**Home_ctr**) in dirs Config and Controllers
       is side ee code by witch usr or external programs interact with web site app
@@ -83,15 +87,15 @@ App (application code), D (domain code = business logic), I (infrastructure code
         Adapters are external (to domain) classes that communicate with ports
 
    ************************** end domain code ***************************
+```
 
 
-Connect (interaction) Application – Domain
-==========================================
+# Connect (interaction) Application – Domain
 To connect App and D, we INJECT INTO APP INTERFACE THAT CONSTITUTES D ENTRY POINT,
-ee we inject GalleryManagerInterface.php into GalleryController.php :
-
-// src/Controller/GalleryController.php
-public function showGallery(): Response
+ee we inject GalleryManagerInterface.php into GalleryController.php :  
+```php
+// src/Controller/GalleryController.php  
+public function showGallery(): Response  
 {
     try {
         $imagesLists = $this->GalleryManager->getImagesGalleryContents([
@@ -104,12 +108,11 @@ public function showGallery(): Response
 
     ...
 }
+```
 
-
-Connect (interaction) Domain – Infrastructure
-=============================================
-To connect D and I, I-side communication must implement D-side communication interface.
-
+# Connect (interaction) Domain – Infrastructure
+To connect D and I, I-side communication must implement D-side communication interface.  
+```php
 // src/Infrastructure/GalleryRepository.php
 <?php
 namespace App\Infrastructure;
@@ -119,6 +122,7 @@ class GalleryRepository implements GalleryDataFinderInterface
 {
     ...
 }
+```
 
 
 
@@ -127,31 +131,29 @@ class GalleryRepository implements GalleryDataFinderInterface
 
 
 
+Alistair Cockburn 2005.  
+https://en.wikipedia.org/wiki/Alistair_Cockburn  
+http://alistair.cockburn.us/  
 
-Alistair Cockburn 2005.
-https://en.wikipedia.org/wiki/Alistair_Cockburn
-http://alistair.cockburn.us/
+HexArch is a case of application of DDD (Domain Driven Design). It allows :  
+1. to isolate the core business of app
+2. automatically test  core business behavior independently of everything else
+3. allows app to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
 
-HexArch is a case of application of DDD (Domain Driven Design). It allows :
-   to isolate the core business of app
-   automatically test  core business behavior independently of everything else
-   allows app to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
-
-In 2015 Alistair launched the Heart of Agile movement https://heartofagile.com/
-which is presented as a response to the overly complex state of the Agile industry.
+In 2015 Alistair launched the Heart of Agile movement https://heartofagile.com/ which is presented as a response to the overly complex state of the Agile industry.
 
 To focus our energies on critical actions :
-
+```
               Collaborate
 
 Improve                         Deliver
 
               Reflect
-
-Collaborate better starting ideas...  collaboration as a motor to drive reflection
-Deliver small probes initially...
-Reflect about what you've learned in your collaboration and from your deliveries.
-Improve direction of your ideas, their technical implementation, and your internal processes.
+```
+Collaborate better starting ideas...  collaboration as a motor to drive reflection  
+Deliver small probes initially...  
+Reflect about what you've learned in your collaboration and from your deliveries.  
+Improve direction of your ideas, their technical implementation, and your internal processes.  
 
 
 

@@ -69,7 +69,9 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     ,'logout'          => QS.'i/logout/r/i|loginfrm|'
     //
        ,'read_user'       => QS.'i/read_user/'
-       ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/'
+       // admin_profile :
+       //,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/'
+       ,'upd_user_loggedin'   => QS.'i/upd_user_loggedin/r/i|upd_user_loggedin|id|' //eg id=30
        //'ed_usr' => QS.'i/ed_ usr/id/', //$pp1->ed_ usr.$id in view script
 
     ,'categories'      => QS.'i/categories/'
@@ -343,7 +345,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
       //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
       $this->Login_Confirm_SesUsrId();
 
-      //$AdminId = $_SESSION["userid"];
+      //in view script $AdminId = $_SESSION["userid"];
 
       $title = 'MSG u s r u p d ';
              // Why i n c  h d r  and  f t r  must be in  v i e w  script :

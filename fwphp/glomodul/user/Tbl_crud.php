@@ -2,8 +2,8 @@
 declare(strict_types=1);
 /**
 * J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
+*   DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI - DB DRIVER
 *     This c l a s s is for one module - does know module's CRUD
-*          DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI
 *         (PRE) CRUD class - DAO (Data Access Object) or data mapper
 * Other such scripts should be (may be not ?) for csv persistent storage, web services...
 *

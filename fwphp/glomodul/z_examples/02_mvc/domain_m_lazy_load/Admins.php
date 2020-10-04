@@ -12,7 +12,14 @@ class Admins
 
 
 
-
+  // $posts = $admin->posts ; //is same as $posts = $admin->set_posts();
+  /* public function set_posts()
+  {
+    if ( $this->posts == null ) {
+      $this->posts = $this->load_posts();
+    }
+    return $this->posts;    
+  } */
   public function __get($memberName) // from data source
   {
     // called eg :  $posts = $admin->posts ; //$posts = $admin->get_posts();
@@ -28,23 +35,21 @@ class Admins
 
   private function load_posts()
   {
-      return [
-        new Posts('1', 'post 1'),
-        new Posts('2', 'post 2')
-      ];
+    // (from DB)
+    return [
+      new Posts('1', 'post 1'),
+      new Posts('2', 'post 2')
+    ];
   }
+
+
+
 
   public function get_post($idx)
   {
     return $this->posts[$idx];    
   } 
 
-  /* public function set_posts()
-  {
-    if ( $this->posts == null ) {
-      $this->posts = $this->load_posts();
-    }
-    return $this->posts;    
-  } */
+
 
 }

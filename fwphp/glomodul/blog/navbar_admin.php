@@ -18,17 +18,28 @@ $pp1  = $this->getp('pp1') ;
     
     <div class="collapse navbar-collapse" id="navbarcollapseCMS">
     <ul class="navbar-nav mr-auto">
+
       <li class="nav-item"><a href="<?=$pp1->dashboard?>" class="nav-link">Dashboard</a></li>
+
       <li class="nav-item"><a href="" class="nav-link">|</a></li>
+
       <li class="nav-item"><a target="_blank"  href="<?=$pp1->admins?>" 
         title="ctrl key + click to open link in new tab" class="nav-link">Admins</a></li>
+
       <li class="nav-item"><a target="_blank" href="<?=$pp1->categories?>" class="nav-link">Categories</a></li>
+
       <li class="nav-item"><a target="_blank" href="<?=$pp1->posts?>" class="nav-link">Msgs (Posts)</a></li>
+
       <li class="nav-item"><a target="_blank" href="<?=$pp1->comments?>" class="nav-link">Comments</a></li>
+
       <li class="nav-item"><a href="" class="nav-link">|</a></li>
+
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a href="<?=$pp1->upd_user_loggedin?>" class="nav-link">My Profile</a></li>
+      <!-- $pp1->upd_user_loggedin
+           http://dev1:8083/fwphp/glomodul/user/?i/upd_user_loggedin/id/30
+      -->
+      <li class="nav-item"><a target="_blank" href="<?=$pp1->upd_user_loggedin?>" class="nav-link">My Profile</a></li>
       <li class="nav-item"><a href="<?=$pp1->logout?>" class="nav-link text-danger">
         <i class="fas fa-user-times"></i> Logout</a></li>
     </ul>

@@ -1,5 +1,10 @@
 <?php
-
+/*
+Runner model uses User which contains simple properties like email or password.
+We have RunParticipation and RunResult classes here that connect our runner with runs and its results in them. I’ll show you one of these classes later.
+I decided to keep the relation between Runner and Run in the first one (you’re free to do the other way, that’s just my design decision).
+We have two juicy business methods here: participate and result. They’re a core of our system and they’re responsible for almost all business logic in this example. As you can see, they contain a simple set of conditions (which are described by our business rules) and throw exceptions if they’re not met. Other than that, they create a new instance of specific relation class, add it to the collection and return for easier processing by other parts of the application.
+*/
 declare(strict_types = 1);
 
 namespace Domain\Model;

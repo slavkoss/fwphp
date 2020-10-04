@@ -2,7 +2,7 @@
 
 namespace App\Config;
 
-use App\Config\Message\Request;
+//use App\Config\Message\Request;
 use B12phpfw\core\zinc\Config_allsites ;
 
 /**
@@ -42,12 +42,19 @@ class Router extends Config_allsites
 
   //           **** D I S P A T C H I N G
           //$accessor = "get" . ucfirst(strtolower($akc));
-  public function callf(string $akc, object $pp1)  //fnname, params
-  {
-    return ( 
-      ( //method_exists($this, $akc) and
-      is_callable(array($this, $akc)) ) ? $this->$akc($pp1) : '0'
-    ) ;
+  public function call_module_method(string $akc, object $pp1) { //fnname, params
+    //return ( ( //method_exists($this, $akc) and
+    //  is_callable(array($this, $akc)) ) ? $this->$akc($pp1) : '0'  ) ;
+    //this fn calls method $ a k c in Home_ ctr which has parameters in  $ p p 1
+    //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
+    if ( is_callable(array($this, $akc)) ) { // and method_exists($this, $akc)
+      return $this->$akc($pp1) ;
+    } else {
+      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+      echo 'Home_ ctr method "<b>'. $akc .'</b>" is not callable.' ;
+      echo ' See how is created method name in Config_ allsites code snippet c s 0 2. R O U T I N G."' ;
+      return '0' ;
+    }
   }
 
 
@@ -87,6 +94,26 @@ class Router extends Config_allsites
       require $pp1->module_path . 'home.php';
       require $pp1->wsroot_path . 'zinc/ftr.php'; */
   }
+
+  /**
+   * Code flow :
+   * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ddd\src\Controller\GalleryController.php
+   * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ddd\src\Domain\GalleryManager.php
+   * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ddd\src\Infrastructure\GalleryRepository.php
+   * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ddd\src\Infrastructure\GalleryDriver.php
+   *
+   * @inheritDoc
+   * http_build_query = Generate URL-encoded query string
+   */
+    private function findAll(array $options): array
+    {
+        $uri = sprintf('https://picsum.photos/v2/list?%s', http_build_query($options));
+
+        $contents = $this->client->retrieve($uri);
+
+        return \json_decode($contents);
+    }
+
 
     /**
      * @param string $route

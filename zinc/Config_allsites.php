@@ -336,7 +336,7 @@ abstract class Config_allsites //extends Db_allsites
 
     // S E C U R I T Y  M E T H O D S :
 
-    static public function escp(string $string) //ESCAPING OUTPUT
+    static public function escp(string $string='') //ESCAPING OUTPUT and input
     {
       // filter input - secure_ input
       //prevent XSS attacks by ESCAPING OUTPUT. XSS = cross-site scripting attack

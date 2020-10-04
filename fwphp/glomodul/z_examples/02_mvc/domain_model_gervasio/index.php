@@ -1,4 +1,6 @@
 <?php
+//By Alejandro Gervasio February 24, 2012
+// https://www.sitepoint.com/building-a-domain-model/
 namespace DMtest; // module name
 
 // 1ST LAYER IS TYPICAL BOOTSTRAP - include and initialize an autoloader :
@@ -13,7 +15,12 @@ Home_ctr::db_test() ;
 
 
 /*
-//Domain Model 5 code layers (tiers) : 1. bootstrap (include and initialize an autoloader), 2. domain model of DB (User, Post, Comment entity classes), 3. data (is or is not) persistent - DB, webservice..., 4. module (app) C, 5. presentation V
+Domain Model 5 code layers (tiers) :
+1. bootstrap (include and initialize an autoloader)
+2. domain model of DB (User, Post, Comment entity classes)
+3. data (is or is not) persistent - DB, webservice...
+4. module (app) C
+5. presentation V
 
 1. http://www.sitepoint.com/building-a-domain-model/ February 24, 2012  By Alejandro Gervasio 
    - last cry in frameworks night (unnecessary complicated ?)

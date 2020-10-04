@@ -3,7 +3,7 @@
 **Top**.....[1\.4 Dirs](#directories).....[1\.3 UML](#uml).....[1\.5 DM](#dm).....[2\. IDE](#ide).....[3\. CRUD](#crud).....[SW fw](#swfw)   
 CRUD module example code 7 scripts:  
 [Simplest CRUD](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)   
-# 1. My PHP menu & CRUD code skeleton (I named it B12phpfw)
+## 1. My PHP menu & CRUD code skeleton (application architecture I named  B12phpfw)
 
 
 -----
@@ -162,13 +162,34 @@ First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH. Modules (funct
 
 
 
-<br><br><br>
-
+<br><br><br><a name="uml"></a>
 # 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
 [Top](#top)......[Dirs](#directories).....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
+## Adapters (classes or methods) depend on interfaces (ports)
+**3-layer code skeleton (application architecture) left, center, right :** "The object-oriented version of spaghetti code is, of course, lasagna code'. Too many layers." - Roberto Waltman Mar 7, 2016 
 
-<a name="uml"></a>
+| OUTSIDE LEFT  (User-Side, app) | INSIDE (core, domain, Business Logic, center) | OUTSIDE RIGHT (infrastr, Server-Side)
+| :--------------------------------------------------------: | :-------------------------------------------------------------- | :------------------------------------------ |
+| ConsoleAdapter ---------depends on--------------|---> IRequestVerses                                                                | |
+|                                                                                                 |......A                                                                                             | |
+|                                                                                                 |......l   depends on                                                                    | |                                        
+|                                                                                                 |......l                                                                                               | |
+|                                                                                                 |......PoetryReader ---> IObtainPoems <---depends on--------------|------ PoetryLibraryFileAdapter |
+| ibrowser, **Home_ctr** ---depends on-------------|--->methods to call/inc code ** Interf_Tbl_crud** <---depends on---|--- **Tbl_crud** DB adapter |
+|                                                                                                | (Interf_Home_ctr if needed ! - not for now)                  | |
+
+Concerning business code, the inside, a good idea is to choose to **organize domain modules (or directories) according to business logic**. The ideal case is to be able to open a directory or a business logic module and immediately understand business problems that your program solves; **rather than seeing only “repositories”, “services”, or other “managers” directories or M, V, C dirs**. See https://matthiasnoback.nl/2017/08/layers-ports-and-adapters-part-2-layers/ Aug 2nd 2017 by Matthias Noback. Matthias said : Simfony  framework was no longer my safe haven, I worked on more basic programming topics, like SOLID and Package Design.  I was fascinated by hexagonal architecture and command buses. **Place for (Simfony)  framework is the Infrastructure layer** and you can fully embrace any kind of RAD-stupid thing your framework offers, as long as it stays inside that layer, and nothing of it trickles down into either the Application or g\*d forbid the Domain layer. 
+
+You can now write alternative adapters for your application's ports. You could run an experiment with a Oracle (Mongo... or in memory) adapter side by side with a MySQL adapter. Specialized adapters for running tests is the main reason why Cockburn proposed the ports & adapters architectural style.
+
+### Dependency Rule - decoupling (code separation) - Dependency Inversion Principle - "D" in SOLID
+( https://en.wikipedia.org/wiki/SOLID )
+A practical implementation of Dependency Rule "**One should depend upon abstractions, not concretions**." in most object-oriented programming languages :
+1. Define an **interface = abstraction** for the thing you want to depend on.
+2. Then provide a **class implementing that interface**. This class contains all the low-level details that you've stripped away from the interface, hence, it's the **concretion** this design principle talks about.
+
+
 [B12phpfw_UMLdiagram.png](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")  
 ![B12phpfw_UMLdiagram.png is less practical and altered](xxxB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")  
 
