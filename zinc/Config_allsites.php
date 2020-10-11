@@ -76,18 +76,18 @@ abstract class Config_allsites //extends Db_allsites
       if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR); //dirname, basename
       if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
-      $module_towsroot = $pp1->module_towsroot ;
-      //module dir (f or autoload clses) (rtrim(ltrim(... has error !!) :
-      $module_path = $pp1->module_path_arr[0] ; //see index.php ! 
+      //$module_towsroot = $pp1->module_towsroot ;
+      //rtrim(ltrim(... has error !! :
+      $module_path = $pp1->module_path_arr[0] ; //assigned in index.php ! 
             //str_replace('\\','/', $module_dir .'/') ; //rtrim(ltrim(... has error !!
-      $imgrel_path = 'zinc/img/'; // img_big/oop_help/
+      //$imgrel_path = 'zinc/img/'; // img_big/oop_help/
 
       // =============================================
       //           3. R O U T I N G
       // =============================================
       // see (**2)
 
-      $wsroot_path = str_replace('\\','/', realpath($module_towsroot) .'/') ; 
+      //$wsroot_path = str_replace('\\','/', realpath($module_towsroot) .'/') ; 
 
       // http://dev1:8083/    //= 1. U R L_P R O T O C O L :
       $wsroot_url = ( (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' )
@@ -192,11 +192,12 @@ abstract class Config_allsites //extends Db_allsites
           //
           , 'A D R E S S E S  in Config_allsites.php' => 'cs02. R O U T I N G ~~~~~~~~~~~~~~~~'
           //, 'vendor_namesp_prefix'=> $vendor_namesp_prefix
-          , 'module_towsroot'     => $module_towsroot
-          , 'wsroot_path'         => $wsroot_path
+          //, 'module_towsroot'     => $module_towsroot
+          //, 'wsroot_path'         => $wsroot_path
           , 'wsroot_url'          => $wsroot_url
-          , 'imgrel_path'         => $imgrel_path
-          , 'img_url'             => $wsroot_url . $imgrel_path
+          , 'shares_url'          => $wsroot_url . 'zinc/'
+          , 'img_url'             => $wsroot_url . 'zinc/img/'
+          //, 'imgrel_ path'         => $imgrel_ path
           , 'lang'                => 'en'
           , 'module_path'         => $module_path
 

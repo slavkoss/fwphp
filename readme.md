@@ -57,7 +57,7 @@ To understand how B12phpfw CRUD framework works (eg $db = new Home_ctr($pp1) ; /
 ## 1\.3 Project notable goals  - reasons
 Notable package does something special, is also frequently innovative. 
 
-1. In my free time (my work for last 20 years was :  Oracle Forms& Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
+1. In my free time (my work for last 20 years was :  Oracle Forms & Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
    https://github.com/panique/mini3 is good but to small.   OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram (Udemy) is good but older programming style.
    
 2. Develop **large sites** (more of them under web server root dir. path).
@@ -71,7 +71,7 @@ Notable package does something special, is also frequently innovative.
 4. Compared to all PHP frameworks and learning sources  : 
    1. easier to understand (as much as possible)
    2. smallest code
-   3. reusable (shares, globals)
+   3. reusable (shares, globals, commons, inclodes)
    4. namespaces for autoloading classes scripts
    5. routing (URL parts in key-keyvalue form) and dispatching (call or include)
    6. own debugging to find logical errors (Xdebug is not enough - shows only sintax errors)
@@ -102,13 +102,14 @@ Everything important is visible in current version 6.0 code. Some details are** 
 
 5. More security.
 
-6.  2020.09.30 **DONE version 7.0.0 (declare(strict_types=1);)**. DBI improved : **trait Db_allsites** instead class Db_allsites. Each DB (persistent storage) adapter **class Tbl_crud :**
+6.  2020.09.30 **DONE version 7.0.0 (declare(strict_types=1);)**. DBI improved : **trait Db_allsites** instead class Db_allsites. Each DB table (persistent storage) has adapter **class Tbl_crud :**
    1. use B12phpfw\core\zinc\Db_allsites
    2. implements Interf_Tbl_crud
 
    This means that :
-   1. each module's (views or ctrs), eg blog module, see blog folder, work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
-   2. class Home_ctr extends class Config_allsites, no more also two DB CRUD classes which is unnatural (but seems easy because **logically all is in Home_ctr**).
+   1. each module's views or ctrs, eg blog module (see blog folder)
+     - work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
+   2. class Home_ctr extends class Config_allsites, no more also two DB CRUD classes which is unnatural and not easy (but seems easy because **logically all is in Home_ctr**).
 
 ## 1\.5 Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
@@ -166,18 +167,24 @@ First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH. Modules (funct
 # 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
 [Top](#top)......[Dirs](#directories).....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
-## Adapters (classes or methods) depend on interfaces (ports)
-**3-layer code skeleton (application architecture) left, center, right :** "The object-oriented version of spaghetti code is, of course, lasagna code'. Too many layers." - Roberto Waltman Mar 7, 2016 
+## Adapters (implementations - classes or methods) depend on interfaces (features, ports)
+**3-layer code skeleton (application architecture) left, center, right :** "The object-oriented version of spaghetti code is, of course, lasagna code'. Too many layers." - Roberto Waltman Mar 7, 2016. HA (hexagonal architecture) is a case of application of DDD (Domain Driven Design) eg verses in OS file :
 
-| OUTSIDE LEFT  (User-Side, app) | INSIDE (core, domain, Business Logic, center) | OUTSIDE RIGHT (infrastr, Server-Side)
-| :--------------------------------------------------------: | :-------------------------------------------------------------- | :------------------------------------------ |
-| ConsoleAdapter ---------depends on--------------|---> IRequestVerses                                                                | |
+| **Application-managers-controllers on GUI-CLI input** | **BL** (Business Logic) and **interfaces-features-ports - processing** | **Adapters-implementations-tasks-dependencies  and output** |
+| :-------------------------------------------------------: | :------------------------------------------------------------- | :--------------------------------------------------------- |
+|    OUTSIDE LEFT  (User-Side) **drive domain** | INSIDE (core, domain, center) **drive infrastructure** |  OUTSIDE RIGHT (**infrastructure**, Server-Side)|
+| ConsoleAdapter ---------depends on---------|---> IRequestVerses                                                                | |
 |                                                                                                 |......A                                                                                             | |
 |                                                                                                 |......l   depends on                                                                    | |                                        
 |                                                                                                 |......l                                                                                               | |
-|                                                                                                 |......PoetryReader ---> IObtainPoems <---depends on--------------|------ PoetryLibraryFileAdapter |
-| ibrowser, **Home_ctr** ---depends on-------------|--->methods to call/inc code ** Interf_Tbl_crud** <---depends on---|--- **Tbl_crud** DB adapter |
-|                                                                                                | (Interf_Home_ctr if needed ! - not for now)                  | |
+|                                                                                                 |......PoetryReader BL class ---> IObtainPoems <---depends on------|--- PoetryLibraryFileAdapter |
+
+### B12phpfw simple module code skeleton (HA) eg users or post categories :
+| **Application-managers-controllers on GUI-CLI input** | **BL** (Business Logic) and **interfaces-features-ports - processing** | **Adapters-implementations-tasks-dependencies  and output** |
+| :-------------------------------------------------------: | :------------------------------------------------------------- | :--------------------------------------------------------- |
+|    OUTSIDE LEFT  (User-Side) **drive domain** | INSIDE (core, domain, center) **drive infrastructure** |  OUTSIDE RIGHT (**infrastructure**, Server-Side)|
+| ibrowser, **Home_ctr** ---depends on----------|--->methods to call/inc code ** Interf_Tbl_crud** <---depends on-------|--- DBI: cls **Tbl_crud** one tbl DB adapter (repository) |
+|                                                                                                | (Interf_Home_ctr if needed !) (some BL class if needed) | DBI: trait **Db_allsites** : code type DB CRUD ADAPTER |
 
 Concerning business code, the inside, a good idea is to choose to **organize domain modules (or directories) according to business logic**. The ideal case is to be able to open a directory or a business logic module and immediately understand business problems that your program solves; **rather than seeing only “repositories”, “services”, or other “managers” directories or M, V, C dirs**. See https://matthiasnoback.nl/2017/08/layers-ports-and-adapters-part-2-layers/ Aug 2nd 2017 by Matthias Noback. Matthias said : Simfony  framework was no longer my safe haven, I worked on more basic programming topics, like SOLID and Package Design.  I was fascinated by hexagonal architecture and command buses. **Place for (Simfony)  framework is the Infrastructure layer** and you can fully embrace any kind of RAD-stupid thing your framework offers, as long as it stays inside that layer, and nothing of it trickles down into either the Application or g\*d forbid the Domain layer. 
 
@@ -208,7 +215,7 @@ B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL
 -----
 
 
-No more this class, only trait Db_allsites and :
+No more Dbconn_allsites class, only trait Db_allsites and :
 ```php
 <?php
 // J:\awww\www\zinc\Dbconn_allsites.php

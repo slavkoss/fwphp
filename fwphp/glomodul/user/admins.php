@@ -13,6 +13,7 @@ use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
+$shares_path = $pp1->shares_path ; //includes, globals, commons, reusables
 
 if (isset ($_SESSION["submitted_cc"])) {
   list( $DateTime, $username, $Name, $password, $Admin
@@ -36,7 +37,7 @@ if(isset($_POST["Submit"])){
 } //Ending of Submit Button If-Condition
 
 //Warning: Cannot modify header information :
-require $pp1->wsroot_path . 'zinc/hdr.php';
+require $pp1->shares_path . 'hdr.php';
 require_once("navbar_admin.php");
 
 //        2. G U I  to get user action
@@ -223,5 +224,5 @@ require_once("navbar_admin.php");
 -->
 
 
-<?php require $pp1->wsroot_path . 'zinc/ftr.php'; ?>
+<?php require $pp1->shares_path . 'ftr.php'; ?>
 

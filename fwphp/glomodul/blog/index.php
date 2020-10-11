@@ -3,39 +3,46 @@
 // ?=QS, p=page=1, i=call Home_ctr method 'home()' to include (or call, or jump to) :
 //http://dev1:8083/fwphp/glomodul/blog/?p/1/i/home/ 
 
-namespace B12phpfw\module\blog ;
-      //first namespace part B12phpfw is vendor's name space's prefix (functional ns part)
-      //2nd ns part m o d u l e is functional ns part = like Oracle form
-      //last before clsname if any (here 3rd) ns part blog or zinc are DIRs=POSITIONALnsParts, CAREFULLY !
-use B12phpfw\core\zinc\Autoload ;
-      //2nd ns part c o r e is functional ns part = processing (behavior)
+//only blog is required - see $shares_ path
+namespace B12phpfw\module\blog ; //see below **HELPNS
+
+//only zinc is required - see $shares_ path
+use B12phpfw\core\zinc\Autoload ; //see below **HELPNS 
 
 //1. settings - properties - assign global variables to use them in any code part
-$module_towsroot = '../../../' ;  //to web server doc root or our doc root by ISP
-$app_dir_path = str_replace('\\','/', dirname(__DIR__) ) ; //to app dir eg "glomodul" dir and app
+$module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
+$app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
+//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
+$wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
+$shares_path = $wsroot_path.'/zinc/' ; //includes, globals, commons, reusables
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+
   //1.1
-  , 'module_towsroot'=>$module_towsroot
+  , 'wsroot_path'=>$wsroot_path
+  , 'shares_path'=>$shares_path
+
   //1.2
-  , 'module_version'=>'6.0.4.0 Msg', 'vendor_namesp_prefix'=>'B12phpfw'
+  , 'module_version'=>'7.0.0.0 Msg' //, 'vendor_namesp_prefix'=>'B12phpfw'
+
   //1.3 Dirs where are CLASS SCRIPTS TO INCLUDE AUTOMATICALLY (A u t o l o a d)
-  , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
-        str_replace('\\','/', __DIR__ ).'/' //=$module_path=thismodule_cls_dir_path
-      //dir of global clses for all sites :
-      , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
-      //two master modules (tbls) = blocks in Ora. Forms
-      , $app_dir_path.'/user/'
-      , $app_dir_path.'/post_category/'
-      //detail & subdet modules (tbls) = blocks in Ora. Forms
-      , $app_dir_path.'/post/'
-      , $app_dir_path.'/post_comment/'
+  , 'module_path_arr'=>[
+    //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
+    $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
+    //dir of global clses for all sites :
+    ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'zinc')) .'/'
+    //two master modules (tbls) = blocks in Ora. Forms
+    ,$app_dir_path.'user/'
+    ,$app_dir_path.'post_category/'
+    //detail & subdet modules (tbls) = blocks in Ora. Forms
+    ,$app_dir_path.'post/'
+    ,$app_dir_path.'post_comment/'
   ]
 ] ;
 
 //2. global cls loads classes scripts automatically
-require($pp1->module_towsroot.'zinc/Autoload.php'); //or Composer's autoload cls-es
+require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); 
 
 //3. process request from ibrowser & send response to ibrowser :
@@ -47,6 +54,16 @@ $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
         ] ) ; }
 
 exit(0);
+
+/**
+*                    **HELPNS
+* first namespace part B12phpfw is vendor's name space's prefix (functional ns part)
+* 2nd ns part m o d u l e is functional ns part = processing (behavior) (named as we wish - ignored by fw)
+* may be more functional ns parts - all are ignored except (CAREFULLY !) :
+* LAST (BEFORE CLSNAME IF ANY) ns part eg "blog" is DIR=POSITIONALnsPart
+*/
+
+
 
 //https://www.oracle.com/database/technologies/databaseappdev-vm.html
 //https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html

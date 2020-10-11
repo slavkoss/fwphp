@@ -1,15 +1,14 @@
 <?php
-if ( isset($pp1) and is_object($pp1) ) { 
-  if ( isset($pp1->wsroot_url) and null !== $pp1->wsroot_url ) { $wsroot_url=$pp1->wsroot_url; }
-  else { $wsroot_url = '/' ; } ;
-} 
+//$wsroot_url = $pp1->wsroot_url ;
+
+/*if ( isset($pp1) and is_object($pp1) ) { 
+  if ( isset($pp1->wsroot_ url) and null !== $pp1->wsroot_ url ) { $wsroot_ url=$pp1->wsroot_ url; }
+  else { $wsroot_ url = '/' ; } ;
+} */
 /*
 switch (true) {
-  //case isset($wsroot_url) : NULL ; break;
-  //case isset($p p1->wsroot_ url) : $wsroot_ url = $p p1->wsroot_ url ; break;
-  case isset($this->getp('pp1')->wsroot_url) and null !== $this->getp('pp1')->wsroot_url :
-     $wsroot_url=$this->getp('pp1')->wsroot_url; break;
-  default: $wsroot_url = '/' ; break;
+  case isset($wsroot_ url) : NULL ; break;
+  default: $wsroot_ url = '/' ; break;
 }
 */
 ?>
@@ -87,9 +86,9 @@ style="color: yellow;"   class="card" class="content
         //if (isset($this))  //try 
         if ( isset($pp1) and is_object($pp1) )
         {
-          echo '<br />'.'OS web server doc root $this->p p 1->wsroot_path=' 
+          echo '<br />'.'OS web server doc root $this->p p 1->wsroot_ path=' 
                . $pp1->wsroot_path  ;
-          echo '<br />'.'Same web server doc root as URL $this->p p1->wsroot_url=' . $this->getp('pp1')->wsroot_url  ;
+          echo '<br />'.'Same web server doc root as URL $this->p p1->wsroot_ url=' . $this->getp('pp1')->wsroot_url  ;
           echo '<br />'.'<b>Module property pallete like in Oracle Forms :<br />$this->p p 1</b>='; 
           print_r($pp1); //print_r($this->getp('pp1')); 
           //echo '<b>URI`s query string $this->u r i q</b>='; print_r($pp1->uriq); 
@@ -136,12 +135,12 @@ style="color: yellow;"   class="card" class="content
 
 <br /><br /><br />
 
-<script type="text/javascript" src="<?=$wsroot_url?>zinc/themes/bootstrap/js/jquery.min.js"></script>
-<script src="<?=$wsroot_url?>zinc/themes/bootstrap/js/popper.min.js"></script>
-<script type="text/javascript" src="<?=$wsroot_url?>zinc/themes/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?=$wsroot_url?>zinc/util.js"></script>
+<script type="text/javascript" src="<?=$shares_url?>themes/bootstrap/js/jquery.min.js"></script>
+<script src="<?=$shares_url?>themes/bootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="<?=$shares_url?>themes/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=$shares_url?>util.js"></script>
 
-<script src="<?=$wsroot_url?>zinc/exp_collapse.js" 
+<script src="<?=$shares_url?>exp_collapse.js" 
         language='JScript' type='text/javascript'>
 </script>
 

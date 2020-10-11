@@ -1,43 +1,38 @@
 <?php
-/**
-* ALTER TABLE `admins` ADD `email` VARCHAR(100) NULL AFTER `addedby`;
-* http://sspc2:8083/fwphp/glomodul/user/
-* J:\awww\www\fwphp\glomodul\user\index.php
-*        Instantiates Home_ ctr cls - router, dispatcher
-*
-* step 1 in Module  U S E R  T B L  C R U D on B12phpfw CRUD code skeleton. 
-* cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic), cs05. OUTPUT (view)
-* see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
-* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
-*/
-
 //m o d u l e = processing (behavior), u s e r = cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
-use B12phpfw\core\zinc\Autoload ;
+
+use B12phpfw\core\zinc\Autoload ; //only zinc is required - see $shares_ path
 
 //1. settings - properties - assign global variables to use them in any code part
-$module_towsroot = '../../../' ;  //to web server doc root or our doc root by ISP
-$app_dir_path = str_replace('\\','/', dirname(__DIR__) ) ; //eg glomodul
+$module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
+$app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
+//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
+$wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
+$shares_path = $wsroot_path.'/zinc/' ; //includes, globals, commons, reusables
 
-//MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
 $pp1 = (object)
 [   'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
                              // or $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
   //1.1
-  , 'module_towsroot'=>$module_towsroot
+  , 'wsroot_path'=>$wsroot_path
+  , 'shares_path'=>$shares_path
+
   //1.2
-  , 'module_version'=>'6.0.4.0 Users', 'vendor_namesp_prefix'=>'B12phpfw'
+  , 'module_version'=>'7.0.0.0 Users' //, 'vendor_namesp_prefix'=>'B12phpfw'
+
   //1.3 Dirs where are CLASS SCRIPTS TO INCLUDE AUTOMATICALLY (A u t o l o a d)
   , 'module_path_arr'=>[
-       str_replace('\\','/', __DIR__ ).'/' //=thismodule_cls_script_path
-      //dir of global clses for all sites :
-      , str_replace('\\','/', realpath($module_towsroot.'zinc')) .'/'
-      , $app_dir_path.'/blog/'
+    //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
+    $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
+    //dir of global clses for all sites :
+    ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'zinc')) .'/'
+    , $app_dir_path.'/blog/'
   ] 
 ] ;
 
 //2. global cls loads classes scripts automatically
-require($pp1->module_towsroot.'zinc/Autoload.php');
+require($pp1->shares_path .'Autoload.php');
 new Autoload($pp1);
 
 //3. process request from ibrowser & send response to ibrowser :
@@ -50,6 +45,19 @@ $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
 
 
 exit(0);
+
+
+/**
+* ALTER TABLE `admins` ADD `email` VARCHAR(100) NULL AFTER `addedby`;
+* http://sspc2:8083/fwphp/glomodul/user/
+* J:\awww\www\fwphp\glomodul\user\index.php
+*        Instantiates Home_ ctr cls - router, dispatcher
+*
+* step 1 in Module  U S E R  T B L  C R U D on B12phpfw CRUD code skeleton. 
+* cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic), cs05. OUTPUT (view)
+* see https://www.startutorial.com/articles/view/php-crud-tutorial-part-1 of 4 (Xsu Ding)
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\index.php
+*/
 
 // Db_ allsites.php may be named abstract class AbstractDataMapper.php
 //  - encapsulates AS MUCH MAPPING LOGIC AS POSSIBLE

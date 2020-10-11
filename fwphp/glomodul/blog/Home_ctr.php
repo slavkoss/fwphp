@@ -23,8 +23,8 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
 // May be named App, Router_dispatcher... :
 class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 {
-  // NO ATTRIBUTES - attr. are in parent c l a s ses.
-  // $pp1 is M O D U L E PROPERTIES PALLETE like in Ora.Forms
+  // NO ATTRIBUTES - attr. are in parent c l a s s (e s).
+  // $pp1 is M O D U L E PROPERTIES PALLETE like in Oracle Forms
 
   // *************** FUNCTION 2. S H A R E S  ***************
   public function __construct(object $pp1)
@@ -179,10 +179,9 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
   private function errmsg(object $pp1, string $myerrmsg)
   {
       // h d r  is  in  p a g e  which  i n c l u d e s  t h i s  p a g e
-      //require $pp1->wsroot_path . 'zinc//hdr.php'; //or __DIR__
       $title = 'MSG ERRPAGE';
-      require $pp1->module_path . '/error.php';
-      require $pp1->wsroot_path . 'zinc//ftr.php';
+      require $pp1->shares_path . 'error.php';
+      require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -219,15 +218,18 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     //As of PHP5, object variable doesn't contain object itself as value. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a copy of the identifier, which points to same object.
 
     $title = 'MSG HOME';
+    $rblk = 25;
+    //$ c ss1 = $shares_url .'themes/bootstrap/styles_blog.css'
+    $css2 = $pp1->shares_url . 'exp_collapse.css';
+
     $uriq = $pp1->uriq ;
 
-      $css1 = 'NO' ; 
-      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->shares_path . 'hdr.php';
 
       require("navbar.php");
       require $pp1->module_path . 'home.php';
 
-      require $pp1->wsroot_path . 'zinc/ftr.php';
+      require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -236,10 +238,10 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $this->Login_Confirm_SesUsrId();
 
     $title = 'MSG Dashboard';
-    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->shares_path . 'hdr.php';
     require_once("navbar_admin.php");
     require $pp1->module_path . 'dashboard.php';  
-    require $pp1->wsroot_path . 'zinc/ftr.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -247,9 +249,9 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
   private function kalendar(object $pp1) //private
   {
-    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->shares_path . 'hdr.php';
     require $pp1->module_path . '../post/read_msg_tbl_kalendar_flex.php';
-    require $pp1->wsroot_path . 'zinc/ftr.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -260,24 +262,24 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
   private function contact(object $pp1)
   {
-      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->shares_path . 'hdr.php';
       require $pp1->module_path . 'v_contact_us.php';
-      require $pp1->wsroot_path . 'zinc/ftr.php';
+      require $pp1->shares_path . 'ftr.php';
   }
 
   private function about(object $pp1)
   {
     //$param1 = ... ;
-    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->shares_path . 'hdr.php';
     require $pp1->module_path . 'v_about_us.php';
-    require $pp1->wsroot_path . 'zinc/ftr.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
   private function features(object $pp1)
   {
-    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->shares_path . 'hdr.php';
     require $pp1->module_path . 'v_features.php';
-    require $pp1->wsroot_path . 'zinc/ftr.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -295,10 +297,10 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     ?><!--script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user'?>');</script--><?php
     Config_allsites::Redirect_to( dirname($pp1->module_url) .'/user' );
                   //Warning: Cannot modify header information :
-                  //require $pp1->wsroot_path . 'zinc/hdr.php';
+                  //require $pp1->shares_path . 'hdr.php';
                   //require_once("navbar_admin.php");
              //require $pp1->module_path . '../user/admins.php';
-             //require $pp1->wsroot_path . 'zinc/ftr.php';
+             //require $pp1->shares_path . 'ftr.php';
   }
 
   //  user profile
@@ -311,12 +313,12 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $Parsedown = new \Parsedown();
 
     $title = 'Profile' ;
-    $css1 = 'styles.css' ;
+    //$css1 = 'styles.css' ;
 
-    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->shares_path . 'hdr.php';
     require_once("navbar.php");
     require $pp1->module_path . '../user/read_user.php';
-    require $pp1->wsroot_path . 'zinc/ftr.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -328,9 +330,9 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>''
                    ,'aaa'=>'bbb'
                 ] ) ; }
-      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->shares_path . 'hdr.php';
       require $pp1->module_path . '../user/login_frm.php';  
-      require $pp1->wsroot_path . 'zinc/ftr.php';
+      require $pp1->shares_path . 'ftr.php';
   }
 
   private function login(object $pp1) //private
@@ -350,10 +352,10 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
       $title = 'MSG u s r u p d ';
              // Why i n c  h d r  and  f t r  must be in  v i e w  script :
              //Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\navbar_admin.php:26) in J:\awww\www\zinc\Config_allsites.php on line 306
-      //require $pp1->wsroot_path . 'zinc/hdr.php';
+      //require $pp1->shares_path . 'hdr.php';
       //require_once("navbar_admin.php");
       require $pp1->module_path . '../user/upd_user_loggedin_frm.php';  
-      //require $pp1->wsroot_path . 'zinc/ftr.php';
+      //require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -368,10 +370,10 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $this->Login_Confirm_SesUsrId(); //$dm
 
     $title = 'MSG Categories' ;
-    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->shares_path . 'hdr.php';
     require_once("navbar_admin.php");
     require $pp1->module_path . '../post_category/categories.php';  
-    require $pp1->wsroot_path . 'zinc/ftr.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -386,10 +388,10 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $this->Login_Confirm_SesUsrId();
 
       $title = 'Add Post' ;
-      //require $pp1->wsroot_path . 'zinc/hdr.php';
+      //require $pp1->shares_path . 'hdr.php';
       //require_once("navbar_admin.php");
       require $pp1->module_path . '../post/cre_post_frm.php';  
-      //require $pp1->wsroot_path . 'zinc/ftr.php';
+      //require $pp1->shares_path . 'ftr.php';
   }
 
   //        p o s t s  v i e w  t b l
@@ -406,9 +408,9 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
     $title = 'Posts' ;
     require_once("navbar_admin.php");
-      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->shares_path . 'hdr.php';
       require $pp1->module_path . '../post/posts.php';  
-      require $pp1->wsroot_path . 'zinc/ftr.php';
+      require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -441,18 +443,18 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
       $title = 'Posts' ;
       require_once("navbar_admin.php");
-      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->shares_path . 'hdr.php';
          require $pp1->module_path . '../post/posts.php';  
-      require $pp1->wsroot_path . 'zinc/ftr.php';
+      require $pp1->shares_path . 'ftr.php';
 
     } else  {
         //http://dev1:8083/fwphp/glomodul/blog/?i/filter_postcateg/c/Movies/p/1
         //$ u r i q=stdClass Object( [i] => filter_postcateg  [c] => Movies  [p] => 1 )
         $title = 'MSG HOME';
-        require $pp1->wsroot_path . 'zinc/hdr.php'; // MODULE_PATH
+        require $pp1->shares_path . 'hdr.php'; // MODULE_PATH
         require_once("navbar.php");
            require $pp1->module_path . 'home.php';
-        require $pp1->wsroot_path . 'zinc/ftr.php';
+        require $pp1->shares_path . 'ftr.php';
     }
 
 
@@ -475,12 +477,12 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $title = 'Full Post Page' ;
     //$css1  = 'styles.css' ;
 
-    require_once $pp1->wsroot_path . 'zinc/hdr.php';
+    require_once $pp1->shares_path . 'hdr.php';
 
       require_once("navbar.php");
       require $pp1->module_path . '../post/read_post.php';  
 
-    require_once $pp1->wsroot_path . 'zinc/ftr.php';
+    require_once $pp1->shares_path . 'ftr.php';
   }
 
   //        e d i t  p o s t 
@@ -495,10 +497,10 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
-    //require $pp1->wsroot_path . 'zinc/hdr.php';
+    //require $pp1->shares_path . 'hdr.php';
     //require_once("navbar_admin.php");
     require $pp1->module_path . '../post/upd_post_frm.php';
-    //require $pp1->wsroot_path . 'zinc/ftr.php';
+    //require $pp1->shares_path . 'ftr.php';
   }
 
   //        e d i t  p o s t  m a r k d o w n
@@ -593,10 +595,10 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $this->Login_Confirm_SesUsrId();
 
     $title = 'Comments' ;
-    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->shares_path . 'hdr.php';
     require_once("navbar_admin.php");
     require $pp1->module_path . '../post_comment/comments.php';  
-    require $pp1->wsroot_path . 'zinc/ftr.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
   //         u p d  c o m m e n t _ s t a t

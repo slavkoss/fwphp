@@ -1,0 +1,176 @@
+J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ha_oumar\src\Config\_____SRC_app_usr_or_ext_prog_interacts_with_app_drives_domain.txt
+# DDD HA - Hexagonal architecture also called PORTS & ADAPTERS
+HA is a case of application of DDD (Domain Driven Design).  
+HA permits to SEPARATE app code (module code as Oracle Forms .fmb) in three parts :  
+1. App = application (module) code, drives domain. User or the external programs interact with app.
+2. D - domain = business logic code, drives infrastructure
+3. I - infrastructure code - dependencies that app needs to work.
+
+Hexagonal architecture, traits... by Oumar KONATE  
+https://github.com/oumarkonate/hexagonal-architecture  
+http://oumarkonate.com/  
+
+
+## Code flow :
+1. src/Controller/GalleryController.php
+2. src/Domain/GalleryManager.php
+3. src/Infrastructure/GalleryRepository.php
+4. src/Infrastructure/GalleryDriver.php
+
+
+## UML diagram
+of  Module (application) that solicits (request, beg)  external (to HA) API to READ & display images on a web page :  
+
+  Bold are elements in B12phpfw equivalent to images HA module elements
+
+### APPLICATION CODE
+APPLICATION IS CONTROLLER in dirs Config and Controllers  (**Home_ctr**)  
+
+App ctr is left side code by witch usr or external programs interact with web site app. In dirs Config and Controllers are :  
+   - code of graphical interface (assets in zinc dir, templates = view scripts in module dir),   
+   - routes (array in **Home_ctr**)  
+   - controllers (methods in Home_ctr), request, response, config (**Config_allsites**)...  
+   - everything that is not part of D and I  
+App is isolated from D and I and must be able to be STARTED BY USER, PROGRAM, OR CLI (BASH) SCRIPT.  
+
+
+**src/Controller/GalleryController.php** - App drives D (model) = ADAPTER  
+```
+| Adapters are external (to domain) classes that communicate with ports  
+|  
+|uses method of ctr above showGallery(): Response   
+|     to inject GalleryManagerInterface.php into GalleryController.php  
+|     by calling $imagesLists = $this->GalleryManager->getImagesGalleryContents(...  
+|     which implements this intf  
+**end application code**  
+```
+|  
+|  
+### DOMAIN CODE
+DOMAIN IS MODEL IS CENTER OF THIS ARCHITECTURE (IS BUSINESS LOGIC = B. RULES)  
+```
+| D contains in dir Domain :  
+|   - class GalleryManager.php - manages data from I   
+|     Implements interface GalleryManagerInterface.php
+|   - class GalleryDataFinderInterface.php that is implemented by I.   
+|     This interface permits D no to depend on I.  
+| D is totally isolated and CAN BE TESTED INDEPENDENTLY OF APP AND I.  
+| Domain drives infrastructure.  
+|
+|
+V
+```
+**src/Domain/GalleryManagerInterface.php** = PORT (interfaces on D side)
+```
+A
+ |
+ |
+ |implements
+ |........................................................
+ ...|        src/Domain/GalleryManager.php              |
+     |...................................................|
+     | + repository: GalleryDataFinderInterface          |
+     |...................................................|
+     | + getImagesGalleryContents(array $options): array |
+  ...|...................................................|
+  |
+  |uses method of ctr above showGallery(): Response 
+  |     injects GalleryManagerInterface.php into GalleryController.php
+  |     by calling $imagesLists = $this->GalleryManager->getImagesGalleryContents(...
+  |
+  V
+  ```
+  src/Domain/GalleryDataFinderInterface.php = PORT (interface on D side)
+  ```
+  A
+  |
+** end domain code **
+  |
+  |
+```
+### INFRASTRUCTURE CODE 
+INFRASTRUCTURE is code where are DEPENDENCIES THAT APP NEEDS to work
+```
+  | I contains in dir "Infrastructure" files to drive web site to work.
+  | Essential infrastr. is code that INTERACTS WITH EXTERNAL API - classes.
+  | I is completely isolated and CAN BE TESTED INDEPENDENTLY OF D AND APP.
+  | Advantage is that D has no knowledge of model data ee :
+  |     - data source (DB, web service, file system...) 
+  |     - how the data are retrieved.
+  |
+  |
+  |implements
+```
+**src/Infrastructure/GalleryRepository.php **= ADAPTER
+Adapters are external (to domain) classes that communicate with ports
+** end domain code **
+
+
+
+# Connect (interaction) Application - Domain
+To connect App and D, we INJECT INTO APP INTERFACE THAT CONSTITUTES D ENTRY POINT,
+ee we inject GalleryManagerInterface.php into GalleryController.php :  
+```php
+// src/Controller/GalleryController.php  
+public function showGallery(): Response  
+{
+    try {
+        $imagesLists = $this->GalleryManager->getImagesGalleryContents([
+            'page'  => $this->request->get('page') ?? 1,
+            'limit' => $this->request->get('size') ?? 10,
+        ]);
+    } catch (\Exception $exception) {
+        ...
+    }
+
+    ...
+}
+```
+
+# Connect (interaction) Domain - Infrastructure
+To connect D and I, I-side communication must implement D-side communication interface.  
+```php
+// src/Infrastructure/GalleryRepository.php
+<?php
+namespace App\Infrastructure;
+use App\Domain\GalleryDataFinderInterface;
+
+class GalleryRepository implements GalleryDataFinderInterface
+{
+    ...
+}
+```
+
+
+
+
+
+
+
+
+Alistair Cockburn 2005.  
+https://en.wikipedia.org/wiki/Alistair_Cockburn  
+http://alistair.cockburn.us/  
+
+HA is a case of application of DDD (Domain Driven Design). It allows :  
+1. to isolate the core business of app
+2. automatically test  core business behavior independently of everything else
+3. allows app to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
+
+In 2015 Alistair launched the Heart of Agile movement https://heartofagile.com/ which is presented as a response to the overly complex state of the Agile industry.
+
+To focus our energies on critical actions :
+```
+              Collaborate
+
+Improve                         Deliver
+
+              Reflect
+```
+Collaborate better starting ideas...  collaboration as a motor to drive reflection  
+Deliver small probes initially...  
+Reflect about what you've learned in your collaboration and from your deliveries.  
+Improve direction of your ideas, their technical implementation, and your internal processes.  
+
+
+

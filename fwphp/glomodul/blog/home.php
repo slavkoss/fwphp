@@ -20,8 +20,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     //exit(0) ;
                     echo '</pre>'; }
-$css1 = $pp1->wsroot_url . 'zinc/exp_collapse.css';
-$rblk = 25;
+
 
 //if (isset($uriq->p)) { //Fatal error: Cannot use isset() on the result of an expression
 if (isset($uriq->p) and null !== $uriq->p) {
@@ -294,8 +293,8 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
               <?php
             } 
 
-            $tmp_imgpath = str_replace('/',DS, $pp1->wsroot_path
-                 . 'zinc'.DS.'img'.DS.'img_big'.DS.self::escp(
+            $tmp_imgpath = str_replace('/',DS, $pp1->shares_path
+                 . 'img'.DS.'img_big'.DS.self::escp(
                  (null == $r->image ? 'NON EXISTENT' : $r->image)
             ) ) ;
             $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($r->image) ;

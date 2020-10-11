@@ -29,7 +29,6 @@ class Home_ctr extends Config_allsites
     */
     $pp1_module = [ 
       'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
-      ,'app_glomodul_dir_path' => str_replace('\\','/', dirname(__DIR__) ) .'/glomodul'
       //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
       //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
       ,'home_mnu'   => QS.'i/home/'
@@ -126,10 +125,9 @@ class Home_ctr extends Config_allsites
   {
     //        M A I N  S I T E  M N U
     $title = 'MNU';
-                 //require $pp1->wsroot_path . 'zinc/hdr.php'; //Warning: Cannot modify header information
-        //require("h_top_toolbar.php"); //navbar_admin.php
+    $css1 = $pp1->shares_url .'themes/bootstrap/styles_blog.css';
     require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
-        //require $pp1->wsroot_path . 'zinc/ftr.php';
+
   }
 
 
@@ -158,24 +156,7 @@ class Home_ctr extends Config_allsites
   {
     // http://sspc2:8083/phpmanual/index.html
     // http://sspc2:8083/fwphp/www/shell_exec.php?p=J:\awww\www\0_phpmanual.chm
-    $this->Redirect_to( $pp1->wsroot_url .'code_snippets.html' ) ;
-
-    /* <div class="col-md-3">
-      <a 
-      href="shell_exec.php?p=<=realpath($pp1->wsroot_path.'../').DS>0_phpmanual.chm"
-         class="btn btn-primary btn-block" target="_blank"
-      >PHP manual</a>
-    </div> */
-
-    //wants download : $this->Redirect_to( $pp1->wsroot_url .'0_phpmanual.chm' ) ;
-    
-    // NOT WORKING: both realpath($pp1->wsroot_path) and wsroot_url
-    //embed src="files/Brochure.pdf" type="application/pdf"
-    //><embed src="<=realpath($pp1->wsroot_path). DS .'0_phpmanual.chm'>" type="application/mshelp" width="100%" height="600px" /><php
-    
-    // welcome.pdf - ok, phpmanual.chm  NOT WORKING
-    //$this->Redirect_to( $pp1->module_url 
-    //  .'shell_exec.php?p='.realpath($wsroot_path.'../../') .DS.'phpmanual.chm' ) ;
+    $this->Redirect_to( $pp1->wsroot_url .'code_snippets.html' ) ; //see **1
   }
 
 
@@ -237,9 +218,9 @@ class Home_ctr extends Config_allsites
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>''
                    ,'aaa'=>'bbb'
                 ] ) ; }
-      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->shares_path . 'hdr.php';
       require $pp1->module_path . '../user/login_frm.php';  
-      require $pp1->wsroot_path . 'zinc/ftr.php';
+      require $pp1->shares_path . 'ftr.php';
   }
 
   private function login(object $pp1) //private
@@ -272,3 +253,20 @@ J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Home_ctr.php
 *    (no need for view classes ?) or calls some method or url calls other module i ndex.php
 */
 
+//**1
+    /* <div class="col-md-3">
+      <a 
+      href="shell_exec.php?p=<=realpath($pp1->wsroot_ path.'../').DS>0_phpmanual.chm"
+         class="btn btn-primary btn-block" target="_blank"
+      >PHP manual</a>
+    </div> */
+
+    //wants download : $this->Redirect_to( $pp1->wsroot_url .'0_phpmanual.chm' ) ;
+    
+    // NOT WORKING: both realpath($pp1->wsroot_ path) and wsroot_url
+    //embed src="files/Brochure.pdf" type="application/pdf"
+    //><embed src="<=realpath($pp1->wsroot_ path). DS .'0_phpmanual.chm'>" type="application/mshelp" width="100%" height="600px" /><php
+    
+    // welcome.pdf - ok, phpmanual.chm  NOT WORKING
+    //$this->Redirect_to( $pp1->module_url 
+    //  .'shell_exec.php?p='.realpath($wsroot_ path.'../../') .DS.'phpmanual.chm' ) ;

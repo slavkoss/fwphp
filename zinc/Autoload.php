@@ -97,7 +97,7 @@ class Autoload
   private function loader($nscls) //$ n s c l s is namespaced  c l a s s  name
   {
     $DS = DIRECTORY_SEPARATOR ;
-    $vendornsp = $this->pp1->vendor_namesp_prefix ;
+    //$vendornsp = $this->pp1->vendor_namesp_prefix ;
     $nscls_linfmt = str_replace('\\',$DS, $nscls) ; //ON LINUX
     $clsname = basename($nscls_linfmt) ;
 

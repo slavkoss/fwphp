@@ -130,7 +130,7 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
             <!--   -->
            <a id="erase_row" class="btn btn-danger"
               onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
-              if (yes == '1') { location.href= '<?=$pp1->del_row?>t/posts/id/<?=$r->id?>/'; }"
+              if (yes == '1') { location.href= '<?=$pp1->ldd?>t/posts/id/<?=$r->id?>/'; }"
            ><?=$r->id?></a>
           </td>
           <!--td>
@@ -138,7 +138,7 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
           </td-->
           </tr>
           <?php 
-        } endwhile; //c_, R_, U_, D_
+        } endwhile;
         ?>  <!--  Ending of  W h i l e  l o o p -->
         </tbody>
 

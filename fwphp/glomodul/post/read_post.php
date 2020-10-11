@@ -23,7 +23,7 @@ if(isset($_POST["Submit"])){
 *  ****************************************************** --> 
 */
 // $title = 'Full Post Page' ;
- //require_once($pp1->wsroot_path.'zinc/hdr.php');
+ //require_once($pp1->shares_path.'hdr.php');
 // require_once("navbar.php");
 ?>
 <!-- HEADER -->
@@ -96,8 +96,8 @@ if(isset($_POST["Submit"])){
             <?php
           } 
 
-          $tmp_imgpath = str_replace('/',DS, $pp1->wsroot_path)
-               . 'zinc'.DS.'img'.DS.'img_big'.DS.self::escp($r->image) ;
+          $tmp_imgpath = str_replace('/',DS, $pp1->shares_path)
+               . 'img'.DS.'img_big'.DS.self::escp($r->image) ;
           $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($r->image) ;
                         if ('') {self::jsmsg( [ //b asename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '

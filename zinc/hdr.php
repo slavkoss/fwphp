@@ -1,19 +1,10 @@
 <?php
-if ( isset($pp1) and is_object($pp1) ) { 
-  if ( isset($pp1->wsroot_url) and null !== $pp1->wsroot_url ) { $wsroot_url=$pp1->wsroot_url; }
-  else { $wsroot_url = '/' ; } ;
+$shares_url = $pp1->shares_url ;
+/*if ( isset($pp1) and is_object($pp1) ) { 
+  if ( isset($pp1->wsroot_ url) and null !== $pp1->wsroot_ url ) { $wsroot_ url=$pp1->wsroot_ url; }
+  else { $wsroot_ url = '/' ; } ;
 } 
-
-/*
-switch (true) {
-  //case isset($wsroot_url) :  NULL ; break;
-  //case isset($p p1->wsroot_ url) : $wsroot_ url = $p p1->wsroot_ url ; break;
-  case isset($this->getp('pp1')->wsroot_url) and null !== $this->getp('pp1')->wsroot_url :
-     $wsroot_url=$this->getp('pp1')->wsroot_url; break;
-  default: $wsroot_url = '/' ; break;
-}
 */
-
 ?>
 <!DOCTYPE html>
 <html lang="hr">
@@ -23,15 +14,13 @@ switch (true) {
   <title><?=isset($title)?$title:'MSG'?></title>
   
   <!-- 4.3.1 -->
-  <!--link rel="stylesheet" href="<=$wsroot_url>zinc/themes/bootstrap/css/bootstrap.min.css"-->
+  <!--link rel="stylesheet" href="<=$wsroot_ url>zinc/themes/bootstrap/css/bootstrap.min.css"-->
   <?php
   if ('1'): { // '0' for testing to see own  d e b u g  m s g s
-    $css = $wsroot_url .'zinc/themes/bootstrap/css/bootstrap.min.css' ;
+    $css = $shares_url .'themes/bootstrap/css/bootstrap.min.css' ;
     echo '<link rel="stylesheet" href="'.$css.'">';
 
-    //if (!isset($css1)) $css1 = 'styles.css' ;
-    if (!isset($css1)) $css1 = $wsroot_url .'zinc/themes/bootstrap/styles_blog.css' ;
-    if (isset($css1) and !($css1 === 'NO')) echo '<link rel="stylesheet" href="'.$css1.'">';
+    if (isset($css1)) echo '<link rel="stylesheet" href="'.$css1.'">'; //and !($c ss1==='NO')
     
     if (isset($css2)) echo '<link rel="stylesheet" href="'.$css2.'">';
     if (isset($css3)) echo '<link rel="stylesheet" href="'.$css3.'">';

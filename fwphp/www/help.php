@@ -23,8 +23,7 @@
     <div class="alert alert-success">
 
 <?php
-//require_ once($this->pp1->wsroot_path.'zinc/ftr.php');   class="alert alert-success"
-//text-decoration: none;   background:black;
+//class="alert alert-success" text-decoration: none;   background:black;
   
 if ('') //if ($autoload_arr['dbg']) 
 {
@@ -274,7 +273,7 @@ if ('') //if ($autoload_arr['dbg'])
           <!-- title="Learning examples"-->
               My tests &amp; Demos
         
-        <a href="/<?=$app_glomodul_dir_path?>lsweb/lsweb.php/?cmd=' . $wsroot_path.$path_rel_help?>"
+        <a href="/<?=$app_glomodul_dir_path?>lsweb/lsweb.php/?cmd=' . $path_rel_help?>"
            target="_blank">ALL HELP SW (lsweb)</a>
         &nbsp; <a href="/<?=$path_rel_examples?>" target="_blank" title="Help dir">Help dir</a>
         &nbsp; 

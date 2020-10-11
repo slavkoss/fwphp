@@ -92,11 +92,8 @@ class Home_ctr extends Config_allsites
   {
     //        M A I N  S I T E  M N U
     $title = 'MNU';
-                 //require $pp1->wsroot_path . 'zinc/hdr.php'; //Warning: Cannot modify header information
-        //require("h_top_toolbar.php"); //navbar_admin.php
     $pp1->readme_path = str_replace('/','\\',$pp1->wsroot_path) . 'readme.md';
     require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
-        //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
 

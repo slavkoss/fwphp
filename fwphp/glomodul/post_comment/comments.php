@@ -92,7 +92,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
             <a id="erase_row" class="btn btn-danger"
                title = "Delete row id <?=$r->id?>"
                onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
-                if (yes == '1') { location.href= '<?=$pp1->del_row?>t/comments/id/<?=$r->id?>/'; }"
+                if (yes == '1') { location.href= '<?=$pp1->ldd?>t/comments/id/<?=$r->id?>/'; }"
             ><?=$r->id?></a>
           </td>
           <!-- See Post -->

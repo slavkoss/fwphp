@@ -27,7 +27,7 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
     $rr = Tbl_crud_admin::rr_byid( $AdminId, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
 
-      require $pp1->wsroot_path . 'zinc/hdr.php';
+      require $pp1->shares_path . 'hdr.php';
       require_once("navbar_admin.php");
 ?>
 <!-- HEADER -->
@@ -149,4 +149,4 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 </section><!-- End Main Area -->
 
 <?php
-require $pp1->wsroot_path . 'zinc/ftr.php';
+require $pp1->shares_path . 'ftr.php';

@@ -171,5 +171,5 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
  -->
 
 
-<?php //require_once($this->p p1->wsroot_path.'zinc/ftr.php'); ?>
+<?php //require_once($this->p p1->shares_path.'ftr.php'); ?>
 

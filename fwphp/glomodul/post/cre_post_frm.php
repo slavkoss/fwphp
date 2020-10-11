@@ -43,7 +43,7 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
 
 
 
-require $pp1->wsroot_path . 'zinc/hdr.php';
+require $pp1->shares_path . 'hdr.php';
 require_once("navbar_admin.php");
 //        2. G U I  to get user action
 ?>
@@ -158,4 +158,4 @@ require_once("navbar_admin.php");
 <!-- End Main Area -->
 
 
-<?php require $pp1->wsroot_path . 'zinc/ftr.php'; ?>
+<?php require $pp1->shares_path . 'ftr.php'; ?>

@@ -26,7 +26,7 @@ $path_rel_examples = $app_glomodul_dir_path .'/z_examples/' ;
 
 
 
-include $wsroot_path . 'zinc/hdr.php';
+include $pp1->shares_path . 'hdr.php';
    include 'h_top_toolbar.php';
    include 'h_right_side.php';  //<!-- HOME SECTION -->
 
@@ -34,7 +34,7 @@ include $wsroot_path . 'zinc/hdr.php';
    include 'h_content2.php';  //<!-- eg CREATE -->
    include 'h_content3.php';  //<!-- eg SHARE -->
 
-include $wsroot_path . 'zinc/ftr.php';
+include $pp1->shares_path . 'ftr.php';
                         if ('') {echo '<h2> lin='. __LINE__ .' *** '.__FILE__ .' SAYS *** šđčćž</h2>';}
 
 //include 'help.php'; 

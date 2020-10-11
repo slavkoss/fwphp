@@ -14,7 +14,7 @@ if(isset($_POST["Submit"]))
 } //E n d  of Submit Button If-Condition
 
 
-    require $pp1->wsroot_path . 'zinc/hdr.php';
+    require $pp1->shares_path . 'hdr.php';
     require_once("navbar_admin.php");
 
 //               2. R E A D  D B T B L R O W S
@@ -172,4 +172,4 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
 
 -->
 
-<?php require $pp1->wsroot_path . 'zinc/ftr.php'; ?>
+<?php require $pp1->shares_path . 'ftr.php'; ?>
