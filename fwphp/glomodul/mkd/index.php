@@ -27,7 +27,7 @@ $pp1 = (object)
   //1.2
   , 'module_version'=>'7.0.4.0 Mkd' //, 'vendor_namesp_prefix'=>'B12phpfw'
 
-  //1.3 F o r  A u t o l o a d - dirnames we  i n c  clsscripts from
+  //1.3 Dirs paths where are class scripts to autoload. Dir name is last in namespace and use. 
   , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
        $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
       //dir of global clses for all sites :

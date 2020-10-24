@@ -47,13 +47,12 @@ $shows_path = str_replace('/',$ds
 // $_SERVER[PHP_SELF] je index.php
 ?>
 <p class="lead">
- Kod skripte: <strong><?=$file?></strong> šđčćž 
+ Code of script : <strong><?=$file?></strong> šđčćž 
  <br />
- Pozvana iz  
+ Displayed by PHP script <?=__FILE__?> called from 
  <a href="<?=$_SERVER['PHP_SELF']?>"?file=<?=$file?>&line=<?=$line?>&prev=10000&next=10000><?=$shows_path?></a>
 
- <br /><br />
- Skripta <?=__FILE__?> prikazuje kod (za vlastiti kod ne slati joj param. "file=...", ne inkludira se view_fn.inc)
+ <br />
 
 <?php
 //.urlencode($file) <pre>

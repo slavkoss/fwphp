@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure;
 
-use GuzzleHttp\Exception\GuzzleException;
+//use GuzzleHttp\Exception\GuzzleException;
 
-interface ApiClientInterface
+interface z_ApiClientInterface
 {
     /**
      * @param string $url

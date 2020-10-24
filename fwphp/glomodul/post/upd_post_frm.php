@@ -47,15 +47,15 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
        echo $this->SuccessMessage();
 
        // returns object :
-       $rr = Tbl_crud_post::rr_byid( $IdFromURL, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+       $rpost_toedit = Tbl_crud_post::rr_byid( $IdFromURL, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+      switch (Db_allsites::getdbi()) { case 'oracle' : $rpost_toedit = self::rlows($rpost_toedit) ; break; default: break; }
 
-      switch (Db_allsites::getdbi()) { case 'oracle' : $rr = self::rlows($rr) ; break; default: break; }
-         $TitleToBeUpdated    = $rr->title;
-         $CategoryToBeUpdated = $rr->category;
-         $ImageToBeUpdated    = $rr->image;
-         $PostToBeUpdated     = $rr->post;
-         $summaryToBeUpdated  = $rr->summary;
-         $img_descToBeUpdated = $rr->img_desc;
+         $TitleToBeUpdated    = $rpost_toedit->title;
+         $CategoryToBeUpdated = $rpost_toedit->category;
+         $ImageToBeUpdated    = $rpost_toedit->image;
+         $PostToBeUpdated     = $rpost_toedit->post;
+         $summaryToBeUpdated  = $rpost_toedit->summary;
+         $img_descToBeUpdated = $rpost_toedit->img_desc;
        ?>
       <form class="" action="<?=$pp1->editpost?>id/<?=$IdFromURL?>" 
             method="post" enctype="multipart/form-data">
@@ -78,26 +78,21 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
               <!-- LOV  C a t e g o r i e s  from  D B -->
               <select class="form-control" id="CategoryTitle"  name="Category">
                  <?php 
-            //while ($rr = $this->rrnext($c_r)):
-            while ($rr= Tbl_crud_category::rrnext($cursor_LOVcategory) and isset($rr->id)):
+              while ( $rx = Db_allsites::rrnext( $cursor_LOVcategory
+                , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
             {
-              switch (Db_allsites::getdbi())
-              {
-                case 'oracle' : $rr = self::rlows($rr) ; break; 
-                default: break;
-              }
               ?>
               <option
                 <?php
-                   if ($rr->title == $CategoryToBeUpdated)
+                   if ($rx->title == $CategoryToBeUpdated)
                     { echo ' selected="selected"';
                       //$found = true;
                     }
                 ?>
               
-              > <?=$rr->title?></option>
+              > <?=$rx->title?></option>
             <?php
-            } endwhile; //c_, R_, U_, D_
+            } endwhile;
             ?>
               </select>
             </div>

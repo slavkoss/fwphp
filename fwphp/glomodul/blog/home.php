@@ -4,12 +4,7 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 use B12phpfw\core\zinc\Db_allsites ;
 
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
-//use PDO; //Warning: The use statement with non-compound name 'PDO' has no effect 
-    //App\Library\DatabaseObjectTrait::openConnection(basename(__FILE__));
-    //$this->dbobj = Db_ allsites::get_or_new_dball(basename(__FILE__));
-//$Tbl_crud_post = new Tbl_crud_post ;
-//$Tbl_crud_post_comment = new Tbl_crud_post_comment ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
@@ -21,8 +16,6 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
                     //exit(0) ;
                     echo '</pre>'; }
 
-
-//if (isset($uriq->p)) { //Fatal error: Cannot use isset() on the result of an expression
 if (isset($uriq->p) and null !== $uriq->p) {
   $_SESSION['filter_posts']['pgordno_from_url']  = $uriq->p ;
 } else {
@@ -79,8 +72,7 @@ if( $category_from_url ) {
   $qrywhere .= ' and category = :category_from_url' ;
   $binds[]  =['placeh'=>':category_from_url', 'valph'=>$category_from_url, 'tip'=>'str'];
 }
-$cursor_rowcnt =  Tbl_crud_post::rr( $sellst='COUNT(*) COUNT_ROWS'
-  , $qrywhere, $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
@@ -89,18 +81,18 @@ $cursor_rowcnt =  Tbl_crud_post::rr( $sellst='COUNT(*) COUNT_ROWS'
                       echo '<br />$binds='; print_r($binds) ;
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     echo '</pre>'; }
-$rcnt = Tbl_crud_post::rrnext($cursor_rowcnt)->COUNT_ROWS ;
+$rcnt_filtered_posts = Tbl_crud_post::rrcount( //$sellst='COUNT(*) COUNT_ROWS'
+   $qrywhere, $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-
-
-$pgn_links = self::get_pgnnav($rcnt, '/i/home/', $uriq, $rblk);
+$pgn_links = self::get_pgnnav($rcnt_filtered_posts, '/i/home/', $uriq, $rblk);
 $pgnnavbar        = $pgn_links['navbar'];
 $pgordno_from_url = $pgn_links['pgordno_from_url'];
 $first_rinblock   = $pgn_links['first_rinblock'];
 $last_rinblock    = $pgn_links['last_rinblock'];
 
 if( $pgordno_from_url ) {
-  switch (Db_allsites::getdbi())
+  $dbi = Db_allsites::getdbi() ;
+  switch ($dbi)
   {
     case 'oracle' : 
       $qrywhere .= " ORDER BY datetime desc" ; //LIMIT :first_rinblock, :last_rinblock
@@ -114,7 +106,7 @@ if( $pgordno_from_url ) {
     break;
     default: 
       echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-                .'D B I '. Db_allsites::getdbi() .' does not exist' . '</h3>';
+                .'D B I '. $dbi .' does not exist' . '</h3>';
       break;
     //default: Config_allsites::Redirect_to($pp1->filter_page) ; break;
   }
@@ -169,22 +161,15 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
       echo $pgn_links['navbar']; //P G N  L I N K S
 
       $ordno = 0 ;
-      //r e a d  r o w  n e x t :
-      while ( $r = Tbl_crud_post::rrnext($cursor_posts) and isset($r->id) ): 
+      // isset($rx->id)   Tbl_crud_post::...
+      while ( $rx = Db_allsites::rrnext( $cursor_posts
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
       { 
-        ++$ordno ; //all row fld names lowercase
-            switch (Db_allsites::getdbi()) 
-            { 
-              case 'oracle' : $r = self::rlows($r) ; break; 
-              default: 
-                //echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-                //    .'D B I '. Db_allsites::getdbi() .' does not exist' . '</h3>';
-              break; 
-            } //default: Config_allsites::Redirect_to($pp1->filter_page) ; break;
+        ++$ordno ;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
-                      echo '$r='; print_r($r) ;
+                      echo '$rx='; print_r($rx) ;
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     echo '</pre>'; }
         ?>
@@ -202,29 +187,31 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
                   and private function filter_postcateg(object $pp1) 
             -->
             <div class="card-body">Category 
-                <a href="<?=$pp1->filter_postcateg?><?=self::escp($r->category)?>/p/1">
-                 <?=self::escp($r->category)?> </a>
+                <a href="<?=$pp1->filter_postcateg?><?=self::escp($rx->category)?>/p/1">
+                 <?=self::escp($rx->category)?> </a>
 
               Written by <span class="text-dark"> 
-              <a href="<?=$pp1->read_user?>username/<?=self::escp($r->author)?>">
-                  <?=self::escp($r->author)?></a>
+              <a href="<?=$pp1->read_user?>username/<?=self::escp($rx->author)?>">
+                  <?=self::escp($rx->author)?></a>
                 </span>
 
-              On <a href="<?=$pp1->kalendar?>mm/<?=self::escp(substr($r->datetime,0,7))?>"
-                 title="Show all posts in post month"><?=self::escp($r->datetime)?></a>
+              On <a href="<?=$pp1->kalendar?>mm/<?=self::escp(substr($rx->datetime,0,7))?>"
+                 title="Show all posts in post month"><?=self::escp($rx->datetime)?></a>
 
 
-              <span style="float:right;" class="badge badge-dark text-light">Comments:
                 <?php
-                $cursor_rowcnt = Tbl_crud_comment::rr($sellst='COUNT(*) COUNT_ROWS'
-                  ,$qrywhere="post_id='$r->id' AND status='ON'"
-                  ,$binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
-                ) ;
-                $rcnt = Tbl_crud_comment::rrnext($cursor_rowcnt)->COUNT_ROWS ;
-                echo $rcnt ; //->COUNT_ROWS ?>
+                $rcnt_post_comments = Tbl_crud_post_comment::rrcount( 
+                    $qrywhere="post_id=:id AND status=:status"
+                  , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
+                           , ['placeh'=>':status', 'valph'=>'ON', 'tip'=>'str']
+                  ]
+                  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+                ?>
+              <span style="float:right;" class="badge badge-dark text-light">
+                Comments: <?=$rcnt_post_comments?>
               </span>
 
-              <br />Click txt name below to see summary.
+              <!--br />Click txt name below to see summary.-->
             </div><!-- e n d  2. a r t i c l e  c a t e g o r y -->
 
 
@@ -233,7 +220,6 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
 
         <!-- *********exp_collapse Open/close summary, img...********** -->
         <button type="button" class="collapsible">
-
             <!-- 1. a r t i c l e  O S  f i l e  n a m e Read OS txt article &rang;&rang;
                 h3 class="xxcard-title"
             -->
@@ -243,16 +229,14 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
                   . str_replace('!', "&nbsp;", 
                       str_pad( (string)($first_rinblock + $ordno - 1), 6, '!', STR_PAD_LEFT)
                     ) .'. '
-                  . self::escp($r->title); ?>
+                  . self::escp($rx->title) . ' (click: summary)'; ?>
 
-            <a href="<?=$pp1->read_post?>id/<?=$r->id?>" style="float:right;">
+            <a href="<?=$pp1->read_post?>id/<?=$rx->id?>" style="float:right;">
               <span class="btn btn-info">More</span>
             </a>
             </h5><!-- e n d  1. a r t i c l e  O S  f i l e  n a m e -->
 
         </button><!-- type="button" class="collapsible" -->
-
-
         <!-- *********exp_collapse Open/close summary, img...********** -->
         <div class="content" style="display:none;" >
 
@@ -260,13 +244,13 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
             <div class="card-body">
             <h4>
               <?php
-              if ($r->summary) {
+              if ($rx->summary) {
 
                        echo '<h5>Article summary</h5>' ;
 
-                //echo nl2br(self::escp($r->summary));
+                //echo nl2br(self::escp($rx->summary));
                 echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
-                      nl2br(self::escp($r->summary))
+                      nl2br(self::escp($rx->summary))
                    ));
               } else {
                 //Db_allsites::readmkdpost($pp1, '','only_help'); //means  i n c  here html 
@@ -281,12 +265,12 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
             <?php
             //J://awww//www//fwphp//glomodul//blog//Uploads//mvc_M_V_data_flow.jpg
             $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp(
-               (null == $r->image ? 'NON EXISTENT' : $r->image)
+               (null == $rx->image ? 'NON EXISTENT' : $rx->image)
             ));
-            $tmp_imgurlrel = 'Uploads/'.self::escp($r->image) ;
+            $tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
             if (file_exists($tmp_imgpath)) { ?>
               <img src="<?=$tmp_imgurlrel?>" class="img-fluid card-img-top"
-                   title = "<?='$r->image='. $r->image .', $tmp_imgpath='
+                   title = "<?='$rx->image='. $rx->image .', $tmp_imgpath='
                                .$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
                    style="max-height:450px;" 
                    alt="" />
@@ -295,16 +279,16 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
 
             $tmp_imgpath = str_replace('/',DS, $pp1->shares_path
                  . 'img'.DS.'img_big'.DS.self::escp(
-                 (null == $r->image ? 'NON EXISTENT' : $r->image)
+                 (null == $rx->image ? 'NON EXISTENT' : $rx->image)
             ) ) ;
-            $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($r->image) ;
+            $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($rx->image) ;
                           if ('') {self::jsmsg( [ //b asename(__FILE__).
                              __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
                              ,'$tmp_imgurlrel'=>$tmp_imgurlrel
                              ] ) ; }
-            if ($r->image and file_exists($tmp_imgpath)) { ?>
+            if ($rx->image and file_exists($tmp_imgpath)) { ?>
                 <img src="<?=$tmp_imgurlrel?>"
-                     title = "<?='$r->image='. $r->image 
+                     title = "<?='$rx->image='. $rx->image 
                      .', $tmp_imgpath='.$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
                      class="img-fluid card-img-top"
                      style="max-height:450px;" 
@@ -318,14 +302,14 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
 
                          echo '<h5>Image description</h5>' ;
 
-                 $tmptxt = self::escp($r->img_desc) ; //$tmptxt = $r->img_desc ;
-                 //$lnklabel = substr(strstr(self::escp($r->img_desc), '{{lnktxt}}'), 10,9) ;
+                 $tmptxt = self::escp($rx->img_desc) ; //$tmptxt = $rx->img_desc ;
+                 //$lnklabel = substr(strstr(self::escp($rx->img_desc), '{{lnktxt}}'), 10,9) ;
                  echo 
                  str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
                  //str_replace('{{href}}','<a href="', str_replace('{{/href}}','">'.$lnklabel.'</a>',
                         nl2br($tmptxt)
                  ));
-                       //echo '<br />('.__DIR__ .DS.'Uploads'.DS.$r->image.')' ; ?>
+                       //echo '<br />('.__DIR__ .DS.'Uploads'.DS.$rx->image.')' ; ?>
               </p>
             </div><!-- e n d  5. i m a g e  d e s c r i p t i on -->
 

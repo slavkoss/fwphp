@@ -72,23 +72,23 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
 
     //mysql substr begins with 1 (is php +1)
     //$qrywhere = "datetime LIKE :yyyymm and SUBSTRING(datetime,9,2) = :dkal" ;
-    $cursor = $this->rr("SELECT * FROM posts WHERE $tmp_datetime LIKE :yyyymm and SUBSTR($tmp_datetime,9,2) = :dkal ORDER BY $tmp_datetime desc"
+    $cursor_filtered_posts = $this->rr("SELECT * FROM posts WHERE $tmp_datetime LIKE :yyyymm and SUBSTR($tmp_datetime,9,2) = :dkal ORDER BY $tmp_datetime desc"
       , [
           ['placeh'=>':yyyymm', 'valph'=>'%'.'2019-10'.'%', 'tip'=>'str']
          ,['placeh'=>':dkal',   'valph'=>$dkal, 'tip'=>'str']
         ]
     , __FILE__ .' '.', ln '. __LINE__ ) ;
-    if (!($r = $this->rrnext($cursor))) { //empty  d a y square (no  p o s t s)
-        switch (Db_allsites::getdbi())
-        {
-          case 'oracle' : $r = self::rlows($r) ; break;
-          default: break;
-        }
+
+    //           EMPTY  D A Y SQUARE (NO  P O S T S)
+    //if (!($rx = $this->rrnext($cursor_filtered_posts)))
+    if ( $rx = Db_allsites::rrnext( $cursor_filtered_posts
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and !$rx->rexists )
+    { 
                     if ('') {self::jsmsg( [ //b asename(__FILE__).
                        __METHOD__ .', line '. __LINE__ .' SAYS'=>' : '
-                       ,'$r'=>json_encode($r)
+                       ,'$rx'=>json_encode($rx)
                     ] ) ; }
-                                    //$r=[
+                                    //$rx=[
                                     //{/ datetime/ :false
                                     //   ,/ 0/ :false
                                     //} ]
@@ -98,8 +98,8 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
     {
       //Created date from strtotime("2019-10-09 12:00:00") is 2019-10-09 12:00:00
       $today_mmabr = substr(date("l"),0,3);
-            //try { $post_date = n ew \DateTime($r->$tmp_datetime);
-            try { $post_date = new \DateTime($r->datetime);
+            //try { $post_date = n ew \DateTime($rx->$tmp_datetime);
+            try { $post_date = new \DateTime($rx->datetime);
             } catch (Exception $e) { echo $e->getMessage(); exit(1); }
             $post_ddabr = substr($post_date->format('l'),0,3);
       $rows_sameday_str .= "Posts: $post_ddabr<br />" ; //f o r  testing
@@ -107,7 +107,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
       // **********************************************************
       //   D a y  h e a d e r  -  1st r o w  in  d a y
       // **********************************************************
-      $dtbl = substr($r->datetime,8,2) ;
+      $dtbl = substr($rx->datetime,8,2) ;
 
       if( $iimonthday !== (int)$dtbl ) {
          $rows_sameday_str .= ' $dtbl='. $dtbl .' notMMM '.$post_ddabr."<br />" ; //f o r  testing
@@ -122,22 +122,24 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
         // **********************************************************
         // ~~~~~~~~~~~~ STRING OF ROWS WITHIN SAME DAY :
         //for (  ; //expr1 executed once unconditionally at loop begin.
-        //      substr($r->datetime,8,2) == $dtbl ; //expr2 is evaluated at iteration begin
-        //      $r = $this->f etchNext() ) : //, ++$iimonthday expr3 is evaluated at iteration end
-        while ( substr($r->datetime,8,2) == $dtbl ): //eg 2019-10-07 from 0
+        //      substr($rx->datetime,8,2) == $dtbl ; //expr2 is evaluated at iteration begin
+        //      $rx = $this->f etchNext() ) : //, ++$iimonthday expr3 is evaluated at iteration end
+        while ( substr($rx->datetime,8,2) == $dtbl ): //eg 2019-10-07 from 0
         {
-            $link="<a href=\"{$pp1->read_post}id/$r->id\">{$r->title}</a>"
-                      .' '. substr($r->datetime,11,5)
-              //.', (int)substr($r->datetime,8,2)='.(int)substr($r->datetime,8,2)
+            $link="<a href=\"{$pp1->read_post}id/$rx->id\">{$rx->title}</a>"
+                      .' '. substr($rx->datetime,11,5)
+              //.', (int)substr($rx->datetime,8,2)='.(int)substr($rx->datetime,8,2)
               //. ', today=$iitoday='.$iitoday
             ;
-            //strtotime($r->datetime); // = string to date eg '2019-10-03 15:16:17'
-            try { $post_date = new \DateTime($r->datetime);
+            //strtotime($rx->datetime); // = string to date eg '2019-10-03 15:16:17'
+            try { $post_date = new \DateTime($rx->datetime);
             } catch (Exception $e) { echo $e->getMessage(); exit(1); }
             $post_ddabr = substr($post_date->format('l'),0,3);
             $rows_sameday_str .= " $link "; //DDD$post_ddabr \n\t\t\t
 
-            if ( !($r = $this->rrnext($cursor)) ) {break;}
+            //if ( !($rx = $this->rrnext($cursor_filtered_posts)) ) {break;}
+            if ( $rx = Db_allsites::rrnext( $cursor_filtered_posts
+              , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and !$rx->rexists )
         } endwhile; //all same day r o w s
 
         //echo $listart . $rows_sameday_str . $liend.'<br />'; // . $date  . $wrap
@@ -268,17 +270,17 @@ l (lowercase 'L') = day of the week eg Tuesday
             //if ( isset($e vents[$d ayinm_ordno]) )
             //{
                 //foreach ( $e vents[$d ayinm_ordno] as $event ) {
-               while ($r = $this->f etchNext())
+               while ($rx = $this->f etchNext())
                {
                   //echo $iimonthday.' ';
                   // ~~~~~~~~~~~~ ROWS WITHIN SAME DAY :
-                  //if($iimonthday == (int)substr($r->datetime,8,2)) // 2019.10.07
+                  //if($iimonthday == (int)substr($rx->datetime,8,2)) // 2019.10.07
                   {
-                   $link='<a href=?loadscript/read/event_ id/'.$r->id.'">'
-                      . $r->title
+                   $link='<a href=?loadscript/read/event_ id/'.$rx->id.'">'
+                      . $rx->title
                       . '</a>'
-                      .' '.$r->datetime
-                      .', (int)substr($r->datetime,8,2)='.(int)substr($r->datetime,8,2)
+                      .' '.$rx->datetime
+                      .', (int)substr($rx->datetime,8,2)='.(int)substr($rx->datetime,8,2)
                       . ', today=$iitoday='.$t
                       . ', $_m1week1d1='.$_m1week1d1
                       . '< $iimonthday='.$iimonthday

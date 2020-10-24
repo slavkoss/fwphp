@@ -9,12 +9,6 @@ declare(strict_types=1);
 * DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
 * MVC is code separation not functionality !
 
- J:\awww\www\fwphp\glomodul\post_comment\Tbl_crud.php (5 hits)
-* 35:   static public f unction rr(
-* 43:   static public f unction rrnext(object $cursor): object
-* 54:   static public f unction rr_all(
-* 77:   static public f unction rr_count_aproved($post_id, $on_off): integer
-* 103:  static public f unction upd_comment_stat(object $pp1, object $dm): string
 */
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
@@ -31,19 +25,36 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
   static protected $tbl = "comments";
 
 
+  static public function dd( object $pp1, array $other=[] ): string
+  { 
+    // Like Oracle forms triggers - P R E / O N  D E L E T E"
+    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    return '' ;
+  }
+
+
   static public function rr(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  Db_allsites::rr("SELECT $sellst FROM comments WHERE $qrywhere"
+    $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
+  static public function rrcount( //string $sellst, 
+    string $qrywhere='', array $binds=[], array $other=[] ): int
+  { 
+    $cursor_rowcnt_post_comments =  Db_allsites::rr(
+        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    $rcnt = self::rrnext( $cursor_rowcnt_post_comments
+     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
+    return (int)$rcnt ;
+  }
+
   static public function rrnext(object $cursor): object
   { 
-               //while ( 
     $rx = Db_allsites::rrnext($cursor) ;
-               //): { $row = $rx ; } endwhile;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -74,7 +85,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
 
 
 
-  static public function rr_count_aproved($post_id, $on_off): int
+  /*static public function rr_count_aproved($post_id, $on_off): int
   {
     if ($on_off == 'ON')      {$where = "post_id=:post_id AND status='$on_off'" ;}
     elseif ($on_off == 'OFF') {$where = "post_id=:post_id AND (status='$on_off' or status < '0')" ;}
@@ -95,7 +106,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
 
     //$dm::disconnect(); //problem ON LINUX
     return (int)$row_count ; 
-  }
+  } */
 
 
 

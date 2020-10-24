@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure;
 
-use App\Domain\GalleryDataFinderInterface;
+use App\Domain\z_GalleryDataFinderInterface;
 
-class GalleryRepository implements GalleryDataFinderInterface
+class z_GalleryRepository implements z_GalleryDataFinderInterface
 {
     /** @var GalleryDriverInterface */
     private $driver;

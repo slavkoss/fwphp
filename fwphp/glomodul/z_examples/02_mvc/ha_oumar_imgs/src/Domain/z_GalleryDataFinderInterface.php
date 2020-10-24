@@ -8,7 +8,7 @@ namespace App\Domain;
  *
  * interface GalleryDataFinderInterface
  */
-interface GalleryDataFinderInterface
+interface z_GalleryDataFinderInterface
 {
     public function findAll(array $options): array;
 }

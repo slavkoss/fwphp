@@ -1,3 +1,4 @@
+// J:\awww\www\fwphp\glomodul\z_examples\ajax\simpleajax\ajax.js
 var http = createRequestObject();
 var objectId = '';
 
@@ -19,7 +20,7 @@ function createRequestObject(htmlObjectId){
     return obj;    
 }
 
-function sendReq(serverFileName, variableNames, variableValues) {
+function sendReq(srvFileName, variableNames, variableValues) {
   var paramString = '';
   
   variableNames = variableNames.split(',');
@@ -31,18 +32,19 @@ function sendReq(serverFileName, variableNames, variableValues) {
   paramString = paramString.substring(0, (paramString.length-1));
       
   if (paramString.length == 0) {
-       http.open('get', serverFileName);
-       //http.open('post', serverFileName);
+       http.open('get', srvFileName);
+       //http.open('post', srvFileName);
   }
   else {
-    //http.open('get', serverFileName+'?'+paramString);
-    http.open('post', serverFileName, true); // true=asynchronous
+    //http.open('get', srvFileName+'?'+paramString);
+    http.open('post', srvFileName, true); // true=asynchronous
   }
-    http.onreadystatechange = handleResponse;
-    //http.send(null);      //Sends the request to the server (used for GET)
+
+  http.onreadystatechange = handleResponse;
+  //http.send(null);      //Sends the request to the server (used for GET)
            //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
            //xhttp.send("fname=Henry&lname=Ford");
-    http.send(paramString); //Sends the request to the server (used for POST)
+  http.send(paramString); //Sends the request to the server (used for POST)
 }
 
 function handleResponse() {
@@ -50,5 +52,5 @@ function handleResponse() {
   if(http.readyState == 4){
     responseText = http.responseText;
     document.getElementById(objectId).innerHTML = responseText;
-    }
+  }
 }

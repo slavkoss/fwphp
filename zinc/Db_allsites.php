@@ -193,20 +193,31 @@ trait Db_allsites
   }
 
 
-  static public function rrnext(object $cursor){
-     return $cursor->fetch(\PDO::FETCH_OBJ);
+  static public function rrnext(object $cursor, $other = []) //: object
+  {
+                //echo '<pre>$other='; print_r($other); echo '</pre>';
+    $rx = $cursor->fetch(\PDO::FETCH_OBJ);
+                if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
+    //if (!is_object($rx)) { return ((object)$rx); }
+    if (!is_object($rx)) { return ((object)['rexists' => false]); }
+    $rx->rexists = true ;
+    switch (self::getdbi()) { case 'oracle' : $rx = Config_allsites::rlows($rx) ; break; default: break; } //all row fld names lowercase
+
+    return $rx ;
   }
 
   /**
   * Shows how to use other two  r e a d  methods
-  * To access table rows we must read this cursor !!
+  * 
   */
   static public function rrcount($tbl)
   { 
     $cursor_rowcnt = self::rr("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
-    while ($row = self::rrnext($cursor_rowcnt)): {$r = $row ;} endwhile; //c_, R_, U_, D_
+    //while ($row = self::r rnext($cursor_rowcnt)): {$rx = $row ;} endwhile; //c_, R_, U_, D_
+    $COUNT_ROWS = self::rrnext( $cursor_rowcnt
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
     //self::disconnect();
-    return $r->COUNT_ROWS ;
+    return $COUNT_ROWS ; //return $rx->COUNT_ROWS ;
   }
 
 
@@ -215,15 +226,16 @@ trait Db_allsites
     $cursor_maxid = self::rr("SELECT max(id) MAXID FROM ". $tbl //." WHERE $qrywhere"
        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     //return $cursor ;
-    $maxid = self::rrnext($cursor_maxid)->MAXID ;
+    $maxid = self::rrnext( $cursor_maxid
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->MAXID ;
     return $maxid;
 
     /*$cursor_maxid =  Tbl_crud_post::rr( $s ellst='max(id) MAXID' 
       ,$qrywhere="'1'='1'", $binds=[], $other=['caller'=>__FILE__ .' '.',ln '.__LINE__ ]);
-    $maxid = Tbl_crud_post::rrnext($cursor_maxid)->MAXID ;
+    $maxid = Tbl_crud_post::r rnext($cursor_maxid)->MAXID ;
     return $maxid; */
 
-    //while ($row = self::rrnext($c_r)): {$r = $row ;} endwhile;
+    //while ($row = self::r rnext($c_r)): {$r = $row ;} endwhile;
     //$this::disconnect();
     //return $r->id;
   }

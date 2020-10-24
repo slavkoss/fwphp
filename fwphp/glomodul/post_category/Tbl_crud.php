@@ -9,7 +9,7 @@ declare(strict_types=1);
 * DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
 * MVC is code separation not functionality !
 */
-declare(strict_types=1);
+
 /**
 *  J:\awww\www\fwphp\glomodul\post_category\Tbl_crud.php
 *         (PRE) CRUD class - DAO (Data Access Object) or data mapper
@@ -29,12 +29,9 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 {
   static protected $tbl = "category";
 
-  /**
-  * called from see link $pp1->del_row in view script eg c a t e g o r i e s.php 
-  *     H o m e _ c t r  'del_row' => QS.'i/del_ row_ do/', del_ row_ do() 
-  */
   static public function dd( object $pp1, array $other=[] ): string
   { 
+    // Like Oracle forms triggers - P R E / O N  D E L E T E"
     $cursor =  Db_allsites::dd( $pp1, $other ) ;
     return '' ;
   }
@@ -47,12 +44,17 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     return $cursor ;
   }
 
-  static public function rrnext(object $cursor): object
+  static public function rrcount( //string $sellst, 
+    string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-               //while ( 
-    $rx = Db_allsites::rrnext($cursor) ;
-               //): { $row = $rx ; } endwhile;
-    if (is_object($rx)) return $rx ; else return ((object)$rx);
+    //$cursor =  Db_allsites::rr("SELECT $sellst FROM comments WHERE $qrywhere"
+    $cursor_rowcnt =  Db_allsites::rr(
+        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    //return $cursor_rowcnt ;
+    $rcnt = self::rrnext( $cursor_rowcnt
+     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
+    return (int)$rcnt ;
   }
 
 
@@ -83,7 +85,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   * called from submit code in view script eg c a t e g o r i e s.php 
   *     not via H o m e _ c t r !
   *
-  * public function cc(UserInterface $user) {   //public function cc(object $dm, array $vv)
+  * public function cc(UserInterface $user) 
   */
   static public function cc( object $pp1, array $other=[]): string //return id or 'err_c c'
   {
@@ -91,20 +93,20 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
     // 1. S U B M I T E D  F L D V A L S :
     $category_title = $_POST["category_title"];
-    $username          = $_SESSION["username"];
+    $username       = $_SESSION["username"];
     // 2. V A L I D A T I O N
-    $valid = true;
+    $valid = true ;
     if(empty($category_title)){ $valid = false;
-      $_SESSION["ErrorMessage"]= "All fields must be filled out";
+      $_SESSION["ErrorMessage"] = "All fields must be filled out";
       Config_allsites::Redirect_to($pp1->categories);
     }elseif (strlen($category_title)<3) { $valid = false;
-      $_SESSION["ErrorMessage"]= "Category title should be greater than 2 characters";
+      $_SESSION["ErrorMessage"] = "Category title should be greater than 2 characters";
       Config_allsites::Redirect_to($pp1->categories);
     }elseif (strlen($category_title)>49) { $valid = false;
-      $_SESSION["ErrorMessage"]= "Category title should be less than than 50 characters";
+      $_SESSION["ErrorMessage"] = "Category title should be less than than 50 characters";
       Config_allsites::Redirect_to($pp1->categories);
     }
-    if (!$valid) {goto fnend ;}
+    if (!$valid) {goto fnerr ;}
 
 
     // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
@@ -120,17 +122,9 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     $cursor = Db_allsites::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
     //$last_id2 = Db_allsites::rr_last_id($tbl) ;
 
-    // if($cursor){
-    //if($last_id2 > $last_id1){
-    //  $_SESSION["SuccessMessage"]="Category $category_title added Successfully";
-    //  Config_allsites::Redirect_to($pp1->categories);
-    //}else {
-    //  $_SESSION["ErrorMessage"]= "Category $category_title adding went wrong. T ry Again !";
-    //  Config_allsites::Redirect_to($pp1->categories);
-    //} 
-
     return('1');
-    fnend:
+    fnerr:
+    return('0');
   }
 
 

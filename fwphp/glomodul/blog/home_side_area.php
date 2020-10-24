@@ -4,8 +4,34 @@ use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
 
 //$pp1  = $this->getp('pp1') ;
+$cursor_categ = Tbl_crud_category::rr($sellst='*', $qrywhere="'1'='1' ORDER BY title", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
+$dbi = Db_allsites::getdbi() ;
+switch ($dbi)
+{
+  case 'oracle' :
+    $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
+    $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
+    Db_allsites::setdo_pgntion('1') ;
+
+    $cursor_recent_posts = Tbl_crud_post::rr($sellst='*', $qrywhere="'1'='1' ORDER BY datetime desc", $binds  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+  break;
+  case 'mysql' :
+    $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
+    $binds[]=['placeh'=>':rblk', 'valph'=>5, 'tip'=>'int'];
+    Db_allsites::setdo_pgntion('1') ;
+    $cursor_recent_posts = Tbl_crud_post::rr($sellst='*', $qrywhere="'1'='1' ORDER BY datetime desc", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+  break;
+  default:
+          echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
+              .'D B I '. $dbi .' does not exist' . '</h3>';
+    //Db_ allsites::Redirect_to($pp1->filter_page) ;
+    break;
+}
 ?>
+
+
+
 
 <!-- Side Area Start -->
 <div class="col-sm-4">
@@ -32,14 +58,12 @@ use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
     <div class="card-body">
       <a href="<?=$pp1->filter_postcateg?>">ALL</a>&nbsp;&nbsp;&nbsp;
         <?php
-        $cursor = Tbl_crud_category::rr($sellst='*', $qrywhere="'1'='1' ORDER BY title", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-
-        while ($r = Tbl_crud_category::rrnext($cursor) and isset($r->title)):
-        { //all row fld names lowercase
-            switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
+        while ( $rx = Db_allsites::rrnext( $cursor_categ
+          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
+        {
             ?>
-            <a href="<?=$pp1->filter_postcateg?><?=$r->title?>/p/1">
-             <span class="heading"> <?=$r->title?></span> </a>&nbsp;&nbsp;&nbsp;
+            <a href="<?=$pp1->filter_postcateg?><?=$rx->title?>/p/1">
+             <span class="heading"> <?=$rx->title?></span> </a>&nbsp;&nbsp;&nbsp;
             <?php 
         } endwhile; ?>
     </div>
@@ -55,42 +79,19 @@ use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
     </div>
     <div class="card-body">
       <?php
-      switch (Db_allsites::getdbi())
-      {
-        case 'oracle' :
-          $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
-          $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
-          Db_allsites::setdo_pgntion('1') ;
-
-          $cursor = Tbl_crud_post::rr($sellst='*', $qrywhere="'1'='1' ORDER BY datetime desc", $binds  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-        break;
-        case 'mysql' :
-          $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
-          $binds[]=['placeh'=>':rblk', 'valph'=>5, 'tip'=>'int'];
-          Db_allsites::setdo_pgntion('1') ;
-          $cursor = Tbl_crud_post::rr($sellst='*', $qrywhere="'1'='1' ORDER BY datetime desc", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-        break;
-        default:
-                echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-                    .'D B I '. Db_allsites::getdbi() .' does not exist' . '</h3>';
-          //Db_ allsites::Redirect_to($pp1->filter_page) ;
-          break;
-      }
-
-
-      $ii=0 ; while ( $r = Tbl_crud_post::rrnext($cursor) and isset($r->id) ):
+      $ii=0 ;
+      while ( $rx = Db_allsites::rrnext( $cursor_recent_posts
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       {
         if ($ii>9) break ;
-        //all row fld names lowercase
-        switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
         ?>
-        <a href="<?=$pp1->filter_postcateg?><?=$r->category?>">
-         <span class="heading"> <?=$r->category?></span> </a>&nbsp;&nbsp;&nbsp;
+        <a href="<?=$pp1->filter_postcateg?><?=$rx->category?>">
+         <span class="heading"> <?=$rx->category?></span> </a>&nbsp;&nbsp;&nbsp;
 
         <div class="media">
           <?php
-          $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp($r->image));
-          $tmp_imgurlrel = 'Uploads/'.self::escp($r->image) ;
+          $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp($rx->image));
+          $tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
           if (file_exists($tmp_imgpath)) { ?>
             <img src="<?=$tmp_imgurlrel?>" class="d-block img-fluid
                  align-self-start" width="90" height="94" alt="">
@@ -100,10 +101,10 @@ use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
 
           <div class="media-body ml-2">
             <a style="text-decoration:none;" 
-               href="<?=$pp1->read_post?>id/<?php echo self::escp($r->id) ; ?>" 
+               href="<?=$pp1->read_post?>id/<?php echo self::escp($rx->id) ; ?>" 
                target="_blank">
-                 <span class="lead"><?php echo self::escp($r->title); ?></span> </a>
-            <p class="small"><?php echo self::escp($r->datetime); ?></p>
+                 <span class="lead"><?php echo self::escp($rx->title); ?></span> </a>
+            <p class="small"><?php echo self::escp($rx->datetime); ?></p>
           </div>
 
         </div>
@@ -114,6 +115,9 @@ use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
       } endwhile; ?>
     </div> <!--e n d <div class="card-body"-->
   </div> <!--e n d <div class="card"-->
+
+
+
 
   <br>
   <div class="card">
@@ -139,7 +143,7 @@ use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
       _.-'''''-._
     .'  _     _  '.
    /   (o)   (o)   \
-  |        &copy;        |
+  |   &copy; phporacle   |
   | Slavko Srakočić |
    \  '. Zagreb.'  /
     '.  ''---''  .'

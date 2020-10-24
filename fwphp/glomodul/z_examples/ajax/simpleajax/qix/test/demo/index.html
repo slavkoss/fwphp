@@ -1,0 +1,78 @@
+<html>
+<head>
+	<script src="../../src/simpleajax.min.js"></script>
+	<script>
+		function call() {
+			Ajax.call({
+				url: 'ajax.html',
+				cache: false,
+				type: 'POST',
+				async: false,
+				data: {
+					test: 2,
+					ok: 'pp'
+				},
+				success:function (data) {
+					alert(data);
+				},
+				error: function () {
+					alert('ajaxError');
+				},
+				complete:function(){
+					alert('ajaxComplete');
+				}
+			});
+		}
+
+		function get() {
+			Ajax.get('ajax.html', function (data) {
+				alert(data);
+			})
+		}
+
+		function post() {
+			Ajax.post('ajax.html', {test: 55}, function (data) {
+				alert(data);
+			})
+		}
+
+		function load() {
+			Ajax.load('p1', 'ajax.html', {}, function () {
+				document.getElementById('p1').style.backgroundColor = '#ccc';
+			});
+		}
+
+		function json() {
+			Ajax.call({
+				url: 'json.js',
+				dataType: 'json',
+				cache: false,
+				type: 'POST',
+				async: false,
+				success:function (data) {
+					alert(data);
+				}
+			});
+		}
+
+	</script>
+	<style>
+		.block { background:#ddd;  }
+		#p1 { border:#ccc 1px solid; }
+	</style>
+</head>
+<body>
+		<h1>SimpleAjax, a small Ajax Javascript Object</h1>
+		<p>Simple ajax object for creating ajax calls.</p>
+
+		<h2>Demo</h2>
+		<p id="p1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pharetra imperdiet iaculis. Vestibulum porta venenatis euismod. Integer nec ligula vestibulum tellus hendrerit commodo sit amet in neque. In ac arcu dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis, nunc convallis dignissim dignissim, velit sapien imperdiet dui, sit amet dictum sapien mi nec metus. Mauris justo turpis, mollis sit amet mattis ut, euismod at urna. Ut id odio libero, sit amet congue massa. Aenean a metus id ligula vehicula viverra. </p>
+		<p>
+			<button id="b1" onclick="call()">call()</button>
+			<button id="b11" onclick="get()">get()</button>
+			<button id="b12" onclick="post()">post()</button>
+			<button id="b2" onclick="load()">load()</button>
+			<button id="b3" onclick="json()"><span>get json</span></button>
+		</p>
+</body>
+</html>

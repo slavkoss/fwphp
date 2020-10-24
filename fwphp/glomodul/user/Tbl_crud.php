@@ -4,7 +4,7 @@ declare(strict_types=1);
 * J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
 *   DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI - DB DRIVER
 *     This c l a s s is for one module - does know module's CRUD
-*         (PRE) CRUD class - DAO (Data Access Object) or data mapper
+*         (PRE) CRUD class - DAO (Data Ac cess Object) or data mapper
 * Other such scripts should be (may be not ?) for csv persistent storage, web services...
 *
 * DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
@@ -12,7 +12,7 @@ declare(strict_types=1);
 */
 /**
 *  J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
-*         (PRE) CRUD class - DAO (Data Access Object) or data mapper
+*         (PRE) CRUD class - DAO (Data Ac cess Object) or data mapper
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\user ;
@@ -31,14 +31,10 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   static protected $tbl = "admins";
 
 
-  /**
-  * Like Oracle forms triggers - P R E / O N  D E L E T E"
-  * Called from 1. link $pp1-> del_ usr in table view script eg c a t e g o r i e s.php
-  *             2. H o m e _ c t r  'del_row_do' => QS.'i/del_row_do/'
-  */
+
   static public function dd( object $pp1, array $other=[] ): string
-  {
-    $pp1->uriq->t = self::$tbl ;
+  { 
+    // Like Oracle forms triggers - P R E / O N  D E L E T E"
     $cursor =  Db_allsites::dd( $pp1, $other ) ;
     return '' ;
   }
@@ -57,22 +53,26 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     return $cursor ;
   }
 
-  static public function rr_byid( int $id, array $other=[] ): object
-  {
-    $cursor =  Db_allsites::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
-    ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
-    ,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
-    ) ;
-    $rx = Db_allsites::rrnext($cursor) ;
-    if (is_object($rx)) return $rx ; else return ((object)$rx);
+  static public function rrcount( //string $sellst, 
+    string $qrywhere='', array $binds=[], array $other=[] ): int
+  { 
+    $cursor_rowcnt_admins =  Db_allsites::rr(
+        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds
+       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    $rcnt_admins = self::rrnext( $cursor_rowcnt_admins
+     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
+    return (int)$rcnt_admins ;
   }
 
-
-  static public function rrnext(object $cursor): object
+  static public function rr_byid( int $id, array $other=[] ): object
   {
-               //while (
-    $rx = Db_allsites::rrnext($cursor) ;
-               //): { $row = $rx ; } endwhile;
+    $cursor_admin_byid =  Db_allsites::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
+    ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
+    //,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
+    ,$other[]=['caller2' => __FILE__ .' '.', ln '. __LINE__ ]
+    ) ;
+    $rx = Db_allsites::rrnext( $cursor_admin_byid ) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -106,12 +106,12 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   static public function ChkUsrNameExists(string $username)
   {
     // called only before a d d admin to warn "Username Exists. Try Another One!"
-    $cursor_admin = self::rr($sellst='*', $qrywhere="username=:username"
+    $cursor_admin_byname = self::rr($sellst='*', $qrywhere="username=:username"
       , $binds = [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
           ]
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-   $row = ''; while ( $r = Db_allsites::rrnext($cursor_admin) and isset($r->id) ):
+   $row = ''; while ( $r = Db_allsites::rrnext($cursor_admin_byname) and isset($r->id) ):
     {$row = $r ;} endwhile;
                   //echo '<pre>'. __METHOD__ .' SAYS : $row='; print_r($row); echo '</pre>';
     if (isset($r->username) and $r->username == $username) {return true;}
@@ -217,24 +217,19 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           ]
         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
       ) ;
-      $r = Db_allsites::rrnext($cursor_usr);
+      $rx = Db_allsites::rrnext($cursor_usr);
       //all row fld names lowercase
-          switch (Db_allsites::getdbi())
-          {
-            case 'oracle' : $r = $db->rlows($r) ; break;
-            default: break;
-          }
                     if ('') {  //if ($module_ arr['dbg']) {
                       echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
                     echo '<pre>';
                     echo '<b>$username</b>='; print_r($username);
                     echo '<br /><b>$password</b>='; print_r($password);
-                    echo '<br /><b>$r</b>='; print_r($r);
+                    echo '<br /><b>$rx</b>='; print_r($rx);
                     echo '</pre><br />';
                     exit(0) ; //to avoid redirto
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     }
-      //if (isset($r->username) and $r->username == $username) { return $Found_Account = $r;
+      //if (isset($rx->username) and $rx->username == $username) { return $Found_Ac count = $rx;
       //}else { return null; }
 
       redirto:
@@ -244,10 +239,10 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
         case isset($_SESSION["userid"]) and $_SESSION["userid"] :
           Config_allsites::Redirect_to($goscript) ; //$pp1-> dashboard
           break ;
-        case $r :
-          $_SESSION["userid"]     =$r->id;
-          $_SESSION["username"]   =$r->username;
-          $_SESSION["adminname"]  =$r->aname;
+        case $rx :
+          $_SESSION["userid"]     =$rx->id;
+          $_SESSION["username"]   =$rx->username;
+          $_SESSION["adminname"]  =$rx->aname;
           $_SESSION["SuccessMessage"] = "Wellcome ".$_SESSION["adminname"]."!";
 
           Config_allsites::Redirect_to($goscript); //$pp1-> dashboard
@@ -298,30 +293,25 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
 
     // 1. S U B M I T E D  F L D V A L S
       $submitted_cc = self::get_submitted_cc() ;
-      list( $DateTime, $username, $Name, $password, $Admin
-            , $Confirmpassword
+      list( $DateTime, $username, $Name, $password, $Admin, $Confirmpassword
       ) = $submitted_cc ;
       $_SESSION["submitted_cc"] = $submitted_cc ;
-
-
-    // 2. U U  V A L I D A T I O N
-    $valid = '1' ;
+    // 2. C C  V A L I D A T I O N
+    $err = '' ;
     switch (true) {
       case (empty($username)||empty($Name)||empty($password)||empty($Confirmpassword)):
-        $valid = "All fields must be filled out"; break ;
-      case (strlen($password)<4): $valid = "Password should be min 4 characters"; break ;
+        $err = "All fields must be filled out"; break ;
+      case (strlen($password)<4): $err = "Password should be min 4 characters"; break ;
       case ($password !== $Confirmpassword):
-        $valid = "Password and Confirm password should match"; break ;
+        $err = "Password and Confirm password should match"; break ;
       case (self::ChkUsrNameExists($username)):
-        $valid = "Username Exists. Try Another One!"; break ;
+        $err = "Username Exists. Try Another One!"; break ;
       //default: break;
     }
-    if ($valid === '1') {} else {
-      $_SESSION["ErrorMessage"]= $valid ;
-      Config_allsites::Redirect_to($pp1->admins);
-      goto fnend ; //exit(0) ;
+    
+    if ($err > '') { $_SESSION["ErrorMessage"]= $invalid ;
+      Config_allsites::Redirect_to($pp1->admins); goto fnerr ; //exit(0) ;
     }
-
 
       // 3. I N S E R T  D B T B L  R O W
       // Query to insert admin in DB When everything is fine
@@ -347,10 +337,10 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       //move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
 
     // g e t  i d  - see D b _ a l l s i t e s  rr_ last_ id($tbl)
-
+      Config_allsites::Redirect_to($pp1->admins); 
       return('1');
-
-      fnend:
+      fnerr:
+      return('0');
   }
 
 
@@ -376,17 +366,17 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     list($AName, $AHeadline, $ABio, $Image, $Target) = self::get_submitted_uu() ;
 
     // 2. U U  V A L I D A T I O N
-    $valid = '1' ;
+    $err = '' ;
     switch (true) {
-      //case (empty($PostTitle)): $valid = "Title Cant be empty"; break ;
-      case (strlen($AHeadline)>30): $valid = "Headline Should be max 30 characters"; break ;
-      case (strlen($ABio)>500): $valid = "Bio should be max 500 characters"; break ;
+      //case (empty($PostTitle)): $err = "Title Cant be empty"; break ;
+      case (strlen($AHeadline)>30): $err = "Headline Should be max 30 characters"; break ;
+      case (strlen($ABio)>500): $err = "Bio should be max 500 characters"; break ;
       //default: break;
     }
-    if ($valid === '1') {} else {
-      $_SESSION["ErrorMessage"]= $valid ;
+    if ($err > '') {
+      $_SESSION["ErrorMessage"]= $err ;
       Config_allsites::Redirect_to($pp1->upd_user_loggedin);
-      goto fnend ; //exit(0) ;
+      goto fnerr ; //exit(0) ;
     }
 
     // 3. U P D A T E  D B T B L R O W
@@ -415,8 +405,8 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
 
       return('1');
-
-      fnend:
+      fnerr:
+      return('0');
 
   }
 

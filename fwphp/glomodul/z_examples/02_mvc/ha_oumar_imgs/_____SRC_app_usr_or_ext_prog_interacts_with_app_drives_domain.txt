@@ -1,15 +1,13 @@
-J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ha_oumar\src\Config\_____SRC_app_usr_or_ext_prog_interacts_with_app_drives_domain.txt
-# DDD HA - Hexagonal architecture also called PORTS & ADAPTERS
-HA is a case of application of DDD (Domain Driven Design).  
-HA permits to SEPARATE app code (module code as Oracle Forms .fmb) in three parts :  
-1. App = application (module) code, drives domain. User or the external programs interact with app.
-2. D - domain = business logic code, drives infrastructure
-3. I - infrastructure code - dependencies that app needs to work.
-
+J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ha_oumar\src\Config\_____SRC_app_usr_or_ext_prog_interacts_with_app_drives_domain.txt  
 Hexagonal architecture, traits... by Oumar KONATE  
 https://github.com/oumarkonate/hexagonal-architecture  
 http://oumarkonate.com/  
-
+# DDD HA - Hexagonal architecture also called PORTS & ADAPTERS
+HA is a case (event, occurrence) of application of DDD (Domain Driven Design).  
+HA permits to SEPARATE app code (module code as Oracle Forms .fmb) in three parts :  
+1. App = application (module) code, **drives domain**. User or the external programs interact with app.
+2. D - domain = business logic code, **drives infrastructure**
+3. I - infrastructure code - dependencies that app needs to work.
 
 ## Code flow :
 1. src/Controller/GalleryController.php

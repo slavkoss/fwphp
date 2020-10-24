@@ -23,16 +23,11 @@ use B12phpfw\core\zinc\Db_allsites ;
 class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was Home
 {
 
-  static protected $tbl = "posts";
+  static protected string $tbl = "posts";
 
-
-  /**
-  * Like Oracle forms triggers - P R E / O N  D E L E T E
-  * Called from 1. link $pp1->del_row in table view script eg c a t e g o r i e s.php
-  *     2. H o m e _ c t r  'del_row' => QS.'i/del_ row_ do/', del_ row_ do()
-  */
   static public function dd( object $pp1, array $other=[] ): string
-  {
+  { 
+    // Like Oracle forms triggers - P R E / O N  D E L E T E"
     $cursor =  Db_allsites::dd( $pp1, $other ) ;
     return '' ;
   }
@@ -48,8 +43,19 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     return $cursor ;
   }
 
+  static public function rrcount( //string $sellst,
+    string $qrywhere='', array $binds=[], array $other=[] ): int
+  {
+    $cursor_rowcnt_filtered_posts =  Db_allsites::rr(
+        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    $rcnt = self::rrnext( $cursor_rowcnt_filtered_posts
+     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
+    return (int)$rcnt ;
+  }
+
   static public function rr_byid( int $id, array $other=[] ): object
-  { 
+  {
     $cursor =  Db_allsites::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
     ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
     ,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
@@ -58,14 +64,14 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
-  static public function rrnext(object $cursor): object
-  {
-               //while (
-    $rx = Db_allsites::rrnext($cursor) ;
-               //): { $row = $rx ; } endwhile;
-    if (is_object($rx)) return $rx ; else return ((object)$rx);
-  }
 
+  static public function rrnext(object $cursor, array $other=[]): object
+  {
+    // not used
+    $rx = Db_allsites::rrnext($cursor) ;
+    return $rx ;
+
+  }
 
 
   // pre-query
@@ -94,6 +100,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     }
 
     //$Db_allsites::disconnect(); //problem ON LINUX
+    //self::$cursor = $cursor ;
     return $cursor ;
 
 
@@ -106,7 +113,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     ,$_POST["Category"]
     ,"Uploads/".basename($_FILES["Image"]["name"])
     ,$_SESSION["username"]
-    ,$_FILES["Image"]["name"] 
+    ,$_FILES["Image"]["name"]
     ,$_POST["img_desc"] // self::escp($_POST["img_desc"])
     ,$_POST["SummaryDescription"]
     //$_POST["PostDescription"]; //in op.system file
@@ -128,7 +135,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     // 2. C C  V A L I D A T I O N
     $valid = '1' ;
     switch (true) {
-      case (empty($PostTitle)||empty($Category)): 
+      case (empty($PostTitle)||empty($Category)):
         $valid = "Title and Category Cant be empty"; break ;
       case (strlen($PostTitle)<5): $valid = "Post Title is minimum 5 characters"; break ;
       case (strlen($img_desc)>4000): $valid = "Image Description is max 4000 characters"; break ;

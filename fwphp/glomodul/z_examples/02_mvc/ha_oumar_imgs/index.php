@@ -1,6 +1,6 @@
 <?php
 /**
-* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ha_oumar\index.php
+* J:\awww\www\fwphp\glomodul\z_examples\02_mvc\ha_oumar_imgs\index.php
 * http://localhost:8000/
 * http://localhost:8000/gallery-images/
 * http://localhost:8000/gallery-images/?page=2&size=5
@@ -31,7 +31,7 @@ $pp1 = (object) //=properties global array (like Oracle Forms property palette)
   //1.2
   , 'module_version'=>'1.0.0.0 ImgGalery' //, 'vendor_namesp_prefix'=>'B12phpfw'
 
-  //1.3
+  //1.3 Dirs paths where are class scripts to autoload. Dir name is last in namespace and use. 
   , 'module_path_arr'=>[ //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
        $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
       //dir of global clses for all sites :
@@ -41,8 +41,6 @@ $pp1 = (object) //=properties global array (like Oracle Forms property palette)
       , $module_dir_path .'src/Controller/'
       , $module_dir_path .'src/Domain/'
       , $module_dir_path .'src/Infrastructure/'
-      //dir of global clses for all sites :
-      //two master modules (tbls)  , $dirup_to_app.'/user/'
   ]
 ] ;
 
@@ -60,11 +58,21 @@ $app->run($pp1);
 
 exit(0);
 
-
+/**
+*      ORIGINAL CODE 1_hexagonal-architecture-master_oumar.zip 30 kB
+*     https://github.com/oumarkonate/hexagonal-architecture
+*/
 
 /*
-     https://github.com/oumarkonate/hexagonal-architecture
+use App\Config\Application;
 
+require __DIR__ . '/vendor/autoload.php';
+
+$app = new Application();
+$app->run();
+*/
+
+/*
 At first seems beautifull, clever, simple code  (same as your web page).
 1. "http://localhost:8083/z_ddd/" displays empty page. 
 I can not guess why ? (XAMP on Win10 64 bit)
@@ -77,6 +85,7 @@ app 1.1 $router=App\Config\Router Object
 )
 
 2. May be explanation why trait ControllerTrait ?
+
 
 
 https://www.quora.com/  front-end frameworks

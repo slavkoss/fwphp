@@ -54,7 +54,7 @@ class Router extends Config_allsites
   {
     //As of PHP5, object variable doesn't contain object itself as value. It only contains object identifier. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a copy of the identifier, which points to same object.
 
-    $uriq = $pp1->uriq ;
+    //$uriq = $pp1->uriq ;
     $title = 'img HOME';
 
                       /*echo '<h2>Router.php home(object $pp1) SAYS :</h2>'; 
@@ -98,9 +98,6 @@ class Router extends Config_allsites
         // Method GET is default.
         $response = $curlm->Request($uri); // 'https://www.google.com/'
         return \json_decode($response['response']['body']); //var_export($response);
-
-
-
     }
 
 

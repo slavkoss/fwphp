@@ -12,7 +12,7 @@ declare(strict_types=1);
     //    , [ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str']
     //      ] 
     //, $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ) ;
-//while ($row = $this->rrnext($c_r)): {$r = $row ;} endwhile;
+//while ($row = $this->r rnext($c_r)): {$r = $row ;} endwhile;
 
 $cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "username=:username"
     , $binds=[ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str'] ]

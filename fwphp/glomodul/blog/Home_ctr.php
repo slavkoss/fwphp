@@ -52,7 +52,10 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
     //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
     ,'home_blog'        => QS.'i/home/'
-    ,'ldd'               => QS.'i/del_row_do/id/' //used for all tables !!
+    ,'ldd_category'     => QS.'i/del_category/id/'
+    ,'ldd_admins'       => QS.'i/del_admins/id/'
+    ,'ldd_posts'        => QS.'i/del_posts/id/'
+    ,'ldd_comments'     => QS.'i/del_comments/id/'
                 //Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
          //,'del_row'         => QS.'i/del_ row_do/id/' //used for all tables !!
     ,'filter_page'     => 'p/' //QS.'p/'   // i/home_blog/
@@ -68,7 +71,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     ,'login'           => QS.'i/login/'
     ,'logout'          => QS.'i/logout/r/i|loginfrm|'
     //
-       ,'read_user'       => QS.'i/read_user/'
+       ,'read_user'       => QS.'i/read_user/id/'
        // admin_profile :
        //,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/'
        ,'upd_user_loggedin'   => QS.'i/upd_user_loggedin/r/i|upd_user_loggedin|id|' //eg id=30
@@ -138,12 +141,11 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
                               }
 
         self::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
-           .', line '. __LINE__ .' SAYS'=>'ERASING IS NOT IN COMPOUND MODULE !'
+           .', line '. __LINE__ .' SAYS'=>'Not allowed here !'
            ,'INFO '=>'ERASING IS NOT IN COMPOUND MODULE (eg blog) !, but in single modules eg post category'
            //,'After .. '=>'..., ...'
         ] ) ;
-        
-        //Config_allsites::Redirect_to($pp1->posts) ;
+        //Config_allsites::Redirect_to($pp1->p osts) ;
         // to $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/mkd/' ) ;
         //Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
 
@@ -154,11 +156,11 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     switch ($tbl)
     {
       case 'comments' : // $pp1->uriq->id
-        Tbl_crud_comment::dd($pp1, $other);
+        Tbl_crud_post_comment::dd($pp1, $other);
         Config_allsites::Redirect_to($pp1->comments) ; break;
       case 'posts' :
         Tbl_crud_post::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->posts) ; break;
+        Config_allsites::Redirect_to($pp1->p osts) ; break;
 
       case 'admins' :
         Tbl_crud_admin::dd($pp1, $other);
@@ -174,6 +176,52 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     }
     */
   }
+
+
+  private function del_category(object $pp1)
+  {
+    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
+    $tbl = $pp1->uriq->t = 'category' ; 
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+
+    Tbl_crud_category::dd($pp1, $other); //used for all  t a b l e s !! 
+    Config_allsites::Redirect_to($pp1->categories) ;
+
+  }
+
+  private function del_admins(object $pp1)
+  {
+    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
+    $tbl = $pp1->uriq->t = 'admins' ; 
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+
+    Tbl_crud_admin::dd($pp1, $other); //used for all  t a b l e s !! 
+    Config_allsites::Redirect_to($pp1->admins) ;
+
+  }
+
+  private function del_posts(object $pp1)
+  {
+    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
+    $tbl = $pp1->uriq->t = 'posts' ; 
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+
+    Tbl_crud_post::dd($pp1, $other); //used for all  t a b l e s !! 
+    Config_allsites::Redirect_to($pp1->posts) ;
+
+  }
+
+  private function del_comments(object $pp1)
+  {
+    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
+    $tbl = $pp1->uriq->t = 'comments' ; 
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+
+    Tbl_crud_post_comment::dd($pp1, $other); //used for all  t a b l e s !! 
+    Config_allsites::Redirect_to($pp1->comments) ; 
+
+  }
+
 
 
   private function errmsg(object $pp1, string $myerrmsg)
@@ -295,29 +343,29 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $title = 'Admin Page' ;
     // http skip is ok for other module :
     ?><!--script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user'?>');</script--><?php
-    Config_allsites::Redirect_to( dirname($pp1->module_url) .'/user' );
+            //Config_allsites::Redirect_to( dirname($pp1->module_url) .'/user' );
                   //Warning: Cannot modify header information :
                   //require $pp1->shares_path . 'hdr.php';
                   //require_once("navbar_admin.php");
-             //require $pp1->module_path . '../user/admins.php';
-             //require $pp1->shares_path . 'ftr.php';
+    require $pp1->module_path . '../user/admins.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
   //  user profile
   private function read_user(object $pp1) //private
   {
     $uriq = $pp1->uriq ;
-    $usrname_requested = $uriq->username ;
+    $usrname_requested = 'xxxxxxxx' ; //$uriq->username ;
 
-    require $pp1->wsroot_path .'vendor/erusev/parsedown/Parsedown.php' ;
-    $Parsedown = new \Parsedown();
+    //require $pp1->wsroot_path .'vendor/erusev/parsedown/Parsedown.php' ;
+    //$Parsedown = new \Parsedown();
 
     $title = 'Profile' ;
     //$css1 = 'styles.css' ;
 
     require $pp1->shares_path . 'hdr.php';
     require_once("navbar.php");
-    require $pp1->module_path . '../user/read_user.php';
+    require dirname($pp1->module_path) . '/user/read.php'; //was read_user.php
     require $pp1->shares_path . 'ftr.php';
   }
 

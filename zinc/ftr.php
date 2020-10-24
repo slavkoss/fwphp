@@ -135,14 +135,14 @@ style="color: yellow;"   class="card" class="content
 
 <br /><br /><br />
 
-<script type="text/javascript" src="<?=$shares_url?>themes/bootstrap/js/jquery.min.js"></script>
+<script src="<?=$shares_url?>themes/bootstrap/js/jquery.min.js" type="text/javascript"></script>
 <script src="<?=$shares_url?>themes/bootstrap/js/popper.min.js"></script>
-<script type="text/javascript" src="<?=$shares_url?>themes/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?=$shares_url?>util.js"></script>
 
-<script src="<?=$shares_url?>exp_collapse.js" 
-        language='JScript' type='text/javascript'>
-</script>
+<script src="<?=$shares_url?>themes/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="<?=$shares_url?>util.js" type="text/javascript"></script>
+
+<script src="<?=$shares_url?>exp_collapse.js" language='JScript' type='text/javascript'></script>
 
 <script>
   $('#year').text(new Date().getFullYear());

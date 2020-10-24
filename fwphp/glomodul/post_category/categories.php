@@ -25,7 +25,7 @@ if(isset($_POST["Submit"])) {
 } //E n d  Submit Button If-Condition
 
 //               2. R E A D  D B  T B L  R O W S
-$cursor = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__, 'filterfldval'=>''] )  //returns $cursor
+$cursor_category = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__, 'filterfldval'=>''] )  //returns $cursor
 
 
 //               3. G U I  (FRM) to get user action
@@ -112,35 +112,27 @@ $cursor = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[]
       <?php
 
       $SrNo = 0;
-
-      //$rcnt = Tbl_crud_post::rrnext($cursor_rowcnt)->COUNT_ROWS ;
-      while ($r = Tbl_crud_category::rrnext($cursor) and isset($r->id))  
+      while ( $rx = Db_allsites::rrnext( $cursor_category
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
       {
         $SrNo++;
-          //all row fld names lowercase
-          switch (Db_allsites::getdbi())
-          {
-            case 'oracle' : $r = $dm->rlows($r) ; break; 
-            default: break;
-          }
         ?>
         <tr>
           <td><?=$SrNo?></td>
-          <td><?php echo self::escp($r->datetime); ?></td>
-          <td><?php echo self::escp($r->title); ?></td>
-          <td><?php echo self::escp($r->author); ?></td>
+          <td><?php echo self::escp($rx->datetime); ?></td>
+          <td><?php echo self::escp($rx->title); ?></td>
+          <td><?php echo self::escp($rx->author); ?></td>
           <td>
            <!--  /*
-              location.href= '<=$pp1->del_row>t/category/id/<=$r->id>/'
+              location.href= '<=$pp1->del_row>t/category/id/<=$rx->id>/'
               r/i|/
            */ -->
            <a id="erase_row" class="btn btn-danger"
-              onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
-              if (yes == '1') { location.href= '<?=$pp1->ldd.$r->id?>/'; }"
-            >Del <?=$r->id?></a>
-          </td>
-         <?php
-      } ?>
+              onclick="var yes ; yes = jsmsgyn('Erase row <?=$rx->id?>?','') ;
+              if (yes == '1') { location.href= '<?=$pp1->ldd_category.$rx->id?>/'; }"
+            >Del <?=$rx->id?></a>
+          </td> <?php
+      } endwhile; ?>
       </tbody>
       </table>
 

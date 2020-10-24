@@ -15,6 +15,10 @@ use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 
 $shares_path = $pp1->shares_path ; //includes, globals, commons, reusables
 
+$cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
+  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+
 if (isset ($_SESSION["submitted_cc"])) {
   list( $DateTime, $username, $Name, $password, $Admin
       , $Confirmpassword
@@ -139,15 +143,12 @@ require_once("navbar_admin.php");
         </thead>
         <tbody>
       <?php
-      $cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
-          , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
       $SrNo = 0;
-      while ( $r = Tbl_crud_admin::rrnext($cursor_admins) and isset($r->id) ):
+      while ( $rx = Db_allsites::rrnext( $cursor_admins
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       {
-        $id = $r->id ;
+        $id = $rx->id ;
         $SrNo++;
-        //all row fld names lowercase
-        switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; default: break; }
         ?>
             <!-- after /r/ (r means redirect) is nickname of inc/call, see $p p1 = [ ... -->
             <tr>
@@ -159,14 +160,14 @@ require_once("navbar_admin.php");
                  <?=str_repeat('&nbsp;', 5 - strlen((string)$SrNo)) . $SrNo?>
                  <a id="erase_row" class="btn btn-danger"
                     onclick="var yes ; yes = jsmsgyn('Erase row <?=$id?>?','') ;
-                    if (yes == '1') { location.href= '<?=$pp1->ldd.$id?>/'; }"
+                    if (yes == '1') { location.href= '<?=$pp1->ldd_admins.$id?>/'; }"
                     title="Delete tbl row ID=$id"
                  ><?=str_repeat('&nbsp;', 8 - strlen($id)) . $id ?></a>
               </td>
 
 
               <!-- ********** 2. Date&Time ************ -->
-              <td><?=self::escp($r->datetime)?></td>
+              <td><?=self::escp($rx->datetime)?></td>
 
 
               <!-- ********** 3. Username ************ -->
@@ -174,13 +175,13 @@ require_once("navbar_admin.php");
                 <!-- https://getbootstrap.com/docs/4.0/components/buttons/ -->
                 <a class="btn btn-link" href="<?=$pp1->upd_user_loggedin . $id?>"
                    title="Edit tbl row"
-                ><?=self::escp($r->username)?></a>
+                ><?=self::escp($rx->username)?></a>
               </td>
 
               <!-- ********** 4. Admin Name ************ -->
-              <td><?=self::escp($r->aname)?></td>
+              <td><?=self::escp($rx->aname)?></td>
               <!-- ********** 5. Added by ************ -->
-              <td><?=self::escp($r->addedby)?></td>
+              <td><?=self::escp($rx->addedby)?></td>
 
               <!-- ********** 6. Action ************ -->
               <td width=16%>

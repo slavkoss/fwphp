@@ -19,16 +19,9 @@ if(isset($_POST["Submit"]))
 
 
 //               2. R E A D  D B T B L R O W S
-// returns object :
-$cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'"
-  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
-
-$rr =(object)[];
-$SrNo = 0; 
-while ( $rr= Tbl_crud_category::rrnext($cursor_LOVcategory) and isset($rr->title) ): {
-  ++$SrNo ;          //echo '<pre>$rr->title='; print_r($rr->title); echo '</pre>';
-} endwhile; 
-$LOVcategory_nrrows = $SrNo ;
+//$rcnt_category = Db_allsites::rrcount('category') ;
+//Tbl_crud_category::r rcount( //$sellst='COUNT(*) COUNT_ROWS'
+//   $qrywhere="'1'='1'", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
                     /*if ($SrNo == 0): {
                       echo '<b>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: </b><pre>NO CATEGORIES $rr='; print_r($rr); echo '</pre>';
                                        //displays : 13 CATEGORIES, $rr=stdClass Object
@@ -36,11 +29,11 @@ $LOVcategory_nrrows = $SrNo ;
                     } else: {
                       echo '<b>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: </b>'.$SrNo .'  CATEGORIES, <pre>$rr='; print_r($rr); echo '</pre>';
                     } endif ; */
-
-//$cursor_LOVcategory = $cursor_LOVcategory_saved ;
-$cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
+$cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'"
+  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
               //echo '<pre>$cursor_LOVcategory='; print_r($cursor_LOVcategory); echo '</pre>';
-
+//$LOVcategory_nrrows = $SrNo ;
+$rcnt_LOVcategory = Db_allsites::rrcount('category') ;
 
 
 require $pp1->shares_path . 'hdr.php';
@@ -87,20 +80,18 @@ require_once("navbar_admin.php");
 
               <select class="form-control" id="CategoryTitle"  name="Category">
                 <?php
-                if ($LOVcategory_nrrows == 0) { ?>
+                if ($rcnt_LOVcategory == 0) { ?>
                      <option>NO ROWS FOR LOV</option>
                   </select><?php
                 } else
                 {
 
-                  $SrNo = 0;
-                  while ( $rr= Tbl_crud_category::rrnext($cursor_LOVcategory) and isset($rr->id)):
+              $SrNo = 0;
+              while ( $rx = Db_allsites::rrnext( $cursor_LOVcategory
+                , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
                   {
-                    //all row fld names lowercase
-                    switch (Db_allsites::getdbi()) { case 'oracle' : $rr = self::rlows($rr) ; break; default: break; }
                     ?>
-
-                    <option> <?=$rr->title?> </option><?php 
+                    <option> <?=$rx->title?> </option><?php 
 
                    } endwhile; ?>
                   </select>

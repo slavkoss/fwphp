@@ -114,8 +114,8 @@ abstract class Config_allsites //extends Db_allsites
       // URL is eg http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme.md
       //FIRST PART of REQUEST_ URI is module_ relpath : eg /fwphp/glomodul/mkd/
       $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); //it is not $moduledir_relpath !!
+                       //or rtrim(str_replace($wsroot_path, '', $module_path),'/') ;
       
-              //or rtrim(str_replace($w sroot_path, '', $m odule_path),'/') ;
       $module_url = $wsroot_url.$module_relpath.'/';
 
       /** -----------------------------------------------------------------

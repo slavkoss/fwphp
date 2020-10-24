@@ -5,7 +5,7 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 //namespace B12phpfw ;
 //namespace B12phpfw\dbadapter\user ;
 use B12phpfw\core\zinc\Db_allsites ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 //use PDO;
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
@@ -93,7 +93,8 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
         <?php
 
         $SrNo = 0;
-      switch (Db_allsites::getdbi())
+      $dbi = Db_allsites::getdbi() ;
+      switch ($dbi)
       {
         case 'oracle' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
@@ -114,44 +115,46 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
              , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
           ) ;
       }
-      //while ($r = Db_ allsites::r rn ext($c ursor) and isset($r->id)):
-      while ( $r = Tbl_crud_post::rrnext($cursor_posts) and isset($r->id) ): 
+
+      // isset($rx->id)   Tbl_crud_post::...
+      while ( $rx = Db_allsites::rrnext( $cursor_posts
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       { //all row fld names lowercase
-          switch (Db_allsites::getdbi()) { case 'oracle' : $r = self::rlows($r) ; break; 
-          default: break; } //echo '<h2>'.Db_allsites::getdbi(). d oes not exist'.'</h2>';
           $SrNo++;
 
-          //c_, R_, U_, D_
-          $cursor_rowcnt_comments = Tbl_crud_comment::rr($sellst='count(*) COUNT_ROWS'
-            , $qrywhere="post_id=$r->id AND status='ON'"
-            , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
-          ) ;
-          $Total_approved = Tbl_crud_comment::rrnext($cursor_rowcnt_comments)->COUNT_ROWS ;
+          $rcnt_approved = Tbl_crud_post_comment::rrcount( 
+              $qrywhere="post_id=:id AND status=:status"
+            , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
+                     , ['placeh'=>':status', 'valph'=>'ON', 'tip'=>'str']
+            ]
+            , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-          $cursor_rowcnt_comments = Tbl_crud_comment::rr($sellst='count(*) COUNT_ROWS'
-            , $qrywhere="post_id=$r->id AND status='OFF'"
-            , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
-          ) ;
-          $Total_disapproved = Tbl_crud_comment::rrnext($cursor_rowcnt_comments)->COUNT_ROWS ;
+          $rcnt_disapproved = Tbl_crud_post_comment::rrcount( 
+              $qrywhere="post_id=:id AND status=:status"
+            , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
+                     , ['placeh'=>':status', 'valph'=>'OFF', 'tip'=>'str']
+            ]
+            , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
           ?>
 
             <tr>
-              <td><?=$SrNo?></td><td><?=$r->title?></td><td><?=$r->datetime?></td>
-              <td><?=$r->category?></td><td><?=$r->author?></td>
+              <td><?=$SrNo?></td><td><?=$rx->title?></td><td><?=$rx->datetime?></td>
+              <td><?=$rx->category?></td><td><?=$rx->author?></td>
               <td>
                 <?php
-                if ($Total_approved > 0) { ?>
-                   <span class="badge badge-success"><?=$Total_approved?></span><?php }
+                if ($rcnt_approved > 0) { ?>
+                   <span class="badge badge-success"><?=$rcnt_approved?></span><?php }
                 ?>
                 <?php
-                if ($Total_disapproved > 0) { ?>
-                   <span class="badge badge-danger"><?=$Total_disapproved?></span><?php }
+                if ($rcnt_disapproved > 0) { ?>
+                   <span class="badge badge-danger"><?=$rcnt_disapproved?></span><?php }
                 ?>
               </td>
-              <td> 
-                 <a target="_blank" href="<?=$pp1->read_post?>id/<?=$r->id?>"
-                    title="Preview post id <?=$r->id?>"
-                 ><span class="btn btn-info"><?=$r->id?></span>
+              <td> 1
+                 <a target="_blank" href="<?=$pp1->read_post?>id/<?=$rx->id?>"
+                    title="Preview post id <?=$rx->id?>"
+                 ><span class="btn btn-info"><?=$rx->id?></span>
                    </a>
               </td>
             </tr>
@@ -167,7 +170,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 <!-- Main Area End
                         //$sql = "S ELECT * FROM posts ORDER BY datetime desc LIMIT 0,6";
                         //Db_allsites::p repareSQL($sql); Db_allsites::e xecute();;
-                        //while ($r = Db_allsites::f etchNext()) 
+                        //while ($rx = Db_allsites::f etchNext()) 
  -->
 
 

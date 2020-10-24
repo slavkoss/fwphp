@@ -4,7 +4,7 @@
 namespace B12phpfw\dbadapter\post_comment ;
 
 use B12phpfw\core\zinc\Db_allsites ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 //use B12phpfw\module\blog\Home_ctr ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
@@ -55,51 +55,47 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_comment::rr($sellst='*' 
+      $cursor_comments = Tbl_crud_post_comment::rr($sellst='*' 
         , $qrywhere="status='OFF' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
       $SrNo = 0;
-      while ($r = Tbl_crud_comment::rrnext( $cursor_comments) and isset($r->id) ):
+      while ( $rcomment_disappr = Db_allsites::rrnext( $cursor_comments
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rcomment_disappr->rexists ):
       {
-        $SrNo++;
-      //all row fld names lowercase
-      switch (Db_allsites::getdbi())
-      {
-        case 'oracle' : $r = $this->rlows($r) ; break; 
-        default: break;
-      }
-      ?>
+        $SrNo++; ?>
       <tbody>
         <tr>
           <td><?php echo self::escp($SrNo); ?></td>
-          <td><?php echo self::escp($r->datetime); ?></td>
-          <td><?php echo self::escp($r->name); ?></td>
+          <td><?php echo self::escp($rcomment_disappr->datetime); ?></td>
+          <td><?php echo self::escp($rcomment_disappr->name); ?></td>
           <td><?php 
-            switch (Db_allsites::getdbi()) { case 'oracle' : echo self::escp($r->commenttxt); break; 
-              default: echo self::escp($r->comment); break; }
+            switch (Db_allsites::getdbi()) { 
+              case 'oracle' : echo self::escp($rcomment_disappr->commenttxt); break; 
+              default: echo self::escp($rcomment_disappr->comment); break; 
+            }
             ?>
           </td>
 
           <!-- Approve -->
           <td>
           <a title="Set status=ON" 
-             href="<?=$pp1->upd_comment_stat?>id/<?=$r->id?>/stat/ON/"
-             class="btn btn-success"><?=$r->id?></a>
+             href="<?=$pp1->upd_comment_stat?>id/<?=$rcomment_disappr->id?>/stat/ON/"
+             class="btn btn-success"><?=$rcomment_disappr->id?></a>
           </td>
 
           <td>
             <a id="erase_row" class="btn btn-danger"
-               title = "Delete row id <?=$r->id?>"
-               onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
-                if (yes == '1') { location.href= '<?=$pp1->ldd?>t/comments/id/<?=$r->id?>/'; }"
-            ><?=$r->id?></a>
+               title = "Delete row id <?=$rcomment_disappr->id?>"
+               onclick="var yes ; yes = jsmsgyn('Erase row <?=$rcomment_disappr->id?>?','') ;
+                if (yes == '1') { location.href= '<?=$pp1->ldd_comments.$rcomment_disappr->id?>/'; }"
+            ><?=$rcomment_disappr->id?></a>
           </td>
           <!-- See Post -->
           <td style="min-width:140px;"> <a class="btn btn-primary"
-              title = "Show post id <?=$r->post_id?>"
-              href="<?=$pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
-                    <?=$r->post_id?></a>
+              title = "Show post id <?=$rcomment_disappr->post_id?>"
+              href="<?=$pp1->read_post?>id/<?=$rcomment_disappr->post_id?>" target="_blank">
+                    <?=$rcomment_disappr->post_id?></a>
           </td>
         </tr>
       </tbody>
@@ -122,37 +118,34 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_comment::rr($sellst='*' 
+      $cursor_comments = Tbl_crud_post_comment::rr($sellst='*' 
         , $qrywhere="status='ON' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
       $SrNo = 0;
-      while ($r = Tbl_crud_comment::rrnext( $cursor_comments) and isset($r->id) ):
+      while ( $rcomment_appr = Db_allsites::rrnext( $cursor_comments
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rcomment_appr->rexists ):
       {
         $SrNo++;
-        //all row fld names lowercase
-        switch (Db_allsites::getdbi())
-        {
-          case 'oracle' : $r = $this->rlows($r) ; break; 
-          default: break;
-        }
         ?>
         <tbody>
         <tr>
           <td><?php echo self::escp($SrNo); ?></td>
-          <td><?php echo self::escp($r->datetime); ?></td>
-          <td><?php echo self::escp($r->name); ?></td>
+          <td><?php echo self::escp($rcomment_appr->datetime); ?></td>
+          <td><?php echo self::escp($rcomment_appr->name); ?></td>
           <td><?php 
-            switch (Db_allsites::getdbi()) { case 'oracle' : echo self::escp($r->commenttxt); break; 
-              default: echo self::escp($r->comment); break; }
+            switch (Db_allsites::getdbi()) {
+              case 'oracle' : echo self::escp($rcomment_appr->commenttxt); break; 
+              default: echo self::escp($rcomment_appr->comment); break; 
+            }
             ?>
           </td>
-          <td><?php echo self::escp($r->approvedby); ?></td>
+          <td><?php echo self::escp($rcomment_appr->approvedby); ?></td>
           <!-- DisAprove -->
           <td style="min-width:140px;"> 
              <a title="Set status=OFF" 
-                href="<?=$pp1->upd_comment_stat?>id/<?=$r->id?>/stat/OFF/"
-                class="btn btn-warning"> <?=$r->id?> </a>
+                href="<?=$pp1->upd_comment_stat?>id/<?=$rcomment_appr->id?>/stat/OFF/"
+                class="btn btn-warning"> <?=$rcomment_appr->id?> </a>
           </td>
 
           <td>
@@ -160,8 +153,8 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
           </td>
           <!-- go to Post page -->
           <td style="min-width:140px;"> <a class="btn btn-primary"
-             href="<?=$pp1->read_post?>id/<?=$r->post_id?>" target="_blank">
-                 <?=$r->post_id?></a> </td>
+             href="<?=$pp1->read_post?>id/<?=$rcomment_appr->post_id?>" target="_blank">
+                 <?=$rcomment_appr->post_id?></a> </td>
         </tr>
         </tbody>
       <?php
@@ -178,9 +171,9 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_comment ;
 <!--  Main Area End 
                           //$sql = "S ELECT * FROM comments WHERE s tatus='ON' ORDER BY datetime desc";
                           //$this->p repareSQL($sql); $this->e xecute();;
-                          //while ($r = $this->f etchNext()) 
+                          //w hile ($rcom_approved = $this->f etchNext()) 
 
                         //$sql = "S ELECT * FROM comments WHERE s tatus='O FF' or s tatus < '0' ORDER BY datetime desc";
                         //$this->p repareSQL($sql); $this->e xecute();;
-                        //while ($r = $this->f etchNext()) 
+                        //while ($rcom_approved = $this->f etchNext()) 
 -->

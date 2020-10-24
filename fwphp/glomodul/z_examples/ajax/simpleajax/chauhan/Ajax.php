@@ -1,5 +1,6 @@
 <?php
   /**
+   * J:\awww\www\fwphp\glomodul\z_examples\ajax\simpleajax\Ajax.php
    * This class helps creating simple AJAX application
    * 
    * @author Rochak Chauhan

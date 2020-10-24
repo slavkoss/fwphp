@@ -14,7 +14,8 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
 //           1. S U B M I T E D  A C T I O N S
 
 //               2. R E A D  D B T B L R O W S
-//no sense to put this in controller (Home_ctr) because details cursor can not be there ! :
+//no sense to put this in controller (Home_ctr) because details cursor (approved comments)
+//can not be there !
 $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[]
   , $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ 
            , 'category_from_url'=>$category_from_url
@@ -64,28 +65,22 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
 
 
         $Sr = 0;
-        while ($r = Tbl_crud_post::rrnext($cursor_post) and isset($r->id)): 
+        while ($rx = Tbl_crud_post::rrnext($cursor_post) and isset($rx->id)): 
         {
-          $Sr++;
-          //all row fld names lowercase
-          switch (Db_allsites::getdbi()) { case 'oracle' : $r = Config_allsites::rlows($r) ; break; default: break; }
-          ?>
+          $Sr++; ?>
           <tr>
           <td><?=$Sr?></td>
 
-            <td>
-              <?php
-                $tmp = self::escp($r->title) ;
-                if(strlen($tmp)>20) {$tmp= substr($tmp,0,18).'..';}
-              ?><a href="<?=$pp1->read_post?>id/<?=$r->id?>"
-                   title="Show post <?=$tmp?>"
-                ><span"><?=$tmp?></span
-                ></a>
+            <td><?php
+              $tmp = self::escp($rx->title) ;
+              if(strlen($tmp)>20) {$tmp= substr($tmp,0,18).'..';}?>
+                <a href="<?=$pp1->read_post?>id/<?=$rx->id?>"
+                   title="Show post <?=$tmp?>" ><span><?=$tmp?></span></a>
 
           </td>
 
           <td><?php
-                $tmp = self::escp($r->category) ;
+                $tmp = self::escp($rx->category) ;
                 //if(strlen($tmp)>10){ $tmp= substr($tmp,0,10).'..'; }
                ?>
               <span class="text-dark">
@@ -96,13 +91,13 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
           </td>
 
           <td><?php
-               $tmp = self::escp($r->datetime) ;
+               $tmp = self::escp($rx->datetime) ;
                //if(strlen($tmp)>11){$tmp = substr($tmp,0,11).'..';} 
                ?><span title="<?=$tmp?>"><?=substr($tmp,0,10)?></span>
                </td>
 
           <td><?php
-               $tmp = self::escp($r->author) ;
+               $tmp = self::escp($rx->author) ;
                if(strlen($tmp)>10){$tmp= substr($tmp,0,10).'..';}
                echo $tmp ;
                ?></td>
@@ -110,28 +105,36 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
 
 
 
-          <td><img src="Uploads/<?=$r->image?>" width="170px;" height="50px"></td>
+          <td><img src="Uploads/<?=$rx->image?>" width="170px;" height="50px"></td>
           <td>
             <?php
             // A p p r o v e d  c o m m e n t s  c o u n t  count_post_comment_aproved
-            $rows_on = Tbl_crud_post_comment::rr_count_aproved($r->id, 'ON');
-            if ($rows_on>0) { ?> <span class="badge badge-success"><?=$rows_on?></span> <?php } 
+            //$count_ rows_ on = Tbl_crud_post_comment::rr_count_aproved($rx->id, 'ON');
+            $count_rows_on = Tbl_crud_post_comment::rrcount( 
+                    $qrywhere="post_id=:post_id AND status='ON'"
+                  , $binds=[ ['placeh'=>':post_id', 'valph'=>$rx->id, 'tip'=>'int'] ]
+                  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+            if ($count_rows_on>0) { ?> <span class="badge badge-success"><?=$count_rows_on?></span> <?php } 
             // D i s a p p r o v e d  c o m m e n t s  c o u n t
-            $rows_off = Tbl_crud_post_comment::rr_count_aproved($r->id, 'OFF');
-            if ($rows_off>0) { ?> <span class="badge badge-danger"><?=$rows_off?></span> <?php } ?>
+            //$count_ rows_ off = Tbl_crud_post_comment::rr_count_aproved($rx->id, 'OFF');
+            $count_rows_off = Tbl_crud_post_comment::rrcount( 
+                    $qrywhere="post_id=:post_id AND status='OFF' or status < '0'"
+                  , $binds=[ ['placeh'=>':post_id', 'valph'=>$rx->id, 'tip'=>'int'] ]
+                  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+            if ($count_rows_off>0) { ?> <span class="badge badge-danger"><?=$count_rows_off?></span> <?php } ?>
           </td>
 
 
           <td>
-            <a href="<?=$pp1->editpost?>id/<?=$r->id?>"><span class="btn btn-warning"> Ed</span></a>
+            <a href="<?=$pp1->editpost?>id/<?=$rx->id?>"><span class="btn btn-warning"> Ed</span></a>
             <!--   -->
           </td>
           <td>
             <!--   -->
            <a id="erase_row" class="btn btn-danger"
-              onclick="var yes ; yes = jsmsgyn('Erase row <?=$r->id?>?','') ;
-              if (yes == '1') { location.href= '<?=$pp1->ldd?>t/posts/id/<?=$r->id?>/'; }"
-           ><?=$r->id?></a>
+              onclick="var yes ; yes = jsmsgyn('Erase row <?=$rx->id?>?','') ;
+              if (yes == '1') { location.href= '<?=$pp1->ldd_posts.$rx->id?>/'; }"
+           ><?=$rx->id?></a>
           </td>
           <!--td>
 

@@ -7,7 +7,7 @@ use Exception;
 /**
  * Class Config
  */
-class Config
+class z_Config
 {
     /**
      * @param string $key
