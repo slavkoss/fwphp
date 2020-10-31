@@ -21,12 +21,12 @@ Tag: Help, Markdown sintax, SimpleMDE
 
 #### [About SimpleMDE](#SimpleMDE)    https://github.com/sparksuite/simplemde-markdown-editor
 # 1. Content   
-1. **non-breaking space**
+1. This line uses     non-breaking spaces. **ctrl+c,v     in SimpleMDE works only with ANDemsp; **! See  
+   https://stackoverflow.com/questions/44810511/how-to-add-empty-spaces-into-md-markdown-readme-on-github
     
     | System     | Key combination                                             |
     |------------|-------------------------------------------------------------|
-    | Windows   | <kbd>Alt + 255 or ANDnbsp;</kbd> |       
-    |                   | or Alt + 0160 |
+    | Windows   | <kbd>**ANDemsp;**  (or Alt + 255 or ANDnbsp;  or Alt + 0160)</kbd> |       
     | macOS       | ⌥ Opt+Space |
     | Linux         | Compose+Space+Space        |
     | In many commercial software | Ctrl + Space  |
@@ -37,13 +37,13 @@ Tag: Help, Markdown sintax, SimpleMDE
 1. Ignoring Markdown formatting: by using \ before the Markdown character. Eg
     Let's rename \*our-new-project\* to \*our-old-project\*.  
     Same without \ :  Let's rename *our-new-project* to *our-old-project*.  
-1. [Emphasis (bold...)](#Emphasis)  
+1. [Emphasis (bold...), Strikethrough ](#Emphasis)  
     
 1. [Lists](#Lists)  
     
 1. [Links](#Links)  [inline-style: https://google.hr link](https://google.hr)  
     `[inline-style: https://google.hr link](https://google.hr)`
-   `Anchors new : jumps to anchor [Lists](){:name='Lists'}  - not working for me`
+   Anchors new - not working for me jump to anchor : `[Lists](){:name='Lists'} `
    `old  [Emphasis](#Emphasis) jumps to <a name="Emphasis"></a>2. Emphasis`
    
 1. [Images](#Images)  

@@ -115,7 +115,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
       {
         //$rows_sameday_str .= '<b> $dtbl='. $dtbl .' </b>MMM '.$post_ddabr."<br />" ;
               //. ', $_m1week1d1='.$_m1week1d1. '< $iimonthday='.$iimonthday
-              //.', $_daysInMonth='.$_daysInMonth
+              //.', $_d aysInMonth='.$_d aysInMonth
 
         // **********************************************************
         //   D a y  p o s t s
@@ -142,7 +142,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
               , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and !$rx->rexists )
         } endwhile; //all same day r o w s
 
-        //echo $listart . $rows_sameday_str . $liend.'<br />'; // . $date  . $wrap
+        //e cho $listart . $rows_sameday_str . $liend.'<br />'; // . $date  . $wrap
         echo '<li style="list-style-type:none;" class="nonum"> '
           . ' '. $rows_sameday_str.' </li>'.'<br />'; // . $date  . $wrap
       } //day in calender = day in tbl : read p o s t s of that day
@@ -247,9 +247,9 @@ l (lowercase 'L') = day of the week eg Tuesday
 
   // Create  t a b l e  markup   $ t = today day ordno in month
   //for ( $ii=1, $dayinm_ ordno=1, $iitoday=date('j'), $m=date('m'), $y=date('Y');
-  //        $dayinm_ ordno<=$_daysInMonth; ++$ii
+  //        $dayinm_ ordno<=$_d aysInMonth; ++$ii
   for ( $iimonthday=1, $iitoday=date('j'), $m=date('m'), $y=date('Y');
-          $iimonthday<=$_daysInMonth; ++$iimonthday
+          $iimonthday<=$_d aysInMonth; ++$iimonthday
   ):
   {
         // // Apply a "fill" class to the boxes occurring before first of the month
@@ -264,7 +264,7 @@ l (lowercase 'L') = day of the week eg Tuesday
         $rows_sameday_str = NULL;
 
         // // Add day of the month to identify the calendar box
-        //if ( $_m1week1d1<$iimonthday and $_daysInMonth>=$dayinm_ ordno )
+        //if ( $_m1week1d1<$iimonthday and $_d aysInMonth>=$dayinm_ ordno )
         //{
             // // Format e vents data
             //if ( isset($e vents[$d ayinm_ordno]) )
@@ -284,7 +284,7 @@ l (lowercase 'L') = day of the week eg Tuesday
                       . ', today=$iitoday='.$t
                       . ', $_m1week1d1='.$_m1week1d1
                       . '< $iimonthday='.$iimonthday
-                      .', $_daysInMonth='.$_daysInMonth
+                      .', $_d aysInMonth='.$_d aysInMonth
                       //.'>= $dayinm_ ordno='.$dayinm_ ordno
                    ;
                    $rows_sameday_str .= " $iimonthday $link <br />"; // \n\t\t\t
