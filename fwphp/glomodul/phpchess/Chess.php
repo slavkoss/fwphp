@@ -1307,21 +1307,17 @@ class Chess
     }
 
 
-    //protected function print_board($help_2moves='')  // function ascii_cssproblem()
-  public function ascii($help_2moves='')  // function ascii_cssproblem()
+  //protected function print_board($help_2moves='')  // function ascii_cssproblem()
+  public function ascii($help_2moves='')
   {
     $s = ''; //'<hr /><hr />';
     $wh='width="35" height="32"';
-
-
                         //echo '<pre>$this->history='; print_r($this->history); echo  '</pre>';
                         //echo '<pre>$this->board='; print_r($this->board); echo  '</pre>';
                         // ROW1: 0-7 is Black rnbqkbnr,  8-15 is null  ROW2: 16-23 Black p or null
                         //24-31, ROW3: 32-39, 40-47,  ROW4: 48-55, 56-63,  ROW5: 64-71, 72-79, 
                         //ROW6: 80-87, 88-95,  ROW7: 96-103 W p, 104-111, ROW8: 112-119 W rnbqkbnr
                         //see const SQUARES = ['a8' => 0, 'b8' => 1, 'c8' => 2, 'd8' => 3,...
-
-
     ob_start(); ?>
     <table width="270px" cellspacing="0px" cellpadding="0px" border="1px">
     <!-- a,b,c... = first row top -->
@@ -1367,14 +1363,15 @@ class Chess
       if ($this->board[$i] == null) {
         // ************* EMPTY SQUARES : ***********
         $symbol = '' ;
+
         if (!$wsqare) {
           // BLACK SQUARE :
           $symbol = '<img src="img/1_0distance.png" alt="1_0distance.png" '.$wh.'>';
 
 
             switch (true) {
-              case ($i == $last_from or $i == $prelast_from): 
-                $symbol = "<td style='border:solid 4px gray' width=34px bgcolor=#D3D3D3>".$symbol ;
+              case ($i == $last_from or $i == $prelast_from): //gray, 808000  yellow FFFF00
+                $symbol = "<td style='border-left:solid 4px #FFFF00;border-right:solid 4px #FFFF00;' width=34px bgcolor=#D3D3D3>".$symbol ;
                 break ;
 
               //case ($i == $last_to or $i == $prelast_to): $symbol = 
@@ -1387,16 +1384,14 @@ class Chess
 
           $s .= $symbol ;  //$s .= '<li>'. $symbol ;
           $wsqare = true ;
+
         } else { 
           // WHITE SQUARE :
           $symbol = '<img src="img/0_0distance.png" alt="0_0distance.png" '.$wh.'>';
-          
                        //$s .= '<li style="background:white;">'. $symbol ; $wsqare = false ;
-
-
             switch (true) {
               case ($i == $last_from or $i == $prelast_from):
-                 $symbol = "<td style='border:solid 4px gray' width=34px bgcolor=#FFFFFF>".$symbol ;
+                 $symbol = "<td style='border-left:solid 4px #FFFF00;border-right:solid 4px #FFFF00;' width=34px bgcolor=#FFFFFF>".$symbol ;
                  break;
               //case ($i == $last_to or $i == $prelast_to): $symbol = 
               //  "<td style='border:solid 4px #060' width=34px bgcolor=#FFFFFF>".$symbol ;  break ;
@@ -1437,66 +1432,49 @@ class Chess
             }
         }
 
-                  //    last () from eg 99 :
-                  //          [color] => w  [from] => 99 [to] => 67
-        /*$last_from = $this->history[count($this->history) -1]['move']['from'] ;
-        $prelast_from = $this->history[count($this->history) -2]['move']['from'] ;
-        $last_to = $this->history[count($this->history) -1]['move']['to'] ;
-        $prelast_to = $this->history[count($this->history) -2]['move']['to'] ; */
 
         if (!$wsqare) { 
-                            //$symbol = '<li>'. $symbol .'';
-          //BLACK SQUARE
-
-          //if ($i == $last_to or $i == $prelast_to) { 
-          //  $symbol = "<td style='border:solid 4px #060' width=34px bgcolor=#D3D3D3>".$symbol ; 
-          //} else { $symbol = "<td width=34px bgcolor=#D3D3D3>".$symbol ; }
+          //BLACK SQUARE              //$symbol = '<li>'. $symbol .'';
             switch (true) {
               case ($i == $last_from or $i == $prelast_from): $symbol = 
-                "<td style='border:solid 4px gray' width=34px bgcolor=#D3D3D3>".$symbol ;  break ;
+                "<td style='border-left:solid 4px #FFFF00;border-right:solid 4px #FFFF00;' width=34px bgcolor=#D3D3D3>".$symbol ;  break ;
 
               case ($i == $last_to or $i == $prelast_to): $symbol = 
-                "<td style='border:solid 4px #060' width=34px bgcolor=#D3D3D3>".$symbol ;  break ;
+                "<td style='border:solid 4px #006600' width=34px bgcolor=#D3D3D3>".$symbol ;  break ;
 
               default: $symbol = "<td width=34px bgcolor=#D3D3D3>".$symbol ; break;
             }
 
           $wsqare = true ;
+
         } else { 
                          //$symbol = '<li style="background:white;">'. $symbol ;
-          //WHITE SQUARE   border='3px solid blue' or bgcolor=lightblue
-          //if ($i == $last_to or $i == $prelast_to) { 
-          //  $symbol = "<td style='border:solid 4px #060' width=34px bgcolor=#FFFFFF>".$symbol ; 
-          //} else { $symbol = "<td width=34px bgcolor=#FFFFFF>".$symbol ; }
             switch (true) {
               case ($i == $last_from or $i == $prelast_from): $symbol = 
-                "<td style='border:solid 4px gray' width=34px bgcolor=#FFFFFF>".$symbol ;  break ;
+                "<td style='border-left:solid 4px #FFFF00;border-right:solid 4px #FFFF00;' width=34px bgcolor=#FFFFFF>".$symbol ;  break ;
 
               case ($i == $last_to or $i == $prelast_to): $symbol = 
-                "<td style='border:solid 4px #060' width=34px bgcolor=#FFFFFF>".$symbol ;  break ;
+                "<td style='border:solid 4px #006600' width=34px bgcolor=#FFFFFF>".$symbol ;  break ;
 
               default: $symbol = "<td width=34px bgcolor=#FFFFFF>".$symbol ; break;
             }
 
           $wsqare = false ; 
         }
+
         $symbol .= '</td>' ;
-
-
         $s .= $symbol ;
       }
 
 
-      if (($i + 1) & 0x88) {
-
-
+      if (($i + 1) & 0x88) 
+      {
         ob_start(); ?> <!-- 8,7,6... = last col right -->
         <td align=center width=20px bgcolor=#D3D3D3><?=(8 - self::rank($i))?></td>
           <?php
         $fmtedtxt = ob_get_contents();
         ob_end_clean(); //ob_ end_flush(), ob_ get_flush()...
         $s .= $fmtedtxt ;
-
 
           $s .= '</tr>';  //$s .= '</ul>';  //$s .= '|'.'<br />';
           $i += 8;
