@@ -1,6 +1,7 @@
 /.git/
 composer.lock
 Syncfolders_Database_db
+/z_big/
 /zinc/img/img_big
 /vendor/
 /logs

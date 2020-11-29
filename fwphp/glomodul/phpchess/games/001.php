@@ -42,7 +42,7 @@ Qd2 is loss of time. The queen will soon have to seek a better square (14.Qe2). 
 22.Qxg4 Qxg4 23.hxg4 Rxd3, threatening ...Rh3 mate and ...Rxc3; or 21.Qxg4 Rxd3 22.Ne2 Rc2 23.Bc1 g6! threatening ...h5; or 21.Ne4 Qh4 22.h3 (if 22.g3 Qxh2+ 23.Qxh2 Nxh2 and wins.) 22....Rxd3 23.Qxd3 Bxe4 24.Qxe4 Qg3 25.hxg4 Qh4+ mate."
 ,'hlp44'=>"<b>22. g3 Rxc3!!</b> g3 Or 22.h3 Rxc3! 23.Bxc3 Bxe4 24.Qxg4 Qxg4 25.hxg4 Rd3 wins. *** Tartakower: The alternative 22.h3, parrying the mate, would lead to the following brilliant lines of play: 22...Rxc3! (an eliminating sacrifice, getting rid of the knight, which overprotects the bishop on e4) 23.Bxc3 (or 23.Qxg4 Rxh3+ 24.Qxh3 Qxh3+ 25.gxh3 Bxe4+ 26.Kh2 Rd2+ 27.Kg3 Rg2+ 28.Kh4 Bd8+ 29.Kh5 Bg6+ mate) 23...Bxe4+ 24.Qxg4 (if 24.Qxe4 Qg3 25.hxg4 Qh4+ mate) 24...Qxg4 25.hxg4 Rd3 with the double threat of 26...Rh3+ mate and 26....Rxc3, and Black wins. Beautiful as are these variations, the continuation in the text is still more splendid."
 ,'hlp46'=>"<b>23. gxh4 Rd2!!</b>"
-,'hlp47'=>"<b>24. Qxd2 Bxe4+</b>"
+,'hlp48'=>"<b>24. Qxd2 Bxe4+</b>"
 ,'hlp50'=>"<b>25. Qg2 Rh3! 0-1</b>"
 
 
@@ -57,7 +57,7 @@ if (!$parsed) {
   exit(0) ;
 }
 
-$parsedPgn = $chess->parsePgn($pgnString);
+$parsedPgn = $chess->pgnString2arr($pgnString);
             //$return = $chess->loadPgn($pgnString);
             //$fen = $chess->fen() ;
             //echo 'FEN=' . $fen . '<br />';

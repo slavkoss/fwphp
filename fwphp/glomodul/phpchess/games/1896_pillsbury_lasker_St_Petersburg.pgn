@@ -1,0 +1,37 @@
+[Event "St. Petersburg 1895/96"]
+[Site "St. Petersburg RUE"]
+[Date "1896.01.04"]
+[EventDate "1895.12.13"]
+[Round "10"]
+[Result "0-1"]
+[White "Harry Nelson Pillsbury"]
+[Black "Emanuel Lasker"]
+[ECO "D50"]
+[WhiteElo "?"]
+[BlackElo "?"]
+[PlyCount "60"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Nf3 c5 5. Bg5 cxd4 6. Qxd4 Nc6
+7. Qh4 Be7 8. O-O-O Qa5 9. e3 Bd7 10. Kb1 h6 11. cxd5 exd5
+12. Nd4 O-O 13. Bxf6 Bxf6 14. Qh5 Nxd4 15. exd4 Be6 16. f4
+Rac8 17. f5 Rxc3 18. fxe6 Ra3 19. exf7+ Rxf7 20. bxa3 Qb6+
+21. Bb5 Qxb5+ 22. Ka1 Rc7 23. Rd2 Rc4 24. Rhd1 Rc3 25. Qf5 Qc4
+26. Kb2 Rxa3 27. Qe6+ Kh7 28. Kxa3 Qc3+ 29. Ka4 b5+ 30. Kxb5
+Qc4+
+
+{This is one of chess literature's most famous games. On page 64 of Chess Masterpieces Marshall stated regarding 26...Rxa3, 'Pillsbury told me that he had not foreseen this move, as he was laboring under severe time pressure
+
+
+Black is still winning after 28.Kb1 Bxd4. White can't play 29.Rxd4 because of 29...Qxa2 30.Kc1 Rc3#.
+One possible line is 29.Qf5+ Kg8 30.Re1 Qb4+ 31.Kc1 Qc3+ 32. Qc2 (not 32.Kd1 Qa1+ 33.Ke2 Re3+ 34.Kf2 Qxe1#) Qa1+ 33.Qb1 Rc3+ 34.Rc2 Be3+ 35.Rxe3 Qxb1+ 36.Kxb1 Rxe3 and Black has a two pawn advantage in the endgame.
+
+much analysis has been devoted from move 18 after Rxc3. Mistakes were made by both sides, but the key position was on move 28 when Pillsbury played Kxa3?? and walked straight into a mating net. His best move was 28.Qf5+, this has got to be played, everything else loses! The analysis is tricky and white must walk through a tactical minefield to reach safety.
+
+Of Lasker’s play beginning 17…Rxc3 against Pillsbury Pillsbury told W.E. Napier that the exquisite combination here initiated was the only startling and utterly diabolical surprise he suffered in all his career abroad.
+
+Marshall's "Chess Masterpieces" and https://en.chessbase.com/post/edward-winter-s-che-explorations-3--2
+https://en.chessbase.com/portals/4/files/news/2008/winter/games/great02.htm
+}
+
+
+0-1

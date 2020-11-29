@@ -3,10 +3,10 @@
 // ?=QS, p=page=1, i=call Home_ctr method 'home()' to include (or call, or jump to) :
 //http://dev1:8083/fwphp/glomodul/blog/?p/1/i/home/ 
 
-//only blog is required - see $shares_ path
+//before blog is not required - see $shares_ path
 namespace B12phpfw\module\blog ; //see below **HELPNS
 
-//only zinc is required - see $shares_ path
+//before zinc is not required - see $shares_ path
 use B12phpfw\core\zinc\Autoload ; //see below **HELPNS 
 
 //1. settings - properties - assign global variables to use them in any code part
@@ -57,10 +57,18 @@ exit(0);
 
 /**
 *                    **HELPNS
-* first namespace part B12phpfw is vendor's name space's prefix (functional ns part)
-* 2nd ns part m o d u l e is functional ns part = processing (behavior) (named as we wish - ignored by fw)
-* may be more functional ns parts - all are ignored except (CAREFULLY !) :
-* LAST (BEFORE CLSNAME IF ANY) ns part eg "blog" is DIR=POSITIONALnsPart
+* first namespace part B12phpfw is NOT REQUIRED : vendor's name space's prefix (functional nspart)
+* 2nd ns part m o d u l e is NOT REQUIRED : functional ns part = processing (behavior) 
+*
+* FNSPs (FUNCTIONAL NS PARTS) are ignored by fw, ee we name them as we wish.
+*    We use FNSPs as description to depict WHAT CODE DOES (processing, behavior).
+*    May be more functional ns parts as we wish - all are ignored !
+*
+* PNSP (POSITIONALnsPart) CAREFULLY! : LAST ns part (BEFORE CLSNAME IF ANY) eg "src" is DIRNAME.
+*    PNSP is actually (de facto, in fact, indeedded) submodule name.
+*    Path OF DIRNAME (of PNSP) is in $pp1 array, 
+*        used for Autoload class to include classes in dir DIRNAME.
+*    Autoload class is include, global, common, reusable.
 */
 
 
