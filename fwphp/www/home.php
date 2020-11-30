@@ -23,12 +23,15 @@ $app_glomodul_dir_path = $pp1->app_glomodul_dir_path ;
 
 $path_rel_examples = $app_glomodul_dir_path .'/z_examples/' ;
 
+$url_examples = $wsroot_url .'fwphp/glomodul/z_examples/' ;
+$url_glomodul = $wsroot_url .'fwphp/glomodul/' ;
+
 
 
 
 include $pp1->shares_path . 'hdr.php';
    include 'h_top_toolbar.php';
-   include 'h_right_side.php';  //<!-- HOME SECTION -->
+   include 'h_top_intro_right.php';  //<!-- HOME SECTION -->
 
    include 'h_content1.php';  //<!-- eg LEARN (EXPLORE) -->
    include 'h_content2.php';  //<!-- eg CREATE -->

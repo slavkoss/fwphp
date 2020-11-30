@@ -4,10 +4,10 @@
   http://dev1:8083/fwphp/glomodul4/help_sw/test/bootstrap/
 --> */
 
-require $wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/inc_adresses.php' ;
-//require '../inc_adresses.php' ;
-require $wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/inc_hdr_ftr.php' ;
-//require '../inc_hdr_ftr.php' ;
+//require $wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/inc_adresses.php' ;
+
+//require $wsroot_path.$path_rel_examples .'01_PHP_bootstrap/bootstrap/inc_hdr_ftr.php' ;
+
 hdr_pge($module_arr, 'Bootstrap4', '/'.$module_arr['module_relpath'].'/02help/style.css');
 ?>
 

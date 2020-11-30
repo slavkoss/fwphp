@@ -1,5 +1,7 @@
 <?php
 // J:\awww\www\fwphp\glomodul4\help_sw\test\bootstrap\inc_adresses.php
+      if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR); //dirname, basename
+      if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 $module_arr = //array_merge( $module_arr,
 [
    'dbg'                  => '0' 

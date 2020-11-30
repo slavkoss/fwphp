@@ -1,0 +1,1 @@
+<h2>SEE BLOG (MSG) MODULE IN &lt;WEBDOCROOT>/fwphp/glomodul/blog DIR<h2>

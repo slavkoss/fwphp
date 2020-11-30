@@ -51,6 +51,7 @@ class Home_ctr extends Config_allsites
       ,'msg'         => QS.'i/msg/'
       ,'acxe'        => QS.'i/acxe/'
       ,'examples'    => QS.'i/examples/'
+      ,'b_tmplts'    => QS.'i/b_tmplts/'
     ] ;
 
     //step 3 : fw core calls method in this cls : see home_fn above
@@ -180,6 +181,13 @@ class Home_ctr extends Config_allsites
     // J:\awww\www\fwphp\glomodul\z_examples\ora11g\ACXE2
     $this->Redirect_to(
        dirname($pp1->module_url) .'/glomodul/z_examples/00_index_of_important.php' ) ;
+  }
+
+
+  public function b_tmplts(object $pp1)
+  {
+    $this->Redirect_to(
+       dirname($pp1->module_url) .'/glomodul/z_examples/01_php_bootstrap/bootstrap/' ) ;
   }
 
 

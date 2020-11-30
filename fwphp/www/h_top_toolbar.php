@@ -1,6 +1,6 @@
 <?php
 //<!-- J:\awww\www\fwphp\www\h_top_toolbar.php -->
-// http://dev1:8083/fwphp/www/
+//  This is first of 5 home page parts (all are prefixed with "h_")
 
 // $img_url = $wsroot_url . $imgrel_path ; //$imgrel_path = 'zinc/img/';
 // $img_url = $pp1->img_url ;

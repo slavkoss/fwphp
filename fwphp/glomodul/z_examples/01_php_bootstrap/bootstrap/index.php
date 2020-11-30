@@ -9,6 +9,20 @@
 
 require 'inc_adresses.php' ;
 require 'inc_hdr_ftr.php' ;
+
+
+//header("Location:". './03socnet'); 
+switch (true) {
+  case  ( isset($_GET['b_tmplts_socnet']) ): include './03socnet/index.php'; exit(0); //break ;
+  case  ( isset($_GET['b_tmplts_blog']) ): include './04blog_SEE_BLOG_MODULE/index.php'; exit(0); //break ;
+  case  ( isset($_GET['b_tmplts_site']) ): include './05site/index.php'; exit(0); //break ;
+  case  ( isset($_GET['b_tmplts_portfoligrid']) ): include './06portfoligrid/index.php'; exit(0); //break ;
+  case  ( isset($_GET['b_about_module']) ): include './about_module/index.php'; exit(0); //break ;
+  case  ( isset($_GET['b_about_us']) ): include './about_us/index.php'; exit(0); //break ;
+  default: break;
+}
+
+
 hdr_pge($module_arr, 'Bootstrap4', '/'.$module_arr['module_relpath'].'/style.css');
 ?>
 
@@ -33,8 +47,8 @@ hdr_pge($module_arr, 'Bootstrap4', '/'.$module_arr['module_relpath'].'/style.css
         <li class="nav-item"><a href="<?=QS?>b_tmplts_blog" class="nav-link">Blog</a></li>
         <li class="nav-item"><a href="<?=QS?>b_tmplts_site" class="nav-link">Site</a></li>
         <li class="nav-item"><a href="<?=QS?>b_tmplts_portfoligrid" class="nav-link">About me (resume)</a></li>
-        <li class="nav-item"><a href="<?=QS?>b_tmplts_01help" class="nav-link">About this module</a></li>
-        <li class="nav-item"><a href="<?=QS?>b_tmplts_02help" class="nav-link">About us</a></li>
+        <li class="nav-item"><a href="<?=QS?>b_about_module" class="nav-link">About this module</a></li>
+        <li class="nav-item"><a href="<?=QS?>b_about_us" class="nav-link">About us</a></li>
       </ul>
 
     </div>

@@ -1,4 +1,5 @@
 <?php
+//  This is third of 5 home page parts (all are prefixed with "h_")
 $tmp = $img_url . 'ic_supervisor_account_black_24dp.png' ;
 $img_url_users_link   =  '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
 

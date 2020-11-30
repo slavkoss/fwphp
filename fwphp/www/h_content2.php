@@ -1,4 +1,5 @@
 <?php
+//  This is fourth of 5 home page parts (all are prefixed with "h_")
 $tmp     = $img_url . 'ic_done_white_32dp.png' ;
 $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
 ?>
