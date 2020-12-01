@@ -36,6 +36,7 @@ class Chess
   const SYMBOLS = 'pnbrqkPNBRQK';
 
   const DEFAULT_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+  const EMPTY_BOARD = '8/8/8/8/8/8/8/8 w - - 0 1';
 
   const POSSIBLE_RESULTS = ['1-0', '0-1', '1/2-1/2', '*'];
 
@@ -145,7 +146,6 @@ class Chess
   ];
 
 
-  protected $squareOrdNO_chr; // squares 1 to 64 => piece eg p, k...
   protected $kings;
   protected $turn;
   protected $castling;
@@ -158,6 +158,8 @@ class Chess
   
   //protected $wsroot_url ;
   protected $img_url ;
+  protected $chr_on_square; //squares 1 to 64 => piece eg p, k...
+  protected $mv_from_to ; //from history
 
 
 
@@ -415,72 +417,203 @@ class Chess
   } //e n d  f n  pgn String 2 arr($game_ pgnString)
 
 
+  public function get_mv_from_to()
+  {
+     return $this->mv_from_to ;
+  }
+  protected function set_mv_from_to() 
+  {
+    // ***************************************
+    // ASSIGN ALL $mv_ from_ to
+    // ***************************************
+    $this->mv_from_to = [] ;
+    $history_full = $this->history ;
+    $history      = $this->get_history() ;
+    
+    $cnth  = count($history) ;
+    
+    for ($mvno = 0; $mvno < $cnth; ++$mvno) //< count($chr_on_square)
+    {
+      $history_full_mvno = $history_full[$mvno] ; 
+      $chr = $history_full_mvno['move']['piece']; //eg n
+      $chr = ($chr <= ' ' ? 'EMPTY SQUARE' : $chr) ; // p i e c e
+      $chr_color = $history_full_mvno['move']['color'] ; //eg w
 
-  function board_html() //was ascii  $help_2moves=''  object $game, object $squares_used
+      $mve      = $history[$mvno] ;
+      //$x = expr1 if expr1 exists, and is not NULL. Else $x = expr2. Introduced in PHP 7
+      $mveprev  = $history[$mvno - 1] ?? ' ' ;
+
+      $tosq = $history_full_mvno['move']['to_algebr']; //eg e4
+      $clrtosq = Chess::squareColor($tosq) === 'light' ? 'w' : 'b';
+
+      $fromsq = $history_full_mvno['move']['from_algebr']; //eg e4
+      $clrfromsq = Chess::squareColor($fromsq) === 'light' ? 'w' : 'b' ;
+
+      $this->mv_from_to[] = (object)[
+        //  'mvno'       => $mvno
+          'chr'        => $chr
+        , 'chr_color'  => $chr_color
+        , 'mve'        => $mve
+        , 'mveprev'    => $mveprev
+        , 'tosq'       => $tosq
+        , 'clrtosq'    => $clrtosq
+        , 'fromsq'     => $fromsq
+        , 'clrfromsq'  => $clrfromsq
+      ] ;
+    } //e n d  for ($ m v n o = 0; ...
+  }
+
+  protected function get_tdtaghtml(
+       string $wh, string $square, string $square_color
+     , array $mv_from_to, int $cnth
+     //if integer err : Argument 4 passed to Ryanhs\Chess\Chess::get_ tdtaghtml() must be an instance of Ryanhs\Chess\integer, int given
+  )
+  {
+    $border_Wfrom = 'solid 4px lightblue' ; //yellow #FFFF00
+    $border_Wto   = 'solid 4px blue' ; //black #000000
+    $border_Bfrom = 'solid 4px gray' ; //yellow #FFFF00
+    $border_Bto   = 'solid 4px black' ; //black #000000
+
+    //$chess->get($square) returns [type] => p and [color] => w of chr (piece)
+    $mvno      = $cnth -1 ;
+        //$chr       = $mvno > -1 ? $mv_from_to[$mvno]->chr : ' ' ;
+        $chr_color = $mvno > -1 ? $mv_from_to[$mvno]->chr_color : ' ' ;
+        $fromsq    = $mvno > -1 ? $mv_from_to[$mvno]->fromsq : ' ' ;
+        $tosq      = $mvno > -1 ? $mv_from_to[$mvno]->tosq : ' ' ;
+        //
+        $mvno_prev      = $cnth -2 ;
+        //$chr_prev       = $mvno_prev > -1 ? $mv_from_to[$mvno_prev]->chr : ' ' ;
+        $chr_color_prev = $mvno_prev > -1 ? $mv_from_to[$mvno_prev]->chr_color : ' ' ;
+        $fromsq_prev    = $mvno_prev > -1 ? $mv_from_to[$mvno_prev]->fromsq : ' ' ;
+        $tosq_prev      = $mvno_prev > -1 ? $mv_from_to[$mvno_prev]->tosq : ' ' ; 
+
+    $td_tag = "<td align=center $wh bgcolor=$square_color" ;
+
+    // ************************************************************
+    // A D D  COLORED  B O R D E R  T O  S Q U A R E S FROM & TO
+    // ************************************************************
+    switch ($square)
+    {
+      // P R E V I O U S  M O V E  S Q U A R E
+      case  $fromsq_prev:
+        $border_from = ($chr_color_prev === 'w') ? $border_Wfrom : $border_Bfrom ;
+        $td_tag .= " style='border-left: $border_from;border-right: $border_from;'" ;
+                 //echo '<br />$td_tag='. str_replace('<','&lt;',$td_tag) ;
+        break ;
+      case  $tosq_prev:
+        $border_to = ($chr_color_prev === 'w') ? $border_Wto : $border_Bto ;
+        $td_tag .= " style='border-left: $border_to;border-right: $border_to;'" ;
+                 //echo '<br />$td_tag='. str_replace('<','&lt;',$td_tag) ;
+        break ;
+      // L A S T  M O V E  S Q U A R E
+      case  $fromsq:
+        $border_from = ($chr_color === 'w') ? $border_Wfrom : $border_Bfrom ;
+        $td_tag .= " style='border-left: $border_Wfrom;border-right: $border_Wfrom;'" ;
+                 //echo '<br />$td_tag='. str_replace('<','&lt;',$td_tag) ;
+        break ;
+      case  $tosq:
+        $border_to = ($chr_color === 'w') ? $border_Wto : $border_Bto ;
+        $td_tag .= " style='border-left: $border_to;border-right: $border_to;'" ;
+                 //echo '<br />$td_tag='. str_replace('<','&lt;',$td_tag) ;
+        break ;
+    } 
+
+    $td_tag .= '>'; 
+
+    return $td_tag ; 
+  }
+
+  protected function get_imgtaghtml(string $chr_moved, string $square_clr, string $wh)
+  {
+    // tag of chr_moved img
+
+    $it1 = '<img src="../img/'; //it = image tag
+
+    if ( $chr_moved > ' ' ) //eg p, k... see switch below
+    { 
+        // ***********************************
+        // TO = NON EMPTY SQUARES *****
+        // ***********************************
+        switch ($chr_moved) 
+        { 
+            // w h i t e :
+            // $it1 = '<img src="../img/'; //it = image tag
+            case ('P'): $it=$it1.'wp.png" alt="wp.png" '.$wh.'>'; break;
+            case ('R'): $it=$it1.'wr.png" alt="wr.png" '.$wh.'>'; break ;
+            case ('N'): $it=$it1.'wn.png" alt="wn.png" '.$wh.'>'; break ;
+            case ('B'): $it=$it1.'wb.png" alt="wb.png" '.$wh.'>'; break ;
+            case ('K'): $it=$it1.'wk.png" alt="wk.png" '.$wh.'>'; break ;
+            case ('Q'): $it=$it1.'wq.png" alt="wq.png" '.$wh.'>'; break ;
+            // b l a c k :
+            case ('p'): $it=$it1.'bp.png" alt="bp.png" '.$wh.'>'; break ;
+            case ('r'): $it=$it1.'br.png" alt="br.png" '.$wh.'>'; break ;
+            case ('n'): $it=$it1.'bn.png" alt="bn.png" '.$wh.'>'; break ;
+            case ('b'): $it=$it1.'bb.png" alt="bb.png" '.$wh.'>'; break ;
+            case ('k'): $it=$it1.'bk.png" alt="bk.png" '.$wh.'>'; break ;
+            case ('q'): $it=$it1.'bq.png" alt="bq.png" '.$wh.'>'; break ;
+            default: $it=''; break;
+          } //e n d  ***** PUT  P I E C E  IN ONE SQUARE
+    } //e n d  ***** NON EMPTY SQUARES
+    else
+    {
+              // ***********************************
+              // FROM = EMPTY SQUARES
+              // ***********************************
+      $it='';
+      // PUT DISTANCER IN SQUARE (height colapses without d.)
+      //echo $square_clr ;
+      switch ($square_clr) 
+      { 
+          case ('b'):  // b l a c k
+            $it = $it1.'distance_gray.png" alt="distance_gray.png" '.$wh.'>'; break ;
+          default: $it=''; break;
+      } //e n d  ***** PUT  P I E C E  IN ONE SQUARE
+    } //e n d  ***** EMPTY SQUARES
+
+
+    return $it ;
+  }
+
+
+
+  public function get_boardhtml() //was ascii  $help_2moves=''  object $game, object $squares_used
   {
     ob_start(); // returns  H T M L of c h e s s  b o a r d
            //echo __METHOD__ .' SAYS: '.'<pre>$help_2moves='; print_r($help_2moves); echo '</pre>';
-    $fen   = $this->fen() ; //generate fen
-    $squareOrdNO_chr = $this->fen2board($fen) ;
-           //echo __METHOD__ .' SAYS: $squareOrdNO_chr='.'<pre>'; print_r($squareOrdNO_chr); echo '</pre>';
-    $cnth  = count($this->history) ;
+
+    ///////////////////////////////////////////////////////
+    // 1.  M O D E L - prepare data for display
+    //////////////////////////////////////////////////////
+    $history_full = $this->history ; //$this->get_history_full() ;
+                       //echo '<br />'. __METHOD__ .' ln ' . __LINE__ .' SAYS : <b>$history_full = $this->get_history_full()=</b><pre>'; print_r($history_full) ; echo '</pre>';
+    $history = $this->get_history() ;
+                       //echo '<br />'. __METHOD__ .' ln ' . __LINE__ .' SAYS : <b>$history = $this->get_history()=</b><pre>'; print_r($history) ; echo '</pre>';
+
+
+    $fen   = $this->fen() ; //generate fen (moves are in calling code)
+    $chr_on_square = $this->fen2board($fen) ;
+           //echo __METHOD__ .' SAYS: $chr_on_square='.'<pre>'; print_r($chr_on_square); echo '</pre>';
+    $cnth  = count($history) ; //$cnth  = count($this->history) ;
            //echo __METHOD__ .' SAYS: $this->history='.'<pre>'; print_r($this->history); echo '</pre>';
     $cols  = ['', 'a','b','c','d','e','f','g','h'] ;
 
     $dark = '#D3D3D3' ; //black is lightgray
     $light = '#FFFFFF' ; //white
 
-    $wh='width="30px" height="30px"'; //square width, hight
-    $it1 = '<img src="../img/'; //it = image tag
+    $wh='width="23px" height="23px"'; //square width, height
+    //$it1 = '<img src="../img/'; //it = image tag
 
-    $border_to_white = 'solid 4px #000000' ;
-    $border_to_black = 'solid 4px #FFFF00' ;
 
-    // ***************************************
-    // S q u a r e s  from - to:
-    // ***************************************
-    //usually black :
-    $square_from=' ';      $square_to=' ';
-    //$chr_moved=' '; $chr_moved_color=' '; 
-    //usually white :
-    $square_prev_from=' '; $square_prev_to=' ';
-    //$chr_prev_moved=' '; $chr_prev_moved_color=' ';
-          // F R O M :
-          if (isset($this->history[$cnth -1]['move']['from'])) {
-            $square_from     = self::algebraic($this->history[$cnth -1]['move']['from']) ;
-            //$chr_moved       = $this->history[$cnth -1]['move']['piece'] ;
-            //$chr_moved_color = $this->history[$cnth -1]['move']['color'] ;
-          } //else {
-          //  $square_from = ' ' ; //$this->board[$i] is 0
-          //}
-
-          if (isset($this->history[$cnth -2]['move']['from'])) {
-            $square_prev_from     = $this->history[$cnth -2]['move']['from_algebr'] ;
-            //$chr_prev_moved       = $this->history[$cnth -2]['move']['piece'] ;
-            //$chr_prev_moved_color = $this->history[$cnth -2]['move']['color'] ;
-          } else {
-            $square_prev_from     = $square_from ;
-            //$chr_prev_moved       = $chr_moved ;
-            //$chr_prev_moved_color = $chr_moved_color ;
-          }
-          // T O
-          if (isset($this->history[$cnth -1]['move']['to'])) {
-            $square_to = $this->history[$cnth -1]['move']['to_algebr'] ;
-          } //else {
-          //  $square_to = 0 ;
-          //}
-
-          if (isset($this->history[$cnth -2]['move']['to'])) {
-            $square_prev_to = self::algebraic($this->history[$cnth -2]['move']['to']) ;
-          } else {
-            $square_prev_to = $square_to ;
-          }
-                              echo __METHOD__ .' SAYS: '."<h3>\$square_from=$square_from</h3>";
-
+    $this->set_mv_from_to() ;
+    $mv_from_to = $this->get_mv_from_to() ;
+    //$mvno      = $cnth -1 ;
+        //$chr_color = $mvno > -1 ? $mv_from_to[$mvno]->chr_color : ' ' ;
 
     ///////////////////////////////////////////////////////
-    // 1. Top hdr a, b, c...
+    // 2. V I E W
     //////////////////////////////////////////////////////
+
+    // 2.1  V I E W   -   Top hdr a, b, c...
     ?>
     <table width="270px" cellspacing="0px" cellpadding="0px" border="1px">
     <!-- a,b,c... = first row top -->
@@ -490,178 +623,33 @@ class Chess
     </tr><?php
 
 
-    ///////////////////////////////////////////////////////
-    // 2. Displ. 8 rows
-    //////////////////////////////////////////////////////
-
+    // 2.2  V I E W   -   Displ. 8 rows
     $square_ordno = 0 ; // 0 to 63
     for ($row = 1; $row < 9; ++$row)       // r o w s
     { ?>
-      <tr height="10px" align=center>
-        <!-- rowx left column ordnum 8, 7...-->
-        <td align=center width=20px bgcolor=#D3D3D3><?=9 - $row?></td><?php
+      <tr align=center>
 
+      <!--           t d  i s  s q u a r e -->
 
+      <!-- rowx left column ordnum 8, 7...-->
+      <td align=center <?=$wh?> bgcolor=#D3D3D3><?=9 - $row?></td><?php
       for ($col = 1; $col < 9; ++$col)     // c o l u m n s
       {
-
+        $chr_moved = $chr_on_square[$square_ordno] ; //eg P or p - on all squares 0 to 63
         $square = $cols[$col] . (9 - $row) ; //eg e4
         $square_color = Chess::squareColor($square) === 'light' ? $light : $dark;
-
-        // ***************************************
-        // c h r -s  = I T E M S
-        // ***************************************
-        //$chr_moved (p,k...) of $chr_moved_color (w or b) is on $square (e4...)
-        //$chr_prev_hmoved (p,k...) of $chr_prev_moved (w or b) was on $square_prev
-
-        //See z_code.php $squareOrdNO_chr=Array...
-        //one of const SYMBOLS = 'pnbrqkPNBRQK' :
-
-        //usually black :
-        $chr_moved=' '; $chr_moved_color=' '; //used for chr -> img
-        //usually white :
-        $chr_prev_moved=' '; $chr_prev_moved_color=' ';
-
-        $chr_moved = $squareOrdNO_chr[$square_ordno] ; 
-        // not [$square_ordno -1] but prev move for this chr (piece) !!!!!!!!!!!
-        if (isset($squareOrdNO_chr[$square_ordno - 1])) {
-          $chr_prev_moved = $squareOrdNO_chr[$square_ordno - 1] ;
-        } else { $chr_prev_moved = $chr_moved ; }
-
-        if (strtolower($chr_moved) === $chr_moved) {$chr_moved_color='b';}
-        else {$chr_moved_color='w';}
-        if (strtolower($chr_prev_moved) === $chr_prev_moved) {$chr_prev_moved_color='b';}
-        else {$chr_prev_moved_color='w';}
-        
-    /*
-    //usually black :
-    //$square_from=' ';      $square_to=' ';
-    $chr_moved=' '; $chr_moved_color=' '; 
-    //usually white :
-    //$square_prev_from=' '; $square_prev_to=' ';
-    $chr_prev_moved=' '; $chr_prev_moved_color=' ';
-          // F R O M :
-          if (isset($this->history[$cnth -1]['move']['from'])) {
-            //$square_from     = self::algebraic($this->history[$cnth -1]['move']['from']) ;
-            $chr_moved       = $this->history[$cnth -1]['move']['piece'] ;
-            $chr_moved_color = $this->history[$cnth -1]['move']['color'] ;
-          } 
-
-          if (isset($this->history[$cnth -2]['move']['from'])) {
-            //$square_prev_from     = self::algebraic($this->history[$cnth -2]['move']['from']) ;
-            $chr_prev_moved       = $this->history[$cnth -2]['move']['piece'] ;
-            $chr_prev_moved_color = $this->history[$cnth -2]['move']['color'] ;
-          } else {
-            //$square_prev_from     = $square_from ;
-            $chr_prev_moved       = $chr_moved ;
-            $chr_prev_moved_color = $chr_moved_color ;
-          } */
-
-
+        $square_clr = Chess::squareColor($square) === 'light' ? 'w' : 'b';
+        //$chess->get($square) returns [type] => p and [color] => w of chr (piece)
                                //echo $square ; // (9 - $row) .'.'. $col ;
 
-        // ********************************************
-        // DISPLAY SQUARES COLORS
-        // ********************************************
-        // SQUARES TO HAVE COLORED  B O R D E R
-        $td_tag = "<td align=center $wh bgcolor=$square_color" ;
-
-                // border_to_white and border_to_black
-                            $td_tag1 = '1. Last square 64 is $square=' .$square 
-                              .'<br /> WHITE $square_prev_from='. $square_prev_from 
-                              .', $square_prev_to='. $square_prev_to
-                              .', $chr_prev_moved='. $chr_prev_moved
-                              .', $chr_prev_moved_color='. $chr_prev_moved_color
-                            ;
-                            $td_tag2 = ''
-                              .'BLACK $square_from='. $square_from
-                              .', $square_to='. $square_to
-                              .', $chr_moved='. $chr_moved
-                              .', $chr_moved_color='. $chr_moved_color
-                            ;
-                switch (true)
-                {
-                  case ($square === $square_to):
-                            $td_tag1 = '2. $square=' .$square .', $square_to='. $square_to ;
-                            $td_tag2 = '$square_prev_to='. $square_prev_to .', $chr_moved_color='. $chr_moved_color;
-                    if ($chr_moved_color === 'w') {
-                       $td_tag .= ' border="'. $border_to_white .'"' ;
-                    } else {
-                       $td_tag .= ' border="'. $border_to_black .'"' ;
-                    }
-                    $td_tag1 = $td_tag ;
-                    break ;
-                  case ($square === $square_prev_to): 
-                    if ($chr_prev_moved_color === 'w') {
-                       $td_tag .= ' border="'. $border_to_white .'"' ;
-                    } else {
-                       $td_tag .= ' border="'. $border_to_black .'"' ;
-                    }
-                    $td_tag2 = $td_tag ;
-                    break ;
-                  ////default: $it = "<td width=34px bgcolor=#D3D3D3>".$it ; 
-                  //break;
-                }
-
-
-        $td_tag .= '>'; 
-
-
+        // ======= D R A W  S Q U A R E =======
+        $td_tag = $this->get_tdtaghtml($wh, $square, $square_color, $mv_from_to, $cnth) ;
         echo $td_tag ; 
 
-
-
-        // ***** SQUARES CONTENT
-
-        // ***********************************
-        // TO = NON EMPTY SQUARES *****
-        // ***********************************
-        // ======= P U T  I M G s  O F  P I E C E S  ON S Q U A R E S : =======
-        if ( $chr_moved > ' ' ) //eg p, k... see switch below
-        { 
-          // but is not > '' !!!
-          //or strpos(self::SYMBOLS, $chr_moved) !== false
-          // !is_null(  or in_array($square, $squares_used->w
-                              //echo $chr_moved ; //$s quare_ o rdno=0-7, 8-15...56-63
-                              //echo $square ; //eg e4
-                              //echo $square_color ;
-                              //echo $chr_moved_color ;
-                              //echo 'x' ;
-              
-              //b e g i n  ***** PUT  P I E C E  in ONE SQUARE
-              // $it1 = '<img src="../img/'; //it = image tag
-                switch ($chr_moved) { //if ($chr_moved_color === 'w') {
-                  case ('P'): $it=$it1.'0_pawn.png" alt="0_pawn.png" '.$wh.'>'; break;
-                  case ('R'): $it=$it1.'0_rook.png" alt="0_rook.png" '.$wh.'>'; break ;
-                  case ('N'): $it=$it1.'0_knight.png" alt="0_knight.png" '.$wh.'>'; break ;
-                  case ('B'): $it=$it1.'0_bishop.png" alt="0_bishop.png" '.$wh.'>'; break ;
-                  case ('K'): $it=$it1.'0_king.png" alt="0_king.png" '.$wh.'>'; break ;
-                  case ('Q'): $it=$it1.'0_queen.png" alt="0_queen.png" '.$wh.'>'; break ;
-                  // black :
-                  case ('p'): $it=$it1.'1_pawn.png" alt="1_pawn.png" '.$wh.'>'; break ;
-                  case ('r'): $it=$it1.'1_rook.png" alt="1_rook.png" '.$wh.'>'; break ;
-                  case ('n'): $it=$it1.'1_knight.png" alt="1_knight.png" '.$wh.'>'; break ;
-                  case ('b'): $it=$it1.'1_bishop.png" alt="1_bishop.png" '.$wh.'>'; break ;
-                  case ('k'): $it=$it1.'1_king.png" alt="1_king.png" '.$wh.'>'; break ;
-                  case ('q'): $it=$it1.'1_queen.png" alt="1_queen.png" '.$wh.'>'; break ;
-                  default: $it=''; break;
-                }
-
-              //e n d  ***** PUT  P I E C E  IN ONE SQUARE
-        } //e n d  ***** NON EMPTY SQUARES
-        else
-        {
-              // ***********************************
-              // FROM = EMPTY SQUARES
-              // ***********************************
-          $it='';
-              //   - no need, see $wh : PUT DISTANCER IN ONE SQUARE (height colapses without d.)
-              //   - AND SQUARES "CHR FROM" COLORED  B O R D E R
-
-        } //e n d  ***** EMPTY SQUARES
-
-
-        echo $it ; //it is image tag
+        // ***** SQUARE CONTENT
+        // ======= P U T  I M G  O F  P I E C E  ON S Q U A R E =======
+        $imgtaghtml = $this->get_imgtaghtml($chr_moved, $square_clr, $wh) ;
+        echo $imgtaghtml ;
 
 
         ++$square_ordno ;
@@ -679,9 +667,7 @@ class Chess
 
 
 
-    ///////////////////////////////////////////////////////
-    // 3. ftr a, b, c...
-    //////////////////////////////////////////////////////
+    // 2.3  V I E W   -   ftr a, b, c...
     ?>
         <!-- a,b,c... = last row bottom -->
         <tr height="10px" align=center bgcolor=#D3D3D3>
@@ -693,10 +679,11 @@ class Chess
 
     $html = ob_get_contents();
     ob_end_clean(); //ob_ end_flush(), ob_ get_flush()...
-                                 echo __METHOD__ .' SAYS: '."<h3>Test data</h3>";
-                                 echo '<pre>$td_tag1='; print_r($td_tag1) ; echo '</pre>';
-                                 echo '<pre>$td_tag2='; print_r($td_tag2) ; echo '</pre>';
-
+                                 /*echo __METHOD__ .' SAYS: '."<h3>Test data</h3>";
+                                 echo '<pre>$cnth='; print_r($cnth) ; echo '</pre>'; 
+                                 echo '<pre>$td_tag1='; print_r($td_tag1) ; echo '</pre>'; 
+                                 echo '<pre>$td_tag2='; print_r($td_tag2) ; echo '</pre>'; 
+                                 echo '<pre>$mv_from_to='; print_r($mv_from_to) ; echo '</pre>'; */
     return $html ;
   } //e n d  f n  a s c i i
 
@@ -728,7 +715,7 @@ class Chess
     // called by board_ html() and test_chess_Ryanhs.php
       // keep only the piece info from the FEN and turn into array
       $chars = str_split(explode(' ', $fen)[0]);
-      $squareOrdNO_chr = array_fill(0, 64, ' ');
+      $chr_on_square = array_fill(0, 64, ' ');
       $row = 0;
       $col = 0;
 
@@ -745,7 +732,7 @@ class Chess
               $col += intval($chr);
           elseif (strpos(self::SYMBOLS, $chr) !== false) //was PIECES
           {
-              $squareOrdNO_chr[$row*8+$col] = $chr;
+              $chr_on_square[$row*8+$col] = $chr;
               $col++;
           }
           /*
@@ -766,8 +753,8 @@ class Chess
           }
           */
       } endforeach ;
-            //echo __METHOD__ .' SAYS: '.'<pre>$squareOrdNO_chr='; print_r($squareOrdNO_chr) ; echo '</pre>';
-      return $squareOrdNO_chr;
+            //echo __METHOD__ .' SAYS: '.'<pre>$chr_on_square='; print_r($chr_on_square) ; echo '</pre>';
+      return $chr_on_square;
   }
 
 
@@ -775,13 +762,13 @@ class Chess
   /**API
     use \Ryanhs\Chess\Chess;  require 'Chess.php';
     $chess = new Chess();
-    $chess->clear();
+    $this->clear();
     //to be able to display "FEN=8/8/8/8/8/8/8/8 w - - 0 1" :
-    echo 'FEN=' . $chess->fen() . &lt;br />;
-    echo $chess; //displ empty board: public fn __toString() return $this->board_html();
-    //echo $chess->board_html() . '<br />'; //same as above
+    echo 'FEN=' . $this->fen() . &lt;br />;
+    echo $chess; //displ empty board: public fn __toString() return $this->get_boardhtml();
+    //echo $this->get_boardhtml() . '<br />'; //same as above
   */
-  public function clear() //echo $chess->board_html() displays empty board
+  public function clear() //echo $this->get_boardhtml() displays empty board
   {
       $this->board = [];
       $this->kings = [self::WHITE => null, self::BLACK => null];
@@ -1055,7 +1042,7 @@ class Chess
   
   //       ************ PGN FUNCTION ************
   /* using the specification from http://www.chessclub.com/help/PGN-spec
-   * example for html usage: $chess->p gn({ 'max_width' => 72, 'newline_char' => "<br />" ]);
+   * example for html usage: $this->p gn({ 'max_width' => 72, 'newline_char' => "<br />" ]);
    *
    * This is a custom implementation, not really a port from chess.js
    */
@@ -1303,7 +1290,7 @@ class Chess
   // here, we add first parameter turn, to make this really static method
   // because in chess.js var turn got from outside scope,
   // maybe need a little fix in chess.js or maybe i am :-p
-  public static function buildMove($turn, $squareOrdNO_chr, $from, $to, $flags, $promotion = null)
+  public static function buildMove($turn, $chr_on_square, $from, $to, $flags, $promotion = null)
   {
       $move = [
           'color' => $turn,
@@ -1312,7 +1299,7 @@ class Chess
           'to' => $to,
           'to_algebr' => self::algebraic($to),
           'flags' => $flags,
-          'piece' => $squareOrdNO_chr[$from]['type']
+          'piece' => $chr_on_square[$from]['type']
       ];
 
       if ($promotion !== null) {
@@ -1320,8 +1307,8 @@ class Chess
           $move['promotion'] = $promotion;
       }
 
-      if ($squareOrdNO_chr[$to] !== null) {
-          $move['captured'] = $squareOrdNO_chr[$to]['type'];
+      if ($chr_on_square[$to] !== null) {
+          $move['captured'] = $chr_on_square[$to]['type'];
       } elseif ($flags & self::BITS['EP_CAPTURE']) {
           $move['captured'] = self::PAWN;
       }
@@ -2032,18 +2019,18 @@ class Chess
 
       // using anonymous f unction here, is it a bad practice?
       // its because we stick to use "self::", if its not anonymous, then it have to be "Chess::"
-      $addMove = function ($turn, $squareOrdNO_chr, &$moves, $from, $to, $flags) {
+      $addMove = function ($turn, $chr_on_square, &$moves, $from, $to, $flags) {
           // if pawn promotion
           if (
-              $squareOrdNO_chr[$from]['type'] === self::PAWN &&
+              $chr_on_square[$from]['type'] === self::PAWN &&
               (self::rank($to) === self::RANK_8 || self::rank($to) === self::RANK_1)
           ) {
               $promotionPieces = [self::QUEEN, self::ROOK, self::BISHOP, self::KNIGHT];
               foreach ($promotionPieces as $promotionPiece) {
-                  $moves[] = self::buildMove($turn, $squareOrdNO_chr, $from, $to, $flags, $promotionPiece);
+                  $moves[] = self::buildMove($turn, $chr_on_square, $from, $to, $flags, $promotionPiece);
               }
           } else {
-              $moves[] = self::buildMove($turn, $squareOrdNO_chr, $from, $to, $flags);
+              $moves[] = self::buildMove($turn, $chr_on_square, $from, $to, $flags);
           }
       };
 
@@ -2194,7 +2181,7 @@ class Chess
 
   public function __toString()
   {
-      return $this->board_html();
+      return $this->get_boardhtml();
   }
 
 

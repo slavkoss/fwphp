@@ -123,7 +123,7 @@ if (isset($_GET['g']))
 
                                 //$help_2moves = isset($mv['hlp0']) ? $mv['hlp0'] : '' ;
             echo '<td style="vertical-align:top; padding:5px;">' ;
-              echo $chess->board_html( $help_2moves ) ;
+              echo $chess->get_boardhtml( $help_2moves ) ;
             echo '</td>' ;
             echo '</tr>' ;
           //}
@@ -152,7 +152,7 @@ if (isset($_GET['g']))
 
           //2. Chess table after both halfmoves
           echo '<td style="vertical-align:top; padding:5px;">' ;
-            echo $chess->board_html( $help_2moves ) ;
+            echo $chess->get_boardhtml( $help_2moves ) ;
           echo '</td>' ;
 
 

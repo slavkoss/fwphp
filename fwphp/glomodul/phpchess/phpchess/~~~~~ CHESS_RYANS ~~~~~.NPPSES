@@ -1,0 +1,39 @@
+<NotepadPlus>
+    <Session activeView="0">
+        <mainView activeIndex="2">
+            <File firstVisibleLine="52" xOffset="0" scrollWidth="18210" startPos="2753" endPos="2762" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\phpchess\index.php" backupFilePath="" originalFileLastModifTimestamp="-794493029" originalFileLastModifTimestampHigh="30852483" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="288" mapWrapIndentMode="-1" mapIsWrap="no">
+                <Mark line="136" />
+            </File>
+            <File firstVisibleLine="835" xOffset="0" scrollWidth="18210" startPos="31460" endPos="31469" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\phpchess\Chess.php" backupFilePath="" originalFileLastModifTimestamp="-1869509387" originalFileLastModifTimestampHigh="30853025" mapFirstVisibleDisplayLine="27" mapFirstVisibleDocLine="26" mapLastVisibleDocLine="50" mapNbLine="24" mapHigherPos="738" mapWidth="169" mapHeight="96" mapKByteInDoc="54" mapWrapIndentMode="1" mapIsWrap="yes">
+                <Mark line="180" />
+                <Mark line="418" />
+                <Mark line="550" />
+                <Mark line="633" />
+                <Mark line="1272" />
+                <Mark line="1308" />
+                <Mark line="1438" />
+                <Mark line="1776" />
+                <Mark line="2026" />
+            </File>
+            <File firstVisibleLine="19" xOffset="0" scrollWidth="18210" startPos="4384" endPos="4384" selMode="0" offset="7" wrapCount="8" lang="Normal Text" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\phpchess\~~~~~ CHESS_RYANS ~~~~~.NPPSES" backupFilePath="" originalFileLastModifTimestamp="35484006" originalFileLastModifTimestampHigh="30852696" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1150926848" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="9075" startPos="341" endPos="341" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\games_menu.php" backupFilePath="" originalFileLastModifTimestamp="-435680457" originalFileLastModifTimestampHigh="30849929" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1150926848" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="398" xOffset="0" scrollWidth="9075" startPos="33606" endPos="33606" selMode="0" offset="0" wrapCount="6" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\help_chess.php" backupFilePath="" originalFileLastModifTimestamp="1473967709" originalFileLastModifTimestampHigh="30851134" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1150926848" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="9" xOffset="0" scrollWidth="18210" startPos="347" endPos="352" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\phpchess\z_code.php" backupFilePath="" originalFileLastModifTimestamp="-1822143042" originalFileLastModifTimestampHigh="30853038" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1150926848" mapWrapIndentMode="-1" mapIsWrap="no">
+                <Mark line="116" />
+                <Mark line="130" />
+                <Mark line="220" />
+                <Mark line="286" />
+                <Mark line="358" />
+            </File>
+            <File firstVisibleLine="95" xOffset="0" scrollWidth="18210" startPos="4057" endPos="4057" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\phpchess\test02_chess_Ryanhs.php" backupFilePath="" originalFileLastModifTimestamp="589892184" originalFileLastModifTimestampHigh="30852723" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1150926848" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="82" xOffset="0" scrollWidth="18210" startPos="4741" endPos="4741" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\phpchess\test01_API_chess.php" backupFilePath="" originalFileLastModifTimestamp="69787698" originalFileLastModifTimestampHigh="30853038" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1959051440" mapWrapIndentMode="-1" mapIsWrap="no">
+                <Mark line="70" />
+            </File>
+            <File firstVisibleLine="213" xOffset="0" scrollWidth="18210" startPos="6580" endPos="6580" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\code_snippets.php" backupFilePath="" originalFileLastModifTimestamp="-1299931944" originalFileLastModifTimestampHigh="30852697" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1150926848" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="18210" startPos="884" endPos="884" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\glomodul\phpchess\phpchess\z_Chess.php" backupFilePath="" originalFileLastModifTimestamp="-1336818318" originalFileLastModifTimestampHigh="30852735" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1150926848" mapWrapIndentMode="-1" mapIsWrap="no">
+                <Mark line="520" />
+            </File>
+        </mainView>
+        <subView activeIndex="0" />
+    </Session>
+</NotepadPlus>

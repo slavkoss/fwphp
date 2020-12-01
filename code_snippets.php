@@ -1,5 +1,18 @@
+<?php
 https://www.w3schools.com/html/html_tables.asp
 
+
+  switch (true) {
+    case ( $mvno > 0 ):
+
+      break ;
+    default:
+
+      break;
+  }
+
+
+?>
 ********** Collapsed Borders, Cellpadding, Left-align Headings 
            Cell that spans two columns
 <!DOCTYPE html>

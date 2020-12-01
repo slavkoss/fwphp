@@ -14,16 +14,16 @@ require 'Chess.php';  //51 kB   no need require 'vendor/autoload.php';
       $chess->clear();
       //to be able to display "FEN=8/8/8/8/8/8/8/8 w - - 0 1" :
       echo 'FEN=' . $chess->fen() . &lt;br />; //generate fen
-      echo $chess; //displ empty board: public fn __toString() return $this->board_html();
-      //echo $chess->board_html() . '<br />'; //same as above
+      echo $chess; //displ empty board: public fn __toString() return $this->get_boardhtml();
+      //echo $chess->get_boardhtml() . '<br />'; //same as above
       </pre>
     <?php
     $chess = new Chess();
     $chess->clear();
     //to be able to display FEN=8/8/8/8/8/8/8/8 w - - 0 1 :
     echo 'FEN=' . $chess->fen() . '<br />' ; //generate fen
-    echo $chess . '<br />'; //displ empty board: public fn __toString() return $this->board_html();
-    //echo $chess->board_html() . '<br />'; //same as above
+    echo $chess . '<br />'; //displ empty board: public fn __toString() return $this->get_boardhtml();
+    //echo $chess->get_boardhtml() . '<br />'; //same as above
 
 echo '<h1>1. Moves from fen_starting and some moves</h1>';
 
@@ -47,7 +47,7 @@ echo '<b>ln '. __LINE__ .' SAYS 2: after $chess->move(\'b3\'); and Nf6 (Nd5), $c
 echo 'ln '. __LINE__ .' SAYS 3: $chess->fen()</b><br />' . $chess->fen() ;
 echo '<br /><b>ln '. __LINE__ .' SAYS : moves until now $chess->p gn()=</b><br />' . $chess->movesUntilNow_str() ;
 
-echo $chess->board_html($help_2moves='') ; 
+echo $chess->get_boardhtml($help_2moves='') ; 
 echo $chess->ascii() ; 
 
 
@@ -70,7 +70,7 @@ echo '<b>ln '. __LINE__ .' SAYS 3: $chess->fen() after put K Black e5  and put Q
                         $chess->put(['type' => 'K', 'color' => Chess::BLACK], 'e5');
                         $chess->put(['type' => 'Q', 'color' => Chess::WHITE], 'e4'); */
 echo '<br /><b>ln '. __LINE__ .' SAYS moves until now : $chess->p gn()=</b><br />' . $chess->movesUntilNow_str() ;
-echo $chess->board_html($help_2moves='') ; 
+echo $chess->get_boardhtml($help_2moves='') ; 
     //or echo $chess; // outputs FEN => 8/8/8/4k3/4Q3/8/8/8 w KQkq - 0 1 and tbl with k, Q
 
 
@@ -105,7 +105,7 @@ echo '<br /><b>ln ' . __LINE__ .' SAYS 2: $chess->fen()=</b><br />' . $fen ;
 // rnbqk2r/ppp2p1p/4pb2/5p2/3P4/2N3P1/PPP2P1P/R2QKBNR w KQkq - 2 9 
 
 echo '<br /><b>ln '. __LINE__ .' SAYS moves until now : $chess->p gn()=$chess->movesUntilNow_str()=</b><br />' . $chess->movesUntilNow_str() ;
-echo $chess->board_html($help_2moves='') ; 
+echo $chess->get_boardhtml($help_2moves='') ; 
 
 //echo json_encode($chess->get_history(), JSON_PRETTY_PRINT) . '<br />';
 echo '<br /><b>ln '. __LINE__ .' SAYS : $chess->get_history()=</b><pre>'; print_r($chess->get_history()) ; echo '</pre>';
@@ -129,7 +129,7 @@ while (isset($mv[$ii])) {
   $chess->move($mv[$ii]); //1. halfmove
 
   //2. whole table after move
-  if ($ii%$moves_in_board === 0) { $chess->board_html($help_2moves='') ; }
+  if ($ii%$moves_in_board === 0) { $chess->get_boardhtml($help_2moves='') ; }
   if (isset($mv['hlp'. $ii])) {echo $mv['hlp'. $ii] . '<br /><br /><br />' ;} //halfmove comment
 
   $ii++ ;

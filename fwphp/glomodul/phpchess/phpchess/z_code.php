@@ -1,5 +1,32 @@
 <?php
 
+switch (true) {
+  case  ( !isset($hdr['FEN']) ):
+    $fen_startboard = $chess->fen() ; break ; //starting board
+  //board with some moves done :
+  case  ( isset($hdr['FEN']) ): $fen_startboard = $hdr['FEN'] ; break ;
+  default: break;
+}
+$chess->load_fen($fen_startboard) ; 
+
+// or :
+$mves = preg_replace("/([0-9]{0,})\./", "", $match);
+$mves = str_replace("\r", ' ', str_replace("\n", ' ', str_replace("\t", '', $mves)));
+
+while (strpos($mves, '  ') !== FALSE) $mves = str_replace('  ', ' ', $mves);
+$mves = explode(' ', trim($mves));
+
+//echo '<br /><br /><b>ln '. __LINE__ .' SAYS : $mves=</b><pre>'; print_r($mves) ; echo '</pre>';
+//no output, but $chess->move($mve) ASSIGNS HISTORY ARRAYS VALUES : 
+foreach ($mves as $mve) {if($chess->move($mve) === null) {} }
+                 //foreach ($mves as $mve) { $chess->move($mve) ; }  //also works
+
+
+//echo $chess . '<br />'; //displ board with public fn __toString() return $this->get_boardhtml();
+
+
+
+
                 // $border_ to and $border_ from
                             $td_tag1 = '1. Last square 64 is $square=' .$square 
                               .'<br />'
@@ -40,7 +67,7 @@
 
                     if ('') {
                     echo '<h3>'.basename(__FILE__)  .', line '. __LINE__ .', fn '. __METHOD__ .' SAYS $board='.'</h3>'.'<pre>'; print_r($board) ; echo '</pre>';
-$squareOrdNO_chr was $board = Array
+$chr_on_square was $board = Array
 (
     [0=a8] => r   [0-7 ROW 8]
     [1=b8] => n
