@@ -1,96 +1,90 @@
 
-  <p>&nbsp;Learn chess using&nbsp; <span class="auto-style3">2movesboards and 
-  comments 
-  <ol>
-  <li><span class="auto-style3"><strong>2movesboards - </strong>in web page row 
-  are more (1 or 2 or...) boards (each 2 MOVES)</span>.</li>
-  <li>&nbsp;<strong>Comments</strong> about <span class="auto-style1"><strong>ideas</strong></span> 
-  behind moves are below 2movesboards.</li>
-  <li>Needed <span class="auto-style1"><strong>knowledge</strong></span>. <br>
-  From and to pieces positions (squares) are bordered with differnt colors.</li>
-  </ol>
-  <h2 class="auto-style2">1. Play, learn games</h2>
-  <p class="auto-style2"><a href="http://www.wmlsoftware.com/chesspad.html">
-  http://www.wmlsoftware.com/chesspad.html</a> -
-  <span style="color: rgb(0, 0, 0); font-family: arial, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
-  free chess game viewer and editor</span></p>
+<head>
+<style type="text/css">
+.auto-style1 {
+  font-family: HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  color: #444444;
+  letter-spacing: normal;
+  background-color: #FFFFFF;
+}
+</style>
+</head>
+
+<?php
+$tabtitle = 'Help Chess' ; include 'phpchess/hdr.php' ;
+?>
+  <span class="auto-style3">
+  <p>Top 10 classic chess books that every fan should know.</p>
+<ol>
+  <li>Bobby Fischer Teaches Chess by Bobby Fischer</li>
+  <li>How to <strong>Reassess</strong> Your Chess by Jeremy Silman</li>
+  <li>My <strong>System</strong> by Aron Nimzowitsch</li>
+  <li>Zurich International Chess Tournament, 1953 by David Bronstein</li>
+  <li>My <strong>60 Memorable</strong> Games by Bobby Fischer</li>
+  <li>Secrets of <strong>Grandmaster</strong> Play (Nunn)</li>
+  <li>Think <strong>Like a Grandmaster</strong> by Alexander Kotov</li>
+  <li>Silman's Complete Endgame Course: From Beginner to Master by Jeremy Silman</li>
+  <li>The Life and Games of Mikhail Tal by Mikhail Tal</li>
+  <li>Karpov's Strategic Wins (two volumes) by Tibor Karolyi</li>
+  <li>My Great Predecessors (five volumes) by Garry Kasparov</li>
+</ol>
+<h1>1. Chess positions</h1>
   <p>
-  <a href="https://www.thesprucecrafts.com/basic-principles-of-chess-openings-611601">https://www.thesprucecrafts.com/basic-principles-of-chess-<strong>openings</strong>-611601</a>
-  </p>
-  <p><a href="https://www.chessgames.com/perl/chessgame?gid=1018910">
-  https://www.chessgames.com/perl/chessgame?gid=1018910</a> </p>
-  <p>
-  <a href="https://www.chess.com/analysis?_branch_match_id=851428642997622253">
-  https://www.chess.com/analysis?_branch_match_id=851428642997622253</a>&nbsp; 
-  chess board and PGN editor</p>
-  <p>
-  <a href="http://dhtmlchess.com/api/demo/website-template.html">
-  http://dhtmlchess.com/api/demo/website-template.html</a> </p>
-  <p>
-  <a href="http://dhtmlchess.com/api/demo/play-computer.html">
-  http://dhtmlchess.com/api/demo/play-computer.html</a> </p>
-  <p>
-  <a href="http://dhtmlchess.com/api/demo/tactic-training-mobile.html">
-  http://dhtmlchess.com/api/demo/tactic-training-mobile.html</a> </p>
-  
-  
-  <h2 class="auto-style2">2. Games in collections</h2>
-  <p class="auto-style2"><a href="https://www.pdfdrive.com/">
-  https://www.pdfdrive.com/</a></p>
-  
-  
-  <p>
-  <span class="auto-style3"><a href="http://billwall.phpwebhosting.com/">
-  http://billwall.phpwebhosting.com/</a> - many .pgn files</span></p>
-  <p>
-  <a href="https://en.chessbase.com/portals/4/files/news/2008/winter/games/great01.htm">
-  https://en.chessbase.com/portals/4/files/news/2008/winter/games/great01.htm</a> </p>
-  <p>
-  <a href="https://www.chessgames.com/perl/chesscollection?cid=1032323">
-  https://www.chessgames.com/perl/chesscollection?cid=1032323</a> - 101 games 
-  21st Century Masterpieces - Second decade (2011)</p>
+  <span style="color: rgb(68, 68, 68); font-family: HelveticaNeue, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+  The best first chess moves for White are: 1.e4, 1.d4, 1.Nf3, 1.c4. Forget the 
+  rest, they are dubious. 1.d4 : you can play a quiet positional game most of 
+  the time and have a slight long-lasting advantage if you play correctly. 
+  Second advantage is that you cut your workload into half because you don't 
+  have to learn e4 opening lines like Sicilian Defence, French, Pirc, Ruy Lopez, 
+  Caro Kann etc.</span></p>
 <p>
-  <a href="https://www.chessgames.com/player/mikhail_botvinnik.html?_branch_match_id=851428642997622253">
-  https://www.chessgames.com/player/mikhail_<strong>botvinnik</strong>.html?_branch_match_id=851428642997622253</a>&nbsp; 
-  World Chess Champion for three different periods from 1948 to 1963.</p>
-  <p>
-  <span class="auto-style3"><a href="https://en.chessbase.com/">
-  https://en.chessbase.com/</a> - commercial</span></p>
-  <p>
-  <a href="https://www.chess.com/article/view/emanuel-lasker-tactical-monster?_branch_match_id=851428642997622253">
-  https://www.chess.com/article/view/emanuel-<strong>lasker</strong>-tactical-monster?_branch_match_id=851428642997622253</a>
-  <br> </p>
-  <ol>
-    <li>Lasker - Bauer Amsterdam 1880</li>
-  <li>&nbsp;Euwe - Lasker (66 years old) Zurich 1934. Max Euwe took the World 
-  Championship from Alekhine one year later!</li>
-  <li>&nbsp;Scha/Schneppe/Schone vs. Lasker/Ked/Wolff 0-1 Berlin: Consultation 
-  Game: 1890<br>[FEN &quot;3rk2r/5pp1/1Bp4p/2p1P3/2PnbP1b/1P2N3/P5PP/3R1RK1 b - - 0 
-  24&quot;]<br>24... Ne2+ $1 (24... Ra8 {was also strong, but Lasker's move was by 
-  far the best.}) 25. Kh1 Rxd1 26. Rxd1 {Better was} (26. Nxd1 {though} 26... 
-  Kd7 $1 27. Bxc5 Ke6 {is also winning for Black.}) 26... Nxf4 27. Bxc5 Nd3 {, 
-  0-1. The double threat of 28...Nxc5 and 28...Nf2+ ends the game.} 0-1<br>
-  </li>
-  </ol>
-  <p>
-  <a href="https://thechessworld.com/articles/general-information/15-best-chess-games-of-all-time-annotated/">
-  https://thechessworld.com/articles/general-information/<strong>15-best-chess-games-of-all-time</strong>-annotated/</a> </p>
-  <p>
-    <a href="https://en.chessbase.com/post/edward-winter-s-che-explorations-3--2">
-  https://en.chessbase.com/post/edward-winter-s-che-explorations-3--2</a>&nbsp;
-  <span style="color: rgb(0, 0, 0); font-family: __Merriweather_5, Verdana, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
-  Edward Winter is the editor of<span>&nbsp;</span></span><a href="http://www.chesshistory.com/winter/" style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; font-size: 15px; line-height: inherit; font-family: __Merriweather_5, Verdana, sans-serif; vertical-align: baseline; color: rgb(187, 16, 43); text-decoration: underline; outline: 0px; background-color: rgb(255, 255, 255); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;" target="_blank"><strong style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">Chess 
-  Notes</strong></a><br>
-  <a href="https://en.chessbase.com/portals/4/files/news/2008/winter/games/great02.htm">
-  https://en.chessbase.com/portals/4/files/news/2008/winter/games/great02.htm</a> </p>
-  <p>
-    <a href="https://www.chessgames.com/perl/chesscollection?cid=1014593">
-  https://www.chessgames.com/perl/chesscollection?cid=1014593</a> - GoY's 
-	favorite games</p>
-  <p>&nbsp;</p>
+  <span class="auto-style1"><a href="http://www.expertchessstrategies.com/">
+  http://www.expertchessstrategies.com/</a>&nbsp;&nbsp; </span></span>
+  <span class="auto-style1"><a href="https://www.chessgames.com/">
+  https://www.chessgames.com/</a> </span>
+  <span class="auto-style3">
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://www.redhotpawn.com/chess/chess-game-directory.php">
+  https://www.redhotpawn.com/chess/chess-game-directory.php</a> </p>
+<p><a href="http://www.chessmaniac.com/memory-and-chess/">
+http://www.chessmaniac.com/memory-and-chess/</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://www.chess.com/lessons">https://www.chess.com/lessons</a></p>
+<p>
+  <span class="auto-style1"><strong>Notation </strong>pawn (1 point), K king, Q 
+  queen, B bishop, N knight (3), R rook (5), Queen Q (9). W white, B black.
+  </span><br class="auto-style1"><span class="auto-style1">! ! = brilliant move, 
+  i = strong move (usually also the best move), !? = interesting or provocative 
+  move, ?! = dubious move, ? = weak move, ?? = blunder</span></p>
+<p>
+  <span class="auto-style1"><strong>Terms</strong> </span>
+  <br class="auto-style1"><span class="auto-style1">Kingside castling 0-0, 
+  queenside castling 0-0-0 (O in Ryanhs chess). </span><br class="auto-style1">
+  <span class="auto-style1">...Rdd2 or ...Rad2 if Both black rooks can reach d2. 
+  RxgS with **capture**.</span><br class="auto-style1">
+  <span class="auto-style1">Draw - remi. Stalemate (dead end, deadlock) - pat.</span><br class="auto-style1">
+  <span class="auto-style1">Fork - eg attacking both king and rook. Skewer is 
+  like fork eg eg attacking both king and quin behind king. </span>
+  <br class="auto-style1"><span class="auto-style1">Pinned piece is bound 
+  (fettered) to a more valuable piece behind it. Piece pinned to the king is 
+  physically immobilized! </span><br class="auto-style1">
+  <span class="auto-style1">Fianchetto is set of opening moves where a bishop is 
+  developed to the second row (rank) of the adjacent (obližnji) knight column 
+  (file).</span><br class="auto-style1"><br class="auto-style1">
+  <span class="auto-style1"><strong>Opening principles</strong></span><br class="auto-style1">
+  <span class="auto-style1">1. protect king</span><br class="auto-style1">
+  <span class="auto-style1">2. controlling the center</span><br class="auto-style1">
+  <span class="auto-style1">3. develop pieces (active pieces)</span><br class="auto-style1">
+  <span class="auto-style1">4. oponent **threats**</span><br class="auto-style1">
+  <br class="auto-style1"><span class="auto-style1"><strong>Middle-game</strong></span><br class="auto-style1">
+  <br class="auto-style1"><span class="auto-style1"><strong>Ending</strong></span></p>
+<p>
+  &nbsp;</p>
     <ol>
-    <li>Skewer (on King behind Quin, Quin behind King ...) is 
-  linear or x-ray attack, impact, lineynyy udar.</li>
+    <li>Skewer -
+  <span class="auto-style3">
+    udar</span> (on King behind Quin, Quin behind King ...) is 
+  linear or x-ray attack, impact, lineynyy.</li>
   <li>&nbsp;Double attack.</li>
   <li>&nbsp;Poisoned  pawn or piece. Famous line in Garry's beloved 
   Najdorf Sicilian Defense called the Poisoned 
@@ -137,22 +131,21 @@
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   
-  <h2 class="auto-style2">3. Chess history&nbsp; Ruy Lopez - Fischer - Carlsen </h2>
+  <h1>2. Chess history&nbsp; Ruy Lopez - Fischer - Carlsen </h1>
   
   
   
   
   
-  <p>Linares, Spain, super-tournament was often called the Wimbledon of chess.
+  <p><strong>Linares</strong>, Spain, super-tournament was often called the Wimbledon of chess.
     
   <p> <span class="auto-style3">Chess history
   <a href="https://www.chess.com/article/view/the-10-most-important-moments-in-chess-history?_branch_match_id=851428642997622253">
   https://www.chess.com/article/view/the-10-most-important-moments-in-chess-history?_branch_match_id=851428642997622253</a>
   </span></span> <span class="auto-style3">
-  <p>&nbsp;</p>
-<p>THE GOLDEN TREASURY OF CHESS&nbsp; (till 1969) by&nbsp; I. AL HOROWITZ&nbsp; 
+  <p><strong>L1: THE GOLDEN TREASURY OF CHESS&nbsp; (till 1969) by&nbsp; I. AL HOROWITZ</strong>&nbsp; 
 Dedicated To HARRY NELSON PILLSBURY (1872-1906)&nbsp; :</p>
-<h2>&nbsp;3.1 Pre-Morphy period <span class="auto-style3">350 years</span></h2>
+<h2>&nbsp;1. Pre-Morphy period <span class="auto-style3">350 years 1510-1857</span></h2>
   <p><strong>Renaissance</strong>. By 1510 the old type of chess was obsolete in 
   most of Italy and Spain. Analysis was the ruling motive in the literature of 
   the period. Openings known today as the Ruy Lopez, Giuoco Piano, Petroff 
@@ -163,55 +156,126 @@ Dedicated To HARRY NELSON PILLSBURY (1872-1906)&nbsp; :</p>
   players. After <strong>Greco</strong>'s death in 1634, Italy produced no 
   outstanding players for over a hundred years.&nbsp; 1669, a French translation 
   of his collection of games&nbsp; was published in Paris.</p>
-<p>&nbsp;<strong>18th century coffee-houses</strong> of London and Paris were 
+<p><strong>18th century coffee-houses</strong> of London and Paris were 
 the leading centers of chess activity ( Cafe de la Regence in Paris and 
 Slaughter's Coffee House in London).&nbsp; Andre D. <strong>Philidor</strong> 
 was musician (1775 till death in 1795 he spent spring of each year in London and 
 the rest of the year in Paris). He was the first to define and explain the 
 principles of chess strategy and tactics.</p>
-<p><strong>First half of the 19th century</strong> Captain W. D. Evans 
-discovered his gambit in 1824,&nbsp; William Lewis,&nbsp; great Howard Staunton 
-from 1843 best. In France Alexander Deschapelles; Pierre de Saint-Amant (&quot;French 
-Defense).&nbsp; Central Europe&nbsp; B. Horwitz,&nbsp; Russian Petroff (<span class="auto-style3">Petrov</span>), 
-Livonian Kieseritzky.</p>
-<p>&nbsp;<strong>1851 new age</strong>.&nbsp; first International Chess <strong>
-Tournament</strong> in London, <strong>Adolph Anderssen</strong> of Berlin won.&nbsp;
-<strong>Paul Morphy</strong> young American master defeated Anderssen and all 
-other Europeans. From a purely technical point of view games of 350 years to 
-19th century are not of vital importance but&nbsp; one wonders whether all gains 
+<p><strong>First half of the 19th century</strong> Captain W. D. <strong>Evans</strong> 
+discovered his gambit in 1824,&nbsp; William <strong>Lewis</strong>,&nbsp; great Howard 
+<strong>Staunton</strong> 
+from 1843 best. In France Alexander <strong>Deschapelles</strong>; Pierre de
+<strong>Saint-Amant (&quot;French 
+Defense)</strong>.&nbsp; Central Europe&nbsp; B. <strong>Horwitz</strong>,&nbsp; Russian 
+<strong>Petroff (</strong><span class="auto-style3"><strong>Petrov</strong></span>), 
+<strong>Livonian</strong>, <strong>Kieseritzky</strong>.</p>
+  <p> <span class="auto-style3">
+  From a purely technical point of view games of 350 years to 
+19th century are not of vital importance but&nbsp;one wonders whether all gains 
 (theory, knowledge, systematic analysis ) compensate for&nbsp; spirit of 
 freshness, of eternal adventure, of naivete, charm, their sociable and leisurely 
-character.</p>
+character.</span></p>
+  <p><strong>Romantic Era</strong> of chess in the 
+  second half of the 19th century was all about gambits, sacrifices, open lines, 
+  and active pieces. Attack at all costs! Defense is for cowards.&nbsp; Fell into 
+  decline as its failures mounted against the more pragmatic and dogmatic 
+  teachings of <strong>Wilhelm Steinitz and Siegbert Tarrasch in the 
+  late 19th&nbsp; and early 20th</strong>.<strong> </strong></p>
 <h2>
-  <span class="auto-style3">3.2 Morphy period 1857 - 1880 </span> </h2>
+  2. Morphy period 1857 - 1880 </h2>
 <p>
-  &nbsp;Morphy was the great <strong>master of the brilliant combination</strong>, 
-  but also a <strong>radical innovator</strong>. It was he who introduced the 
+  <span class="auto-style3">
+  <strong>1851 new age :</strong>&nbsp; first International Chess <strong>
+Tournament</strong> in London, <strong>Adolph Anderssen</strong> of Berlin won -
+  Another great player, almost as great as 
+  Morphy, and in the opinion of some capable judges even superior to him. Anderssen<strong> </strong>
+  was<strong> </strong>best about ten years before Morphy's 
+  appearance. Also <strong>brilliancy and accuracy of combinations</strong>.</span></p>
+  <p>
+  <strong>Paul Morphy</strong> spoiled rich child, greatest natural chess 
+  talent. <strong>1858 defeated Anderssen and many 
+other Europeans and retited when was 22 years old (declined to play or discuss 
+  chess)</strong>. <strong>B<span class="auto-style3">brilliancy and accuracy of combinations</span></strong>, 
+  <strong>radical innovator</strong>. It was he who introduced the 
   innovation which proved to be a <strong>death-knell</strong> of&nbsp; that 
   type of chess in which brilliancy was the be-all and end-all of every game. 
   Correctness of his moves instead <strong>useless sacrifices</strong>. <strong>
   Intuitive with the logical</strong> as only the great artist can.&nbsp; Note 
-  how quickly Morphy made converts. Another great player, almost as great as 
-  Morphy, and in the opinion of some capable judges even superior to him, was
-  <strong>Adolph Anderssen </strong>best about ten years before Morphy's 
-  appearance. Also <strong>brilliancy and accuracy of combinations</strong>.</p>
+  how quickly Morphy made converts. </p>
+  <p>Many report that he was able to 
+  recite from memory nearly the entire Civil Code of Louisiana (3,500 articles). 
+  <span class="auto-style3">
+  Fischer&nbsp; and
+</span>
+  Viswanathan Anand ranked Morphy among the ten greatest chess players of all 
+  time. Fischer described him as &quot;<strong>perhaps the most accurate player 
+  who ever lived</strong>&quot;. <span class="auto-style3">
+  Morphy
+</span>learned to play chess by watching games between 
+  his father and uncle, at twelve years of age defeated visiting 
+  Hungarian master Johann Loewenthal in a three game match. Morphy was a player 
+  who intuitively knew what was best, and in this regard he has been likened to 
+  Jose Capablanca. He was, like Capablanca, a child prodigy; he played quickly, 
+  would draw or even win games despite getting into bad positions. Anderssen 
+  said that, after one bad move against Morphy, one might as well resign. Garry 
+  Kasparov said that Morphy realized quarter-century before Wilhelm Steinitz had 
+  formulated principles :</p>
+<ol>
+  <li>&nbsp;fast development of the pieces</li>
+  <li>domain of the centre</li>
+  <li>&nbsp;opening lines </li>
+</ol>
+<p>
+  Reuben Fine : &quot;[Morphy's] glorifiers went on to urge that he was the most 
+  brilliant genius who had ever appeared But if we examine Morphy's record and 
+  games critically, we cannot justify such extravaganza. He was so far ahead of 
+  his rivals that it is hard to find really outstanding examples of his skill.&quot; </p>
+<p>
+  Morphy was called &quot;The <strong>Pride and Sorrow of Chess</strong>&quot;.
+  <span class="auto-style3">
+  Born to a wealthy and distinguished (ugledna) family in New Orleans 1837,&nbsp; 
+  died on July 10. 1884 at the age of 47 by stroke brought on by entering cold 
+  water in his bathtub after a long walk in the midday heat. The Morphy mansion 
+  417 Royal Street which backs up to Bourbon Street, 
+  sold by the family in 1891, became the site of the well-known restaurant 
+  Brennan's.&nbsp; In accord with the prevailing sentiment of the time, Morphy 
+  esteemed chess only as an amateur activity, considering the game unworthy of 
+  pursuit as a serious occupation. <strong>Chess professionals were viewed in 
+  the same light as professional gamblers</strong>.<strong>&nbsp; </strong>
+</span>
+  Morphy was never able to establish a successful law practice (1861 outbreak of 
+  the American Civil War, suffered from delusions of <strong>persecution, 
+  chasing, progon</strong>). He lived a life of idleness, living off his 
+  family's fortune, was <strong>cared by his sister and mother</strong>.</p>
+  <p>
+  &nbsp;</p>
 <h2>
-  3.3 Age of Steinitz till 1890 (genius accused &quot;destroyed brilliancy in chess&quot; 
+  3. Age of Steinitz till 1890 (genius accused &quot;destroyed brilliancy in chess&quot; 
   - not true)</h2>
 <p>
   Steinitz was a strikingly brilliant player, not only as a mettlesome 
-  youngster, but even as a feeble old man. See for example Game No. 173. </p>
+  youngster, but even as a feeble old man. See for example L1: Game No. 173. </p>
 <p>
+  L1:
   Game No. 73 shows us how Steinitz played at the beginning of his career -&nbsp; 
   enthusiastic disciple of the <strong>attacking school</strong>. Very shortly 
-  thereafter he experienced a thoroughgoing conversion. He became obsessed with 
+  thereafter he experienced a thoroughgoing <strong>conversion</strong>. He became obsessed with 
   the deeply-rooted <strong>carelessness</strong>, <strong>flashiness</strong> 
   (exhibitionism, immodesty, tasteless showiness) and frequent <strong>
   unsoundness</strong> of <span class="auto-style3">attacking </span>school 
-  oposed to&nbsp; combinations of Morphy, with their <strong>natural 
-  development, logical preparation and accurate execution. </strong>A pervasive 
-  interest in the <strong>defense became his life-time passion</strong>; he was 
-  fascinated by the idea of <strong>refuting&nbsp; an unsound attack</strong>, 
+  oposed to&nbsp; combinations of Morphy, with their <strong>:</strong></p>
+  <ol>
+	<li>natural 
+  development</li>
+	<li>&nbsp;logical preparation</li>
+	<li>accurate execution</li>
+  </ol>
+  <p>
+  A pervasive 
+  interest in the <strong>defense became his life-time passion (desired 
+  intensely)</strong>; he was 
+  fascinated by the idea of <strong>refuting (Prove to be false or incorrect)&nbsp; an unsound attack</strong>, 
   of demonstrating to the opponent that <strong>one cannot lightly toss away 
   pawns, or worse pieces</strong>, without retribution, that hit-or-miss and 
   helter-skelter attacks should not be permitted to achieve their goal. All have 
@@ -220,19 +284,30 @@ character.</p>
   Blackburne - their <br>attacking play was purified and raised to finer 
   artistic levels by Steinitz's <strong>probing and fruitful criticism</strong>.</p>
 <h2>
-  3.4 Modern Chess till 1905</h2>
+  4. Modern Chess till 1905</h2>
 </span>
-<p>&nbsp;Era of what is called, occasionally in rather a disdainful (insulting) 
-tone, &quot;modern chess&quot; -&nbsp; great Lasker and Tarrasch, of Schlechter and 
+<p>Era of what is called, occasionally in rather a disdainful (insulting) 
+tone, &quot;modern chess&quot; -&nbsp; <strong>great Lasker and Tarrasch</strong>, Schlechter and 
 Maroczy, of the attacking geniuses <strong>Pillsbury</strong> (lived 34 years, 
-seem to be adequately appreciated nowadays - 1956 first ed.) and Marshall and 
+seem to be adequately appreciated 1956 first ed.) and Marshall and 
 Janowski. <strong>Positional chess</strong> begins to be pre-eminent; before the 
-opponent can be finished off with a brilliant combination, it is generally 
+opponent can be finished off with a brilliant combination.
+</p>
+  <p>It is generally 
 necessary to outplay him positionally, in order to create favorable conditions 
 for&nbsp; sacrificial play. That is why Emanuel Lasker once wrote: &quot;<strong>If 
 you play well positionally, the combinations will come of themselves</strong>.&quot;
 </p>
-<h2>3.5 Moderns, Hypermoderns and Eclectics till 1942</h2>
+  <p>
+  <span class="auto-style3">
+  <strong>Lasker</strong>: endgame mastery, the first chess psychologist,
+  <strong>greatest defensive (save lost positions)</strong> player ever, World 
+  Champion 27 years. Lasker calculated extremely deeply, seeing things that 
+  others would never find resulting in great combinations, just like all the 
+  other great tacticians. Chaotic tactical tidal waves (like <strong>Tal</strong> 
+  did), which drowned one opponent - defensive setups that even modern computers 
+  are incapable of seeing.</span></p>
+<h2>5. Moderns, Hypermoderns and Eclectics till 1942</h2>
 <p>Rubinstein, Nimzovich, Bernstein, Capablanca, Duras, Tartakower, Spielmann, 
 Vidmar... They&nbsp; applied in their games what they had learned from the 
 reigning gods of the chessboard, but they also rebelled, as is the way of youth, 
@@ -244,31 +319,17 @@ were joined by such masters as Reti, Bogolyubov and Breyer,&nbsp; still younger
 players, such as Euwe,&nbsp; Flohr, Kashdan, Fine, Reshevsky, Botvinnik and 
 Keres. It is an age where &quot;anything goes&quot;,&nbsp; older masters were rarely 
 capable of such elasticity and objectivity.</p>
-<h2>3.6 Period of Russian Hegemony and Fischer till 1969</h2>
-<p>&nbsp;Russian government, acting as sponsors - Botvinnik, Smyslov, Bronstein, 
+<h2>6. Period of Russian Hegemony and Fischer till 1969</h2>
+<p>Russian government, acting as sponsors - Botvinnik, Smyslov, Bronstein, 
 Keres, Geller, Tal... - peak of technical perfection, great emphasis on 
 openings. Hordes of analysts finecomb existing ideas extensively and 
 occasionally produce interesting innovations.</p>
-<h2>3.7 </h2>
+<h2>7. 1970 - 2020</h2>
   
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <p>&nbsp;</p>
   <span class="auto-style3">
-  <p>
-  <strong>Lasker</strong>: endgame mastery, the first chess psychologist,
-  <strong>greatest defensive (save lost positions)</strong> player ever, World 
-  Champion 27 years. Lasker calculated extremely deeply, seeing things that 
-  others would never find resulting in great combinations, just like all the 
-  other great tacticians. Chaotic tactical tidal waves (like <strong>Tal</strong> 
-  did), which drowned one opponent - defensive setups that even modern computers 
-  are incapable of seeing.</p>
-  <p><strong>Romantic Era</strong> of chess in the 
-  second half of the 19th century was all about gambits, sacrifices, open lines, 
-  and active pieces. Attack at all costs! Defense is for cowards&nbsp; fell into 
-  decline as its failures mounted against the more pragmatic and dogmatic 
-  teachings of Wilhelm Steinitz and Siegbert <strong>Tarrasch</strong> in the 
-  late 19th&nbsp; and early 20th.<strong> Steinitz</strong>: the first master of 
+  <p><strong> Steinitz</strong>: the first master of 
   positional chess. Alekhine: dynamic, combinative genius. Capablanca: endgame 
   mastery and positional elegance. <strong>Tal</strong>: attack and tactics. 
   Russia's <font face="verdana,arial,helvetica" size="-1">
@@ -296,7 +357,7 @@ occasionally produce interesting innovations.</p>
   used some of openings from his DB while coaching Magnus Carlsen in 2009. 
   Grandmaster Yasser <strong>Seirawan</strong> is a four-time US champion who 
   became one of America's top international players in the post-Fischer era.</p>
-  <p class="auto-style4">&nbsp;<strong>Chess computers</strong> employ massive 
+  <p class="auto-style4"><strong>Chess computers</strong> employ massive 
   databases of endgame positions called tablebases (similar to how they also 
   employ opening books composed of databases of opening moves). First used in 
   1977, endgame tablebases have kept expanding to include every possible 
@@ -327,7 +388,7 @@ occasionally produce interesting innovations.</p>
   Gambit Revisited&quot;</b> <font size="-2">(<a href="https://www.chessgames.com/perl/gamesoftheday">game 
   of the day</a> Sep-15-2018) </font>Tal Memorial (1995), Riga LAT, rd 4, 
   Apr-16 Italian Game: Evans Gambit. Anderssen Variation Cordel Line
-  <a href="https://www.chessgames.com/perl/chessopening?eco=C51">(C51)</a> &nbsp;<b>·</b>&nbsp; 
+  <a href="https://www.chessgames.com/perl/chessopening?eco=C51">(C51)</a> &nbsp; 
   1-0 
   <br>Under Kasparov's tutelage, Carlsen became the youngest ever to achieve a 
   FIDE rating higher than 2800, and the youngest ever world number one. </p>
@@ -346,7 +407,7 @@ occasionally produce interesting innovations.</p>
   <p><font face="verdana,arial,helvetica" size="-1">In February 1996, he 
   defeated IBM's chess computer   <a href="http://www.chessgames.com/perl/chessplayer?pid=29912">Deep Blue 
   (Computer)</a>  with three wins and two draws and one loss. 1997 Deep Blue 
-  defeated Kasparov 3&frac12;–2&frac12; in a highly 
+  defeated Kasparov 3&frac12;-2&frac12; in a highly 
   publicised six-game match. The match was even after five games but Kasparov 
   lost Game 6 - <a href="http://www.chessgames.com/perl/chessgame?gid=1070917">
   Deep Blue vs Kasparov, 1997</a>  - to lose the match. This was the first time a computer had 
@@ -358,7 +419,7 @@ occasionally produce interesting innovations.</p>
 &nbsp;</p>
 <p class="MsoNormal" style="margin: 0in 0in 8pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: 15.6933px; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
 <span style="font-size: 14pt; line-height: 19.9733px;">New major openings are 
-rare.&nbsp; Perhaps the last major gambit opening was Benko’s Gambit (1.d4 Nf6 
+rare.&nbsp; Perhaps the last major gambit opening was Benko's Gambit (1.d4 Nf6 
 2.c4 c5 3.d5 b5), which Paul Benko introduced in the late 1960s and heavily 
 analyzed in the 1970s.&nbsp; At first, Black was winning most of the game in 
 master play, but with time, it has been neutralized and is now rare among top 
@@ -401,10 +462,245 @@ first move popularity is:</span></p>
 <p class="MsoNormal" style="margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: 15.6933px; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
 <span style="font-size: 14pt; line-height: 19.9733px;">1.b4&nbsp; &lt;1%</span></p>
 <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h2>Memory and Chess</h2>
+  <p><a href="http://www.chessmaniac.com/memory-and-chess/">
+  http://www.chessmaniac.com/memory-and-chess/</a> </p>
+  <p>In 1894, Alfred Binet conducted one of the first psychological studies into 
+  chess. He found that only chess masters were able to play chess successfully 
+  without seeing the board. In 1927, Soviet psychologists conducted extensive 
+  tests on top chess masters and came to the conclusion that their powers of 
+  memory were only greater than that of the layman as far as chess was 
+  concerned; in other areas of memory, there was no discernible superiority of a 
+  chess master and a layman. In the 1940s, Edward Lasker wrote on an organized 
+  study that was made of a dozen leading chess masters by a group of 
+  psychologists. It was found that a <strong>chess master's memory was only 
+  exceptional where positions on the chessboard were concerned</strong>.&nbsp; 
+  In 1965, Adrian de Groot (1914-2006) published his book &quot;Thought and Choice in 
+  Chess&quot;. He found that visual memory and visual perception were important 
+  attributes and that <strong>problem-solving ability was of paramount 
+  importance</strong>. Memory was particularly important.</p>
+  <p>In 1973, William Chase (1940-1983) and Herbert Simon (1916-2001) showed 
+  superior memory for chess positions by chess experts through &quot;<strong>chunking</strong>&quot;. 
+  A chunk is a pattern or a collection of elements that are strongly associated 
+  with one another, but are weakly associated with elements in other chunks. 
+  Chunking the numbers becomes 1492 10000 64 or when Columbus sailed to America,&nbsp; 
+  zip code of Zagreb and the number of squares on a chessboard. For chess, a 
+  chunk might be a <strong>king-side castling position</strong> Kg1, Rf1, Pf2, 
+  Pg2, Ph2, Nf3 6 chessmen on 6 out of 64 squares. Another example is the 
+  opening position out of a Ruy Lopez or Sicilian, Najdorf.</p>
+  <p>If you had a random position of a bunch of chessmen, a chess player would 
+  not have any more advantage than a non-chess player in recreating the 
+  position.</p>
+  <p>You store chunks in long-term memory (LTM), but you process them through 
+  short-term memory (STM). Adults are able to store 3-7 chunks in short-term or 
+  working memory at any one time in about one minute. If all you can store is 3 
+  chunks, then to visualize the entire chess board and hold it in working 
+  memory, you need to see the entire position in only 3 chunks at most. 
+  Therefore, chunks need to be quite large. You may be able to work with three 
+  chunks at any one time and process information rapidly between your short term 
+  memory and your long term memory in order to visualize the entire board.</p>
+  <p>In 1987-88, all students in a rural Pennsylvania 6th grade class were 
+  required to participate in chess lessons. None of the pupils had previously 
+  played chess. After a year, the pupils significantly improved in both memory 
+  and verbal reasoning. The program was called 'Development of Reasoning and 
+  Memory through Chess.' </p>
+  <p>In 2001, researchers wrote in Nature magazine that a chess grandmaster 
+  studies and practices for at least 10 years to learn more than 100,000 chess 
+  patterns (memory chunks). Consequently, GMs can 'recognize' they key elements 
+  in a problem situation much more rapidly than amateurs.</p>
+  <p><strong>Alekhine had a photographic memory</strong> (also known as <strong>
+  eidetic memory</strong>) as a boy. In 1925, Alexander Alekhine was given a few 
+  standard memory tests. They revealed that if a test had nothing to do with 
+  chess, such as memorizing words, shapes, or objects, he did no better than an 
+  average person. On the other hand, when a test involved memory of a chess 
+  position placed on a board in front of him, he performed exceptionally well. 
+  Several articles have been written on Alekhine stating that he was able to 
+  remember all the master chess games during the last 25-30 years.</p>
   <p>
 </span>
-  </p>
+  <strong>Vishy Anand</strong>'s mother says that he has always had a <strong>
+  photographic memory</strong>. He said the first skill needed is to develop
+  <strong>memory hooks.</strong> Thanks to all these hooks, it is easy to 
+  remember these games years later&nbsp; :</p>
+  <ol>
+	<li>&nbsp;You learn a <strong>few mates and a few tricks</strong></li>
+	<li>&nbsp;Then you slowly progress, seeing the <strong>games of the great 
+	players</strong>, classic examples that every chess player must know. The
+	<strong>great player explains his game, and the key moments</strong></li>
+	<li>&nbsp;A lot of games are accompanied with <strong>diagrams of key 
+	positions</strong> where something interesting happened</li>
+  </ol>
+  <p><strong>Blackburne</strong> had a good memory and could memorize large 
+  lists of information and recalled a large number of chess games played by 
+  masters. When author Anderson Graham was looking over some of Blackburne's 
+  chess games with him in the late 1890s, he was astounded to find that 
+  Blackburne could recall chess games he had not seen for 30 or more years.</p>
+  <p><strong>Capablanca</strong> said he had a <strong>photographic memory as a 
+  child</strong>. He could read seven pages of history and recite them verbatim.
+  <strong>As he got older, Capablanca said he could hardly remember any of his 
+  games he played in the past</strong>, but had met experts who remembered every 
+  one of his serious games in the last 22 years.</p>
+  <p><strong>Magnus Carlsen</strong>, in an interview on 60 Minutes, said that 
+  he has <strong>memorized 10,000 chess games</strong>. When he was 2 year old, 
+  he was able to recite all the major car brands of Norway. <strong>At age 5, he 
+  memorized all the world's countries, their flags, and their capitals</strong>. 
+  He was asked if he had a great memory with other things other than chess. 
+  Carlsen responded, &quot;No, I forget all kinds of stuff. I mean, I'm pretty good 
+  at remembering names, but I can never remember faces. I regularly lose my 
+  credit cards, my mobile phone, keys and so on.&quot; </p>
+  <p><strong>Bobby Fischer</strong>'s memory for chess was pretty good. At the 
+  conclusion of the unofficial Blitz Championship of the World at Hercegnovi, 
+  Yugoslavia, in 1970, Fischer rattled off the scores of all his twenty-two 
+  games, involving more than 1,000 moves, from memory. And just prior to his 
+  historic match with <strong>Taimanov, in Vancouver</strong>, British Columbia, 
+  Fischer met the Russian player Vasiukov and showed him a speed game that the 
+  two had played in Moscow fifteen years before. Fischer recalled the game move 
+  by move. Gudmundur Thorarinsson, the organizer of the 1972 world championship 
+  match between Fischer and Spassky, recounts a story of Bobby phoning Icelandic 
+  grandmaster Fridrik Olafsson to ask for some technical advice ahead of the 
+  match in 1972. The phone was answered by the Olafsson's 10-year-old daughter 
+  who spouted several sentences of Icelandic that baffled Fischer. The next day 
+  Fischer, who spoke no Icelandic, repeated those sentences exactly to 
+  Thorarinsson, every phrase, every inflection accurate, so that Thorarinsson 
+  could understand precisely what the young girl had said. Thorarinsson called 
+  it a &quot;phonetic memory.&quot;</p>
+  <p><strong>Garry Kasparov</strong> says that he was able to remember all the 
+  master games he has played. In 1987-88, the German magazine Der Spiegel went 
+  to considerable effort and expense to find out Kasparov's IQ and test his 
+  memory. Under the supervision of an international team of psychologists, 
+  Kasparov was given a large battery of tests designed to measure his memory, 
+  spatial ability, and abstract reasoning. They measured his <strong>IQ as 135</strong> 
+  and his <strong>memory as one of the very best</strong>. Kasparov was asked if 
+  he had to re-evaluate the positions on each board every time he had returned 
+  to make a move in a simul, or if he remembered the positions all the time. 
+  Kasparov replied that he in fact <strong>remembered all the positions</strong>. 
+  He also said <strong>he could recall the moves of all the games he had played 
+  in the past 6 months</strong>.</p>
+  <p><strong>George Koltanowski</strong> had a powerful memory that allowed him 
+  to play a <strong>large number of blindfold games simultaneously</strong>. He 
+  claimed he had a &quot;<strong>phonographic</strong> memory&quot; (a keen <strong>memory 
+  for sequences</strong>) that allowed him to do a blindfold knight's tour. In 
+  the early 1980s, George Koltanowski conducted a blindfold knight's tour at the 
+  Dayton Chess Club, where I (ChessManiac) was President. A month later, I wrote 
+  a letter to George, and, in fun, asked him what was on c4. When he got the 
+  letter, he phoned me up and was able to recall what was on all the chess 
+  squares (c4 was my name). One time at his apartment, I asked George 
+  Koltanowski's wife, Leah, if George had a good memory about anything else. She 
+  replied, &quot;<strong>George can go to the supermarket and forget his loaf of 
+  bread.</strong>&quot;</p>
+  <p><strong>Boris Kostic</strong> had a good memory and could recall a large 
+  number of master games.</p>
+  <p><strong>Irina Krush</strong> says she knows people that remember hundreds 
+  of games, but she says she does not have that talent. She says that she
+  <strong>remembers her games from a tournament, but will forget them in a few 
+  days</strong>. She <strong>only remembers a general shape, a pattern of every 
+  game</strong>, but not the details.</p>
+  <p><strong>Emanuel Lasker</strong> wrote this about memory. &quot;<strong>Chess 
+  must not be memorized</strong>, simply because it is not important enough. If 
+  you load your memory, you should know why. Memory is too valuable to be 
+  stocked with trifles. Of my fifty-seven years I have applied at least thirty 
+  to forgetting what I had learned or read, and since I succeeded in this I have 
+  acquired a certain ease and cheer which I should never again like to be 
+  without. If need be, I can increase my skill in Chess, if need be I can do 
+  that of which I have no idea at present. <strong>I have stored little in my 
+  memory, but I can apply that little</strong>, and it is of good use in many 
+  and varied emergencies. I keep it in order, but resist every attempt to 
+  increase its dead weight.&quot;</p>
+  <p><strong>Frank Marshall</strong> had a good memory. In January 1922, Frank 
+  Marshall played 155 opponents on Montreal. He won 126, lost 8, and drew 21 
+  (88%) after 7 hours of play. A week later, he <strong>was able to replay 153 
+  of 155 games from memory</strong>. What bothered him was forgetting the other 
+  two games. He thought he was losing his memory. </p>
+  <p>Many article about <strong>Paul Morphy</strong> report that he was able to 
+  recite from memory nearly the entire Civil Code of Louisiana (3,500 articles).</p>
+  <p>Armenian International Master <strong>Ashot Nadanian</strong> once 
+  mentioned that he can easily <strong>recall chess games some 20 years ago, but 
+  cannot remember his mobile phone number</strong></p>
+  <p><strong>Miguel Najdorf</strong> possessed a strong chess memory. He was 
+  able to play a large number of blindfold simultaneous games.</p>
+  <p>When <strong>Philidor</strong> played two blindfold games at once in 1783, 
+  it was written up as one of the greatest memory skills ever displayed. A 
+  newspaper wrote, &quot;This brief article is the record of more than sport and 
+  fashion: it is a phenomenon in the history of man so should be hoarded among 
+  the best samples of human memory, till memory shall be no more. </p>
+  <p><strong>Harry Nelson Pillsbury</strong> had a good memory, being able to 
+  play 15 games of chess and 15 games of checkers at the same time, blindfolded, 
+  while also playing cards and memorizing a list of complicated words. His 
+  obituary in the New York Times stated that <strong>he died from an &quot;illness 
+  contracted through overexertion (overeffort) of his memory cells.&quot; He actually 
+  died of syphilis.</strong></p>
+  <p>Grandmaster <strong>Lev Psakhis</strong> was able to remember every one of 
+  Bobby Fischer's games by heart. In 1973, Grandmaster Salo Flohr brought some 
+  Chess Informants with him during a simultaneous exhibition in Krasnoyarsk, 
+  USSR. 14-year-old Psakhis astounded Flohr by telling him in each diagram who 
+  the players were. Psakhis had memorized every diagram in the book. Psakhis was 
+  asked if he was a prodigy (gifted or intelligent (young) person, sign of 
+  something about to happen, example of a particular quality). Psakhis replied, 
+  &quot;No, I just have a good memory,&quot;</p>
+  <p><strong>Richard Reti</strong> had a strong chess memory, but in other 
+  areas, his memory wasn't so good. In 1925 Reti played 29 opponents blindfold 
+  simultaneously in Sao Paulo and was able to recall all the games. After the 
+  exhibition, he was going home and <strong>forgot his suitcase</strong>. When 
+  somebody reminded him about it, Reti said, &quot;Thank you very much. <strong>My 
+  memory is so bad</strong>...&quot;</p>
+  <p><strong>Akiba Rubinstein</strong> was said to know every chess game he 
+  played by heart, though unsubstantiated (Unsupported by other evidence).</p>
+  <p><strong>Bernard Zukerman</strong> has a very good chess memory, which made 
+  him one of the outstanding <strong>openings expert</strong>.</p>
+  <p>
+  &nbsp;</p>
+
+  <h1>THE GRANDMASTER'S SECRETS</h1>
+  <p>by GM Igor Smirnov <a href="http://chess-teacher.com">
+  http://chess-teacher.com</a> </p>
+  <h2>Introduction &quot;The Biggest Mistakes&quot;</h2>
+  <ol>
+	<li>The biggest problem chessplayers have, in my opinion, is the 
+	accumulation of <strong>pointless knowledge</strong> (quantity of chess information, but not 
+	on the <strong>quality -concrete results</strong>) which doesn't help them to play better because more 
+	important is your <strong>thinking process - clear, very organized system of 
+	thinking -being able to apply knowledge in practice - concrete steps of what 
+	you should do during every phase of the game</strong>. When I was a 13 
+	year-old boy, I played training games with an adult professional chess 
+	coach. He was much more knowledgeable about chess - knew nearly all the 
+	opening variations, a lot of endgame positions, many strategical and 
+	tactical ideas. I was able to win nearly all the games we played. Magnus 
+	Carlsen started to win a lot of games against Strong grandmasters at age 15!</li>
+
+	<li>Nearly all the Grandmasters <strong>read books very slowly</strong> to understand deeply 
+	all the ideas which a book contains (one grandmaster took 3 years to read a 
+	single book). After reading it, he increased his rating 100 points and is 
+	now rated over 2600.</li>
+	<li>Lack of&nbsp; <strong>basic chess knowledge </strong></li>
+	<li><strong>Expectations</strong> of quick results - like be body builder 
+	after short time knowing only how to exercise. If you read the interviews of 
+	Kramnik or Anand and pay attention on their attitude during tournament 
+	games, you will see that they are quite calm and pay less attention to the 
+	result.</li>
+	<li>All <strong>chess engines </strong>are very strong...probably stronger 
+	than most students need. Any one of them can help improve your play.</li>
+
+  </ol>
+
+
+  <p>&nbsp;</p>
+  <h2>Lesson 1.1:&nbsp; How to play the game (strategy)</h2>
+  <p><strong>Game Smirnov - Sudarkin&nbsp; 1:0&nbsp;
+  
+  <a href="../phpchess/phpchess/?g=Learn001_Smirnov_Sudarkin&amp;b=<?=2?>" target="_blank">
+	Learn001_Smirnov_Sudarkin.pgn</a></strong></p>
+<p>This lesson is probably the most important part of a course- <strong>base 
+  chess knowledge to find the best move</strong>. </p>
+<h2>Lesson 1.2:&nbsp; How to play the game (tactics)</h2>
+<p><strong>Game computer1- computer2&nbsp; 0:0&nbsp;
+<a href="phpchess/?g=Learn001_Smirnov_Sudarkin&amp;b=<?=2?>">&nbsp;</a><a href="phpchess/?g=Learn002_two_comp_mdleg&amp;b=<?=2?>" target="_blank">Learn002_two_computers.pgn</a>
+</strong></p>
+<p>How to <strong>calculate variations</strong>. <strong>Basic strategic ideas</strong> 
+work in hard complicated positions like this as well. In a really complicated 
+position you can <strong>find right moves</strong> easily when you use <strong>
+right thinking way</strong>. <br></p>
+  <p>&nbsp;</p>
 
 
 
-</body></html>

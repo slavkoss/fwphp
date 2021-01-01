@@ -1,4 +1,5 @@
 /.git/
+/magento2ce/
 composer.lock
 Syncfolders_Database_db
 /z_big/

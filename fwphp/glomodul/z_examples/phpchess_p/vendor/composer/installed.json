@@ -1,0 +1,61 @@
+[
+    {
+        "name": "p-chess/chess",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/p-chess/chess.git",
+            "reference": "72175c56b4d5d1409dd96e3d5e4538694e82676e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/p-chess/chess/zipball/72175c56b4d5d1409dd96e3d5e4538694e82676e",
+            "reference": "72175c56b4d5d1409dd96e3d5e4538694e82676e",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "php": "^7.2"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "^2.16",
+            "johnkary/phpunit-speedtrap": "^3.2",
+            "phpbench/phpbench": "^0.17.0",
+            "phpstan/phpstan": "^0.12",
+            "phpunit/phpunit": "^8.5 || ^9.0"
+        },
+        "time": "2020-06-16T19:39:44+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PChess\\Chess\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "ryan hs",
+                "email": "mr.ryansilalahi@gmail.com"
+            },
+            {
+                "name": "Arkadiusz Kondas",
+                "email": "arkadiusz.kondas@gmail.com"
+            },
+            {
+                "name": "Massimiliano Arione",
+                "email": "garakkio@gmail.com"
+            }
+        ],
+        "description": "A PHP chess library that is used for chess move generation/validation, piece placement/movement, and check/checkmate/stalemate detection"
+    }
+]

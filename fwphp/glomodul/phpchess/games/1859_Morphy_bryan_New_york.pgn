@@ -1,0 +1,20 @@
+[Event "New York"]
+[Site "New York, NY USA"]
+[Date "1859.??.??"]
+[EventDate "?"]
+[Round "?"]
+[Result "1-0"]
+[White "Paul Morphy"]
+[Black "Thomas Jefferson Bryan"]
+[ECO "000"]
+[WhiteElo "?"]
+[BlackElo "?"]
+[PlyCount "45"]
+[SetUp "1"]
+[FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/R1BQKBNR w KQkq - 0 1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Bc5 6. O-O d6
+7. d4 Bb6 8. dxe5 dxe5 9. Qb3 Qf6 10. Bb5 Be6 11. Qa4 Nge7
+12. Bg5 Qg6 13. Bxe7 Kxe7 14. Bxc6 bxc6 15. Nxe5 Qf6 16. Nxc6+
+Kf8 17. e5 Qg5 18. h4 Qg4 19. Qa3+ Kg8 20. Ne7+ Kf8 21. Ng6+
+Kg8 22. Qf8+ Rxf8 23. Ne7# 1-0

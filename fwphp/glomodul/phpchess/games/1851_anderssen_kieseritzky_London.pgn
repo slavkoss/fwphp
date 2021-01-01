@@ -11,13 +11,53 @@
 [BlackElo "?"]
 [PlyCount "45"]
 
-1.e4 e5 2.f4 exf4 3.Bc4 Qh4+ 4.Kf1 b5 5.Bxb5 Nf6 6.Nf3 Qh6
-7.d3 Nh5 8.Nh4 Qg5 9.Nf5 c6 10.g4 Nf6 11.Rg1 cxb5 12.h4 Qg6
-13.h5 Qg5 14.Qf3 Ng8 15.Bxf4 Qf6 16.Nc3 Bc5 17.Nd5 Qxb2
-18.Bd6 {18.Bd6?! was not a good move, when 18. d4! is winning, just like 18. Be3! or 18. Re1!}
-   Bxg1 {18...Bxg1 It is from this move that Blacks defeat stems. Wilhelm
-Steinitz 1879 suggested : 18... Qxa1+; likely moves to follow are 19. Ke2 Qb2 20. Kd2 Bxg1.
-Reuben Fine 1952 suggested : "If here, e.g. 18. . . . QxRa1+; 19. Ke2, QxRg1; then 20. Nxg7+, Kd8; 21. Bc7#."
-in "The Middle Game in Chess" reprint 1972, at 20}
-19. e5 Qxa1+ 20. Ke2 Na6 21.Nxg7+ Kd8 22.Qf6+ Nxf6 23.Be7#
-{Very strange game ! Kieseritzky sure showed his limitation by going for piece-grabs. Kieseritzky had a plus score vs Anderssen ! https://www.chessgames.com/perl/chessgame?gid=1018910 See https://lichess.org/study/NT0Qzi5p/3IX6FElR#0 } 1-0
+1.e4 e5 {
+First Immortal Game Ever.
+} 2.f4 exf4 3.Bc4 Qh4+ 4.Kf1 b5 {
+Deeply analysed by Kieseritzky. This was also started position in 20 minutes game Short vs Kasparov in 1993, where Garry said it's unplayable but he agreed to try best moves.
+}
+5.Bxb5 Nf6 6.Nf3 Qh6
+7.d3 {
+7. d3?! Inaccuracy. Nc3 was best.
+7.Nc3 g5 aggresive and risky by Kasparov in 1993, Nigel Short won that game.
+}
+Nh5 8.Nh4 {
+8.Nh4?! Preventing risky way
+8.Rg1?
+}
+Qg5 {
+8. ...Ng3+ 9.hxg3
+}
+9.Nf5 c6 10.g4 Nf6 {
+10. ...fxg3?? 11.Bxg5 += 
+}
+11.Rg1 cxb5 12.h4 Qg6
+13.h5 Qg5 14.Qf3 Ng8 {
+Blunder. Bb7 was best. 14...Bb7 15.Bxf4Nxg4
+16.Rxg4Qxf5 17.exf5Bxf3 += 
+16.Bxg5Nh2+ 17.Kf2Nxf318.Kxf3 += 
+16.Qxg4Qxg4 17.Rxg4 += g6
+}
+15.Bxf4 Qf6 16.Nc3 Bc5 17.Nd5 {
+17. Nd5? Mistake. 17.d4! was best.
+}
+Qxb2
+18.Bd6 {
+18.Bd6?! was not a good move, when 18. d4! is winning, just like 18. Be3! or 18. Re1!
+Blunder. Re1 was best to continue attack.
+<p>}
+   Bxg1 {
+18...Bxg1?? It is <b><i>from this move that Blacks defeat stems</i></b>.
+<p>Wilhelm Steinitz 1879 suggested : 18... Qxa1+; likely moves to follow are 19. Ke2 Qb2 20. Kd2 Bxg1, Stockfish agrees 21.e5Ba6 22.Nc7+Kd8 23.Nxa6Bb6 24.Qxa8Ba5+? 25.Ke3Qc1+ .
+<p>Reuben Fine 1952 suggested : "If here, e.g. 18. . . . QxRa1+; 19. Ke2, QxRg1; then 20. Nxg7+, Kd8; 21. Bc7#." - in "The Middle Game in Chess" reprint 1972, at 20
+
+<p>18...Bxd6 19.Nxd6+Kd820.Nxf7+Ke8 21.Nd6+Kd8 22.Qf8#
+}
+19. e5 Qxa1+ 20. Ke2 Na6 {
+20...Ba6 21.Nc7+Kd8 22.Nxa6
+22...Qxa2 23.Bc7+Ke8 24.Nb4Qe6 25.Qxa8f6 26.Qxb8+ += 
+22...Bb6 23.Qxa8Qc3 24.Qxb8+Qc8 25.Qxc8+Kxc8 26.Bf8h6 27.Nd6+Kd8 28.Nxf7+Ke8 29.Nxh8Kxf8 30.Ng6+Kf7 += 
+}
+21.Nxg7+ Kd8 22.Qf6+ Nxf6 23.Be7# {
+Very strange game ! Kieseritzky sure showed his limitation by going for piece-grabs. Kieseritzky had a plus score vs Anderssen ! https://www.chessgames.com/perl/chessgame?gid=1018910 See https://lichess.org/study/NT0Qzi5p/3IX6FElR#0 
+} 1-0

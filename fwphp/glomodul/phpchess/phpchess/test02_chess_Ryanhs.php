@@ -113,6 +113,18 @@ echo '<br /><b>ln '. __LINE__ .' SAYS : $chess->get_history()=</b><pre>'; print_
 echo $chess->ascii() ;
 
 
+
+            //$return = $chess->loadPgn($pgn_arr);
+            //$fen = $chess->fen() ;
+            //echo 'FEN=' . $fen . '<br />';
+            //$chess->load_fen($fen);
+
+                //if (!isset($chess->get_set_hdrtag()['FEN'])) { $fen_startboard = $chess->fen() ; } // or :
+                //else { $fen_startboard = $chess->get_set_hdrtag()['FEN'] ;  }
+                //$chess->load_fen(Chess::DEFAULT_POSITION); 
+                // $chess->load_fen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
+                // Empty board  '8/8/8/8/8/8/8/8 w KQkq - 0 1 = to fill with move(),load_fen()
+
 /*
 $board = $chess->fen2board($fen) ; // squares used and non used
 echo '<br /><b>ln '. __LINE__ .' SAYS 4: squares used and non used :

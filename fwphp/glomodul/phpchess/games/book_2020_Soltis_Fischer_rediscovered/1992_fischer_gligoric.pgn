@@ -1,0 +1,81 @@
+[Event "Training Game"]
+[Site "Sveti Stefan YUG"]
+[Date "1992.??.??"]
+[EventDate "?"]
+[Round "?"]
+[Result "1-0"]
+[White "Robert James Fischer"]
+[Black "Svetozar Gligoric"]
+[ECO "A30"]
+[WhiteElo "?"]
+[BlackElo "?"]
+[Source "'Bobby Fischer Triumph and Despair', p.362"]
+[Annotator "Soltis Fischer rediscovered 2020"]
+[PlyCount "89"]
+
+1.c4 c5 {
+Fischer was familiar with this position as he had played the Black side
+against  Tigran  Petrosian  (twice) and Larsen during 1970-1. They played 2
+Nf3, to which he replied 2...g6.
+} 2.b3 Nc6 3.g3 Nf6 4.Bg2 d5 5.cxd5 Nxd5 
+6.f4 {
+We are in new territory. Black would equalize if he could safely play ...e5.
+A key game in the 1971 Petrosian – Fischer match had gone 1 Nf3 c5 2 b3 d5
+3 Bb2? f6! and Fischer had the superior center after ...e5.}
+e6 7.Bb2 h5 {
+A strong idea. Now 8 Nf3 h4! 9 Nxh4? Rxh4! 10 gxh4 Qxh4+ 11 Kf1
+Nxf4 sets up a murderous attack with ...e5 and ...Bh3.
+}
+8.Nh3 Nf6 9.Nf2 h4 10.Nc3 {
+Fischer’s  friend  William  Lombardy  was  very  fond  of  the  kingside
+arrangement  of  a  pawn  at  f4  and  knight  at  f2.  He  wrote  about  this  is  the
+April 1969 issue of Chess Review.
+}
+hxg3 11.hxg3 Rxh1+ 12.Bxh1 Bd7
+13.e3 {
+A  good  alternative  plan  for  White  was  Na3,  at  move  ten  for  example,
+followed  by  Nc4.  Fischer  prefers  to  expand  (g3-g4-g5)  on  the  kingside,
+which has turned from a Black strength to somewhat of a weakness after the
+trade of rooks.
+}
+Qa5 14.g4 O-O-O 15.g5 Ne8 16.Qh5 f5 {
+Black  had  a  worthy  alternative  in  16...Nd6,  which  stops  Qxf7  while
+preparing ...c4. Gligoric was likely surprised by Fischer’s next move. Or was
+he used to Bobby’s attempts at pawn-grabbing by then?
+}
+17.Bxc6 Bxc6 18.Qf7
+Nc7 19.Nd3 {
+The  threat  of  Ne5xc6  is  worrisome.  Fischer  was  probably  willing  to
+accept a little discomfort (19...Bd6 20 Qxg7 Qa6 21 Nf2 f3) to be up a
+pawn.
+}
+Rxd3 20.Qxf8+ Ne8 21.Qe7 {
+Black has two weak pawns, at e6 and g7. Potential endgames favor White
+(21...?d7 22 0-0-0 ?d8 23 ?xd8+ and ?h1-h8.)}
+Rd6 22.O-O-O Qd8 23.Qxd8+ {
+One of the ideas that’s been lurking beneath the surface for some time
+was Nb1 followed by Na3-c4 and/or Be5.  Here  23  Qf8!  would  make  24
+Nb1! a threat.
+}
+Rxd8 24.Na4 b6 {
+The "Fischer endgame" of rook and bishop versus rook and knight arises
+after 24...Bxa4 25 bxa4 and could turn into a rout after 25...g6? 26 Rh1!,
+e.g. 26...Nd6 27 Rh7 Rg8 28 Be5 Ne8 29 Re7.}
+25.Be5 g6 26.Nb2 Rd7 27.Nc4 Bf3 28. Rf1 Bd5
+29.Rd1 {White's plan to invade on the h-file has failed (29 Rf2 Rh7) and he can
+switch to a fall-back scheme of 29 a4 followed by Kc2-c3 and then b3-b4 or
+d2-d4.}
+Rh7 30.a4 Rh3 31.Kc2 Kb7 32.Kc3 a6 33.b4 {
+The threat is 34 bxc5 bxc5 35 Rb1+ Kc6 36 Rb6+ or 35...Ka7? 36 Rb8.
+Black could have avoided this with ...Nc7 or ...Bxc4 earlier. For example,
+32...Nc7 33 Bxc7 Bxc4! (not 33...Kxc7 34 Ne5) with a likely draw.}
+cxb4+ 34.Kxb4
+Rh2 35.a5 Bf3 {Black's  knight  is  stalemated  in  key  variations  and  would  be  lost,  for
+example, after 35...bxa5+ 36 Nxa5+ Kb6? 37 Rc1! and Rc8.}
+36.Rc1 b5 37.Nb6 Bc6 38.Nc8 {
+Now on 38...Rh7 White continues 39 Bf6 and Ke7 as in the game.}
+Rxd2 39.Ne7 Bd7 {Once  again  the  knight  can  be  lost  (39...Be4  40  Rc8).  But  White  also
+wins after Nxg6 and the advance of the g6-pawn.}
+40.Nxg6 Ra2 41.Ne7 Ra4+ 42.Kb3 Re4 43.Rd1 Rxe3+ 44.Kb2 Re2+
+45.Kc1 {In view of 45...Bc6 46 Rd8.}
+1-0

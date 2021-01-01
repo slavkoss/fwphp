@@ -32,9 +32,9 @@ echo '<b>Chess::squareColor(\'b1\')='. Chess::squareColor('b1') . '</b><br /><br
 $chess = new Chess('EMPTY_BOARD');
 ?>
 <h2>***************************************
-<br />1. $chess->clear(); TO GENERATE/RETURN FEN OF EMPTY BOARD
+<br />1. $chess->clear(); TO GENERATE/RETURN  F E N  OF EMPTY BOARD
 <br />***************************************</h2>
-or without clear : $chess = new Chess(EMPTY_BOARD); DISPLAY FEN OF EMPTY BOARD :
+or without clear : $chess = new Chess(EMPTY_BOARD); DISPLAY  F E N  OF EMPTY BOARD :
 <br />8/8/8/8/8/8/8/8 w - - 0 1
 <br />$chess displays board with public fn __toString() : return $this->get_boardhtml();
 <?=$chess->ascii() . '<br />'?>
@@ -44,11 +44,11 @@ or without clear : $chess = new Chess(EMPTY_BOARD); DISPLAY FEN OF EMPTY BOARD :
 
 
 <br /><br /><h2>***************************************
-<br />2. $chess->fen() IN CONSTRUCTOR, GENERATE/RETURN FEN OF START BOARD
+<br />2. $chess->fen() IN CONSTRUCTOR, GENERATE/RETURN  F E N  OF START BOARD
 <br />***************************************</h2>
 <pre>
 0                                           1  2   3 4 5
-rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 = FEN OF START BOARD</pre>
+rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 =  F E N  OF START BOARD</pre>
 
 <br /><br />load_fen method returns true | false :
 <br />$chess->load_fen(\'4rrk1/8/p1pR4/1p6/1PPKNq2/3P1p2/PB5n/R2Q4 b - - 6 40\'); 
@@ -142,7 +142,7 @@ $chr_on_square = $chess->fen2board($fen) ;
                     echo '<br /><b>ln '. __LINE__ .' SAYS : $history = $chess->get_history()=</b><pre>'; print_r($history) ; echo '</pre>';
 
 //echo '<br /><br /><br /><h2>ln '. __LINE__ .' SAYS: mvno, piece, piece_color</h2>';
-echo '<b>ln '. __LINE__ .' SAYS : see below $mv_from_to array (moves from, to square) displayed in table. $game_pgnString=</b><br />' . $game_pgnString ;
+echo '<b>ln '. __LINE__ .' SAYS : see below $mv_ from_ to array (moves from, to square) displayed in table. $game_pgnString=</b><br />' . $game_pgnString ;
 
 
 
