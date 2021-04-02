@@ -1,0 +1,1073 @@
+# I. STRATEGIJA
+
+## O POZICIONOJ I KOMBINATORNOJ IGRI
+
+Da li je umjetnost igre šaha samo znanje da izračuna na mnogo poteza razne **varijante** ?
+1. Predvidjeti sve varijante je nemoguće jer  odgovori protivnika najčešće nisu **iznuđeni**.
+2. Ako igra nema **forsirani** karakter, partija protiče u **pozicionoj** borbi. Premještajući u mislima figure na šahovskoj ploči, šahista se rukovodi općim **principima**  teorije, npr u otvorenju on teži razviti sile u području **centra** i rasporediti figure na **aktivne** pozicije.
+
+Ukoliko nakon uspješnih pozicionih manevara jedna strana uspije :
+
+1. napasti u logoru protivnika osjetljiva mijesta 
+2. ili postići terensku prednost
+
+situacija se mijenja. Izbor nastavaka se sužuje i u značajnoj mjeri je ođreden **prijetnjama** koje su se pojavile.
+
+U određenom trenutku igra poprima **forsirani** Karakter; nastaju povoljne mogućnosti za kombinacije, koje veddovvoljavaju konkretni prora¢un varijanata. U takvim pozicijama princip da tmaterijalna prednost osigurava pobjedu jacoj strani, više ne vrijedi.
+Ocjena materijalnih vrijednosti nije najvaZnija i odluénu rije¢ ima dinamika borbe.
+
+»Poziciona igra je pripremna fazaza provodenje kombinacijaxs (Em. La-sker). :
+
+Prvi Sahista koji je pokazao kako poziciona igra stvara uvodne uvjete za kombinacije bio je Paul Morphy.
+
+Pogledajmo slijedecu njegovu partiju:    MORPHY—KONZULTANTI   Philidorova obrana  Pariz 1858  
+
+[Event "G0001 Koblenz or Koblencs School chess game 1961"]  
+[Site "opera house in Paris, during Bellini's opera Norma or Barber of Seville"]  
+[Date "1858.??.??"]  
+[Round "?"]  
+[White "Morphy"]  
+[Black "konsultants (alleati) - two strong amateurs: the German noble Karl II, Duke of Brunswick and the French aristocrat Comte Isouard de Vauvenargues."]  
+[Result "1-0"]  
+[ECO "C41"]  
+[Opening "Philidor defense"]  
+[Annotator "pag. 4  https://kupdf.net/download/koblenz-a-sahovsko-umijece_58fb4daedc0d60c562959ebb_pdf#"]  
+[PlyCount "33"]  
+[Comment "Positional play (strategy) preparation for combination"]  
+
+1. e4 e5 {Example of <b>positional play to prepare combinations</b> in "Romantic Era" games:
+<ol>
+<li>rapid development
+<li>center control
+<li>open verticals and diagonals
+<li>value of sacrifices in mating combinations...
+</ol>
+}
+
+2. Nf3 d6 {
+d6 is Philidor's Defence, named after Francois-Andre Danican Philidor, the leading chess master of the second half of the 18th century (100 years before Morphy) and a PIONEER OF MODERN CHESS STRATEGY. He was also a noted opera composer.
+It is a solid opening, but <b>slightly passive</b>, and it ignores the important d4-square.
+Most modern players prefer 2...Nc6, and 2...Nf6 - <b>Petrov Defence</b>.
+}
+
+3. d4 Bg4 {
+3...Bg4 is considered an INFERIOR MOVE TODAY, this was accepted theory at the time.
+Today 3...exd4 or 3...Nf6 are usual. Philidor's original idea, 3...f5, is a risky alternative.
+}
+
+4. dxe5 Bxf3 
+({If} 4...dxe5 5.Qxd8+ Kxd8 6.Nxe5 {and White wins a pawn and Black has lost the ability to castle. }) ({Black, however, did have the option of} 4...Nd7 5.exd6 Bxd6 {when he is down a pawn but has some compensation in the form of better development.})
+
+5. Qxf3 
+({Steinitz's recommendation} 5.gxf3 dxe5 6.Qxd8+ Kxd8 7.f4 {is also good, but Morphy prefers to keep the queens on.})
+
+dxe5 {After Black recaptures the pawn on e5, White has a SIGNIFICANT LEAD IN DEVELOPMENT.}
+
+6. Bc4 Nf6 {This seemingly sound developing move runs into a surprising refutation, defence.}
+
+7. Qb3
+{Both f7 and b7 are under attack. Better would have been Black directly protect the f7-pawn with the queen, making White's move 7. less potent.}
+
+Qe7 {Blacks only good move. White was threatening mate in two moves, for example : }
+
+(7...Nc6 8.Bxf7+ Ke7 {or Kd7} 9.Qe6#) 
+
+(7...Qd7 {loses the rook or quin so: } 8.Qxb7 Qc6 9.Bb5)
+{Notice that 7...Qe7 saves the rook with this combination: 8.Qxb7 Qb4+ forcing a queen exchange.
+Although this move prevents immediate disaster, Black is forced to block the f8-bishop, impeding, blocking development and kingside castling.}
+
+8. Nc3 {
+Bijeli je mogao dobiti pjeSaka pomocu 8. Db7:, medutim poslije 8 ...Db4+ crni bi izmijenio dame. Morphy se radije odluéuje da mobilizira  ostale sile i Zeli da iskoristi prednost u razvoju.
+(8. Qxb7 Qb4+) Morphy could have won a pawn by 8.Qxb7 Qb4+ 9.Qxb4 Bxb4+. White can also win material with 8.Bxf7+ Qxf7 9.Qxb7, but Black has dangerous counterplay after 9...Bc5! and 10.Qxa8 0-0, or 10.Qc8+ Ke7 11.Qxh8 Bxf2+!. "But that would have been a butcher’s method, not an artist's." (Lasker).[2] In keeping with his style, Morphy prefers rapid development and initiative over material.
+
+At depth 42 on Stockfish 11 the evaluation for the top 3 moves is as follows: 
+1. Qxb7 (2.15) 
+2. Nc3 (2.10) 
+3. 0-0 (1.61) 
+}
+
+c6 {The best move, allowing Black to defend his pawn without further weakening the light squares, which have been weakened by Black trading off his light-square bishop.}
+
+9. Bg5 {
+10. Black is in what’s like a zugzwang position here. He can’t develop the [Queen’s] knight because the pawn is hanging, the bishop is blocked because of the Queen.--Fischer}
+b5 {
+Još jedan potez i crni bi odigravsi Sbd7 prebrodio osnovne teSkocée.
+Black attempts to drive away the bishop and gain some time, but this move allows Morphy a strong sacrifice to keep the initiative. This move loses but it is difficult to find anything better; for example 9...Na6 10.Bxf6 gxf6 11.Bxa6 bxa6 12.Qa4 Qb7 and Black's position is very weak.}
+
+10. Nxb5 {Morphy chooses not to retreat the bishop, which would allow Black to gain time for development.}
+cxb5 {Black could have prolonged the game by playing 10...Qb4+, forcing the exchange of queens, but White wins comfortably after either 11.Nc3 or 11.Qxb4 Bxb4+ 12.c3!}
+
+11. Bxb5+ {Not 11.Bd5? Qb4+, unpinning the knight and allowing the rook to evade capture.}
+Nbd7
+
+12. O-O-O Rd8 {The combination of the pins on the knights and the open file for White's rook will lead to Black's defeat.}
+
+13. Rxd7 Rxd7 {Removing another defender.}
+
+14. Rd1 {
+Pogledajte kako su loše rasporedene snage crnoga: top na h8 nije u igri, drugi top je vezan, dama zatvara put lovcu a kralj je zaostao u centru. Bijele figure naprotiv zauzimaju aktivne pozicije i usto na odluéyjuéem dijelu bitke u centru one imaju odluénu prednost u snazi, Sve to stvara odliénu mogucnost za slijedeéu kombinaciju 14...De6
+Compare the activity of the white pieces with the idleness of the black pieces. At this point, Black's d7-rook cannot be saved, since it is pinned to the king by the bishop and attacked by the rook, and though the knight defends it, the knight is pinned to the queen.}
+
+Qe6 {Qe6 is a futile attempt to unpin the knight (allowing it to defend the rook) and offer a queen trade, to take some pressure out of the white attack. Even if Morphy did not play his next crushing move, he could have always traded his bishop for the knight, followed by winning the rook.}
+
+15. Bxd7+ Nxd7 {If 15...Qxd7, then 16.Qb8+ Ke7 17.Qxe5+ Kd8 18.Bxf6+ gxf6 19.Qxf6+ Kc8 20.Rxd7 Kxd7 21.Qxh8 and White is clearly winning. Moving the king leads to mate: 15...Ke7 16.Qb4+ Qd6 (16...Kd8 17.Qb8+ Ke7 18.Qe8#) 17.Qxd6+ Kd8 18.Qb8+ Ke7 19.Qe8# or 15...Kd8 16.Qb8+ Ke7 17.Qe8#.}
+
+16. Qb8+ {Morphy finishes with a queen sacrifice.}
+Nxb8
+
+17. Rd8# 1-0
+
+
+Ova partija pokazuje **principe otvorenih pozicija (koje nastaju poslije poteza 1, e4 e5 tj kada snage obiju strana brzo stupaju u djelovanje)** koji vrijede zauvijek :
+
+1) **razvoj** : U otvorenju brzo razvijati figure.
+2) **centar** : Držati pod kontrolom centar. 
+3) **vertikale i dijagonale** : Za maksimalnu aktivizaciju figura otvarati vertikale i dijagonale.
+
+<br /><br /><br />
+Danas se nije tako lako obra¢unati sa protivnikom kao Sto je to uspjelo Morphyju u malo prije razmotrenoj partiji.
+Pogledajmo kako se stvaraju **uvjeti za kombinacije u partijama suvremenih majstora**: 
+KERES - BOOK  Katalonka (Kemeri 1937)
+
+1, Sf3 d5 2. of e6 3. Sc3 Sf6 4. d4 Le7
+
+5. ¢3 0—0 6. Lg2 6 7. O00 Sbd7 8. b3
+b6 9. Lbz
+
+ 
+
+U takozvanim zatvorenim otvorenji-
+ma snage se u potetku ne sukoblja-
+vaju. Vodi se manevarska borba ¢iji
+je cilj da se pod za&titom pjegackog
+zida razviju figure i pripreme za ak-
+tivno djelovanje.
+
+o.
+
+Crni pristupa realizaciji strateskog
+plana napada na daminom krilu. Po
+u¢no je pratiti kako na taj plan rea-
+gira Keres,
+
+10. Sd2! La6 11. e4 dc4 12. e5 Sd5 13.
+be4 Sc3: 14, Lc3: Tc8
+
+Sad postaje jasan i plan bijeloga. On
+je uspio zahvatiti kljuéne pozicije u
+centru. PoSto je vazni zaStitnik kra-
+ljevog krila crnog Sf6 bio prinuden da
+napusti svoje uporiste, kod bijeloga se
+ocrtava konkretni plan koji se sastoji
+u napadu na oslabljeno kraljevo krilo.
+
+15, Tel
+
+Prije prelaska na odluénu akciju
+Keres uévraéuje svoju poziciju u cen-
+tru. Potez u partiji likvidira pozicionu
+prijetnju 15. ... c5, poslije éega se ne
+moze igrati 16. d5 zbog 16. ... ed5 17.
+cd5 Lf1:.
+
+15. ... b5
+
+Crni prelazi u protivnapad ji ne za-
+ustavlja se u daljem toku pred zrtvom
+kvalitete.
+
+16, c3 £6 17. ef6 Lf6: 18. Se4 b4 19.
+Lb2 e5 20. Sd6é ed4 21. Sc8: Sc3:
+
+Naoko izgleda da je strategija crnog
+trijumfirala. Damino krilo bijeloga je
+smrvljeno. Skakaé na c8 je opkoljen.
+Ali baS u tej poziciji Keres poéinje
+forsiranu kombinaciju:
+
+ 
+
+al
+
+Baw
+|.
+&oa7
+ae Oo
+a
+
+oe, Ho
+Ye
+
+i
+
+oe
+
+ 
+
+x
+
+ 
+
+Mi
+
+“a
+A a Man
+
+je ewe &
+
+   
+   
+
+x
+
+ 
+ 
+
+ 
+
+ 
+
+M2. DhS Sad 23. Le4 g6 24. Lg6: hg6
+15, Dgé:+ Kh8 26. Se7!
+
+Prijeti 27. Dhé mat.
+
+%. ... Let: 27. Te7:!.
+
+Na 27. ... De?: odluéuje 28. Ld4:+
+t orni predaje.
+
+Ova partija o¢ito ilustrira vezu po-
+yicione borbe (strateSke) sa kombina-
+fornim (takti¢kim) momentima.
+
+Kao Sto smo se uvjerili, za posti-
+ranje igre koja je bogata povoljnim
+takti{kim moguénostima, neophodne
+su dovoljne strateske pripreme.
+
+Ali kako stvarati ove toliko vaine
+fericione pripreme veé od prvih po-
+teen?
+
+jedan od osnovnih principa je brza
+obilizacija snaga, Razvijajuci figure
+treba teziti da one zauzmu krepke, a
+u isto vrijeme i aktivne pozicije. U isto
+yrijeme vrio je va%no pobrinuti se da
+hralt bude sigurno zaSti¢en.
+
+Cim brie se uspijeva ukljugiti u igru
+fajveci bro; borbenih snaga, tim ée
+elikusnije biti i njihovo djelovanje.
+
+Veliki znaéaj ima princip centrali-
+macije. Kontrola nad centralnim po
+lj stvara povoljne uvjete za korisna
+pregrupirania. Zbog toga je petrebno
+furvijati svoje snage u okviru centra
+
+polja e4, d4, e5 i d5 (gledaj pogla-
+wlie @ centralizaciji).
+
+ 
+
+Mobiliziraju¢i svoje snage potrebno
+je izbjegavati nemotivirana pjegatka
+oslabljenja (gledaj poglavlje o pjega-
+cima).
+
+Svi ovi principi sluze Sahisti u otvo-
+renju kao sigurni kompas kod stva-
+ranja strateSkog plana.
+
+Suvremena teorija posmatra otvo-
+renje kao prelaznu fazu k slijedecem
+stadiju partije — sredignjici, i to ne-
+razdvojno s njim povezano. Zbog toga
+u otvorenju treba zapaziti i karakterne
+pozicione zakonitosti sredi§njice: zna-
+&enje otvorenih linija, slobodnih pje-
+Saka, prednosti dva aktivna lovca i
+mmoge druge elemente Sahovske stra-
+tegije.
+
+Da bi razumjeli karakterna svojstva
+pozicije, neophodno je prouéavati po-
+zicione zakonitosti. To omogucuje brZzu
+ji dublju ocjenu pozicije i na osnovu
+te ocjene sastavljanje odgovarajuceg
+plana.
+
+Prije nego potnemo naS razgovor o
+teoriji Saha, neophodno je podvudi da
+sve ove savjete i smjernice ne treba
+prihvacéati kao dogmu i recept za sve
+sluéajeve iz prakse. Rukovodeci se
+opcim principima treba se sazivljavati
+sa konkretriim osobinama svake pozi-
+cije. Takav prilaz oslobada Sahistu od
+Sablonskog razmiSljanja i sudjeluje u
+razvoju njegovih sposobnosti objek-
+tivnog ocjenjivanja pozicije.
+
+O BRZOJ MOBILIZACIJI SNAGA
+
+Pogledajmo slijedeéu analizu Tali-
+jana Greca, poéetkom XVII stoliedéa:
+
+1. e4 e5 2. SE3 Sc6 3. Le4 Led 4. c3 Sf6
+5, d4 ed4 6. cd4 Lb4+ 7. Sc3 Sed: 8.
+0—0 Sc3; 9. be3 Le3: 10. Db3 Lal:?
+
+Pravilno bi bilo 10. ... d5, da bi na
+jl. Ld5: osigurao svoga kralja sa 11....
+OD.
+
+Cimi ima materijalnu prednost, ali
+je waostao wu razvoju i njegov kralj
+postaje Zrivom ubitaéneg napada.
+
+ 
+
+“Ey T=
+
+ 
+ 
+
+il. Lf7:+ K£8 12. Lg5 Se7 13. Se5!
+Ld4; 14. Lg6! d5 15. Df3+ Lf5 16. Lé5:
+Le5: 17. Le6+ Lfé 18. Lfé: gf6 19. Df6:+
+Ke’ 20. Df7 mat.
+
+Partije u kojima jedna od strana ide
+na miaterijalne dobitke i prihvaca Zr-
+tvu na Stetu razvoja, susrecu se i u
+nase dane.
+
+RERES—ALEXANDRESCU
+
+Francuska
+
+(Miinchen 1936)
+
+1. e4 26 2, dd d5 3. e5 c5 4. dc5 Scé
+5, Sf3 Led: 6. Ld3 Sge7 7. Lid Dbé 8.
+0—0 Db2:
+
+Bolje je bilo 8...
+velikom rohadom,
+
+9. Sbd2 Dbs
+
+U potjgri za materijalnom prednoséu
+crni je ucinio tri poteza damom. Bije
+Jom je uspjelo da za Zrtvovanog pje-
+Saka ZavYrsi razvoj svojih snaga, otvori
+bliniju, ciju ce kontrolu preuzeti top
+sa al.
+
+10. c4 h6 11, Det
+
+Sa prijetnjom 12, Tb1 i 13. cd5.
+
+M1. ... Sb4 12. Le2 Ld7 13. a3 Saé 14.
+Tbl Dc6 15. Lg3 Sf5 16. cd5 ed5
+
+Ld? sa slijedeéom
+
+ 
+
+  
+
+|
+
+ 
+
+ 
+
+Y a
+a
+eo
+
+ 
+
+ 
+
+ 
+
+Aka je protivnik zaostao u razvoju
+a njegov kralj je ostao u centru, mo-
+Zemo obitno pristupiti stvaranju kon-
+kretnih prijetnji. Nova Zrtva pjeSaka
+je uvod u direktan napad.
+
+17. e6! feb
+
+Ne ide 17. ... Leé: zbog 18, Lb5.
+
+18, Se5 Sg3: 19. hg3 Dc7 20. Sd7:! Kd7:
+
+10
+
+21, Db2 Lb6 22. Dg7:+ Kd6 23. Sc4+!
+dc4 24. Tidis+. Crni predaje.
+
+U toj partiji bijeli je otvorivsi linije
+u centru prinudio crnoga da Citavo
+vrijeme odbija neprijatne prijetnje. U
+sliénim se slucajevima govori da jedna
+od strana ima inicijativu, Da bi se za
+hvatila inicijativa éesto se zrtvuju pje
+Saci pa ¢ak i figure. Tipi¢ne je da za
+grtve ovakvog tipa nije uvijck obave-
+van konkretni proracun svih_ varija
+nata.
+
+U slijedecéoj partiji bijeli je Zrtvovao
+figuru pravilno smatrajuci da ce za
+drzav3i crnog kralja u centru dobiti
+dovoljnu kompenzaciju za materijalni
+gubitak.
+
+  
+
+TALJI—KELLER
+Damin gambit
+(Ztirich 1959)
+
+1. d4 d5 2. c4 e6 3. Sc3 c6 4. Si3 Sf6
+5. Lg5 dce4 6. e4 b5 7. a4 Dh6é?
+
+Poslije ovog poteza crni kralj ée te-
+Sko ma¢i siguran zaklon. Bolje je bile
+7. ... Lb4! 8 c5 hé 9. Ld? Sd5 10. Set
+Le7!.
+
+8. Lié: gf6 9. Le2 a6 10. 0—0 Lb7 Ii.
+5!
+
+StrateSki plan koji nam je vee po-
+zgnat. Pomocu Zrtve otvaraju se cen-
+tralne linije.
+
+11, ... cd5 12. ed35 b4 13. a5 Dc7 14,
+
+de6 be3 15. Sd4 Tg8 16. g3 Ld5 17. Da4¢+
+Kd8 18. Tfdi Kc8 19. be3 Le5
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Evo pozicije kojoj je tezio bijeli.
+Da li je Zrtva korektna? Direktan od-
+
+ 
+
+paver na to pitanje teSko je dati. Ne-
+sumujivo je medutim da ée crni odbi-
+jajui opasan mnapad morati rijesiti
+sinowe teSkih zadataka. Zbog toga se
+namece zakljuéak da vladanje inicija-
+
+ 
+
+feo tema samo specifiéan Sahovski
+pewo i veliki psiholoSki znaéaj. Udu-
+bijujuct se u poziciju koja je prika
+‘oo tia dijagramu, nije teSko ustano-
+vii) da je bijeli uspio oslabiti poziciju
+
+feprijateliskog kralja i prestici pro-
+fvnika wu razvoju. Medutim treba za-
+poriti da dabitak u vremenu nije po-
+wtojanl faktor, Ako se prednost u raz-
+oju se iskoristi sa maksimainim
+elektom, Ona istezava.
+
+20. eT! Sc6
+
+Privodna je Zelja crnoga da Sto prije
+gavrli razvoj. Poslije 20. ... Le7: 21.
+SS Le6 22. Se7:+ Dev: 23. Li3 Ta7 24.
+(.ibl pritisak bijeloga bi se jako osje-
+ea Ako 20. ... De7: onda je vrlo jako
+1) Led: Led: 22. Dce4: De7 23. Se6 Tg3:+
+M4, KELl
+
+NH, Ledt+!
+
+lsijerunje crnoga kralja na otvorenu
+fe deri yur
+
+Ml. ... Kb7 22. Sb5! De5 23. Tel Le4
+MM, Yabl Tg4: 25. Te4:! Ded:
+
+Lofe je 25. ... Te4: zbog 26,.Sd4+.
+
+%, Sd6+ Ke7 27. Se4: Te4: 28. Ddl
+Tes
+
+fyaneci se od prijetnje 29. Dd5 crni
+je previdio neoéekivani takti¢ki udar.
+Najbolji odgover bio je 28. ... Se7: i
+poslije 29. DhS sva borba bi jo’ pred-
+slojalu. 1 tako izgleda da je crni mogao
+sscuvati ravnotegu, ali koliko je samo
+gvebena morao obici!
+
+%. Tb7+ Kb7: 30. Dd7+ Kb8 31.
+efD+ Te8: 32. De8:+ Kb7 33. Dd7+
+Kbhé 34. Deé:. Crni predaje.
+
+Top sa a8 nije se uopce uspio uklju-
+citi u borbu.
+
+*
+
+Cesto jedna od strana veé u otvo-
+fenju primjenjuje varijante vezane sa
+trtvom jednog ili vise pjegaka ili Cak
+figure dobivajuci za uzvrat prednost u
+rasvoju. U teoriji takva otvorenja na-
+sivumo gambitima. Gambitne varijante
+se susrecu i u normalnim otvorenjima.
+
+VAN DEN BERG—SZABO
+Spanjolka
+(Tel Aviv 1958)
+1. e4 e5 2. Sf3 Sc6 3. Lb5 a6 4. Lad
+
+Sf6 5. 0-0 Le? 6. Tel b5 7. Lb3 0-0
+8. ©3 d5
+Potetak gambitne varijante.
+9. edd e4 10. dcG ef3 11. Df3:
+Jate je, ne gube¢i vrijeme, odigrati
+11. d4.
+. Lg4 12. Dg3 Ldé 13. f4
+
+Teorija preporucuje 13. Dh4 Tes
+14, £31.
+13, ... Te8 14. Te5
+
+Bijeli ne Zeli: prepustiti otvorenu li-
+niju protivniku.
+
+14. ... Le5:! 15. fe5 Sh5! 16. Dg4: TeS:
+
+xe Mee
+amen a &
+ee
+
+ 
+
+ 
+
+ 
+
+ 
+
+Wy
+
+“—
+
+)
+
+  
+ 
+
+a
+
+    
+
+7
+
+A
+i
+
+ 
+
+ 
+
+ 
+
+Sad se ocrtavaju posljedice gambitne
+strategije crnoga. Damino krilo bije-
+loga je ostalo nerazvijeno. Na kralje-
+vom krilu i u centru crni ima osjetnu
+prednost u snagama. Kao Sto smo se
+veé uspjeli uvjeriti to stvara povoljne
+pozicione uvjete za napad.
+
+17. Sa3 Tel+ 18. Kf2 Sfé 19. Df4
+
+Neugodno je 19. Df3 zbog taktickog
+udara 19. ... Tel: 20. Tcl: Dd2:+.
+
+19. ... De7 20. Df3 Thi 21. Sc2
+
+Na 21. De2 crni bi krasno dobio po-
+modu 21. ... Se4+ 22. Kf3 Sg5+ . 23.
+Kf2 Sh3+!.
+
+21. ... Se4+ 22. Ke2 Sc3:+ 23. Kd3
+Td8+ 24, Sd4 Se2! i bijeli predaje jer
+na 25. De2: odluéuje 25. ... Tda4:+
+
+11
+ 
+
+ 
+
+ 
+
+Ali ne kagnjava se zaostalost u raz-
+voju uvijek ovako surovo. Koji puta
+se aktivnija strana mora zadovoljiti
+malom pozicionom prednoS¢u oteza-
+vajuci razvoj protivni¢kih snaga.
+
+KOBLENZ—NEJ
+Damin gambit
+(Riga 1952)
+1, d4 d5 2. c4 e6 3. Sc3 Sf6 4. Lg5 Le7
+5. e3 O—O 6. Sf3 h6 7. Lh4 Sed 8, Le?:
+
+De7: 9. Dc2 c6 10. Ld3 Sc3: 11. De3: ded
+12, Le4: b6 13. Se5 Lb7 14. 0—0 c5?
+
+Na Zalost odlutujuca pogres’ka, Ne-
+ines je bilo zavrgiti razvoj sa 14,
+coe OAT,
+
+15. dc5 Dc5: 16. Tacl Td8 17. b4 De7
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+18, Le2!
+
+Qvai naoko skromni potez otkriva
+loSe strane strategije crnoga. Sada mu
+je teSko zavrSiti razvoj daminog krila.
+Tako na primjer ne ide 18. ... Sd7
+zbog 19. Dc7, a poslije 18. ... Sa6 bi-
+jeli forsirano dobiva pjesaka pomocu
+
+19. Laé: La6: 20. Sc6 Dh4 21. Sd8: Lf: °
+
+22, Se6:!, a ako 20. ... Dg5 onda 21. £4!.
+
+18. ... DgS 19. Lf3 Lf3: 20. Sf3: Dd5
+21. Tc2!
+
+StrateSki je zamisao bijelog jasna.
+On na svaki nagin Zeli oteZati protiv-
+niku uvodenje konja u igru.
+
+24. 5.. Sab
+
+Crni ipak razvija svojeg nesretnog
+konja, ali bijeli mo%e biti zadovoljan.
+Na a6 konj zauzima pasivnu poziciju
+i kao i prije nije u stanju da se aktivno
+ukljuéi u igru. Uosialom opet nije islo
+
+12
+
+21. ... Sd? zbog 22. Td2 i 23. Tfdl sa
+vezivanjem po d-liniji.
+
+22, a3 Td7
+
+S idejom da oslobodi konja.
+
+23. Td2 Db7 24. Td7: Dd7: 25. Tcl
+Td8 26. h3
+
+Prijetilo je 26. ... Sc7 i ne bi ilo
+27, Dc?: zbog 27. ... Dc7:!.
+
+26. ... Dd3 27. Sd4! Dc3: 28. Tc3: KF8
+29. Sb5 Tdi+ 30. Kh2 Td7 31. Tc8+
+Ke7 32. £4 Th7 33. e4 Kd7 4, Ta8
+
+Sada su materijalni gubici neizbjeZni.
+
+34. ... £5 35. Tg8 Ke6 36. Sd4+ Kdé
+37. ef5 ¢5 38. Td8+ Ke7 39. Se6+ Ke6
+40. fe5 Kb5 41. Tg8. Crni predaje.
+
+=
+
+Navedeni primjeri govore o tome ka-
+kav veliki znataj ima »Sahovsko vrije-
+me«. Medutim, kako smo ve¢ primije-
+tili, princip ekonomije svakoga terapa
+ne treba posmatrati kao dogmu. Inte-
+rese brzoga razvoja treba katkad pot-
+Giniti konkretnim potrebama pozicije.
+Tipiéna je u tom smislu slijedeéa par-
+tija:
+
+ALJEHIN—WOLF
+Damin gambit
+(Piestany 1922)
+
+1. d4 d5 2. Sf3 c5 3. c4 cd4 4. cd5 SE6
+
+5. Sd4: a6
+
+Ovaj potez nailazi na energiéno obo-
+renje, ali i poslije 5. ... Sd5: 6. e4
+bijeli ima malu prednost.
+
+6. e4! Se4: 7. Da4+ Ld7 8. Db3 Sc5
+9. De3! g6 10. S£3!
+
+ 
+
+Ifteresantno rjeSenje pozicionog za-
+detha. Aljehin napreduje prema kon-
+kretnom cilju i zbog toga manevrira
+si skakatem i damom bez obzira ko-
+jiko su oni poteza ranije udinili. U
+homentarima k toj partiji Aljehin je
+pisao: eOvaj dobitak tempa dozvoljava
+hijelome da sprijeci potez 10. ... Lg7
+
+1 slijedeéom malom rohadom. Crni
+hyalj je sada zadréan u centru i bije-
+lome viSe nije teSko da organizira odlu-
+fujuc) napad.«
+
+  
+
+Potetuk ove partije do izvjesnog ste-
+pena podsjeca na partiju protiv Ru-
+Hinateina iz Haa&kog turnira. Kao i
+famno tako i ovdje bijeli je postigao
+pieloost mnogim potezima jednih te
+itih figura (ovdje od 11 odigranih po-
+fers Getirt je poteza odigrano damom
+) tri poteza konjem), ali ta mogu¢nost
+i ipevriranja u otvorenju sa jednim te
+tim figurama bila je omogucena is-
+kijutivo {ma Sto molim da obratite
+paloju) pogreSnom taktikom protiv-
+koju je neophodno bilo oboriti
+fi¢nim manevrima veé od prvih
+a u partiji.
+
+Oeito je da u sluéaju pravilnog raz
+voja crnog ovi manevri bijelom ne bi
+donijeli nista dobrega.
+
+ 
+  
+
+Stvar mati nije u nekakvom »no-
+vom sistemu« (kao 3to lakovjernoj pu-
+blici vole sipati praSsinu u oi neki
+majstori) nego jednostavno u racional-
+nom iskoriStavanju protivnikovih gre-
+Saka u otvorenju.
+
+10. ... De7 11. Dc3! Tg8 12. Le3 b6
+13. Sbd2
+
+13. b4 je pogreSno zbog 13. ... Lg7
+14, Sd4 Da7!,
+
+13, ... Lg? 14. Ld4 Ld4: 15, Dd4: Lb5
+Inatée je teSko razviti damino krilo.
+
+16. Lb5:+ ab5 17. 0-0 Ta4 18. b4 Dd8
+19. a3! Sbd7 20. Tfel K£8 21. d6 Se6 22.
+Te6:!
+
+Ru&i posljednje bedeme ispred crnog
+kralja.
+
+22, ... fe6 23. Sg5 Db8 24. Se6:+ K£7
+25. Sg5+ Kf8 26. Dd5 Tg7 27. Se6+ Kg8
+28. Sg7:+ Kg7: 29, de? Sf6 30. Db5:
+
+Postigav$i veliku materijalnu pred-
+nost bijeli je dobio.
+
+Sa principom brze mobilizacije sila
+jo& ¢éemo se ne jedanput u daljem toku
+susresti.
+
+PROBLEM CENTRA
+
+Ved smo mogli primijetiti da maj-
+stor] tezZe razviti svoje snage u oblasti
+centra.
+
+Stvar je u tome da figure koje su
+rasporedene u centru drze pod udarom
+veliki broj polja, a prebacivanje cen-
+traliziranih sila na krila moze biti pro-
+vedeno brie i ugodnije. Ako jo’ k tome
+uspijé rasporediti u centru €vrsto
+evoje pjeSake, protivniku ¢e biti osjet-
+fo texe Manevrirati sa svojim snagama.
+
+Niz vaznih polja ¢e biti napadnut i po-
+stat ée nedostupan za njegove figure.
+Protivnik takoder mora raéunati sa
+napredovanjem centralnih pjeSaka u
+svoj logor Sto ée dovesti do daljnijeg
+povecéanja teritorijalne prednosti druge
+strane (gledaj partiju Keres—B66k).
+
+Vrlo éesto raspored centralnih pje-
+Saka u otvorenju odreduje izbor stra-
+teSkog plana u daljem stadiju igre.
+
+POKRETNI PJESACKI CENTAR
+
+PjeSatki centar je vrlo ozbiljan fak-
+tor uspjednog nastupanja. Onaj koji je
+wahvatio centar sa pjeSacima obi¢no
+beli da ih pokrene dalje, Sto mu omo-
+
+gucuje da pritisne protivnika i oteza
+mu prebacivanje snaga s jednog krila
+na drugo. Pokretanjem jednog od cen-
+tralnih pjeSaka iza demarkacione linije
+
+13
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+aktivnija strana éesto uspijeva poti-
+snuti figure protivnika od _ kraljeva
+krila i zatim uspjeSno provesti napad.
+Pokretni centar se javlja tada kad
+jedna od strana nije pravovremeno
+uspjela blokirati pjeSacku falangu pro-
+tivnika (vidi poglavlje o koéenju).
+
+ALJEHIN—KONIG
+Damina indijka
+(Beé 1922)
+
+1, d4 Sf6 2. c4 b5?
+
+Prva ozbiljna strate$ka greSka po-
+slijc koje bijeli polucuje prednost u
+centru.
+
+3. Sc3 Lb7 4. Dce2! d5 5. cd5 Sd5: 6.
+Sf3!
+
+Automatsko zauzimanje centra sa 6.
+e4 pokazalo bi se poslije 6. ... Sc3: 7.
+be3 e535! 8. deS5 Dh4! 9. Lb5+ Sd7 10.
+SB De4:+ kao preuranjeno (Euwe—
+Aljehin, Budimpesta 1921). Potezom u
+partiji bijeli spreéava potez e5.
+
+6. ... e6 7. e4 3c3: 8. be3 Le7 9. Lb5+
+c6 10. Ld3 G—O 11. e5! h6 12. h4}
+
+Bijeli je Postigao veliku prednost u
+centru. On je opazio da je pozicija
+crnoga kralja zaSti¢ena samo pjeSacima
+i odmakh pristupa k aktivnim operaci-
+jama.
+
+ 
+
+ 
+
+=
+
+Parirajuci prijetnju 13. Sg5 putem
+13. ... cd4 14. Lh7+ Khg 15, Lg8 3!.
+
+13, Th3! Kh8 14. Lhé: £5
+
+Slabo je bilo 14. ... gh6 zbog 15. Dd2.
+
+15. ef6 Lf6: 16. Lg5 cd4 17. Se5! Scé
+18. De2 g6 19. Lg6: Ke7 20. Lh6+ Kg8
+
+14 -------------------------------------------------
+
+21. Sc6: Leé: 22. De6:+ Kh8 23. Lis:
+
+Df8; 24. De6:. Crni predaje.
+*
+
+U slijedeéem primjeru napredovan):
+pjeSaka na e5 je takoder odbacilo ska
+kaéa f6 od kraljevog krila, poslije éegu
+je bijelim figurama bila osigurana slo
+boda djclovanja.
+
+KERES—FINE
+
+Damin gambit
+
+(Ostende 1937)
+1. Sf3 d5 2. d4 Sf6 3. c4 e6 4. Sc3 ch
+5. cd5 Sd5: 6. e4 Sc3: 7. be3 cd4 8. cd4
+
+Lb4+ 9. Ld2 Ld2:+ 10. Da2: 0—O iL.
+Le4 Sd7 12, 0O—0 bé6 13. Tad Lb7 *
+
+ 
+
+ 
+
+U prethodnoj partiji crni za ustupak
+centra nije dobio nikakvu kampenza-
+ciju. U ovom primjeru on ima ozbiljnu
+protivSansu — pjeSacku prednost na
+daminom krilu. Ta ¢injenica odreduje
+njegov strateSki plan. Stvarajuci na
+daminom krilu slobodnog pjeSaka, Fine
+pokugava prisiliti protivnika da obrati
+paznju na prijetnju njegovog napredo-
+vanja. Plan bijeloga je medutim da
+napada na onom sektoru plote gdje
+ima brojéanu pjeSatku prednost, tj.
+u centri ina kraljevom krilu.
+
+14. Tfel
+Bijeli ne zuri da pokrece svoje cen-
+tralne pjeSake naprijed jer bi poslije
+preuranjenog e4—e5 crni dobio silno
+uporiste na tacki d5. Osim toga pjegak
+na d4 postao bi fiksiran i zaostao. Po-
+tezom u partiji bijeli Zeli uévrstiti svoj
+pjeSacki centar,
+
+14. ... Tc8 15. Lb3 Sfé
+
+Holle bi bilo 15. ... Df6, ne dopuSsta-
+to) prebacivanje dame na kraljevo
+}o jo Na preuranjeno 16. e5 moglo bi
+welijediti 16. ... Dhé! i poslije 17. Dhé:
+oh) udvojeni pje’aci nemaju odlucu-
+iw | enaGaj; znatno vaznije je to da je
+‘el eeutar izegubio svoju elastitnost.
+
+16, D4 De7 17. Dh4 TrdB 18. Te3 b5
+1. Tiel a5 20. a4 b4?
+
+S9 strateSke taéke gledanja posljed-
+©) poles crnoga potpuno je logitan.
+fy) postite jako branjenog slobodnog
+Pa tpak je trebalo razmotriti
+| obeetnu situaciju i prvo poduzeti
+re protiv prijeteceg pjeSatkog pro-
+ora uw centru. Trebalo je odvuci lovca
+
+) dijaponale a2—g8 pomocu 20. ... ba4
+{ Lat ha!. Tad vise ne bi bilo dobro
+
+WS whog 22. ... ed5 23. e5 Sed!. Po-
+ifn preSka bi bila 23. ... Sd7 24, Sd4
+Rov? 25. Te5: De5: 26. Dd8:+ Kh7 27.
+a Sap.
+
+Pi, dS! ed5 22. ¢5
+
+ 
+
+piesa
+
+ 
+
+ 
+
+Postuje jasma ideja zrtve pjeSaka.
+Moclije 21. d5 bijeli ne dozvoljava pro-
+jeniku da gzauzme konjem centralno
+
+police d5, Sto bi bilo mogucée u sluéaju
+a, 85
+2. ... Sd7
+
+Ne moze se igrati 22. ... Se4 zbog
+N Tet: ded 24. Sg5!. Evo zasto je tre-
+bile sdvuci lovea pomoéu 20. ... bad!.
+23. Ses
+Sada, kada je skakaé sa polja f6
+odalien, moze se zapoceti za odlucu-
+ict napadom na kraljevom krilu.
+vi. ... Sf8 24, Sh7:! Sh7: 25. Th3 Del
+Oval o€ajniéki protivnapad kasni.
+26. Dh7:+ KES 27. The3 d4 28. Dh8+
+Ke? 29. Dg?:! TE8 30. Df6+ Ke8 31. e6!.
+(rp: predaje gato, jer na 31. ... de3
+lijedi 32. ef7+ Kd7 33. De6é+ Ke7 34.
+Peli.
+
+Uo canije razmotrenoj partiji Talj—
+keller bijeli je Zrtvovao centralnog
+pieluka d5 radi otvaranja igre u cen-
+tu. Katkada se deSava da je pogodno
+pukrenuti. svojeg pjesaka u logor pro-
+twnika i samim tim narusiti vezu
+medu njegovim krilima.
+
+ 
+ 
+ 
+ 
+ 
+
+ŠAHOVSKA NAKLADA NAKLADNO-IZDAVAČKI ODJEL ŠAHOVSKOG SAVEZA HRVATSKE
+BIBLIOTEKA »SAHOVSKE NAKLADE« BR. 100  IZDANJE: »SAHOVSKA NAKLADA« ZAGREB Tisak »VJESNIK«, Zagreb
+
+ALEKSANDAR KOBLENZ  SAHOVSKO UMIJECE TEORIJA I PRAKSA  ZAGREB 1983
+Naslov ruskog originala: »Skola Sahmatnoj igri« Riga, 1961.  Preveli: Dr SLAVKO PETROVIC i ZLATKO KLEMENT  Korektori: Dubravko Klement i Darko Kovač
+
+### PREDGOVOR AUTORA
+
+Ova knjiga sadrži osnove teoretskih znanja iz oblasti otvorenja, središnjice i konačnice Sahovske partije. Ujedno si je autor postavio zadatak da razjasni one ideje koje imaju praktički značaj i stimuliraju rast šahovskog majstorstva.
+
+U temeljima ove knijige su uglavnom materijali iz prakse i teoretskih istraživanja sovjetskih majstora. To je logično, jer su sovjetski šahisti poznati kao najjači praktičari, a dali su ogromni doprinos Sahovskoj teoriji.
+
+Metoda korištenja ovom knjigom ne predstavija naročitu teškocu za kvalificirane šahiste od **III kategorije na više**. 
+
+Autor je sa zahvalnošću uzeo u obzir sve vrijedne primjedbe koje su mu bile upućene poslije izlazenja izdanja "Škola Sahovske igre" na letonskom jeziku.

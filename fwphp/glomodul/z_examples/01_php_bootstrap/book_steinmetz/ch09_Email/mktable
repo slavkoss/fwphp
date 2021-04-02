@@ -1,5 +1,0 @@
-DROP TABLE IF EXISTS pending_logins;
-CREATE TABLE pending_logins (
-    `login` varchar(32), `ukey` varchar(32),
-    PRIMARY KEY (`login`),
-    INDEX (ukey));

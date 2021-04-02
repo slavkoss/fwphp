@@ -36,6 +36,7 @@ $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
               <a target="_blank" href="https://github.com/slavkoss/fwphp/">Github</a>
               &nbsp; &nbsp; 
               <a target="_blank" href="http://phporacle.altervista.org/">phporacle blog</a>
+              &nbsp; &nbsp;  <a target="_blank" href="http://phporacle.altervista.org/wp-admin/index.php/">blog admin</a>
               <br /><br />
               <a target="_blank" href="http://phporacle.eu5.net/">Demo site on Linux (freehostingeu)</a>
               <br /><br />

@@ -100,7 +100,7 @@ Steps:
    >Why should we grant DATAPUMP_EXP_FULL_DATABASE role (and DATAPUMP_IMP_FULL_DATABASE) to user (eg hr or to SYSTEM) :
     >1. Specify a single schema other than your own or a **list of schema names**
    >2. Export additional non-schema object information for each specified schema so that schemas can be re-created at import time : user definitions themselves and all associated system and role grants, user password history...  
-   >This means that the **users which don't have this role can only export own schema**. 
+   >This means that the **users which dont have this role can only export own schema**. 
    >3. Export Schema (user) HR and MERCEDES from  11.2 XE database to dump folder  - **from Win CLI as admin** :
 
 3. See below how to create forgoten file in forgoten dir xsl : C:\oraclexe\app\oracle\product\11.2.0\server\rdbms\xml\xsl\kupostdt.xsl  
@@ -228,7 +228,7 @@ end;
 /
 ```
 ORA-29280: invalid directory path  
-Oracle can't write to that directory at all, probably because of Windows file permissions. Check which Windows user(s) the Oracle services are running as, and change the folder permissions to allow them write access.
+Oracle cant write to that directory at all, probably because of Windows file permissions. Check which Windows user(s) the Oracle services are running as, and change the folder permissions to allow them write access.
 
 You can also disable the logfile completely by using NOLOGFILE=Y, but you'll have to monitor the impdp output on your console, because it won't get saved anywhere else. THEN err :
 
@@ -286,7 +286,7 @@ GRANT DATAPUMP_IMP_FULL_DATABASE TO HR;
    was exported so :  
    expdp hr/hr@SSPC2/xe DIRECTORY= exp_schema DUMPFILE=exp_schm_mercedes.dmp LOGFILE=mercedes_lg.log SCHEMAS=mercedes
    
-   See **J:\apl\expdp_db\mercedes_imp_lg.log**  
+   " See **J:\apl\expdp_db\mercedes_imp_lg.log**  
 
 5.    conn mercedes/m1@localhost:1522/orcl  
 
@@ -437,7 +437,7 @@ Upgrade from XE 11.2 to XE 18c is not supported.
 
 ### Procedure to Unplug a PDB from 18c XE and Plug into 18c EE 
 A Pluggable DB (PDB) created in XE 18c can be migrated to another Multitenant Container DB (CDB) Enterprise Edition (EE) 18c.
-The standard plug compatibility requirements apply. See **Oracle Multitenant Administrator's Guide** for more info about general prerequisites for PDB
+The standard plug compatibility requirements apply. See **Oracle Multitenant Administrators Guide** for more info about general prerequisites for PDB
 creation.
 
 For example, you want to unplug your xepdb1 out of the XE 18c XE CDB and plug it in another 18c EE CDB.
@@ -700,7 +700,7 @@ exit
    was exported so :  
    expdp hr/hr@SSPC2/xe DIRECTORY= exp_schema DUMPFILE=exp_schm_mercedes.dmp LOGFILE=mercedes_lg.log SCHEMAS=mercedes
    
-   See **J:\apl\expdp_db\mercedes_imp18c_lg.log**  
+   "See **J:\apl\expdp_db\mercedes_imp18c_lg.log**  
 
 5. conn mercedes/m1@localhost:1521/XEPDB1  
    **select tname from tab;  or  SELECT table_name FROM user_tables**  
@@ -857,7 +857,7 @@ and unzip in  `J:\apl\possys6\instlcija\ora18c\OracleXE184_Win64`
 5. Next **hit Install** to get it going
     Windows defender will alert for java firewall rule, I've changed this to **'Private networks**, such as my home or work network'
 
-### Note details for our XE DB:  
+### 'Note details for our XE DB:  
 Server: localhost  
 Port: 1521  
 Multitenant container DB : localhost:1521     **Container DB will be called XE**  
@@ -1431,7 +1431,7 @@ XEPDB1 =
 
 CREATE PLUGGABLE DATABASE pdb2 ADMIN USER pdb_adm IDENTIFIED BY Password1  
 FILE_NAME_CONVERT=('J:\app\oraclexe\product\18.0.0\dbhomeXE\oradata\XE\PDBSEED\',J:\app\oraclexe\product\18.0.0\dbhomeXE\oradata\XE\PDB2\');
-
+'
 https://smarttechways.com/   https://smarttechways.com/2019/03/05/ora-16000-database-or-pluggable-database-open-for-read-only-acc
 
 https://smarttechways.com/2020/08/30/set-the-oracle-home-environment-variable-in-windows-platform/comment-page-1/#comment-16845
@@ -1691,7 +1691,7 @@ which will be used by Oracle for performing exports and imports :
 Create directory inside DB or use **existing DATA_PUMP_DIR** (see below)  :  
 SQL> create directory datapump as '/u02/dp_exp_dir';  
 **create directory datapumpmy as 'J:\app\oraclexe\product\18.0.0\admin\xe\dpdumpmy\';**  
-
+'
 Grant permissions on directory :  
 SQL> **grant read,write on directory datapumpmy to hr ; **  
 
@@ -1743,7 +1743,7 @@ $ expdp directory=datapump dumpfile=emp_bkp.dmp logfile=emp_bkp.log tables='SCOT
 To take **row** level export  
 $ expdp directory=datapump dumpfile=emprows_bkp.dmp logfile=emprows_bkp.log tables='SCOTT.EMP' query=\"where deptno=10\"  
 
-
+"
 <br />
 ### 3. Performing Data Pump Import
 In case you want to know all the options available with impdp utility, you can use below command  

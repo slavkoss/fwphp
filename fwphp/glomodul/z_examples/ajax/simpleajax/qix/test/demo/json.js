@@ -1,1 +1,0 @@
-{result:true, val: {t: 1, k: 2}}

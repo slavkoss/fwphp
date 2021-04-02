@@ -4,7 +4,7 @@ use \Ryanhs\Chess\Chess;
 
 //Defaults (prescribed, zadane values)
 $moves_in_board = 2 ;
-                      if (!isset($_GET['g'])) 
+                      if (!isset($_GET['g']))
                       {
                           //////////////////////////////////////////////////////////////
                           //   1. MAIN  M E N U  OF GAMES and  C H E S S  H E L P
@@ -17,7 +17,7 @@ $moves_in_board = 2 ;
 
 
 
-if (isset($_GET['g'])) 
+if (isset($_GET['g']))
 {
   ///////////////////////////////////////////////
   //     2. SHOW GAME selected in menu
@@ -42,13 +42,13 @@ if (isset($_GET['g']))
             . filter_var( $_SERVER['HTTP_HOST'] . '/', FILTER_SANITIZE_URL ) ;
 
       $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;
-      $uri_arr = explode($QS, $REQUEST_URI) ; 
+      $uri_arr = explode($QS, $REQUEST_URI) ;
       $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/');
       $module_url = $wsroot_url.$module_relpath.'/';
 
       $fle_moves_path = dirname(__DIR__) . $ds .'games'. $ds . $pgnfle_toinc .'.php' ;
                         //$fle_moves_relpath = '../games/'. $pgnfle_toinc .'.php' ;
-                             if ('') {echo 'ln '. __LINE__ .' SAYS: ' ; 
+                             if ('') {echo 'ln '. __LINE__ .' SAYS: ' ;
                              echo '<pre>$REQUEST_URI='. $REQUEST_URI .'</pre>' ;
                              echo '<pre>$module_url='. $module_url .'</pre>' ;
                              }
@@ -92,21 +92,22 @@ if (isset($_GET['g']))
                            //echo 'ln '. __LINE__ .' SAYS: '.'<pre>$hdr='; print_r($hdr); echo  '</pre>';
                            //echo '<pre>$mv='; print_r($mv); echo  '</pre>';
 
-  //FEN CHESS NOTATION FOR 32  P I E C E S  STARTING POSITION : 
-  $fen_startboard = '' ; //$hdr['FEN'] ;
-  switch (true) {
-    case  ( isset($hdr['FEN']) ): $fen_startboard = $hdr['FEN'] ; break ; //board with some moves done
-    case  ( !isset($hdr['FEN']) ): $fen_startboard = $chess->fen() ; break ; //starting board
-    default: break;
-  }
+
+          //Ternary Operator (expr1) ? (expr2) : (expr3)
+          //Since PHP 5.3 expr1 ?: expr3 - returns expr1 if expr1 is TRUE, expr3 otherwise
+          //     $action = (empty($_POST['action'])) ? 'default' : $_POST['action'];
+
+          //"??" (or null coalescing) operator, available as of PHP 7. 
+          //(expr1) ?? (expr2) evaluates to expr2 if expr1 is NULL, and expr1 otherwise.
+          //does not emit a notice if left-hand sidevalue does not exist, like isset(). 
+          //     $action = $_POST['action'] ?? 'default';
+  $fen_startboard = $hdr['FEN'] ?? $chess->fen() ;
                 //echo 'ln '. __LINE__ .' SAYS: '.'<pre>$hdr[\'FEN\']='; print_r($hdr['FEN']); echo  '</pre>';
-                //echo 'ln '. __LINE__ .' SAYS: '.'$fen_startboard='; echo $fen_startboard; 
-
-
+                //echo 'ln '. __LINE__ .' SAYS: '.'$fen_startboard='; echo $fen_startboard;
 
     $ii = 0 ;
     $help_2moves = '' ;
-    //$boards_rows = 1; 
+    //$boards_rows = 1;
     // All halfmoves in Moves with help a rray :
       //<!-- We display chess board for each 2 moves, $boards_in_row times -->
   echo '<table width="100%" cellspacing="0px" cellpadding="0px" border="0px">';
@@ -116,11 +117,11 @@ if (isset($_GET['g']))
     while (true):
     {
       switch (true) {
-        case  ( $cntmv === 0 ): 
+        case  ( $cntmv === 0 ):
            //No moves, only  F E N  (problem to solve, not game moves 1,2...)
            //   1. display board with  F E N
            //   2. display link to LearnXXX_...php - no move statements but put,remove
-           if (file_exists($fle_moves_path)) 
+           if (file_exists($fle_moves_path))
            {  //include $fle_ moves_url_path;
               //   1. display board with  F E N
               $chess = new Chess($fen_startboard);
@@ -148,7 +149,7 @@ if (isset($_GET['g']))
                                         // (**1)
 
       //1. halfmove
-      //if ($mv[$ii] == 'O-O') { $chess->move('Kf1'); //$chess->move('Rf1'); } else { 
+      //if ($mv[$ii] == 'O-O') { $chess->move('Kf1'); //$chess->move('Rf1'); } else {
       $chess->move($mv[$ii]); //}
 
       //2. comment of 2 moves
@@ -160,7 +161,7 @@ if (isset($_GET['g']))
            //last one move (of white) :
            or ( ($ii+1) === $cntmv and $cntmv%2 === 0 )
       )
-      { 
+      {
           //3. DISPLAY CHESS BOARD after both halfmoves
           echo '<td style="vertical-align:top; padding:0px;">' ;
             echo $chess->get_boardhtml( $help_2moves ) ;
@@ -173,7 +174,7 @@ if (isset($_GET['g']))
           {
             //DISPLAY MORE CHESS BOARDS IN TBLROW
             echo '</tr><tr>' ;
-          } 
+          }
 
 
       $ii++ ;
@@ -187,7 +188,8 @@ if (isset($_GET['g']))
 
 
 
-  echo '<p><p>$chess->movesUntilNow_str()=<br />'. $chess->movesUntilNow_str();
+  echo '<br /><p><p>$chess->movesUntilNow_str()='. $chess->movesUntilNow_str();
+  echo '<br />Moves number $cntmv='; print_r($cntmv);
   echo '<p><br /><hr />';
 
 
@@ -199,25 +201,45 @@ if (isset($_GET['g']))
 <?php
 
 
-                           echo 'ln '. __LINE__ .' SAYS: ' ;
-                           echo '<pre>$pgn_arr='; print_r($pgn_arr); echo  '</pre>';
-                           echo '<pre>$cntmv='; print_r($cntmv); echo  '</pre>';
+echo 'ln '. __LINE__ .' SAYS:';
+echo '<br />PGN = Portable Game Notation (like XML) - header, moves, {comments}, (variants)';
+echo '<br />FEN = Forsyth - Edwards Notation for describing position of chess G A M E, eg ';
+echo '<br />SAN = Standard Algebraic Notation for describing individual M O V E S eg "e4"' ;
+echo '<br />FEN empty board   = 8/8/8/8/8/8/8/8 w - - 0 1';
+echo '<pre>';
+echo '                                    0                            1  2   3 4 5';
+echo '<br />';
+echo ' FEN start board   = rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+echo '<br />';
+echo '   PART 0 is 8 rows :   0        1     2 3 4 5    6        7 = position</pre>';
+
+echo '<br />FEN some position = 4rrk1/8/p1pR4/1p6/1PPKNq2/3P1p2/PB5n/R2Q4 b - - 6 40';
+echo '<br />where 4rrk1 means top row 7 is   .  .  .  .  r  r  k  . (4 empty sqares, rook, rook, king, empty)' ;
+
+echo '<br /><br />  PART 1 = Active color = next turn black or w, 2 castling availability options (see load_fen($fen)), 3 ep (En passant) target square in algebraic notation - "-" or position "behind"  pawn to eat, 4 half move clock = number of halfmoves since last capture or pawn advance used in the fifty-move rule, 5 move number incremented after Blacks move';
+
+echo '<br /><br />  2 castling availability options :  If neither side can castle, this is "-". Otherwise, this has one or more letters: "K" (White can castle kingside), "Q" (White can castle queenside), "k" (Black can castle kingside), and/or "q" (Black can castle queenside). A move that temporarily prevents castling does not negate this notation.';
+
+echo '<br /><br />  fifty-move rule in chess states that a player can claim a draw if no capture has been made and no pawn has been moved in the last fifty moves (for this purpose a "move" consists of a player completing a turn followed by the opponent completing a turn). ';
+
+echo '<br /><br />.pgn file eg header, moves, {comments}, (variants) PHP parser transformed in <br />$pgn_arr=' ;
+echo '<pre>'; print_r($pgn_arr); echo  '</pre>';
 
 
-                           echo 'ln '. __LINE__ .' SAYS: '.'<pre>$module_url='. $module_url .'</pre>';
-                           echo '<pre>$fle_moves_url='. $fle_moves_url .'</pre>';
-                           //
-                           echo '<pre>$fle_moves_path='. $fle_moves_path .'</pre>';
-                           //echo '<pre>$fle_moves_relpath='. $fle_moves_relpath .'</pre>';
-                           //echo '<pre>$game_pgnString=<br />'. $game_pgnString .'</pre>';
-                           //echo '<pre>$lines='; print_r($lines) .'</pre>';
+
+echo 'ln '. __LINE__ .' SAYS: $module_url='.'<pre>'. $module_url .'</pre>';
+echo '$fle_moves_url=<pre>'. $fle_moves_url .'</pre>';
+//
+echo '$fle_moves_path=<pre>'. $fle_moves_path .'</pre>';
+//echo '$fle_moves_relpath=<pre>'. $fle_moves_relpath .'</pre>';
+//echo '$game_pgnString=<pre>'. $game_pgnString .'</pre>';
+//echo '$lines=<pre>'; print_r($lines) .'</pre>';
 
 
 
     //echo '<p><br /><hr />';
-    echo 'ln '. __LINE__ .' SAYS: '.'<pre>$chess->get_set_hdrtag()='; print_r($chess->get_set_hdrtag()); echo '</pre>';
-    //echo '<p><p>$chess->movesUntilNow_str()=<br />'. $chess->movesUntilNow_str();
-    
+    echo 'ln '. __LINE__ .' SAYS: '.'$chess->get_set_hdrtag()=<pre>'; print_r($chess->get_set_hdrtag()); echo '</pre>';
+
 
     echo '<div>';
     echo '<p>&copy; 2001-'; echo date("Y");
@@ -226,6 +248,7 @@ if (isset($_GET['g']))
             } else { //echo " Niste prijavljeni!";  //echo $_DisplayLinks()
             }
     echo '</p>
+
       </div><br />
 
     </div>';
@@ -234,17 +257,9 @@ if (isset($_GET['g']))
 
 
 
-                            /*switch (true) {
-                              case  ( isset($hlp[$ii]) ): $help_2moves = $hlp[$ii] ; break ;
-                              case  ( isset($hlp[$ii-1]) ): $help_2moves = $hlp[$ii-1] ; break ;
-                              default: $help_2moves = '' ; break;
-                            } */
-
-
-
        // (**1)
        /*
-       //if (!isset($mv[$ii])) 
+       //if (!isset($mv[$ii]))
        //if ( isset($chess->get_set_hdrtag()['FEN']) or isset($chess->get_set_hdrtag()['fen']) )
        if ( isset($hdr['FEN']) ) //or isset($hdr['fen'])
        {
@@ -282,10 +297,10 @@ table, th, td {
 }
 th, td {
   padding: 5px;
-  text-align: left;    
+  text-align: left;
 }
 #t01 {
-  width: 100%;    
+  width: 100%;
   background-color: #f1f1c1;
 }
 .auto-style1 {

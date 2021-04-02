@@ -1,0 +1,76 @@
+[Event "diag. 1 G0001 Koblenz or Koblencs School chess game 1961"]
+[Site "opera house in Paris, during Bellini's opera Norma or Barber of Seville"]
+[Date "1858.??.??"]
+[Round "?"]
+[White "Morphy"]
+[Black "konsultants (alleati)"]
+[Result "1-0"]
+[ECO "C41"]
+[Opening "Philidor defense"]
+[Annotator "pag. 4  diag 1"]
+[PlyCount "33"]
+[Comment "Positional play (strategy) preparation for combination. Black - two strong amateurs: the German noble Karl II, Duke of Brunswick and the French aristocrat Comte Isouard de Vauvenargues."]
+
+1. e4 e5 {Example of <b>positional play to prepare combinations</b> in "Romantic Era" games:
+<ol> <li>rapid development <li>center control <li>open verticals and diagonals <li>value of sacrifices in mating combinations... </ol> }
+
+2. Nf3 d6 {d6 is Philidor's Defence, named after Francois-Andre Danican Philidor, the leading chess master of the second half of the 18th century (100 years before Morphy) and a pioneer of modern chess strategy. He was also a noted opera composer. It is a solid opening, but <b>slightly passive</b>, and it ignores the important d4-square. Most modern players prefer 2...Nc6, and 2...Nf6 - <b>Petrov Defence</b>.}
+
+3. d4 Bg4 {3...Bg4 is considered an inferior move today. Black to maintain material equality, he must surrender the bishop. Capturing a knight that has only moved once (time).
+3...Bg4 was accepted theory at the time.[1] Today 3...exd4 or 3...Nf6 are usual. Philidor's original idea, 3...f5, is a risky alternative.}
+
+4. dxe5 Bxf3 {If 4...dxe5, then 5.Qxd8+ Kxd8 6.Nxe5 and White wins a pawn and Black has lost the ability to castle. This knight threatens the bishop on g4 as well as the f7 square forking the king and rook.
+Black can 4...Nd7 5.exd6 Bxd6, when he is down a pawn but has some compensation in form of better development.
+4...Bxf3 Black moves the bishop for a second time to capture a knight that has only moved once (time). Black also gives up the bishop pair, which weakens the light squares. }
+
+5. Qxf3 {Steinitz's recommendation 5.gxf3 dxe5 6.Qxd8+ Kxd8 7.f4 is also good (doubled pawns 
+- pawn structure). Morphy prefers to keep the queens on. } 
+5...dxe5 {After Black recaptures the pawn on e5, White has a significant lead in development.}
+
+    {FEN "rn1qkbnr/ppp2ppp/8/4p3/4P3/5Q2/PPP2PPP/RNB1KB1R w KQkq - 0 6"}
+6. Bc4 {is move that has many great attributes: 1. develops a piece.   2. checkmate is threatened with 7. Qxf7.   3.  frees up last square for White to castle (time, space, and king safety).}
+6...Nf6 { BLUNDER After White's next move, both f7 and b7 will be under attack. Better is Q protect f7-p making White's next move less potent.}
+
+7. Qb3 { Q second time moved for good reason - double attack : on b7-P and forms a battery with c4-B that attacks f7-p square}
+7...Qe7 
+    ( {Black's only good move but blocks f8-B and kingside castling.}
+      7...Nc6 {leads to mate} 8.Bxf7+ Ke7 {or Kd7} 9.Qe6 )
+    ( 7...Qd7 {Black loses R } 8.Qxb7 {9.Qxa8 can not be stopped}
+        (8. Qxb7 Qc6? 9.Bb5 {Black loses Q})
+    )
+    ( 7...Qe7 {saves R if White plays so :} 8.Qxb7 Qb4+ { forcing Q  exchange.} )
+
+    {FEN "rn2kb1r/ppp1qppp/5n2/4p3/2B1P3/1Q6/PPP2PPP/RNB1K2R w KQkq - 4 8"}
+
+8.Nc3 
+    ( 8.Qxb7 {variant to win pawn is DUMMY COMPUTER FAVORITE. At depth 42 on Stockfish 11 the evaluation for the top 3 moves is as follows: 1. Qxb7 (2.15) 2. Nc3 (2.10) 3. 0-0 (1.61) White shows an unbelievable patience with the position - could have won material b7-p what leads to Q TRADING (not good for White) so :} 8...Qb4+ 9.Qxb4 Bxb4+ )
+    ( 8.Bxf7+ {variant to win rook} 8...Qxf7 9.Qxb7 {but Black has dangerous counterplay after} 9...Bc5 $1 10.Qxa8 {, or} 
+        ( 10.Qc8+ Ke7 11.Qxh8 Bxf2+ $1 {. "But that (DUMMY COMPUTER FAVORITE 8. Qxb7) would have been a butcher’s method, not an artist's." (Lasker). In keeping with his style, Morphy prefers rapid development and initiative over material.} )
+    10...O-O 11.O-O Nbd7 12.Qc6 Qh5 13.Be3 Bxe3 14.fxe3 Ng4 15.Rxf8+ Nxf8 16.h3 Nxe3 17.Nc3 Nxc2 18.Rf1 Ne3 19.Rf2 Qg5 20.Nd5 Nxd5 21.exd5 h6 22.Qxc7 Ng6 23.Qxa7 e4 24.Qd7 e3 25.Re2 Nf4 26.Qg4 
+    )
+    (8.Nc3 {played till end} c6 9.Bg5 b5 10.Nxb5 cxb5 11.Bxb5+ Nbd7 12.O-O-O Rd8 13.Rxd7 Rxd7 14.Rd1 Qe6 15.Bxd7+ Nxd7 16.Qb8+ Nxb8 17.Rd8 {mat})
+
+8...c6 {The best move, allowing Black to defend his pawn without further weakening the light squares, which have been weakened by Black trading off his light-square bishop.}
+
+9. Bg5 {Black is in what’s like a zugzwang position here. He can’t develop the [Queen’s] knight because the pawn is hanging, the bishop is blocked because of the Queen.--Fischer}
+b5 {Black attempts to drive away the bishop and gain some time, but this move allows Morphy a strong sacrifice to keep the initiative. This move loses but it is difficult to find anything better; for example 9...Na6 10.Bxf6 gxf6 11.Bxa6 bxa6 12.Qa4 Qb7 and Black's position is very weak.}
+
+10. Nxb5 {Morphy chooses not to retreat the bishop, which would allow Black to gain time for development.}
+cxb5 {Black could have prolonged the game by playing 10...Qb4+, forcing the exchange of queens, but White wins comfortably after either 11.Nc3 or 11.Qxb4 Bxb4+ 12.c3!}
+
+11. Bxb5+ {Not 11.Bd5? Qb4+, unpinning the knight and allowing the rook to evade capture.}
+11...Nbd7
+
+12. O-O-O Rd8 {The combination of the pins on the knights and the open file for White's rook will lead to Black's defeat.}
+
+13. Rxd7 Rxd7 {Removing another defender.}
+
+14. Rd1 {Compare the activity of the white pieces with the idleness of the black pieces. At this point, Black's d7-rook cannot be saved, since it is pinned to the king by the bishop and attacked by the rook, and though the knight defends it, the knight is pinned to the queen.}
+14...Qe6 {Qe6 is a futile attempt to unpin the knight (allowing it to defend the rook) and offer a queen trade, to take some pressure out of the white attack. Even if Morphy did not play his next crushing move, he could have always traded his bishop for the knight, followed by winning the rook.}
+
+15. Bxd7+ Nxd7 {If 15...Qxd7, then 16.Qb8+ Ke7 17.Qxe5+ Kd8 18.Bxf6+ gxf6 19.Qxf6+ Kc8 20.Rxd7 Kxd7 21.Qxh8 and White is clearly winning. Moving the king leads to mate: 15...Ke7 16.Qb4+ Qd6 (16...Kd8 17.Qb8+ Ke7 18.Qe8#) 17.Qxd6+ Kd8 18.Qb8+ Ke7 19.Qe8# or 15...Kd8 16.Qb8+ Ke7 17.Qe8#.}
+
+16. Qb8+ {Morphy finishes with a queen sacrifice.}
+Nxb8
+
+17. Rd8# 1-0

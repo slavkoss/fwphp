@@ -12,17 +12,21 @@ if (!isset($moves_in_board)) {
   exit(0);
 }
 ?>
-  <head>
-  <style type="text/css">
-.auto-style1 {
-  font-family: arial, sans-serif;
-  font-size: medium;
-  letter-spacing: normal;
-}
-</style>
-  </head>
 
-  <h1>Learn play chess -&nbsp; strategy, tactics, (endgame) technique</h1>
+
+<head>
+<style>
+  .mycls {
+    font-family: Verdana;
+  }
+</style>
+
+</head>
+
+<body class="mycls">
+
+  <h1>Learn play chess -&nbsp; strategy, tactics, endgame technique</h1>
+  <p><a href="../help_chess.php" target="_blank"><strong>Help chess</strong></a></p>
   <ol>
   <li><a href="?g=mat_in1&amp;b=<?=$moves_in_board?>">mat_in1</a>&nbsp;- #1 Chess: 
   5334 Problems, Combinations, and Games by Laszlo Polgar<li>
@@ -35,11 +39,7 @@ if (!isset($moves_in_board)) {
 	Learn001_Smirnov_Sudarkin.pgn</a><li>
 	<a href="?g=Learn002_two_comp_mdleg&amp;b=<?=$moves_in_board?>" target="_blank">
 	Learn002_two_comp_mdleg.pgn</a><li>
-	<a href="../book_1961_Koblenz_theory_practice.php" target="_blank">book_1961_Koblenz_theory_practice</a>&nbsp;&nbsp;&nbsp;
-	<a href="?g=1858_Morphy_konzult_Paris&amp;b=<?=$moves_in_board?>" target="_blank">
-	1858_Morphy_konzult_Paris</a>...&nbsp;&nbsp; <li>
-	<a href="?g=1907_rotlewi_rubinstein_Lodz&amp;b=<?=$moves_in_board?>">
-	1907_rotlewi_<strong>rubinstein</strong>_Lodz</a>&nbsp; or
+	<a href="?g=1907_rotlewi_rubinstein_Lodz&amp;b=<?=$moves_in_board?>">1907_rotlewi_<strong>rubinstein</strong>_Lodz</a>&nbsp; or
     <a href="https://www.chessgames.com/perl/chessgame?gid=1119679" target="_blank">Play</a>&nbsp; 
   0-1&nbsp; POL, Tarrasch Defense: Symmetrical Variation ECO &quot;D32&quot;, 25 moves<li>
 	<a href="?g=012&amp;b=<?=$moves_in_board?>">012</a>&nbsp; orr
@@ -48,12 +48,18 @@ if (!isset($moves_in_board)) {
   1-0, Bird Opening: Dutch Var, 35 movess<li>
 	<a href="?g=031&amp;b=<?=$moves_in_board?>">031</a> not inn
 	<a href="https://www.chessgames.com/">https://www.chessgames.com//</a>DB :&nbsp; Kasparov 
-  - Beliavsky Linares 1991 1-0 - first game in Kasparov's 6,83 GB video. Why ??
+    vs Beliavsky Linares 1991 1-0 - first game in Kasparov's 6,83 GB video. Why ??
 	<br>
-	<br>
+	  
+    
+  </ol>
+  <p>&nbsp;</p>
+  <h1>L1 : Book <span class="auto-style3">THE GOLDEN TREASURY OF CHESSS</span></h1>
+  by I. A. Horowitz 1969 his 
+	9 Favorite Games :<br>
+  <ol>
 	<li>
-<strong>Book <span class="auto-style3">THE GOLDEN TREASURY OF CHESSS</span>I. A. Horowitz 1969 his 
-	9 Favorite Games ::</strong><br>Fav 1 &nbsp; or Play Petrov'ss
+	Fav 1 &nbsp; or Play Petrov'ss
 	<a href="https://www.chessgames.com/perl/chessgame?gid=1257910">Immortall</a>&nbsp; 
   0-11
 	<a class="auto-style7" href="https://www.chessgames.com/perl/chessplayer?pid=79214">Hoffmannn</a>&nbsp;-&nbsp;&nbsp;<a href="https://www.chessgames.com/perl/chessplayer?pid=31644"><strong>Petrovv</strong></a>Warsaw 1844 0-1 &nbsp;((<a href="https://www.chessgames.com/perl/gamesoftheday">game of the dayy</a>&nbsp;Mar-19-2017)&nbsp; Italian Game: 
@@ -116,6 +122,58 @@ if (!isset($moves_in_board)) {
   openings moves. The openings are divided in five volumes labeled from &quot;A&quot; 
   through &quot;E&quot;.</p>
   <p>&nbsp;</p>
+<h1>L2 : THE GRANDMASTER'S SECRETS</h1>
+  by GM Igor Smirnov <a href="http://chess-teacher.com">
+http://chess-teacher.com</a>
+<br />
+<h2>Introduction "The Biggest Mistakes"</h2>
+<ol>
+  <li>The biggest problem chessplayers have, in my opinion, is the accumulation 
+  of <strong>pointless knowledge</strong> (quantity of chess information, but not on the quality 
+  -concrete results) which doesn't help them to play better because more 
+  important is your <strong>thinking process</strong> - clear, very organized system of thinking 
+  -being able to apply knowledge in practice - concrete <strong>steps of what you should 
+  do</strong> during every phase of the game. When I was a 13 year old boy, I played 
+  training games with an adult professional chess coach. He knew nearly all the opening variations, a lot of 
+  endgame positions, many strategical and tactical ideas. I was able to win 
+  nearly all the games we played. Magnus Carlsen started to win a lot of games 
+  against strong grandmasters at age 15!<br /></li>
+  <li>Nearly all the Grandmasters <strong>read books very slowly</strong> to understand 
+  - one grandmaster took 3 years to read a 
+  single book. After reading it, he increased his rating 100 points and is now 
+  rated over 2600.<br /></li>
+  <li>Lack of&nbsp; <strong>basic chess knowledge</strong> <br /></li>
+  <li>Expectations of quick results - like be body builder after short time 
+  knowing only how to exercise. If you read the interviews of <strong>Kramnik or Anand</strong> 
+  and pay attention on their attitude during tournament games, you will see that 
+  they are quite calm and <strong>pay less attention to the result</strong>.<br /></li>
+  <li>All <strong>chess engines</strong> are very strong...probably stronger than most students 
+  need. Any one of them can help improve your play.<br /></li>
+</ol>
+
+
+  <h2>Lesson 1.1:&nbsp; How to play the game (strategy)</h2>
+  <p><strong>Game Smirnov - Sudarkin&nbsp; 1:0&nbsp;
+  
+  <a href="../phpchess/phpchess/?g=Learn001_Smirnov_Sudarkin&amp;b=<?=2?>" target="_blank">
+	Learn001_Smirnov_Sudarkin.pgn</a></strong></p>
+<p>This lesson is probably the most important part of a course- <strong>base 
+chess knowledge to find the best move</strong>. </p>
+<h2>Lesson 1.2:&nbsp; How to play the game (tactics)</h2>
+<p><strong>Game computer1- computer2&nbsp; 0:0&nbsp;
+<a href="phpchess/?g=Learn001_Smirnov_Sudarkin&amp;b=<?=2?>">&nbsp;</a><a href="phpchess/?g=Learn002_two_comp_mdleg&amp;b=<?=2?>" target="_blank">Learn002_two_computers.pgn</a>
+</strong></p>
+<p>How to <strong>calculate variations</strong>. <strong>Basic strategic ideas</strong> 
+work in hard complicated positions like this as well. In a really complicated 
+position you can <strong>find right moves</strong> easily when you use <strong>
+right thinking way</strong>. </p>
+  <p>&nbsp;</p>
+  <h1>L3:
+	<a href="../book_1961_Koblenz_theory_practice.php" target="_blank">book_1961_Koblenz_theory_practice</a>&nbsp;</h1>
+  <p>Chess school</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
   <p>&nbsp;Learn chess using&nbsp; <span class="auto-style3">2movesboards and 
   comments 
   <ol>
@@ -126,7 +184,10 @@ if (!isset($moves_in_board)) {
   <li>Needed <span class="auto-style1"><strong>knowledge</strong></span>. <br>
   From and to pieces positions (squares) are bordered with differnt colors.</li>
   </ol>
-  <h2 class="auto-style2">&nbsp;</h2>
+  <p class="auto-style2">&nbsp;</p>
+  <p class="auto-style2">&nbsp;</p>
+  <p class="auto-style2">&nbsp;</p>
+  <h1>Links</h1>
   <h2 class="auto-style2">1. Play, learn games</h2>
   <p class="auto-style2"><a href="http://www.wmlsoftware.com/chesspad.html">
   http://www.wmlsoftware.com/chesspad.html</a> -
@@ -210,9 +271,5 @@ if (!isset($moves_in_board)) {
 	favorite games</p>
   </span>
   <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <h3><a href="../help_chess.php" target="_blank">Help chess</a></h3>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
+  
 

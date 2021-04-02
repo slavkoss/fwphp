@@ -34,10 +34,8 @@ class Chess
   const KING   = 'k';
 
   const SYMBOLS = 'pnbrqkPNBRQK';
-
   const DEFAULT_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
   const EMPTY_BOARD      = '8/8/8/8/8/8/8/8 w - - 0 1';
-
   const POSSIBLE_RESULTS = ['1-0', '0-1', '1/2-1/2', '*'];
 
   const PAWN_OFFSETS = [
@@ -464,7 +462,7 @@ class Chess
   }
 
   protected function get_tdtaghtml(
-       string $wh, string $square, string $square_color
+       string $square_wh, string $square, string $square_color
      , array $mv_from_to, int $cnth
      //if integer err : Argument 4 passed to Ryanhs\Chess\Chess::get_ tdtaghtml() must be an instance of Ryanhs\Chess\integer, int given
   )
@@ -505,7 +503,7 @@ class Chess
        $border_to   = $border_Bto ;
     }
 
-    $td_tag = "<td align=center $wh bgcolor=$square_color" ;
+    $td_tag = "<td align=center $square_wh bgcolor=$square_color" ;
 
     // ************************************************************
     // A D D  COLORED  B O R D E R  T O  S Q U A R E S FROM & TO
@@ -550,7 +548,7 @@ class Chess
     return $td_tag ; 
   }
 
-  protected function get_imgtaghtml(string $chr_moved, string $square_clr, string $wh)
+  protected function get_imgtaghtml(string $chr_moved, string $square_clr, string $square_wh)
   {
     // tag of chr_moved img
 
@@ -565,19 +563,19 @@ class Chess
         { 
             // w h i t e :
             // $it1 = '<img src="../img/'; //it = image tag
-            case ('P'): $it=$it1.'wp.png" alt="wp.png" '.$wh.'>'; break;
-            case ('R'): $it=$it1.'wr.png" alt="wr.png" '.$wh.'>'; break ;
-            case ('N'): $it=$it1.'wn.png" alt="wn.png" '.$wh.'>'; break ;
-            case ('B'): $it=$it1.'wb.png" alt="wb.png" '.$wh.'>'; break ;
-            case ('K'): $it=$it1.'wk.png" alt="wk.png" '.$wh.'>'; break ;
-            case ('Q'): $it=$it1.'wq.png" alt="wq.png" '.$wh.'>'; break ;
+            case ('P'): $it=$it1.'wp.png" alt="wp.png" '.$square_wh.'>'; break;
+            case ('R'): $it=$it1.'wr.png" alt="wr.png" '.$square_wh.'>'; break ;
+            case ('N'): $it=$it1.'wn.png" alt="wn.png" '.$square_wh.'>'; break ;
+            case ('B'): $it=$it1.'wb.png" alt="wb.png" '.$square_wh.'>'; break ;
+            case ('K'): $it=$it1.'wk.png" alt="wk.png" '.$square_wh.'>'; break ;
+            case ('Q'): $it=$it1.'wq.png" alt="wq.png" '.$square_wh.'>'; break ;
             // b l a c k :
-            case ('p'): $it=$it1.'bp.png" alt="bp.png" '.$wh.'>'; break ;
-            case ('r'): $it=$it1.'br.png" alt="br.png" '.$wh.'>'; break ;
-            case ('n'): $it=$it1.'bn.png" alt="bn.png" '.$wh.'>'; break ;
-            case ('b'): $it=$it1.'bb.png" alt="bb.png" '.$wh.'>'; break ;
-            case ('k'): $it=$it1.'bk.png" alt="bk.png" '.$wh.'>'; break ;
-            case ('q'): $it=$it1.'bq.png" alt="bq.png" '.$wh.'>'; break ;
+            case ('p'): $it=$it1.'bp.png" alt="bp.png" '.$square_wh.'>'; break ;
+            case ('r'): $it=$it1.'br.png" alt="br.png" '.$square_wh.'>'; break ;
+            case ('n'): $it=$it1.'bn.png" alt="bn.png" '.$square_wh.'>'; break ;
+            case ('b'): $it=$it1.'bb.png" alt="bb.png" '.$square_wh.'>'; break ;
+            case ('k'): $it=$it1.'bk.png" alt="bk.png" '.$square_wh.'>'; break ;
+            case ('q'): $it=$it1.'bq.png" alt="bq.png" '.$square_wh.'>'; break ;
             default: $it=''; break;
           } //e n d  ***** PUT  P I E C E  IN ONE SQUARE
     } //e n d  ***** NON EMPTY SQUARES
@@ -592,7 +590,7 @@ class Chess
       switch ($square_clr) 
       { 
           case ('b'):  // b l a c k
-            $it = $it1.'distance_gray.png" alt="distance_gray.png" '.$wh.'>'; break ;
+            $it = $it1.'distance_gray.png" alt="distance_gray.png" '.$square_wh.'>'; break ;
           default: $it=''; break;
       } //e n d  ***** PUT  P I E C E  IN ONE SQUARE
     } //e n d  ***** EMPTY SQUARES
@@ -629,7 +627,7 @@ class Chess
     $dark = '#D3D3D3' ; //black is lightgray
     $light = '#FFFFFF' ; //white
 
-    $wh='width="23px" height="23px"'; //square width, height
+    $square_wh='width="23px" height="23px"'; //square width, height
     //$it1 = '<img src="../img/'; //it = image tag
 
 
@@ -661,7 +659,7 @@ class Chess
       <!--           t d  i s  s q u a r e -->
 
       <!-- rowx left column ordnum 8, 7...-->
-      <td align=center <?=$wh?> bgcolor=#D3D3D3><?=9 - $row?></td>
+      <td align=center <?=$square_wh?> bgcolor=#D3D3D3><?=9 - $row?></td>
 
       <?php
       for ($col = 1; $col < 9; ++$col)     // c o l u m n s
@@ -674,12 +672,12 @@ class Chess
                                //echo $square ; // (9 - $row) .'.'. $col ;
 
         // ======= D R A W  S Q U A R E  WITH FROM/TO  B O R D E R =======
-        $td_tag = $this->get_tdtaghtml($wh, $square, $square_color, $mv_from_to, $cnth) ;
+        $td_tag = $this->get_tdtaghtml($square_wh, $square, $square_color, $mv_from_to, $cnth) ;
         echo $td_tag ; 
 
         // ***** SQUARE CONTENT
         // ======= P U T  I M G  O F  P I E C E  $ DISTANCER ON S Q U A R E =======
-        $imgtaghtml = $this->get_imgtaghtml($chr_moved, $square_clr, $wh) ;
+        $imgtaghtml = $this->get_imgtaghtml($chr_moved, $square_clr, $square_wh) ;
         echo $imgtaghtml ;
 
 
