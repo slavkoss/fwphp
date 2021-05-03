@@ -46,7 +46,7 @@ if (!isset($moves_in_board)) {
 	<a href="https://www.chessgames.com/perl/chessgame?gid=1378821">Play</a>
 	<strong>Tarraschh</strong>- Allies 1914 Naples 
   1-0, Bird Opening: Dutch Var, 35 movess<li>
-	<a href="?g=031&amp;b=<?=$moves_in_board?>">031</a> not inn
+	<a href="?g=031&amp;b=<?=$moves_in_board?>">031</a> not in
 	<a href="https://www.chessgames.com/">https://www.chessgames.com//</a>DB :&nbsp; Kasparov 
     vs Beliavsky Linares 1991 1-0 - first game in Kasparov's 6,83 GB video. Why ??
 	<br>
@@ -61,8 +61,8 @@ if (!isset($moves_in_board)) {
 	<li>
 	Fav 1 &nbsp; or Play Petrov'ss
 	<a href="https://www.chessgames.com/perl/chessgame?gid=1257910">Immortall</a>&nbsp; 
-  0-11
-	<a class="auto-style7" href="https://www.chessgames.com/perl/chessplayer?pid=79214">Hoffmannn</a>&nbsp;-&nbsp;&nbsp;<a href="https://www.chessgames.com/perl/chessplayer?pid=31644"><strong>Petrovv</strong></a>Warsaw 1844 0-1 &nbsp;((<a href="https://www.chessgames.com/perl/gamesoftheday">game of the dayy</a>&nbsp;Mar-19-2017)&nbsp; Italian Game: 
+	0-1
+	<a class="auto-style7" href="https://www.chessgames.com/perl/chessplayer?pid=79214">Hoffmannn</a>&nbsp;-&nbsp;&nbsp;<a href="https://www.chessgames.com/perl/chessplayer?pid=31644"><strong>Petrov</strong></a> Warsaw 1844 0-1 &nbsp;((<a href="https://www.chessgames.com/perl/gamesoftheday">game of the dayy</a>&nbsp;Mar-19-2017)&nbsp; Italian Game: 
   Classical Variation. Center Attack&nbsp;&nbsp;<a href="https://www.chessgames.com/perl/chessopening?eco=C53">(C53))</a>- GIUOCO&nbsp; PIANO - idea of readily 
   surrendering the Queen in order to hound the hostile King with the lesser 
   pieces, has been utilized fairly often; but Petroff's sacrifice was one of 
@@ -73,7 +73,7 @@ if (!isset($moves_in_board)) {
   its own far-advanced Pawns, and White's King gaily advancing down the board to 
   assist in the final attack against his colleaguee 
 	<li>Fav 3&nbsp; or <a href="https://old.chesstempo.com/gamedb/game/2919104">Play</a>&nbsp; SCHULTEN 
-  -KIESERITZKY 1846 Paris 0-1 - Kieseritzky was brilliant, able 
+  -<strong>KIESERITZKY</strong> 1846 Paris 0-1 - Kieseritzky was brilliant, able 
   player despite he achieved negative immortality by losing a magnificent game 
   to the great Anderssen..
 	<a href="https://old.chesstempo.com/gamedb/opening/1007" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);">King's Gambit, Accepted, Bishop's Gambit, Bryan Countergambit (C33))</a><li>
@@ -83,19 +83,19 @@ if (!isset($moves_in_board)) {
   19 moves RUY LOPEZ&nbsp;Bird's Defence ECO:C61 - Sacrificial Orgy -&nbsp; 
   brilliancy, inspired inventiveness, sparkle into so short a game. Here is 
   the distilled essence of the very best chess of the old masters..<li>Fav 5&nbsp;
-	<a href="https://old.chesstempo.com/gamedb/game/2919104">ANDERSSEN ZUKERTORTT</a>&nbsp;
+	<a href="https://old.chesstempo.com/gamedb/game/2919104">ANDERSSEN ZUKERTORTT</a>&nbsp;1-0
 	<a href="https://old.chesstempo.com/gamedb/opening/895" 
-  >Italian Game,, <strong>Evans Gambitt</strong>, Paulsen Variation (C51))</a>Berlin, 1869&nbsp; - glorious battle.. 
+  >Italian Game, <strong>Evans Gambitt</strong>, Paulsen Variation (C51))</a>Berlin, 1869&nbsp; - glorious battle.. 
 	<li>Fav 6&nbsp;
 	<a href="?g=1896_pillsbury_lasker_St_Petersburg&amp;b=<?=$moves_in_board?>">
-	1896_pillsbury_<strong>lasker</strong>_St_Petersburg</a> or
+	1896_Pillsbury_<strong>Lasker</strong>_St_Petersburg</a> or
 	<a href="https://www.chessgames.com/perl/chessgame?gid=1109097">Play</a>&nbsp; 0-1 Queen's Gambit Declined: Pseudo-Tarrasch. Primitive Pillsbury Variation 
   (D50).&nbsp;immortal game between two Titans. Lasker's 
   combination is one of the greatest feats of the human imagination. One of 
   chess literature's most famous games. For anyone thinking of starting an a3 best games collection, I'll start you off with::
 	<a href="http://www.chessgames.com/perl/chessgame?gid=1027914">Bird vs Morphy, 18588</a>&nbsp;
-	<a href="http://www.chessgames.com/perl/chessgame?gid=1019048">Anderssen vs Morphy, 18588</a>&nbsp;
-	<a href="http://www.chessgames.com/perl/chessgame?gid=1031957">Botvinnik vs Capablanca, 19388</a>..<li>
+	<a href="http://www.chessgames.com/perl/chessgame?gid=1019048">Anderssen vs Morphy, 1858</a>&nbsp;
+	<a href="http://www.chessgames.com/perl/chessgame?gid=1031957">Botvinnik vs Capablanca, 1938</a>..<li>
 	Fav 7&nbsp; <a href="https://www.chessgames.com/perl/chessgame?gid=1000705">SPIELMANN DUS-CHOTIMIRSKII</a>&nbsp; 
   1-0 R U Y LOPEZ&nbsp;Spanish Game: Closed Variationss
 	<font face="georgia,palatino,times new roman,times" size="-1">
@@ -104,11 +104,12 @@ if (!isset($moves_in_board)) {
   One of the marks of a great master is the ability to conjure up murderous 
   attacks out of seemingly harmless positions - Spielmann commences an 
   unexpected attack at move 22..<li>Fav 8&nbsp;
-	<a href="https://www.chessgames.com/perl/chessgame?gid=1012796">ALEKHINE ASGEIRSSONN</a>1-0 French Defense: Classical Variation. Richter Attack&nbsp;Iceland, 1931&nbsp; - Reti 
+	<a href="https://www.chessgames.com/perl/chessgame?gid=1012796">ALEKHINE ASGEIRSSONN</a> 1-0 French Defense: Classical Variation. Richter Attack&nbsp;Iceland, 1931&nbsp; - Reti 
   noted that Alekhine's outstanding quality was his ability to give even the 
   mostt <strong>commonplace positions an unusual turn..</strong>
 	<li>Fav 9&nbsp;
-	<a href="https://www.chessgames.com/perl/chessgame?gid=1100774">GLUCKSBERG&nbsp; NAJDORFF</a>0-1 Dutch Defense: Queen's Knight Variation Warsaw, 1929 Polish &quot;Immortal&quot; - 
+	<a href="https://www.chessgames.com/perl/chessgame?gid=1100774">GLUCKSBERG&nbsp; 
+	<strong>NAJDORFF</strong></a> 0-1 Dutch Defense: Queen's Knight Variation Warsaw, 1929 Polish &quot;Immortal&quot; - 
   Anyone who preaches the imminent death of chess ought to take a good look at 
   this game! The striking series of brilliancies initiated by Black's 
   thirteenth move compares favorably, I believe, with any combination ever 

@@ -1,0 +1,4 @@
+There is video course 6.28 GB "Create a REST API using basic PHP with Token Authentication".
+
+Contains code in 2 .zip files: 030 CompleteTasksAPI-WithUserAuth.zip ~30 kB and 032 Task-iOS-Xcode-App.zip ~62 kB. I did not tested this code, you can download it from here.
+
