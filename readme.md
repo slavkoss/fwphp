@@ -60,10 +60,11 @@ Besides explanations below are difficult to understand. They are "after battle p
 ## 1\.3 Project notable goals  - reasons
 Notable package does something special, is also frequently innovative. 
 
-1. In my free time (my work for last 20 years was :  Oracle Forms & Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
-   https://github.com/panique/mini3 is good but to small.   OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram (Udemy) is good but older programming style.
+1. I developed B12phpfw in my free time (my work for last 20 years was :  Oracle Forms & Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
+
+https://github.com/panique/mini3 is good but to simple.   OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram (Udemy) is good but older programming style.
    
-2. Develop **large sites** (more of them under web server root dir. path).
+2. B12phpfw is good for developing **large sites** (more of them under web server root dir. path).
 
 3. ***Innovative*** is : 
    1. each module in own folder like Oracle Forms 6i form, Blazor and APEX pages ee no M,V,C folders
@@ -72,14 +73,15 @@ Notable package does something special, is also frequently innovative.
    4. **simple module** - one table CRUD eg "users" table or **compound module** - more tables CRUD eg my msg (Blog) module or invoice... 
 
 4. Compared to all PHP frameworks and learning sources  : 
-   1. easier to understand (as much as possible)
+   1. clean code, easier to understand (as much as possible)
    2. smallest code
-   3. reusable (shares, globals, commons, inclodes)
-   4. namespaces for autoloading classes scripts
-   5. routing (URL parts in key-keyvalue form) and dispatching (call or include)
-   6. own debugging to find logical errors (Xdebug is not enough - shows only sintax errors)
-   7. PHP PDO CRUD (Create, Read, Upd, Del) in **any DB** **simple module** eg "users" table rows or **compound module** eg my msg (Blog) module or invoice... 
-   8. examples are not to simple code
+   3. reusable (**globals on site level or below** - shares, commons, includes)
+   4. namespaces for autoloading classes scripts - own solution
+   5. routing (URL disassembled in parts in key-value form) and dispatching (call or include) - own solution
+   6. PHP PDO CRUD (Create, Read, Upd, Del) on **any DB** - own solution
+       1. **simple module** eg "users" table rows 
+       2. or **compound module** eg my msg (Blog) module or invoice... 
+   7. own debugging to find logical errors (Xdebug is not enough - shows only sintax errors) - own solution
    
 5. Present best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
     https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
