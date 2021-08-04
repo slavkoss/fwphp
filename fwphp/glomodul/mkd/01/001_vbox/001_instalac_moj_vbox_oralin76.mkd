@@ -1,0 +1,1945 @@
+<a name="top"></a>
+2020.04.15     
+**[Top](#top)** | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)   | [Deploy](#deploy) | [Lin. site access](#linsite) | [Ora 11g](#ora11g)
+# Install OEL (Oracle Linux) 7.8 on VirtualBox 6.1.4
+Simmilar are Redhat RHEL, Fedora, CentOS - rpm (yum) based Linux distros.      
+
+OEL was 7.6, after yum update 7.8. VirtualBox 6.1.4 did not work, I installed 6.1.2.
+
+1. sudo /opt/lampp/manager-linux-x64.run - start XAMPP
+   service firewalld stop
+   service iptables stop
+   On windows 10 sspc2 :  http://oralin76/fwphp/www/  WORKS !! (Lin firewall disabled)
+2. On oralin76 :  http://localhost/fwphp/www/  WORKS !!
+3. WinScp sinchroniz. to Lin.
+4. http://localhost/phpmyadmin/db_import.php?db=z_blogcms     /opt/lampp/01_DDL_mysql_blog.sql
+
+
+Ver. 7.8 and 8.1 clipboard sharing Win - Lin is not working  (oralin_8_1_V984216-01.iso)      
+**use older VBox Guest Additions instead ver 6.1.4 - also CPU load is ~5% and was ~50% ! :**      
+L:\1_instalac\1_instalirano\5_virtualbox\VBoxGuestAdditions_6.1.2.iso     
+
+L:\1_instalac\1_instalirano\5_virtualbox\VBOX_UserManual.cleaned.pdf       
+
+1. J:\vbox_vms
+2. J:\vbox_vms\oralin76\Snapshots
+
+
+**enp0s3**  HW adress=08:00:27:1D:B3:D8,  manual IPv4 method, IPv6 disabled
+1. 192.168.5.13    oralin76\ora MYSHORTPSW
+2. 255.255.255.0
+3. 192.168.5.1
+4. 213.191.128.8,213.191.128.9
+
+
+
+In windows, type "winver" in the run box. My latest version is 1909. (march 2020)
+[root@oralin76 ~]# uname -a     
+Linux oralin76 4.14.35-1902.300.11.el7uek.x86_64 #2 SMP Tue Mar 17 17:11:47 PDT 2020 x86_64 x86_64 x86_64 GNU/Linux        
+Linux oralin76 4.1.12-124.27.1.el7uek.x86_64 #2 SMP Mon  May 13 08:56:17 PDT 2019 x86_64 x86_64 x86_64 GNU/Linux          
+
+For right click -> "New .txt" : create file shortcut :
+Home -> Templates -> create in Terminal or copy here moj_Blank_Doc.txt 
+
+super (winkey) + space - **switch to english**
+
+sudo /opt/lampp/manager-linux-x64.run     - **start XAMPP**       
+or sudo /opt/lampp/xampp start 
+
+**URLs to use on Linux in vbox PC oralin76 :**       
+
+|                   URL                                   |             URL opens page          |
+|:-------------------------------------------- |:-----------------------------------|
+| http://oralin76/fwphp/www/                 | fwphp site on vbox PC oralin76 |
+| http://192.168.5.12:8083/fwphp/www/ | fwphp site on win 10 PC sspc2 (or sspc2 instead IP) |
+
+
+**URLs to use on win 10 PC sspc2 :**        
+
+|                   URL                         |             URL opens page          |
+|:------------------------------------- |:-----------------------------------|
+| http://sspc2:8083/fwphp/www    | fwphp site on on win 10 PC sspc2 |
+| http://192.168.5.13/fwphp/www | fwphp site on vbox PC oralin76 - **ERR_CONNECTION_REFUSED** (why ?) (or oralin76 instead IP) |
+
+On Linux oralin76 vbox PC (VM), in explorer : smb://192.168.5.13/htdocs/ opens Linux share defined in /etc/samba/smb.conf         
+
+/media/sf_J_DRIVE opens Windows share defined in Windows
+
+On Windows sspc2 PC, in explorer : \192.168.5.12 and \192.168.56.1 = Win shares visible in Win Network folder on PC sspc2, but Lin does not open this, same as \sspc2 or smb://192.168.56.1/
+
+
+
+
+
+
+<br /><br /><br />
+<a name="vbox"></a>
+[Top](#top) | **[VBox](#vbox)** | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)   | [Deploy](#deploy) | [Lin. site access](#linsite) | [Ora 11g](#ora11g)
+## 1\.1 VirtualBox
+1. Download Oracle VM VirtualBox   https://www.virtualbox.org/wiki/Downloads      
+    to L:\1_instalac\1_instalirano\5_virtualbox\001_VirtualBox-6.1.4-136177-Win.exe and install     
+
+2. Machine -> New or icon "New" in vbox main screen :
+    1. Name for your VM **oralin76**
+        Machine folder: `J:\vbox_vms` (for oralin76.vdi)     
+        Type of OS (operating system) Linux, version Oracle (64 bit)       
+        click "Next"
+        Select Memory size eg 4096 + 1024= 5120 MB  (6028) and click Next        
+    2. Create a virtual hard disk now, expert mode VDI (VirtualBox Disk Image), Dinamically allocated, 
+        `J:\vbox_vms\oralin76\oralin76.vdi`  100 GB 
+        (**8 GB for swap - required by Oracle 11g DB ee 2 x memory = 12 GB**)         
+        click "Create" New Wizzard re-directs you back to vbox main screen.     
+
+3. Settings -> General -> Advanced
+   Snapshot folder is : `J:\vbox_vms\oralin76\Snapshots`
+   Enable Shared Clippboard and Drag-drop both bidirectional       
+
+   Settings -> System -> MB -> Enable EFI, no more floppy     
+   Settings -> System -> Processor -> 2 CPU (2 for Win 10 64 bit)          
+   
+   Settings -> Display -> Screen -> 128 MB        
+   Settings -> Display -> Screen -> Enable 3D acceleration       
+   
+   Settings -> Network -> Adapter 1  -> Atached to: -> **Bridged** adapter         
+   (my is cable, Realtek PCIe GBE on Gigabyte Z68AP-D3, Intel Core i5 2500K, 16 GB DDR3 - recomended)     
+   ->**Promiscuous -> Mode: Allow all**          
+
+   Settings -> Shared folders -> Add : `Folder path: J:\ , name: JWIN`       
+   My virt. Apache site doc.root on Win.10 is  `J:\awww\www`      
+   Auto-mount check box for all Shared folders.     
+   Mount point : ???
+   
+
+
+## 1\.2 Oracle_VM_VirtualBox_Extension_Pack-6.1.4.vbox-extpack
+Download Oracle VM Extension Pack   https://www.virtualbox.org/wiki/Downloads   
+to L:\1_instalac\1_instalirano\5_virtualbox\Oracle_VM_VirtualBox_Extension_Pack-6.1.4.vbox-extpack      
+**double-click on the package** and a Network Operations Manager window will appear, guiding you through steps.       
+
+>Extension pack provides the following added functionality:
+>1. The virtual USB 2.0 (EHCI) device. See chapter 3.11.1, USB Settings, page 60.
+>2. The virtual USB 3.0 (xHCI) device. See chapter 3.11.1, USB Settings, page 60.
+>3. VirtualBox Remote Desktop Protocol (VRDP) support. See chapter 7.1, Remote Display (VRDP Support), page 116.
+>   Allows for high-performance remote access to any running virtual machine. This extension supports Remote Desktop Protocol (RDP) >originally built into Microsoft Windows, with special additions for full client USB support.
+>4. Host webcam passthrough. See chapter 9.5, Webcam Passthrough, page 247.
+>5. Intel PXE boot ROM.
+>6. Disk image encryption with AES algorithm. See chapter 9.28, Encryption of Disk Images, page 286.
+
+>Extension Pack is for All supported platforms - Install it with same version as installed version of VirtualBox.     
+>To view the extension packs that are currently installed, start VirtualBox Manager -> File menu -> select Preferences-> go to Extensions category - allows you to remove a package or add a new one.        
+>Alternatively you can use VBoxManage on the command line: see chapter 8.41, VBoxManage extpack, page 184 for details.        
+
+
+<a name="vm"></a>
+[Top](#top) | [VBox](#vbox) | **[VM](#vm)** | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)   | [Deploy](#deploy) | [Lin. site access](#linsite) | [Ora 11g](#ora11g) 
+## 2\.1 VM oralin76 : Oracle Linux 7.6 (7.8 after yum update)
+Download Oracle Linux 7.6 64 bit :  https://edelivery.oracle.com/osdc/faces/Home.jspx         
+to L:\1_instalac\1_instalirano\linux\2_oralinux\oracle_linux_7_6\001_oralin_7_6_V980739-01.iso and install in VBOX :     
+
+1. Settings -> Storage -> IDE controller -> **Click on Empty CD icon**
+2. On screen right side click on CD image icon for the CD/DVD drive
+3. and click on the "**Choose a virtual CD/DVD disk file**..."
+4. L:\1_instalac\1_instalirano\linux\2_oralinux\oracle_linux_7_6\001_oralin_7_6_V980739-01.iso   4,5 GB      
+
+
+### Instalac (CLICK RIGHT CTRL TO FREE MOUSE !!)
+
+#### Swap 2 x memory = eg 12 GB
+min. 8 GB for swap - required by Oracle 11g DB      
+
+Select Virtual Machine oralin81 that you just created.   Click on the green Start icon on the top of vbox screen.
+Select 'install Oracle linux' and click Enter key.  Select language to use during the installation process.
+Only ora Linux: Select **Server with GUI**. Minimal installation option is the installation without GUI.
+         Select :Add ons for selected environment and choose :
+         File and storage server
+         Java platform
+         Network filesystem client
+         Performance tools
+         Compatibility libraries
+         Development tools --- at least this
+         **not !!! KDE desktop (installs also Gnome)** 
+Select other buttons (keyboard if not english, partitioning...)
+ethernet  fwphp75   enp0s3    GENERAL: Automatic conn. to network   ipv4 :
+during installation you will see 2 red warnings indicating that the       root password is not set and no users are created - create root account and user account 
+When system reboots, you will be directed to perform the initial setup,
+       click on the checkbox to accept the license agreement
+       and click on the Done button on the top left corner.
+       Click on the FINISH CONFIGURATION button to proceed.
+       do not forget to remove the tick at Boot Order 'CD/DVD'.
+Installation is finished.
+
+
+### update oralin 7.6 to 7.8 os from sys -> sw
+su -   or  sudo bash
+yum update     
+
+**if ERROR see 002_instalac02_2ERROR_add_guest_add.jpg**        
+cd /var/log     
+ls      
+gedit vboxadd-setup.log.highest_ver_eg_4    
+**look for "please install"...  shift+ctrl+c them**     
+yum install zlib-devel      
+yum install elfutils-libelf-devel      
+
+Right click on desktop then Display setings 1920 1200 (16:10) then **right ctrl+f works**     
+
+
+Add the kernel parameter divider=10 to select a guest kernel timer frequency of 100Hz to avouid High CPU load.
+
+cat /boot/grub/menu.lst        
+
+
+### Uninstall Apache
+1. sudo yum erase httpd httpd-tools apr apr-util
+   rpm -qa | grep httpd    - to check if httpd* packages are uninstalled
+2. gedit /etc/sysconfig/iptables
+   Find and remove line as follows:
+```
+## open port 80 /443 ##
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
+```
+3. Restart iptables: service iptables restart
+4. You need to repeat the same steps for ip6tables – IPv6 packet filter by editing
+   /etc/sysconfig/ip6tables
+
+#### How do I check if a service is running or not 
+
+systemctl status httpd.service   or   systemctl status httpd      
+
+sudo systemctl enable httpd.service          
+command will create approriate symbolic links to the /usr/lib/systemd/system/httpd.service      
+
+if you want to recreate symbolic link for enabling service :    
+systemctl reenable httpd.service   
+
+
+To disable a service to be not started automatically at boot time:     
+sudo systemctl disable httpd.service     
+This command will remove appropriate symbolic links to /usr/lib/systemd/system/httpd.service     
+
+sudo systemctl start httpd.service    
+sudo systemctl status httpd.service     
+sudo systemctl restart httpd.service     
+
+To only reload the configuration of one service without interrupting their execution:     
+sudo systemctl reload httpd.service     
+
+
+
+<br /><br />
+I tested also Centos 7.3 and Mint 18.2 Cinnamon - do not work for me (after OS update - problems with booting same as with oralinux 7.3). To install DB 11g XE I ended with oralinux 7.3 - works better than 7.2.     
+
+
+
+## 2\.2 VBoxGuestAdditions.iso
+This image file is located in the installation directory of VirtualBox:     
+C:\Program Files\Oracle\VirtualBox\VBoxGuestAdditions.iso     
+
+After installing Linux on VirtualBox we need install VBoxGuestAdditions because of **not working** features :         
+**Resolution is bad, Auto-Resize (rightctrl+f), Drag-Drop, Clipboard sharing**     
+To install the Guest Additions for a particular VM, you mount this ISO file in your VM as a virtual CD-ROM and install from there.      
+
+su -
+yum update     
+
+
+1. remove Linux .iso from IDE controller, put  VBoxGuestAdditions.iso in  IDE controller or :      
+   Start Linux >  Devices ->Guest add. 
+
+or :  
+1. `C:\Program Files\Oracle\VirtualBox\VBoxGuestAdditions.iso`
+
+2. start Orcle VM VirtualBox Manager -> click oralin76 Virtual Machine (powered off) -> click icon Settings  
+    -> click Button 'Storage' and add a new 'Controller: IDE' for virtual DVD device, put iso above in it  
+
+3. start Oracle Linux 7.6 and **right click VBoxGuestAdditions icon -> open in terminal **
+
+**if ERROR clipboard sharing not working use insteadd ver 6.1.4 older :**     
+L:\1_instalac\1_instalirano\5_virtualbox\VBoxGuestAdditions_6.1.2.iso     
+
+
+**if ERROR install VBoxGuestAdditions.iso (see 002_instalac02_2ERROR_add_guest_add.jpg)**        
+1. cd /var/log     
+2. ls      
+3. gedit vboxadd-setup.log.highest_ver_eg_4 (I tried 4 times)   
+   **look for "please install"...  shift+ctrl+c them**     
+4. yum install zlib-devel      
+5. yum install elfutils-libelf-devel      
+   
+6. repeat install VBoxGuestAdditions.iso   
+
+Right click on desktop -> Display setings -> 1920 x 1200 (16:10) then **rightctrl+f works**     
+
+
+>see chapter 4, Guest Additions, page 83/391
+>software packages which can be installed inside of supported guest
+>systems to improve their performance and to provide additional integration 
+>and communication with the host system. 
+>  - automatic adjustment of VIDEO RESOLUTIONS,
+>  - MOUSE POINTER integration
+>  - SEAMLESS WINDOWS -  windows that are displayed on the desktop of the virtual machine can be mapped on the host's desktop, as if the underlying application was actually running on the host See ch 4.6
+>  - SHARED FOLDERS which let you access files from the host (Win 10) system 
+>    from within a guest machine see chapter 4.3
+>  - accelerated 3D graphics
+>  - Generic host/guest communication channels
+>  - Time synchronization
+>  - SHARED CLIPBOARD
+>  - Automated logons (credentials passing) 
+
+
+
+
+
+<a name="utils"></a>
+[Top](#top) | [VBox](#vbox) | [VM](#vm) | **[Utils](#utils)** | [XAMPP](#xampp) | [Samba ](#samba)   | [Deploy](#deploy) | [Lin. site access](#linsite) | [Ora 11g](#ora11g)
+## 3. Install important oralin73 Utils
+
+### 3\.1 How to add user into sudoers in Red Hat Linux server  
+to use "sudo"      
+
+su -       
+cd /etc       
+ls -alF           
+chmod +w sudoers         
+gedit sudoers           
+\# scroll down in file and find line (root ALL=(ALL) ALL)          
+\# right there add this for the user (example userid: roman)       
+root ALL=(ALL) ALL       
+ssoralin73 ALL=(ALL) ALL        
+  
+Exit & Save       
+chmod -w sudoers  (make the sudoers READ-ONLY again)           
+
+
+Use cases:     
+```
+Lauch bash with elevated privilges, using your own password:
+sudo bash
+
+Lauch shell as user root, with root's password:
+su - root
+
+Lauch shell as user root, with your own password:
+sudo su - root
+```
+
+How to elevate privileges to root in bash and return back?
+```
+sudo with heredoc syntax:
+
+possiblevariable=something    
+sudo /bin/bash <<EOF
+    cd /somedir
+    pwd
+    commandasroot1 "$possiblevariable"
+    commandasroot2
+EOF
+nonrootcommand (and not in /somedir)
+
+
+[ora@localhost ~]$ sudo bash <<EOF
+cd /tmp
+pwd
+EOF
+------------- outputs :
+[sudo] password for ora: 
+/tmp
+
+how variables substitution work in heredoc:
+
+[ora@localhost ~]$ sudo bash <<EOF
+     cd /tmp
+     echo $PWD; echo \$PWD
+EOF
+[sudo] password for ora: 
+/home/ora
+/tmp
+
+
+
+how you can get output into variable
+
+[ora@localhost ~]$ variable=$(sudo bash <<EOF
+     cd /tmp
+     echo $PWD; echo \$PWD
+EOF
+)
+[ora@localhost ~]$ echo $variable
+/home/ora /tmp
+[ora@localhost ~]$ 
+
+
+
+tee command read from standard input (such as keyboard) and write to standard output (such as screen) and files :
+
+echo 'text' | sudo tee -a /path/to/file    -a OR --append
+echo '192.168.1.254 router' | sudo tee -a /etc/hosts
+
+
+```
+
+
+1. su and sudo are two very different ways to **escalate privileges**, but in the end both allow you to run commands as your target user - in your case root.
+2. If you are trying to run a command as another user, **sudo will ask for your password**, su will ask for the other user's password.
+3. sudo is designed to let unprivileged users run specific commands as a different user, and so has a configuration sudoers file **/etc/sudoers** which lets system administrators decide *which users can run which commands as which other users*. IE it has fine grained permissions. These permissions can be granted and later revoked.
+4. su also lets you run a command as another user, you need to know his (eg root usr) password,  but **su isn't designed with the same fine grained permissions**. If you have the other user's password you can do anything as that user. The only way to revoke that access is to change the other user's password.
+5. The main difference between sudo bash and sudo -s is that -s is shorter and lets you pass commands to execute in your user's default shell.
+
+Far more commonly, you give -s alone, so it just runs your user's shell interactively. In that mode, it differs from sudo bash in that it might run a different shell than bash, since it looks first in the SHELL environment variable, and then if that is unset, at **your user's login shell setting, typically in /etc/passwd**.
+
+
+
+
+
+
+### 3\.2 notepadqq and geany
+
+#### notepad-plus-plus in Wine, snap
+https://snapcraft.io/install/notepad-plus-plus/rhel   
+1. sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+2. Not working : optional and extras repositories :    
+   sudo subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"      
+3. sudo yum update      
+4. sudo yum install snapd
+5. sudo systemctl enable --now snapd.socket
+6. sudo ln -s /var/lib/snapd/snap /snap
+7. sudo snap install notepad-plus-plus
+8. ls -alF /var/lib/snapd/desktop/applications/notepad-plus-plus_notepad-plus-plus.desktop
+9. Open it so :** sudo /var/lib/snapd/desktop/applications/notepad-plus-plus_notepad-plus-plus.desktop**
+
+
+#### notepadqq
+
+sudo snap install --classic notepadqq
+
+/var/lib/snapd/snap/bin was not found in your $PATH. If you've not restarted your session
+         since you installed snapd, try doing that. Please see https://forum.snapcraft.io/t/9469
+         for more details.
+
+
+
+NOT WORKING Open it so : winkey in gnome or sudo /usr/bin/notepadqq     
+
+https://github.com/notepadqq/notepadqq#distribution-packages       
+https://github.com/notepadqq/notepadqq-packaging      
+Alternate Repository for RPM based systems Fedora, CentOS, etc.     
+1. $ cd /etc/yum.repos.d
+2. $ sudo wget http://sea.fedorapeople.org/sea-devel.repo
+3. $ sudo yum install notepadqq         or $ sudo dnf install notepadqq
+4. Error: Package: notepadqq-0.46.1-0.el7.centos.x86_64 (FedoraPeople-sea)
+   Requires: libQt5WebKit.so.5()(64bit)    libQt5WebKitWidgets.so.5()(64bit)     qt5-qtwebkit
+
+
+
+#### geany
+1. sudo yum install geany
+2. sudo /usr/bin/geany
+
+
+
+
+
+### Install  Locate (search) - allready installed  
+
+1. sudo /usr/bin/locate
+2. sudo yum install mlocate
+updatedb
+
+  
+
+### Install GNU Midnight commander 4.8.7 (if needed)   
+
+1. sudo yum install mc   (to /usr/bin/mc)
+mc
+
+
+
+<br /><br />
+### Install Links text & graphic www browser ver 2.13  
+    (has  good terminal tabs GUI)  
+
+1. sudo yum install links  
+sudo links
+    
+  
+
+### Install gparted - unsuccessful
+(needed in vbox guest ? how to see Win diks ?)  
+
+su -c "yum install gparted"  
+No package gparted available  
+
+[http://tutorialforlinux.com/2017/03/14/how-to-install-gparted-on-red-hat-linux-desktop/](http://tutorialforlinux.com/2017/03/14/how-to-install-gparted-on-red-hat-linux-desktop/)  
+enable the EPEL Repository (Extra Packages for Enterprise Linux) -Fedora Special Interest Group that creates, maintains, and manages a high quality set of additional packages for Enterprise Linux including, but not limited to, Red Hat Enterprise Linux (RHEL), RedHat and Scientific Linux (SL), Oracle Enterprise Linux (OEL).  
+**Download Latest EPEL Release for RedHat 7**:  2017-06-24 15:08   15K  
+https://dl.fedoraproject.org/pub/epel/7/x86\_64/e/  
+su -c "rpm -ivh ./epel-release-7\*noarch.rpm"  
+  
+or  
+**su -  
+cd /tmp  
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm  
+ls \*.rpm  
+yum install epel-release-latest-7.noarch.rpm  
+yum repolist**  
+repo id                    repo name                                                        status  
+epel/x86\_64       Extra Packages for Enterprise Linux 7 - x86\_64      11,932  
+ol7\_UEKR4/x86\_64   Latest Unbreak.Enterp.Kernel R 4  for 7 Server   396  
+ol7\_latest/x86\_64    Oracle Linux 7Server Latest (x86\_64)                19,362  
+                                                                                          repolist: 31,690  
+  
+sudo yum install gparted  
+start gparted:    sudo gparted
+
+### Win folder (eg aplw) shared in vbox settings
+
+1. su -  
+2. ls -alF /media/sf/_aplw  
+3. ls -alF** **/media/****sf\_2\_oralinux**
+
+cp /media/sf\_2\_oralinux/1\_oralinux\_7\_2\_Downloads\_rpm.zip** **/home/ssoralin73  
+
+
+**Not needed:**
+
+cd /home/ss/Desktop       
+su -       
+mkdir /mnt/****sf\_aplw**  
+**mount -t vboxsf fw /mnt/****sf\_aplw**  
+**ls -alF /mnt/****sf\_aplw or** **ls -alF /mnt/****sf\_2\_oralinux**
+
+### Server's public IP address
+
+\[root@oralin73 ~\]#  **ip addr show enp0s3 | grep inet | awk '{ print $2; }' | sed 's/\\/.\*$//'**  
+192.168.5.95  
+fe80::9760:1dcd:9a9b:92
+
+or  **curl http://icanhazip.com**  
+89.164.133.80
+
+
+
+  
+
+<br /><br /><br />
+<a name="xampp"></a>
+[Top](#top) | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) |** [XAMPP](#xampp)** | [Samba ](#samba)   | [Deploy](#deploy) | [Lin. site access](#linsite) | [Ora 11g](#ora11g)
+## 4. XAMPP instalac
+
+L:\1_instalac\1_instalirano\5_virtualbox
+
+### On Linux
+
+1. sudo /home/ora/Downloads/xampp-linux-x64-7.4.3-0-installer.run
+2. sudo /opt/lampp/manager-linux-x64.run     - **start XAMPP**       
+or sudo /opt/lampp/xampp start
+3. sudo gedit /opt/lampp/etc/httpd.conf
+4. sudo gedit	/opt/lampp/etc/php.ini 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- not on oralin gksu gedit /etc/samba/smb.conf
+
+
+
+
+
+<br /><br /><br />
+<a name="samba"></a>
+[Top](#top) | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | **[Samba ](#samba)**   | [Deploy](#deploy) | [Lin. site access](#linsite)
+## 5. SAMBA - successful
+https://www.dataneb.com/post/samba-installation-on-oel-oracle-enterprise-linux-configuration-and-file-sharing      
+```
+uname -a
+Linux localhost.localdomain 4.14.35-1902.300.11.el7uek.x86_64 #2 SMP Tue Mar 17 17:11:47 PDT 2020 x86_64 x86_64 x86_64 GNU/Linux
+
+
+?? map to guest = bad user
+?? dns proxy = no
+####Share Definitions
+[Anonymous]
+path = /samba/anonymous
+browsable =yes
+writable = yes
+guest ok = yes
+read only = no
+```
+
+
+1. **sudo bash**
+2. **yum install samba samba-client samba-winbind**
+3. ls -alF /etc/samba/smb.conf    mv /etc/samba/smb.conf /etc/samba/smb.conf.backup       
+   gedit /etc/samba/smb.conf      
+   or **/var/lib/snapd/desktop/applications/notepad-plus-plus_notepad-plus-plus.desktop**      
+   then ctrl+o  Z:\etc\samba\smb.conf
+4. Run **testparm** to verify the config is correct after you modified it. Outputs :
+```
+Load smb config files from /etc/samba/smb.conf
+Loaded services file OK.
+Server role: ROLE_STANDALONE
+Press enter to see a dump of your service definitions
+```
+5. restart Samba services (if needed : mkdir -p /etc/samba/anonymous       mkdir -p /samba/anonymous) 
+   You can check samba services by running ps -eaf | grep smbd; ps -eaf | grep nmbd
+   On Linux oralin76 vbox PC (VM), in explorer : **smb://192.168.5.13/htdocs/** opens Linux share defined in /etc/samba/smb.conf           
+   [root@localhost ora]# **ls -alF /opt/lampp/htdocs/**
+```
+drwxr-xr-x.  5 root   root    4096 Apr  9 04:35 ./
+drwxr-xr-x. 31 root   root    4096 Apr  9 04:37 ../
+-rw-r--r--.  1 root   root    3607 Aug 27  2019 applications.html
+-rw-r--r--.  1 root   root     177 Aug 27  2019 bitnami.css
+drwxr-xr-x. 21 root   root    4096 Apr  9 04:35 dashboard/
+-rw-r--r--.  1 root   root   30894 May 11  2007 favicon.ico
+drwxr-xr-x.  2 root   root      65 Apr  9 04:35 img/
+-rw-r--r--.  1 root   root     260 Jul  9  2015 index.php
+drwxr-xr-x.  2 daemon daemon     6 Apr  9 04:35 webalizer/
+```
+
+cd /opt/lampp/htdocs      
+**chmod -R 0775 /opt/lampp/htdocs/**      
+**chown -R ora:ora /opt/lampp/htdocs/  - to be able to ctrl+c, v  and rename and update lin dir from Win 10 !!**       
+??? chown -R nobody:nobody /opt/lampp/htdocs/       
+chcon -t samba_share_t   /opt/lampp/htdocs/       
+
+
+But \\192.168.5.13 Error :     
+It is available but is not responding to connection attempts. A firewall or network security policy on the remote computer might be blocking the connection on port "file and print sharing resource". You can run below commands to **stop Linux firewall services** :
+```
+service firewalld stop
+service iptables stop
+```
+**Now loginscreen appears !** login so : ora/MYSHORTPSW
+
+
+
+```
+systemctl enable smb.service
+systemctl enable nmb.service
+systemctl restart smb.service
+systemctl restart nmb.service
+[root@localhost ora]# systemctl enable smb.service
+Created symlink from /etc/systemd/system/multi-user.target.wants/smb.service to /usr/lib/systemd/system/smb.service.
+[root@localhost ora]# systemctl enable nmb.service
+Created symlink from /etc/systemd/system/multi-user.target.wants/nmb.service to /usr/lib/systemd/system/nmb.service.
+```
+
+6. [root@localhost ora]# smbclient -L oralin76
+```
+Enter WORKGROUP\ora's password: 
+Anonymous login successful
+	Sharename       Type      Comment
+	---------       ----      -------
+	htdocs          Disk      Shared dir
+	IPC$            IPC       IPC Service (Samba Server 4.10.4)
+Reconnecting with SMB1 for workgroup listing.
+Anonymous login successful
+	Server               Comment
+	---------            -------
+	Workgroup            Master
+	---------            -------
+	WORKGROUP            ORALIN76
+```
+7. **smbpasswd -a ora**     answer when asks :  MYSHORTPSW      
+   Added user ora.    
+   not :   gedit /etc/passwd        gedit /etc/shadow        
+   **gedit /etc/samba/smbusers** and put linusr=winusr so (Only user security model uses **Samba passwords**) :       
+   in npp ctrl+o  Z:\etc\samba\smbusers
+```
+ora = ss
+root = admin administrator root
+nobody = guest nobody pcguest smbguest
+```
+   To access a share on a Samba server from Windows Explorer :        
+   \\server_name\share_name or only \\server_name         
+   \\oralin76\htdocs or only \\oralin76        
+
+8. C:\Program Files\Oracle\VirtualBox       
+λ ping 192.168.5.13
+```
+Pinging 192.168.5.13 with 32 bytes of data:
+Reply from 192.168.5.13: bytes=32 time=5ms TTL=64
+Reply from 192.168.5.13: bytes=32 time=14ms TTL=64
+Reply from 192.168.5.13: bytes=32 time=13ms TTL=64
+Reply from 192.168.5.13: bytes=32 time=16ms TTL=64
+Average = 12ms
+```
+
+
+
+
+https://wiki.centos.org/HowTos/SELinux        
+
+'chcon' command may be used to change SELinux security context of a file or files/directories in a similar way to how 'chown' or 'chmod' may be used to change the ownership or standard file permissions of a file.
+
+Using Apache as an example, suppose you want to change the DocumentRoot to **serve web pages** from a location other than the default /opt/lampp/htdocs  (/var/www/html/) directory. Assume we create a directory (or maybe a mount point) at /html/ and create an index.html file there:
+
+```
+mkdir /html
+touch /html/index.html
+ls -Z /html/index.html
+outputs : -rw-r--r--  root root user_u:object_r:default_t        /html/index.html
+ls -Z | grep html
+drwxr-xr-x  root root user_u:object_r:default_t        html 
+```
+We see that both the directory /html/ and file /html/index.html have the **security context type: default_t**. If we start our web browser and try to view the page, SELinux will properly deny access and log the error because the directory and file(s) have the wrong security context. We need to set the **correct security context type for Apache of: httpd_sys_content_t**.
+
+chcon -v --type=httpd_sys_content_t /html     
+context of /html changed to user_u:object_r:httpd_sys_content_t     
+chcon -v --type=httpd_sys_content_t /html/index.html           
+context of /html/index.html changed to user_u:object_r:httpd_sys_content_t          
+ls -Z /html/index.html          
+-rw-r--r--  root root user_u:object_r:httpd_sys_content_t    /html/index.html           
+ls -Z | grep html       
+drwxr-xr-x  root root user_u:object_r:httpd_sys_content_t    html          
+
+Equally we could have set both in one go using the -R recursive switch:          
+chcon -Rv --type=httpd_sys_content_t /html        
+
+Modifying security contexts in this manner will persist between system reboots but only until the modified portion of the filesystem is relabeled. This is a not uncommon operation and the proper solution, after testing, is to write a local custom rule (a so-called Policy Module) and merge it into the base local rules. This will be an additional rule on top of the 200+ rules mentioned above. To make the security context changes permanent, even through a complete filesystem relabel, we can use the SELinux Management Tool or the 'semanage' command from the command line:
+
+semanage fcontext -a -t httpd_sys_content_t "/html(/.*)?"      
+to add a file context of type httpd_sys_content_t for everything under /html.     
+
+
+
+```
+# See smb.conf.example for a more detailed config file or
+# read the smb.conf manpage.
+# Run 'testparm' to verify the config is correct after
+# you modified it.
+
+[global]
+workgroup = WORKGROUP
+security = user
+server string = Samba Server %v
+####backend used to store user information in. No additional configuration is required for tdbsam  :
+passdb backend = tdbsam
+####I gave this name :
+netbios name = oralin76
+####dns proxy = no
+####server min protocol = SMB2_10
+####client min protocol = SMB2
+####client max protocol = SMB3
+####ntlm auth = yes 
+wins support = yes
+local master = yes
+preferred master = yes
+####
+printing = cups
+printcap name = cups
+load printers = yes
+cups options = raw
+####[homes]
+####comment = Home Directories
+####valid users = %S, %D%w%S
+####browseable = No
+####read only = No
+####inherit acls = Yes
+####
+####[printers]
+####comment = All Printers
+####path = /var/tmp
+####printable = Yes
+####create mask = 0600
+####browseable = No
+####
+####[print$]
+####comment = Printer Drivers
+####path = /var/lib/samba/drivers
+####write list = @printadmin root
+####force group = @printadmin
+####create mask = 0664
+####directory mask = 0775
+[printers]
+comment = All Printers
+#### location of a spooling directory that receives print jobs from Win clients before submitting them to the local print spooler. Samba advertises all  locally configured printers on the server.
+path = /var/spool/samba
+browseable = no
+guest ok = yes
+writable = no
+printable = yes
+####unknown param : printer admin = root, @ntadmins, @smbprintadm
+
+[homes]
+comment = User home directories
+####=personal share for each user in the smbusers group - browsable and writable prevent other users from browsing home directories, while allowing full access to valid users
+valid users = @smbusers
+browsable = no
+writable = yes
+guest ok = no
+
+####share /usr/local/apps, for Windows users : browsing (read-only permission) : admin:///opt/lampp/htdocs
+[htdocs]
+comment = Shared dir 
+path = /opt/lampp/htdocs
+browsable = yes
+writable = yes
+guest ok = yes
+valid users = ora
+
+
+
+
+
+
+
+[global]
+workgroup = WORKGROUP
+security = user
+server string = Samba Server %v
+####dns proxy = no
+####I gave this name :
+netbios name = oralin76
+####server min protocol = SMB2_10
+####client min protocol = SMB2
+####client max protocol = SMB3
+ntlm auth = yes 
+wins support = yes
+local master = yes
+preferred master = yes
+####
+load printers = yes
+printing = cups
+printcap name = cups
+
+[printers]
+comment = All Printers
+#### location of a spooling directory that receives print jobs from Win clients before submitting them to the local print spooler. Samba advertises all  locally configured printers on the server.
+path = /var/spool/samba
+browseable = no
+guest ok = yes
+writable = no
+printable = yes
+#unknown param : printer admin = root, @ntadmins, @smbprintadm
+
+[homes]
+comment = User home directories
+####=personal share for each user in the smbusers group - browsable and writable prevent other users from browsing home directories, while allowing full access to valid users
+valid users = @smbusers
+browsable = no
+writable = yes
+guest ok = no
+
+####share /usr/local/apps, for Windows users : browsing (read-only permission) : admin:///opt/lampp/htdocs
+[htdocs]
+comment = Shared dir 
+path = /opt/lampp/htdocs
+browsable = yes
+writable = yes
+guest ok = yes
+valid users = ora
+```
+
+
+#### save confign file and create a Samba shared folder. Then, restart Samba services
+1. mkdir -p /etc/samba/anonymous       mkdir -p /samba/anonymous      
+cd /samba       
+chmod -R 0755 anonymous/      
+   drwxr-xr-x.  2 root root    6  4. Jun 16:31 anonymous/  --already was     
+chown -R nobody:nobody anonymous/      
+ls -alF     
+   drwxr-xr-x.  2 nobody nobody    6  4. Jun 16:31 anonymous/
+chcon -t samba_share_t anonymous/
+
+```
+systemctl enable smb.service
+systemctl enable nmb.service
+systemctl restart smb.service
+systemctl restart nmb.service
+```
+Turn on the Samba server and make sure it starts automatically on reboot.     
+service smb start
+systemctl enable smb.service     
+or chkconfig smb on        
+service smb restart       
+Redirecting to /bin/systemctl restart smb.service
+
+
+You can check samba services by running ps -eaf | grep smbd; ps -eaf | grep nmbd
+Now go to the windows Run prompt and type 
+\\yourhostname\anonim. 
+\\ssvbox\anonim
+\\10.0.2.15\anonim     and 10.0.2.2
+Thats it!! You will be able to access anonymous shared drive by now.
+Windows cant communicate with the device or resource (10.0.2.15). 
+The computer or service you are trying to reach might be temporarily unavailable. 
+ 
+If this doesnt connect to the shared folder make sure your firewall services 
+are stopped and try again. You can run below commands to stop the services.
+service firewalld stop   -----Redirecting to /bin/systemctl stop firewalld.service
+service iptables stop      ---- Unit iptables.service not loaded.
+
+Now test shared folder by creating a sample text file on linux machine 
+and opening it on windows machine.
+
+
+
+
+
+
+https://www.youtube.com/watch?v=oRHSrnQueak 2018   https://www.youtube.com/watch?v=iXcMxo6f1kA 2017     
+https://www.youtube.com/watch?v=_MlD21kcHVc     
+https://www.youtube.com/watch?v=bDF8hLM1iUM       
+https://www.youtube.com/watch?v=IMPEjYoP3N4 2018 year 25 minutes       
+https://www.youtube.com/watch?v=OhOPCbM2JUY  2016 year 23 minutes        
+
+oct.2018, oct.2019 :     
+https://www.dataneb.com/blog/samba-installation-on-oel-oracle-enterprise-linux-configuration-and-file-sharing     
+http://www.samba.org/     http://www.samba.org/samba/what_is_samba.html      
+http://www.dataneb.com/single-post/2018/05/16/Installing-Oracle-Linux-on-Virtual-Box      
+
+1. Samba server on Linux: Windows clients can map drives to the Linux file systems
+2. Samba client on UNIX can connect to Windows shares
+3. Samba basically implements network file sharing protocol using Server Message Block (SMB) & Common Internet File System (CIFS)
+
+#### [root@oralin76 ~]# hostnamectl
+```
+Static hostname: oralin76
+Icon name: computer-vm
+Chassis: vm
+Machine ID: eed0ccecb5878547bcf515f9e0477887
+Boot ID: 494e06c2fca94c01b68be39aa9115ce9
+Virtualization: kvm
+Operating System: Oracle Linux Server 7.8
+CPE OS Name: cpe:/o:oracle:linux:7:8:server
+Kernel: Linux 4.14.35-1902.300.11.el7uek.x86_64
+Architecture: x86-64
+```
+
+#### [root@oralin76 ~]# cat /etc/os-release
+```
+NAME="Oracle Linux Server"
+VERSION="7.8"
+ID="ol"
+ID_LIKE="fedora"
+VARIANT="Server"
+VARIANT_ID="server"
+VERSION_ID="7.8"
+PRETTY_NAME="Oracle Linux Server 7.8"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:oracle:linux:7:8:server"
+HOME_URL="https://linux.oracle.com/"
+BUG_REPORT_URL="https://bugzilla.oracle.com/"
+
+ORACLE_BUGZILLA_PRODUCT="Oracle Linux 7"
+ORACLE_BUGZILLA_PRODUCT_VERSION=7.8
+ORACLE_SUPPORT_PRODUCT="Oracle Linux"
+ORACLE_SUPPORT_PRODUCT_VERSION=7.8
+```
+
+
+#### [ss@ssvbox ~]$ systemctl status vboxadd
+```
+[root@oralin76 ~]# systemctl status vboxadd
+● vboxadd.service
+   Loaded: loaded (/opt/VBoxGuestAdditions-6.1.2/init/vboxadd; enabled; vendor preset: disabled)
+   Active: active (exited) since Mon 2020-04-13 15:38:49 CEST; 18min ago
+
+```
+
+
+
+
+[ss@ssvbox ~]$ whoami
+ss
+[ss@ssvbox ~]$ sudo bash
+
+[root@ssvbox ss]# whoami
+root
+[root@ssvbox ss]# cd
+[root@ssvbox ~]# ping -c 3 www.google.com
+#### PING www.google.com (216.58.207.36) 56(84) bytes of data.
+64 bytes from fra16s24-in-f4.1e100.net (216.58.207.36): icmp_seq=1 ttl=51 time=24.5 ms
+64 bytes from fra16s24-in-f4.1e100.net (216.58.207.36): icmp_seq=2 ttl=51 time=24.3 ms
+64 bytes from fra16s24-in-f4.1e100.net (216.58.207.36): icmp_seq=3 ttl=51 time=24.4 ms
+
+--- www.google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 24.307/24.434/24.545/0.097 ms
+
+[root@ssvbox ~]# uname -a
+Linux ssvbox 4.14.35-1818.3.3.el7uek.x86_64 #2 SMP Mon Sep 24 14:45:01 PDT 2018 x86_64 x86_64 x86_64 GNU/Linux
+[root@ssvbox ~]# yum install kernel-uek-devel-$(uname-r)
+bash: uname-r: command not found...
+Loaded plugins: langpacks, ulninfo
+---------- was unsuccesfull : https://www.youtube.com/watch?v=GKvCTKoPIrQ
+No package kernel-uek-devel- available.
+Error: Nothing to do
+[root@ssvbox ~]# yum install kernel-uek-devel-$(uname -r)
+Loaded plugins: langpacks, ulninfo
+No package kernel-uek-devel-4.14.35-1818.3.3.el7uek.x86_64 available.
+BECAUSE 1992 is available (first update os then from sys -> sw install that kernel-uek-devel)
+Error: Nothing to do
+[root@ssvbox ~]# 
+
+
+
+
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 6.0.8 Guest Additions for Linux........
+VirtualBox Guest Additions installer
+Copying additional installer modules ...
+Installing additional modules ...
+VirtualBox Guest Additions: Starting.
+VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel 
+modules.  This may take a while.
+VirtualBox Guest Additions: To build modules for other installed kernels, run
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup \<version>
+VirtualBox Guest Additions: or
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup all
+---------- was unsuccesfull :
+VirtualBox Guest Additions: Kernel headers not found for target kernel 
+4.14.35-1818.3.3.el7uek.x86_64. Please install them and execute
+  /sbin/rcvboxadd setup
+modprobe vboxguest failed
+The log file /var/log/vboxadd-setup.log may contain further information.
+Press Return to close this window...
+
+
+
+
+---------- was unsuccesfull : https://www.youtube.com/watch?v=GKvCTKoPIrQ
+do all with one command as root :
+sudo bash
+uname -a
+---------- was unsuccesfull : 
+yum install kernel-uek-devel-$(uname -r)
+
+This will install all the prereqs and necessary packages you explained in your video.Then all you need to do is insert the Guest Additions in your vms ROM drive and install the Guest Additions.  Then goto Devices and enable Drag and Drop, Shared Clipboard and Shared Folder (configuring your desired shared folder)
+After installing guest additions you will need to add your non root users to the vboxsf group so you can access the Shared Folder and reboot.
+sudo usermod -a -G vboxsf \<user name here>
+      ---------- so not so lot od work but can succede :
+      Oracle Linux 7.6 Installation in VirtualBox 5.2 with Guest Addition | Oracle Linux 7 Update 6
+      https://www.youtube.com/watch?v=X7J55e8ZjuU
+
+
+
+
+
+```
+[global]
+#editat la ora 20:30 in data 07.06.2017
+
+server max protocol = SMB3
+encrypt passwords = yes
+dns proxy = no
+strict locking = no
+oplocks = yes                                                                                                                   
+deadtime = 15
+max log size = 51200
+max open files = 933761
+logging = file
+load printers = no
+printing = bsd
+printcap name = /dev/null
+disable spoolss = yes
+getwd cache = yes
+guest account = nobody
+map to guest = Bad User
+obey pam restrictions = yes
+directory name cache size = 0
+kernel change notify = no
+panic action = /usr/local/libexec/samba/samba-backtrace
+nsupdate command = /usr/local/bin/samba-nsupdate -g
+server string = Media Server
+# habarnam de ce dar urmatoarele lini au importanta in wingoz
+ea support = yes
+store dos attributes = yes
+lm announce = yes
+hostname lookups = yes
+# time server nu conteaza dar mi-l trebuie
+time server = yes
+acl allow execute always = true
+dos filemode = yes
+multicast dns register = yes
+domain logons = no
+local master = yes
+idmap config *: backend = tdb
+idmap config *: range = 90000001-100000000
+server role = standalone
+netbios name = MEDIA SERVER
+workgroup = WORKGROUP
+# am incercat si cu = share si apar erori la pornirea samba
+security = user
+pid directory = /home/server-media/Desktop/test
+# aici am incercat cu mai multe variante ca si 0775 sau 0700 sau 0600 etc.
+create mask = 0666
+directory mask = 0777
+client ntlmv2 auth = yes
+# asta iara nu mai e important!
+dos charset = CP437
+unix charset = UTF-8       
+log level = 1          
+
+
+
+[homes]
+comment = Home Directories
+path = /home
+valid users = %U
+read only = no
+available = yes
+browseable = yes
+writable = yes
+guest ok = no
+public = no
+printable = no
+locking = no
+strict locking = no
+
+[netlogon]
+comment = Network Logon Service
+path = /var/lib/samba/netlogon
+#din no in yes la read
+read only = yes
+available = yes
+browseable = yes
+writable = no
+#din no in yes la guest
+guest ok = yes
+public = no
+printable = no
+locking = no
+strict locking = no
+
+[profiles]
+comment = User Profiles
+path = /var/lib/samba/profiles
+read only = no
+available = yes
+browseable = yes
+writable = yes
+guest ok = no
+public = no
+printable = no
+#din 0600
+create mode = 0666
+#din 0700
+directory mask = 0777
+locking = no
+strict locking = no
+
+[printers]
+comment = All Printers
+path = /var/spool/samba
+browseable = yes
+writable = no
+#guest am pus yes
+guest ok = yes
+public = no
+printable = yes
+locking = no
+strict locking = no
+#am bagat urm linii
+read only = no
+create mask = 0775
+
+[pdf-documents]
+path = /var/lib/samba/pdf-documents
+comment = Converted PDF Documents
+admin users = %U
+available = yes
+browseable = yes
+writeable = yes
+guest ok = yes
+locking = no
+strict locking = no
+
+[pdf-printer]
+path = /tmp
+comment = PDF Printer Service
+printable = yes
+guest ok = yes
+use client driver = yes
+printing = bsd
+print command = /usr/bin/gadmin-samba-pdf %s %u
+lpq command =
+lprm command =
+
+[test]
+path = /home/server-media/Desktop/test
+comment = doar de test
+valid users = test
+write list = test
+admin users = test
+directory mask = 0755
+create mode = 0777
+read only = no
+available = yes
+browseable = yes
+writable = yes
+guest ok = no
+public = yes
+printable = no
+locking = no
+strict locking = no
+```
+
+
+#### http://woshub.com/network-computers-not-showing-windows-10/
+
+Advanced sharing settings. Make sure that in the Private network profile section the following options checked:
+
+Turn on network discovery + Turn on automatic setup of network connected devices;        
+Turn on file and printer sharing;      
+no more Allow Windows to manage homegroup connections (recommended).        
+
+Then enable the following options in the All networks section:
+
+Turn on sharing so anyone with network access can read and write files in the Public folders;    
+Turn off password Protected Sharing (if you trust all the devices in your network);       
+Thus, you can open anonymous network access to your computer. So, when you enable this option, you must correctly set the permissions on the shared network folders and printers.        
+If there are legacy network devices in your network (old Windows version, Samba shares, NAS devices), enable the option “Enable file sharing for devices that use 40-bit or 56-bit encryption”.      
+
+
+####ethernet properties or  ipconfig /all
+sspc2\ss MB Asus 
+Link-local IPv6 address:  fe80::55f0:dde8:14c3:8d5d%15
+IPv4 address:  192.168.5.12
+IPv4 DNS servers:  213.191.128.8   213.191.128.9
+Manufacturer:  Realtek
+Description:  TP-Link Gigabit PCI Express Adapter
+Driver version:  10.38.1118.2019
+Physical address (MAC):  50-3E-AA-08-23-F8
+
+Starting with Windows 10 1709 and Windows Server 2019 (both in Datacenter and Standard editions), the **unsafe SMBv1 protocol is disabled** by default because of CVE-2017-0144 (remember the WannaCry ransomware attack, which was implemented through the SMBv1 vulnerability), as well as **anonymous (guest) access to network shared folders**.     
+
+Win10 Settings -> Network and Internet -> Ethernet (or select Wi-Fi, if you are connected to a local network through a wireless connection). Click the **"Network" icon** and verify that **"Private" ee Make this PC discoverable option is enabled**.
+
+#### ipconfig /flushdns
+
+To enable the Network Discovery traffic on Windows 10 Defender Firewall, you must run the following command in the elevated command prompt:
+
+#### netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes
+
+Or you can enable the network discovery traffic in Windows Firewall with the PowerShell :
+Get-NetFirewallRule -DisplayGroup "Network Discovery" -Enabled True -Action Allow -Direction Inbound
+
+Also, you can manually enable the Network Discovery protocol for at least the Private network in the Windows Defender Firewall settings (Control Panel\All Control Panel Items\Windows Defender Firewall\Allowed apps).
+
+In some cases, Windows computer may not be displayed in the network environment due to incorrect workgroup settings. Try to re-add this computer to the workgroup. Go to the Control Panel -> System and Security -> System -> Change Settings -> Network ID.
+
+If these tips did not help, and the computers in the workgroup are still not displayed, try to reset the network settings (Settings -> Network and Internet -> Status -> Network Reset).
+
+You can also reset the network settings and firewall rules with the commands:
+
+netsh int ip reset reset.txt
+netsh winsock reset
+netsh advfirewall reset
+
+Then you need to reboot the computer.
+
+
+In some cases, you need to completely remove your network adapter using the Device Manager (run the **devmgmt.msc** console -> Network Adapters -> your network card -> Delete device).
+
+Then restart your computer. Windows should automatically detect your network adapter and install the appropriate drivers. In this case, all old protocol settings for the network card will be reset.
+
+Also, check whether the following services are running (they should be in the automatic startup state to correctly display your network environment). Run the **services.msc** console and check the services state:
+
+1. FdPHost – Function Discovery Provider Host (responsible for other computers discovering on the network);
+2. FDResPub – Function Discovery Resource Publication (allows other computers to detect your device on the network);
+3. Dnscache – DNS Client; - already is automatic and started
+4. SSDPSrv – SSDP Discovery;
+5. Upnphost – UPnP Device Host.
+
+In some cases, third-party anti-viruses and firewalls can block NetBIOS name resolution requests, WDS and broadcast DNS queries (there was definitely a problem with ESET NOD32). Try to temporarily disable your antivirus/firewall and check if the network discovery works properly on your Windows 10 device.
+
+
+
+J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Cmder_sps   
+λ **arp /a **                                               
+```
+Interface: 192.168.56.1 --- 0x7
+  Internet Address      Physical Address      Type
+  192.168.56.255        ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static
+
+Interface: 192.168.5.12 --- 0xf
+  Internet Address      Physical Address      Type
+  192.168.5.1           64-6e-ea-66-9e-43     dynamic
+  192.168.5.13          08-00-27-ec-1d-e8     dynamic
+  192.168.5.255         ff-ff-ff-ff-ff-ff     static
+  224.0.0.2             01-00-5e-00-00-02     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+```
+
+
+
+
+
+<br /><br /><br />
+<a name="linsite"></a>
+[Top](#top) | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)   | [Deploy](#deploy) | **[Lin. site access](#linsite)**  | [Ora 11g](#ora11g)
+## 6\. Access Linux fwphp site from Windows (with URL)
+
+http://oralin76/fwphp/www = fwphp site on vbox PC oralin76         
+>**This site can’t be reached**
+>**ERR_CONNECTION_REFUSED** why ? Firewal      
+Same for http://192.168.5.13/fwphp/www     
+
+**https://stackoverflow.com/questions/5524116/accessing-localhost-xampp-from-another-computer-over-lan-network-how-to**     
+
+https://www.ionos.com/digitalguide/hosting/technical-matters/err-connection-refused/      
+
+`$> netstat -an | grep "LISTEN "  if outputs this :  tcp        0      0 127.0.0.1:3000          0.0.0.0:* `       
+Only 127.0.0.1:3000 is listed in netstat output meaning **server is listening on the localhost interface only**, ee you won't be able to access it from a remote computer.       
+Use "0.0.0.0" - I believe this acts as a wildcard, now allowing for public resolution via the domain name and it also works with "localhost".  Here's a link to a serverfault page on the 0.0.0.0 topic:        
+https://serverfault.com/questions/78048/whats-the-difference-between-ip-address-0-0-0-0-and-127-0-0-1    
+
+
+1. chances are you need only do http://192.168.5.13 or http://oralin76
+
+2.  if 1. doesnt work,may be firewall running on your computer - work out how to add port 80 to it to let other machines in.
+   In Windows : Control Panel > Windows Firewall > Allow an app through Windows Firewall > Allow another app > Browse to: XAMPP/apache/bin/httpd.exe and allow it (see https://www.tomshardware.com/news/how-to-open-firewall-ports-in-windows-10,36451.html).
+
+3.  or httpd.conf is only listening on 127.0.0.1
+
+
+<br /><br />
+###  1. Set up a virtual host
+
+See J:\awww\www\zinc\img\img_big\site_on_LAN_or_WEB.png :     
+1.  see (1) in site_on_LAN_or_WEB.png - **J:\xampp\apache\conf\extra\httpd-vhosts.conf** :
+   Prepare Web server on your computer for handling requests to localhost and dev1 sites. We provide name of Virtual Host and  root/main folder of localhost and dev1 websites.
+```
+#### First VirtualHost section is default or fallback virtual host (testing site), 
+#### used f or all requests that do not match **ServerName or ServerAlias**
+#### in any <VirtualHost> block.
+#### 8083 0r 80 :
+<VirtualHost *:8083>
+    DocumentRoot "/xampp/htdocs/"
+    ServerName localhost
+</VirtualHost>
+#### sets up a virtual host named dev1 (development site)
+#### To see http://dev1:8083/fwphp/www/ (dev1 is apache virtual host) :
+<VirtualHost *:8083>
+    DocumentRoot "J:/awww/www/"
+    #### on oralin76 PC : oralin76.sspc  (symfony.local) :
+   ServerName dev1
+</VirtualHost>
+```
+
+### 2. Configure your hosts file
+For the client (your browser in that case) to understand what dev1 means, you need to edit the hosts file on your computer. Everytime you type an URL in your browser, your computer tries to understand what it means! dev1 doesn't mean anything for a computer. So it will try to resolve the name dev1 to an IP address. It will do this by first looking into the hosts file on your computer to see if he can match an IP address to what you typed in the address bar. If it can't, then it will ask DNS servers. The trick here is to append `127.0.0.1  localhost dev1` to your hosts file :     
+
+1. MAC /private/etc/hosts;
+2. LINUX /etc/hosts;
+3. WINDOWS \Windows\system32\private\etc\hosts;
+4. WINDOWS 10 and 7  **C:\Windows\System32\drivers\etc\hosts**;
+
+From now on, everytime you type dev1 on this computer, your computer will use the loopback interface to connect to dev1. It will understand that you want to work on localhost (127.0.0.1).
+
+### 3. Access localhost from an other computer
+We need to tell the other computers how they could find localhost eg on oralin76.
+
+3a Get the IP address of the computer hosting the website:
+
+In the terminal (CLI), 
+1. on LINUX (oralin76) and MAC type **ifconfig |grep inet**
+2. on WINDOWS type `ipconfig`
+Let's assume the IP address of oralin76 is 192.168.5.13 .      
+
+3b Edit hosts file on oralin76 computer you are trying to access the website from :     
+Trick is to use IP address of oralin76 (computer we are trying to access/talk to):      
+
+192.168.5.13         oralin76.sspc2        
+
+You can now go into your browser and type http://oralin76.sspc2  (symfony.local) to beautifully see your website on different computers! Note that you can apply the same strategy if you are a OSX user to test your website on Internet Explorer via Virtual Box (if you don't want to use a Windows computer). This is beautifully explained in Crafting Your Windows / IE Test Environment on OSX     
+http://www.studiobanks.com/blog/post/279/crafting-your-windows-ie-test-environment-on-osx-106.
+
+You can also access your localhost from mobile devices, see http://egalo.com/2012/05/29/testing-mac-web-site-using-local-hostname-on-mobile-device/
+
+
+
+
+
+
+<br /><br /><br />
+<a name="deploy"></a>
+[Top](#top) | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)   | **[Deploy](#deploy)** | [Lin. site access](#linsite) | [Ora 11g](#ora11g)
+## 7\. Access Linux share dir from Windows with WinSCP FTP
+How we can see RHEL type linux 64 bit share in Windows 10 64 bit Network folder ?
+I can in Linux file explorer ctrl+c, v files on win10 to/from Linux.      
+With WinSCP FTP I can sync website tree.       
+
+### WinSCP FTP website tree synchronization
+
+1. chown -R someuser:somegroup /your/folder/here/*     (Recursive mode only works on directories, not files.)
+   This will apply chown to all files and all subdirectories and sub-subdirectories of the specified folder. Use with care.     
+   **sudo chown -R oracle:oracle /opt/lampp/htdocs/fwphp/**    On Debian Linux : var/www/html/fwphp        
+   **sudo chmod 755 /opt/lampp/htdocs/fwphp -R**
+
+2. **WinSCP FTP -> "New session" icon -> button "Edit" -> button "Advanced"** 
+   assign SFTP value : /usr/libexec/openssh/sftp-server
+   assign Shell value : sudo su -
+
+### Synchronization using PHP interpreter
+See http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_config_ssl_tls/ftp.txt
+
+
+> **/opt/lampp/htdocs**    /u01/userhome/oracle      
+> To create or delete file you need have a write permissions to the directory;     
+> To change file or directory permissions you need to be its owner;          
+> To change file modification time you need to be its owner (note that by default WinSCP updates file modification time when uploading).     
+
+
+
+
+
+
+
+
+
+
+
+<br /><br />
+<a name="ora11g"></a>
+[Top](#top) | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)  | [Deploy](#deploy) | [Lin. site access](#linsite) | **[Ora 11g](#ora11g)**
+# 8\. Install Ora 11g XE, ver. 11.2.0.2.0
+**on Ora Linux 64 bit**  
+See  [mikesmithers](https://mikesmithers.wordpress.com/2015/03/01/installing-oracle-xe-on-centos/)    
+>cd $HOME/Downloads   or cd ~/Downloads
+
+[root@oralin76 ora11gxe]# **mkdir ora11gxe**  
+cd ora11gxe  
+ls -alF  
+
+**cp //media/sf_JWIN/a_instl/oralinux/oracle-xe-11.2.0-1.0.x86_64.rpm.zip .**  
+**chmod 776 oracle-xe-11.2.0-1.0.x86_64.rpm.zip**  
+```
+done :   -rwxr-x---. to -rwxrwxrw-.
+```
+**unzip oracle-xe-11.2.0-1.0.x86\_64.rpm.zip**  
+```
+Archive:  oracle-xe-11.2.0-1.0.x86_64.rpm.zip
+   creating: Disk1/                      - here are .rmm and 2 dirs
+   creating: Disk1/upgrade/
+  inflating: Disk1/upgrade/gen_inst.sql  
+   creating: Disk1/response/
+  inflating: Disk1/response/xe.rsp   
+  inflating: Disk1/oracle-xe-11.2.0-1.0.x86_64.rpm
+```
+cd Disk1
+
+### rpm -ivh oracle-xe-11.2.0-1.0.x86\_64.rpm  
+Preparing... /var/tmp/rpm-tmp.rBXMH8: line 257: [: 18446744073692774399: integer expression expected  
+/var/tmp/rpm-tmp.rBXMH8: line 271: [: 18446744073692774399: integer expression expected  
+Updating / installing...   1:oracle-xe-11.2.0-1.0  
+Executing post-install steps... You must run '/etc/init.d/oracle-xe configure' as the root user to configure the database.  
+
+### /etc/init.d/oracle-xe configure  
+This will configure on-boot properties of 11g XE. The following questions will determine whether  DB should be starting upon system boot,  ports it will use,  passwords that will be used for DB accounts.  
+Press ENTER to accept the defaults. Ctrl-C will abort.  
+Specify the HTTP port that will be used for Oracle Application Express \[8080\]:**8085**  
+Specify a port that will be used for the database listener \[**1521**\]:  
+Specify a password to be used for database accounts - same password will be used for SYS and SYSTEM. Oracle recommends the use of different passwords for each database account. This can be done after  initial configuration:  
+Do you want Oracle Database 11g Express Edition to be started on boot (y/n) \[y\]:**y**  
+Starting Oracle Net Listener...Done      Configuring database...Done     Starting Oracle Database 11g Express Edition instance...Done  
+**Installation completed successfully.**  
+
+We need to **re-boot Linux** so that Linux menu items in App -> Other are visible. 
+
+NOTE : from this point on **you can stop being root** (although you may need to sudo occasionally).
+
+To confirm that your database is up and running :  
+conn system/pwd  
+select sysdate from dual  
+/  
+
+
+
+
+
+### Setting (sorting out) DB XE Environment Variables  
+Log on with root permissions is not needed.  
+do not exit (from root user)  
+DB XE provides a script that sets environment variables :  
+**cd /u01/app/oracle/product/11.2.0/xe/bin**  
+[ora@oralin76 bin]$ cat /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh  
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe  
+export ORACLE_SID=XE  
+export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`  
+export PATH=$ORACLE_HOME/bin:$PATH  
+   
+No need : `gedit ./oracle_env.sh`
+
+sudo gedit /u01/app/oracle/product/11.2.0/xe/bin/nls_lang.sh  
+`At end : NLS_LANG=${nlslang}.${charset} should be :  NLS_LANG="${nlslang}.${charset}"`  
+
+**. ./oracle_env.sh**
+```
+echo $ORACLE_HOME
+echo $ORACLE_SID
+echo $NLS_LANG
+echo $PATH
+
+[ora@oralin76 bin]$ echo $ORACLE_HOME
+/u01/app/oracle/product/11.2.0/xe
+
+[ora@oralin76 bin]$ echo $ORACLE_SID
+XE
+
+[ora@oralin76 bin]$ echo $NLS_LANG
+AMERICAN_AMERICA.AL32UTF8
+
+[ora@oralin76 bin]$ echo $PATH
+/u01/app/oracle/product/11.2.0/xe/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/var/lib/snapd/snap/bin:/home/ora/.local/bin:/home/ora/bin
+```
+
+Oracle bin directory is now at the start of $PATH.
+
+We need to ensure that these **environment variables are set for all sessions** :  
+sudo cp /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh /etc/profile.d/  
+
+To check this, you can start a new terminal session and echo the environment variables to make sure they have been set.  
+
+Getting the Menu Items to Work - make sure that the oracle user, as well as your own user, is a member of the dba group :  
+sudo usermod -a -G dba oracle  
+sudo usermod -a -G dba ss  
+
+sudo grep dba /etc/group  
+dba:x:1001:oracle  
+
+### Enabling "Getting Started" Desktop Icon to open the DB Home Page of APEX app
+**Right-click icon and select Properties**.  
+In the Permissions Tab check the box to "Allow executing file as program".  
+
+Icon has transformed into Oracle beehive and is now called "Get Started With 11g XE".
+
+Installation on Red Hat system is reasonably painless when compared with doing the same thing on a Debian system.
+
+
+
+run it :  
+`./oracle/env.sh`  
+
+cd /etc/skel  
+ls -la | grep .bash\_profile  
+Edit login or profile files so that these environment variables are set each time you log in or open a new shell :  
+`gedit .bash\profile`  
+enter the following line at end ` /etc/skel/.bash\profile` :  
+` /u01/app/oracle/product/11.2.0/xe/bin/oracle\_env.sh`  
+
+Starting Oracle Database XE  
+To start the database manually, run this command as root user:  
+** /etc/init.d/oracle-xe start**      or    **/etc/init.d/oracle-xe stop  
+or :  
+**After you have installed Oracle Database XE, DB is up and running and you can start it if it is currently stopped:  
+      Main menu (on Gnome)->Oracle Database 11g Express Edition  
+      or  Applications->Other menu (on KDE),  
+      and then click Start Database or Run SQL Command Line or...  
+
+Connect to the database using the user name SYSTEM, and supply the password that you created during configuration.  
+ conn sys/ss141 as SYSDBA   (system can not)  
+
+  
+[](https://linuxconfig.org/apache-webserver-httpd-service-installation-on-redhat-7-linux)
+
+
+
+
+
+<br /><br />
+On ssoralin73@oralin73 Ora Linux 7.3 64 bit
+
+1-- \[ssoralin73@oralin73 ~\]$  
+su -  
+**links**             = browser  
+ctrl+shift+t    = new tab terminal  
+su -  
+**mc**  (Midnight commander)  
+in ms's left pane:      cd **/media/****sf\_2\_oralinux/  
+**in ms's right pane:    cd **/home/ssoralin73  
+F5 (copy)   oracle-xe-11.2.0-1.0.x86\_64.rpm.zip left -> right  
+**
+
+
+  
+
+\#   gedit /etc/sysctl.conf  
+\# sysctl settings are defined through files in  
+\# /usr/lib/sysctl.d/, /run/sysctl.d/, and /etc/sysctl.d/.  
+
+
+\# Vendors settings live in /usr/lib/sysctl.d/.  
+\# To override a whole file, create a new file with the same in  
+\# /etc/sysctl.d/ and put new settings there. To override  
+\# only specific settings, add a file with a lexically later  
+\# name in /etc/sysctl.d/ and put new settings there.  
+
+
+\# For more information, see sysctl.conf(5) and sysctl.d(5).  
+fs.file-max = 6815744  
+
+
+
+
+
+<br /><br /><br /><br />
+### Download   for Linux :
+https://www.oracle.com/database/technologies/112010-linx8664soft.html  
+https://oracle-base.com/articles/11g/oracle-db-11gr2-installation-on-oracle-linux-6  
+
+Oracle Database 11g Release 2 (11.2) (64-bit) on Oracle Linux 6 (64-bit). The article is based on a server installation with a minimum of 2G swap, with SELinux set to permissive and the firewall disabled. 
+
+Unzip both zip files and 7 path zip-s and you will see **"database" folder created**.
+
+/etc/hosts
+
+127.0.0.1       localhost.localdomain  localhost  
+192.168.0.181   ol6-112.localdomain    ol6-112 
+`<ip address >  <full name of machine >   <short name of your machine>` 
+
+
+
+oracle@t01odsdev201:/opt/oracle/11.2.0.3 INT$  **cd database**  
+oracle@t01odsdev201:/opt/oracle/11.2.0.3/database INT$  ls  
+doc  install  readme.html  response  rpm  runInstaller  sshsetup  stage  welcome.html  
+oracle@t01odsdev201:/opt/oracle/11.2.0.3/database INT$ **export DISPLAY=10.109.38.156:0**  
+oracle@t01odsdev201:/opt/oracle/11.2.0.3/database INT$ **./runInstaller**  
+Starting Oracle Universal Installer...
+
+Checking Temp space: must be greater than 120 MB.   Actual 3893 MB    Passed
+Checking swap space: must be greater than 150 MB.   Actual 9565 MB    Passed
+Checking monitor: must be configured to display at least 256 colors.    Actual 16777216    Passed
+
+Preparing to launch Oracle Universal Installer from /tmp/OraInstall2013-09-05_03-55-01PM. Please wait ...oracle@t01odsdev201
+
+
+  
+
+## Oracle 11g XE on RHEL7
+December 3, 2014  [https://shi2wei3.github.io/posts/2014-12-03-oracle-11g-xe-on-rhel7.html](https://shi2wei3.github.io/posts/2014-12-03-oracle-11g-xe-on-rhel7.html)       
+[database](https://shi2wei3.github.io/tags/database.html)    
+
+The prerequisite is i assume you already got a RHEL7 installed with GNOME3
+
+## Install oracle database 11gXE
+
+
+it needs swap volume at least specify space 2 x memory (12 GB)
+
+    unzip oracle-xe-11.2.0-1.0.x86_64.rpm.zip
+    cd Disk1
+    sudo rpm -ivh oracle-xe-11.2.0-1.0.x86_64.rpm
+
+## Install sqlplus
+
+su -  
+cd **/home/ssoralin73**  
+chmod 776 oracle-xe-11.2.0-1.0.x86\_64.rpm.zip  
+unzip instantclient-basic-linux.x64-12.2.0.1.0.zip  
+unzip instantclient-sdk-linux.x64-12.2.0.1.0.zip  
+unzip instantclient-sqlplus-linux.x64-12.2.0.1.0.zip  
+cd instantclient\_12\_2  
+ls -l  
+ln -s libclntsh.so.12.1 libclntsh.so  
+ln -s libocci.so.12.1 libocci.so  
+  
+To avoid error ee to see libsqlplus.so :    
+./sqlplus: error while loading shared libraries: libsqlplus.so: cannot open shared object file: No such file or directory  
+**export LD\_LIBRARY\_PATH=$(pwd)**  
+  
+./sqlplus sys/ss141@localhost/XE as SYSDBA       (system can not)  
+alter user hr account unlock;  
+alter user hr identified by hr;  
+grant CONNECT,DBA,RESOURCE to hr IDENTIFIED BY hr;  
+                       or grant create table to hr; ...  
+  
+ALTER USER ANONYMOUS ACCOUNT UNLOCK;  
+  
+\#   cd **/home/ssoralin73**/instantclient\_12\_2  
+\#   ./sqlplus hr/hr@localhost/XE  
+  
+
+### Alternative: rpm instantclient installation
+
+put all three rpm in some tmp dir and :  
+ls \*rpm  
+rpm  -i \*rpm  
+ls /usr/lib/oracle/12.1/client64/lib  
+ls /usr/lib/oracle/12.1/client64/bin  - here is sqlplus dir  
+export LD\_LIBRARY\_PATH=/usr/lib/oracle/12.1/client64/lib  
+/usr/lib/oracle/12.1/client64/bin/sqlplus hr/hr@localhost/XE  
+  
+or :  
+
+    sudo rpm -ivh oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
+    sudo rpm -ivh oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64.rpm
+
+If you got the error below, you need to add library path manually: sqlplus64: error while loading shared libraries: libsqlplus.so: cannot open shared object file: No such file or directory
+
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib/
+
+#### which sqlplus  
+```
+/usr/bin/which: no sqlplus in (/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin) 
+  
+# updatedb  
+# locate sqlplus  
+/home/ssoralin73/instantclient\_12\_2/sqlplus  
+/u01/app/oracle/product/11.2.0/xe/sqlplus  - dir, not script  
+/u01/app/oracle/product/11.2.0/xe/bin/sqlplus  
+...  
+/u01/app/oracle/product/11.2.0/xe/bin/sqlplus hr/hr@localhost/XE  
+Error 6 initializing SQL\*Plus  
+SP2-0667: Message file sp1<lang>.msb not found  
+SP2-0750: You may need to set ORACLE\_HOME to your Oracle software directory  
+  
+
+[root@oralin73 instantclient\_12\_2\]# ls -alF  
+total 219860  
+drwxr-xr-x.  3 root       root            4096 Jul 30 17:59 ./  
+drwx------. 23 ssoralin73 ssoralin73      4096 Jul 30 17:25 ../  
+-rwxrwxr-x.  1 root       root           44220 Jan 26  2017 adrci\*  
+...
+```
+
+
+
+## Install sqldeveloper (Optional)
+Install jdk
+
+    sudo rpm -ivh jdk-7u72-linux-x64.rpm
+    sudo rpm -ivh sqldeveloper-4.0.3.16.84-1.noarch.rpm
+
+Update JDK\_HOME to SetJavaHome in: ~/.sqldeveloper/4.0.0/product.conf
+
+Add the command below to /usr/local/bin/sqldeveloper: unset GNOME\_DESKTOP\_SESSION\_ID
+
+## Login to APEX (Optional)
+[http://localhost:8085/apex/apex\_admin](http://localhost:8085/apex/apex_admin)  
+usr/psw:   ADMIN/ss141     ss141 -> Ss141!!  
+
+Application Express 4.0.2.00.09  
+Workspace: INTERNAL User: ADMIN  
+Language: en | Copyright � 1999, 2010, Oracle. All rights reserved.  
+
+if you forgot the admin password, you can change it follow the [steps](http://www.oracle.com/webfolder/technetwork/tutorials/obe/db/11g/r2/prod/install/apexinst/apexinst_prod.htm)
+
+### How to restart database
+
+    /etc/init.d/oracle-xe restart
+
+Do experiment for Joel Spolsky's The Law of Leaky Abstractions
+
+...  
+
+  
+[](https://linuxconfig.org/apache-webserver-httpd-service-installation-on-redhat-7-linux)
+
+[  
+](https://linuxconfig.org/apache-webserver-httpd-service-installation-on-redhat-7-linux)
+
+
+
+
+
+### 4.2 Enable Remote Connection to Apache HTTP Server (httpd) -> Open Web server Port (80) on Iptables Firewall (as root user again)
+#### firewall-cmd --get-active-zones
+Outputs:     
+public         
+  interfaces: enp0s3  (or wlp1s0)        
+
+#### Add New Rule to Firewalld
+
+You might have active zone like public, FedoraWorkstation, FedoraServer.  
+
+    firewall-cmd --permanent --zone=public --add-port=8083/tcp
+
+#### 2.2.3 Restart firewalld.service  
+
+    systemctl restart firewalld.service
+
+### 3\. Test remote connection
+
+Access following address, with your browser. http://your.domain/test.php[  
+http://oralin73](http://oralin73/test.php)[/test.php](http://oralin73/test.php)                        - WORKS !!  
+[192.http://192.168.5.102:8083/test.php](http://192.168.5.102:8083/test.php)  - WORKS !!  
+[http://localhost/test.php](http://localhost/test.php)                      - WORKS !!  
+
+
+### Enable Remote Connection to Apache HTTP Server (httpd)
+
+-> Open Web server Port (80) on Iptables Firewall (as root user again)  
+
+### 1\. CentOS/Red Hat (RHEL)
+
+1\. Edit /etc/sysconfig/iptables file:  
+**gedit -w /etc/sysconfig/iptables**
+
+2\. Add following INPUT rule:  
+**\-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT**
+
+3\. Restart Iptables Firewall:  
+**service iptables restart** \## OR ## **/etc/init.d/iptables restart**
+
+3\. Test remote connection  
+[http://your.domain/test.php](http://your.domain/test.php)
+
+\-
+
+
+
+L:\_ISO\_ISO\LINUX\oracle_linux\Instalac11gXE_on_oralin7_6.txt
+
+
+
+
+
+
+
+https://www.virtualbox.org/wiki/Downloads
+J:\awww\apl\dev1\dev1_zinstalac_dok\linux\oralinux\vbox_UserManual.pdf
+
+
+file:///L:/1_instalac/1_instalirano/video/centos/Install_CentOS8_on_VirtualBox_Linux_Hint.html  - **pictures**     
+(https://linuxhint.com/install_centos8_virtualbox/)       
+
+https://www.linuxtechi.com/install-configure-samba-centos-8/
+
+https://davidghedini.com/pg/entry/install_oracle_11g_xe_on_centos/ 
+
+https://www.youtube.com/watch?v=9lMifqB6Y8s         
+https://www.youtube.com/watch?v=HSPbwezgMno         
+
+https://appuals.com/how-to-fix-the-windows-10-file-sharing-not-working-problem/ 
+
+Why vbox ? Before larger installations we make snapshot to return to (any previos) state-snapshot  before (failed) installation. 
+
+
+L:\1_instalac\1_instalirano\linux\1_virtualbox\2_VirtualBox 5.1.26_forWindowshosts_oralinux7.3.txt
+
+L:\1_instalac\1_instalirano\linux\2_oralinux\2_VirtualBox 5.1.26_forWindowshosts_oralinux7.3.txt
+
+L:\_ISO\_ISO\LINUX\oracle_linux\Instalac11gXE_on_oralin7_6.txt
+
+L:\1_instalac\1_instalirano\linux\2_oralinux\1_instalac_moj_oracle_linux_or_fedora_64bit_virtualbox_Apache_PHP_11gXE.html
+
+L:\2_knjige\linux\z_doc\How to install Oracle Express Edition on Centos_RHEL - COMPUTER TECHNOLOGY SPECIAL.html
+
+
+EXPENSIVE, NO DB XE SUPPORT, COMPLICATED (more appl. than development SW - APEX BETTER ? PHP ?) :      
+http://dev1:8083/fwphp/glomodul/z_help/oracle/00oraForms12_instalac_moj.html#download
+L:/1_instalac/2_instalac_ora11g/forms_instalac/1_forms11/00_instalac_help/00oraForms11_1_2_2_0_instalac_moj.html     
+https://github.com/finos/exodus/wiki/Installing-Oracle-Forms-12.2.1.4   
+
+
+
+## VBoxManage 
+Supports all the features that the graphical user interface gives you access to, but it supports a lot more.
+
+C:\Program Files\Oracle\VirtualBox        
+λ **VBoxManage list vms**          
+"Oracle DB Developer VM" {8b1ee087-78c7-4ebf-811f-f6b2836e06c5}         
+"oralin76" {ecccd0ee-87b5-4785-bcf5-15f9e0477887}         
+
+VBoxManage startvm "oralin76"  or   VBoxManage startvm ecccd0ee-87b5-4785-bcf5-15f9e0477887
+
+VBoxManage createvm --name "SUSE 10.2" --register     
+Virtual machine ’SUSE 10.2’ is created.        
+UUID: c89fc351-8ec6-4f02-a048-57f4d25288e5       
+Settings file: ’/home/username/.config/VirtualBox/Machines/SUSE 10.2/SUSE 10.2.xml’       
+
+
+VBoxManage showvminfo "oralin76" | grep JWIN    
+
+
+To change settings while a VM is powered off, use VBoxManage modifyvm. For example:       
+VBoxManage modifyvm "Windows XP" --memory 512      
+
+• To change the storage conﬁguration, such as to add a storage controller and then a virtual      
+disk, use VBoxManage storagectl and VBoxManage storageattach. See chapter 8.18,         
+VBoxManage storagectl, page 173 and chapter 8.17, VBoxManage storageattach, page 169.        
+• To control VM operation, use one of the following:        
+– To start a VM that is currently powered off, use VBoxManage startvm. See chapter           
+8.12, VBoxManage startvm, page 161.        
+– To pause or save a VM that is currently running or change some of its settings, use           
+VBoxManage controlvm. See chapter 8.13, VBoxManage controlvm, page 162.            
+
+
+# moj.txt on desktop
+```
+**********if ERROR clipboard sharing not working use instead ver 6.1.4 older ver 6.1.2 (6.1.3 also not working)
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 6.1.2 Guest Additions for Linux........
+VirtualBox Guest Additions installer
+Removing installed version 6.1.4 of VirtualBox Guest Additions...
+Copying additional installer modules ...
+Installing additional modules ...
+VirtualBox Guest Additions: Starting.
+VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel 
+modules.  This may take a while.
+VirtualBox Guest Additions: To build modules for other installed kernels, run
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup <version>
+VirtualBox Guest Additions: or
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup all
+VirtualBox Guest Additions: Building the modules for kernel 
+4.14.35-1902.300.11.el7uek.x86_64.
+VirtualBox Guest Additions: Running kernel modules will not be replaced until 
+the system is restarted
+Press Return to close this window...
+
+
+
+************** NOT WORKING ver. 6.1.4 :
+
+## 30-MART-2020    vbox 6.1.4
+
+sudo /opt/lampp/manager-linux-x64.run         
+sudo /opt/lampp/xampp start       
+
+
+#### sudo gedit /etc/hosts    
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4          
+#::1         localhost localhost.localdomain localhost6 localhost6.localdomain6  
+
+
+[ora@localhost VBox_GAs_6.1.4]$ sudo ./VBoxLinuxAdditions.run
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for ora: 
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 6.1.4 Guest Additions for Linux........
+VirtualBox Guest Additions installer
+Copying additional installer modules ...
+Installing additional modules ...
+VirtualBox Guest Additions: Starting.
+VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel 
+modules.  This may take a while.
+VirtualBox Guest Additions: To build modules for other installed kernels, run
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup <version>
+VirtualBox Guest Additions: or
+VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup all
+VirtualBox Guest Additions: Building the modules for kernel 
+4.14.35-1818.3.3.el7uek.x86_64.
+[ora@localhost VBox_GAs_6.1.4]$ 
+```
+
+

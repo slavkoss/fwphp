@@ -1,0 +1,632 @@
+# 13\. PHP 7.4.2, Bootstrap 4.3.1 : Laravel 6.12 CRUD tutorial
+2020.02.17 Tested on newest Windows 10 64 bit, XAMPP - works !. 
+#### **http://localhost:8083/laravel6/public/shows/create**
+#### **http://localhost:8083/laravel6/public/shows/** - here are del and edit buttons
+#### **http://localhost:8083/laravel6/public/shows/1/edit**
+
+
+<br />
+https://appdividend.com/2019/09/12/laravel-6-crud-example-laravel-6-tutorial-for-beginners/   2019.12.10 by Krunal      
+
+https://github.com/KrunalLathiya/Laravel6CRUDExample     
+
+My blog : http://phporacle.altervista.org/13-php-7-4-2-bootstrap-4-3-1-laravel-6-12-crud-tutorial/
+http://dev1:8083/fwphp/glomodul/blog/?i/read_post/id/43#crequest  is URL to show this article in my Blog (Msg module).         
+
+
+
+<br /><br />
+#### [1. MySQL DB](#mysql)      [2. M](#model)      [3. C requeest](#crequest)      [4. Bootstrap 4](#bootstrap)
+#### [5. CreRequest](#vcre)     [6. validateSaveResponse](#valid) 
+#### [7. RvDisplayresponse](#vresponse)      [8. CUD](#upd)     [9. D](#del) 
+## Install Laravel 6.12
+#### **composer create-project --prefer-dist laravel/laravel laravel6**          
+~ 130 MB - one of reasons **why I do not like such developing SW (included is Oracle Forms)**. If error - how debug 130 MB ?        
+B12phpfw has 20-30 kB code to debug (few hundert lines) using own debugging and Xdebug which both work excellent.      
+If there were somebody who guaranties support (for many years) then huge developing SW would be better.
+Stories about security... are not true - we only need good help about implement security and some features (which is difficult to find).
+
+cd J:\\xampp\\htdocs\\laravel6\\       
+install the frontend dependencies :         
+#### **npm install **       
+
+
+<br />
+## <a name="mysql"></a>Step 1. Configure MySQL DB
+Values inside .env file are loaded inside the files from the config directory.      
+
+#### **J:\\xampp\\htdocs\\laravel6\\.env file**        
+
+Where J:\\xampp\\htdocs\\laravel6\\ is root of our laravel project.     
+
+If you make changes to .env file then don't forget to restart server ( if you are using laravel dev server). If you are using virtual host and changes don't seem to take effect then run :
+
+cd J:\\xampp\\htdocs\\laravel6\\            
+#### **php artisan config:clear**           
+(This command will clear the configuration cache) in your terminal.          
+
+Laravel always ships with the migration files, so you can generate DB tables so :      
+#### **php artisan migrate**          
+migrations table created successfully. Laravel comes with  three migrations which are  used for authentication. Their file names are prepended with a timestamp :       
+
+Migrating: 2014\_10\_12\_000000\_create\_users\_table         
+Migrated: 2014\_10\_12\_000000\_create\_**users**\_table (0.48 seconds)           
+Migrating: 2014\_10\_12\_100000\_create\_password\_resets\_table             
+Migrated: 2014\_10\_12\_100000\_create\_**password\_resets**\_table (0.44 seconds)             
+Migrating: 2019\_08\_19\_000000\_create\_failed\_jobs\_table            
+Migrated: 2019\_08\_19\_000000\_create\_**failed\_jobs**\_table (0.27 seconds)            
+
+select \* from information\_schema.tables where table\_schema = 'z\_laravel6' and table\_name = 'migrations' and table\_type = 'BASE TABLE'        
+
+<br />
+## <a name="model"></a>Step 2. M - create model and migration files           
+Database migration is used to save details about DB table, so you don't have to manually generate all of the tables by going to the database interface or phpmyadmin or ...       
+We can develop migrations using artisan with 'make: migration' command.        
+Type the following command to create a model and migration files.         
+
+cd J:\\xampp\\htdocs\\laravel6\\                
+#### **php artisan make:model Show -m**          
+It will create migration files inside **database/migrations directory J:\\xampp\\htdocs\\laravel6\\database\\migrations\\** :       
+1. J:\\xampp\\htdocs\\laravel6\\database\\migrations\\**Show**.php file - **model name has to be singular**
+2. [timestamp]\_create\_**shows**\_table.php migration file - **migration name should be  plural** to automatically find table name.
+
+#### **//J:\\xampp\\htdocs\\laravel6\\database\\migrations\\2020_02_17_074520_create_shows_table.php**
+```php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateShowsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     *
+     * Create table in DB using the following command.
+     *    php artisan migrate
+     * execute up() function ee run all migrations and create defined tbls (incremental changes).
+     *
+     * To reverse the migrations :
+     *    php artisan migrate:rollback which will execute the down() function.
+     *
+     */
+    public function up()
+    {
+        Schema::create('shows', function (Blueprint $table) {
+           $table->bigIncrements('id');        //**php artisan make:model Show -m created**
+              $table->string('show_name');   //**I added**
+              $table->string('genre');
+              $table->float('imdb_rating');
+              $table->string('lead_actor');
+           $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('shows');
+    }
+}
+```
+
+If you want to create the migration but have a different table name in mind, then you can explicitly define a table name with '**create**' flag.     
+
+1. **up() function** is used for creating/updating tables, columns, and indexes 
+    Inside up() function, We have the **Schema: create('table_name,' callback) method** which will be used for creating the new table. 
+    1. Inside a callback, we have $table->bigIncrements('id') which will  create auto_increment integer column with the primary key and argument 'id' is the name of a column.
+    2. Second is $table->timestamps() which will create the  two timestamp columns created_at and updated_at.   
+2. **down() function** is used for reversing an operation done by up() method
+
+           $table->bigIncrements('id');        //**php artisan make:model Show -m created**       
+              $table->string('show_name');   //**I added 4 columns**        
+              $table->string('genre');      
+              $table->float('imdb_rating');          
+              $table->string('lead_actor');            
+           $table->timestamps();  //**php artisan make:model Show -m created**          
+
+Create table in DB using the following command :
+#### **php artisan migrate**
+which will execute up() function ee run all migrations and create defined tbls (incremental changes).     
+
+To reverse the migrations :      
+#### **php artisan migrate:rollback**
+which will  execute down() function.       
+
+
+
+<br /><br />
+Now, add the fillable property inside file :
+#### **J:\xampp\htdocs\laravel6\app\Show.php**
+```php
+// J:\xampp\htdocs\laravel6\app\Show.php
+namespace App;
+use Illuminate\Database\Eloquent\Model;
+
+/*
+* We can specify all the properties to modify the behavior of the model.
+* We can write a $table property which is used to determine a name of the table that this model will interact with in the future operations.
+* By default, It will define a table name as the plural of the model name, e.g., shows table for Show model and users table for User model.
+* When you don't need to use timestamps on your table, then you will also have to specify the $timestamps property and set it to false value in your Model because Laravel expects your table to have the created_at and updated_at timestamp columns.
+*/
+class Show extends Model
+{
+   protected $fillable = [
+      'show_name', 'genre', 'imdb_rating', 'lead_actor'
+   ];
+}
+
+```
+
+<br />
+## <a name="crequest"></a>Step 3. C - Create routes and controller          
+First, create the ShowController using the following command.         
+#### **php artisan make:controller ShowController --resource**
+Note that we have also added the — resource flag which will define six methods inside the ShowController namely:           
+1. Index (used for displaying a list of Shows)
+2. Create (will show the view with a form for creating a Show)
+3. Store (used for creating a Show inside the database. Note: create method submits to store method)
+4. Show (will display a specified Show)
+5. Edit (will show the form for editing a Show. Form will be filled with the existing Show data)
+6. Update (Used for updating a Show inside the database. Note: edit submits to update method)
+7. Destroy (used for deleting a specified Show)
+
+#### **J:\\xampp\\htdocs\\laravel6\\routes\\web.php**
+add Route::resource... line of code :
+```php
+// ShowController.php
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::resource('shows', 'ShowController');
+```
+We can pass dynamic parameters with {} brackets, and you might have noticed that **show, update, and destroy has the same url but different methods**, so its legit.            
+             
+**Just like resource flag, laravel has a method called resource() that will generate all the above routes**. You can also use that method instead of specifying them individually like above.          
+             
+Actually, by adding Route::resource... line, we have registered multiple routes for our application. We can check it so :         
+#### **php artisan route:list**
+
+| Domain    | Method    | URI               | Name          | Action                                         | Middleware   |
+| --------- | --------- | ----------------- | ------------- | ---------------------------------------------- | ------------ | 
+|           | GET/HEAD  | /                 |               | Closure                                        | web          |
+|           | GET/HEAD  | api/user          |               | Closure                                        | api,auth:api |
+|           | GET/HEAD  | shows             | shows.index   | App\\Http\\Controllers\\ShowController@index   | web          |
+|           | POST      | shows             | shows.store   | App\\Http\\Controllers\\ShowController@store   | web          |
+|           | GET/HEAD  | shows/create      | shows.create  | App\\Http\\Controllers\\ShowController@create  | web          |
+|           | GET/HEAD  | shows/{show}      | shows.show    | App\\Http\\Controllers\\ShowController@show    | web          |
+|           | PUT/PATCH | shows/{show}      | shows.update  | App\\Http\\Controllers\\ShowController@update  | web          |
+|           | DELETE    | shows/{show}      | shows.destroy | App\\Http\\Controllers\\ShowController@destroy | web          |
+|           | GET/HEAD  | shows/{show}/edit | shows.edit    | App\\Http\\Controllers\\ShowController@edit    | web          |
+
+
+
+<br />
+## <a name="bootstrap"></a>Step 4. Configure Bootstrap 4
+Right now (2019.12.10), there are some issues, or somehow I do not see any code inside the public >> css >> app.css file. I have already compiled the CSS and JS file by the 
+#### **npm run dev**
+command, but still, the app.css file is empty.       
+
+One possible solution is to copy code of previous version’s Laravel’s app.css file and paste it here :         
+#### **J:\\xampp\\htdocs\\laravel6\\public\\css\\ap.css**       
+Link of the previous css file is :       
+https://raw.githubusercontent.com/KrunalLathiya/Laravel58CRUD/master/public/css/app.css         
+
+Second possible solution is this. This new scaffolding is only available in Laravel 6 and not in the earlier versions like Laravel 5.8 or 5.7.        
+
+While Laravel 6 does not dictate which **JavaScript or CSS pre-processors** you use, it does provide the essential starting point using Bootstrap and Vue that will be helpful for many projects.          
+
+By default, the Laravel uses the NPM to install both of these frontend packages.          
+
+Bootstrap and Vue scaffolding provided by Laravel is located in the **laravel/ui Composer package**, which you can install using Composer so :            
+
+#### **composer require laravel/ui --dev**
+ 
+Once laravel/ui package has been installed, and you may install the frontend scaffolding using the ui Artisan command:       
+
+// Generate basic scaffolding...         
+php artisan ui vue              
+php artisan ui react            
+          
+// Generate login / registration scaffolding...              
+php artisan ui vue --auth                
+php artisan ui react --auth            
+
+
+
+
+<br />
+ ## <a name="vcre"></a>Step 5. Create request (form to insert show tbl row)
+Create the views.        
+#### **http://localhost:8083/laravel6/public/shows/create**
+
+Inside the J:\xampp\htdocs\laravel6\resources\views folder where is only welcome.blade.php , create view files :           
+1. **C** create.blade.php
+2. **U** edit.blade.php
+3. **R** index.blade.php
+Inside the views folder, we also need to create the layout file. So create a file inside the views folder called 
+#### **layout.blade.php :**          
+our **main template file**, and all the other view files will extend this layout.blade.php file.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Laravel 6 CRUD Example</title>
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div class="container">
+    @yield('content')
+  </div>
+  <script src="{{ asset('js/app.js') }}" type="text/js"></script>
+</body>
+</html>
+```
+Here, we have already included the Bootstrap 4 by adding the app.css.         
+
+#### **create.blade.php :**
+```html
+@extends('layout')
+
+@section('content')
+<style>
+  .uper {
+    margin-top: 40px;
+  }
+</style>
+<div class="card uper">
+  <div class="card-header">
+    Add Shows
+  </div>
+  <div class="card-body">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+      </div><br />
+    @endif
+      <form method="post" action="{{ route('shows.store') }}">
+          <div class="form-group">
+              @csrf
+              <label for="name">Show Name:</label>
+              <input type="text" class="form-control" name="show_name"/>
+          </div>
+          <div class="form-group">
+              <label for="price">Show Genre :</label>
+              <input type="text" class="form-control" name="genre"/>
+          </div>
+          <div class="form-group">
+              <label for="price">Show IMDB Rating :</label>
+              <input type="text" class="form-control" name="imdb_rating"/>
+          </div>
+          <div class="form-group">
+              <label for="quantity">Show Lead Actor :</label>
+              <input type="text" class="form-control" name="lead_actor"/>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Show</button>
+      </form>
+  </div>
+</div>
+@endsection
+```
+
+
+Open ShowController.php file, and on the create() function, we need to return the view, and that is a create.blade.php file.        
+```php
+// ShowController.php
+
+public function create()
+{
+   return view('create'); // create.blade.php file
+}
+```
+Go to a http://localhost:8000/books/create or http://laravel6.test/shows/create          
+
+http://localhost:8083/laravel6/public/shows/create          
+
+You will see form "Create show".       
+        Add Shows
+Show Name:
+Show Genre :
+Show IMDB Rating :
+Show Lead Actor : 
+Create show button
+
+
+
+<br />
+## <a name="valid"></a>Step 6. Add Laravel Validation rules and save data
+First step inside the ShowController.php is that import namespace of Show model inside the ShowController.php file.       
+
+```php
+
+// ShowController.php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Show; // import namespace of Show model 
+```
+
+Write following code inside ShowController.php file’s store() function.
+```php
+public function store(Request $request)
+{
+        $validatedData = $request->validate([
+            // check for all four fields of the form
+            // If incoming data fail any of the rules, then it will directly go to the form with the error messages
+            // $request object parameter will be used to access form data
+            'show_name' => 'required|max:255',
+            'genre' => 'required|max:255',
+            'imdb_rating' => 'required|numeric',
+            'lead_actor' => 'required|max:255',
+        ]);
+        
+        $show = Show::create($validatedData);
+   
+        return redirect('/shows')->with('success', 'Show is successfully saved');
+ }
+```
+
+The first thing you want to do is validate a form of data.            
+We can use a $request->validate() function for validation, which will receive the array of validation rules.         
+Validation rules is an associative array.         
+Key will be the field_name and value with being the validation rules.          
+
+The second parameter is the optional array for custom validation messages.             
+Rules are separated with pipe sign “|.” We are using the most basic validation rules https://laravel.com/docs/5.8/validation#available-validation-rules .          
+
+First is “required,” which means the field_name should not be empty. (“nullable” rule is vice versa), “string” means it should be the string value, “min” is the limit of minimum characters for a string in an input field and “max” is the maximum characters. “unique:table, column” with see if the same value does not exists in the database (comes handy for storing emails or any other unique data).       
+
+If the validation fails, then it will redirect us back. After the validation, we are creating a new book and save that book in the database.        
+We need to loop through that error messages inside the create.blade.php file which we have already done it.         
+
+If you leave all the form fields empty, then you will find an error message at page top.           
+
+Now, if you fill the form fields correctly, then it will create a new row in the database.
+
+
+
+<br />
+## <a name="vresponse"></a>Step 7. V - display response
+Display the data.     
+#### **http://localhost:8083/laravel6/public/shows/**
+
+Write the ShowController's index function to return an index view with data fetched from a database. Write the following code inside the index() function.        
+```php
+// ShowController.php
+
+public function index()
+{
+     $shows = Show::all();
+
+     return view('index', compact('shows'));
+}
+```
+
+Create a file inside the views folder :
+
+#### **index.blade.php**
+```php
+@extends('layout')
+
+@section('content')
+<style>
+  .uper {
+    margin-top: 40px;
+  }
+</style>
+<div class="uper">
+  @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}  
+    </div><br />
+  @endif
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <td>ID</td>
+          <td>Show Name</td>
+          <td>Show Genre</td>
+          <td>Show IMDB Rating</td>
+          <td>Lead Actor</td>
+          <td colspan="2">Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($shows as $show)
+        <tr>
+            <td>{{$show->id}}</td>
+            <td>{{$show->show_name}}</td>
+            <td>{{$show->genre}}</td>
+            <td>{{number_format($show->imdb_rating,2)}}</td>
+            <td>{{$show->lead_actor}}</td>
+            <td><a href="{{ route('shows.edit', $show->id)}}" class="btn btn-primary">Edit</a></td>
+            <td>
+                <form action="{{ route('shows.destroy', $show->id)}}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+  </table>
+<div>
+@endsection
+```
+We have used the PHP number_format() function to print the IMDB Rating float value.          
+
+Here, we have looped through the show’s array and display the data in the table format.            
+
+Also, we have added two buttons for edit and delete operation.           
+
+
+
+
+<br />
+## <a name="upd"></a>Step 8. CUD
+Create Edit and Update Operation.     
+Add following code inside ShowController.php edit function :       
+```php
+// ShowController.php
+
+public function edit($id)
+{
+     $show = Show::findOrFail($id);
+
+     return view('edit', compact('show'));
+}
+```
+
+Create new file inside the views folder 
+
+#### **edit.blade.php**
+
+```php
+@extends('layout')
+
+@section('content')
+<style>
+  .uper {
+    margin-top: 40px;
+  }
+</style>
+<div class="card uper">
+  <div class="card-header">
+    Update Shows
+  </div>
+  <div class="card-body">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+      </div><br />
+    @endif
+    <form method="post" action="{{ route('shows.update', $show->id) }}">
+          <div class="form-group">
+              @csrf
+              @method('PATCH')
+              <label for="name">Show Name:</label>
+              <input type="text" class="form-control" name="show_name" value="{{ $show->show_name }}"/>
+          </div>
+          <div class="form-group">
+              <label for="price">Show Genre :</label>
+              <input type="text" class="form-control" name="genre" value="{{ $show->genre }}"/>
+          </div>
+          <div class="form-group">
+              <label for="price">Show IMDB Rating :</label>
+              <input type="text" class="form-control" name="imdb_rating" value="{{ number_format($show->imdb_rating, 2) }}"/>
+          </div>
+          <div class="form-group">
+              <label for="quantity">Show Lead Actor :</label>
+              <input type="text" class="form-control" name="lead_actor" value="{{ $show->lead_actor }}"/>
+          </div>
+          <button type="submit" class="btn btn-primary">Update Show</button>
+      </form>
+  </div>
+</div>
+@endsection
+```
+In this file, you can show the values of the particular row using its unique id inside the form fields.     
+
+So, when you hit this URL: http://localhost:8000/shows/1/edit or http://laravel6.test/shows/1/edit, you will see row edit form.        
+
+
+
+
+Create Edit and Update Operation        
+
+Add following code inside ShowController update() function.        
+```php
+// ShowController.php
+
+public function update(Request $request, $id)
+{
+        $validatedData = $request->validate([
+            'show_name' => 'required|max:255',
+            'genre' => 'required|max:255',
+            'imdb_rating' => 'required|numeric',
+            'lead_actor' => 'required|max:255',
+        ]);
+        Show::whereId($id)->update($validatedData);
+
+        return redirect('/shows')->with('success', 'Show is successfully updated');
+}
+```
+So now, you can edit and update all the data into the database successfully.
+
+
+
+
+
+<br />
+## <a name="del"></a>Step 9. D - create delete row functionality      
+
+Write following code inside ShowController destroy function to to remove show row :        
+```php
+// ShowController.php
+public function destroy($id)
+{
+        $show = Show::findOrFail($id);
+        $show->delete();
+
+        return redirect('/shows')->with('success', 'Show is successfully deleted');
+}
+```
+    
+
+We have completed a Laravel 6 CRUD operations tutorial with the example from scratch.           
+
+If you are interested in FrontEnd framework like Vue.js with Laravel or Angular with Laravel (Code is on Github as for this tutorial) :
+1. Vue Laravel CRUD example  https://appdividend.com/2018/11/17/vue-laravel-crud-example-tutorial-from-scratch/ 
+2. Angular Laravel Tutorial Example  https://appdividend.com/2017/09/22/laravel-5-5-angular-4-tutorial-example-scratch/   
+
+https://appdividend.com/2019/09/13/how-to-import-and-export-data-in-csv-excel-in-laravel-6/           
+https://appdividend.com/2019/09/13/laravel-6-generate-pdf-from-view-example-tutorial-from-scratch/             
+https://appdividend.com/2019/09/04/how-to-upgrade-laravel-valet-and-update-to-laravel-6/           
+https://appdividend.com/2019/04/08/laravel-collections-search-method-tutorial-with-example/        
+https://appdividend.com/2019/04/03/laravel-collections-filter-method-tutorial-with-example/          
+https://appdividend.com/2018/08/15/laravel-file-upload-example/           
+https://appdividend.com/2018/02/09/laravel-multiple-files-upload-tutorial-example/           
+https://appdividend.com/2018/02/08/laravel-ajax-validation-tutorial-scratch/          
+https://appdividend.com/2018/02/07/laravel-ajax-tutorial-example/            
+
+
+
+
+
+<hr />
+
+Laravel 6 continues the improvements made in Laravel 5.8 by introducing the following features.
+
+1. Semantic versioning - serverless deployment platform for Laravel, powered by AWS
+2. Compatibility with Laravel Vapor
+3. Improved authorization responses
+4. Job middleware
+5. Lazy collections
+6. Sub-query improvements
+7. The extraction of frontend scaffolding to the laravel/ui Composer package
+
+https://appdividend.com/2018/10/31/how-to-use-php-in-visual-studio-code/  - For PHP Developers.      
+
+See https://github.com/slavkoss/fwphp/ (J:\awww\www\readme.md).
+
+B12phpfw does not use jQuery and AJAX, see examples in
+https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/AJAX

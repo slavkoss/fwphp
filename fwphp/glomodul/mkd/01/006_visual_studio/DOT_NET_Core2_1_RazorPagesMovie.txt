@@ -1,0 +1,571 @@
+https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-2.1 -Visual Studio version.       
+    code: https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start       
+
+https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages-vsc/index?view=aspnetcore-2.1 - Visual Studio Code version.     
+
+11/12/2019 By [Rick Anderson](https://twitter.com/RickAndMSFT)
+
+# 1. New DOT.NET Core 2.1 project "RazorPagesMovie"
+
+1. **File menu -> New > Project** Name the project <span style="color:green;">**RazorPagesMovie**</span>. It`s important so the namespaces will match when you copy/paste code. 
+2. J:\awww\www\dncore  Select ASP.NET Core 2.1 in the dropdown, and then select Web Application.
+3.  Visual Studio template creates a starter project. Press F5 to run the app in debug mode or **Ctrl-F5** to run without attaching the debugger. Select Accept to consent to tracking. This app doesn`t track personal information. 
+4.  **https://localhost:44374/**   
+5.  Ctrl+F5 (non-debug mode) allows you to make code changes, save the file, refresh the browser, and see the code changes. Many developers prefer to use non-debug mode to quickly launch the app and view changes.
+6.  navigation icon (3 horizontal minuses) to show the links.   
+     ~~~~~~
+7.  right-click the RazorPagesMovie project > Add > New Folder. Name it <span style="color:green;">**folder Models**</span> 
+8.  Right click Models folder -> Add > Class. Name it <span style="color:green;">**Movie**</span>. Replace the contents - see below.
+9.  See 3. Scaffold the movie model  (cre pages for CRUD) - Create **Pages/Movies folder**, right click on the Pages/Movies folder > Add > New Scaffolded Item
+10.  Create a new **class named SeedData in the Models folder**, see code below
+11.  **https://localhost:44374/Movies**
+
+### Project files and folders
+
+The following table lists the files and folders in the project. For this tutorial, the Startup.cs file is the most important to understand. You don't need to review each link provided below. The links are provided as a reference when you need more information on a file or folder in the project.
+
+| File or folder |  Purpose | 
+|: -------------     |:-------------|
+| wwwroot |Contains static assets. See [Static files](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/static-files?view=aspnetcore-2.1)|  
+| **Pages**           |  Folder for [Razor Pages](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/index?view=aspnetcore-2.1) |  
+| appsettings.json |  [Configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/index?view=aspnetcore-2.1) |  
+| Program.cs  |  Configures the [host](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index?view=aspnetcore-2.1) of the ASP.NET Core app |  
+| Startup.cs   |  Configures services and the request pipeline. See [Startup](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/index?view=aspnetcore-2.1) |  
+
+### Pages/Shared folder
+
+_Layout.cshtml file contains common HTML elements (script and stylesheet links) and sets the layout for the app. For example when you select RazorPagesMovie, Home, About or Contact, a common set of elements appears in the webpage. The common elements include the navigation menu at the top and the header at the bottom of the window. For more information, see [Layout](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/layout?view=aspnetcore-2.1).
+
+_ValidationScriptsPartial.cshtml file provides a reference to [jQuery](https://jquery.com/) validation scripts. When the Create and Edit pages are added later in the tutorial, the _ValidationScriptsPartial.cshtml file is used.
+
+_CookieConsentPartial.cshtml file provides a navigation bar and content to summarize the privacy and cookie use policy. For more information on the GDPR assets included in the project, see [EU General Data Protection Regulation (GDPR) support in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/gdpr?view=aspnetcore-2.1)).
+
+### The Pages folder
+
+_ViewStart.cshtml sets the Razor Pages Layout property to use the _Layout.cshtml file. See [Layout](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/layout?view=aspnetcore-2.1) for more information.
+
+_ViewImports.cshtml file contains Razor directives that are imported into each Razor Page. See [Importing Shared Directives](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/layout?view=aspnetcore-2.1#importing-shared-directives) for more information.
+
+About, Contact and Index pages are basic pages you can use to start an app. The Error page is used to display error information.
+
+### Use F7 to toggle between a Razor Page and the PageModel
+
+To enable F7 toggling between a Razor Page (*.cshtml file) and the C# file (*.cshtml.cs):
+
+1. Select Tools > Options > Environment > Keyboard
+1. Enter ToggleRazorView in Show commands containing.
+1. Select EditorContextMenus.CodeWindow.ToggleRazorView
+1. In the Press shortcut keys entry box, press F7.
+1. Select Assign > OK
+
+# 2. Add a model to app
+In this section, you add classes for managing movies in a database. You use these classes with [**Entity Framework Core**](https://docs.microsoft.com/ef/core) (EF Core) to work with a database. EF Core is an object-relational mapping (ORM) framework that simplifies the data access code that you have to write.
+
+The model classes you create are known as POCO classes (from "plain-old CLR objects") because they don't have any dependency on EF Core. They define the properties of the data that are stored in the database.
+
+In this tutorial, you write the model classes first, and **EF Core creates DB**. An alternate approach not covered here is to [**generate model classes from an existing database**](https://docs.microsoft.com/ef/core/get-started/aspnetcore/existing-db).
+
+[**View or download**](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie) sample.
+
+
+## Add a data model
+
+In Solution Explorer, right-click the RazorPagesMovie project > Add > New Folder. Name the **folder Models**.
+
+**Right click Models folder -> Add > Class. Name the class Movie** and replace the contents of the Movie class with the following code:
+
+```
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RazorPagesMovie.Models
+{
+    public class Movie
+    {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string Genre { get; set; }
+        public decimal Price { get; set; }
+    }
+}
+```
+
+# 3. Scaffold the movie model  (cre pages for CRUD) 
+
+## 3.1 Scaffolding tool produces pages for (CRUD) operations for the movie model.
+CRUD is Create, Read, Update, and Delete table rows.
+
+Create a **Pages/Movies folder**:
+
+In Solution Explorer, right click on the Pages folder > Add > New Folder. Name the folder Movies
+
+In Solution Explorer, right click on the Pages/Movies folder > Add > New Scaffolded Item.
+
+In the Add Scaffold dialog, select Razor Pages using Entity Framework (CRUD) > Add.
+
+Complete the Add Razor Pages using Entity Framework (CRUD) dialog:
+
+1. In the Model class drop down, select Movie (RazorPagesMovie.Models).
+1. In the Data context class row, select the + (plus) sign and accept the generated name RazorPagesMovie.Models.RazorPagesMovieContext.
+1. Select Add.
+
+The scaffold process creates and updates the following files:
+
+Files created
+
+Pages/Movies: Create, Delete, Details, Edit, Index. These pages are detailed in the next tutorial.
+Data/RazorPagesMovieContext.cs
+
+File updated
+
+Startup.cs: Changes to this file are detailed in the next section.
+appsettings.json: The connection string used to connect to a **local database** is added.
+
+## 3.2 Examine the context registered with dependency injection
+
+ASP.NET Core is built with [dependency injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1). **Services (such as the EF Core DB context) are registered with dependency injection during application startup**. **Components that require these services (such as Razor Pages) are provided these services via constructor parameters.** The constructor code that gets a DB context instance is shown later in the tutorial.
+
+The scaffolding tool automatically created a DB context and registered it with the dependency injection container.
+
+Examine the Startup.ConfigureServices method. Last 2 lines was added by the scaffolder:
+
+```
+public void ConfigureServices(IServiceCollection services)
+{
+    services.Configure<CookiePolicyOptions>(options =>
+    {
+        options.CheckConsentNeeded = context => true;
+        options.MinimumSameSitePolicy = SameSiteMode.None;
+    });
+
+
+    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+     services.AddDbContext<RazorPagesMovieContext>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("RazorPagesMovieContext")));
+}
+```
+
+The main class that coordinates EF Core functionality for a given data model is the DB context class. The data context is derived from [Microsoft.EntityFrameworkCore.DbContext](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext). The data context specifies which entities are included in the data model. In this project, the class is named **RazorPagesMovieContext**.
+
+```
+using Microsoft.EntityFrameworkCore;
+
+namespace RazorPagesMovie.Models
+{
+    public class RazorPagesMovieContext : DbContext
+    {
+        public RazorPagesMovieContext (DbContextOptions<RazorPagesMovieContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Movie> Movie { get; set; }
+    }
+}
+```
+
+The preceding code creates a [DbSet Movie](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbset-1) property for the entity set. In Entity Framework terminology, an **entity set** typically corresponds to a database table. An **entity corresponds to a row** in the table.
+
+The name of the connection string is passed in to the context by calling a method on a DbContextOptions object. For local development, the ASP.NET Core configuration system reads the connection string from the appsettings.json file.   
+
+
+## 3.3 Perform initial migration
+
+In this section, you use the Package Manager Console (**PMC**) to:
+
+1. Add an initial migration.
+1. Update the database with the initial migration.
+
+From the Tools menu, select NuGet Package Manager > Package Manager Console.
+
+In the PMC, enter the following commands:
+
+**Add-Migration Initial**     (To undo this action, use Remove-Migration.)
+> The EF Core tools version '2.1.1-rtm-30846' is **older than that of the runtime** '2.1.4-rtm-31024'. Update the tools for the latest features and bug fixes.
+
+**Update-Database**
+
+
+Alternatively, the following .NET Core CLI commands can be used from the project folder:
+
+dotnet ef migrations add Initial
+dotnet ef database update
+
+Ignore the following warning message, which you fix in a later tutorial:    
+Microsoft.EntityFrameworkCore.Model.Validation[30000]
+No type was specified for the decimal column 'Price' on entity type 'Movie'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+
+The Add-Migration command generates **code to create the initial database schema**. The schema is based on the model specified in the RazorPagesMovieContext (In the Data/RazorPagesMovieContext.cs file). The Initial argument is used to name the migrations. You can use any name, but by convention you choose a name that describes the migration. See [Introduction to migrations](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.1#introduction-to-migrations) for more information.
+
+The Update-Database command runs the Up method in the Migrations/{time-stamp}_InitialCreate.cs file, which **creates the database**.
+
+If you get the error:
+
+SqlException: Cannot open database "RazorPagesMovieContext-GUID" requested by the login. The login failed.
+Login failed for user 'User-name'.
+
+You missed the migrations step.
+
+Test the app
+
+**https://localhost:44374/Movies**  - Run the app  (append /movies to the URL in the browser : http://localhost:port/movies).
+
+Test the Create link -**works**.
+
+Note   
+You may not be able to enter decimal commas in the Price field. To support [jQuery validation](https://jqueryvalidation.org/) for non-English locales that use a comma (",") for a decimal point and for non US-English date formats, you must globalize your app. For globalization instructions, see this [GitHub issue](https://github.com/aspnet/Docs/issues/4076#issuecomment-326590420).
+
+
+Test Edit, Details, and Delete links.
+
+If you get a SQL exception, verify you have run migrations and updated the database.
+
+
+## 3.4 Create, R=Details, U=Edit, Delete pages
+Scaffolded Razor Pages in ASP.NET Core
+
+Examine the Pages/Movies/Index.cshtml.cs Page Model.
+
+Razor Pages are derived from PageModel. By convention, the PageModel-derived class is called  PageName Model. The constructor uses [dependency injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1) to add the MovieContext to the page. All the scaffolded pages follow this pattern. See [Asynchronous code](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-2.1#asynchronous-code) for more information on asynchronous programing with Entity Framework.
+
+When a request is made for the page, the OnGetAsync method returns a list of movies to the Razor Page. OnGetAsync or OnGet is called on a Razor Page to initialize the state for the page. In this case, OnGetAsync gets a list of movies and displays them.
+
+When OnGet returns void or OnGetAsync returns Task, no return method is used. When the return type is IActionResult or Task IActionResult, a return statement must be provided. For example, the Pages/Movies/Create.cshtml.cs OnPostAsync method.
+
+Examine the Pages/Movies/Index.cshtml Razor Page.
+
+Razor can transition from HTML into C# or into Razor-specific markup. When an @ symbol is followed by a [Razor reserved keyword](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-2.1#razor-reserved-keywords), it transitions into Razor-specific markup, otherwise it transitions into C#.
+
+The @page Razor directive makes the file into an MVC action — which means that it can handle requests. @page must be the first Razor directive on a page. @page is an example of transitioning into Razor-specific markup. See [Razor syntax](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-2.1#razor-syntax) for more information.
+
+Examine the lambda expression used in the following HTML Helper.
+
+The DisplayNameFor HTML Helper inspects the Title property referenced in the lambda expression to determine the display name. The lambda expression is inspected rather than evaluated. That means there is no access violation when model, model.Movie, or model.Movie[0] are null or empty. When the lambda expression is evaluated (for example, with @Html.DisplayFor(modelItem => item.Title)), the model's property values are evaluated.
+
+### The @model directive
+
+The @model directive specifies the type of the model passed to the Razor Page. In the preceding example, the @model line makes the PageModel-derived class available to the Razor Page. The model is used in the @Html.DisplayNameFor and @Html.DisplayFor [HTML Helpers](https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) on the page.
+
+### ViewData and layout
+
+Consider the following code:
+
+@page
+@model RazorPagesMovie.Pages.Movies.IndexModel
+
+@{
+    **ViewData["Title"] = "Index";**
+}
+
+The preceding highlighted code is an example of Razor transitioning into C#. The { and } characters enclose a block of C# code.
+
+The PageModel base class has a ViewData dictionary property that can be used to add data that you want to pass to a View. You add objects into the ViewData dictionary using a key/value pattern. In the preceding sample, the "Title" property is added to the ViewData dictionary.
+
+The "Title" property is used in the Pages/Shared/_Layout.cshtml file. The following markup shows the first few lines of the _Layout.cshtml file.
+
+The line @*Markup removed for brevity.*@ is a Razor comment. Unlike HTML comments (<!-- -->), Razor comments are not sent to the client.
+
+Run the app and test the links in the project (Home, About, Contact, Create, Edit, and Delete). Each page sets the title, which you can see in the browser tab. When you bookmark a page, the title is used for the bookmark. Pages/Index.cshtml and Pages/Movies/Index.cshtml currently have the same title, but you can modify them to have different values.
+
+Layout property is set in the Pages/_ViewStart.cshtml file:
+CSHTML
+
+@{
+    Layout = "_Layout";
+}
+
+The preceding markup sets the layout file to Pages/Shared/_Layout.cshtml for all Razor files under the Pages folder. See Layout for more information.
+
+### Update the layout
+
+Change the `<title>` element in the Pages/Shared/_Layout.cshtml file to use a shorter string.
+
+Find the following anchor element in the Pages/Shared/_Layout.cshtml file.
+
+`<a asp-page="/Index" class="navbar-brand">RazorPagesMovie</a>`
+
+Replace the preceding element with the following markup.
+
+`<a asp-page="/Movies/Index" class="navbar-brand">RpMovie</a>`
+
+The preceding anchor element is [Tag Helper](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/intro?view=aspnetcore-2.1). In this case, it's the Anchor [Tag Helper](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper?view=aspnetcore-2.1). The asp-page="/Movies/Index" Tag Helper attribute and value creates a link to the /Movies/Index Razor Page.
+
+Save your changes, and test the app by clicking on the RpMovie link. See [Layout.cshtml](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper?view=aspnetcore-2.1) file in GitHub.
+
+### Create page model
+
+Examine the Pages/Movies/Create.cshtml.cs page model
+
+The OnGet method initializes any state needed for the page. The Create page doesn't have any state to initialize, so Page is returned. Later in the tutorial you see OnGet method initialize state. The Page method creates a PageResult object that renders the Create.cshtml page.
+
+The Movie property uses the [BindProperty] attribute to opt-in to [model binding](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-2.1). When the Create form posts the form values, the ASP.NET Core runtime binds the posted values to the Movie model.
+
+The OnPostAsync method is run when the page posts form data.
+
+If there are any model errors, the form is redisplayed, along with any form data posted. Most model errors can be caught on the client-side before the form is posted. An example of a model error is posting a value for the date field that cannot be converted to a date. We'll talk more about client-side validation and model validation later in the tutorial.
+
+If there are no model errors, the data is saved, and the browser is redirected to the Index page.
+
+### Create Razor Page
+
+Examine the Pages/Movies/Create.cshtml Razor Page file.
+
+Visual Studio displays the `<form method="post">` tag in a distinctive font used for Tag Helpers.
+
+The `<form method="post">` element is a [Form Tag Helper](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms?view=aspnetcore-2.1#the-form-tag-helper). The Form Tag Helper automatically includes an [antiforgery token](https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery?view=aspnetcore-2.1).
+
+The scaffolding engine creates Razor markup for each field in the model (except the ID) similar to the following:
+
+```
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group">
+    <label asp-for="Movie.Title" class="control-label"></label>
+    <input asp-for="Movie.Title" class="form-control" />
+    <span asp-validation-for="Movie.Title" class="text-danger"></span>
+</div>
+```
+
+The [Validation Tag Helpers](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms?view=aspnetcore-2.1#the-validation-tag-helpers) (`<div` asp-validation-summary and `<span` asp-validation-for) display validation errors. Validation is covered in more detail later in this series.
+
+The [Label Tag Helper](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms?view=aspnetcore-2.1#the-label-tag-helper) (`<label asp-for="Movie.Title" class="control-label"></label>`) generates the label caption and for attribute for the Title property.
+
+The [Input Tag Helper](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms?view=aspnetcore-2.1) (`<input asp-for="Movie.Title" class="form-control" />`) uses the DataAnnotations attributes and produces HTML attributes needed for jQuery Validation on the client-side.
+
+
+# 4. Work with SQL Server LocalDB
+The MovieContext object handles the task of connecting to the database and mapping Movie objects to database records. The database context is registered with the Dependency Injection container in the ConfigureServices method in the Startup.cs file
+
+See    services.AddDbContext`<RazorPagesMovieContext>`(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("RazorPagesMovieContext")));
+
+For more information on the methods used in ConfigureServices, see:
+
+EU General Data Protection Regulation ([GDPR](https://docs.microsoft.com/en-us/aspnet/core/security/gdpr?view=aspnetcore-2.1)) support in ASP.NET Core for CookiePolicyOptions.
+[SetCompatibilityVersion](https://docs.microsoft.com/en-us/aspnet/core/mvc/compatibility-version?view=aspnetcore-2.1)
+
+The ASP.NET Core [Configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/index?view=aspnetcore-2.1) system reads the ConnectionString. For local development, it gets the connection string from the appsettings.json file. The name value for the database (Database={Database name}) will be different for your generated code. The name value is arbitrary.
+
+When you deploy the app to a test or production server, you can use an environment variable or another approach to set the connection string to a real SQL Server. See [Configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/index?view=aspnetcore-2.1) for more information.
+
+## SQL Server Express LocalDB
+
+LocalDB is a lightweight version of the SQL Server Express Database Engine that's targeted for program development. LocalDB starts on demand and runs in user mode, so there's no complex configuration. By default, **LocalDB database creates "*.mdf" files in the C:/Users/`<user>` directory**.
+
+From the View menu, open SQL Server Object Explorer (SSOX).
+
+Right click on the Movie table and select **View Designer**
+
+Note the key icon next to ID. By default, EF creates a property named ID for the primary key.
+
+Right click on the Movie table and select **View Data**
+
+### Seed the database
+
+Create a new **class named SeedData in the Models folder**. Replace the generated code with the following: ...
+
+If there are any movies in the DB, the seed initializer returns and no movies are added.
+
+### Add the seed initializer
+
+In Program.cs, modify the Main method to do the following:
+
+-    Get a DB context instance from the dependency injection container.
+-    Call the seed method, passing to it the context.
+-    Dispose the context when the seed method completes.
+
+The following code shows the **updated Program.cs file...**
+
+A production app would not call Database.Migrate. It's added to the preceding code to prevent the following exception when Update-Database has not been run:
+
+SqlException: Cannot open database "RazorPagesMovieContext-21" requested by the login. The login failed. Login failed for user 'user name'.
+
+### Test the app https://localhost:44374/Movies
+
+-    Delete all the records in the DB. You can do this with the delete links in the browser or from SSOX
+
+-    Force the app to initialize (call the methods in the Startup class) so the seed method runs. To force initialization, IIS Express must be stopped and restarted. You can do this with any of the following approaches:
+
+     -        Right click the IIS Express system tray icon in the notification area and tap Exit or Stop Site
+     -        If you were running VS in non-debug mode, press F5 to run in debug mode.
+     -        If you were running VS in debug mode, stop the debugger and press F5.
+
+The app shows the seeded data: <span style="color:green;">**works ok**</span>
+
+
+
+# 5. Update pages (data presentation - view)
+1. We don't want to see the time (12:00:00 AM in movies list)   
+2. ReleaseDate should be Release Date (two words)
+
+Change in Models/Movie.cs :
+```
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RazorPagesMovie.Models
+{
+    public class Movie
+    {
+        public int ID { get; set; }
+        public string Title { get; set; }
+
+        [Display(Name = "Release Date")]
+        [DataType(DataType.Date)]
+        public DateTime ReleaseDate { get; set; }
+        public string Genre { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Price { get; set; }
+    }
+}
+```
+
+Right click on [DataType(DataType.Date)] - a red squiggly line > Quick Actions and Refactorings.   
+Select using System.ComponentModel.DataAnnotations;   
+Visual Studio **adds at script top using System.ComponentModel.DataAnnotations;**   
+
+Right click on [Column(TypeName = "decimal(18, 2)")] - a red squiggly line > Quick Actions and Refactorings on the [Column] atribute    
+and select  **using System.ComponentModel.DataAnnotations.Schema;**   
+The [Column(TypeName = "decimal(18, 2)")] data annotation is required so Entity Framework Core can correctly map Price to currency in the database. For more information, see [Data Types](https://docs.microsoft.com/ef/core/modeling/relational/data-types).
+
+We'll cover [DataAnnotations](https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) in the next chapter. The [Display](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) attribute specifies what to display for the name of a field (in this case "Release Date" instead of "ReleaseDate"). The [DataType](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) attribute specifies the type of the data (Date), so the time information stored in the field isn't displayed.
+
+https://localhost:44374/Movies - Browse to Pages/Movies and hover over an Edit link to see the target URL.
+
+The Edit, Details, and Delete links are generated by the [Anchor Tag Helper](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper?view=aspnetcore-2.1) in the Pages/Movies/Index.cshtml file.   
+Tag Helpers enable server-side code to participate in creating and rendering HTML elements in Razor files. In the preceding code, the AnchorTagHelper dynamically generates the HTML href attribute value from the Razor Page (the route is relative), the asp-page, and the route id (asp-route-id). See URL generation for Pages for more information.
+
+Use View Source from your favorite browser to examine the generated markup. A portion of the generated HTML is shown below:
+```
+<td>
+  <a href="/Movies/Edit?id=1">Edit</a> |
+  <a href="/Movies/Details?id=1">Details</a> |
+  <a href="/Movies/Delete?id=1">Delete</a>
+</td>
+```
+
+The dynamically-generated links pass the movie ID with a query string (for example, http://localhost:5000/Movies/Details?id=2).
+
+Update the Edit, Details, and Delete Razor Pages to use the "{id:int}" route template. Change the page directive for each of these pages from @page to @page "{id:int}". Run the app and then view source. The generated HTML adds the ID to the path portion of the URL:
+HTML
+```
+<td>
+  <a href="/Movies/Edit/1">Edit</a> |
+  <a href="/Movies/Details/1">Details</a> |
+  <a href="/Movies/Delete/1">Delete</a>
+</td>
+```
+A request to the page with the "{id:int}" route template that does not include the integer will return an HTTP 404 (not found) error. For example, http://localhost:5000/Movies/Details will return a 404 error. To make the ID optional, append ? to the route constraint:
+
+
+@page "{id:int?}"
+
+Posting and binding review
+
+Examine the Pages/Movies/Edit.cshtml.cs file:
+```
+public class EditModel : PageModel
+{
+    private readonly RazorPagesMovieContext _context;
+
+    public EditModel(RazorPagesMovieContext context)
+    {
+        _context = context;
+    }
+
+    [BindProperty]
+    public Movie Movie { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        Movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+
+        if (Movie == null)
+        {
+            return NotFound();
+        }
+        return Page();
+    }
+    
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
+        _context.Attach(Movie).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!_context.Movie.Any(e => e.ID == Movie.ID))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        return RedirectToPage("./Index");
+    }
+}
+```
+When an HTTP GET request is made to the Movies/Edit page (for example, http://localhost:5000/Movies/Edit/2):
+
+    The OnGetAsync method fetches the movie from the database and returns the Page method.
+    The Page method renders the Pages/Movies/Edit.cshtml Razor Page. The Pages/Movies/Edit.cshtml file contains the model directive (@model RazorPagesMovie.Pages.Movies.EditModel), which makes the movie model available on the page.
+    The Edit form is displayed with the values from the movie.
+
+When the Movies/Edit page is posted:
+
+    The form values on the page are bound to the Movie property. The [BindProperty] attribute enables Model binding.
+    C# 
+
+    [BindProperty]
+    public Movie Movie { get; set; }
+
+    If there are errors in the model state (for example, ReleaseDate cannot be converted to a date), the form is posted again with the submitted values.
+
+    If there are no model errors, the movie is saved.
+
+The HTTP GET methods in the Index, Create, and Delete Razor pages follow a similar pattern. The HTTP POST OnPostAsync method in the Create Razor Page follows a similar pattern to the OnPostAsync method in the Edit Razor Page.
+
+# 6. Search
+
+
+
+# 7. New field
+
+
+
+# 8. Validation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br /><br /><hr />

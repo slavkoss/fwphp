@@ -1,0 +1,178 @@
+```------------------1. Overview
+Processor : Intel(R) Core(TM) i3-7100 CPU @ 3.90GHzMemory : 16255MB(2400)  DDR4-2133, DDR4-2400, DDR3L-1333, DDR3L-1600Mother Board : H110M-RWindows Version : Microsoft Windows 10 ProInstallation Date : 2020-06-14
+Monitor : Generic PnP MonitorVideo Adapter : Intel(R) HD Graphics 630                DirectX 12   OpenGL 4.5
+Mouse : USB Input DeviceKeyboard : HID Keyboard Device
+Disk Drive : WDC WD20EZRX-00DC0B0(1863GB,IDE)Disk Drive : KINGSTON SA400S37240G(223GB,IDE)Disk Drive : WDC WD40EZRZ-00GXCB0(3726GB,IDE)Disk Drive : WDC WD5001AALS-00L3B2(465GB,IDE)DVD/CD-ROM Drive : Microsoft Virtual DVD-ROMPCIe revision 3.0   Max number of PCIe lanes 16
+------------------2. Operating System
+OS Name : Microsoft Windows 10 ProOS Language : Croatian (Croatia)OS Version : 10.0.19041OS Type : 64 bitRegistered Owner : ssRegistered Organization : Product ID : 00330-80000-00000-AA976Product Key : VK7JG-NPHTM-C97JM-9MPGT-3V66TOS Installation Date : 20200614200907.000000+120OS Root : C:\WINDOWSComputer Name : SSPC2User Name : ssLogon Domain : -Uptime : 704526SEC(195 Hour 42 Minutes 6 Seconds)Internet Explorer : 9.11.19041.0Windows Media Player : 12,0,10011,16384DirectX : 4.09.00.0904
+------------------3. System Devices
+Motherboard Name : H110M-RMotherboard Manufacturer : ASUSTeK COMPUTER INC.BIOS Version : 4001System BIOS Date : Video BIOS Date : CPU Identification : Intel(R) Core(TM) i3-7100 CPU @ 3.90GHz Kaby Lake release 3 January 2017CPU Generic Name : Intel64 Family 6 Model 14 Stepping 9  14 nm  FCLGA1151 TDP 51 WattCPU Vendor : GenuineIntelSerial Number : 0009-06E9-BFEB-FBFF-7FFA-FBBFCPU Frequency : 4619 MBL1 Code Cache : L1 Data Cache : L2 Cache : CPU Socket : LGA1151 --LGA 1151 napravljen je za Skylake procesore, dok je 1150 socket namijenjen Haswell i Broadwell procesorima. Core Per Package : 2 --Logical Per Core : 4FPU - Floating point unit : YesVME - Virtual mode extension : YesDE - Debugging extensions : YesPSE - Page size extension : YesTSC - Time stamp counter : YesMSR - Machine specific registers : YesPAE - Physical address extension : YesMCE - Machine check extension : YesCX8 - CMPXCHG8 instrucion support : YesAPIC - APIC : YesSEP - Fast system call (SYSENTER/SYSEXIT) : YesMTRR - Memory type range registers : YesPGE - Page global extension : YesCMOV - Conditional move support : YesPAT - Page attribute table : YesPSE36 - 36-bit page size extension : YesPSN - Processor serial number : NoCLFSH - CLFLUSH instruction support : YesDS - Debug trace store : YesACPI - Thermal monitor and software controlled clock : YesMMX - MMX architecture support : YesFXSR - Fast floating point save (FXSAVE/FXRSTOR) : YesSSE - Streaming SIMD instruction support : YesSSE2 - Streaming SIMD extensions 2 : YesSS - Self snoop : YesHTT - Hyper-Threading technology : YesTM - Thermal monitor support : YesIA-64 - IA-64 Intel : NoSBF - Signal break on FERR : YesFPU - Floating point unit : YesVME - Virtual mode extension : YesDE - Debugging extensions : YesPSE - Page size extension : YesTSC - Time stamp counter : YesMSR - Machine specific registers : YesPAE - Physical address extension : YesMCE - Machine check extension : YesCX8 - CMPXCHG8 instrucion support : YesFPU - Floating point unit : YesVME - Virtual mode extension : YesDE - Debugging extensions : YesPSE - Page size extension : YesTSC - Time stamp counter : YesMSR - Machine specific registers : YesPAE - Physical address extension : YesMCE - Machine check extension : YesCX8 - CMPXCHG8 instrucion support : YesAPIC - APIC : YesSEP - Fast system call (SYSENTER/SYSEXIT) : YesMTRR - Memory type range registers : YesPGE - Page global extension : YesCMOV - Conditional move support : YesPAT - Page attribute table : YesPSE36 - 36-bit page size extension : YesPSN - Processor serial number : NoCLFSH - CLFLUSH instruction support : YesDS - Debug trace store : YesACPI - Thermal monitor and software controlled clock : YesMMX - MMX architecture support : YesFXSR - Fast floating point save (FXSAVE/FXRSTOR) : YesSSE - Streaming SIMD instruction support : YesSSE2 - Streaming SIMD extensions 2 : YesSS - Self snoop : YesFPU - Floating point unit : YesVME - Virtual mode extension : YesFPU - Floating point unit : YesVME - Virtual mode extension : YesDE - Debugging extensions : YesPSE - Page size extension : YesTSC - Time stamp counter : YesMSR - Machine specific registers : YesPAE - Physical address extension : Yes------------------4. MemorySystem Idle Process -- 8 K -- -System -- 28 K -- -Registry -- 52,880 K -- -smss.exe -- 352 K -- -csrss.exe -- 2,972 K -- -wininit.exe -- 2,272 K -- -csrss.exe -- 4,068 K -- -winlogon.exe -- 5,804 K -- C:\WINDOWS\system32\winlogon.exeservices.exe -- 7,708 K -- C:\WINDOWS\system32\winlogon.exelsass.exe -- 16,160 K -- C:\WINDOWS\system32\lsass.exesvchost.exe -- 1,348 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 32,252 K -- C:\WINDOWS\system32\svchost.exefontdrvhost.exe -- 1,292 K -- C:\WINDOWS\system32\fontdrvhost.exefontdrvhost.exe -- 8,304 K -- C:\WINDOWS\system32\fontdrvhost.exesvchost.exe -- 17,612 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 5,860 K -- C:\WINDOWS\system32\svchost.exedwm.exe -- 93,532 K -- C:\WINDOWS\system32\dwm.exesvchost.exe -- 5,492 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 4,800 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 11,156 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 4,884 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 2,752 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 9,952 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 6,524 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 4,608 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 4,020 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 3,936 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 7,288 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 2,372 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 6,872 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 4,532 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 2,668 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 8,036 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 4,728 K -- C:\WINDOWS\system32\svchost.exeMemory Compression -- 583,340 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 2,952 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 6,940 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 4,392 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 4,472 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 4,012 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 2,168 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 4,540 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 3,504 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 3,876 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 6,364 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 4,264 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 13,060 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 9,556 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 4,532 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 4,628 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 6,824 K -- C:\WINDOWS\System32\svchost.exespoolsv.exe -- 4,388 K -- C:\WINDOWS\System32\spoolsv.exesvchost.exe -- 14,936 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 9,288 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 4,036 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 4,760 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 2,216 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 6,656 K -- C:\WINDOWS\system32\svchost.exesvchost.exe -- 26,276 K -- C:\WINDOWS\System32\svchost.exesvchost.exe -- 42,224 K -- C:\WINDOWS\System32\svchost.exeICEsoundService64.exe -- 1,380 K -- C:\WINDOWS\system32\ICEsoundService64.exeIntelCpHDCPSvc.exe -- 2,120 K -- C:\WINDOWS\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_947ffc914131ecc2\IntelCpHDCPSvc.exe
+svchost.exe -- 5,424 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 13,000 K -- C:\WINDOWS\system32\svchost.exe
+LMS.exe -- 2,700 K -- C:\WINDOWS\Intel\Intel(R) Management Engine Components\LMS\LMS.exe
+svchost.exe -- 2,144 K -- C:\WINDOWS\system32\svchost.exe
+RstMwService.exe -- 1,980 K -- C:\WINDOWS\System32\DriverStore\FileRepository\iaahcic.inf_amd64_7ed3bacbb0a8cc67\RstMwService.exe
+svchost.exe -- 1,780 K -- C:\WINDOWS\System32\svchost.exe
+sqlwriter.exe -- 9,268 K -- C:\Program Files\Microsoft SQL Server\90\Shared\sqlwriter.exe
+MBAMService.exe -- 30,312 K -- C:\Program Files\Microsoft SQL Server\90\Shared\sqlwriter.exe
+svchost.exe -- 4,836 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 3,488 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 2,464 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 13,116 K -- C:\WINDOWS\system32\svchost.exe
+MsMpEng.exe -- 208,864 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 1,952 K -- C:\WINDOWS\System32\svchost.exe
+IntelCpHeciSvc.exe -- 2,052 K -- C:\WINDOWS\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_947ffc914131ecc2\IntelCpHeciSvc.exe
+svchost.exe -- 5,728 K -- C:\WINDOWS\System32\svchost.exe
+jhi_service.exe -- 1,472 K -- C:\WINDOWS\System32\DriverStore\FileRepository\dal.inf_amd64_d52c63e0e1c02c96\jhi_service.exe
+sqlceip.exe -- 20,340 K -- C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\Binn\sqlceip.exe
+sqlservr.exe -- 88,268 K -- C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\Binn\sqlservr.exe
+mbamtray.exe -- 48,120 K -- C:\Program Files\Malwarebytes\Anti-Malware\mbamtray.exe
+sihost.exe -- 22,392 K -- C:\WINDOWS\system32\sihost.exe
+svchost.exe -- 20,192 K -- C:\WINDOWS\system32\svchost.exe
+PresentationFontCache.exe -- 2,952 K -- C:\WINDOWS\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe
+svchost.exe -- 32,080 K -- C:\WINDOWS\system32\svchost.exe
+taskhostw.exe -- 11,300 K -- C:\WINDOWS\system32\taskhostw.exe
+svchost.exe -- 12,184 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 2,796 K -- C:\WINDOWS\System32\svchost.exe
+ctfmon.exe -- 23,244 K -- C:\WINDOWS\system32\ctfmon.exe
+svchost.exe -- 9,188 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 7,432 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 25,272 K -- C:\WINDOWS\system32\svchost.exe
+igfxEM.exe -- 14,720 K -- C:\WINDOWS\System32\DriverStore\FileRepository\cui_dch.inf_amd64_0d9e35aabde3dc22\igfxEM.exe
+RuntimeBroker.exe -- 22,208 K -- C:\Windows\System32\RuntimeBroker.exe
+SearchIndexer.exe -- 36,224 K -- C:\WINDOWS\system32\SearchIndexer.exe
+RuntimeBroker.exe -- 42,596 K -- C:\Windows\System32\RuntimeBroker.exe
+svchost.exe -- 9,600 K -- C:\WINDOWS\System32\svchost.exe
+SettingSyncHost.exe -- 6,092 K -- C:\WINDOWS\system32\SettingSyncHost.exe
+GoogleCrashHandler.exe -- 1,464 K -- C:\Program Files (x86)\Google\Update\1.3.35.452\GoogleCrashHandler.exe
+GoogleCrashHandler64.exe -- 792 K -- C:\Program Files (x86)\Google\Update\1.3.35.452\GoogleCrashHandler64.exe
+RuntimeBroker.exe -- 14,164 K -- C:\Windows\System32\RuntimeBroker.exe
+RuntimeBroker.exe -- 20,664 K -- C:\Windows\System32\RuntimeBroker.exe
+SecurityHealthSystray.exe -- 9,512 K -- C:\Windows\System32\SecurityHealthSystray.exe
+SecurityHealthService.exe -- 13,400 K -- C:\Windows\System32\SecurityHealthSystray.exe
+RtkNGUI64.exe -- 7,700 K -- C:\Program Files\Realtek\Audio\HDA\RtkNGUI64.exe
+OneDrive.exe -- 33,072 K -- C:\Program Files (x86)\Microsoft OneDrive\OneDrive.exe
+svchost.exe -- 7,760 K -- C:\WINDOWS\system32\svchost.exe
+Skype.exe -- 39,508 K -- C:\Program Files\WindowsApps\Microsoft.SkypeApp_15.63.76.0_x86__kzf8qxf38zg5c\Skype\Skype.exe
+Skype.exe -- 4,456 K -- C:\Program Files\WindowsApps\Microsoft.SkypeApp_15.63.76.0_x86__kzf8qxf38zg5c\Skype\Skype.exe
+Skype.exe -- 16,068 K -- C:\Program Files\WindowsApps\Microsoft.SkypeApp_15.63.76.0_x86__kzf8qxf38zg5c\Skype\Skype.exe
+Skype.exe -- 114,024 K -- C:\Program Files\WindowsApps\Microsoft.SkypeApp_15.63.76.0_x86__kzf8qxf38zg5c\Skype\Skype.exe
+jusched.exe -- 7,580 K -- C:\Program Files (x86)\Common Files\Java\Java Update\jusched.exe
+Skype.exe -- 7,216 K -- C:\Program Files\WindowsApps\Microsoft.SkypeApp_15.63.76.0_x86__kzf8qxf38zg5c\Skype\Skype.exe
+svchost.exe -- 11,880 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 6,720 K -- C:\WINDOWS\System32\svchost.exe
+SgrmBroker.exe -- 5,924 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 12,160 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 6,752 K -- C:\WINDOWS\system32\svchost.exe
+Xpadder.exe -- 8,040 K -- J:\symenu\z_aplpsy\Xpadder\Xpadder.exe
+locate32.exe -- 197,984 K -- J:\symenu\z_aplpsy\2_locate_64bit\locate32.exe
+notepad++.exe -- 36,540 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Notepad++_minimalist_package_(x64)_sps\notepad++.exe
+svchost.exe -- 2,888 K -- C:\WINDOWS\system32\svchost.exe
+jucheck.exe -- 3,360 K -- C:\Program Files (x86)\Common Files\Java\Java Update\jucheck.exe
+Video.UI.exe -- 1,020 K -- C:\Program Files\WindowsApps\Microsoft.ZuneVideo_10.20032.16211.0_x64__8wekyb3d8bbwe\Video.UI.exe
+RuntimeBroker.exe -- 4,224 K -- C:\Windows\System32\RuntimeBroker.exe
+svchost.exe -- 9,488 K -- C:\WINDOWS\System32\svchost.exe
+Microsoft.Photos.exe -- 65,180 K -- C:\Program Files\WindowsApps\Microsoft.Windows.Photos_2020.20070.10002.0_x64__8wekyb3d8bbwe\Microsoft.Photos.exe
+RuntimeBroker.exe -- 24,260 K -- C:\Windows\System32\RuntimeBroker.exe
+CompPkgSrv.exe -- 4,816 K -- C:\Windows\System32\CompPkgSrv.exe
+svchost.exe -- 3,728 K -- C:\WINDOWS\system32\svchost.exe
+dllhost.exe -- 5,896 K -- C:\WINDOWS\system32\DllHost.exe
+FreeCommander.exe -- 23,324 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\FreeCommander_sps\FreeCommander.exe
+svchost.exe -- 7,816 K -- C:\WINDOWS\System32\svchost.exe
+ApplicationFrameHost.exe -- 24,868 K -- C:\WINDOWS\system32\ApplicationFrameHost.exe
+svchost.exe -- 11,972 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 3,600 K -- C:\WINDOWS\System32\svchost.exe
+ConEmu64.exe -- 19,680 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Cmder_sps\vendor\conemu-maximus5\ConEmu64.exe
+ConEmuC64.exe -- 2,444 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Cmder_sps\vendor\conemu-maximus5\ConEmu\ConEmuC64.exe
+conhost.exe -- 3,456 K -- C:\WINDOWS\system32\conhost.exe
+cmd.exe -- 3,460 K -- C:\WINDOWS\SYSTEM32\cmd.exe
+wweb32.exe -- 11,596 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\WordWeb_sps\wweb32.exe
+FuncServer_WDC_x64.exe -- 2,168 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\WordWeb_sps\FuncServer_WDC_x64.exe
+xampp-control.exe -- 10,308 K -- J:\xampp\xampp-control.exe
+mysqld.exe -- 6,192 K -- j:\xampp\mysql\bin\mysqld.exe
+httpd.exe -- 2,072 K -- j:\xampp\apache\bin\httpd.exe
+conhost.exe -- 2,604 K -- C:\WINDOWS\system32\conhost.exe
+httpd.exe -- 12,656 K -- J:\xampp\apache\bin\httpd.exe
+OneApp.IGCC.WinService.exe -- 8,144 K -- C:\WINDOWS\System32\DriverStore\FileRepository\igcc_dch.inf_amd64_cf129e457c51e71b\OneApp.IGCC.WinService.exe
+igfxCUIService.exe -- 2,912 K -- C:\WINDOWS\System32\DriverStore\FileRepository\cui_dch.inf_amd64_0ff9f497187b8bed\igfxCUIService.exe
+explorer.exe -- 161,776 K -- C:\WINDOWS\explorer.exe
+StartMenuExperienceHost.exe -- 59,768 K -- C:\WINDOWS\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartMenuExperienceHost.exe
+TextInputHost.exe -- 12,560 K -- C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\InputApp\TextInputHost.exe
+FreeCommander.exe -- 17,648 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\FreeCommander_sps\FreeCommander.exe
+LockApp.exe -- 24,396 K -- C:\WINDOWS\SystemApps\Microsoft.LockApp_cw5n1h2txyewy\LockApp.exe
+RuntimeBroker.exe -- 20,232 K -- C:\Windows\System32\RuntimeBroker.exe
+YourPhone.exe -- 2,496 K -- C:\Program Files\WindowsApps\Microsoft.YourPhone_1.20071.95.0_x64__8wekyb3d8bbwe\YourPhone.exe
+SearchApp.exe -- 187,136 K -- C:\Windows\SystemApps\Microsoft.Windows.Search_cw5n1h2txyewy\SearchApp.exe
+7zFM.exe -- 6,712 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\7-Zip_(x64)_sps\7zFM.exe
+ShellExperienceHost.exe -- 35,016 K -- C:\WINDOWS\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ShellExperienceHost.exe
+FreeCommander.exe -- 17,844 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\FreeCommander_sps\FreeCommander.exe
+dllhost.exe -- 14,044 K -- C:\WINDOWS\system32\DllHost.exe
+Skype.exe -- 28,192 K -- C:\Program Files\WindowsApps\Microsoft.SkypeApp_15.63.76.0_x86__kzf8qxf38zg5c\Skype\Skype.exe
+svchost.exe -- 6,320 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 9,568 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 5,840 K -- C:\WINDOWS\system32\svchost.exe
+svchost.exe -- 5,568 K -- C:\WINDOWS\system32\svchost.exe
+tib_mounter_monitor.exe -- 3,864 K -- C:\Program Files (x86)\Common Files\Acronis\TibMounter\tib_mounter_monitor.exe
+mDNSResponder.exe -- 5,092 K -- C:\Program Files\Bonjour\mDNSResponder.exe
+NisSrv.exe -- 12,148 K -- C:\Program Files\Bonjour\mDNSResponder.exe
+anti_ransomware_service.exe -- 37,284 K -- C:\Program Files (x86)\Common Files\Acronis\ActiveProtection\anti_ransomware_service.exe
+svchost.exe -- 4,908 K -- C:\WINDOWS\system32\svchost.exe
+dasHost.exe -- 9,068 K -- C:\WINDOWS\system32\dashost.exe
+DataExchangeHost.exe -- 14,048 K -- C:\Windows\System32\DataExchangeHost.exe
+SystemSettings.exe -- 1,608 K -- C:\Windows\ImmersiveControlPanel\SystemSettings.exe
+explorer.exe -- 50,044 K -- C:\WINDOWS\explorer.exe
+svchost.exe -- 14,600 K -- C:\WINDOWS\explorer.exe
+ExpressionWeb.exe -- 111,028 K -- C:\Program Files (x86)\Microsoft Expression\Web 4\ExpressionWeb.exe
+PDFXCview.exe -- 57,292 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\PDF-XChange_Viewer_sps\PDFXCview.exe
+cmd.exe -- 2,992 K -- C:\WINDOWS\system32\cmd.exe
+conhost.exe -- 11,368 K -- C:\WINDOWS\system32\conhost.exe
+dllhost.exe -- 5,416 K -- C:\WINDOWS\SysWOW64\DllHost.exe
+Microsoft.Msn.Weather.exe -- 1,684 K -- C:\Program Files\WindowsApps\Microsoft.BingWeather_4.36.20714.0_x64__8wekyb3d8bbwe\Microsoft.Msn.Weather.exe
+RuntimeBroker.exe -- 4,484 K -- C:\Windows\System32\RuntimeBroker.exe
+RuntimeBroker.exe -- 14,788 K -- C:\Windows\System32\RuntimeBroker.exe
+SyMenu.exe -- 68,380 K -- J:\symenu\SyMenu.exe
+FirefoxPortable.exe -- 11,824 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\FirefoxPortable.exe
+firefox.exe -- 475,480 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\firefox64\firefox.exe
+firefox.exe -- 369,596 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 68,532 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 41,932 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 64,452 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 69,812 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 164,768 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 113,836 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 117,708 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 114,544 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+firefox.exe -- 98,536 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+svchost.exe -- 6,360 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 6,560 K -- C:\WINDOWS\System32\svchost.exe
+svchost.exe -- 5,116 K -- C:\WINDOWS\System32\svchost.exe
+explorer.exe -- 65,584 K -- C:\WINDOWS\explorer.exe
+firefox.exe -- 142,196 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Mozilla_Firefox_Portable_sps\App\Firefox64\firefox.exe
+Integrator.exe -- 45,364 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Glary_Utilities_sps\Integrator.exe
+sysinfo.exe -- 42,508 K -- J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Glary_Utilities_sps\sysinfo.exe
+smartscreen.exe -- 24,144 K -- C:\Windows\System32\smartscreen.exe
+msedge.exe -- 185,128 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 8,472 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 74,708 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 35,060 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+svchost.exe -- 8,164 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 79,244 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 42,548 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 56,612 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 55,772 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 110,808 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 43,608 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 42,868 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 38,028 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 60,856 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 79,956 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 115,500 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 56,592 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 89,848 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 61,236 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 61,440 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+msedge.exe -- 24,892 K -- C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+WmiPrvSE.exe -- 12,652 K -- C:\WINDOWS\system32\wbem\wmiprvse.exe
+Physical Memory : 16,255 MBVirtual Memory : 16,384 MBTotal Memory : 32,639 MBFree Memory : 20,918 MBUsed Memory : 11,721 MBSelected Memory : N/A------------------5. Drives(C:)Disk Letter : C:Device Type : Local Fixed DiskFile System : NTFSTotal Bytes : 126,810,583,040 BBytes Free : 25,406,283,776 BBytes Used : 101,404,299,264 BFile Compression Enabled : YesVolume is Compressed : NoLong File Name Enabled : YesUnicode File Name Enabled : YesEncrypted File System : YesNumbers of Clusters : 30,959,615Free Clusters : 6,202,706Used Clusters : 24,756,909Bytes per Cluster : 4,096 bytesSectors per Cluster : 8Used Sectors : 198,055,272Free Sectors : 49,621,648Bytes per Sector : 4,096 bytesTotal Sectors : 247,676,920(D:)Disk Letter : D:Device Type : Local Fixed DiskFile System : NTFSTotal Bytes : 106,953,699,328 BBytes Free : 106,930,466,816 BBytes Used : 23,232,512 BFile Compression Enabled : YesVolume is Compressed : NoLong File Name Enabled : YesUnicode File Name Enabled : YesEncrypted File System : YesNumbers of Clusters : 26,111,743Free Clusters : 26,106,071Used Clusters : 5,672Bytes per Cluster : 4,096 bytesSectors per Cluster : 8Used Sectors : 45,376Free Sectors : 208,848,568Bytes per Sector : 4,096 bytesTotal Sectors : 208,893,944(E:)Disk Letter : E:Device Type : Local Fixed DiskFile System : NTFSTotal Bytes : 73,399,267,328 BBytes Free : 73,299,755,008 BBytes Used : 99,512,320 BFile Compression Enabled : YesVolume is Compressed : NoLong File Name Enabled : YesUnicode File Name Enabled : YesEncrypted File System : YesNumbers of Clusters : 17,919,743Free Clusters : 17,895,448Used Clusters : 24,295Bytes per Cluster : 4,096 bytesSectors per Cluster : 8Used Sectors : 194,360Free Sectors : 143,163,584Bytes per Sector : 4,096 bytesTotal Sectors : 143,357,944(F:)Disk Letter : F:Device Type : Local Fixed DiskFile System : NTFSTotal Bytes : 210,787,889,152 BBytes Free : 210,683,834,368 BBytes Used : 104,054,784 BFile Compression Enabled : YesVolume is Compressed : NoLong File Name Enabled : YesUnicode File Name Enabled : YesEncrypted File System : YesNumbers of Clusters : 51,461,887Free Clusters : 51,436,483Used Clusters : 25,404Bytes per Cluster : 4,096 bytesSectors per Cluster : 8Used Sectors : 203,232Free Sectors : 411,491,864Bytes per Sector : 4,096 bytesTotal Sectors : 411,695,096(G:)Disk Letter : G:Device Type : CD-ROM DiscFile System : CDFSTotal Bytes : 718,340,096 BBytes Free : 0 BBytes Used : 718,340,096 BFile Compression Enabled : NoVolume is Compressed : NoLong File Name Enabled : NoUnicode File Name Enabled : YesEncrypted File System : NoNumbers of Clusters : 350,752Free Clusters : 0Used Clusters : 350,752Bytes per Cluster : 2,048 bytesSectors per Cluster : 1Used Sectors : 350,752Free Sectors : 0Bytes per Sector : 2,048 bytesTotal Sectors : 350,752(I:)Disk Letter : I:Device Type : Local Fixed DiskFile System : NTFSTotal Bytes : 50,331,643,904 BBytes Free : 50,233,581,568 BBytes Used : 98,062,336 BFile Compression Enabled : YesVolume is Compressed : NoLong File Name Enabled : YesUnicode File Name Enabled : YesEncrypted File System : YesNumbers of Clusters : 12,287,999Free Clusters : 12,264,058Used Clusters : 23,941Bytes per Cluster : 4,096 bytesSectors per Cluster : 8Used Sectors : 191,528Free Sectors : 98,112,464Bytes per Sector : 4,096 bytesTotal Sectors : 98,303,992(J:)Disk Letter : J:Device Type : Local Fixed DiskFile System : NTFSTotal Bytes : 1,843,111,391,232 BBytes Free : 1,647,654,113,280 BBytes Used : 195,457,277,952 BFile Compression Enabled : YesVolume is Compressed : NoLong File Name Enabled : YesUnicode File Name Enabled : YesEncrypted File System : YesNumbers of Clusters : 449,978,367Free Clusters : 402,259,305Used Clusters : 47,719,062Bytes per Cluster : 4,096 bytesSectors per Cluster : 8Used Sectors : 381,752,496Free Sectors : -1,076,892,856Bytes per Sector : 4,096 bytesTotal Sectors : -,695,140,360(K:)Disk Letter : K:Device Type : Local Fixed DiskFile System : NTFSTotal Bytes : 426,707,513,344 BBytes Free : 426,575,036,416 BBytes Used : 132,476,928 BFile Compression Enabled : YesVolume is Compressed : NoLong File Name Enabled : YesUnicode File Name Enabled : YesEncrypted File System : YesNumbers of Clusters : 104,176,639Free Clusters : 104,144,296Used Clusters : 32,343Bytes per Cluster : 4,096 bytesSectors per Cluster : 8Used Sectors : 258,744Free Sectors : 833,154,368Bytes per Sector : 4,096 bytesTotal Sectors : 833,413,112(L:)Disk Letter : L:Device Type : Local Fixed DiskFile System : NTFSTotal Bytes : 3,789,860,892,672 BBytes Free : 739,888,611,328 BBytes Used : 3,049,972,281,344 BFile Compression Enabled : YesVolume is Compressed : NoLong File Name Enabled : YesUnicode File Name Enabled : YesEncrypted File System : YesNumbers of Clusters : 925,259,007Free Clusters : 180,636,868Used Clusters : 744,622,139Bytes per Cluster : 4,096 bytesSectors per Cluster : 8Used Sectors : 1,662,009,816Free Sectors : 1,445,094,944Bytes per Sector : 4,096 bytesTotal Sectors : -1,187,862,536------------------6. DisplayDevice Description : Intel(R) HD Graphics 630Adapter String : Intel(R) HD Graphics FamilyBIOS String : -Chip Type : Intel(R) HD Graphics FamilyDAC Type : InternalDriver Date : 2020-06-05Driver Version : 27.20.100.7990Driver Provider : Intel CorporationMemory Size : 1024 MBMonitor Name : KQModel : SAM0659Manufacture Date : 2009/45Serial Number : Max.Visible Display Size : (16 x 9) cm (7.2')Gamma : 2.20320 x 200 - 32 bit320 x 240 - 32 bit400 x 300 - 32 bit512 x 384 - 32 bit640 x 400 - 32 bit640 x 480 - 32 bit720 x 480 - 32 bit720 x 576 - 32 bit800 x 600 - 32 bit1024 x 768 - 32 bit1152 x 864 - 32 bit1280 x 600 - 32 bit1280 x 720 - 32 bit1280 x 768 - 32 bit1280 x 800 - 32 bit1280 x 960 - 32 bit1280 x 1024 - 32 bit1360 x 768 - 32 bit1366 x 768 - 32 bit1400 x 1050 - 32 bit1440 x 900 - 32 bit1600 x 900 - 32 bit1600 x 1200 - 32 bit1680 x 1050 - 32 bit1920 x 1080 - 32 bit320 x 200 - 16 bit320 x 240 - 16 bit400 x 300 - 16 bit512 x 384 - 16 bit640 x 400 - 16 bit640 x 480 - 16 bit720 x 480 - 16 bit720 x 576 - 16 bit800 x 600 - 16 bit1024 x 768 - 16 bit1152 x 864 - 16 bit1280 x 600 - 16 bit1280 x 720 - 16 bit1280 x 768 - 16 bit1280 x 800 - 16 bit1280 x 960 - 16 bit1280 x 1024 - 16 bit1360 x 768 - 16 bit1366 x 768 - 16 bit1400 x 1050 - 16 bit1440 x 900 - 16 bit1600 x 900 - 16 bit1600 x 1200 - 16 bit1680 x 1050 - 16 bit1920 x 1080 - 16 bit320 x 200 - 8 bit320 x 240 - 8 bit400 x 300 - 8 bit512 x 384 - 8 bit640 x 400 - 8 bit640 x 480 - 8 bit720 x 480 - 8 bit720 x 576 - 8 bit800 x 600 - 8 bit1024 x 768 - 8 bit1152 x 864 - 8 bit1280 x 600 - 8 bit1280 x 720 - 8 bit1280 x 768 - 8 bit1280 x 800 - 8 bit1280 x 960 - 8 bit1280 x 1024 - 8 bit1360 x 768 - 8 bit1366 x 768 - 8 bit1400 x 1050 - 8 bit1440 x 900 - 8 bit1600 x 900 - 8 bit1600 x 1200 - 8 bit1680 x 1050 - 8 bit1920 x 1080 - 8 bit
+------------------7. NetworkNetwork Adapter : Realtek PCIe GbE Family ControllerInterface Type : EthernetConnection Name : EthernetConnection Speed : 1000 MBMTU : 1500 BIP/Subnet Mask : 192.168.5.12Gateway : 192.168.5.1DNS : 213.191.128.8 213.191.128.9Network Adapter : TP-Link Gigabit PCI Express AdapterInterface Type : EthernetConnection Name : Ethernet 2Connection Speed : 0 MBMTU : 1500 BIP/Subnet Mask : 0.0.0.0Gateway : 0.0.0.0DNS : Network Adapter : VirtualBox Host-Only Ethernet AdapterInterface Type : EthernetConnection Name : Ethernet 3Connection Speed : 1000 MBMTU : 1500 BIP/Subnet Mask : 192.168.56.1Gateway : 0.0.0.0DNS : ------------------8. Other DevicesIntel(R) Display AudioRealtek High Definition AudioPS/2 Mouse : Mouse PortPS/2 Keyboard : Keyboard PortUSB3_34 : USBUSB78 : USBLAN_USB56 : Network PortAUDIO : Audio PortDVI : NoneHDMI : NoneVGA : NoneSATA6G_1 : 8251 CompatibleSATA6G_2 : 8251 CompatibleSATA6G_3 : 8251 CompatibleSATA6G_4 : 8251 CompatibleUSB910 : USBUSB3_12 : USBCPU_FAN : NoneCHA_FAN : NoneCOM : Serial Port 16550A CompatibleAAFP : Audio PortPANEL : NoneTPM : NoneLPT : NoneUSB Controller : USB Composite DeviceUSB Controller : USB Root Hub (USB 3.0)USB Controller : USB Composite DeviceOneNote for Windows 10 : Microsoft.Office.OneNote_16001.12827.20538.0_x64__8wekyb3d8bbwe_microsoft.onenoteim_S-1-5-21-3147801855-1807970158-1727357031-1001PDFCreator : pdfcmonMicrosoft XPS Document Writer : PORTPROMPT:Microsoft Print to PDF : PORTPROMPT:Fax : SHRFAX:
+```

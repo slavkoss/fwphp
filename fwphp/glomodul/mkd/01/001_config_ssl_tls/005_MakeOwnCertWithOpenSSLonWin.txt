@@ -1,0 +1,600 @@
+SSL_ERROR_RX_RECORD_TOO_LONG   -   https://www.clickssl.net/blog/ssl_error_rx_record_too_long         
+### Buy a Reliable SSL certificate, or get free SSL cert., or I DID: cre self-signed SSL .crt file
+
+At end we have :     
+dir J:\xampp\apache\conf\ssl.crt                          
+29.03.2020.  14:13             1.286 server.crt           - step 5 x509     
+30.03.2013.  14:29               623 server_original.crt    
+
+dir J:\xampp\apache\conf\ssl.key                          
+29.03.2020.  13:57             1.706 server.key           - step 4 rsa     
+30.03.2013.  14:29               887 server_original.key    
+
+<br /><br />
+dir J:\xampp\apache\bin\z_sss         
+29.03.2020.  14:13             1.286 **server.cert**    =**self-signed SSL server certificate .cert file**       
+29.03.2020.  13:32             1.046 server.csr      =OpenSSL certificate request .csr file     
+
+dir J:\xampp\apache\bin\z_ssl      
+29.03.2020.  13:31             1.884 privkey.pem  =encrypted private key .pem file      
+29.03.2020.  13:57             1.706 **server.key**     =rsa private key .key file     
+
+<br />
+1. j:          
+    cd J:\xampp\apache\bin     
+    mkdir z_sss  (rmdir)       
+    mkdir z_sss        
+2. set OPENSSL_CONF=J:\xampp\apache\conf\openssl.cnf        
+3. openssl req -config J:\xampp\apache\conf\openssl.cnf -new -out .\z_sss\server.csr -keyout .\z_ssl\privkey.pem           
+4. cd J:\xampp\apache\bin\z_ssl dir       
+    openssl rsa -in privkey.pem -out server.key       
+5. cd J:\xampp\apache\bin\z_sss         
+    openssl x509 -in server.csr -out server.cert -req -signkey J:\xampp\apache\bin\z_ssl\server.key -days 3650      
+    rem ------- WE HAVE SELF-SIGNED SSL CERTIFICATES READY NOW -------
+6. delete .rnd file because it contains entropy information for creating key and could be used for cryptographic attacks against your private key
+7. copy J:\xampp\apache\bin\z_sss\server.cert J:\xampp\apache\conf\ssl.crt\server.crt     
+   copy J:\xampp\apache\bin\z_ssl\server.key J:\xampp\apache\conf\ssl.key\server.key     
+8. Configuring Apache on XAMPP to start-run SSL/HTTPS server         
+    **J:\xampp\apache\conf\httpd.conf**   : look for lines:      
+   1. Listen 8083
+   2. Listen 443
+   3. LoadModule ssl_module modules/mod_ssl.so         
+       and remove pound sign (#) characters preceding it.
+   4. Include conf/extra/httpd-ssl.conf        
+      and remove any pound sign (#) characters preceding it.
+      eg below Include conf/extra/httpd-ssl.conf is :
+   ```
+   <IfModule ssl_module>
+      SSLRandomSeed startup builtin
+      SSLRandomSeed connect builtin
+   </IfModule>
+   ```
+   **J:\xampp\apache\conf\extra\httpd-ssl.conf** :      
+   DocumentRoot "J:/xampp/htdocs"      
+   ServerName localhost:443        
+   5. Restart Apache       
+   
+   6. https://localhost/fwphp/www/  displays :      
+      "...potential security threat... attackers could try to steal information like your passwords, emails, or credit card details.      
+      ...Firefox does not trust this site because it uses a certificate that is not valid for localhost.     
+      ...Error code: MOZILLA_PKIX_ERROR_SELF_SIGNED_CERT"
+      Buttons : "Goback", "Advanced" -&gt; click "Advanced" then "Accept"      
+      Now lock icon in ibrowser URL adress shows "...you added exception..."      
+
+
+<br /><br /><br /><br />
+On Chrome (Brave), MS Edge : ERR_SSL_PROTOCOL_ERROR  This site can’t provide a secure connection localhost sent an invalid response.      
+On Firefox (Pale Moon)  SSL_ERROR_RX_RECORD_TOO_LONG       
+
+Above error occurs when client is connecting to **port opened on the server** but the **SSL certificate is not properly configured for web server port.**. Wireshark - this error is considered as a bad request from a client’s side, since the requested certificate is not configured on the server.    
+
+Fox example, in case of Apache error will show up in Firefox if you have a **line "Listen 443"** in your VirtualHost file **without (correct) VIrtualHost record for port 443 - you must have trusted SSL/TLS certificate on that port**. Make sure the certificate is installed and configured properly on the server side. Two main functions of the certificates : data encryption and authentication of the opposite side of web-session - certificate is not properly set up on the hosting side and means that the server's authenticity has not been approved.      
+
+You need a configuration that will enable connection to use Port eg 443. Current TLS ver. is 1.3 2019 year (4 in Firefox about:config, 3 is TLS 1.2, 2011 year). Modifying in Firefox about:config means modifying sessions encryption strength which does not affect the certificate installation on server side.     
+
+
+
+openssl s_client -connect localhost.tld:8083         =openssl s_client -connect yourdomain.tld:*port*      
+7012:error:2008F002:BIO routines:BIO_lookup_ex:system lib:../openssl-1.1.1d/crypto/bio/b_addr.c:724:N        
+connect:errno=11001         
+
+HTTP works on the application layer, and HTTPS works on the transport layer and is concerned with Port 443. 
+
+
+To trace (find) your website's IP on Windows:     
+λ tracert localhost         
+Tracing route to sspc2 [::1] over a maximum of 30 hops:         
+  1    \<1 ms    \<1 ms    \<1 ms  sspc2 [\:\:1]           
+j:\awww\www (master -> origin)          
+
+λ tracert dev1             
+Tracing route to sspc2 [fe80::55f0:dde8:14c3:8d5d%14]               
+over a maximum of 30 hops:        
+  1    \<1 ms    \<1 ms    \<1 ms  sspc2.Home [fe80::55f0:dde8:14c3:8d5d]              
+
+Trace complete.          
+
+Type the IP address followed by 'HTTPS' or use Netcat, ncat to check if the Port 443 is open.        
+
+
+https://www.yougetsignal.com/tools/open-ports/     shows  "eg 141.136.137.159  and 443 is closed"      
+ping 141.136.137.159     
+
+
+https://larryullman.com/2012/11/14/getting-an-ssl-certificatesetting-up-https/         
+
+1. create a Certificate Signing Request (CSR) using ComdLine **open_ssl** tool or through a control panel. Cert may work on multiple domains eg *.larryullman.com (2048 bits here equates to 256-bit encryption; 1024 = 128-bit encryption).
+2. 
+
+
+
+****
+Setting up Apache HTTPS / SSL-TLS on Windows 10 64 bit
+****
+2.apr.2010
+http://rubayathasan.com/tutorial/apache-ssl-on-windows/
+
+# 1. Creating a self-signed SSL Certificate using OpenSSL
+
+
+Open the command prompt and cd to your Apache installations "bin" directory.     
+
+## 11111  cd to apache bin dir      
+j:         
+cd J:\xampp\apache\bin     
+or cd J:\wamp... or cd J:\zwamp64\vdrive\.sys\Apache2\bin or cd "C:\Program Files\Apache Software Foundation\Apache2.2\bin"       
+
+
+## 22222 openssl.cnf file location      
+
+Is needed to create the SSL certificate but default location set by OpenSSL 
+for this file is setup ACCORDING TO A LINUX DISTRIBUTION, so we need to fix it for Windows.       
+
+We need to setup the Windows environment variable OPENSSL_CONF to point to 
+openssl.cnf files location, my is 28.05.2019.  17:12   11.259 bytes :       
+**J:\xampp\apache\conf\openssl.cnf**      
+
+
+So we can set OPENSSL_CONF up by :     
+
+**set OPENSSL_CONF=J:\xampp\apache\conf\openssl.cnf**         
+
+or     
+we can specify configuration file location so :     
+openssl req -config openssl.cnf -new -out ./sss/blarg.csr -keyout ./ssl/blarg.pem
+
+All files generated from the following commands will reside in      
+J:\xampp\apache\bin folder      
+
+
+## 33333 Create new .csr and .pem files
+eg create :         server.csr
+
+1. **privkey.pem encrypted private key**           
+-----BEGIN ENCRYPTED PRIVATE KEY-----          
+MIIFDjBABgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDgQI+wqX0wqg0RICAggA...  etc             
+-----END ENCRYPTED PRIVATE KEY-----            
+
+
+2. **server.csr OpenSSL certificate request**       
+-----BEGIN CERTIFICATE REQUEST-----           
+MIICyjCCAbICAQAwgYQxCzAJBgNVBAYTAkhSMQ8wDQYDVQQIDAZaYWdyZWIxDzAN... etc          
+-----END CERTIFICATE REQUEST-----         
+
+3. **.rnd binary file** 
+-----BEGIN CERTIFICATE REQUEST-----         
+ Ew93d3cuZXhhbXBsZS5uZXQxJDAiBgkqhkiG9w0BCQEWFUxhcnJ5QERNQ0luc2ln... etc     
+ -----END CERTIFICATE REQUEST-----      
+
+using following command:      
+**cd J:\xampp\apache\bin :**
+**openssl req -config J:\xampp\apache\conf\openssl.cnf -new -out .\z_sss\server.csr -keyout .\z_ssl\privkey.pem**       
+or openssl req -new -out server.csr       
+
+OUTPUT: ...writing new private key to 'privkey.pem'...     It will ask you questions, you can ignore them except :         
+PEM pass phrase : **sspc2 ** = Password associated with private key you're generating (anything of your choice).       
+Common Name   : **dev1** = FULLY-QUALIFIED DOMAIN NAME ASSOCIATED WITH THIS CERTIFICATE (i.e. www.your-domain.com).
+             
+**sspc2**, HR, Zagreb, Zagreb, ssorg, ssorgu, **dev1**, slavkoss22@gmail.com
+
+        
+
+
+
+## 44444 create rsa private key .key file
+
+Now we need to REMOVE PASSPHRASE FROM PRIVATE KEY.        
+File "server.key" created from the following command should be **only readable by the apache server and the administrator**.          
+
+**cd J:\xampp\apache\bin\z_ssl dir :**       
+**openssl rsa -in privkey.pem -out server.key**         
+
+Enter pass phrase for privkey.pem: sspc2        
+writing RSA key         
+
+Created is server.key file :        
+-----BEGIN RSA PRIVATE KEY-----        
+MIIEowIBAAKCAQEAsCgNp0sukyV9O9SCUY2zWLMiEdvkjOuzTANlxPqmrCOJ0uiL... etc         
+-----END RSA PRIVATE KEY-----        
+
+
+
+
+## 55555 set up expiry date for .cert file
+We use 365 days below:    
+**cd J:\xampp\apache\bin\z_sss**         
+**openssl x509 -in server.csr -out server.cert -req -signkey J:\xampp\apache\bin\z_ssl\server.key -days 3650**       
+
+Signature ok         
+subject=/C=HR/ST=Zagreb/L=Zagreb/O=ssorg/OU=ssorgu/CN=dev1/emailAddress=slavkoss22@gmail.com      
+Getting Private key     
+
+Created is: **server.cert** :       
+
+-----BEGIN CERTIFICATE-----     
+MIIDhjCCAm4CCQD9URp7J3eYzDANBgkqhkiG9w0BAQsFADCBhDELMAkGA1UEBhMC... etc         
+-----END CERTIFICATE-----      
+
+
+### WE HAVE SELF-SIGNED SSL CERTIFICATES READY NOW.          
+
+
+## 66666
+You should delete .rnd file because it contains entropy information for creating key and could be used for cryptographic attacks against your private key.          
+               if you run the openssl genrsa command without .rnd or without setting the RANDFILE environment variable, you get an error:
+              Loading 'screen' into random state - done
+              Generating RSA private key, 2048 bit long modulus
+              +++
+              +++
+              unable to write 'random state'
+
+## 77777
+Move "server.cert" and "server.key" file to "J:\xampp\apache\conf" location.
+
+
+
+
+
+## 88888 Configuring Apache to start-run SSL/HTTPS server
+
+J:\xampp\apache\conf\httpd.conf   : look for lines:      
+1. Listen 8083
+2. Listen 443
+3. LoadModule ssl_module modules/mod_ssl.so         
+   and remove pound sign (#) characters preceding it.
+4. Include conf/extra/httpd-ssl.conf        
+   and remove any pound sign (#) characters preceding it.
+   eg below Include conf/extra/httpd-ssl.conf is :
+   ```
+   <IfModule ssl_module>
+      SSLRandomSeed startup builtin
+      SSLRandomSeed connect builtin
+   </IfModule>
+   ```
+
+
+Modify httpd-ssl.conf section below according to your need, I did **nothing for XAMPP** and for ZWAMP :        
+c:/Apache24 -> J:/zwamp64/vdrive/.sys/Apache2        
+J:/zwamp64/vdrive is / so we can :          
+J:/zwamp64/vdrive -> nothing         
+
+Listen 443       
+SSLCipherSuite HIGH:MEDIUM:!MD5:!RC4:!3DES          
+SSLProxyCipherSuite HIGH:MEDIUM:!MD5:!RC4:!3DES        
+SSLHonorCipherOrder on         
+SSLProtocol all -SSLv3        
+SSLProxyProtocol all -SSLv3        
+SSLPassPhraseDialog  builtin       
+
+
+
+### if error apache can not start :
+#SSLSessionCache        "shmcb:J:/zwamp64/vdrive/.sys/Apache2/logs/ssl_scache(512000)"
+SSLSessionCacheTimeout  300
+
+<VirtualHost _default_:443>
+  #   General setup for the virtual host   J:/zwamp64/vdrive/ = /
+  DocumentRoot "J:/zwamp64/vdrive/.sys/Apache2/htdocs"
+  #ServerName www.example.com:443
+  ServerName dev1:443
+  #ServerAdmin admin@example.com
+  ServerAdmin slavkoss22@gmail.com
+  ErrorLog "J:/zwamp64/vdrive/.sys/Apache2/logs/error.log"
+  TransferLog "J:/zwamp64/vdrive/.sys/Apache2/logs/access.log"
+  SSLEngine on
+  SSLCertificateFile "J:/zwamp64/vdrive/.sys/Apache2/conf/server.cert"
+  SSLCertificateKeyFile "J:/zwamp64/vdrive/.sys/Apache2/conf/server.key"
+  
+  <FilesMatch "\.(cgi|shtml|phtml|php)$">
+      SSLOptions +StdEnvVars
+  </FilesMatch>
+  
+  <Directory "J:/zwamp64/vdrive/.sys/Apache2/cgi-bin">
+      SSLOptions +StdEnvVars
+  </Directory>
+
+  BrowserMatch "MSIE [2-5]" \
+           nokeepalive ssl-unclean-shutdown \
+           downgrade-1.0 force-response-1.0
+  CustomLog "J:/zwamp64/vdrive/.sys/Apache2/logs/ssl_request.log" \
+            "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+</VirtualHost> 
+
+
+--------------- or :
+<VirtualHost _default_:443> 
+    ServerAdmin some@email.com 
+    DocumentRoot "Your Root folder location" 
+    ServerName www.domain.com:443 
+    ServerAlias domain.com:443 
+    ErrorLog "logs/anyFile-error.log" 
+    CustomLog "logs/anyFile-access.log" common 
+    SSLEngine on
+
+    SSLCertificateFile "C:/Program Files/Apache Software Foundation/Apache2.2/conf/server.cert"
+
+    SSLCertificateKeyFile "C:/Program Files/Apache Software Foundation/Apache2.2/conf/server.key" 
+</VirtualHost>
+
+Make sure that "SSLCertificateFile" and "SSLCertificateKeyFile" are properly located.
+
+For better organizing YOU CAN ALSO put the whole <VirtualHost></VirtualHost> section in the "J:\xampp\apache\conf\extra\httpd-vhosts.conf" along with your other Virtual Host settings there but you need to uncomment "Include conf/extra/httpd-vhosts.conf" in your conf\httpd.conf file to use that.
+
+Opening SSL/HTTPS port on Windows:
+Now we need to open an exception in Windows Firewall for TCP port 443. You can do that by going to "Windows Firewall" settings in Control Panel and adding a port in the exception section. Also C:\Windows\System32\drivers\etc\hosts file.
+
+
+
+https://dev1:8083/
+-- error Firefox :  SSL received a record that exceeded the maximum permissible length. Error code: SSL_ERROR_RX_RECORD_TOO_LONG
+http://www.trishtech.com/2017/04/fix-firefox-error-ssl_error_rx_record_too_long/
+--usually displayed when the SSL certificate on the web server is not properly configured.
+
+    1. Try connecting to the website over HTTP: If there is some problem with the SSL certificate on the web server, perhaps you can skip the HTTPS secure protocol altogether and connect to the website over the insecure HTTP protocol. You can do this simply by removing https:// from the website URL and adding http:// in its place.
+    2. Disable Firefox add-ons: Some of the Firefox add-ons could also interfere in the way Firefox sends requests to web servers. For example, some add-ons might be hard-coded to connect to web servers over the secure HTTPS protocol and this could easily cause error in case of a missing SSL certificate or a mis-configured certificate. You can access all the installed add-ons by entering ***about:addons*** in the address bar.
+    3. Refresh Firefox: If the error is being caused due to some settings related mess that you've caused yourself, then you can still fix the problem by refreshing all the Firefox entries. To do this, you have to enter about:support in the address bar and then click on the Refresh Firefox button to remove all the customizations and settings.
+If even after trying the previous steps, you seem to keep getting error then perhaps your ISP is tempering with the data being sent or received by your computer. In this case, you should try using a VPN proxy software like Hotspot Shield, Tunnelbear or CyberGhost.
+
+http://www.trishtech.com/2012/05/remove-security-certificate-exceptions-in-mozilla-firefox/
+Sometimes when you try to visit a website over a secure HTTPS connection, Firefox throws up a warning that the connection is untrusted. This may be due to a variety of reasons like 
+    - invalid security certificate, 
+    - expired security certificate, 
+    - missing security certificate 
+    - ...
+If you want to open that website anyway, then you can add an exception to this website which causes Firefox to start trusting it irrespective of its security certificate status. You can add the security certificate exception either temporarily or permanently. If you add the exception temporarily, then the exception is valid only for the current Firefox session. But if you add the exception permanently, then it becomes valid everytime you use Firefox - which makes it a security risk. If you have added such a security exception :
+
+Firefox options -> Advanced -> Cerificates -> View Cerificates -> Authorities -> Import
+-> J:\xampp\apache\bin\server.cert
+--      -> J:\awww\apl\dev1\zz\2way_handshake\rootCA.crt
+-> Trust this CA to identify websites -> View :
+Issued by : ssorg (under this node is certificate server, Software security device)
+--Issued by : testorg (under this node is certificate my2wayhanshake, Software security device)
+Common name CN=dev1
+--Common name CN=my2wayhanshake
+O=ssorg        --testorg
+OU=ssorgu      --testunit
+
+http://www.trishtech.com/2016/10/toggle-ocsp-server-verification-of-certificates-in-firefox/
+-- Unceck Query OCSP responder servers to confirm the current validity of certificates
+--        has no efect  - about:preferences#advanced  or  about:config
+OCSP = online certificate status protocol) verification
+
+April 12, 2016
+http://www.trishtech.com/2016/04/fix-invalid-certificates-error-in-mozilla-firefox/
+When you connect to websites over a secure connection (HTTPS), the connection is encrypted using a security certificate issued by one of the certificate issuing authorities like Comodo, GoDaddy, Verizon, Symantec, Digicert etc. But if there is some problem with the certificates downloaded from these websites or if they cannot be verified, then Firefox will refuse to connect to the websites trying to use such certificates. While there could be problem in the certificate configuration on the web server itself, these errors in Firefox could also result from some local Firefox certificate database corruptions.
+
+First thing you should check is the system date. 
+Or certificates store database in your Firefox profile has become corrupt
+    Help -> Troubleshooting Information -> Show Folder button to open your default Firefox profile folder
+    -> When the Firefox profile folder opens up, close all the Firefox browser windows and wait for ten seconds to let the Firefox processes to be terminated.
+    -> In the Firefox profile folder, locate a file named cert8.db and delete it.
+    -> Restart Firefox. This will recreate the cert8.db file once again and now you should not have any security certificates related errors.
+
+
+
+
+
+Certificate manager -> Add security exception -> https://dev1 -> Get certificate
+shows data above
+
+
+
+
+
+then you can remove it using the following steps
+
+
+
+
+-- error Slimjet :  This site can't provide a secure connection
+-- error Microsoft Edge 40.15063.0.0 :  Hmmm...can't reach this page
+
+-- error :  Could not verify this certificate because the issuer is unknown :
+--          This certificate has been verified for the following users
+--          SSL Certificate Authority
+
+
+
+
+
+
+
+
+
+
+
+*********************************************
+Make Your Own Cert With OpenSSL on Windows
+*********************************************
+https://blog.didierstevens.com/2015/03/30/howto-make-your-own-cert-with-openssl-on-windows/
+Didier Stevens 30.march 2015
+
+https://support.globalsign.com/customer/portal/articles/1353601-converting-certificates---openssl
+
+Generate wildcard certificate with Intermediate/chain certificate and private key :
+https://www.devside.net/wamp-server/generating-and-installing-wildcard-and-multi-domain-ssl-certificates
+
+OpenSSL 1.1.0 or later, you'll get this ERROR: 
+      "problem creating object tsa_policy1=1.2.3.4.1"
+      
+All root CAs are self-signed.
+
+pkcs8 format is for private keys, not for certificates. The private key is in PEM format.
+
+The certificate does not dictate which encryption has to be used for the TLS connection. This is determined by the settings of the server and the client. Check the settings of your webserver, you can use the Qualys' SSL Labs to help you.
+      
+
+J:
+cd J:\awww\apl\dev1\zz\1_own_openssl_cert
+
+Before you start OpenSSL, you need to set 2 environment variables:
+
+--set RANDFILE=c:\demo\.rnd
+set RANDFILE=J:\awww\apl\dev1\zz\1_own_openssl_cert\.rnd
+--set OPENSSL_CONF=C:\OpenSSL-Win32\bin\openssl.cfg
+set OPENSSL_CONF=C:\Program Files\Git\mingw64\ssl\openssl.cnf
+
+            ------------------- path science :
+            J:\awww\apl\dev1\zz\1_own_openssl_cert>openssl version -d
+            OPENSSLDIR: "c:/openssl-1.0.2k-win64/ssl"
+            openssl version
+            OpenSSL 1.0.2k  26 Jan 2017
+
+            "C:\Program Files\Git\mingw64\bin\openssl.exe" version -d
+            OPENSSLDIR: "/mingw64/ssl"
+            "C:\Program Files\Git\mingw64\bin\openssl.exe" version
+            OpenSSL 1.0.2l  25 May 2017
+            (C:\Program Files\Git\mingw64\bin; --IS IN PATH)
+
+            J:\awww\apl\dev1\zz\1_own_openssl_cert>path
+            PATH=Z:\.sys\miniperl\bin;Z:\.sys\php;Z:\.sys\Apache2\bin;Z:\.sys\mysql\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\ss\AppData\Roaming\Composer\vendor\bin
+            ---------------------------------------
+
+Now you can start OpenSSL, type: 
+--c:\OpenSSL-Win32\bin\openssl.exe
+"C:\Program Files\Git\mingw64\bin\openssl.exe"
+--it opens openssl CLI:
+OpenSSL>
+
+And from here on, commands are same as for my "Howto: Make Your Own Cert With OpenSSL".
+https://blog.didierstevens.com/2008/12/30/howto-make-your-own-cert-with-openssl/
+(on Linux)
+
+
+
+1. generate a 4096-bit long RSA key for our root CA and store it in file ca.key:
+11111
+OpenSSL> genrsa -out ca.key 4096
+
+           (If you want to password-protect this key, add option -des3)
+
+Generating RSA private key, 4096 bit long modulus
+........................................................++
+........................................................++
+e is 65537 (0x10001)
+OpenSSL>
+
+
+
+
+2. create our self-signed root CA certificate ca.crt; 
+22222
+OpenSSL>req -new -x509 -days 1826 -key ca.key -out ca.crt
+
+         you'll need to provide an identity for your root CA:
+         --ss1=CN = Common Name (e.g. server FQDN or YOUR name) []:MyRootAuthority 
+         HR, Zagreb, Zagreb, org1, ou1, ss1, slavkoss22@gmail.com
+
+         -x509 option is used for self-signed certificate. 
+         1826 days gives us cert valid for 5 years.
+
+
+
+3. create our subordinate CA that will be used for actual signing. 
+
+3.1 generate key:
+33333
+OpenSSL>genrsa -out ia.key 4096
+
+3.2 request a certificate for this subordinate CA:
+44444
+OpenSSL>req -new -key ia.key -out ia.csr
+         
+         --ssia1=CN = Common Name (e.g. server FQDN or YOUR name) []:MyRootAuthority 
+         HR, Zagreb, Zagreb, orgia1, ouia1, ssia1, slavkoss22@gmail.com
+
+Please enter the following 'extra' attributes  --Both type ENTER key
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+         
+Generating RSA private key, 4096 bit long modulus
+......................++
+.............++
+e is 65537 (0x10001)
+
+Make sure that the Common Name you enter here is different from the Common Name you entered previously for the root CA. If they are the same, you will get an error later on when creating the pkcs12 file.
+
+
+
+
+
+
+4. process request for subordinate CA certificate and get it signed by the root CA.
+55555
+OpenSSL>x509 -req -days 730 -in ia.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out ia.crt
+
+          Signature ok
+          subject=/C=HR/ST=Zagreb/L=Zagreb/O=orgia1/OU=ouia1/CN=ssia1/emailAddress=slavkoss22@gmail.com
+          Getting CA Private Key
+
+The cert will be valid for 2 years (730 days) and I decided to choose my own serial number 01 for this cert (-set_serial 01). For the root CA, I let OpenSSL generate a random serial number.
+
+That's all there is to it! Of course, there are many options I didn't use. Consult the OpenSSL documentation for more info. 
+
+For example, I didn't restrict my subordinate CA key usage to digital signatures. It can be used for anything, even making another subordinate CA. When you buy a code signing certificate, the CA company will limit its use to code signing. 
+
+And I did not use passwords to protect my keys. In a production environment, you want to protect your keys with passwords.
+
+
+
+
+
+
+To use this subordinate CA key for Authenticode signatures with Microsoft's signtool, 
+you'll have to package the keys and certs in a PKCS12 file:
+66666
+OpenSSL>pkcs12 -export -out ia.p12 -inkey ia.key -in ia.crt -chain -CAfile ca.crt
+
+              If you did not provide a different Common Name for the root CA and the intermediate CA, then you'll get this error:
+              Error self-signed certificate getting chain.
+              error in pkcs12
+
+
+
+To sign executables in Windows with signtool: 
+1. install file ia.p12 in your certificate store 
+   77777
+
+  1.1 The certificates (.crt files) you created here can be double-clicked in Windows 
+  to view/install them:
+  -- e.g. double click ia.crt to open Cert. properties after this opens Certificate import wizzard - SEE 1.2 below
+   
+   or
+
+   1.2 e.g. double click ia.p12 to open Certificate import wizzard which:
+         -- copy disk->cert.store : cert, cert.trust list or cert.revocation list 
+         CA cert. is 
+         - confirmation of your identity 
+         - and contains info to: protect data or to establish secure network conn.
+   pkpsw1
+
+2. use signtool /wizard to sign your PE file.
+
+
+
+
+what's this for?
+
+set RANDFILE=c:\demo\.rnd
+
+From the OpenSSL documentation:
+RANDFILE
+a file used to read and write random number seed information, or an EGD socket (see RAND_egd).
+
+On Linux systems, this file is in your home folder: ~/.rnd
+On Windows with the OpenSSL binaries I used, this file is in the root of the C: drive: C:\.rnd
+And for normal users, that is a problem, because they don't have write access to C:\
+
+So if you run the openssl genrsa command without setting the RANDFILE environment variable, you get an error:
+Loading �screen' into random state - done
+Generating RSA private key, 2048 bit long modulus
+..+++
+����+++
+unable to write �random state'
+e is 65537 (0x10001)
+
+By pointing the RANDFILE to a file where the user has read and write access, openssl can write to the file and no error is generated.
+
+Now you mention disabling all randomness in the keys. Are you maybe referring to /dev/random? Because that is not where RANDFILE points to.
+

@@ -1,0 +1,13 @@
+/*  #ddaa00=drap  */
+body {
+font-size: 2; margin: 0; padding: 0;
+}
+
+footer, header, main {
+    padding: 0px; box-sizing: border-box;
+}
+header {background-color: lightgray;}
+/* main {background-color: #fff;} */
+footer {background-color: lightgray;}
+
+/* body {margin: 0; padding: 0;} */

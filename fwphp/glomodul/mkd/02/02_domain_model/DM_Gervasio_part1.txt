@@ -1,0 +1,539 @@
+1.  [PHP](https://www.sitepoint.com/php/)
+2.  Part 1. February 24, 2012
+3.  http://www.sitepoint.com/building-a-domain-model/
+    By [Alejandro Gervasio](https://www.sitepoint.com/author/agervasio/)
+
+See monster https://github.com/dddinphp/blog-cqrs 2016_Buenosvinos_Domain-Driven_Design_in_PHP_blog-cqrs-master.zip
+
+## Building a Domain Model - An Introduction to Persistence Agnosticism
+
+With so much water flowing under the [Domain Models](http://martinfowler.com/eaaCatalog/domainModel.html) bridge over the last few years, it-s rather hard to dig deep into the key concepts without rippling even more confusion in the already agitated creek. Moreover, with tons of MVC implementations proliferating like hungry ants, the acronym-s -M- continues to suffer from the symptoms of an ad-hoc layer, usually known as a Database Model, which can pollute with total impunity the domain logic with code for database access (hence infrastructure), or with other type of underlying storage.
+
+What makes a Database Model so appealing in many cases is that it performs fairly well from the perspective of client code. After all, it-s easily consumable, as it hides a lot of complexity behind an apparently harmless API (for example, something like `$user->save()`). The downside is that it clashes noisily when it comes to sticking to good object-oriented design practices, not to mention the plethora of scalability and testability issues that eventually bubble up to the surface.
+
+From this standpoint, it would seem that popular data source architectural patterns, such as [Active Record](http://martinfowler.com/eaaCatalog/activeRecord.html) and [Table Data Gateway](http://martinfowler.com/eaaCatalog/tableDataGateway.html) should be considered potentially harmful intruders, when they-re coupled to domain logic. But throwing blame to the patterns for what they-re intended to do is nothing but a weak excuse for not embracing a Domain Model according to the purpose it was conceived in the first place: _an independent, persistence-agnostic layer responsible for defining clearly the interactions between the entities of a system through data and behavior._
+
+Of course, the above definition is a world away from being formal. Still, it highlights a few important ideas. First off, creating a rich Domain Model, where multiple domain objects with well-defined constraints and rules interact, can be a daunting task. Second, not only is it necessary to define from top to bottom the model itself, but it-s also necessary to implement from scratch or reuse a mapping layer in order to move data back and forward between the persistence layer and the model in question. The process requires at least one extra layer to get things sorted out, therefore moving away from more pragmatic approaches.
+
+The payback, though, can be surprisingly gratifying in the end, especially when considering the model in its entirety can be ported without much hassle from one infrastructure to another. A big bonus, indeed.
+
+You-re probably wondering if a Domain Model gets along with PHP. Well, in fact it does, albeit at the expenses of having to tackle the aforementioned issues. But claims like this must be always backed up with a decent proof of concept, so, allow me to provide a few examples.
+
+## Building a Basic Blog Domain Model
+
+Unquestionably the nuts and bolts of a Domain Model is the strong focus put on the relationship between data and the behavior of domain objects while leaving any trace of infrastructure out of the picture. The beauty of this approach (and why I-m a big fan of it as well) is that the goal is achieved with elegance and simplicity. Quite often, simple PHP Domain Models are composed of a few [POPOs](http://en.wikipedia.org/wiki/Plain_Old_Java_Object) (Plain Old PHP Objects), which encapsulate rich business logic, like validation and strategy, behind a clean API.
+
+With that said, let-s see how to translate the conceptual stuff to tangible PHP code. So, say we need to build a pretty contrived blog program which must be capable of handling posts, comments, and users in a standard fashion. A good start to achieve this would be modeling the blog-s domain objects like POPOs.
+Here-s the first one : 
+
+### 1. PostInterface.php
+```php
+<?php
+namespace Model;
+
+interface PostInterface
+{
+  public function setId($id);
+  public function getId();
+
+  public function setTitle($title);
+  public function getTitle();
+   
+  public function setContent($content);
+  public function getContent();
+
+  public function setComments(array $comments);
+  public function getComments();
+    }
+```
+The above interface is anything but complicated. Indeed, it-s clear to see that the purpose of `PostInterface` is to define a narrow contract for generic post objects which should have a one-to-many relationship with the related comments.
+
+Since the interface-s code speaks for itself, let-s go one step further and create another interface to specify the contract for the corresponding comments:
+
+### 2. CommentInterface.php
+```php
+<?php
+namespace Model;
+
+interface CommentInterface
+{
+    public function setId($id);
+    public function getId();
+ 
+    public function setContent($content);
+    public function getContent();
+
+    public function setUser(UserInterface $user);
+    public function getUser();
+}
+```
+Similar to `PostInterface`, there-s not much to be said about `CommentInterface`. It drops into the model a simple contract for blog comment objects. Quite possibly the only detail worth noting in this case is the signature of its `setUser()` method, which appeals to the whip of [Interface Injection](http://martinfowler.com/articles/injection.html) for binding a user to a specific comment.
+
+We-re almost done with creating the model-s interfaces. But before we can throw a well-deserved party and start toasting, it-s necessary to create one more which must outline the behavior of blog users. Here-s how this final interface looks:
+
+### 3. UserInterface.php
+```php
+<?php
+namespace Model;
+
+interface UserInterface
+{
+    public function setId($id);
+    public function getId();
+
+    public function setName($name);
+    public function getName();
+
+    public function setEmail($email);
+    public function getEmail();
+
+    public function setUrl($url);
+    public function getUrl();
+}
+```
+With this batch of interfaces, we-ve managed to define in a jiffy a simple - yet efficient - set of granular contracts which allow you to swap out concrete domain object implementations, as if we were using Lego blocks.
+
+window.propertag.cmd.push(function() { proper\_display('sitepoint\_content\_1'); });
+
+Next we need to hydrate our model with some interface implementers; let-s see now how to accomplish this in a fairly painless way.
+
+Modeling Blog Posts, Comments, and Users with POPOs
+---------------------------------------------------
+
+Since we-re rather lazy developers who want to save ourselves the hassles of calling mutators and accessors every time we need to work with the fields of a domain object, we can use some boilerplate PHP magic for mapping client code references from nonexistent properties to the corresponding domain objects methods. This is a pretty common and pragmatic approach which is usually encapsulated inside the boundaries of an abstract class, like the one shown below:
+
+### 4. AbstractEntity.php
+```php
+<?php
+namespace Model;
+
+abstract class AbstractEntity
+{
+    /**
+     * Map the setting of non-existing fields to a mutator when
+     * possible, otherwise use the matching field
+     */
+    public function __set($name, $value) {
+        $field = "_" . strtolower($name);
+
+        if (!property_exists($this, $field)) {
+            throw new InvalidArgumentException(
+                "Setting the field '$field' is not valid for this entity.");
+        }
+
+        $mutator = "set" . ucfirst(strtolower($name));
+        if (method_exists($this, $mutator) &&
+            is_callable(array($this, $mutator))) {
+            $this->$mutator($value)
+        }
+        else {
+            $this->$field = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Map the getting of non-existing properties to an accessor when 
+     * possible, otherwise use the matching field
+     */
+    public function __get($name) {
+        $field = "_" . strtolower($name);
+
+        if (!property_exists($this, $field)) {
+            throw new InvalidArgumentException(
+                "Getting the field '$field' is not valid for this entity.");
+        }
+
+        $accessor = "get" . ucfirst(strtolower($name));
+        return (method_exists($this, $accessor) &&
+            is_callable(array($this, $accessor)))
+            ? $this->$accessor() : $this->field;
+    }
+
+    /**
+     * Get the entity fields
+     */
+    public function toArray() {
+        return get_object_vars($this);
+    }
+}
+```
+
+I-m not a strong advocate of relying heavily on PHP-s magic methods, but in this case the `__set()` and `__get()` methods come in handy for shortening calls to setters and getters without cluttering too much of the model-s API. With the previous parent class doing the leg work behind the scenes when it comes to working with domain object fields, the creation of concrete implementations for blog post, comment, and user objects boils down to subclassing a parent, as follows:
+
+### 5. Post.php
+```php
+<?php
+namespace Model;
+
+class Post extends AbstractEntity implements PostInterface
+{
+    protected $_id;
+    protected $_title;
+    protected $_content;
+    protected $_comments;
+
+    public function __construct($title, $content, array $comments = array()) {
+        // map post fields to the corresponding mutators
+        $this->setTitle($title);
+        $this->setContent($content);
+ 
+        if ($comments) {
+            $this->setComments($comments);
+        }
+    }
+    
+    public function setId($id) {
+        if ($this->_id !== null) {
+            throw new BadMethodCallException(
+                "The ID for this post has been set already.");
+        }
+ 
+        if (!is_int($id) || $id < 1) {
+            throw new InvalidArgumentException("The post ID is invalid.");
+        }
+ 
+        $this->_id = $id;
+        return $this;
+    }
+    
+    public function setTitle($title) {
+        if (!is_string($title)
+            || strlen($title) < 2
+            || strlen($title) > 100) {
+            throw new InvalidArgumentException("The post title is invalid.");
+        }
+ 
+        $this->_title = htmlspecialchars(trim($title), ENT_QUOTES);
+        return $this;
+    }
+
+    public function getTitle() {
+        return $this->_title;
+    }
+    
+    public function setContent($content)
+    {
+        if (!is_string($content) || strlen($content) < 2) {
+            throw new InvalidArgumentException("The post content is invalid.");
+        }
+ 
+        $this->_content = htmlspecialchars(trim($content), ENT_QUOTES);
+        return $this;
+    }
+    
+    public function getContent() {
+        return $this->_content;
+    }
+    
+    public function setComments(array $comments) {
+        foreach ($comments as $comment) {
+            if (!$comment instanceof CommentInterface) {
+                throw new InvalidArgumentException(
+                    "One or more comments are invalid.");
+            }
+        }
+ 
+        $this->_comments = $comments;
+        return $this;
+    }
+    
+    public function getComments() {
+        return $this->_comments;
+    }
+}
+```
+
+As you might expect, modelling a blog post as a POPO is a very straightforward process, reduced to 1) implementing the methods defined by its associated interface, and 2) optionally extending the functionality of the base entity class. What-s more, since in this case the post is capable of validating itself through its mutators, thus carrying both data and behavior, there-s no need to pollute application logic with scattered validation blocks. This vaccinates the whole model against [anemic issues](http://martinfowler.com/bliki/AnemicDomainModel.html) and makes it much cleaner and DRYer.
+
+Considering that the previous approach delivers what it promises at face value, let-s reuse it for modeling blog comments and users as well. Here are the subclasses that wrap these additional domain objects:
+
+### 6. Comment.php
+```php
+<?php
+namespace Model;
+
+class Comment extends AbstractEntity implements CommentInterface
+{
+    protected $_id;
+    protected $_content;
+    protected $_user;
+
+    public function __construct($content, UserInterface $user) {
+        $this->setContent($content);
+        $this->setUser($user);
+    }
+
+    public function setId($id) {
+        if ($this->_id !== null) {
+            throw new BadMethodCallException(
+                "The ID for this comment has been set already.");
+        }
+ 
+        if (!is_int($id) || $id < 1) {
+            throw new InvalidArgumentException("The comment ID is invalid.");
+        }
+ 
+        $this->_id = $id;
+        return $this;
+    }
+    
+    public function getId() {
+        return $this->_id;
+    }
+    
+    public function setContent($content) {
+        if (!is_string($content) || strlen($content) < 2) {
+            throw new InvalidArgumentException(
+                "The content of the comment is invalid.");
+        }
+     
+        $this->_content = htmlspecialchars(trim($content), 
+            ENT_QUOTES);
+        return $this;
+    }
+    
+    public function getContent() {
+            return $this->_content;
+    }
+    
+    public function setUser(UserInterface $user) {
+        $this->_user = $user;
+        return $this;
+    }
+    
+    public function getuser() {
+        return $this->_user;
+    }
+}
+```
+
+### 7. User.php
+```php
+<?php
+
+namespace Model;
+
+class User extends AbstractEntity implements UserInterface
+{
+    protected $_id;
+    protected $_name;
+    protected $_email;
+    protected $_url;
+
+    public function __construct($name, $email, $url = null) {
+        // map user fields to the corresponding mutators
+        $this->setName($name);
+        $this->setEmail($email);
+     
+        if ($url !== null) {
+            $this->setUrl($url);
+        }
+    }
+    
+    public function setId($id) {
+        if ($this->_id !== null) {
+            throw new BadMethodCallException(
+                "The ID for this user has been set already.");
+        }
+     
+        if (!is_int($id) || $id < 1) {
+            throw new InvalidArgumentException("The user ID is invalid.");
+        }
+ 
+        $this->_id = $id;
+        return $this;
+    }
+    
+    public function getId() {
+        return $this->_id;
+    }
+    
+    public function setName($name) {
+        if (strlen($name) < 2 || strlen($name) > 30) {
+            throw new InvalidArgumentException("The user name is invalid.");
+        }
+     
+        $this->_name = htmlspecialchars(trim($name), ENT_QUOTES);
+        return $this;
+    }
+    
+    public function getName() {
+        return $this->_name;
+    }
+
+    public function setEmail($email) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException("The user email is invalid.");
+        }
+     
+        $this->_email = $email;
+        return $this;
+    }
+    
+    public function getEmail() {
+        return $this->_email;
+    }
+    
+    public function setUrl($url) {
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new InvalidArgumentException("The user URL is invalid.");
+        }
+     
+        $this->_url = $url;
+        return $this;
+    }
+    
+    public function getUrl() {
+        return $this->_url;
+    }
+}
+```
+
+Mission accomplished!
+
+Even at the risk of sounding somewhat verbose, at this moment it-s safe to say that the blog domain model is finally set. The underlying interfaces and classes are there, living in happy ignorance about the existence of any type of persistence mechanism that may be implemented down the line, be it a database, a web service, or anything else.
+
+Furthermore, not only do they define a network of rules and rich relationships with each other, but the current domain object implementations can be replaced with custom ones without much fuss.
+
+Now the question becomes how to consume the model. Well, that-s an easy one, indeed! If we were going to build a naive blog application, where all of its object graphs reside all the time in memory and don-t need to be persisted, the process would be a breeze to tackle as there would be no need to create a mapping layer at all. To elaborate a bit further this concept, however, let-s try out some concrete code samples.
+
+Putting the Domain Model to Work
+--------------------------------
+
+If we plan to use a multi-tier perspective in the design of the blog, the application could be easily broken down into well-defined layers.     
+
+First layer would be typical bootstrap - include and initialize PSR-0 compliant autoloader :
+
+### 8. index.php
+```php
+    <?php
+    require_once __DIR__ . "/Autoloader.php";
+    $autoloader = new Autoloader();
+    $autoloader->register();
+```
+
+Second layer is home to our domain model, which most basic, could be implemented as follows:
+
+### 9. Cls_no_db_test  (Home_ctr.php) - no persistent data source (DB or web service or...)
+```php
+    <?php
+    use ModelPost,
+        ModelComment,
+        ModelUser;
+    
+    // create some posts
+    $postOne = new Post(
+        "Welcome to SitePoint",
+        "To become yourself a true PHP master, yeap you must first master PHP.");
+    
+    $postTwo = new Post(
+        "Welcome to SitePoint (Reprise)",
+        "To become yourself a PHP Master, yeap you must first master... Wait! Did I post that already?");
+    
+    // create a user
+    $user = new User(
+        "Everchanging Joe",
+        "joe@hisdomain.com");
+    
+    // add some comments to the first post
+    $postOne->comments = array(
+        new Comment(
+            "I just love this post! Looking forward to seeing more of this stuff.",
+            $user),
+        new Comment(
+            "I just changed my mind and dislike this post! Hope not seeing more of this stuff.",
+            $user));
+    
+    // add another comment to the second post
+    $postTwo->comments = array(
+        new Comment(
+            "Not quite sure if I like this post or not, so I cannot say anything for now.",
+            $user));
+```
+
+Even though model performs only a few simple tasks, such as creating a couple of posts and binding some comments made by a rather irresolute guy, it comes in handy for showing how to wire the domain objects together and put them to work. In this case each object graph is spawned by using plain Dependency Injection, which is sufficient for demonstrative purposes.
+
+window.propertag.cmd.push(function() { proper\_display('sitepoint\_content\_2'); });
+
+If the situation warrants, however, object graph creation should be delegated to more versatile structures, such as a Dependency Injection Container or a Service Locator. In either case, at this point the model is already doing its business as expected.
+
+Let-s move on and create the BLOG-s APPLICATION LAYER (the controllers in an MVC stack) which is responsible for PULLING IN MODEL DATA AND PASSING IT TO THE PRESENTATIONAL LAYER.
+
+Here-s how this tier looks:
+
+### 10. Home_ctr.php
+```php
+    <?php
+    $posts = array($postOne, $postTwo);
+```
+
+Could this layer be any simpler or shorter? I don-t think so.
+
+Leaving all mockery aside, it demonstrates in a nutshell that a Domain Model is, quite possibly, the most glaring example of the Fat Models/Skinny Controllers mantra in action. Having all the emphasis placed on business logic, controllers are naturally diminished to the realm of simple mediators between the model and the user interface.
+
+Now that our blog-s application layer is rolling smoothly, let-s make create the layer that dumps the previous blog posts to screen. 
+
+DULL HTML TEMPLATE CONTAINING JUST A FEW PHP LOOPS:
+
+### 11. tbl.php
+```html
+    <!doctype html>
+    <html>
+     <head>
+      <meta charset="utf-8">
+      <title>Building a Domain Model in PHP</title>
+     </head>
+     <body>
+      <header>
+       <h1>SitePoint.com</h1>
+      </header>
+      <section>
+       <ul>
+    <?php
+    foreach ($posts as $post) {
+    ?>
+        <li>
+         <h2><?php echo $post->title;?></h2>
+         <p><?php echo $post->content;?></p>
+    <?php
+        if ($post->comments) {
+    ?>
+         <ul>  
+    <?php
+            foreach ($post->comments as $comment) {
+    ?>
+          <li>
+           <h3><?php echo $comment->user->name;?> says:</h3>
+           <p><?php echo $comment->content;?></p>
+          </li>
+    <?
+            }
+    ?>
+         </ul>
+    <?php
+        }
+    ?>
+        </li>
+    <?php
+    }
+    ?>
+       </ul>
+      </section>
+     </body>
+    </html>
+```
+
+Given the banal responsibility of the blog-s presentation layer, I decided to implement it by using just PHP-s native templating capabilities. Regardless, the most relevant thing to stress here is the fact that hooking up our domain model to different layers was indeed a breeze to achieve. Best of all, the entire implementation didn-t require to tie up the model in question to any form of persistence infrastructure, therefore turning it into an easily portable and scalable creature!
+
+Does this mean that a Domain Model is the panacea for all the flaws that a Database Model exposes behind the scenes? Well, in a sense it is, even with some caveats. As noted at the beginning, the biggest caveat is the hassle of having to map domain objects back and forward to the persistence layer, something that can-t be accomplished in a heartbeat unless we appeal to the goodies of a third-party ORM like [Doctrine](http://www.doctrine-project.org/), [RedBeanPHP](http://www.redbeanphp.com/), or something along those lines.
+
+As usual, choosing between a prepackaged data mapper or a custom one is just a matter of personal requirements and taste. As the French philosopher [Jean Paul Sartre](http://en.wikipedia.org/wiki/Jean-Paul_Sartre) said once, -men are condemned to be free-. So, use your freedom consciously and pick up the mapping library that suits your needs best.
+
+#### Final Thoughts
+
+With a huge number of HTTP frameworks gaining momentum in the PHP world (like [Symfony 2.x](http://symfony.com/), [Aura](http://auraphp.github.com/), and even [Zend Framework](http://framework.zend.com/)) which don-t provide users with a base Model up front (or worse, provide the infamous Database Model), hopefully we-ll see in the near future more advocates of rich Domain Models. In the interim, it-s pretty healthy to take an in-depth look at them and see how to implement a trivial one from scratch, as we just did before.
+
+In a future article, I hope to dig even deeper into the nitty-gritty of Domain Models and developing a custom mapping layer to demonstrate how to transfer data between the previous model and MySQL - **Cls_db_test.php**
+
