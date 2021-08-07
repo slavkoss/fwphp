@@ -1,7 +1,7 @@
 //J:\awww\www\fwphp\glomodul\adrs\module.js
 $(document).ready( function() 
 {
-    // super-simple JS jquery demo
+    // super-simple JS  j q u e r y  demo
     var demoHeaderBox;
 
     if ($('#ajax_rcount_btn').length !== 0) 

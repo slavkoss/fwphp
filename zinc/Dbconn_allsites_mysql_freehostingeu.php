@@ -1,4 +1,13 @@
 <?php
+//$conn_params = 
+//     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
+//    , self::$db_username, self::$db_userpwd) 
+//    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
+//return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+return [ null, 'mysql', 'fdb21.freehostingeu.com', '3266814_cms', '3266814_cms', 'pozega141'] ;
+
+
+/* //////////////// old :
 //                   J:\awww\www\zinc\Dbconn_allsites_mysql.php
 //   to be copied to J:\awww\www\zinc\Dbconn_allsites.php
 // single access point to our database (singleton class).
@@ -35,3 +44,4 @@ abstract class Dbconn_allsites
 
 
 }
+*/

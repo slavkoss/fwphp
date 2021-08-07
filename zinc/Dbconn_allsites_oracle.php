@@ -1,10 +1,18 @@
 <?php
+//$conn_params = 
+//     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
+//    , self::$db_username, self::$db_userpwd) 
+//    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
+return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+
+/*  //////////// old :
 //                   J:\awww\www\zinc\Dbconn_allsites_oracle.php
 //   to be copied to J:\awww\www\zinc\Dbconn_allsites.php
 // single access point to our database (singleton class).
 namespace B12phpfw\core\zinc ;
 //use PDO;
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
+
 abstract class Dbconn_allsites
 {
     private static   $instance   = null;
@@ -36,7 +44,7 @@ abstract class Dbconn_allsites
 
     public static function getdbi($caller='') { return self::$dbi ; }
 
-
+*/
 }
       //WORK ALL THREE : (etenv('USERDOMAIN') does not work for MySql !!)
       //,'host'=>getenv('USERDOMAIN',true)?:getenv('USERDOMAIN').'/XE:pooled;charset=UTF8'

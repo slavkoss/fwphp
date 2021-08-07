@@ -1,60 +1,206 @@
 <?php
-// J:\awww\www\fwphp\glomodul\z_examples\01_MVC_learn\03mini3fw\Home_ctr.php
+// J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php
 // DEFAULT CTR (ONLY ONE IN MODULE), HAS 3 METHODS WHICH  I N C  PAGE VIEW SCRIPT
-namespace B12phpfw ;
+namespace B12phpfw\module\adrs ;
 //use PDO;
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
 
 class Home_ctr extends Config_allsites
 {
-  public function __construct($pp1) 
+  public function __construct(object $pp1) 
   {
-                        //,'$caller'=>$caller IS ALLWAYS i n d e x . p h p
-                        if ('') {self::jsmsg( [ //basename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE Config_allsites construct '
-                           ,'self::dbi_obj'=>self::$dbi_obj
-                           ,'$this->pp1->dbi_obj'=>isset($this->pp1->dbi_obj)?:'NOT SET'
-                           ] ) ; }
-    parent::__construct($pp1); //add global confs to $pp1 (also d b !!)
-                        if ('') {self::jsmsg( [ //basename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'s002. BEFORE call akc'
-                           ,'self::dbi_obj'=>self::$dbi_obj
-                           ,'$this->uriq'=>isset($this->uriq)?:'NOT SET'
-                           ] ) ; }
-    $akc = $this->uriq->i ; //=home
-    $this->$akc() ; //include(str_replace('|','/', $db->uriq->i.'.php'));
+                        if ('') { self::jsmsg( [ //b asename(__FILE__).
+                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
+                           ,'aaaaaa'=>'bbbbbb'
+                           ] ) ; 
+                        }
+    if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
+
+    //$akc = $pp1->uriq->i ; //=home
+    //$pp1->$akc() ; //include(str_replace('|','/', $db->uriq->i.'.php'));
+    /**
+    *  ------------------------------------------------------------------------------
+    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
+    *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
+    *  ------------------------------------------------------------------------------
+    * 1. ALL MODULE VIEWS LINKS SHOULD BE IN $pp1_ module, SHAPED SO :
+    * 2. $pp1->urlqrystringpart1_name => i/M E T H O D NAME/param1name/ param1value...2,3... 
+    *    (urlqrystring LAST PART IS IN VIEW SCRIPT WHICH KNOWS IT, eg idvalue !)
+    * 3. IF LINK key-keyvalue pair IS NOT HERE THEN EG : 
+    *    in URLurlqrystring : QS.'i/home/' home must be M E T H O D NAME in this script.
+    *    Eg http://dev1:8083/fwphp/glomodul/adrs/?i/ex1/  or
+    *       http://dev1:8083/fwphp/glomodul/adrs/?i/home/ or
+    *       http://dev1:8083/fwphp/glomodul/adrs/
+    */
+    $pp1_module = [ // Property pallette module properties
+      '<b style="color: blue">ROUTES (LINKS)  assigned  IN  M O D U L E  CTR Home_ctr.php' => '~~~~~~~~~~~~~~~~~</b>'
+      , '<b>Part of $pp1 is $pp1_module = (module) property pallette.
+          Contains properties =  key-keyvalue pairs : 
+          LINKALIAS => ?i/HOME_METHOD_TO_CALL/param1/param1value...</b>' 
+      => 
+      '
+          <b>~~~~~ Eg in view script :
+          href =  LINKALIAS $pp1->$pp1->cre_row_frm CALLS cc fn in module ctr so: QS."i/cc/"
+              $pp1->cre_row_frm - more generalized, but more writing than QS."i/cc/", 
+                  cc fn is not visible in URL (visible is what cc calls/includes)
+              //,\'home_adrs\'        => QS.\'i/home/\'
+              //,\'cre_row_frm\'        => QS.\'i/cc/\'
+              //,\'ldd_category\'     => QS.\'i/del_category/id/\'
+              //,\'loginfrm\'        => QS.\'i/loginfrm/\'
+              //,\'login\'           => QS.\'i/login/\'
+      IF LINK key-keyvalue PAIR IS NOT IN $pp1_module THEN EG : 
+      in URLurlqrystring : QS.\'i/loginfrm/\' loginfrm must be M E T H O D NAME in this script.
+      </b>'
+      //, 'cre_row_frm'     => QS.'i/cc/'
+    ] ;  //e n d  R O U T I N G  T A B L E
+    //is better $pp1->cre_row_frm ? - more writing, cc fn in module ctr not visible
+
+    parent::__construct($pp1, $pp1_module);
+
+
   } // e n d  f n  __ c o n s t r u c t
 
 
 
-  /**
-         C R U D  M E T H O D S
-  */
-
-    private function c()
-    {
-      //$_POST= [artist] =>  [track] =>  [link] =>  [submit_add_song] => Add row
-      $flds     = "artist, track, link" ;
-      $what = "VALUES (:artist, :track, :link)" ; //:IdFromURL
-      $binds = [
-        ['placeh'=>':artist',  'valph'=>$_POST['artist'], 'tip'=>'str'] //$PostArtist
-       ,['placeh'=>':track',   'valph'=>$_POST['track'], 'tip'=>'str']
-       ,['placeh'=>':link','valph'=>$_POST['link'], 'tip'=>'str']
-       //,['placeh'=>':id',   'valph'=>$_POST['id'], 'tip'=>'int']
-      ] ;
-      $cursor = $this->cc($this,'song',$flds,$what,$binds);
-
-      if ($cursor) {$_SESSION["SuccessMessage"]="Row Deleted Successfully ! ";
-      }else { $_SESSION["ErrorMessage"]="Deleting Went Wrong. Try Again !"; }
+          /* *****************************************
+                 CALL DISPATCH  M E T H O D S
+           they 1.call other fns or 2.include script or 3.URL call script
+           CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
+           so: $pp1->call_module_m ethod($akc, $pp1) ;
+               $ a k c  is  m o d u l e  m ethod (in Home_ ctr, not global fn !!
+                 because )
+          ***************************************** */
+                //$accessor = "get" . ucfirst(strtolower($akc));
+  protected function call_module_method(string $akc, object $pp1)  //fnname, params
+  {
+    //This fn calls fn $ a k c in Home_ ctr which has parameters in  $ p p 1
+    if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
+      return $this->$akc($pp1) ;
+    } else {
+      echo '<h3>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>' ;
+      echo 'Home_ ctr  m e t h o d  "<b>'. $akc .'</b>" is not callable.' ;
       
-      $this->Redirect_to($this->pp1->module_url.QS.'i/cr/') ; //'i/rt/'
+      echo '<br><br>See how is created  m e t h o d  name  $ a k c  in abstract class Config_ allsites, m ethod __c onstruct :<br>
+      $this->call_module_method($akc, $pp1) ; //protected fn (in child cls Home_ ctr) calls private fns (in child cls Home_ ctr)
+      ' ;
+      return '0' ;
+    }
+
+  }
+
+
+
+
+  /**
+  * pgs01. I N C  TEXT SHOWING  P A G E  S C R I P T S
+  */
+  private function home(object $pp1)
+  {
+    // Ver. 7 : Dependency Injection $pp1
+    //http://dev1:8083/fwphp/glomodul/adrs
+      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
+      require $pp1->module_path . 'home.php';
+      require $pp1->module_path . 'ftr.php';
+  }
+
+  private function ex1(object $pp1)
+  {
+    //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
+      require $pp1->module_path . 'hdr.php';
+      require $pp1->module_path . 'example_one.php';
+      require $pp1->module_path . 'ftr.php';
+      
+                  echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
+  }
+
+  private function ex2(object $pp1)
+  {
+    //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
+    $param1 = $pp1->uriq->p1 ;
+    $param2 = $pp1->uriq->p2 ;
+    require $pp1->module_path . 'hdr.php';
+    require $pp1->module_path . 'example_two.php';
+    require $pp1->module_path . 'ftr.php';
+                  echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
+  }
+
+
+
+
+
+
+  /**
+  * pgs02. I N C  R  (c R u d)  P A G E  SCRIPTS
+  */
+  private function rt(object $pp1)
+  {
+    // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
+    require $pp1->module_path . 'hdr.php';
+    require $pp1->module_path . 'read_tbl.php';  
+    require $pp1->module_path . 'ftr.php';
+  }
+
+
+
+  /**
+  * pgs03.   I N C  C R U D  P A G E  SCRIPTS   &   (code behind) C R U D  M E T H O D S
+  */
+  private function cc(object $pp1)
+  {
+    // I N C  C R U D P A G E  S C R I P T
+    // f o r m : http://dev1:8083/fwphp/glomodul/adrs/?i/cc/
+    //http://dev1:8083/fwphp/glomodul/adrs
+      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
+      require $pp1->module_path . 'cre_row_frm.php';
+      require $pp1->module_path . 'ftr.php';
+  }
+
+
+    private function dd(object $pp1) // dd_song
+    {
+      // http://dev1:8083/fwphp/glomodul/adrs/?i/d/rt/song/id/37
+      //$this->uriq=stdClass Object  [i] => d  [t] => song  [id] => 37
+                    if ('') {self::jsmsg('D BEFORE dbobj '. __METHOD__, __LINE__
+                    , ['$pp1->dbi_obj'=>$pp1->dbi_obj //, 
+                    ] ) ; }
+    // D e l  &  R e d i r e c t  to  r e f r e s h  t b l  v i e w :
+    $tbl = $pp1->uriq->t = 'song' ; 
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+
+    Tbl_crud_adrs::dd($pp1, $other); //used for all  t a b l e s !! 
+    Config_allsites::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
 
     }
 
 
-    /**
-     * AJAX-ACTION: ajax Get Stats
-     * TODO documentation
-     */
+  private function uu(object $pp1)
+  {
+           //       R O W U P D  FRM
+    //echo 'Method '.__METHOD__ .' SAYS: I &nbsp; i n c l u d e &nbsp; p h p &nbsp;
+    //http://dev1:8083/fwphp/glomodul/adrs?i/uu/t/song/id/22  see switch default: above !!
+                  if ('0') {  //if ($module_ arr['dbg']) {
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                  echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
+                  echo '</pre>'; }
+
+    if (isset($pp1->uriq->id)) {
+       $uriq = $pp1->uriq ;
+       if (isset($uriq->id)) 
+         $IdFromURL = (int)Config_allsites::escp($uriq->id) ; //NOT (int)Config_allsites::escp($_GET['id']) ; 
+    } else $IdFromURL = NULL ;
+    require $pp1->module_path . 'hdr.php';
+    require $pp1->module_path . 'upd_row_frm.php';  
+    require $pp1->module_path . 'ftr.php';
+  }
+
+
+
+
+
+   /**
+    * AJAX-ACTION: ajax Get Stats
+    */
     private function ajaxcountr()  //p ublic f unction ajaxGetStats()
     {
                         //$Song = new Song();
@@ -64,174 +210,23 @@ class Home_ctr extends Config_allsites
                     if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
                     , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
                     , '$this->dbobj'=>$this->dbobj ] ) ; }
-      echo $this->rrcount('song'); // not $this->dbobj->R_tb... !!!
-    }
-
-
-
-    private function u()
-    {
-                    if ('') {self::jsmsg('U BEFORE dbobj '. __METHOD__, __LINE__
-                    , ['$this->pp1->dbi_obj'=>$this->pp1->dbi_obj //, 
-                    ] ) ; }
-      $flds     = "SET artist = :artist, track = :track, link = :link" ;
-      $qrywhere = "WHERE id=:id" ; //:IdFromURL
-      $binds = [
-        ['placeh'=>':artist',  'valph'=>$_POST['artist'], 'tip'=>'str'] //$PostArtist
-       ,['placeh'=>':track',   'valph'=>$_POST['track'], 'tip'=>'str']
-       ,['placeh'=>':link','valph'=>$_POST['link'], 'tip'=>'str']
-       ,['placeh'=>':id',   'valph'=>$_POST['id'], 'tip'=>'int']
-      ] ;
-      $cursor = $this->uu($this,'song',$flds,$qrywhere,$binds);
-
-      if ($cursor) {$_SESSION["SuccessMessage"]="Row Updated Successfully ! ";
-      }else { $_SESSION["ErrorMessage"]="Updating Went Wrong. Try Again !"; }
-
-      $this->Redirect_to($this->pp1->module_url.QS.'i/rt/') ; // to  t b l
-
-    }
-
-    private function d()
-    {
-      // http://dev1:8083/fwphp/glomodul/adrs/?i/d/rt/song/id/37
-      //$this->uriq=stdClass Object  [i] => d  [t] => song  [id] => 37
-                    if ('') {self::jsmsg('D BEFORE dbobj '. __METHOD__, __LINE__
-                    , ['$this->pp1->dbi_obj'=>$this->pp1->dbi_obj //, 
-                    ] ) ; }
-      $this->dd() ;
-      $this->Redirect_to($this->pp1->module_url.QS.'i/rt/') ; //to read_ tbl
+      echo Tbl_crud_adrs::rrcount('song'); // not $this->dbobj->R_tb... !!!
     }
 
 
 
 
-  /**
-      I N C  P A G E  S C R I P T S
-  */
 
-  // C R U D
-  private function cr()
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs
-      require $this->pp1->module_path . 'hdr.php'; // MODULE_PATH
-      require $this->pp1->module_path . 'cre_row_frm.php';
-      require $this->pp1->module_path . 'ftr.php';
-  }
-
-  private function rt()
-  {
-      // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
-      require $this->pp1->module_path . 'hdr.php';
-      require $this->pp1->module_path . 'read_tbl.php';  
-      require $this->pp1->module_path . 'ftr.php';
-  }
-
-
-  private function ur()
-  {
-           //       R O W U P D  FRM
-    //echo 'Method '.__METHOD__ .' SAYS: I &nbsp; i n c l u d e &nbsp; p h p &nbsp;
-
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ur/t/song/id/22  see switch default: above !!
-    require $this->pp1->module_path . 'hdr.php';
-    require $this->pp1->module_path . 'upd_row_frm.php';  
-    require $this->pp1->module_path . 'ftr.php';
-  }
-
-
-
-  // P A G E S
-
-    public function errmsg($myerrmsg)
+    public function errmsg($myerrmsg, object $pp1)
     {
         // h d r  is  in  p a g e  which  i n c l u d e s  t h i s
-                   //require $this->pp1->module_path . 'hdr.php'; //or __DIR__
-        require $this->pp1->module_path . 'error.php';
-        require $this->pp1->module_path . 'ftr.php';
+                   //require $pp1->module_path . 'hdr.php'; //or __DIR__
+        require $pp1->module_path . 'error.php';
+        require $pp1->module_path . 'ftr.php';
     }
 
-  private function home()
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs
-      require $this->pp1->module_path . 'hdr.php'; // MODULE_PATH
-      require $this->pp1->module_path . 'home.php';
-      require $this->pp1->module_path . 'ftr.php';
-  }
 
-  private function ex1()
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
-      require $this->pp1->module_path . 'hdr.php';
-      require $this->pp1->module_path . 'example_one.php';
-      require $this->pp1->module_path . 'ftr.php';
-  }
 
-  private function ex2()
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
-    $param1 = $this->uriq->p1 ;
-    $param2 = $this->uriq->p2 ;
-    require $this->pp1->module_path . 'hdr.php';
-    require $this->pp1->module_path . 'example_two.php';
-    require $this->pp1->module_path . 'ftr.php';
-  }
 
 } // e n d  c l s  C onfig_ m ini3
 
-
-/*
-                  if ('') {  //if ($module_ arr['dbg']) {
-                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
-                    .'Coding step cs03. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
-                  echo '<pre>';
-                  echo '<b>$_ GET</b>='; print_r($_GET); 
-                  echo '<b>$_POST</b>='; print_r($_POST); 
-                  echo '<b>$_SESSION</b>='; print_r($_SESSION); 
-                  echo '<br /><b>$this->pp1</b>='; print_r($this->pp1);
-                  echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>    ='; print_r($_SERVER['REQUEST_URI']); 
-                  echo '<br /><b>uri_arr is exploded string REQUEST_URI '.$_SERVER['REQUEST_URI'].' (on QS=?)</b>'
-                  .'<br />0 is $module_relpath,'
-                  .'<br />1 is $uri_qrystring = key-value pairs ee = url parameters after QS.'
-                  .'  <br />$this->pp1->uri_arr='; print_r($this->pp1->uri_arr);
-                  echo '<br /><b>exploded $uri_qrystring (on /) is'
-                  .'<br />$this->pp1->uri_qrystring_arr</b>=';
-                      print_r($this->pp1->uri_qrystring_arr);
-                  //echo '<br /><b>key-value pairs in one assoc arr line =  $u riq</b>='; print_r($u riq);
-                  echo '<br /><b>$this->uriq</b>='; print_r($this->uriq);
-                  echo '</pre>'; 
-                  }
-*/
-
-
-    /*switch (true) 
-    { 
-      case isset($this->uriq->c) : //and $this->uriq->c == 'home' and count( (array)$this->uriq )  == 1
-        //       call clsakcmethod  $a k c  in cls  $c t r :
-        //http://dev1:8083/fwphp/glomodul/adrs?c/tbl/m/l/ - see top toolbar href
-        $nsctr = $this->pp1->vendor_namesp_prefix . '\\' . ucfirst($this->uriq->c) . '_ctr' ;
-        $akc = $this->uriq->m ;
-        $obj = new $nsctr($this, $this->pp1) ; //$this is $db in index.php !!
-        $obj->$akc() ; 
-        break;
-        
-      default: 
-        // i means call ctrakcmethod of this cls  (H o m e) which includes view script or does tblrowCRUD. Eg http://dev1:8083/fwphp/glomodul/adrs/?i/d/t/song/id/4 = d e l or http://dev1:8083/fwphp/glomodul/adrs/?i/ur/t/song/id/4 = u p d
-        $akc = $this->uriq->i ; //=home
-        $this->$akc() ;
-        break;
-              //include(str_replace('|','/', $db->uriq->i.'.php'));  break;
-    } */
-
-      /* case $this->uriq->i == 'home' and count( (array)$this->uriq )  == 1 :
-        //NO CTR,  NO AKC, NO AKCPARAMS IN URL
-        $akc = 'index' ;// $db->uriq->a ;
-        $this->$akc($this->pp1) ; 
-               //$$ctr->{$akc}() ; // $$ctr contains "nameofobjvar", so $$ctr=$obj
-        break; */
-
-        //$ctr = $vendor_namesp_prefix.'\\Home_ctr_mini3' ; // must be mamespaced 
-                     //$ctr = 'Home_ctr_mini3'; // must be mamespaced 
-               //$akc = $this->action ;     // Call clsakcmethod
-
-        //$obj = new $ctr ; // nsctrcls
-        //$obj->$akc($this->pp1) ; // $this->relpath_requested_arr , $this->akcpar1idx

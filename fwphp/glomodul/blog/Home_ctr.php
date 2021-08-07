@@ -41,16 +41,12 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     *  ------------------------------------------------------------------------------
     *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
     *  ------------------------------------------------------------------------------
-    * LINK ALIAS l d d (link for delete) = urlqrystring_part1 
-    *             = $pp1->l d d = QS.'i/del_ row_do/id/', 
-    *    last part $id knows view script, $pp1->l d d . $id
-    * ALL VIEWS LINKS OF MODULE SHOULD BE HERE.
-    * If link in view is not here : Error 403, Access forbidden! Undefined property in URL.
     */
     $pp1_module = [ 
       'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
-    //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
-    //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
+    //1. ALL MODULE VIEWS LINKS SHOULD BE HERE (view script knows last part eg id value) :
+    //2. $pp1->urlqrystringpart1_name => i/M E T H O D NAME/param1name/ param1value...2,3... (urlqrystring LAST PART IS IN VIEW SCRIPT eg id value !)
+    //3. IF LINK IS NOT HERE : $pp1->urlqrystringpart1_name must be = M E T H O D NAME
     ,'home_blog'        => QS.'i/home/'
     ,'ldd_category'     => QS.'i/del_category/id/'
     ,'ldd_admins'       => QS.'i/del_admins/id/'
@@ -180,7 +176,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
   private function del_category(object $pp1)
   {
-    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
+    // D e l  &  R e d i r e c t  to  r e f r e s h  t b l  v i e w :
     $tbl = $pp1->uriq->t = 'category' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
@@ -520,7 +516,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $css4 = '<script>hljs.initHighlightingOnLoad();</script>'; */
 
     $uriq = $pp1->uriq ;
-    $IdFromURL = $uriq->id ; 
+    $IdFromURL = (int)$uriq->id ; 
 
     $title = 'Full Post Page' ;
     //$css1  = 'styles.css' ;

@@ -12,17 +12,17 @@
 </head>
 <body>
     <!-- logo, check the CSS file for more info how the logo "image" is shown 
-    <?=$this->pp1->module_url?>
+    <?=$pp1->module_url?>
     -->
     <div class="logo"></div>
 
     <!-- navigation -->
     <div class="navigation">
-        <a href="<?=$this->pp1->module_url?>">home</a>
-        <a href="<?=$this->pp1->module_url.QS?>i/ex1/">example1</a>
-        <a href="<?=$this->pp1->module_url.QS?>i/ex2/p1/param1/p2/param2/">example2</a>
+        <a href="<?=$pp1->module_url?>">home</a>
+        <a href="<?=$pp1->module_url.QS?>i/ex1/">example1</a>
+        <a href="<?=$pp1->module_url.QS?>i/ex2/p1/param1/p2/param2/">example2</a>
         <!-- c=controller, m=method, t=table list : 
-        <a href="<=$this->pp1->module_url.QS>c/tbl/m/l/">Adresses</a>
+        <a href="<=$pp1->module_url.QS>c/tbl/m/l/">Adresses</a>
         -->
-        <a href="<?=$this->pp1->module_url.QS?>i/rt/">Addresses</a>
+        <a href="<?=$pp1->module_url.QS?>i/rt/">Addresses</a>
     </div>

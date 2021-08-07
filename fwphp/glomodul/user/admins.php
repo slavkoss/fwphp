@@ -152,7 +152,7 @@ require_once("navbar_admin.php");
         ?>
             <!-- after /r/ (r means redirect) is nickname of inc/call, see $p p1 = [ ... -->
             <tr>
-              <!-- ********** 1. No.&nbsp;Del ID ************ -->
+              <!-- ********** 1. No.&nbsp; dd = Del ID ************ -->
               <td width=16%>
                  <!--str_pad( $SrNo, 5 - strlen($SrNo), '&nbsp;', STR_PAD_LEFT )
                      str_repeat('&nbsp;', 5 - strlen($SrNo)) . $SrNo

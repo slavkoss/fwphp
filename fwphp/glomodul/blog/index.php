@@ -14,7 +14,7 @@ $module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
 $app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
 //to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
 $wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
-$shares_path = $wsroot_path.'/zinc/' ; //includes, globals, commons, reusables
+$shares_path = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
@@ -43,7 +43,7 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
 
 //2. global cls loads classes scripts automatically
 require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
-$autoloader = new Autoload($pp1); 
+$autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
 //3. process request from ibrowser & send response to ibrowser :
 //Home_ ctr "inherits" index.php ee inherits $p p 1

@@ -1,5 +1,10 @@
 <?php
+//     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
+//    , self::$db_username, self::$db_userpwd) 
+//    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
+return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
 
+/* ///////////// old :
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
 //use PDO;
@@ -50,7 +55,7 @@ abstract class Dbconn_allsites
     //abstract protected static function jsmsg(array $msg);
 
 }
-
+*/
 /*
 * For now (todo refactoring this code) J:\awww\www\zinc\Dbconn_allsites_mysql.php
 *   is copied to J:\awww\www\zinc\Dbconn_allsites.php

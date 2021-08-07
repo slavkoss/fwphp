@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 // J:\awww\www\zinc\Autoload.php
+declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
 

@@ -1,3 +1,6 @@
+Explanations below are difficult to understand. They are "after battle philosophy" very useful to improve basic ideas (principles).
+
+
 ---
 <a name="top"></a>
 **Top**.....[1\.4 Dirs](#directories).....[1\.3 UML](#uml).....[1\.5 DM](#dm).....[2\. IDE](#ide).....[3\. CRUD](#crud).....[SW fw](#swfw)   
@@ -18,6 +21,346 @@ CRUD module example code 7 scripts:
 
 
 -----
+
+
+
+
+
+
+
+## <a name="dm"></a>1\.8 DM (Domain model)
+[Top](#top)......[Dirs](#directories).....[UML](#uml).....**DM**.....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
+
+[UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) has DM adapter class **Tbl_crud** which is **pre CRUD code - calls cc, rr, uu, dd... methods** like in Oracle Forms **pre-query, pre-insert, pre-update... on-insert, on-update...**.
+
+In Db_allsites class is **eg execute-query code** - only creates cursor to (loop) read row by row in view scripts or in ctr scripts).        
+
+### Events flow (E1) --- (E2)... - caseflow through Blog module (CRUD data skeleton)
+```
+(E1) User types URL --- index.php instantiates C (Home_ctr, App...) --- C calls own method, see (T1) - signals flow
+(E2) Home_ctr own method includes (E3) V (home.php) - signals flow  V --URL--> C
+                        |
+                        --  OR --calls--> some method (eg delete row) - signals flow C --parameters -->method
+                        |
+                        -- OR URL jumps in other module - signals flow in _GET (=URL query) or _POST global arrays
+
+(E3) V (home.php view script) --- V calls DM see (T2), ee V calls Tbl_crud to <==pull== array (of row objects) from data source (T3) - DATA FLOW
+         |
+         -- if user cliks link or button or types URL --- it is event (E1) - signals flow V --URL--> C - ee user adds INTERACTIVITY (T4) in C which requires ROUTING.
+```
+
+#### Terms
+(T1) Own controller method is Mini3 PHP framework **dispatching** idea using home class methods (My **routing using key-values** is different)      
+
+(T2) **DM** (Domain Model) are classes :
+1. Tbl_crud (**users table PdoAdapter**) called by V script - **pre CRUD (PRE-INSERT, PRE-UPDATE...) methods** cc, rr, uu, dd
+2. Db_allsites (**AbstractDataMapper**) called by Tbl_crud - same for all tables, contains **CRUD (ON-INSERT, ON-UPDATE...) methods** cc, rr, uu, dd
+
+(T3) **DS (data source)** -  tbl row objects from DB or web service, or.... Only DM classes know about DS. CRUD code skeletons calls DM classes FUNCTIONALY ee WHAT ee "get invoice items", not HOW and from which DS. DS is assigned only once in config class abstract class Config_allsites extends Db_allsites (and class Home_ctr extends Config_allsites). 
+
+(T4)  User **INTERACTIVITY** (cliks link or button or types URL) requires ROUTING in C ee C (Home_ctr) is not needed for Mnu module, even for Mkd module - enough is simple controller code snippet. 
+
+
+<br /><br />
+### Signals, data and code flow
+Graph 4 node (vrh), 7 edge (brid, border, boudary). Graph is simmilar to Euler's 4 Königsberg  city parts (nodes) and 7 bridges (edges) - Chinese postman **transport problem** - how to Euler walk to cross each  bridge (edge)  only once. Traveler sailsman problem is : how to shortest walk graph to cross each  city part (node)  at least once and return to start node. 
+
+```
+Db_allsites, Tbl_crud_crud     _.-'(DM)'-._       Domain Model
+                          .'/          '.
+                   calls / /DATA         \C includes V, before inc. C can manipulate M (state changes)
+DM updates V           (V) -----URL-----> (C)  View (home.php) and Controller (Home_ctr)
+V calls DM              |  \              |
+V sees URL              \  \              /U uses C - sends URL (signal) to C through link in V
+                       URL'. \HTML      .'
+                            '-._(U)_.-'User types URL or cliks link or button
+```
+
+Picture shows M-V data flow. Model code is most complicated. **C and V code can be standardized, M only partially** :      
+
+**M in B12phpfw is DM (Domain Model)** meaning eg for users table :     
+
+M consists of :
+1. abstract class Db_allsites which is same for all tables (cc, rr, uu, dd methods are standardized)
+2. and class Tbl_crud - **bussines logic** in this M code can not be standardized. This M code is most complicated, it is fat (lot of code)
+
+User`s events are handled in Controller class.
+1. C (class Home_ctr) assigns users orders in URL to array variables telling V what user wants (signals flow) and includes V 
+2. **V pulls data from M data source (DB or web servis or...)** (calls Tbl_crud which calls Db_allsites) according C variables (user orders in URL)
+3. V links ee user orders in URL call C method which can do some state changes in M data
+
+V script may contain class but I do not see need for view classes because view script is included in Home_ctr class and can use $this to access methods and attributes in whole class hierarchy : Home_ctr, Config_allsites, Db_allsites. If we do not need CRUD than we do not need class hierarchy Home_ctr, Config_allsites, Db_allsites meaning that simple coding like in Mnu and Mkd modules suffices..
+
+M-C-V data flow - controller instantiates M and pushes M data to V.
+I do not see advantages compared to M-V data flow. Disadvantage are : for pagination M-V data flow is only possible solution, M-C-V data flow makes C fat in large modules (lot of code). C in my Msg (Blog) module has lot of code, but code is very simple.
+
+So view instantiates model and pulls data from M or C instantiates model and pulls data from M.  Both styles work ok, difference is important only for us - for clearer code.
+
+If we have user`s interactions (events) eg filter displayed rows (**pagination is also filtering**), than **M-V data flow is only possible** solution (M-V data flow is original MVC idea). 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 1\.5 Adresses on op.system and on web are difficult to understand
+and bad explained in all PHP frameworks and learning sources.
+
+See readme_thoughts.md
+
+
+1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 or http://localhost:8083 !! (dev1 is Apache vitual host).  
+   For **testing**  wsroot_path = `J:\ylaragon\www` , wsroot_url =  http://dev1:8083 or http://localhost:8083 !!
+   For **production** are Linux demo sites, see below.  
+
+2. For mnu module **module_url** = http://dev1:8083/fwphp/www/ so module_towsroot = '../../' - I do not use it for mnu and mkd. 
+   **$module_towsroot** variable in index.php is** always same value for both variables wsroot_path and wsroot_url**.
+   For msg module in index.php : ** $module_towsroot = '../../../' ;** because module_path = J:\awww\www\fwphp\glomodul\blog and three times "../" means **path from blog dir to www dir ee to wsroot_path = 3 times up**.  So module_url = http://dev1:8083/fwphp/glomodul\blog  and 3 times up is http://dev1:8083 = wsroot_url.
+
+
+IIS wsroot_path = %SystemDrive%\\inetpub\\wwwroot = http://localhost, see Win icon -> IIS manager. For APEX learning on Oracle cloud open  https://apex.oracle.com/en/ click link "Get started" and install few demo apps before making own based on eg Riaz Ahmed 2020 year "Oracle APEX 20 For Beginners" (on 18c XE DB) .
+
+
+
+
+
+
+<br><br><br>
+Package contains modules (folders) in ownWebServer_or_hosting_DOCROOT_PATH = "/". My DOCROOT_PATHs ('/') are :
+
+1. on Windows my home PC Apache virtual host `J:\awww\www` for development and `J:\ylaragon\www` for testing
+2. on Linux free demo sites for production /phporacle.eu5.net on Freehostingeu and /home/slavkoss/public_html on Heliohost - you can easily make own.
+3. on Oracle Linux on my home PC Virtual Box machine
+
+Each module is in own (functional) folder like Oracle Forms someForm.fmb, Blazor and APEX pages - is best to develop more large sites. Oracle Forms authors knew this 2 dozen years ago.
+
+No M,V,C folders which, seems are mistake, delusion : putting coding technik (M,V,C code separation) in foreground instead pages (each page in own folder = module). M,V,C code separation idea is beter explained good old structured programming idea - M and V code manager = C, processing code may be M = CRUD DB table rows, output code = V. M,V,C code in one script is valid MVC coding ! 
+
+Interesting is that PHP frameworks authors and learning code authors do not even mention **M,V,C folders reflecting code separation in opposition (antithesis) to functional folders - modules reflecting business functions (business logic)**. Is it one sells what one has ee no lies, no sells ? If is, is ugly.
+
+First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH. Modules (functional folders) are :
+
+1. 50 kB "mnu" module, in folder /fwphp/www, is Main Menu code. "fwphp" folder is one site (may be more sites on same folder level). "www" folder is mnu module. Is not based on core CRUD code skeleton (possible, but not need). 
+
+2. 60 kB "mkd" module, in folder /fwphp/glomodul/mkd, to write help pages in Markdown WYSIWYG editor (plus Simplemde code, or may be HTML editor Summernote code or ...), with mkd2html and html2mkd conversion. Is not based on core CRUD code skeleton (possible, but not need).
+
+"fwphp" folder is one site, "glomodul" is group of shared modules reused in other modules, or testing modules or...
+
+3. 90 kB, "core" module in folder /zinc is CRUD code skeleton (I call it B12phpfw) is shared (global) for all sites. "core" module is in folders /zinc 90 kB plus /zinc/themes (bootstrap) 392 kB and /zinc/img 200 kB (my /zinc/img/img_big is 30 MB but is not in this package).
+
+4. 86 kB  "msg" or "blog" module in folder /fwphp/glomodul/**msg** 86 kB. Blog Is based on "core" CRUD code skeleton like every CRUD module should be.
+   Uses   core (**zinc**) shares, two master modules (tbls) = $app_dir_path.'/**user**/'  100 kB and $app_dir_path.'/**post_category**/' 10kB, two detail & subdet modules (tbls)  $app_dir_path.'/**post**/' 50 kB and $app_dir_path.'/**post_comment**/' 15 kB  
+   where app_dir_path is glomodul dir = application dir
+
+5. 3 MB folders - a lot of testing / learning modules. See /fwphp/glomodul/z_examples/00_index_of_important.php
+
+
+
+
+
+
+<br><br><br><a name="uml"></a>
+# 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
+[Top](#top)......[Dirs](#directories).....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
+
+## Adapters (implementations - classes or methods) depend on interfaces (features, ports)
+**3-layer code skeleton (application architecture) left, center, right :** "The object-oriented version of spaghetti code is, of course, lasagna code'. Too many layers." - Roberto Waltman Mar 7, 2016. HA (hexagonal architecture) is a case of application of DDD (Domain Driven Design) eg verses in OS file :
+
+| **Application-managers-controllers on GUI-CLI input** | **BL** (Business Logic) and **interfaces-features-ports - processing** | **Adapters-implementations-tasks-dependencies  and output** |
+| :-------------------------------------------------------: | :------------------------------------------------------------- | :--------------------------------------------------------- |
+|    OUTSIDE LEFT  (User-Side) **drive domain** | INSIDE (core, domain, center) **drive infrastructure** |  OUTSIDE RIGHT (**infrastructure**, Server-Side)|
+| ConsoleAdapter ---------depends on---------|---> IRequestVerses                                                                | |
+|                                                                                                 |......A                                                                                             | |
+|                                                                                                 |......l   depends on                                                                    | |                                        
+|                                                                                                 |......l                                                                                               | |
+|                                                                                                 |......PoetryReader BL class ---> IObtainPoems <---depends on------|--- PoetryLibraryFileAdapter |
+
+### B12phpfw simple module code skeleton (HA) eg users or post categories :
+| **Application-managers-controllers on GUI-CLI input** | **BL** (Business Logic) and **interfaces-features-ports - processing** | **Adapters-implementations-tasks-dependencies  and output** |
+| :-------------------------------------------------------: | :------------------------------------------------------------- | :--------------------------------------------------------- |
+|    OUTSIDE LEFT  (User-Side) **drive domain** | INSIDE (core, domain, center) **drive infrastructure** |  OUTSIDE RIGHT (**infrastructure**, Server-Side)|
+| ibrowser, **Home_ctr** ---depends on----------|--->methods to call/inc code ** Interf_Tbl_crud** <---depends on-------|--- DBI: cls **Tbl_crud** one tbl DB adapter (repository) |
+|                                                                                                | (Interf_Home_ctr if needed !) (some BL class if needed) | DBI: trait **Db_allsites** : code type DB CRUD ADAPTER |
+
+Concerning business code, the inside, a good idea is to choose to **organize domain modules (or directories) according to business logic**. The ideal case is to be able to open a directory or a business logic module and immediately understand business problems that your program solves; **rather than seeing only “repositories”, “services”, or other “managers” directories or M, V, C dirs**. See https://matthiasnoback.nl/2017/08/layers-ports-and-adapters-part-2-layers/ Aug 2nd 2017 by Matthias Noback. Matthias said : Simfony  framework was no longer my safe haven, I worked on more basic programming topics, like SOLID and Package Design.  I was fascinated by hexagonal architecture and command buses. **Place for (Simfony)  framework is the Infrastructure layer** and you can fully embrace any kind of RAD-stupid thing your framework offers, as long as it stays inside that layer, and nothing of it trickles down into either the Application or g\*d forbid the Domain layer. 
+
+You can now write alternative adapters for your application's ports. You could run an experiment with a Oracle (Mongo... or in memory) adapter side by side with a MySQL adapter. Specialized adapters for running tests is the main reason why Cockburn proposed the ports & adapters architectural style.
+
+### Dependency Rule - decoupling (code separation) - Dependency Inversion Principle - "D" in SOLID
+( https://en.wikipedia.org/wiki/SOLID )
+A practical implementation of Dependency Rule "**One should depend upon abstractions, not concretions**." in most object-oriented programming languages :
+1. Define an **interface = abstraction** for the thing you want to depend on.
+2. Then provide a **class implementing that interface**. This class contains all the low-level details that you've stripped away from the interface, hence, it's the **concretion** this design principle talks about.
+
+
+[B12phpfw_UMLdiagram.png](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")  
+![B12phpfw_UMLdiagram.png is less practical and altered](xxxB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")  
+
+I prefer UML below : 
+
+
+
+
+
+
+
+
+
+
+<br /><br />
+<a name="directories"></a>
+## 1\.7 B12phpfw directories (modules) structure
+[Top](#top).....**Dirs**.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
+
+See **info code :**        
+http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php       
+https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php        
+
+B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CRUD code skeleton") because dirs are like Oracle FORMS form module .fmb and other reasons mentioned below.    
+But basics are same : HexArch (Hexagonal architecture) application of DDD (Domain Driven Design) :  example img gallery code https://github.com/oumarkonate/hexagonal-architecture 
+1. **application** directory : src/Config contains ~ code in my Config_allsites cls
+2. application directory : src/Controller contains ~ code in my  Config_allsites cls  and Home_ctr cls
+3. **Domain (model)** code in directory src/Domain contains ~ code in my Db_allsites cls
+4. **Infrastructure (or Common)** dir contains dependencies that app code needs to work - my zinc dir
+See [**"What is SW fw"**](#swfw).
+
+![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/   OR       
+ ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\ylaragon\\www (was J:\\xampp\\htdocs) ee   http://localhost:8083/  (http://SSPC2:8083/ ) OR       
+ ![B12phpfw favicon PRODUCTION DOCROOT](B12phpfw_3PRODUCTION_DOCROOT.ico "B12phpfw_3PRODUCTION_DOCROOT.ico") **PRODUCTION (DEMO) DOCROOT** http://phporacle.eu5.net/       
+|   
+In Windows **tree /A** shows :
+```
++---1. J:\awww\www\index.php redirects to main menu module url /fwphp/www/index.php
+|
+|
++---2. J:\awww\www\fwphp SITE, group of apps (modules groups) = Apache_docroot\fwphp
+|   |  NO Models, V, C dirs, but dirs are like Oracle FORMS form .fmb !
+|   |         
+|   +---www  - MAIN MENU MODULE (static) pages, 
+|   |   not on B12phpfw code skeleton, but similar coding
+|   |
+|   | APPLICATION DIRS HAVE SIMILAR DIR STRUCTURE AS glomodul :
+|   |
+|   +---01mater app (app = modules group) - material book keeping - empty dir
+|   +---02financ app (dir name is module name) - empty dir
+|   +---03salary app - empty dir
+|   |
+|   +---glomodul "app" modules group not in previous 01, 02... dirs.
+|       |
+|       |
+|       +---mkd module - plain text Op.sys files (markdown or html) 
+|       |   WYSIWYG web editor, not on b12phpfw code skeleton, but similar
+|       |
+|       |
+|       +---blog (Msg) MODULE
+|       |   |-- MODULE CONTROLLER class Home_ctr extends Config_allsites
+|       |   |-- MODULE MODEL - DATA SOURCE ADAPTER class Tbl_crud
+|       |   |-- VIEW scripts (not view classes !) to be included in Home_ctr
+|       |   +---msgmkd dir - markdown texts .txt = POSTS
+|       |   \---Uploads dir
+|       |
+|       | blog module consists of : two masters, detail, subdetail :
+|       | which, like blog module, have Home_ctr.php, Tbl_crud.php 
+|       | and VIEW scripts :
+|       |
+|       +---user/            module - master 1
+|       |
+|       |
+|       +---post_category/   module - master 2 - Home_ctr.php and VIEW scripts
+|       |
+|       |
+|       +---post/            module - detail - relations M : 1 user,  M : 1 post_category
+|       |
+|       |
+|       +---post_comment/    module - subdetail - relation M : 1 post.
+|       |
+|       |
+|       |
+|       +---adrs (Mini3 fw) module https://github.com/panique/mini3
+|       |   Excellent rare not to simple MVC example (lot of good coding). 
+|       |   My ROUTING USING KEY-VALUES is different, but  
+|       |   DISPATCHING USING HOME CLASS METHODS is based on Mini3.
+|       |
+|       +---z_examples      modules group - LEARNING EXAMPLES. Eg :
+|       |   |
+|       |   +---02_MVC      modules group  OOP and MVC learn
+|       |       |
+|       |       +---03xuding/ STEP BY STEP SHOWS WHY AND HOW TO USE B12PHPFW
+|       |           Simple, small, elegant code. I improved it (?) in step 1 and 2.
+|       |           https://www.startutorial.com/articles/view/php-crud-tutorial-part-1, 2, 3
+|       |
+|       |
+|       +---lsweb module - web server dirs navigate & run .html and .php
+|       +---oraedoop
+|       +---z_help modules group - (static) pages
+|
+|
++---3. J:\awww\www\zinc (core) - GLOBAL INCLUDES for all sites (eg 2. fwphp SITE)
+|   |  zinc is for search more selective than core  -:).
+|   |  Here are dirs img, lang, theme and global classes (for all sites)
+|   |  which are MVC engine.
+|   |
+|   | GLOBAL RESOURCES :
+|   |-- hdr.php, ftr.php
+|   +---img
+|   +---lang
+|   +---themes some public resources (some are in vendor dir)
+|   |
+|   | MVC ENGINE :
+|   +---class Autoload in class script Autoload.php
+|   |   CONVENTION FOR NAMESPACES :
+|   |   Eg in tbl view script J:\awww\www\fwphp\glomodul\post\posts.php :
+|   |          namespace B12phpfw\dbadapter\post ;
+|   |          use B12phpfw\module\dbadapter\post\Tbl_crud ;
+|   |   vendor_namesp_prefix \ processing_(behavior) \ proc2 \ ... \ cls_dir
+|   |   before cls_dir is FUNCTIONAL part of name space, any string "\" separated 
+|   |   cls_dir='post' is POSITIONAL part of ns, CAREFULLY it is dir name!
+|   |   If we change dir names than we must change also cls_dir in ns in scripts !
+|   |-- DB conn parameters Dbconn_allsites
+|   |-- class Db_allsites - global data source adapter (includes Dbconn_allsites)
+|   |-- class Config_allsites - routing, dispatching, utils (helpers)
+|   |-- class Pgn - PAGINATION
+|   |
+|   |
+|   |-- showsource.php
+|
+|
++---4. J:\awww\www\vendor dir for external code (vendor's plugins) & resources :
+|      JS files, stylesheets.            
+|      B12phpfw own (internal) resources are in zinc dir, external in vendor dir.          
+|   +---erusev (parsedown markdown to html)         
+|   +---php2wsdl        
+|   +---simplemde WYSIWYG editor for markdown (or Summernote for html)         
+|     
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

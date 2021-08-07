@@ -9,18 +9,17 @@ http://dev1:8083/fwphp/glomodul/mkd/index.php?showhtml=J:\awww\www\fwphp\glomodu
 
 # MINI3
 
-MINI3 is an extremely simple and easy to understand skeleton PHP application, reduced to the max.    
-MINI3 is NOT a professional framework and it does not come with all the stuff real frameworks have.    
+MINI3 is an extremely simple and easy to understand skeleton PHP application, max reduced.
+MINI3 is NOT a professional framework and it does not come with all the stuff real fws have.    
 If you just want to   
   - show some pages    
   - do CRUD (few database calls)     
   - little-bit of AJAX    
   - without reading in massive documentations of highly complex professional frameworks    
 then MINI3 might be very useful for you.     
-MINI3 is easy to install, runs nearly everywhere and doesn't make things more complicated than necessary.    
+MINI3 is easy to install, runs nearly everywhere, doesn't make things more complicated than necessary.    
 
-History of this code (Changelog) shows that modern coding (OOP, namespaces, autoloading class scripts...)   
-is difficult to learn but easy when we learn it :
+History of this code (Changelog) shows that modern coding (OOP, namespaces, autoloading class scripts...) is difficult to learn but easy when we learn it :
 1. original MINI, made by [JaoNoctus](https://github.com/JaoNoctus)
 2. [MINI](https://github.com/panique/mini) (panique original version) 
 3. [MINI2](https://github.com/panique/mini2) (panique used Slim router) 
@@ -68,33 +67,12 @@ Same as MINI3, plus :
 - basic knowledge of Composer
 
 ## Installation (in Vagrant, 100% automatic) on Ubuntu 14.04 LTS
-
-If you are using Vagrant for your development, then you can install MINI3 with one click (or one command on 
-command line) [[Vagrant doc](https://docs.vagrantup.com/v2/getting-started/provisioning.html)]. 
-MINI3 comes with a demo Vagrant-file (defines your Vagrant box) and a demo bootstrap.sh 
-which automatically installs Apache, PHP, MySQL, PHPMyAdmin, git and Composer, 
-sets a chosen password in MySQL and PHPMyadmin and even inside the application code,
-downloads the Composer-dependencies, activates mod_rewrite and edits the Apache settings, 
-downloads the code from GitHub and runs the demo SQL statements (for demo data). This is 100% automatic, 
-you'll end up after +/- 5 minutes with a fully running installation of MINI3 inside 
-Ubuntu 14.04 LTS Vagrant box.
-
-To do so, put `Vagrantfile` and `bootstrap.sh` from `_vagrant` inside a folder (and nothing else).
-Do `vagrant box add ubuntu/trusty64` to add Ubuntu 14.04 LTS ("Trusty Thar") 64bit to Vagrant (unless you already have
-it), then do `vagrant up` to run the box. When installation is finished you can directly use the fully installed demo
-app on `192.168.33.66`. As this just a quick demo environment the MySQL root password and the PHPMyAdmin root password
-are set to `12345678`, the project is installed in `/var/www/html/myproject`. You can change this for sure inside
-`bootstrap.sh`.
+...
 
 ## Auto-Installation on Ubuntu 14.04 LTS (in 30 seconds)
+...
 
-You can install MINI3 including Apache, MySQL, PHP and PHPMyAdmin, mod_rewrite, Composer, all necessary settings and
-even the passwords inside the configs file by simply downloading one file and executing it, the entire installation
-will run 100% automatically. If you are stuck somehow, also have a look into this tutorial for the original MINI1,
-it's basically the same installation process:
-[Install MINI in 30 seconds inside Ubuntu 14.04 LTS](http://www.dev-metal.com/install-mini-30-seconds-inside-ubuntu-14-04-lts/)
-
-## Manual Installation on Ubuntu 14.04 LTS
+## Manual Installation on Ubuntu 14.04 LTS and Windows 10
 
 1. Edit the database credentials in `application/config/config.php`
 2. Execute the .sql statements in the `_install/`-folder (with PHPMyAdmin for example).
@@ -115,6 +93,9 @@ MINI3 runs without any further configuration. You can also put it inside a sub-f
 further configuration.
 Maybe useful: A simple tutorial on [How to install LAMPP (Linux, Apache, MySQL, PHP, PHPMyAdmin) on Ubuntu 14.04 LTS](http://www.dev-metal.com/installsetup-basic-lamp-stack-linux-apache-mysql-php-ubuntu-14-04-lts/)
 and [the same for Ubuntu 12.04 LTS](http://www.dev-metal.com/setup-basic-lamp-stack-linux-apache-mysql-php-ubuntu-12-04/).
+
+
+
 
 ## Server configs for
 
@@ -151,7 +132,12 @@ Your .git folder/files, operating system temp files, the application-folder and 
 For database requests PDO is used, so no need to think about SQL injection (unless you
 are using extremely outdated MySQL versions).
 
-## How to include CLASS SCRIPTS / use PSR-4
+
+
+
+
+
+## How to include CLASS SCRIPTS / use PSR-4 - not in adrs
 
 As this project uses proper PSR-4 namespaces, make sure you load/use your CLASS SCRIPTS correctly:
 Instead of including classes with old-school code like `include xxx.php`, simply do something like   
@@ -366,12 +352,12 @@ Please commit into the develop branch (which holds the in-development version), 
 
 **June 2014**
 - [digitaltoast] removed X-UA-Compatible meta tag from header (as it's not needed anymore these days)
-- [digitaltoast] removed protocol in jQuery URL (modern way to load external files, making it independent to protocol change)
-- [digitaltoast] downgraded jQuery from 2.1 to 1.11 to avoid problems when working with IE7/8 (jQuery 2 dropped IE7/8 support)
+- [digitaltoast] removed protocol in j Query URL (modern way to load external files, making it independent to protocol change)
+- [digitaltoast] downgraded j Query from 2.1 to 1.11 to avoid problems when working with IE7/8 (j Query 2 dropped IE7/8 support)
 - [panique] moved jQuery loading to footer (to avoid page render blocking)
 
 **April 2014**
-- [panique] updated jQuery link to 2.1
+- [panique] updated j Query link to 2.1
 - [panique] more than 3 parameters (arguments to be concrete) are possible
 - [panique] cleaner way of parameter handling
 - [panique] smaller cleanings and improvements

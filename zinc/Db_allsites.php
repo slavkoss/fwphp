@@ -1,4 +1,5 @@
 <?php
+// J:\awww\www\zinc\Db_allsites.php
 declare(strict_types=1);
 /**
            DB (PERSISTENT STORAGE) ADAPTER T R A I T - PDO DBI

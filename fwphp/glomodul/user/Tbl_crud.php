@@ -309,7 +309,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       //default: break;
     }
     
-    if ($err > '') { $_SESSION["ErrorMessage"]= $invalid ;
+    if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
       Config_allsites::Redirect_to($pp1->admins); goto fnerr ; //exit(0) ;
     }
 

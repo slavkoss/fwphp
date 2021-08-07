@@ -1,37 +1,34 @@
 <?php
 //J:\awww\www\fwphp\glomodul\adrs\read_tbl.php
 //  <!--            display table (was and r o w c r e frm)  -->
-namespace B12phpfw ;
-                //not parent::__construct($pp1);
+declare(strict_types=1);
 
-$tbl='song'; $rcount = $this->rrcount($tbl); // $sql, $binds = [], $caller = '' :
-$cursor = $this->rr("SELECT * FROM $tbl", [], __FILE__ .' '.', ln '. __LINE__ ) ;
-//$cursor = $this->rr('', $this, $tbl, "'1'='1' ORDER BY track", '*') ;
+namespace B12phpfw\module\adrs ;
+
+use B12phpfw\core\zinc\Config_allsites ;                 // init, setings, utils
+use B12phpfw\core\zinc\Db_allsites ;                     // model (fns) for all tbls
+use B12phpfw\dbadapter\adrs\Tbl_crud  as Tbl_crud_adrs ; // model (fns) for song tbl
+
+$tbl='song';
+
+$rcount = Db_allsites::rrcount('song') ;
+$cursor = Tbl_crud_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
+  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
 ?>
 <div class="container">
 
   <b><span id="ajax_pgtitle_box">Adressess (Links) count : </span><?=$rcount?></b>
          <!--input type="submit" name="submit_add_song" value="Add row" /-->
-    &nbsp;&nbsp;&nbsp;<a href="<?=$this->pp1->module_url . QS . 'i/cr/'?>">Add row</a>
+    &nbsp;&nbsp;&nbsp;<a href="<?=$pp1->module_url.QS.'i/cc/'?>">Add row</a>
 
   &nbsp;&nbsp; <div style="display: inline;" >
     <button id="ajax_rcount_btn" 
-            title="<?=$this->pp1->module_url.QS?>i/ajaxcountr/">
+            title="<?=$pp1->module_url.QS?>i/ajaxcountr/">
       Display rows count via jQuery Ajax in span id="ajax_rcount_box"
     </button>
     <span id="ajax_rcount_box"></span>
   </div>
-
-  <!--             r o w c r e  frm  -->
-  <!--div class="xxbox">
-    <form action="<=$this->pp1->module_url . QS>i/c/t/song/" method="POST">
-        <label>Artist</label><input type="text" name="artist" value="" required />
-        <label>Track</label> <input type="text" name="track" value="" required />
-        <label>Link</label>  <input type="text" name="link" value="" />
-
-    </form>
-  </div-->
 
 
   <!--        main content output : List of songs  -->
@@ -43,28 +40,37 @@ $cursor = $this->rr("SELECT * FROM $tbl", [], __FILE__ .' '.', ln '. __LINE__ ) 
 
     <tbody>
     <?php
-    while ($r = $this->rrnext($cursor)) //foreach ($songs as $song) 
-    { ?>
-    <tr>
-      <td><?php if (isset($r->id)) echo htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); ?></td>
-      <td><?php if (isset($r->artist)) echo htmlspecialchars($r->artist, ENT_QUOTES, 'UTF-8'); ?></td>
-      <td><?php if (isset($r->track)) echo htmlspecialchars($r->track, ENT_QUOTES, 'UTF-8'); ?></td>
-      <td>
-          <?php if (isset($r->link)) { ?>
-            <a href="<?=htmlspecialchars($r->link, ENT_QUOTES, 'UTF-8')?>">
-               <?=htmlspecialchars($r->link, ENT_QUOTES, 'UTF-8')?></a>
-          <?php } ?>
-      </td>
-      <!-- $this->pp1->module_url . QS . 'song/d/'   call del_row glob. all sites method
-           $this->pp1->module_url . QS . 'song/e/
-      -->
-      <td><a href="<?=$this->pp1->module_url . QS . 'i/d/t/song/id/'
-            . htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8')?>">Del</a></td>
-      
-      <td><a href="<?=$this->pp1->module_url . QS . 'i/ur/t/song/id/' 
-            .  htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8')?>">Edit</a></td>
-    </tr>
-    <?php } ?>
+    //foreach ($songs as $song) 
+    while ( $r = Db_allsites::rrnext($cursor) and isset($r->id) ): 
+    { 
+      $id = Config_allsites::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+      ?>
+      <tr>
+        <td><?php echo $id; ?></td>
+        <td><?php if (isset($r->artist)) echo Config_allsites::escp($r->artist); ?></td>
+        <td><?php if (isset($r->track)) echo Config_allsites::escp($r->track); ?></td>
+        <td>
+            <?php if (isset($r->link)) { ?>
+              <a href="<?=Config_allsites::escp($r->link)?>">
+                 <?=Config_allsites::escp($r->link)?></a>
+            <?php } ?>
+        </td>
+        <!-- 
+          <td><a href="<=$pp1->module_url . QS . 'i/dd/t/song/id/'.$id?>">Del</a></td>
+          $pp1->ldd_admins.$id
+          <=str_repeat('&nbsp;', 8 - strlen($id)) . $id ?>
+        -->
+        <td>
+           <a id="erase_row" class="btn btn-danger"
+              onclick="var yes ; yes = jsmsgyn('Erase row <?=$id?>?','') ;
+              if (yes == '1') { location.href= '<?=$pp1->module_url.QS.'i/dd/t/song/id/'.$id?>/'; }"
+              title="Delete tbl row ID=<?=$id?>"
+           ><b style="color: red">Del</b></a>
+        </td>
+        
+        <td><a href="<?=$pp1->module_url.QS.'i/uu/t/song/id/'.$id?>">Edit</a></td>
+      </tr>
+    <?php } endwhile; ?>
     </tbody>
     </table>
   </div>

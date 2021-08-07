@@ -1,12 +1,13 @@
+<!-- J:\awww\www\fwphp\glomodul\adrs\home.php -->
 <div class="container">
     <h1>Homepage</h1>
 
     <p>You are in View: <?=__FILE__?></p>
 
-    <p>$this->pp1->module_relpath=<?=$this->pp1->module_relpath?></p>
-    <p>$this->pp1->module_url=<?=$this->pp1->module_url?></p>
+    <p>$pp1->module_relpath below site root = <?=$pp1->module_relpath?></p>
+    <p>$pp1->module_url=<?=$pp1->module_url?></p>
     
-    <p>FUNCTIONAL namespaces, not POSITIONAL (dir tree).</p>
+    <p>Namespaces are FUNCTIONAL, not POSITIONAL (not dir tree).</p>
     <p>Each module (is like Oracle Forms .fmb) is in own folder, not all modules in 3 dirs: M, V, C.</p>
 
 

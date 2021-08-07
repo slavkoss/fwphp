@@ -2,14 +2,10 @@
 // J:\awww\www\zinc\Dbconn_allsites.php
 // Is required in trait Db_allsites
 //$conn_params = 
-return [
-    null
-  , 'mysql'
-  , 'localhost'
-  , 'z_blogcms'
-  , 'root'
-  , ''
-] ;
+//     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
+//    , self::$db_username, self::$db_userpwd) 
+//    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
+return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
 /*
 self::$do_pgntion  = null        ;
 self::$dbi         = 'mysql'     ;   // mysql or oracle or any  d b i  you wish

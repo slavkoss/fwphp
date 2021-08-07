@@ -1,4 +1,5 @@
 <?php
+// J:\awww\www\zinc\Config_allsites.php
 declare(strict_types=1);
 /**
 *  J:\awww\www\zinc\Config_allsites.php

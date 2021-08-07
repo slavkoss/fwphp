@@ -52,9 +52,25 @@ Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
     Blog module works with other 4 modules in innovative way (see /fwphp/glomodul/blog/index.php).
 
 
-Explanations below are far less important than demo site, code download and modules mentioned above.
+<br />
+Explanations below are far less important than demo site and code download mentioned above - open code and learn it, it is simple but needs      
+> few hours (advanced user) - days (intermediate) - weeks/months (beginner) to understand it.           
+**Understand code is must for any professional code skeleton !**       
+<br />
 
-Besides explanations below are difficult to understand. They are "after battle philosophy" very useful to improve basic ideas (principles).
+         _.-'''''-._
+       .'  _     _  '.
+      /   (o)   (o)   \
+     |                 |
+     |  \           /  |
+      \  '.       .'  /
+       '.  ''---''  .'
+         '-._____.-' 
+
+
+
+
+
 
 <br /><br /><br /><br />
 ## 1\.3 Project notable goals  - reasons
@@ -119,93 +135,16 @@ Everything important is done in current version 7 code.
 ## 1\.5 Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
 
-1. My **developing** web server root dir. path:  wsroot_path = **J:\\awww\\www** . wsroot_url = http://dev1:8083 or http://localhost:8083 !! (dev1 is Apache vitual host).  
-   For **testing**  wsroot_path = `J:\ylaragon\www` , wsroot_url =  http://dev1:8083 or http://localhost:8083 !!
-   For **production** are Linux demo sites, see below.  
-
-2. For mnu module **module_url** = http://dev1:8083/fwphp/www/ so module_towsroot = '../../' - I do not use it for mnu and mkd. 
-   **$module_towsroot** variable in index.php is** always same value for both variables wsroot_path and wsroot_url**.
-   For msg module in index.php : ** $module_towsroot = '../../../' ;** because module_path = J:\awww\www\fwphp\glomodul\blog and three times "../" means **path from blog dir to www dir ee to wsroot_path = 3 times up**.  So module_url = http://dev1:8083/fwphp/glomodul\blog  and 3 times up is http://dev1:8083 = wsroot_url.
-
-
-IIS wsroot_path = %SystemDrive%\\inetpub\\wwwroot = http://localhost, see Win icon -> IIS manager. For APEX learning on Oracle cloud open  https://apex.oracle.com/en/ click link "Get started" and install few demo apps before making own based on eg Riaz Ahmed 2020 year "Oracle APEX 20 For Beginners" (on 18c XE DB) .
-
-
-
-
-
-
-<br><br><br>
-Package contains modules (folders) in ownWebServer_or_hosting_DOCROOT_PATH = "/". My DOCROOT_PATHs ('/') are :
-
-1. on Windows my home PC Apache virtual host `J:\awww\www` for development and `J:\ylaragon\www` for testing
-2. on Linux free demo sites for production /phporacle.eu5.net on Freehostingeu and /home/slavkoss/public_html on Heliohost - you can easily make own.
-3. on Oracle Linux on my home PC Virtual Box machine
-
-Each module is in own (functional) folder like Oracle Forms someForm.fmb, Blazor and APEX pages - is best to develop more large sites. Oracle Forms authors knew this 2 dozen years ago.
-
-No M,V,C folders which, seems are mistake, delusion : putting coding technik (M,V,C code separation) in foreground instead pages (each page in own folder = module). M,V,C code separation idea is beter explained good old structured programming idea - M and V code manager = C, processing code may be M = CRUD DB table rows, output code = V. M,V,C code in one script is valid MVC coding ! 
-
-Interesting is that PHP frameworks authors and learning code authors do not even mention **M,V,C folders reflecting code separation in opposition (antithesis) to functional folders - modules reflecting business functions (business logic)**. Is it one sells what one has ee no lies, no sells ? If is, is ugly.
-
-First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH. Modules (functional folders) are :
-
-1. 50 kB "mnu" module, in folder /fwphp/www, is Main Menu code. "fwphp" folder is one site (may be more sites on same folder level). "www" folder is mnu module. Is not based on core CRUD code skeleton (possible, but not need). 
-
-2. 60 kB "mkd" module, in folder /fwphp/glomodul/mkd, to write help pages in Markdown WYSIWYG editor (plus Simplemde code, or may be HTML editor Summernote code or ...), with mkd2html and html2mkd conversion. Is not based on core CRUD code skeleton (possible, but not need).
-
-"fwphp" folder is one site, "glomodul" is group of shared modules reused in other modules, or testing modules or...
-
-3. 90 kB, "core" module in folder /zinc is CRUD code skeleton (I call it B12phpfw) is shared (global) for all sites. "core" module is in folders /zinc 90 kB plus /zinc/themes (bootstrap) 392 kB and /zinc/img 200 kB (my /zinc/img/img_big is 30 MB but is not in this package).
-
-4. 86 kB  "msg" or "blog" module in folder /fwphp/glomodul/**msg** 86 kB. Blog Is based on "core" CRUD code skeleton like every CRUD module should be.
-   Uses   core (**zinc**) shares, two master modules (tbls) = $app_dir_path.'/**user**/'  100 kB and $app_dir_path.'/**post_category**/' 10kB, two detail & subdet modules (tbls)  $app_dir_path.'/**post**/' 50 kB and $app_dir_path.'/**post_comment**/' 15 kB  
-   where app_dir_path is glomodul dir = application dir
-
-5. 3 MB folders - a lot of testing / learning modules. See /fwphp/glomodul/z_examples/00_index_of_important.php
-
+See readme_thoughts.md
 
 
 <br><br><br><a name="uml"></a>
-# 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
+## 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
 [Top](#top)......[Dirs](#directories).....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
-## Adapters (implementations - classes or methods) depend on interfaces (features, ports)
-**3-layer code skeleton (application architecture) left, center, right :** "The object-oriented version of spaghetti code is, of course, lasagna code'. Too many layers." - Roberto Waltman Mar 7, 2016. HA (hexagonal architecture) is a case of application of DDD (Domain Driven Design) eg verses in OS file :
+### Adapters (implementations - classes or methods) depend on interfaces (features, ports)
 
-| **Application-managers-controllers on GUI-CLI input** | **BL** (Business Logic) and **interfaces-features-ports - processing** | **Adapters-implementations-tasks-dependencies  and output** |
-| :-------------------------------------------------------: | :------------------------------------------------------------- | :--------------------------------------------------------- |
-|    OUTSIDE LEFT  (User-Side) **drive domain** | INSIDE (core, domain, center) **drive infrastructure** |  OUTSIDE RIGHT (**infrastructure**, Server-Side)|
-| ConsoleAdapter ---------depends on---------|---> IRequestVerses                                                                | |
-|                                                                                                 |......A                                                                                             | |
-|                                                                                                 |......l   depends on                                                                    | |                                        
-|                                                                                                 |......l                                                                                               | |
-|                                                                                                 |......PoetryReader BL class ---> IObtainPoems <---depends on------|--- PoetryLibraryFileAdapter |
-
-### B12phpfw simple module code skeleton (HA) eg users or post categories :
-| **Application-managers-controllers on GUI-CLI input** | **BL** (Business Logic) and **interfaces-features-ports - processing** | **Adapters-implementations-tasks-dependencies  and output** |
-| :-------------------------------------------------------: | :------------------------------------------------------------- | :--------------------------------------------------------- |
-|    OUTSIDE LEFT  (User-Side) **drive domain** | INSIDE (core, domain, center) **drive infrastructure** |  OUTSIDE RIGHT (**infrastructure**, Server-Side)|
-| ibrowser, **Home_ctr** ---depends on----------|--->methods to call/inc code ** Interf_Tbl_crud** <---depends on-------|--- DBI: cls **Tbl_crud** one tbl DB adapter (repository) |
-|                                                                                                | (Interf_Home_ctr if needed !) (some BL class if needed) | DBI: trait **Db_allsites** : code type DB CRUD ADAPTER |
-
-Concerning business code, the inside, a good idea is to choose to **organize domain modules (or directories) according to business logic**. The ideal case is to be able to open a directory or a business logic module and immediately understand business problems that your program solves; **rather than seeing only “repositories”, “services”, or other “managers” directories or M, V, C dirs**. See https://matthiasnoback.nl/2017/08/layers-ports-and-adapters-part-2-layers/ Aug 2nd 2017 by Matthias Noback. Matthias said : Simfony  framework was no longer my safe haven, I worked on more basic programming topics, like SOLID and Package Design.  I was fascinated by hexagonal architecture and command buses. **Place for (Simfony)  framework is the Infrastructure layer** and you can fully embrace any kind of RAD-stupid thing your framework offers, as long as it stays inside that layer, and nothing of it trickles down into either the Application or g\*d forbid the Domain layer. 
-
-You can now write alternative adapters for your application's ports. You could run an experiment with a Oracle (Mongo... or in memory) adapter side by side with a MySQL adapter. Specialized adapters for running tests is the main reason why Cockburn proposed the ports & adapters architectural style.
-
-### Dependency Rule - decoupling (code separation) - Dependency Inversion Principle - "D" in SOLID
-( https://en.wikipedia.org/wiki/SOLID )
-A practical implementation of Dependency Rule "**One should depend upon abstractions, not concretions**." in most object-oriented programming languages :
-1. Define an **interface = abstraction** for the thing you want to depend on.
-2. Then provide a **class implementing that interface**. This class contains all the low-level details that you've stripped away from the interface, hence, it's the **concretion** this design principle talks about.
-
-
-[B12phpfw_UMLdiagram.png](B12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")  
-![B12phpfw_UMLdiagram.png is less practical and altered](xxxB12phpfw_UMLdiagram.png "B12phpfw_UMLdiagram.png")  
-
-I prefer UML below : 
-
-
+See readme_thoughts.md
 
 
 -----
@@ -548,130 +487,16 @@ http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scr
 https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php        
 
 B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CRUD code skeleton") because dirs are like Oracle FORMS form module .fmb and other reasons mentioned below.    
-But basics are same : HexArch (Hexagonal architecture) application of DDD (Domain Driven Design) :  example img gallery code https://github.com/oumarkonate/hexagonal-architecture 
-1. **application** directory : src/Config contains ~ code in my Config_allsites cls
-2. application directory : src/Controller contains ~ code in my  Config_allsites cls  and Home_ctr cls
-3. **Domain (model)** code in directory src/Domain contains ~ code in my Db_allsites cls
-4. **Infrastructure (or Common)** dir contains dependencies that app code needs to work - my zinc dir
-See [**"What is SW fw"**](#swfw).
 
-![B12phpfw favicon DEVELOPMENT DOCROOT](B12phpfw_1DEVELOPMENT_DOCROOT.ico "B12phpfw_1DEVELOPMENT_DOCROOT.ico")  my **DEVELOPMENT DOCROOT** J:\\awww\\www ee http://dev1:8083/   OR       
- ![B12phpfw favicon TEST DOCROOT](B12phpfw_2TEST_DOCROOT.ico "B12phpfw_2TEST_DOCROOT.ico")  **TEST DOCROOT** J:\\ylaragon\\www (was J:\\xampp\\htdocs) ee   http://localhost:8083/  (http://SSPC2:8083/ ) OR       
- ![B12phpfw favicon PRODUCTION DOCROOT](B12phpfw_3PRODUCTION_DOCROOT.ico "B12phpfw_3PRODUCTION_DOCROOT.ico") **PRODUCTION (DEMO) DOCROOT** http://phporacle.eu5.net/       
-|   
-In Windows **tree /A** shows :
-```
-+---1. J:\awww\www\index.php redirects to main menu module url /fwphp/www/index.php
-|
-|
-+---2. J:\awww\www\fwphp SITE, group of apps (modules groups) = Apache_docroot\fwphp
-|   |  NO Models, V, C dirs, but dirs are like Oracle FORMS form .fmb !
-|   |         
-|   +---www  - MAIN MENU MODULE (static) pages, 
-|   |   not on B12phpfw code skeleton, but similar coding
-|   |
-|   | APPLICATION DIRS HAVE SIMILAR DIR STRUCTURE AS glomodul :
-|   |
-|   +---01mater app (app = modules group) - material book keeping - empty dir
-|   +---02financ app (dir name is module name) - empty dir
-|   +---03salary app - empty dir
-|   |
-|   +---glomodul "app" modules group not in previous 01, 02... dirs.
-|       |
-|       |
-|       +---mkd module - plain text Op.sys files (markdown or html) 
-|       |   WYSIWYG web editor, not on b12phpfw code skeleton, but similar
-|       |
-|       |
-|       +---blog (Msg) MODULE
-|       |   |-- MODULE CONTROLLER class Home_ctr extends Config_allsites
-|       |   |-- MODULE MODEL - DATA SOURCE ADAPTER class Tbl_crud
-|       |   |-- VIEW scripts (not view classes !) to be included in Home_ctr
-|       |   +---msgmkd dir - markdown texts .txt = POSTS
-|       |   \---Uploads dir
-|       |
-|       | blog module consists of : two masters, detail, subdetail :
-|       | which, like blog module, have Home_ctr.php, Tbl_crud.php 
-|       | and VIEW scripts :
-|       |
-|       +---user/            module - master 1
-|       |
-|       |
-|       +---post_category/   module - master 2 - Home_ctr.php and VIEW scripts
-|       |
-|       |
-|       +---post/            module - detail - relations M : 1 user,  M : 1 post_category
-|       |
-|       |
-|       +---post_comment/    module - subdetail - relation M : 1 post.
-|       |
-|       |
-|       |
-|       +---adrs (Mini3 fw) module https://github.com/panique/mini3
-|       |   Excellent rare not to simple MVC example (lot of good coding). 
-|       |   My ROUTING USING KEY-VALUES is different, but  
-|       |   DISPATCHING USING HOME CLASS METHODS is based on Mini3.
-|       |
-|       +---z_examples      modules group - LEARNING EXAMPLES. Eg :
-|       |   |
-|       |   +---02_MVC      modules group  OOP and MVC learn
-|       |       |
-|       |       +---03xuding/ STEP BY STEP SHOWS WHY AND HOW TO USE B12PHPFW
-|       |           Simple, small, elegant code. I improved it (?) in step 1 and 2.
-|       |           https://www.startutorial.com/articles/view/php-crud-tutorial-part-1, 2, 3
-|       |
-|       |
-|       +---lsweb module - web server dirs navigate & run .html and .php
-|       +---oraedoop
-|       +---z_help modules group - (static) pages
-|
-|
-+---3. J:\awww\www\zinc (core) - GLOBAL INCLUDES for all sites (eg 2. fwphp SITE)
-|   |  zinc is for search more selective than core  -:).
-|   |  Here are dirs img, lang, theme and global classes (for all sites)
-|   |  which are MVC engine.
-|   |
-|   | GLOBAL RESOURCES :
-|   |-- hdr.php, ftr.php
-|   +---img
-|   +---lang
-|   +---themes some public resources (some are in vendor dir)
-|   |
-|   | MVC ENGINE :
-|   +---class Autoload in class script Autoload.php
-|   |   CONVENTION FOR NAMESPACES :
-|   |   Eg in tbl view script J:\awww\www\fwphp\glomodul\post\posts.php :
-|   |          namespace B12phpfw\dbadapter\post ;
-|   |          use B12phpfw\module\dbadapter\post\Tbl_crud ;
-|   |   vendor_namesp_prefix \ processing_(behavior) \ proc2 \ ... \ cls_dir
-|   |   before cls_dir is FUNCTIONAL part of name space, any string "\" separated 
-|   |   cls_dir='post' is POSITIONAL part of ns, CAREFULLY it is dir name!
-|   |   If we change dir names than we must change also cls_dir in ns in scripts !
-|   |-- DB conn parameters Dbconn_allsites
-|   |-- class Db_allsites - global data source adapter (includes Dbconn_allsites)
-|   |-- class Config_allsites - routing, dispatching, utils (helpers)
-|   |-- class Pgn - PAGINATION
-|   |
-|   |
-|   |-- showsource.php
-|
-|
-+---4. J:\awww\www\vendor dir for external code (vendor's plugins) & resources :
-|      JS files, stylesheets.            
-|      B12phpfw own (internal) resources are in zinc dir, external in vendor dir.          
-|   +---erusev (parsedown markdown to html)         
-|   +---php2wsdl        
-|   +---simplemde WYSIWYG editor for markdown (or Summernote for html)         
-|     
-```
+See readme_thoughts.md
+
 
 See Mini3 PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good coding). My **routing using key-values** is different but **dispatching using home class methods is based on Mini3**. 
 
 See very good coding (to simple examples and have no namespaces) : 
 1. https://github.com/ngrt/MVC_todo 
 2. or https://github.com/DawidYerginyan/simple-php-mvc/ 
-3. or my dir \02_mvc\ (\\fwphp\\glomodul\\z_examples\\02_mvc\\03xuding_glob\\) - still version 6. (good exercize to upgrade to version 7.)  
-   or many others
+or many others, Google :  Github php framework
 
 
 
@@ -684,139 +509,827 @@ See very good coding (to simple examples and have no namespaces) :
 
 
 
-<br />        
-Explanations below are far less important than demo site and code download mentioned above - open code and learn it, it is simple but needs      
-> few hours (advanced user) - days (intermediate) - weeks/months (beginner) to understand it.           
-**Understand code is must for any professional code skeleton !**       
-<br />
-
-         _.-'''''-._
-       .'  _     _  '.
-      /   (o)   (o)   \
-     |                 |
-     |  \           /  |
-      \  '.       .'  /
-       '.  ''---''  .'
-         '-._____.-' 
 
 
 
 ## <a name="dm"></a>1\.8 DM (Domain model)
 [Top](#top)......[Dirs](#directories).....[UML](#uml).....**DM**.....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
-[UML diagram](#uml)  above does not show DM adapter classes. Each  tbl in DB (ee each object in data source eg web servis...) has DM adapter class **Tbl_crud** which is **pre CRUD code - calls cc, rr, uu, dd... methods** like in Oracle Forms **pre-query, pre-insert, pre-update... on-insert, on-update...**.
-
-In Db_allsites class is **eg execute-query code** - only creates cursor to (loop) read row by row in view scripts or in ctr scripts).        
-
-### Events flow (E1) --- (E2)... - caseflow through Blog module (CRUD data skeleton)
-```
-(E1) User types URL --- index.php instantiates C (Home_ctr, App...) --- C calls own method, see (T1) - signals flow
-(E2) Home_ctr own method includes (E3) V (home.php) - signals flow  V --URL--> C
-                        |
-                        --  OR --calls--> some method (eg delete row) - signals flow C --parameters -->method
-                        |
-                        -- OR URL jumps in other module - signals flow in _GET (=URL query) or _POST global arrays
-
-(E3) V (home.php view script) --- V calls DM see (T2), ee V calls Tbl_crud to <==pull== array (of row objects) from data source (T3) - DATA FLOW
-         |
-         -- if user cliks link or button or types URL --- it is event (E1) - signals flow V --URL--> C - ee user adds INTERACTIVITY (T4) in C which requires ROUTING.
-```
-
-#### Terms
-(T1) Own controller method is Mini3 PHP framework **dispatching** idea using home class methods (My **routing using key-values** is different)      
-
-(T2) **DM** (Domain Model) are classes :
-1. Tbl_crud (**users table PdoAdapter**) called by V script - **pre CRUD (PRE-INSERT, PRE-UPDATE...) methods** cc, rr, uu, dd
-2. Db_allsites (**AbstractDataMapper**) called by Tbl_crud - same for all tables, contains **CRUD (ON-INSERT, ON-UPDATE...) methods** cc, rr, uu, dd
-
-(T3) **DS (data source)** -  tbl row objects from DB or web service, or.... Only DM classes know about DS. CRUD code skeletons calls DM classes FUNCTIONALY ee WHAT ee "get invoice items", not HOW and from which DS. DS is assigned only once in config class abstract class Config_allsites extends Db_allsites (and class Home_ctr extends Config_allsites). 
-
-(T4)  User **INTERACTIVITY** (cliks link or button or types URL) requires ROUTING in C ee C (Home_ctr) is not needed for Mnu module, even for Mkd module - enough is simple controller code snippet. 
+See readme_thoughts.md
 
 
-<br /><br />
-### Signals, data and code flow
-Graph 4 node (vrh), 7 edge (brid, border, boudary). Graph is simmilar to Euler's 4 Königsberg  city parts (nodes) and 7 bridges (edges) - Chinese postman **transport problem** - how to Euler walk to cross each  bridge (edge)  only once. Traveler sailsman problem is : how to shortest walk graph to cross each  city part (node)  at least once and return to start node. 
 
-```
-Db_allsites, Tbl_crud_crud     _.-'(DM)'-._       Domain Model
-                          .'/          '.
-                   calls / /DATA         \C includes V, before inc. C can manipulate M (state changes)
-DM updates V           (V) -----URL-----> (C)  View (home.php) and Controller (Home_ctr)
-V calls DM              |  \              |
-V sees URL              \  \              /U uses C - sends URL (signal) to C through link in V
-                       URL'. \HTML      .'
-                            '-._(U)_.-'User types URL or cliks link or button
-```
-
-Picture shows M-V data flow. Model code is most complicated. **C and V code can be standardized, M only partially** :      
-
-**M in B12phpfw is DM (Domain Model)** meaning eg for users table :     
-
-M consists of :
-1. abstract class Db_allsites which is same for all tables (cc, rr, uu, dd methods are standardized)
-2. and class Tbl_crud - **bussines logic** in this M code can not be standardized. This M code is most complicated, it is fat (lot of code)
-
-User`s events are handled in Controller class.
-1. C (class Home_ctr) assigns users orders in URL to array variables telling V what user wants (signals flow) and includes V 
-2. **V pulls data from M data source (DB or web servis or...)** (calls Tbl_crud which calls Db_allsites) according C variables (user orders in URL)
-3. V links ee user orders in URL call C method which can do some state changes in M data
-
-V script may contain class but I do not see need for view classes because view script is included in Home_ctr class and can use $this to access methods and attributes in whole class hierarchy : Home_ctr, Config_allsites, Db_allsites. If we do not need CRUD than we do not need class hierarchy Home_ctr, Config_allsites, Db_allsites meaning that simple coding like in Mnu and Mkd modules suffices..
-
-M-C-V data flow - controller instantiates M and pushes M data to V.
-I do not see advantages compared to M-V data flow. Disadvantage are : for pagination M-V data flow is only possible solution, M-C-V data flow makes C fat in large modules (lot of code). C in my Msg (Blog) module has lot of code, but code is very simple.
-
-So view instantiates model and pulls data from M or C instantiates model and pulls data from M.  Both styles work ok, difference is important only for us - for clearer code.
-
-If we have user`s interactions (events) eg filter displayed rows (**pagination is also filtering**), than **M-V data flow is only possible** solution (M-V data flow is original MVC idea). 
 
 
 
 
 <br /><br />
-## <a name="SimplestCRUD"></a> 1.9 Simplest user CRUD module
+## <a name="SimplestCRUD"></a> 1.9 Simplest adrs (MINI3, songs) CRUD module
+CRUD rows in table song(#id, artist, track, link). MINI3 framework https://github.com/panique/mini3 is I think best to learn PHP and frameworks code skeleton. My adrs module in glomodul modules group is MINI3 on B12phpfw. Why ? I think for large sites MINI3 is to simple.
 
 <a name="scrudIndex"></a>
 ### 1\.9\.1 index.php
-[Simplest CRUD](#SimplestCRUD).....**index.php**.....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU) ....[adapter](#scrudadapter)   
+[Simplest CRUD](#SimplestCRUD).....**index.php**.....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU) ....[adapter](#scrudadapter) 
+
+```php
+<?php
+// J:\awww\www\fwphp\glomodul\adrs\index.php
+namespace B12phpfw\module\adrs ; //see below **HELPNS
+use B12phpfw\core\zinc\Autoload ; 
+
+//1. settings - properties - assign global variables to use them in any code part
+$module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
+$app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
+//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
+$wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
+$shares_path = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
+
+//$Dbconn = [ null, 'mysql', 'localhost', 'z_adrs', 'root', ''] ;
+
+$pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
+[   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+
+  //1.1
+  , 'wsroot_path'=>$wsroot_path
+  , 'shares_path'=>$shares_path
+
+  //1.2
+  , 'module_version'=>'7.0.0.0 Adrs (Mini3)' //, 'vendor_namesp_prefix'=>'B12phpfw'
+
+  //1.3 Dirs paths where are class scripts to autoload. Dir name is last in namespace and use. 
+  , 'module_path_arr'=>[
+    //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
+    $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
+    //dir of global clses for all sites :
+    ,$shares_path 
+  ]
+] ;
+
+//2. global cls loads classes scripts automatically
+require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
+$autoloader = new Autoload($pp1); //eliminates need to include class scripts
+
+//3. process request from ibrowser & send response to ibrowser :
+//Home_ ctr "inherits" index.php ee inherits $p p 1
+$module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
+
+exit(0);
+```
 
 
 <a name="scrudHome_ctr"></a>
 ### 1\.9\.2 Home_ctr.php router, dispatcher
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....**Home_ctr**.....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
 
+```php
+<?php
+// J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php
+// DEFAULT CTR (ONLY ONE IN MODULE), HAS 3 METHODS WHICH  I N C  PAGE VIEW SCRIPT
+namespace B12phpfw\module\adrs ;
+//use PDO;
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
+
+class Home_ctr extends Config_allsites
+{
+  public function __construct(object $pp1) 
+  {
+                        if ('') { self::jsmsg( [ //b asename(__FILE__).
+                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
+                           ,'aaaaaa'=>'bbbbbb'
+                           ] ) ; 
+                        }
+    if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
+
+    //$akc = $pp1->uriq->i ; //=home
+    //$pp1->$akc() ; //include(str_replace('|','/', $db->uriq->i.'.php'));
+    /**
+    *  ------------------------------------------------------------------------------
+    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
+    *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
+    *  ------------------------------------------------------------------------------
+    * 1. ALL MODULE VIEWS LINKS SHOULD BE IN $pp1_ module, SHAPED SO :
+    * 2. $pp1->urlqrystringpart1_name => i/M E T H O D NAME/param1name/ param1value...2,3... 
+    *    (urlqrystring LAST PART IS IN VIEW SCRIPT WHICH KNOWS IT, eg idvalue !)
+    * 3. IF LINK key-keyvalue pair IS NOT HERE THEN EG : 
+    *    in URLurlqrystring : QS.'i/home/' home must be M E T H O D NAME in this script.
+    *    Eg http://dev1:8083/fwphp/glomodul/adrs/?i/ex1/  or
+    *       http://dev1:8083/fwphp/glomodul/adrs/?i/home/ or
+    *       http://dev1:8083/fwphp/glomodul/adrs/
+    */
+    $pp1_module = [ // Property pallette module properties
+      '<b style="color: blue">ROUTES (LINKS)  assigned  IN  M O D U L E  CTR Home_ctr.php' => '~~~~~~~~~~~~~~~~~</b>'
+      , '<b>Part of $pp1 is $pp1_module = (module) property pallette.
+          Contains properties =  key-keyvalue pairs : 
+          LINKALIAS => ?i/HOME_METHOD_TO_CALL/param1/param1value...</b>' 
+      => 
+      '
+          <b>~~~~~ Eg in view script :
+          href =  LINKALIAS $pp1->$pp1->cre_row_frm CALLS cc fn in module ctr so: QS."i/cc/"
+              $pp1->cre_row_frm - more generalized, but more writing than QS."i/cc/", 
+                  cc fn is not visible in URL (visible is what cc calls/includes)
+              //,\'home_adrs\'        => QS.\'i/home/\'
+              //,\'cre_row_frm\'        => QS.\'i/cc/\'
+              //,\'ldd_category\'     => QS.\'i/del_category/id/\'
+              //,\'loginfrm\'        => QS.\'i/loginfrm/\'
+              //,\'login\'           => QS.\'i/login/\'
+      IF LINK key-keyvalue PAIR IS NOT IN $pp1_module THEN EG : 
+      in URLurlqrystring : QS.\'i/loginfrm/\' loginfrm must be M E T H O D NAME in this script.
+      </b>'
+      //, 'cre_row_frm'     => QS.'i/cc/'
+    ] ;  //e n d  R O U T I N G  T A B L E
+    //is better $pp1->cre_row_frm ? - more writing, cc fn in module ctr not visible
+
+    parent::__construct($pp1, $pp1_module);
+
+
+  } // e n d  f n  __ c o n s t r u c t
+
+
+
+          /* *****************************************
+                 CALL DISPATCH  M E T H O D S
+           they 1.call other fns or 2.include script or 3.URL call script
+           CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
+           so: $pp1->call_module_m ethod($akc, $pp1) ;
+               $ a k c  is  m o d u l e  m ethod (in Home_ ctr, not global fn !!
+                 because )
+          ***************************************** */
+                //$accessor = "get" . ucfirst(strtolower($akc));
+  protected function call_module_method(string $akc, object $pp1)  //fnname, params
+  {
+    //This fn calls fn $ a k c in Home_ ctr which has parameters in  $ p p 1
+    if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
+      return $this->$akc($pp1) ;
+    } else {
+      echo '<h3>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>' ;
+      echo 'Home_ ctr  m e t h o d  "<b>'. $akc .'</b>" is not callable.' ;
+      
+      echo '<br><br>See how is created  m e t h o d  name  $ a k c  in abstract class Config_ allsites, m ethod __c onstruct :<br>
+      $this->call_module_method($akc, $pp1) ; //protected fn (in child cls Home_ ctr) calls private fns (in child cls Home_ ctr)
+      ' ;
+      return '0' ;
+    }
+
+  }
+
+
+
+
+  /**
+  * pgs01. I N C  TEXT SHOWING  P A G E  S C R I P T S
+  */
+  private function home(object $pp1)
+  {
+    // Ver. 7 : Dependency Injection $pp1
+    //http://dev1:8083/fwphp/glomodul/adrs
+      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
+      require $pp1->module_path . 'home.php';
+      require $pp1->module_path . 'ftr.php';
+  }
+
+  private function ex1(object $pp1)
+  {
+    //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
+      require $pp1->module_path . 'hdr.php';
+      require $pp1->module_path . 'example_one.php';
+      require $pp1->module_path . 'ftr.php';
+      
+                  echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
+  }
+
+  private function ex2(object $pp1)
+  {
+    //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
+    $param1 = $pp1->uriq->p1 ;
+    $param2 = $pp1->uriq->p2 ;
+    require $pp1->module_path . 'hdr.php';
+    require $pp1->module_path . 'example_two.php';
+    require $pp1->module_path . 'ftr.php';
+                  echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
+  }
+
+
+
+
+
+
+  /**
+  * pgs02. I N C  R  (c R u d)  P A G E  SCRIPTS
+  */
+  private function rt(object $pp1)
+  {
+    // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
+    require $pp1->module_path . 'hdr.php';
+    require $pp1->module_path . 'read_tbl.php';  
+    require $pp1->module_path . 'ftr.php';
+  }
+
+
+
+  /**
+  * pgs03.   I N C  C R U D  P A G E  SCRIPTS   &   (code behind) C R U D  M E T H O D S
+  */
+  private function cc(object $pp1)
+  {
+    // I N C  C R U D P A G E  S C R I P T
+    // f o r m : http://dev1:8083/fwphp/glomodul/adrs/?i/cc/
+    //http://dev1:8083/fwphp/glomodul/adrs
+      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
+      require $pp1->module_path . 'cre_row_frm.php';
+      require $pp1->module_path . 'ftr.php';
+  }
+
+
+    private function dd(object $pp1) // dd_song
+    {
+      // http://dev1:8083/fwphp/glomodul/adrs/?i/d/rt/song/id/37
+      //$this->uriq=stdClass Object  [i] => d  [t] => song  [id] => 37
+                    if ('') {self::jsmsg('D BEFORE dbobj '. __METHOD__, __LINE__
+                    , ['$pp1->dbi_obj'=>$pp1->dbi_obj //, 
+                    ] ) ; }
+    // D e l  &  R e d i r e c t  to  r e f r e s h  t b l  v i e w :
+    $tbl = $pp1->uriq->t = 'song' ; 
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+
+    Tbl_crud_adrs::dd($pp1, $other); //used for all  t a b l e s !! 
+    Config_allsites::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
+
+    }
+
+
+  private function uu(object $pp1)
+  {
+           //       R O W U P D  FRM
+    //echo 'Method '.__METHOD__ .' SAYS: I   i n c l u d e   p h p  
+    //http://dev1:8083/fwphp/glomodul/adrs?i/uu/t/song/id/22  see switch default: above !!
+                  if ('0') {  //if ($module_ arr['dbg']) {
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                  echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
+                  echo '</pre>'; }
+
+    if (isset($pp1->uriq->id)) {
+       $uriq = $pp1->uriq ;
+       if (isset($uriq->id)) 
+         $IdFromURL = (int)Config_allsites::escp($uriq->id) ; //NOT (int)Config_allsites::escp($_GET['id']) ; 
+    } else $IdFromURL = NULL ;
+    require $pp1->module_path . 'hdr.php';
+    require $pp1->module_path . 'upd_row_frm.php';  
+    require $pp1->module_path . 'ftr.php';
+  }
+
+
+
+
+
+   /**
+    * AJAX-ACTION: ajax Get Stats
+    */
+    private function ajaxcountr()  //p ublic f unction ajaxGetStats()
+    {
+                        //$Song = new Song();
+                        //$amount_of_songs = $Song->getAmountOfSongs();
+                        //supersimple API would be possible by echoing JSON here
+                        //echo $amount_of_songs;
+                    if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
+                    , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
+                    , '$this->dbobj'=>$this->dbobj ] ) ; }
+      echo Tbl_crud_adrs::rrcount('song'); // not $this->dbobj->R_tb... !!!
+    }
+
+
+
+
+
+    public function errmsg($myerrmsg, object $pp1)
+    {
+        // h d r  is  in  p a g e  which  i n c l u d e s  t h i s
+                   //require $pp1->module_path . 'hdr.php'; //or __DIR__
+        require $pp1->module_path . 'error.php';
+        require $pp1->module_path . 'ftr.php';
+    }
+
+
+
+
+} // e n d  c l s  C onfig_ m ini3
+```
 
 <a name="scrudHomeV"></a>
-### 1\.9\.3 home.php - shows links assigned in Home_ctr.php for user interactions
+### 1\.9\.3 home.php... - shows links assigned in Home_ctr.php for user interactions or some txt
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....**home (table page.....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
+```php
+<!-- J:\awww\www\fwphp\glomodul\adrs\home.php -->
+<div class="container">
+    <h1>Homepage</h1>
 
+    <p>You are in View: <?=__FILE__?></p>
+
+    <p>$pp1->module_relpath below site root = <?=$pp1->module_relpath?></p>
+    <p>$pp1->module_url=<?=$pp1->module_url?></p>
+    
+    <p>Namespaces are FUNCTIONAL, not POSITIONAL (not dir tree).</p>
+    <p>Each module (is like Oracle Forms .fmb) is in own folder, not all modules in 3 dirs: M, V, C.</p>
+
+
+    <p>In CSS background: url('data:image/png;base64,iVBORw0KGgoAA...QmCC');</p>
+</div>
+
+
+<!-- J:\awww\www\fwphp\glomodul\adrs\example_one.php -->
+<div class="container">
+    This page EXAMPLE1 URL (web adress - web name) is :
+    <h3><?=$pp1->module_url?>?i/ex1/</h3>
+     where ex1 is method in Home cls.
+
+  <p>
+  ex1 method  I N C L U D E S  this page = view whose oper.system adress is : <?=__FILE__?>.
+  </p>
+
+  <p> </p>
+</div>
+
+
+<!-- J:\awww\www\fwphp\glomodul\adrs\example_two.php -->
+<div class="container">
+    This page EXAMPLE2 RECIVES TWO PARAMETERS p1='param1' and p2='param2'.<br>
+    This page is  i n c l u d e d  with Home cls ex2 method.<br>
+    This page URL is :
+    <h3><?=$pp1->module_url?>?i/ex2/p1/param1/p2/param2/</h3>
+  <p>Important part of Property pallette $pp1 is <b>uriq = URL (URI) query parts</b> : </p>
+  [i] => ex2 where ex2 is method in Home cls to be called which calls some method or includes some script<br>
+  [p1] => param1 This is method (script) parameter 1<br>
+  [p2] => param2 This is method (script) parameter 2
+  </p>
+
+
+    <p>url GET parameter p1=<?=$param1?> <br>
+    url GET parameter p2=<?=$param2?> </p>
+
+    <p>You are in View: <?=__FILE__?></p>
+</div>
+```
 
 <a name="scrudC"></a>
-### 1\.9\.4 create.php
+### 1\.9\.4 cre_row_frm.php
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....**create**.....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
 
+```php
+<?php
+// J:\awww\www\fwphp\glomodul\adrs\cre_row_frm.php
+declare(strict_types=1);
+//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\adrs ;
+
+//vendor_namesp_prefix \ processing (behavior) \ cls dir 
+use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
+
+if (isset ($_SESSION["submitted_cc"])) {
+  list( $artist, $track, $link) = $_SESSION["submitted_cc"] ;
+  unset ($_SESSION["submitted_cc"]) ;
+} else { list( $artist, $track, $link) = ['','',''] ; }
+
+
+//    1. S U B M I T E D  A C T I O N S
+if(isset($_POST["submit_add_song"])){
+  // returns string
+  Tbl_crud_adrs::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
+} //E n d  of Submit Button If-Condition
+
+?>
+
+
+<!--             r o w c r e  frm
+http://dev1:8083/fwphp/glomodul/adrs/?i/c/t/song/
+    <form action="<?=$pp1->module_url.QS?>i/c/t/song/" method="POST">
+-->
+  <br /><br />
+  <div class="xxbox">
+
+
+    <form action="<?=$pp1->module_url.QS?>i/cc/" method="POST">
+
+        <label>Artist </label><input type="text" name="artist" value="" required />
+        <label>Track </label> <input type="text" name="track" value="" required />
+        <label>Link </label>  <input type="text" name="link" value="" />
+
+        <input type="submit" name="submit_add_song" value="Add row" />
+    </form>
+
+
+  </div>
+```
 
 <a name="scrudR"></a>
-### 1\.9\.5 read.php - display user profile
+### 1\.9\.5 read_tbl.php
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....**read (user profile - form**.....[update](#scrudU)....[adapter](#scrudadapter)    
 
-curl -s https://api.github.com/markdown/raw -X "POST" -H "Content-Type: text/plain" --data-binary "@J:/awww/www/readme.md" >> "C:\Users\ss\AppData\Local\Temp\readme.htm"
+```php
+<?php
+//J:\awww\www\fwphp\glomodul\adrs\read_tbl.php
+//  <!--            display table (was and r o w c r e frm)  -->
+declare(strict_types=1);
 
-See J:\\awww\\www\\vendor\\erusev\\parsedown\\styles>md2h.bat
+namespace B12phpfw\module\adrs ;
+
+use B12phpfw\core\zinc\Config_allsites ;                 // init, setings, utils
+use B12phpfw\core\zinc\Db_allsites ;                     // model (fns) for all tbls
+use B12phpfw\dbadapter\adrs\Tbl_crud  as Tbl_crud_adrs ; // model (fns) for song tbl
+
+$tbl='song';
+
+$rcount = Db_allsites::rrcount('song') ;
+$cursor = Tbl_crud_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
+  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+?>
+<div class="container">
+
+  <b><span id="ajax_pgtitle_box">Adressess (Links) count : </span><?=$rcount?></b>
+         <!--input type="submit" name="submit_add_song" value="Add row" /-->
+       <a href="<?=$pp1->module_url.QS.'i/cc/'?>">Add row</a>
+
+     <div style="display: inline;" >
+    <button id="ajax_rcount_btn" 
+            title="<?=$pp1->module_url.QS?>i/ajaxcountr/">
+      Display rows count via jQuery Ajax in span id="ajax_rcount_box"
+    </button>
+    <span id="ajax_rcount_box"></span>
+  </div>
+
+
+  <!--        main content output : List of songs  -->
+  <div class="xxbox">
+    <table>
+        <thead style="background-color: #ddd; font-weight: bold;">
+     <tr><td>Id</td><td>Artist</td><td>Track</td><td>Link</td><td> </td><td> </td></tr>
+        </thead>
+
+    <tbody>
+    <?php
+    //foreach ($songs as $song) 
+    while ( $r = Db_allsites::rrnext($cursor) and isset($r->id) ): 
+    { 
+      $id = Config_allsites::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+      ?>
+      <tr>
+        <td><?php echo $id; ?></td>
+        <td><?php if (isset($r->artist)) echo Config_allsites::escp($r->artist); ?></td>
+        <td><?php if (isset($r->track)) echo Config_allsites::escp($r->track); ?></td>
+        <td>
+            <?php if (isset($r->link)) { ?>
+              <a href="<?=Config_allsites::escp($r->link)?>">
+                 <?=Config_allsites::escp($r->link)?></a>
+            <?php } ?>
+        </td>
+        <!-- 
+          <td><a href="<=$pp1->module_url . QS . 'i/dd/t/song/id/'.$id?>">Del</a></td>
+          $pp1->ldd_admins.$id
+          <=str_repeat(' ', 8 - strlen($id)) . $id ?>
+        -->
+        <td>
+           <a id="erase_row" class="btn btn-danger"
+              onclick="var yes ; yes = jsmsgyn('Erase row <?=$id?>?','') ;
+              if (yes == '1') { location.href= '<?=$pp1->module_url.QS.'i/dd/t/song/id/'.$id?>/'; }"
+              title="Delete tbl row ID=<?=$id?>"
+           ><b style="color: red">Del</b></a>
+        </td>
+        
+        <td><a href="<?=$pp1->module_url.QS.'i/uu/t/song/id/'.$id?>">Edit</a></td>
+      </tr>
+    <?php } endwhile; ?>
+    </tbody>
+    </table>
+  </div>
+
+
+    <p>You are in View: <?=__FILE__?></p>
+</div>
+
+```
 
 
 
 <a name="scrudU"></a>
-### 1\.9\.6 update.php
+### 1\.9\.6 upd_row_frm.php
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....**update**....[adapter](#scrudadapter)   
 
+```php
+<?php
+// J:\awww\www\fwphp\glomodul\adrs\upd_row_frm.php
+declare(strict_types=1);
+
+//       <!-- u p d  r o w  f o r m -->
+namespace B12phpfw\module\adrs ;
+
+use B12phpfw\core\zinc\Config_allsites ;                 // init, setings, utils
+use B12phpfw\core\zinc\Db_allsites ;                     // model (fns) for all tbls
+use B12phpfw\dbadapter\adrs\Tbl_crud  as Tbl_crud_adrs ; // model (fns) for song tbl
+
+$tbl='song'; 
+
+//    1. S U B M I T E D  A C T I O N S
+if(isset($_POST["submit_update"]))
+{
+  $cursor = Tbl_crud_adrs::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+
+  Config_allsites::Redirect_to($pp1->module_url.QS.'i/rt/');
+} //E n d  of Submit Button If-Condition
+//$fle=basename(__FILE__); $lne=__LINE__; $mtd=__FILE__;
+                        if ('') {self::jsmsg( [ basename(__FILE__). //__METHOD__ .
+                           ', line '. __LINE__ .' SAYS'=>'s002. BEFORE Rtbl'
+                           ,'$pp1->dbi_obj'=>isset($pp1->dbi_obj)?:'NOT SET'
+                           ,'$pp1->uriq'=>isset($pp1->uriq)?json_encode($pp1->uriq):'NOT SET'
+                           ] ) ; }
+
+$c_rr = Tbl_crud_adrs::rr( $sellst='*', $qrywhere='id=:id'
+  , $binds = [['placeh'=>':id', 'valph'=>$IdFromURL, 'tip'=>'int']] //str or int or no 'tip'
+  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+//while ($row_cnt=$this->rrnext($c_rcnt)): {$rcnt=$row_cnt;} endwhile; $rcnt=$rcnt->COUNT_ROWS;
+while ( $rx = Db_allsites::rrnext($c_rr) and isset($rx->id) ): {$r = $rx ;} endwhile;
+                  if ('1') {  //if ($module_ arr['dbg']) {
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                  echo '<pre>';
+                  echo '<b>$pp1->uriq</b>='; print_r($pp1->uriq);
+                  echo '<b>$pp1->uriq->id</b>='; print_r($pp1->uriq->id);
+                  echo '<br /><b>$r</b>='; print_r($r); //var_dump($r);
+                  echo '</pre><br />';
+                  }
+if (!$r) { // r o w wasn't found, display error page  $errobj = new Error_C();
+  $this->errmsg( '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
+    . "r o w id=***{$pp1->uriq->id}*** does not exists in table $tbl"
+       ."~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  );
+  exit(0) ;
+}
+
+//$id = Config_allsites::escp((int)$r->id);
+?>
+<div class="container">
+  <div>
+    <h3>E d i t  r o w</h3>
+
+    <form action="<?=$pp1->module_url.QS?>i/uu" method="POST">
+      <label>Artist </label><input autofocus type="text" name="artist" 
+         value="<?=Config_allsites::escp($r->artist)?>" required />
+      
+      <label>Track </label><input type="text" name="track" 
+         value="<?=Config_allsites::escp($r->track)?>" required />
+      
+      <label>Link </label><input type="text" name="link" 
+         value="<?=Config_allsites::escp($r->link)?>" />
+      
+      <input type="hidden" name="id" value="<?=$IdFromURL?>" />
+      
+      <input type="submit" name="submit_update" value="Update id <?=$IdFromURL?>" />
+    </form>
+
+  </div>
+  <p>You are in View: <?=__FILE__?></p>
+
+</div>
+```
 
 
 <a name="scrudadapter"></a>
 ### 1\.9\.7 Tbl_crud.php - ORM, DM (Domain Model) adapter cls - pre CRUD class
 [SimplestCRUD index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....**[adapter]**
 
+```php
+<?php
+/**
+*  J:\awww\www\fwphp\glomodul\adrs\Tbl_crud.php
+*        DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI
+*        (PRE) CRUD class - DAO (Data Access Object) or data mapper
+*      This c l a s s is for one module - does know module's CRUD
+* Other such scripts should be (may be not ?) for csv persistent storage, web services...
+*
+* DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
+* MVC is code separation not functionality !
+*/
+
+/**
+*         (PRE) CRUD class - DAO (Data Access Object) or data mapper
+*/
+
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+
+declare(strict_types=1);
+
+namespace B12phpfw\dbadapter\adrs ;
+
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Interf_Tbl_crud ;
+use B12phpfw\core\zinc\Db_allsites ;
+
+use B12phpfw\module\adrs\Home_ctr ;
+//use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
+
+// Gateway class - separate DBI layers
+class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
+{
+  static protected $tbl = "song";
+
+
+  static public function rr(
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  { 
+    $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  }
+
+  static public function rrcount( //string $sellst, 
+    string $qrywhere='', array $binds=[], array $other=[] ): int
+  { 
+    /*
+    $cursor_rowcnt =  Db_allsites::rr(
+        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    $rcnt = self::rrnext( $cursor_rowcnt
+     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
+    */
+    $rcnt = Db_allsites::rrcount('song') ;
+    return (int)Config_allsites::escp($rcnt) ;
+  }
+
+
+  // pre-query
+  static public function rr_all( string $sellst, string $qrywhere="'1'='1'"
+     , array $binds=[], array $other=[]): object  //returns $cursor
+  {
+      // default SQL query
+      $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl
+      ." WHERE $qrywhere ORDER BY title"
+        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+    //$Db_allsites::disconnect(); //problem ON LINUX
+    return $cursor ;
+  }
+
+
+  /* public function rr_last_id(object $dm) {
+    return Config_allsites::rr_last_id(self::$tbl) ;
+  } */
+
+
+
+
+
+  // *******************************************
+  //                   C R E A T E,  D,  U
+  // *******************************************
+
+  static public function get_submitted_cc(): array //return '1'
+  {
+    $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
+      Config_allsites::escp($_POST["artist"]), Config_allsites::escp($_POST["track"]), Config_allsites::escp($_POST["link"])
+    ] ;
+    return $submitted ;
+  }
+
+  /*
+  * O N - I N S E R T  (P R E - I N S E R T)
+  * 
+  * called from submit code in view script cre_ row_ frm.php
+  *     not via H o m e _ c t r  (also possible if you wish) !
+  *
+  * public function cc
+  * returns id or 'err_c c' 
+  */
+  static public function cc( // *************** c c (
+     object $pp1, array $other=[]): string
+  {
+                if ('') {
+                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
+                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
+                  //exit(0);
+                }
+
+    // 1. S U B M I T E D  F L D V A L S
+      $submitted_cc = self::get_submitted_cc() ;
+      list( $artist, $track, $link) = $submitted_cc ;
+      $_SESSION["submitted_cc"] = $submitted_cc ;
+
+    // 2. C C  V A L I D A T I O N
+    $err = '' ;
+    switch (true) {
+      case (empty($link)): //||empty($Name)||empty($password)||empty($Confirmpassword))
+        $err = "Link field must be filled out"; break ;
+      //default: break;
+    }
+    
+    if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
+      Config_allsites::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
+      //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
+      //exit(0) ;
+    }
+
+
+    // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
+    $flds    = "artist, track, link" ; //names in data source
+    $valsins = "VALUES(:artist, :track, :link)" ;
+    $binds = [
+      ['placeh'=>':artist',   'valph'=>$_POST['artist'], 'tip'=>'str']
+     ,['placeh'=>':track',    'valph'=>$_POST['track'],  'tip'=>'str']
+     ,['placeh'=>':link',     'valph'=>$_POST['link'],   'tip'=>'str']
+    ] ;
+    //$last_id1 = Db_allsites::rr_last_id($tbl) ;
+    $cursor = Db_allsites::cc(self::$tbl, $flds, $valsins, $binds
+                 , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    //$last_id2 = Db_allsites::rr_last_id($tbl) ;
+
+    //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
+    //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
+
+      Config_allsites::Redirect_to($pp1->module_url.QS.'i/cc/');
+      return('1');
+      fnerr:
+      return('0');
+  }
+
+
+  //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
+  static public function dd( object $pp1, array $other=[] ): string
+  { 
+    // Like Oracle forms triggers - P R E / O N  D E L E T E"
+    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    return '' ;
+  }
+
+
+
+  static public function get_submitted_uu(): array //return '1'
+  {
+    $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
+      Config_allsites::escp($_POST["artist"]), Config_allsites::escp($_POST["track"]), Config_allsites::escp($_POST["link"])
+      , $_POST["id"]
+    ] ;
+    return $submitted ;
+  }
+
+  // O N - U P D A T E (P R E - U P D A T E)
+  //return id or 'err_c c'
+  static public function uu( object $pp1, array $other=[]): string // *************** u u (
+  {
+    // 1. S U B M I T E D  F L D V A L S - P R E  U P D A T E
+      $get_submitted_uu = self::get_submitted_uu() ;
+      list( $artist, $track, $link, $id) = $get_submitted_uu ;
+      //$_SESSION["get_submitted_uu"] = $get_submitted_uu ;
+
+    // 2. U U  V A L I D A T I O N
+    $valid = '1' ;
+    switch (true) {
+      case (empty($link)): $valid = "Link Cant be empty"; break ;
+      //default: break;
+    }
+    if ($valid === '1') {} else {
+      $_SESSION["ErrorMessage"]= $valid ;
+      //Config_allsites::Redirect_to($pp1->posts);
+      Config_allsites::Redirect_to($pp1->module_url.QS.'i/rt/');
+      goto fnerr ; //exit(0) ;
+    }
+
+
+    // 3. U P D A T E  D B T B L R O W
+      // Query to Update Post in DB When everything is fine
+      // NOT USED : post='$PostText' I replaced it with mkd file
+      $flds     = "SET artist=:artist, track=:track, link=:link" ;
+      $qrywhere = "WHERE id=:id" ;
+      $binds = [
+        ['placeh'=>':artist',  'valph'=>$artist, 'tip'=>'str']
+       ,['placeh'=>':track',   'valph'=>$track,  'tip'=>'str']
+       ,['placeh'=>':link',    'valph'=>$link,   'tip'=>'str']
+       ,['placeh'=>':id',  'valph'=>$id, 'tip'=>'int']
+      ] ;
+
+      $cursor = Db_allsites::uu( self::$tbl, $flds, $qrywhere, $binds ); //same for all tbls
+
+      //var_dump($cursor);
+      if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";
+      }else { $_SESSION["ErrorMessage"]= "Post Update went wrong. Try Again !"; }
+
+      return('1');
+      fnerr:
+      return('0');
+  }
+
+
+
+  // *******************************************
+  //             E N D  C R E A T E,  D,  U
+  // *******************************************
+
+
+
+} // e n d  c l s  T b l_ c r u d
+
+```
 
 
 
@@ -899,7 +1412,7 @@ My PHP IDE is **Symenu** as launcher for all SW (portable if possible) below :
 2.  **EDITOR**: Notepad++ (6 MB), also good, all portable : Notepad2-mod (2 MB), Atom (524 MB), Visual Studio Code (247 MB), CudaText (28 MB), PSPad (23 MB), RJ TextEd (416 MB), I avoid Dreamveawer, Microsoft Expression web (abandoned but still good), Komposer (abandoned, too old)  
     GT Text OCR IMG->TXT
 3.  **COMMANDER**: **Locate** is old but best (Janne Huttunen) or simmilar see Symenu.     
-    Freecommander       
+    Freecommander, Multicommander, Totalcommander       
     Q-dir          
 4.  **BROWSER**: Firefox, Google Chrome, Cyberfox, Pale Moon
 5.  **DEPLOY (INSTALL)**: Composer, Git  
