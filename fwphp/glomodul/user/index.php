@@ -1,5 +1,12 @@
 <?php
-//m o d u l e = processing (behavior), u s e r = cls dir (POSITIONAL part of ns, CAREFULLY !)
+/**
+ * J:\awww\www\fwphp\glomodul\user\index.php
+ * http://dev1:8083/fwphp/glomodul/blog/?i/admins/  if called from blog module so :
+ * private function login(object $pp1) { Tbl_crud_admin::login($pp1, $pp1->dashboard) ; }
+ * or http://dev1:8083/fwphp/glomodul/user/  if called from ibrowser directly
+*/
+
+// m o d u l e = processing (behavior), u s e r = cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
 
 use B12phpfw\core\zinc\Autoload ; //only zinc is required - see $shares_ path
@@ -7,7 +14,6 @@ use B12phpfw\core\zinc\Autoload ; //only zinc is required - see $shares_ path
 //1. settings - properties - assign global variables to use them in any code part
 $module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
 $app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
-//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
 $wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
 $shares_path = $wsroot_path.'/zinc/' ; //includes, globals, commons, reusables
 
@@ -26,8 +32,8 @@ $pp1 = (object)
     //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
     $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
     //dir of global clses for all sites :
-    ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'zinc')) .'/'
-    , $app_dir_path.'/blog/'
+    ,$shares_path 
+    ,$app_dir_path.'/blog/'
   ] 
 ] ;
 

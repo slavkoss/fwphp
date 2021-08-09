@@ -20,10 +20,10 @@ class Home_ctr extends Config_allsites
     /**
     * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
     *  ------------------------------------------------------------------------------
-    *  LINK ALIAS IN VIEW SCRIPT (eg ldd) => HOME METHOD TO CALL (eg del_row_do)
+    *  LINK ALIAS IN VIEW SCRIPT (eg ldd) => HOME METHOD TO CALL (eg del_ row_ do)
     *  ------------------------------------------------------------------------------
-    * LINK ALIAS ldd = urlqrystring_part1 = $pp1->ldd = QS.'i/del_row_do/id/', 
-    *     last part $id knows view script, so URLqry='i/del_row_do/id/'.$id, 
+    * LINK ALIAS ldd = urlqrystring_part1 = $pp1->ldd = QS.'i/del_ row_ do/id/', 
+    *     last part $id knows view script, so URLqry='i/del_ row_ do/id/'.$id, 
     * ALL VIEWS LINKS OF MODULE SHOULD BE HERE.
     * If link in view is not here : Error 403, Access forbidden! Undefined property in URL.
     */
@@ -34,8 +34,8 @@ class Home_ctr extends Config_allsites
       ,'home_usr'   => QS.'i/home_usr/'
       ,'admins'     => QS.'i/home_usr/'
       ,'cre_usr'    => QS.'i/cre_usr/'
-      //link $pp1->ldd.$id in view script admins.php calls del_row_do method here :
-      ,'ldd'        => QS.'i/del_row_do/id/'
+      //link $pp1->ldd.$id in view script admins.php calls del_ row_ do method here :
+      ,'ldd_admins' => QS.'i/del_admins/id/'
       ,'read_user'  => QS.'i/read_user/id/' //$pp1->read_user.$id (not $pp1->r)  profile
       ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/' //also profile
       //ed_usr = LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
@@ -43,7 +43,7 @@ class Home_ctr extends Config_allsites
 
       ,'sitehome'   => QS.'i/sitehome/' //$pp1->sitehome
       //$this->uriq->i/home_fn, t/tbl_name, id/idval key/value
-      //in home.php onclick does jsmsgyn dialog,  home_fn "d" calls dd() (no need include script)
+      //in home.php onclick does j s m s g y n dialog,  home_fn "d" calls dd() (no need include script)
       // -------------------------
       ,'loginfrm' => QS.'i/loginfrm/'
       ,'login'    => QS.'i/login/' 
@@ -53,11 +53,11 @@ class Home_ctr extends Config_allsites
     //step 3 : fw core calls method in this cls : see home_fn above
     parent::__construct($pp1, $pp1_module);
 
-                if ('') { /* self::jsmsg( [ //basename(__FILE__).' '.
+                if ('') { self::jsmsg( [ //basename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
                    ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
                    ,'$this->uriq'=>$this->uriq
-                   ] ) ; */
+                   ] ) ; 
                    echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
                    echo '<pre>$_GET='; print_r($_GET); echo '</pre><br />'; // [d/39] => 
                    echo '<pre>$_POST='; print_r($_POST); echo '</pre><br />'; // [d/39] => 
@@ -95,16 +95,19 @@ class Home_ctr extends Config_allsites
   //   - or enters  U R L in ibrowser adress field
   // *************************************************
 
-  private function del_row_do(object &$pp1) // *************** SHARED  d d (
+  private function del_admins(object &$pp1) // *************** SHARED  d d (
   {
+    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
     //parameter $pp1 is AUTOMATICALLY sent in all h o m e fns from call_module_method fn !!
+    $tbl = $pp1->uriq->t = 'admins' ;
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+    //$other=[ 'caller'=>__METHOD__ .', ln '.__LINE__ ] ;
                               if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
                               if (isset($pp1->uriq) and null !== $pp1->uriq)
-                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_row_do [t] => category [id] => 21
+                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_ row_ do [t] => category [id] => 21
                               else { echo ' not set' ; } 
                               exit(0) ;
                               }
-    $other=[ 'caller'=>__METHOD__ .', ln '.__LINE__ ] ;
     Tbl_crud_admin::dd($pp1, $other);
     Config_allsites::Redirect_to($pp1->admins) ;
 
@@ -159,10 +162,11 @@ class Home_ctr extends Config_allsites
 
   private function logout(object $pp1)
   {
-    //$this = $dm = domain model = globals for all sites (eg for CRUD...) & for curr.module
-    $dm = $this ;
-    $Db_user = new Db_user ;
-    $Db_user->logout($dm);
+     Tbl_crud_admin::logout($pp1);
+     //$this = $dm = domain model = globals for all sites (eg for CRUD...) & for curr.module
+     //$dm = $this ;
+     //$Db_ user = new Db_user ;
+     //$Db_ user->l ogout($dm); 
   }
 
 
@@ -170,20 +174,22 @@ class Home_ctr extends Config_allsites
   {
     //called from link, Config_ allsites based on url (calling link) calls  f n  l o g i n
     //$p p1  = $t his->g etp('p p1') ;
-                if ('') {self::jsmsg( [ //basename(__FILE__).
+                if ('1') {self::jsmsg( [ //basename(__FILE__).
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>''
                    ,'aaa'=>'bbb'
                 ] ) ; }
-      require $pp1->wsroot_path . 'zinc/hdr.php';
-      require $pp1->module_path . '../user/login_frm.php';  
-      require $pp1->wsroot_path . 'zinc/ftr.php';
+      require $pp1->shares_path . 'hdr.php';
+      //require $pp1->module_path . '../user/login_frm.php';  
+      require $pp1->module_path . 'login_frm.php';  
+      require $pp1->shares_path . 'ftr.php';
   }
 
   private function login(object $pp1) //private
   {
-      $dm = $this ;            //this globals for all sites are for CRUD... !!
-      $Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
-    $Db_user->login($dm, $pp1) ;
+      Tbl_crud_admin::login($pp1);
+      //$dm = $this ;            //this globals for all sites are for CRUD... !!
+      //$Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
+      //$Db_user->login($dm, $pp1) ;
   }
 
 
@@ -204,7 +210,7 @@ class Home_ctr extends Config_allsites
       //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
-  /*public function ed_usr(object $pp1)
+  /* //public function ed_usr(object $pp1)
   {
     //LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
       $title = 'USER UPDATE';

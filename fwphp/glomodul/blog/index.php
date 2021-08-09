@@ -41,16 +41,16 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
   ]
 ] ;
 
-//2. global cls loads classes scripts automatically
+//2. global cls loads (includes, bootstrap) classes scripts automatically
 require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
 //3. process request from ibrowser & send response to ibrowser :
-//Home_ ctr "inherits" index.php ee inherits $p p 1
+//Home_ ctr "inherits" index.php ee DI $p p 1
 $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
         if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
            .', line '. __LINE__ .' SAYS'=>'where am I'
-           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and $conf = new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
+           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
         ] ) ; }
 
 exit(0);

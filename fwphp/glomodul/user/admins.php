@@ -159,7 +159,7 @@ require_once("navbar_admin.php");
                  -->
                  <?=str_repeat('&nbsp;', 5 - strlen((string)$SrNo)) . $SrNo?>
                  <a id="erase_row" class="btn btn-danger"
-                    onclick="var yes ; yes = jsmsgyn('Erase row <?=$id?>?','') ;
+                    onclick="var yes ; yes = jsmsgyn('admins.php: Erase row <?=$id?>?','') ;
                     if (yes == '1') { location.href= '<?=$pp1->ldd_admins.$id?>/'; }"
                     title="Delete tbl row ID=$id"
                  ><?=str_repeat('&nbsp;', 8 - strlen($id)) . $id ?></a>

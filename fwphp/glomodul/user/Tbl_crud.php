@@ -2,7 +2,7 @@
 declare(strict_types=1);
 /**
 * J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
-*   DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI - DB DRIVER
+*   DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI - DB DRIVER, QueryBuilder
 *     This c l a s s is for one module - does know module's CRUD
 *         (PRE) CRUD class - DAO (Data Ac cess Object) or data mapper
 * Other such scripts should be (may be not ?) for csv persistent storage, web services...
@@ -130,7 +130,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
 
 
 
-  static public function logout(object $db){
+  static public function logout(object $pp1){
     //our admins tbl - U serName may or not be  d b  s h e m a  name :
     if (isset($_SESSION['userid']))    $_SESSION['userid']    = null ;
     if (isset($_SESSION['username']))  $_SESSION['username']  = null ;
@@ -139,7 +139,8 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     if (isset($_SESSION['cncts']->username)) $_SESSION['cncts']->username = null ;
     //
     session_destroy() ;
-    Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
+    // '/' is  U R L query pieces delimiter, '|' is parts of pieces delimiter
+    Config_allsites::Redirect_to(QS.str_replace('|','/',$pp1->logout)) ;
   }
   //e n d  S E S S  I O N  M E T H O D S
 
@@ -147,12 +148,12 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
 
 
 
-  static public function login(object $db, $pp1, string $goscript='') // login
+  static public function login(object $pp1, string $goscript='') 
   {
-                if ('') {$db->jsmsg( [ //b asename(__FILE__).
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>''
-                   ,'aaa'=>'bbb'
-                ] ) ; }
+                            if ('') {Home_ctr::jsmsg( [ //b asename(__FILE__).
+                               __METHOD__ .', line '. __LINE__ .' SAYS'=>''
+                               ,'aaa'=>'bbb'
+                            ] ) ; }
       $r = '';
                   if ('') {  //if ($module_ arr->dbg) {
                     echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</span>' ;
@@ -180,7 +181,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           if (empty($_POST["username"])) {
              $_SESSION["ErrorMessage"] = "Name is required!";
              goto redirto ;
-          } else { $username = $db->escp($_POST["username"]);
+          } else { $username = Config_allsites::escp($_POST["username"]);
             // check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
               $_SESSION["ErrorMessage"] = '<span style="color: violet; font-size: large; font-weight: bold;">'
@@ -192,13 +193,13 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
         if (empty($_POST["password"])) {
            $_SESSION["ErrorMessage"] = "Password is required!";
            goto redirto ;
-        } else { $password = $db->escp($_POST["password"]); }
-                    if ('') {$db->jsmsg( [ //b asename(__FILE__).
+        } else { $password = Config_allsites::escp($_POST["password"]); }
+                    /*if ('') {$db->jsmsg( [ //b asename(__FILE__).
                        __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE Config_allsites construct '
                        ,'$_SESSION["username"]'=>isset($_SESSION["username"])?$_SESSION["username"]:'NOT SET'
                        ,'$username'=>isset($username)?$username:'NOT SET'
                        ,'$password'=>isset($password)?$password:'NOT SET'
-                    ] ) ; }
+                    ] ) ; } */
                       if ('') {  //if ($module_ arr->dbg) {
                       echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
                       echo '<pre>';
@@ -415,12 +416,30 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
 
 
   //public function dd($id) {  } //no need,
-  //dd is jsmsgyn dialog in home.php + call dd() in Home_ctr d() method
+  //dd is  j s m s g y n  dialog in home.php + call dd() in Home_ctr d() method
   // *******************************************
   //             E N D  C R E A T E,  U,  D
   // *******************************************
 
 
+
+/*
+  J:\awww\www\fwphp\glomodul\user\Tbl_crud.php (14 hits)
+	Line 35:   static public function dd( object $pp1, array $other=[] ): string
+	Line 47:   static public function r r( // *************** r r (
+	Line 56:   static public function rr count( //string $sellst, 
+	Line 68:   static public function rr_ byid( int $id, array $other=[] ): object
+	Line 80:   static public function rr_ all( string $sellst, string $qrywhere="'1'='1'"
+	Line 106:   static public function C hkUsrNameExists(string $username)
+	Line 123:   static public function L ogin_ Confirm_SesUsrId(){
+	Line 133:   static public function l ogout(object $db){
+	Line 150:   static public function l ogin(object $db, $pp1, string $goscript='') // login
+	Line 267:   static public function get_ submitted_cc(): array //return '1'
+	Line 282:   static public function c c( // *************** c c (
+	Line 348:   static public function get_ submitted_uu(): array //return '1'
+	Line 361:   static public function u u( object $pp1, array $other=[]): string // *************** u u (
+	Line 417:   //public function dd ($id) {  } //no need,
+*/
 }
 
 

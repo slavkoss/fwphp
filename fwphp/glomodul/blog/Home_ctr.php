@@ -126,52 +126,6 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
   }
 
-  //used for all  t a b l e s !! 
-  private function del_row_do(object $pp1) // *************** SHARED  d d (
-  {
-                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
-                              if (isset($pp1->uriq) and null !== $pp1->uriq)
-                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_ row_do [t] => category [id] => 21
-                              else { echo ' not set' ; } 
-                              exit(0) ;
-                              }
-
-        self::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
-           .', line '. __LINE__ .' SAYS'=>'Not allowed here !'
-           ,'INFO '=>'ERASING IS NOT IN COMPOUND MODULE (eg blog) !, but in single modules eg post category'
-           //,'After .. '=>'..., ...'
-        ] ) ;
-        //Config_allsites::Redirect_to($pp1->p osts) ;
-        // to $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/mkd/' ) ;
-        //Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
-
-    /*
-    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
-    $tbl = $pp1->uriq->t ;
-    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
-    switch ($tbl)
-    {
-      case 'comments' : // $pp1->uriq->id
-        Tbl_crud_post_comment::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->comments) ; break;
-      case 'posts' :
-        Tbl_crud_post::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->p osts) ; break;
-
-      case 'admins' :
-        Tbl_crud_admin::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->admins) ; break;
-      case 'category' :
-        Tbl_crud_category::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->categories) ; break;
-      default: 
-        echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-            .'T a b l e '. $pp1 .' does not exist' . '</h3>';
-        //Config_allsites::Redirect_to($pp1->filter_page) ;
-        break;
-    }
-    */
-  }
 
 
   private function del_category(object $pp1)
@@ -379,9 +333,8 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
       require $pp1->shares_path . 'ftr.php';
   }
 
-  private function login(object $pp1) //private
-  {
-    Tbl_crud_admin::login($this, $pp1, $pp1->dashboard) ;
+  private function login(object $pp1) {
+    Tbl_crud_admin::login($pp1, $pp1->dashboard) ;
   }
 
 
@@ -678,7 +631,55 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 } // e n d  c l s  C onfig_ m ini3
 
 
+  /*
+  //used for all  t a b l e s !! 
+  private function del_row_do(object $pp1) // *************** SHARED  d d (
+  {
+                              if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
+                              if (isset($pp1->uriq) and null !== $pp1->uriq)
+                              { echo '<pre>U R L  query array ='.'$pp1->u r i q='; print_r($pp1->uriq) ; echo '</pre>'; } //[i] => del_ row_do [t] => category [id] => 21
+                              else { echo ' not set' ; } 
+                              exit(0) ;
+                              }
 
+        self::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'Not allowed here !'
+           ,'INFO '=>'ERASING IS NOT IN COMPOUND MODULE (eg blog) !, but in single modules eg post category'
+           //,'After .. '=>'..., ...'
+        ] ) ;
+        //Config_allsites::Redirect_to($pp1->p osts) ;
+        // to $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/mkd/' ) ;
+        //Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
+    */
+
+
+    /*
+    // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
+    $tbl = $pp1->uriq->t ;
+    $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
+    switch ($tbl)
+    {
+      case 'comments' : // $pp1->uriq->id
+        Tbl_crud_post_comment::dd($pp1, $other);
+        Config_allsites::Redirect_to($pp1->comments) ; break;
+      case 'posts' :
+        Tbl_crud_post::dd($pp1, $other);
+        Config_allsites::Redirect_to($pp1->p osts) ; break;
+
+      case 'admins' :
+        Tbl_crud_admin::dd($pp1, $other);
+        Config_allsites::Redirect_to($pp1->admins) ; break;
+      case 'category' :
+        Tbl_crud_category::dd($pp1, $other);
+        Config_allsites::Redirect_to($pp1->categories) ; break;
+      default: 
+        echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
+            .'T a b l e '. $pp1 .' does not exist' . '</h3>';
+        //Config_allsites::Redirect_to($pp1->filter_page) ;
+        break;
+    }
+  }
+    */
 
     /**
     * *********************************************************

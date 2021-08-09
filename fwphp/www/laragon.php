@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="hr">
     <head>
     
-       <title>laragon.txt</title>
+       <title>laragon</title>
     
        <title>HTMLofMKD</title>
 
@@ -89,20 +89,22 @@
     <div class="content_center">
 
       <div class="title" title="Laragon">
-		  <h1>Laragon portable info</h1>
-		  <p><strong>laragon.7z</strong>, 19 MB - PHP 5.4, MySQL 5.1 - easy to 
-		  add newer tools - see below.</p>
+		  <h1>Laragon portable WAMP Server </h1>
+		  <h1>1. Info</h1>
+		  <p><strong>laragon.7z ver. 4.0.14</strong>, 19 MB - PHP 5.4, MySQL 5.1 - easy to 
+		  add newer tools eg php-7.4.22-nts-Win32-vc15-x64.zip - see below.</p>
+		  <h2>PHP version: <?php print phpversion(); ?>
+
+        <span><a title="phpinfo()" href="../glomodul/z_examples/00_index_of_important.php">info</a></span></h2>
 		</div>
 
-      <div class="info">PHP version: <?php print phpversion(); ?>
-
-        <span><a title="phpinfo()" href="../glomodul/z_examples/00_index_of_important.php">info</a></span><br />
-
-        Document Root: <?php print ($_SERVER['DOCUMENT_ROOT']); ?><br />
-      </div>
-
-      <div class="opt">
-        <div><a title="Getting Started" href="http://laragon.org/?q=getting-started">Getting Started</a><br></div>
+      <div class="info"> <strong>LARAGON_ROOT is J:\awww above www dir </strong>
+		(my local (home PC) web server first document root).<br><br>Current document 
+		root (may be more, <strong>see Menu -&gt; www -&gt; 
+		Switch document root</strong>) : <strong><br>$_SERVER['DOCUMENT_ROOT'] 
+		= <?= $_SERVER['DOCUMENT_ROOT']?>
+		
+		</strong>
       </div>
 
     </div>
@@ -120,40 +122,81 @@
           </head>
 
 		<body>
-          <h2>1. WAMP Server for Local WordPress - Laragon</h2>
-<p><a href="https://laragon.org/docs/index.html">https://laragon.org/docs/index.html</a></p>
-<p><a href="https://forum.laragon.org/category/5/tutorials">https://forum.laragon.org/category/5/tutorials</a> <strong>- Add newer PHP... XDebug, PostgreSQL, Python, ruby, Rails, Golang</strong></p>
-<p>Also <a href="https://github.com/denoland/deno/">https://github.com/denoland/deno/</a> - provide a productive and secure scripting environment for  modern programmer. It is built on top of V8, Rust, and TypeScript.</p>
-<p><a href="https://www.webtng.com/best-wamp-server-for-local-wordpress-laragon-is-easy/">https://www.webtng.com/best-wamp-server-for-local-wordpress-laragon-is-easy/</a></p>
-<p><a href="https://getwebassist.com/laragon-local-development/">https://getwebassist.com/laragon-local-development/</a></p>
-<p><a href="https://laragon.org/download/">https://laragon.org/download/</a> </p>
-<p>Can Install WordPress using Laragon's &quot;quick create&quot; feature.</p>
+		  <p><a href="https://github.com/leokhoa/laragon">
+		  https://github.com/leokhoa/laragon</a> - download.&nbsp; See links at end of this script.</p>
+		  <p><strong>Can Install WordPress using Laragon's &quot;quick create&quot; feature</strong>. 
+		  </p>
+		  <p>C:\WINDOWS\system32\drivers\etc\hosts&nbsp; should have line :<br>
+		  <strong>127.0.0.1 localhost dev1&nbsp; <br> </strong>or mysite instead dev1. 
+		  This is needed for web server to know how to reach web site in URL :&nbsp;
+		  <strong>&nbsp;http://dev1...</strong></p>
 <p>&nbsp;</p>
-		  <p><strong>2.1 Add another PHP version</strong> :</p>
+		  <h1>2. New versions of Laragon WAMP Server SW tools</h1>
+		  <h2><strong>2.1 Add another PHP version</strong> :</h2>
 <ol class="auto-style1">
-<li><a href="https://windows.php.net/downloads/releases/">https://windows.php.net/downloads/releases/</a>    eg  <strong>php-7.4.10-nts-Win32-vc15-x64.zip, 
-26 MB</strong><br />
-or  &quot;archives&quot; subfolder (ie <a href="https://windows.php.net/downloads/releases/archive">https://windows.php.net/downloads/releases/archive</a> )</li>
-<li>Extract downloaded to: {LARAGON_ROOT}\bin\php\<strong>php-7.4.10-nts-Win32-vc15-x64</strong></li>
-<li>Select new version at: Laragon Menu &gt;PHP&gt; Version &gt; php-7.4.0-Win32-vc15-x64</li>
+  <li><a href="https://windows.php.net/downloads/releases/">https://windows.php.net/downloads/releases/</a>    
+or  &quot;archives&quot; subfolder (ie 
+  <a href="https://windows.php.net/downloads/releases/archive">https://windows.php.net/downloads/releases/archive</a> )    eg  
+  <strong><br>php-7.4.22-nts-Win32-vc15-x64.zip 26 MB&nbsp; </strong>php-7.4.10-nts-Win32-vc15-x64.zip, 
+26 MB<br><br>where x64 means 64-bit,&nbsp; xx86 means 32-bit, <strong>nts means Non Thread Safe</strong> - it is <strong>more 
+	efficient</strong>, see below or :
+	<br>
+	<a href="https://stackoverflow.com/questions/1623914/what-is-thread-safe-or-non-thread-safe-in-php">https://stackoverflow.com/questions/1623914/what-is-thread-safe-or-non-thread-safe-in-php</a> .</li>
+
+  <br>
+
+  <br />
+  <li>Extract downloaded to: {LARAGON_ROOT}\bin\php\<strong>php-7.4.22-nts-Win32-vc15-x64<br>
+  </strong>where <strong>my LARAGON_ROOT is J:\awww (</strong>above www my local 
+  web server doc. root).<strong><br></strong></li>
+  <li>Select new version at: Laragon Menu &gt;PHP&gt; Version &gt; 
+php-7.4.22-nts-Win32-vc15-x64</li>
 </ol>
 <p>If something's wrong, check and install correspond VC Redist (VC11, VC14, VC15...).</p>
-<ol>
-<li>x64 means 64-bit</li>
-<li>xx86 means 32-bit</li>
-<li><strong>nts means Non Thread Safe</strong> - if using Nginx instead of a multi-threaded Apache, use <strong>more efficient nts version <a href="https://stackoverflow.com/questions/1623914/what-is-thread-safe-or-non-thread-safe-in-php">https://stackoverflow.com/questions/1623914/what-is-thread-safe-or-non-thread-safe-in-php</a> .</strong></li>
-</ol>
-<h3>&nbsp;</h3>
-		  <h3>2.2 Add another Apache version</h3>
+		  <p>&nbsp;</p>
+		  <h2>2.2 Add another Apache version</h2>
 <ol>
 <li><a href="https://www.apachelounge.com/download/VC14/binaries/">https://www.apachelounge.com/download/VC14/binaries/</a>   
-<br>eg <strong>httpd-2.4.46-win64-VC15.zip, 10MB </strong></li>
-<li>Extract downloaded to: {LARAGON_ROOT}\bin\apache\httpd-2.4.46-win64-VC15.zip</li>
+<br>eg <strong>01_httpd-2.4.48-win64-VS16.zip 10 MB</strong>&nbsp; httpd-2.4.46-win64-VC15.zip, 10MB 
+<br></li>
+<li>Extract downloaded to: {LARAGON_ROOT}\bin\apache\httpd-2.4.46-win64-VC15.zip<br></li>
+  <li>Changes in J:\awww\bin\apache\httpd-2.4.48-win64-VS16\conf\httpd.conf :<br>
+  <br>Optional :&nbsp; Listen 8083 instead Listen 80<br><br>&lt;Directory /&gt;<br>&nbsp;&nbsp; 
+  # original : AllowOverride none<br>&nbsp;&nbsp; # original : Require all 
+  denied<br>&nbsp;&nbsp; Options Indexes FollowSymLinks<br>&nbsp;&nbsp; 
+  AllowOverride All<br>&nbsp;&nbsp; Require all granted<br>&lt;/Directory&gt;<br><br>
+  &lt;Directory &quot;J:/ylaragon/www&quot;&gt;<br>&nbsp;&nbsp; ...<br>&nbsp;&nbsp;&nbsp; # 
+  AllowOverride None<br>&nbsp;&nbsp; AllowOverride All<br>&nbsp;&nbsp; ...<br>
+  <br>&lt;Directory &quot;${SRVROOT}/cgi-bin&quot;&gt;<br>&nbsp;&nbsp; #AllowOverride None<br>&nbsp;&nbsp; 
+  #Options None<br>&nbsp;&nbsp; #Require all granted<br>&nbsp;&nbsp; Options 
+  Indexes FollowSymLinks<br>&nbsp;&nbsp; AllowOverride All<br>&nbsp;&nbsp; 
+  Require all granted<br>&lt;/Directory&gt;<br></li>
+  <li>Optional : Enable SSL so : <strong>Laragon menu</strong> link at top of 
+  Laragon window (or right click on Laragon window) -&gt; Apache -&gt; SSL<br></li>
 <li>Select new version at: Laragon Menu &gt; Apache &gt; Version 
 &gt;httpd-2.4.46-win64-VC15.zip</li>
 </ol>
-<h3>&nbsp;</h3>
-		  <h3>2.3 Add another Nginx version - NOT WORKING (lot of &quot;Bad Gateway&quot; errors, 
+		  <p>&nbsp;</p>
+		  <p>&nbsp;</p>
+<h2>2.3. Virtual host - no need for home development</h2>
+		  <p><strong>Why no need : See Menu -&gt; www -&gt; Switch document root - any dir on PC may 
+		  contain PHP, HTML... scripts which can be executed - I added dir 
+		  J:\ylaragon\www\ for testing,<br>J:\awww\www is my developing dir, my 
+		  production site is demo site - free hosting with free Mysql :<br>On 
+		  Linux : <a href="http://phporacle.eu5.net/">http://phporacle.eu5.net/</a> 
+		  (freehostingeu - fast, stable, has free MySQL) .</strong></p>
+<ol>
+<li>
+<p>Menu -&gt; Preferences -&gt; General tab - you can change your projects directory and you can set domain for virtual host name eg: {project_name}.me. By the default host name is <code>http://project_name.dev</code>.</p>
+</li>
+<li>
+<p>When you create<strong> new folder in Document Root</strong> folder of laragon, <strong>laragon automatically creates virtual host</strong>. if you want see the project with virtual host<br />
+click <strong>&quot;Menu&quot; button -&gt; select www</strong>, now you can see your project with virtual hostname. <strong>click hostname </strong>to navigate in the browser.</p>
+</li>
+</ol>
+		  <p>&nbsp;</p>
+		  <p>&nbsp;</p>
+		  <h3>2.4 Add another Nginx version - NOT WORKING FOR ME (lot of &quot;Bad Gateway&quot; errors, 
 		  then stopped)</h3>
 <p>Nginx port change : Menu -&gt; Nginx -&gt; Sites enabled -&gt; 00-default.conf</p>
 <ol>
@@ -163,7 +206,7 @@ or  &quot;archives&quot; subfolder (ie <a href="https://windows.php.net/download
 <li>Select the new version at: Laragon Menu &gt; Nginx &gt; Version &gt; nginx-1.19.2</li>
 </ol>
 <h3>&nbsp;</h3>
-		  <h3>2.4 Add another MariaDB&nbsp; or MySQL version</h3>
+		  <h2>2.5 Add another MariaDB&nbsp; or MySQL version</h2>
 <ol>
 <li>
 <p><a href="https://dev.mysql.com/get/Downloads/">https://dev.mysql.com/get/Downloads/</a>   MySQL-5.7/mysql-5.7.18-winx64.zip<br />
@@ -177,11 +220,14 @@ Extract the downloaded to: {LARAGON_ROOT}\bin\mysql\mysql-5.7.18-winx64  </p>
 </li>
 </ol>
 <h3>&nbsp;</h3>
-		  <h3>2.5 Add phpMyAdmin 01_phpMyAdmin-4.9.5-english.zip&nbsp; 6.3 MB</h3>
+		  <h2>2.6 Add phpMyAdmin 01_phpMyAdmin-4.9.5-english.zip&nbsp; 6.3 MB</h2>
 <p><a href="https://www.phpmyadmin.net/downloads">https://www.phpmyadmin.net/downloads</a>  and extract to {LARAGON_DIR}\etc\apps\phpMyAdmin.<br />
 SHA256 hash matches<br />
 cf1adc96dcdc46360a90f10df98fefb3bfd9e5a243b52645021dc590682cffb3</p>
 <p>Acess phpMyAdmin at: <a href="http://localhost:8083/phpmyadmin">http://localhost:8083/phpmyadmin</a></p>
+		  <p>&nbsp;</p>
+		  <p>&nbsp;</p>
+		  <p>&nbsp;</p>
 		  <p>&nbsp;</p>
 <h2>3. Install PHP's Oracle OCI8 extension (works with both Apache &amp; Nginx)</h2>
 <ol>
@@ -210,7 +256,8 @@ Download OCI8 extension to access Oracle DB <strong>php_oci8-2.2.0-7.4-nts-vc15-
 </li>
 </ol>
 <h3>&nbsp;</h3>
-		  <h3>Instant Client Installation for Microsoft Windows 64-bit</h3>
+		  <h3>Instant Client Installation for Microsoft Windows 64-bit - no need 
+		  for PHP home development</h3>
 <p>See the <a href="https://www.oracle.com/database/technologies/instant-client.html">Instant Client Home Page</a> for more information about Instant Client packages. Client-server version interoperability is detailed in <a href="https://support.oracle.com/epmos/faces/DocumentDisplay?id=207303.1">Doc ID 207303.1</a>.</p>
 <p>For example, Oracle Call Interface 19, 18 and 12.2 can connect to Oracle Database 11.2 or later. Some tools may have other restrictions.</p>
 <ol>
@@ -230,38 +277,37 @@ This is default Oracle client configuration dir for apps linked with this Instan
 <p>2020.01.16 To get this working with latest Laragon &amp; PHP I had to download <strong>instant client version 12</strong> and <strong>place DLLs in Laragon root folder (alongside laragon.exe)</strong>. Placing them in php dir or Apache bin dir did not work.</p>
 		  <p>&nbsp;</p>
 		  <p>&nbsp;</p>
-<h2>4. Virtual host</h2>
-		  <p><strong>See Menu -&gt; www -&gt; Switch document root - any dir on PC may 
-		  contain PHP, HTML... scripts which can be executed.</strong></p>
-<ol>
-<li>
-<p>Menu -&gt; Preferences -&gt; General tab - you can change your projects directory and you can set domain for virtual host name eg: {project_name}.me. By the default host name is <code>http://project_name.dev</code>.</p>
-</li>
-<li>
-<p>When you create<strong> new folder in Document Root</strong> folder of laragon, <strong>laragon automatically creates virtual host</strong>. if you want see the project with virtual host<br />
-click <strong>&quot;Menu&quot; button -&gt; select www</strong>, now you can see your project with virtual hostname. <strong>click hostname </strong>to navigate in the browser.</p>
-</li>
-</ol>
-<h2>&nbsp;</h2>
+<h2>4. <strong>CGI/FastCGI (FastCGI/PHP-FPM) or worse </strong>mod_php Apache 
+module</h2>
+		  <p>To see which version your website is using, put a file containing &lt;?<strong>php phpinfo();</strong> ?&gt; on your site and look for the
+		  <strong>Server API entry</strong>. This could say something like 
+		  <strong>CGI/FastCGI or Apache 2.0 Handler - nts (Non thread safe) version is faster and/or less buggy</strong>, or otherwise they would have just offered 
+		  ts (thread safe) version and not bothered to give us choice!</p>
+		  <p>Preferred way to do the stack is eg <strong>FastCGI/PHP-FPM</strong>. That way you can use much faster MPM Worker. The whole PHP remains 
+		  nts - non-threaded, but <strong>Apache serves threaded</strong> (like it should).</p>
+<p>If you also look at <strong>command-line version of PHP - thread safety does not matter</strong>.  </p>
 		  <p>&nbsp;</p>
-<h2>5. mod_php Apache module or <strong>CGI/FastCGI or FastCGI/PHP-FPM</strong></h2>
-		  <p>A Thread Safe version should be used if you want to install PHP as an Apache module where worker is the MPM.<br />
-For multithreaded webservers, such as <strong>IIS5 and IIS6, you should use threaded version of PHP</strong>.  
+		  <p>A ts (Thread Safe) version should be used if you want to install PHP as an Apache module where worker is the MPM.
+		  <strong>Apache MPM prefork with modphp (ts)</strong> is used because it is <strong>easy to configure/install</strong>. Performance-wise it is 
+		  <strong>fairly inefficien,</strong>.so 
+My Server API is most frequent <strong>CGI/FastCGI</strong>.   
+		  </p>
+		  <p>For multithreaded webservers, such as <strong>IIS5 and IIS6, you should use threaded version of PHP</strong>.  
 		  </p>
 <p>IMAP (Win/Unix) Library is not thread safe - not recommended for use in a multi-threaded environment.  </p>
-		  <p>Apache MPM prefork with modphp is used because it is <strong>easy to configure/install</strong>. Performance-wise it is fairly inefficient. 
-My Server API is most frequent <strong>CGI/FastCGI</strong>. Preferred way to do the stack is eg <strong>FastCGI/PHP-FPM</strong>. That way you can use much faster MPM Worker. The whole PHP remains non-threaded, but Apache serves threaded (like it should).</p>
-<p>Apache HTTP web server supports multiple <strong>models for handling requests</strong>, one of which called <strong>worker MPM uses threads</strong>. But it supports another <strong>concurrency model called prefork MPM uses processes</strong> - that is, web server will create/dedicate a single process for each request.</p>
-<p>There are multiple ways to <strong>chain the web server with PHP</strong>. For Apache HTTP Server, the most popular is <strong>&quot;mod_php&quot; module</strong> - actually PHP itself, but compiled as a module for web server, and so <strong>PHP gets loaded right inside it</strong> .  </p>
+		  <p>&nbsp;</p>
+		  <p>&nbsp;</p>
+<p>Apache HTTP web server supports multiple <strong>models for handling requests</strong>, one of which called <strong>worker MPM uses threads</strong>. But it supports another <strong>concurrency model called prefork MPM 
+- uses processes</strong> - that is, web server will create/dedicate a single process for each request.</p>
+<p>There are multiple ways to <strong>chain the web server with PHP</strong>. For Apache HTTP Server, the most popular is <strong>&quot;mod_php&quot; module</strong> - actually PHP itself, but compiled as a module for web server, and so <strong>PHP gets loaded right inside 
+web server</strong> .  </p>
 <p>Since with mod_php, PHP gets loaded right into Apache, if Apache is going to handle concurrency using its <em>Worker MPM (that is, using Threads) then PHP must be able to operate within this same multi-threaded environment</em> - meaning, <strong>PHP has to be thread-safe</strong> to be able to play ball correctly with Apache!  </p>
 <p>At this point, you should be thinking &quot;OK, so if I'm using a multi-threaded web server and I'm going to embed PHP right into it, then I must use the thread-safe version of PHP&quot;. And this would be correct thinking. However, as it happens, <strong>PHP's thread-safety is highly disputed (diskutabilan)</strong>. It's a use-if-you-really-really-know-what-you-are-doing ground.  </p>
-<p>Advice would be to not use PHP in a multi-threaded environment if you have the choice!  </p>
-<p>Speaking only of <strong>Unix-based environments</strong>, I'd say that fortunately, you only have to think of this if you are going to use PHP with Apache web server, in which case you are advised to go with the <strong>prefork MPM of Apache (which doesn't use threads, and therefore, PHP thread-safety doesn't matter)</strong> and all GNU/Linux distributions that I know of will take that decision for you when you are installing Apache + PHP through their package system, without even prompting you for a choice. If you are going to use other webservers such as <strong>nginx or lighttpd, you won't have the option to embed PHP into them anyway</strong>. You will be looking at using <strong>FastCGI or something equal</strong> which works in a different model where <strong>PHP is totally outside of the server with multiple PHP processes used for answering requests through e.g. FastCGI</strong>. For such cases, <strong>thread-safety also doesn't matter</strong>. To see which version your website is using put a file containing &lt;?php phpinfo(); ?&gt; on your site and look for the Server API entry. This could say something like CGI/FastCGI or Apache 2.0 Handler.  </p>
-<p>If you also look at command-line version of PHP - thread safety does not matter.  </p>
-<p>Non thread safe version is faster and/or less buggy, or otherwise they would have just offered thread safe version and not bothered to give us choice!</p>
-<p>&nbsp;</p>
+<p>Advice would be to <strong>not use PHP in a multi-threaded environment</strong> if you have the choice!  </p>
+<p>Speaking only of <strong>Unix-based environments</strong>, I'd say that fortunately, you only have to think of this if you are going to use PHP with Apache web server, in which case you are advised to go with the <strong>prefork MPM of Apache (which doesn't use threads, and therefore, PHP thread-safety doesn't matter)</strong> and all GNU/Linux distributions that I know of will take that decision for you when you are installing Apache + PHP through their package system, without even prompting you for a choice.  </p>
+		  <p>If you are going to use other webservers such as <strong>nginx or lighttpd, you won't have the option to embed PHP into them anyway</strong>. You will be looking at using <strong>FastCGI or something equal</strong> which works in a different model where <strong>PHP is totally outside of the server with multiple PHP processes used for answering requests through e.g. FastCGI</strong>. For such cases, <strong>thread-safety also doesn't matter</strong>.  </p>
 		  <p>&nbsp;</p>
-		  <h2>6. NO NEED : How to enable a manually created virtual host</h2>
+		  <h2>5. NO NEED : How to enable a manually created virtual host</h2>
 		  <p><strong>See Menu -&gt; www -&gt; Switch document root - any dir on PC may 
 		  contain PHP, HTML... scripts which can be executed.</strong></p>
 <p>create a Virtual Host file without &quot;auto.&quot; prefix, Laragon will respect any changes in the file.</p>
@@ -278,7 +324,8 @@ My Server API is most frequent <strong>CGI/FastCGI</strong>. Preferred way to do
 &lt;/VirtualHost&gt;</code></pre>
 <p>Note: You need to put dev1 and dev1.dev entry to your hosts file. The quickest way is let Laragon auto-create Virtual Hosts for you (not convinient for B12phpfw ?), then you just remove the &quot;auto.&quot; prefix from the Virtual Host file.</p>
 <h3>&nbsp;</h3>
-		  <h3>&nbsp;I do not use this : apvh.bat to create AP(ache) V(irtual) H(ost) using command line for Laragon</h3>
+		  <h2>&nbsp;I do not use this : apvh.bat to create AP(ache) V(irtual) H(ost) using command line 
+		  in Laragon window</h2>
 <p><a href="https://github.com/bantya/CmdVirtualHost">https://github.com/bantya/CmdVirtualHost</a></p>
 <p>Change the SSL files directory on line 9 according to yours. i.e. set SSL_PATH=F:/laragon/etc/ssl/ -&gt; set SSL_PATH=Your/Laragon/installation/path/etc/ssl/</p>
 <p>Open the Terminal and cd into the directory where all your virtual hosts are stored. (for me: <strong>J:\ylaragon\etc\apache2\sites-enabled</strong>)  </p>
@@ -361,8 +408,21 @@ start .
 nts and nsp&gt;</pre>
 		  <p>&nbsp;</p>
 		  <p>&nbsp;</p>
-		  <h2>7.
-PHP's interactive console  </h2>
+		  <h1><strong>MS Expression web WYSIWYG HTML editor</strong></h1>
+<pre><code>&lt;body style="margin: 1em; padding: 30px 10% 50px 10%; 
+font-size: 1.2em; font-family: Corbel, Arial, Helvetica, sans-serif ;
+"&gt;</code></pre>
+
+
+
+
+    	  <p>&nbsp;</p>
+<hr />
+<pre><code>C:\WINDOWS\system32&gt;path
+displays PATH= ...</code></pre>
+		  <p>&nbsp;</p>
+		  <p>&nbsp;</p>
+		  <h1>&nbsp;PHP's interactive console  </h1>
 		  <p>
 		  <a href="https://www.sitepoint.com/interactive-php-debugging-psysh/">https://www.sitepoint.com/interactive-php-debugging-psysh/</a><br />
 		  </p>
@@ -375,49 +435,9 @@ Hello world!
 php &gt;</code></pre>
 <p>Interactive shell is not a <strong>REPL</strong> (Read-Eval-Print Loop) since it lacks the print - seen $a immediately after assigning it.</p>
 <p><a href="http://psysh.org/manual/en/php_manual.sqlite">http://psysh.org/manual/en/php_manual.sqlite</a>  for Psysh see <a href="https://github.com/bobthecow/psysh/wiki/PHP-manual">https://github.com/bobthecow/psysh/wiki/PHP-manual</a></p>
-		  <p>&nbsp;</p>
-		  <p>&nbsp;</p>
-		  <p>&nbsp;</p>
-		  <p><br /></p>
-<hr />
-<pre><code>C:\WINDOWS\system32&gt;path
-PATH=
-J:\app\ss\product\18.0.0\dbhomeXE\bin;
-J:\app\ss\product\11.2.0\dbhome_1\bin;
-C:\Program Files (x86)\Common Files\Oracle\Java\javapath;
-C:\Python27\;
-C:\Python27\Scripts;
-C:\orant\bin;
-C:\WINDOWS\system32;
-C:\WINDOWS;
-C:\WINDOWS\System32\Wbem;
-C:\WINDOWS\System32\WindowsPowerShell\v1.0\;
-C:\WINDOWS\System32\OpenSSH\;
-
-J:\xampp\php;  NOT GOOD
-
-C:\ProgramData\ComposerSetup\bin;
-C:\orant\jdk\bin;
-C:\Program Files\dotnet\;
-C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;
-C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;
-C:\Program Files\nodejs\;
-C:\ProgramData\chocolatey\bin;
-C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;
-C:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;
-C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;
-C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;
-C:\Program Files (x86)\Common Files\Acronis\VirtualFile\;
-C:\Program Files (x86)\Common Files\Acronis\VirtualFile64\;
-C:\Program Files (x86)\Common Files\Acronis\FileProtector\;
-C:\Program Files (x86)\Common Files\Acronis\FileProtector64\;
-C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;
-C:\Users\ss\AppData\Local\Microsoft\WindowsApps;
-C:\Users\ss\AppData\Roaming\Composer\vendor\bin;
-C:\Users\ss\AppData\Roaming\npm;
-C:\Users\ss\.dotnet\tools;C:\Users\ss\AppData\Local\Microsoft\WindowsApps;C:\Users\ss\.dotnet\tools
-
-composer require psy/psysh:@stable
+		  <p>&nbsp;<br /></p>
+		  <pre>&nbsp;</pre>
+		  <pre><code><strong>composer require psy/psysh:@stable</strong>
 on Windows J:\awww\www&gt;.\vendor\bin\psysh        on Linux ./vendor/bin/psysh
                     or : 
                     git clone https://github.com/bobthecow/psysh.git
@@ -428,7 +448,21 @@ on Windows J:\awww\www&gt;.\vendor\bin\psysh        on Linux ./vendor/bin/psysh
                     wget https://psysh.org/psysh
                     chmod +x psysh
                     ./psysh</code></pre>
-<p><a href="https://forum.laragon.org/topic/877/tutorial-how-to-install-magento-with-laragon">https://forum.laragon.org/topic/877/tutorial-how-to-install-magento-with-laragon</a></p>
+<p>&nbsp;</p>
+		  <p>&nbsp;</p>
+		  <p>
+		  <a title="Getting Started" href="http://laragon.org/?q=getting-started">Getting Started</a></p>
+<p><a href="https://laragon.org/docs/index.html">https://laragon.org/docs/index.html</a></p>
+<p><a href="https://forum.laragon.org/category/5/tutorials">https://forum.laragon.org/category/5/tutorials</a> <strong>- Add newer PHP... XDebug, PostgreSQL, Python, ruby, Rails, Golang</strong></p>
+<p>Also <a href="https://github.com/denoland/deno/">https://github.com/denoland/deno/</a> - provide a productive and secure scripting environment for  modern programmer. It is built on top of V8, Rust, and TypeScript.</p>
+<p><a href="https://www.webtng.com/best-wamp-server-for-local-wordpress-laragon-is-easy/">https://www.webtng.com/best-wamp-server-for-local-wordpress-laragon-is-easy/</a></p>
+<p><a href="https://getwebassist.com/laragon-local-development/">https://getwebassist.com/laragon-local-development/</a></p>
+		  <p><a href="https://github.com/leokhoa/laragon">
+		  https://github.com/leokhoa/laragon</a> - download or&nbsp;&nbsp;
+		  <a href="https://laragon.org/download/">https://laragon.org/download/</a> </p>
+		  <p>&nbsp;</p>
+		  <p>
+		  <a href="https://forum.laragon.org/topic/877/tutorial-how-to-install-magento-with-laragon">https://forum.laragon.org/topic/877/tutorial-how-to-install-magento-with-laragon</a></p>
 <p><a href="https://forum.laragon.org/topic/241/tutorial-how-to-add-your-favourite-editor-to-laragon-and-the-windows-right-click-menu">https://forum.laragon.org/topic/241/tutorial-how-to-add-your-favourite-editor-to-laragon-and-the-windows-right-click-menu</a></p>
 <p><a href="https://forum.laragon.org/topic/1073/tutorial-how-to-auto-change-apache-version-after-changing-php-version">https://forum.laragon.org/topic/1073/tutorial-how-to-auto-change-apache-version-after-changing-php-version</a></p>
 <p><a href="https://forum.laragon.org/topic/1384/how-i-can-acces-to-phpmyadmin-from-other-pc-in-my-local-red">https://forum.laragon.org/topic/1384/how-i-can-acces-to-phpmyadmin-from-other-pc-in-my-local-red</a></p>
@@ -436,10 +470,6 @@ on Windows J:\awww\www&gt;.\vendor\bin\psysh        on Linux ./vendor/bin/psysh
 <p><a href="https://forum.laragon.org/topic/1117/tutorial-using-global-php-ini">https://forum.laragon.org/topic/1117/tutorial-using-global-php-ini</a></p>
 <p>[<a href="https://forum.laragon.org/topic/817/how-to-access-the-localhost-in-remote-computer-through-lan-network">https://forum.laragon.org/topic/817/how-to-access-the-localhost-in-remote-computer-through-lan-network</a>]<br />
 (<a href="https://forum.laragon.org/topic/817/how-to-access-the-localhost-in-remote-computer-through-lan-network">https://forum.laragon.org/topic/817/how-to-access-the-localhost-in-remote-computer-through-lan-network</a>)  </p>
-<p><strong>For MS Expression web :</strong></p>
-<pre><code>&lt;body style="margin: 1em; padding: 30px 10% 50px 10%; 
-font-size: 1.2em; font-family: Corbel, Arial, Helvetica, sans-serif ;
-"&gt;</code></pre>
 
 
 
@@ -448,6 +478,7 @@ font-size: 1.2em; font-family: Corbel, Arial, Helvetica, sans-serif ;
   </div>
 
   </div>
+	<p>&nbsp;</p>
 
 
 

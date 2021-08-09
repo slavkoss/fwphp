@@ -8,7 +8,7 @@ CRUD module example code 7 scripts:
 > When you are dead, you don't know that you are dead. It is difﬁcult only for the others. It is the same when you are lazy (or stupid).
 > 
 > "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live." (John Woods).
-> 
+> adapter
 > "Clean code reads like well-written prose" (Grady Booch). Good code reads close to natural speech.
 
 > **Naming** is the best tool we have to express what we do in code (avoid comments). Classes and variables are nouns: Price, CurrentTrade. Booleans are predicates: isScheduled, isRunning. Methods should start with a verb: getStrategyResult, createStrategyResult. Common naming errors : Very small names ( $tr, dd() ),
@@ -149,7 +149,7 @@ See readme_thoughts.md
 
 -----
 
-
+# B12phpfw core 
 ## 1\.6 1a. DBI: NO MORE in ver. 7 Dbconn_allsites abstract cls : DB CONNECT
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
 
@@ -178,17 +178,8 @@ return [
 
 
 
-/\\   
-  !   
-  !   
-  !   
 
-
------
-
-
-
-## 1\.6 1b. DBI: trait Db_allsites  : code type DB CRUD ADAPTER  
+## 1\.6 1b. DBI: trait Db_allsites  : code type DB PDO CRUD ADAPTER, PDOQueryBuilder  
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES, SHARED, GLOBAL, REUSABLE)  
 (MODEL, AbstractEntity)
 
@@ -233,19 +224,18 @@ trait Db_allsites
 
 **Methods** in J:\awww\www\zinc\Db_allsites.php (13 hits) :  
 ```
-Line 69:   static public function get_or_new_dball(string $called_from ='**UNKNOWN CALLER**')
-Line 120:   //  public static function disconnect() { self::$instance = null; }
-Line 126:   static public function closeDBConn()
-Line 134:   static public function getdbi()
-Line 140:   static public function setdo_pgntion($new_val)
-Line 162:   static public function dd(object $pp1, array $other)
-Line 195:   static public function rrnext(object $cursor){
-Line 203:   static public function rrcount($tbl)
-Line 212:   static public function rr_last_id($tbl) {
-Line 236:   static public function rr( $dmlrr, $binds = [], $other = [] )
-Line 336:   static public function cc( string $tbl, string $flds, string $valsins
-Line 397:   static public function uu( $tbl, $flds, $where, $binds = [] )
-Line 461:   static public function debugPDO($raw_sql, $parameters) {
+Line   74:   static public function get_or_new_dball(string $called_from ='**UNKNOWN CALLER**')
+Line 129:   static public function closeDBConn()
+Line 137:   static public function getdbi()
+Line 143:   static public function setdo_pgntion($new_val)
+Line 165:   static public function dd(object $pp1, array $other)
+Line 197:   static public function rrnext(object $cursor){
+Line 214:   static public function rrcount($tbl)
+Line 225:   static public function rr_last_id($tbl) {
+Line 250:   static public function rr( $dmlrr, $binds = [], $other = [] )
+Line 348:   static public function cc( string $tbl, string $flds, string $valsins
+Line 409:   static public function uu( $tbl, $flds, $where, $binds = [] )
+Line 475:   static public function debugPDO(string $dmlxx, array $binds, array $ph_val_arr): string
 ```
 
 
@@ -299,7 +289,7 @@ abstract class Config_allsites //extends Db_allsites
 
 
 **Methods** in cls file Config_allsites.php (18 fns) **less than 250 important lines**
-1.   public function \_\_construct(object $pp1, array $pp1_module_links)
+1.   public function \_\_construct(object $pp1, array $pp1\_module)
      1. C H E C K  R E Q U I R E M E N T S
      2. DEFINE  A D R E S S E S  (NO CONSTANTS). Adresses = paths & relative paths
         3.1 R O U T I N G - find URL parts for user events methods calls ee $uri_arr = explode(QS, $REQUEST_URI)
@@ -310,13 +300,13 @@ abstract class Config_allsites //extends Db_allsites
 
 ```
  J:\awww\www\zinc\Config_allsites.php (18 hits)
-	Line 27:   public function __construct(object $pp1, array $pp1_module_links)
-	Line 230:   public function setp($property, $value){
+	Line   28:   public function __construct(object $pp1, array $pp1_module_links)
+	Line 296:   public function setp($property, $value){
 	Line 238:   public function getp($property){
 	Line 256:     static public function rlows(object $r) //all row fld names lowercase
 	Line 275:     static public function escp(string $string) //ESCAPING OUTPUT
-	Line 288:     static protected function secure_form($form) {
-	Line 296:     static public function Redirect_to($New_Location){
+	Line 288:     static protected function secure\_form($form) {
+	Line 296:     static public function Redirect\_to($New_Location){
 	Line 315:     public function ErrorMessage(){
 	Line 324:     public function SuccessMessage(){
 	Line 345: public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 ) //paginator
@@ -331,88 +321,6 @@ abstract class Config_allsites //extends Db_allsites
 ```
 
 
------
-
-
-
- /\\  
-  !  
-  !  
-  !  
-
-
------
-
-
-
-## 1\.6 3. Home_ctr cls : MODULE CONTROLLER CODE
-B12PHPFW MODULE CODE. LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
-
-For program execution class hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why shared attributes and methods are in hierarchy above Home_ctr and not in Home_ctr ? Because we do not want write in each Home_ctr class code in class above. Instead we **reuse code in shared class (globals)** above Home_ctr. 
-
-
------
-
-
-
- **Attributes**  
-```php
-declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
-//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\module\blog ;
-
-use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_user;  //to Login_ Confirm_ SesUsrId
-use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
-use B12phpfw\dbadapter\post\Tbl_crud         as Tbl_crud_post ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
-
-//extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_allsites" but :
-//"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites (is not for sake of code reusability and clear code)
-// May be named App, Router_dispatcher... :
-
-class Home_ctr extends Config_allsites
-...
-```
-
-
------
-
-
-
-**Methods** in cls file  Home_ctr.php (27 fns)  
-```
-  J:\awww\www\fwphp\glomodul\blog\Home_ctr.php (27 hits)
-	Line 29:   public function __construct(object $pp1)
-	Line 92:   protected function callf(string $akc, object $pp1)  //fnname, params
-	Line 108:   private function del_row_do(object $pp1) //used for all  t a b l e s !! //private
-	Line 149:   private function Login_Confirm_SesUsrId(object $dm) {
-	Line 153:   private function logout(object $pp1)
-	Line 162:   private function loginfrm(object $pp1) //private
-	Line 175:   private function login(object $pp1) //private
-	Line 192:   private function home(object $pp1) //DI page prop.palette   
-	Line 208:   private function dashboard(object $pp1) //private
-	Line 223:   private function admins(object $pp1) //private
-	Line 240:   private function read_user(object $pp1) //private
-	Line 259:   private function categories(object $pp1) //private
-	Line 273:   private function addnewpost(object $pp1) //private
-	Line 288:   private function posts(object $pp1) //private
-	Line 308:   private function filter_postcateg(object $pp1) //private
-	Line 356:   private function read_post(object $pp1)
-	Line 379:   private function editpost(object $pp1) //private
-	Line 397:   private function edmkdpost(object $pp1) //private
-	Line 423:   private function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
-	Line 477:   private function kalendar(object $pp1) //private
-	Line 489:   private function comments(object $pp1) //private
-	Line 502:   private function upd_comment_stat(object $pp1) //private
-	Line 530:   private function upd_user_loggedin(object $pp1) //private
-	Line 548:     private function errmsg(object $pp1, string $myerrmsg)
-	Line 562:   private function contact(object $pp1)
-	Line 569:   private function about(object $pp1)
-	Line 577:   private function features(object $pp1)
-```
-
-
 
 
 <br /><br />
@@ -422,7 +330,7 @@ class Home_ctr extends Config_allsites
 
 
 
-## 1\.6 4. Autoload cls included in index.php : TO AVOID INC. COMMANDS IN MANY SCRIPTS
+## 1\.6 3. Autoload cls included in index.php : TO AVOID INC. COMMANDS IN MANY SCRIPTS
 B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)  
 
 
@@ -461,20 +369,109 @@ class Autoload
      return null ;
    }
 
-  J:\awww\www\zinc\Autoload.php (6 hits)
-	Line 19:    public function __construct($pp1) {
-	Line 27:    /*private static function _fatal_error_hndl() {
-	Line 38:   private function get_path($nscls, &$nsdir_routTBLclsdir) // static ?
-	Line 100:   //public static function autoload($cls) //namespaced className
-	Line 101:   private function loader($nscls) //$ n s c l s is namespaced  c l a s s  name
-	Line 143:   private function fmt(string $txt, string $color, string $bold='')
+  J:\awww\www\zinc\Autoload.php (4 hits)
+	Line 17:    public function __construct(&$pp1) {
+	Line 32:   private function get_path($nscls, &$nsdir_routTBLclsdir) // static ?
+	Line 97:   private function loader($nscls) //$ n s c l s is namespaced  c l a s s  name
+	Line 139:   private function fmt(string $txt, string $color, string $bold='')
 ```
+
+
+
 
 -----
 
 
 
 
+# B12phpfw modules
+## 1\.6 4. Home_ctr cls : MODULE CONTROLLER CODE, ROUTES, CALLS
+B12PHPFW MODULE CODE. LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
+
+For program execution class hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why shared attributes and methods are in hierarchy above Home_ctr and not in Home_ctr ? Because we do not want write in each Home_ctr class code in class above. Instead we **reuse code in shared class (globals)** above Home_ctr. 
+
+
+-----
+
+
+
+ **Attributes**  
+```php
+declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
+//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+namespace B12phpfw\module\blog ;
+
+use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\dbadapter\user\Tbl_crud                  as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
+use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
+use B12phpfw\dbadapter\post\Tbl_crud                  as Tbl_crud_post ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
+
+//extends  = ISA relation type ("Is A something") = not HAS_A :  "Home_ ctr has property Config_allsites, like kitchen has knife" but :
+//"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites, but is not for sake of code reusability and clear code because Home_ ctr is module code and we do not want all modules code in shared code Config_ allsites.
+// May be named App, Router_dispatcher... :
+
+class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
+...
+```
+
+
+-----
+
+
+
+**Methods** in cls file  Home_ctr.php (27 fns)  
+```
+  J:\awww\www\fwphp\glomodul\blog\Home_ctr.php (41 hits)
+	Line 8: // *************** FUNCTION 1. N A M E S P A C E S  ***************
+	Line 29:   // *************** FUNCTION 2. S H A R E S  ***************
+	Line 30:   public function __construct(object $pp1)
+	Line 113:   protected function call_module_method( // also other module method !!
+	Line 130:   private function del_row_do(object $pp1) // *************** SHARED  d d (
+	Line 177:   private function del_category(object $pp1)
+	Line 188:   private function del_admins(object $pp1)
+	Line 199:   private function del_posts(object $pp1)
+	Line 210:   private function del_comments(object $pp1)
+	Line 223:   private function errmsg(object $pp1, string $myerrmsg)
+	Line 235:   * *************** FUNCTION 3.  S E S S I O N  M E T H O D S ***************
+	Line 238:   private function Login_Confirm_SesUsrId() {
+	Line 242:   private function logout(object $pp1)
+	Line 252:   * *************** FUNCTION 4. C R U D  M E T H O D S ***************
+	Line 259:   // *************** FUNCTION COMPAUND MODULE BLOG ***************
+	Line 260:   private function home(object $pp1) //DI page prop.palette   
+	Line 280:   private function dashboard(object $pp1) //private
+	Line 294:   private function kalendar(object $pp1) //private
+	Line 305:   // *************** FUNCTION 5. I N C L U D E  P A G E S  WITHOUT  C R U D ***************
+	Line 307:   private function contact(object $pp1)
+	Line 314:   private function about(object $pp1)
+	Line 322:   private function features(object $pp1)
+	Line 331:   // *************** FUNCTION SIMPLE MODULE TBL1  A D M I N S ***************
+	Line 336:   private function admins(object $pp1) //private
+	Line 351:   private function read_user(object $pp1) //private
+	Line 369:   private function loginfrm(object $pp1) //private
+	Line 382:   private function login(object $pp1) //private
+	Line 388:   private function upd_user_loggedin(object $pp1) //private
+	Line 408:   // *************** FUNCTION SIMPLE MODULE TBL2  C A T E G O R Y ***************
+	Line 410:   private function categories(object $pp1) //private
+	Line 426:   // *************** FUNCTION SIMPLE MODULE TBL3  P O S T S ***************
+	Line 427:   private function addnewpost(object $pp1) //private
+	Line 442:   private function posts(object $pp1) //private
+	Line 462:   private function filter_postcateg(object $pp1) //private
+	Line 510:   private function read_post(object $pp1)
+	Line 533:   private function editpost(object $pp1) //private
+	Line 551:   private function edmkdpost(object $pp1) //private
+	Line 577:   private function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
+	Line 634:   // *************** FUNCTION SIMPLE MODULE TBL4  C O M M E N T S ***************
+	Line 636:   private function comments(object $pp1) //private
+	Line 649:   private function upd_comment_stat(object $pp1) //private
+
+```
+
+
+
+
+
+-----
 
 
 <br /><br />
@@ -1094,7 +1091,7 @@ if (!$r) { // r o w wasn't found, display error page  $errobj = new Error_C();
 
 
 <a name="scrudadapter"></a>
-### 1\.9\.7 Tbl_crud.php - ORM, DM (Domain Model) adapter cls - pre CRUD class
+### 1\.9\.7 Tbl_crud.php - ORM, DM (Domain Model) adapter cls - pre CRUD class, PHPQueryBuilder
 [SimplestCRUD index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....**[adapter]**
 
 ```php
@@ -1406,17 +1403,40 @@ Save your .git/config before, and restore it after. (I delete it in recycle bin)
   
 ## 2\.2 Development environment & source code
 
-My PHP IDE is **Symenu** as launcher for all SW (portable if possible) below :
+My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possible) :
 
-1.  Laragon portable on Windows 10 64 bit
-2.  **EDITOR**: Notepad++ (6 MB), also good, all portable : Notepad2-mod (2 MB), Atom (524 MB), Visual Studio Code (247 MB), CudaText (28 MB), PSPad (23 MB), RJ TextEd (416 MB), I avoid Dreamveawer, Microsoft Expression web (abandoned but still good), Komposer (abandoned, too old)  
-    GT Text OCR IMG->TXT
+1.  Laragon portable (PHP, Apache, Mariadb or MySQL) on Windows 10 64 bit instead XAMPP, WAMP, ZWAMP...      
+   
+2.  **EDITOR**: **npp (Notepad++)** (7 MB).       
+   http://dev1:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme_thoughts.md  or    
+   **Notepad++ Markdown plugin https://github.com/nea/MarkdownViewerPlusPlus**      
+   Copy tMarkdownViewerPlusPlus.dll to the plugins sub-folder at your Notepad++ installation directory.     
+   The plugin adds a small Markdown icon to the toolbar to toggle the viewer as dockable panel.     
+   Then in npp Settings -> Import -> Import plugin(s).     
+   
+   See in J:\\awww\www\\  GLOBALS  nppsess file and other nppsess files.
+   
+   MD to HTML converters on inet :     
+   1. **Notepad++ plugin https://github.com/nea/MarkdownViewerPlusPlus** then in npp Settings -> Import -> Import plugin(s)     
+   2. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**     
+   3. or (many converters)   https://www.browserling.com/tools/markdown-to-html      
+   4. or files convert to many formats :  https://products.aspose.app/pdf/conversion/md-to-html      
+   
+   Also good, all portable : Notepad2-mod (2 MB), Atom (524 MB),       
+   Visual Studio Code (247 MB),  CudaText (28 MB), PSPad (23 MB), RJ TextEd (416 MB),       
+   HTML WYSIWYG editors :  **Microsoft Expression web** (abandoned but still good).     
+   I avoid Dreamveawer, Komposer (abandoned, too old).        
+   
+   **OCR IMG->TXT**  **GT Text**      
+
 3.  **COMMANDER**: **Locate** is old but best (Janne Huttunen) or simmilar see Symenu.     
-    Freecommander, Multicommander, Totalcommander       
-    Q-dir          
-4.  **BROWSER**: Firefox, Google Chrome, Cyberfox, Pale Moon
-5.  **DEPLOY (INSTALL)**: Composer, Git  
-6.  Winscp **FTP client**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\zinc\Dbconn_allsites.php`;
+    Freecommander, Multicommander, Totalcommander, Q-dir       
+
+4.  **BROWSER**: **Firefox**, Google Chrome, Cyberfox, Pale Moon     
+   
+5.  **DEPLOY (INSTALL)**: **Cmder** (Symenu) is Win CMD, line has Git.
+   Composer.
+   FTP client **Winscp**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\zinc\Dbconn_allsites.php`;
     
 
 ##  2\.3 [Composer](https://getcomposer.org/download/)
@@ -1468,7 +1488,7 @@ May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best 
 
 See readme_thoughts.md.  
 
-# 3\.1 B12phpfw core (CRUD) code - How to get ONLY banana ?
+## 3\.1 B12phpfw core (CRUD) code - How to get ONLY banana ?
 See readme_thoughts.md.  
 
 <br /><br />
@@ -1508,12 +1528,14 @@ I did much simpler B12phpfw code based on ideas in Jazeb Akram CMS blog and Mini
 2.  [**Mini3**](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/adrs) (Mini3 PHP fw [https://github.com/panique/mini3](https://github.com/panique/mini3) - rare not to simple module but could have more functionality.
 
 3.  https://github.com/ngrt/MVC_todo Code is explained in this article blog 2017.12.17: https://medium.com/@noufel.gouirhate/create-your-own-mvc-framework-in-php-af7bd1f0ca19
+4.  https://dev.to/jorgecc/a-minimalist-mvc-project-using-php-and-without-a-framework-4pd8
+5.  https://github.com/TRPB/ImmutableMVC
 
-4. Other :
-    1. video 8/2016 Paul Amissah [https://freecourseweb.com/building-database-web-app-php-oop-pdo-ajax-mysql/](https://freecourseweb.com/building-database-web-app-php-oop-pdo-ajax-mysql/) :  PHP, procedural MVC PDO MySQL, Bootstrap, AJAX jQuery - good basic code. **Not good are (as in almost all tutorials)** : names, globals,  code snippets composing - no single entry point ee including scripts instead http jumping in scripts
-    3.  video Shan Shah 2019 [https://desirecourse.com/login-registration-and-profile-management-in-php-mysql-2018/](https://desirecourse.com/login-registration-and-profile-management-in-php-mysql-2018/),
-    4.  video Learn\_OOP\_PHP\_By\_Building\_Complete\_Website\_by\_Traversy\_2018 [bad example](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/traversymvc) to complisated, despite some good code snippets.
-    5.  Inanz, Hopkins, Xuding... to simple examples good only for clear ideas and for total beginers (dummies).
+6. Other :
+   1. video 8/2016 Paul Amissah [https://freecourseweb.com/building-database-web-app-php-oop-pdo-ajax-mysql/](https://freecourseweb.com/building-database-web-app-php-oop-pdo-ajax-mysql/) :  PHP, procedural MVC PDO MySQL, Bootstrap, AJAX jQuery - good basic code. **Not good are (as in almost all tutorials)** : names, globals,  code snippets composing - no single entry point ee including scripts instead http jumping in scripts
+   3.  video Shan Shah 2019 [https://desirecourse.com/login-registration-and-profile-management-in-php-mysql-2018/](https://desirecourse.com/login-registration-and-profile-management-in-php-mysql-2018/),
+   4.  video Learn\_OOP\_PHP\_By\_Building\_Complete\_Website\_by\_Traversy\_2018 [bad example](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/traversymvc) to complisated, despite some good code snippets.
+   5.  Inanz, Hopkins, Xuding... to simple examples good only for clear ideas and for total beginers (dummies).
 
 I made many changes (I hope improvements) which I did because I do not like proposed solutions in best php frameworks and in learning sources mentioned above  (especcialy coding eg Traversy tutorial). Shares (reusables, globals) are not well coded there. I think that eg invoice php code should be in **own folder - module - like Oracle forms invoice.fmb** (not all forms/reports in 3 folders: M,V,C). **Application** glomodul consists of group of modules subgroups - unlimited levels  eg subgroup [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z\_examples](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples)
 
@@ -1527,15 +1549,14 @@ It is why I spent so many hours on this (huge time wasting which should do tools
     
   
 
-## Code with functional namespaces & class to autoload : shared, module-local and external classes
-
+## 3\.2 Code with functional namespaces and Autoload class to include classes scripts : shared, module-local and external
 This code skeleton seems complicated compared with [https://github.com/panique/\*\*mini3](https://github.com/panique/**mini3)\*\* which is may be best fw code template for smaller projects (and learning PHP).
 
 For large projects **SHARES - GLOBALS - REUSABLES** which I use here are very important, same as **modules in own folders (not all in only 3 dirs M,V,C)**.
 
 About shares (globals) see discussion :  
 [https://medium.com/@sameernyaupane/php-software-architecture-part-1-mvc-1c7bf042a695](https://medium.com/@sameernyaupane/php-software-architecture-part-1-mvc-1c7bf042a695)  
-[https://medium.com/@sameernyaupane/php-software-architecture-part-2-the-alternatives-1bd54e7f7b6d](https://medium.com/@sameernyaupane/php-software-architecture-part-2-the-alternatives-1bd54e7f7b6d)  
+[https://medium.co## 3\.2m/@sameernyaupane/php-software-architecture-part-2-the-alternatives-1bd54e7f7b6d](https://medium.com/@sameernyaupane/php-software-architecture-part-2-the-alternatives-1bd54e7f7b6d)  
 [https://blog.ircmaxell.com/2014/11/alternatives-to-mvc.html](https://blog.ircmaxell.com/2014/11/alternatives-to-mvc.html)       
 
 
@@ -1577,77 +1598,11 @@ TraversyMVC (has video) and Mini3 are simplified, with some (many?) differences 
 
 
 
-<br /><br />
-MD to HTML converters on inet :
-1. **Notepad++ plugin https://github.com/nea/MarkdownViewerPlusPlus** then in npp Settings -> Import -> Import plugin(s)
-2. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**   
-3. or (many converters)   https://www.browserling.com/tools/markdown-to-html   
-4. or files convert to many formats :  https://products.aspose.app/pdf/conversion/md-to-html    
-5. Links not working :     http://demo.showdownjs.com/ (no HTML source)  
-  NOT WORKING : https://daringfireball.net/projects/markdown/dingus    or   https://pandoc.org/try/ 
-
-
-<br /><br />
-https://community.notepad-plus-plus.org/topic/17366/how-to-install-emmet-plugin/2   Meta Chuh 26 Mar 2019, 15:45   @Alexander–Rudenko
-
-#### Old notepad++ plugin manager is not compatible with notepad++ 7.6 and above.
- -it will write files to wrong locations.
-first revert all changes you made to your notepad++ installation, by uninstalling plugin manager and removing everything you might have installed with plugin manager.
-make sure you do not see any error messages at notepad++ startup, and make sure you do not see plugin manager at your plugins menu anymore.
-
-next, follow the >>> Guide: 
-### I do not use this: How to install the PythonScript plugin and emmet plugin on Notepad++ 7.6.3, 7.6.4 and above 
-<<<, to install pythonscript manually :
-https://community.notepad-plus-plus.org/topic/17256/guide-how-to-install-the-pythonscript-plugin-on-notepad-7-6-3-7-6-4-and-above
-
-for notepad++ 7.6.4, 64 bit (installed version):
-
-download and extract PythonScript_Full_1.3.0.0_x64.zip from >>> here <<< to your desktop.
-note: do not use any other available release type, except this zip.
-1. https://github.com/bruderstein/PythonScript/releases/download/v1.3.0/PythonScript_Full_1.3.0.0_x64.zip
-
-2. open %ProgramFiles%\Notepad++\plugins\ in windows explorer and create a folder called PythonScript.
-
-3. copy PythonScript.dll from the plugins folder of this extracted zip to:
-%ProgramFiles%\Notepad++\plugins\PythonScript\PythonScript.dll
-
-4. copy python27.dll from this extracted zip to:
-%ProgramFiles%\Notepad++\python27.dll
-
-5. copy the folders scripts containing machine level scripts and lib containing python libraries, from the zip’s plugins\PythonScript folder to:
-%ProgramFiles%\Notepad++\plugins\PythonScript\
-
-
-for notepad++ 7.6.4, 32 bit (installed version):
-...
-
-
-6. then download the emmet plugin emmet-npp.zip from >>> here <<< and extract it.
-http://download.emmet.io/npp/emmet-npp.zip
-
-7. go to the notepad++ 7.6.4 menu plugins > open plugins folder to open your plugins folder, and create a new folder called EmmetNPP.
-
-8. copy EmmetNPP.dll from the extracted emmet-npp.zip into the EmmetNPP folder you have created.
-
-9. copy all files and folders from the folder EmmetNPP within the extracted emmet-npp.zip into the EmmetNPP folder you have created.
-note: your plugins\EmmetNPP folder should now contain 
-EmmetNPP.dll, _PyV8.pyd, editor.js, npp_emmet.py, PyV8.py and a folder called emmet.
-
-now restart notepad++ and you will see both at your plugins menu :
-    the emmet plugin 
-    and the python script plugin
-
-
-https://dev.to/jorgecc/a-minimalist-mvc-project-using-php-and-without-a-framework-4pd8
-
-https://github.com/TRPB/ImmutableMVC
-
-
 
 
 
 <br /><br /><br /><br />
-## B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
+## 3\.3 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
 ```
 One of (Apache) WEB SERVER DOCROOT-s (see B12phpfw directories (modules) structure)
 |       
@@ -1719,7 +1674,7 @@ Common fw dir structure are **items in (...) and marked with NO - are not used i
 
 
 <br /><br /><br /><br /><a name="swfw"></a>
-# What is SW fw (Software framework)
+## 3\.4 What is SW fw (Software framework)
 [Top](#top)......[Dirs](#directories).....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....**SW fw**   
 
 See "What is SW fw (Software framework)" (using mkd in fwphp/glomodul/mkd/02/01\_fwphp/**PHP_DIP\_DI.txt/**)  which states :        

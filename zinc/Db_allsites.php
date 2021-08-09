@@ -472,8 +472,7 @@ trait Db_allsites
 
 
 
-  static public function debugPDO(
-    string $dmlxx, array $binds, array $ph_val_arr): string
+  static public function debugPDO(string $dmlxx, array $binds, array $ph_val_arr): string
   {
     $keys   = array();
     $values = $ph_val_arr; // parameters

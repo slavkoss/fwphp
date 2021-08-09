@@ -1,6 +1,6 @@
 <?php
 /**
-*  J:\awww\www\fwphp\glomodul\user\Db_user.php
+*  J:\awww\www\fwphp\glomodul\user\Db_ user.php
 */
 namespace B12phpfw ;
 
@@ -12,7 +12,7 @@ class Db_user //extends Db_allsites
     {
       /** 
       * $db sees Home_ctr, Config_allsites and Db_allsites objects, 
-      * but $this = $Db_user instantiated in dmins.php does not see CRUD methods
+      * but $this = $Db_ user instantiated in admins.php does not see CRUD methods
       *
       * NO NEED (COMPLICATED -> CAN HARM) to instantiate parent 
       * (occupy memory with global fn-s and variables) because 
@@ -161,7 +161,7 @@ class Db_user //extends Db_allsites
 
   public function ChkUsrNameExists($username, $db){
     // called only from a d m i n s.p h p where is instantiated :
-    // $this = $Db_user which DOES NOT SEE CRUD METHODS
+    // $this = $Db_ user which DOES NOT SEE CRUD METHODS
     //$db sees Home_ctr, Config_allsites and Db_allsites objects, 
     $c_r = $db->rr("SELECT username FROM admins WHERE username=:username" 
         , [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
@@ -174,5 +174,12 @@ class Db_user //extends Db_allsites
   }
 
 
-
+/*
+ J:\awww\www\fwphp\glomodul\user\Db_ user.php (5 hits)
+	Line 11:     public function __construct() //$saltLength=NULL
+	Line 27:   public function L ogin_ Confirm(){ 
+	Line 36:   public function l ogout($db){  <------
+	Line 53:   public function l ogin($db)    <------
+	Line 162:   public function Chk UsrNameExists($username, $db){
+*/
 } // e n d  c l s  
