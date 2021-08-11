@@ -39,6 +39,7 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
     ,$app_dir_path.'post/'
     ,$app_dir_path.'post_comment/'
   ]
+  , 'app_dir_path' => $app_dir_path //for homectrfn kalendar... Assumption : app is glomodule
 ] ;
 
 //2. global cls loads (includes, bootstrap) classes scripts automatically

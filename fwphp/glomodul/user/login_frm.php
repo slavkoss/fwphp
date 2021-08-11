@@ -1,10 +1,14 @@
 <?php
 // J:\awww\www\fwphp\glomodul4\blog\login_frm.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+namespace B12phpfw\module\user ;
 
 //$u riq = $this->g etp('u riq') ;
 $pp1  = $this->getp('pp1') ;
-
+                if ('1') {self::jsmsg( [ //basename(__FILE__).
+                   __FILE__ .', line '. __LINE__ .' SAYS'=>''
+                   ,'aaa'=>'bbb'
+                ] ) ; }
                       if ('') {  //if ($module_ arr->dbg) {
                       echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                       echo '<pre>';
@@ -47,6 +51,7 @@ else { $username = $_SESSION["username"] ; }
 
 
 $title = 'Log in' ;
+      require $pp1->shares_path . 'hdr.php';
 ?>
   <!-- NAVBAR -->
 <div style="height:10px; background:#27aae1;"></div>
@@ -133,3 +138,4 @@ $title = 'Log in' ;
   </div><!--div class="row"-->
 </section><!--section class="container py-2 mb-4"-->
 <!-- Main Area End -->
+<?php  require $pp1->shares_path . 'ftr.php'; ?>

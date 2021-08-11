@@ -1,9 +1,10 @@
 <?php
 /**
  * J:\awww\www\fwphp\glomodul\user\index.php
- * http://dev1:8083/fwphp/glomodul/blog/?i/admins/  if called from blog module so :
- * private function login(object $pp1) { Tbl_crud_admin::login($pp1, $pp1->dashboard) ; }
+ * http://dev1:8083/fwphp/glomodul/blog/?i/admins/  if called from blog module
  * or http://dev1:8083/fwphp/glomodul/user/  if called from ibrowser directly
+ * In Home_ ctr :
+ * private function login(object $pp1) { Tbl_crud_admin::login($pp1, $pp1->dashboard) ; }
 */
 
 // m o d u l e = processing (behavior), u s e r = cls dir (POSITIONAL part of ns, CAREFULLY !)
@@ -28,11 +29,10 @@ $pp1 = (object)
   , 'module_version'=>'7.0.0.0 Users' //, 'vendor_namesp_prefix'=>'B12phpfw'
 
   //1.3 Dirs where are CLASS SCRIPTS TO INCLUDE AUTOMATICALLY (A u t o l o a d)
+  //    MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
   , 'module_path_arr'=>[
-    //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
-    $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
-    //dir of global clses for all sites :
-    ,$shares_path 
+    $module_dir_path
+    ,$shares_path //dir of global (common) clses for all sites
     ,$app_dir_path.'/blog/'
   ] 
 ] ;

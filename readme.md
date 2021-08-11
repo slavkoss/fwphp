@@ -1429,8 +1429,10 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
    
    **OCR IMG->TXT**  **GT Text**      
 
-3.  **COMMANDER**: **Locate** is old but best (Janne Huttunen) or simmilar see Symenu.     
-    Freecommander, Multicommander, Totalcommander, Q-dir       
+3.  **COMMANDER**:    
+    **Locate** is old but best (Janne Huttunen) or simmilar see Symenu.     
+    MeinPlatz (x64) (part of Symenu portable programs) like Treesize    
+    Freecommander, Multicommander, Q-dir, Totalcommander       
 
 4.  **BROWSER**: **Firefox**, Google Chrome, Cyberfox, Pale Moon     
    

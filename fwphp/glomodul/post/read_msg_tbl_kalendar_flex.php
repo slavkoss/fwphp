@@ -2,9 +2,10 @@
 // J:\awww\www\fwphp\glomodul\kalendar\inc\
 // http://dev1:8083/fwphp/glomodul/blog/?i/J:|awww|www|fwphp|glomodul|kalendar|inc|kalendar_flex
 //if (!defined('URLMODUL_CSS')) { define('URLMODUL_CSS', $module_relpath.'/css'); }
+//J:\awww\www\fwphp\glomodul\post\read_msg_tbl_kalendar_flex.css
 namespace B12phpfw ;
 use B12phpfw\core\zinc\Db_allsites ;
-//J:\awww\www\fwphp\glomodul\post\read_msg_tbl_kalendar_flex.css
+use B12phpfw\module\user\Home_ctr ;
 
 switch (Db_allsites::getdbi()) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
   default: $tmp_datetime = 'datetime' ; break; }
@@ -140,6 +141,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
             //if ( !($rx = $this->rrnext($cursor_filtered_posts)) ) {break;}
             if ( $rx = Db_allsites::rrnext( $cursor_filtered_posts
               , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and !$rx->rexists )
+              {break;} ;
         } endwhile; //all same day r o w s
 
         //e cho $listart . $rows_sameday_str . $liend.'<br />'; // . $date  . $wrap

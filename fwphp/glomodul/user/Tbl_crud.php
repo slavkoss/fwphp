@@ -145,9 +145,6 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   //e n d  S E S S  I O N  M E T H O D S
 
 
-
-
-
   static public function login(object $pp1, string $goscript='') 
   {
                             if ('') {Home_ctr::jsmsg( [ //b asename(__FILE__).

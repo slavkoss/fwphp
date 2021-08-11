@@ -20,12 +20,11 @@ class Home_ctr extends Config_allsites
     /**
     * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
     *  ------------------------------------------------------------------------------
-    *  LINK ALIAS IN VIEW SCRIPT (eg ldd) => HOME METHOD TO CALL (eg del_ row_ do)
+    *  LINK ALIAS IN VIEW SCRIPT (eg ldd_ admins) => HOME METHOD TO CALL (del_ admins)
     *  ------------------------------------------------------------------------------
-    * LINK ALIAS ldd = urlqrystring_part1 = $pp1->ldd = QS.'i/del_ row_ do/id/', 
-    *     last part $id knows view script, so URLqry='i/del_ row_ do/id/'.$id, 
+    * LINK ALIAS ldd_ admins is urlqrystring_keyval1 = $pp1->ldd_ admins = QS.'i/del_ admins/id/', 
+    *     last part $idvalue knows view script, so : URLqry='i/del_ admins/id/'.$id, 
     * ALL VIEWS LINKS OF MODULE SHOULD BE HERE.
-    * If link in view is not here : Error 403, Access forbidden! Undefined property in URL.
     */
     $pp1_module = [ 
       'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
@@ -173,15 +172,10 @@ class Home_ctr extends Config_allsites
   private function loginfrm(object $pp1) //private
   {
     //called from link, Config_ allsites based on url (calling link) calls  f n  l o g i n
-    //$p p1  = $t his->g etp('p p1') ;
-                if ('1') {self::jsmsg( [ //basename(__FILE__).
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>''
-                   ,'aaa'=>'bbb'
-                ] ) ; }
-      require $pp1->shares_path . 'hdr.php';
-      //require $pp1->module_path . '../user/login_frm.php';  
+      //require $pp1->shares_path . 'hdr.php';
+                //require $pp1->module_path . '../user/login_frm.php';  
       require $pp1->module_path . 'login_frm.php';  
-      require $pp1->shares_path . 'ftr.php';
+      //require $pp1->shares_path . 'ftr.php';
   }
 
   private function login(object $pp1) //private

@@ -248,7 +248,8 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
   private function kalendar(object $pp1) //private
   {
     require $pp1->shares_path . 'hdr.php';
-    require $pp1->module_path . '../post/read_msg_tbl_kalendar_flex.php';
+    //require $pp1->module_path . '../post/read_msg_tbl_kalendar_flex.php';
+    require $pp1->app_dir_path .'post/read_msg_tbl_kalendar_flex.php';
     require $pp1->shares_path . 'ftr.php';
   }
 
