@@ -57,7 +57,7 @@ if (file_exists($tmp_img_dir_path . $r->aimage)) { } else {
 if (isset($r->username) and $r->username == $usrname_requested) {
 }else {
   $_SESSION["ErrorMessage"]="Bad Request !!";
-  Config_allsites::Redirect_to($pp1->filter_page."1/i/home/");
+  utl::Redirect_to($pp1->filter_page."1/i/home/");
 }
 
 

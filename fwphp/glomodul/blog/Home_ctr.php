@@ -8,20 +8,20 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 // *************** FUNCTION 1. N A M E S P A C E S  ***************
 namespace B12phpfw\module\blog ;
 
-use B12phpfw\core\zinc\Config_allsites ;
-//use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;;
+//use B12phpfw\core\zinc\Db_allsites as utldb ;
 //use B12phpfw\core\zinc\Interf_Tbl_crud ;
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
-use B12phpfw\dbadapter\post\Tbl_crud         as Tbl_crud_post ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
+use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud   as Tbl_crud_post_comment ;
 
 //use PDO;
 
 //extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_allsites" but :
 //"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites (is not for sake of code reusability and clear code)
 // May be named App, Router_dispatcher... :
-class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
+class Home_ctr extends utl //implements Interf_Tbl_crud
 {
   // NO ATTRIBUTES - attr. are in parent c l a s s (e s).
   // $pp1 is M O D U L E PROPERTIES PALLETE like in Oracle Forms
@@ -52,7 +52,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     ,'ldd_admins'       => QS.'i/del_admins/id/'
     ,'ldd_posts'        => QS.'i/del_posts/id/'
     ,'ldd_comments'     => QS.'i/del_comments/id/'
-                //Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
+                //utl::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
          //,'del_row'         => QS.'i/del_ row_do/id/' //used for all tables !!
     ,'filter_page'     => 'p/' //QS.'p/'   // i/home_blog/
 
@@ -135,7 +135,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_category::dd($pp1, $other); //used for all  t a b l e s !! 
-    Config_allsites::Redirect_to($pp1->categories) ;
+    utl::Redirect_to($pp1->categories) ;
 
   }
 
@@ -146,7 +146,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_admin::dd($pp1, $other); //used for all  t a b l e s !! 
-    Config_allsites::Redirect_to($pp1->admins) ;
+    utl::Redirect_to($pp1->admins) ;
 
   }
 
@@ -157,7 +157,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_post::dd($pp1, $other); //used for all  t a b l e s !! 
-    Config_allsites::Redirect_to($pp1->posts) ;
+    utl::Redirect_to($pp1->posts) ;
 
   }
 
@@ -168,7 +168,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_post_comment::dd($pp1, $other); //used for all  t a b l e s !! 
-    Config_allsites::Redirect_to($pp1->comments) ; 
+    utl::Redirect_to($pp1->comments) ; 
 
   }
 
@@ -294,7 +294,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     $title = 'Admin Page' ;
     // http skip is ok for other module :
     ?><!--script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user'?>');</script--><?php
-            //Config_allsites::Redirect_to( dirname($pp1->module_url) .'/user' );
+            //utl::Redirect_to( dirname($pp1->module_url) .'/user' );
                   //Warning: Cannot modify header information :
                   //require $pp1->shares_path . 'hdr.php';
                   //require_once("navbar_admin.php");
@@ -508,7 +508,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     //for now c r e / d e l  op.system file in op.system
     //see read_ post.php  href="<=$pp1->ed mkdpost>flename/<=$r->title>/id/<=$r->id>"
 
-    //Config_allsites::Redirect_to(" http://dev1:8083/fwphp/glomodul/mkd/?edit=" . "J:/awww/www/fwphp/glomodul/blog/msgmkd/001. Menu_CRUD.txt"
+    //utl::Redirect_to(" http://dev1:8083/fwphp/glomodul/mkd/?edit=" . "J:/awww/www/fwphp/glomodul/blog/msgmkd/001. Menu_CRUD.txt"
 
     //http://dev1:8083/fwphp/glomodul/blog/?i/ed mkdpost/flename/001.%20Menu_CRUD.txt/id/54
                   if ('') {  //if ($module_ arr['dbg']) {
@@ -519,7 +519,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
                   echo '</pre><br />'; 
                   }
     //http://dev1:8083/fwphp/glomodul/mkd/?edit=J:/awww/www/fwphp/glomodul/blog/msgmkd/001.%20Menu_CRUD.txt
-    Config_allsites::Redirect_to(
+    utl::Redirect_to(
          dirname($pp1->module_url)."/mkd/?edit="
                            //"http://dev1:8083/fwphp/glomodul/mkd/?edit="
          . "{$pp1->module_path}msgmkd/{$uriq->flename}"
@@ -620,7 +620,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
                               //c l a s s name of $Tbl_crud_post_comment=B12phpfw\Tbl_crud_post_comment
 
     Tbl_crud_post_comment::upd_comment_stat($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
-    Config_allsites::Redirect_to($pp1->comments);
+    utl::Redirect_to($pp1->comments);
 
   }
 
@@ -648,9 +648,9 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
            ,'INFO '=>'ERASING IS NOT IN COMPOUND MODULE (eg blog) !, but in single modules eg post category'
            //,'After .. '=>'..., ...'
         ] ) ;
-        //Config_allsites::Redirect_to($pp1->p osts) ;
+        //utl::Redirect_to($pp1->p osts) ;
         // to $this->Redirect_to( dirname($pp1->module_url) .'/glomodul/mkd/' ) ;
-        //Config_allsites::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
+        //utl::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
     */
 
 
@@ -662,21 +662,21 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
     {
       case 'comments' : // $pp1->uriq->id
         Tbl_crud_post_comment::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->comments) ; break;
+        utl::Redirect_to($pp1->comments) ; break;
       case 'posts' :
         Tbl_crud_post::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->p osts) ; break;
+        utl::Redirect_to($pp1->p osts) ; break;
 
       case 'admins' :
         Tbl_crud_admin::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->admins) ; break;
+        utl::Redirect_to($pp1->admins) ; break;
       case 'category' :
         Tbl_crud_category::dd($pp1, $other);
-        Config_allsites::Redirect_to($pp1->categories) ; break;
+        utl::Redirect_to($pp1->categories) ; break;
       default: 
         echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
             .'T a b l e '. $pp1 .' does not exist' . '</h3>';
-        //Config_allsites::Redirect_to($pp1->filter_page) ;
+        //utl::Redirect_to($pp1->filter_page) ;
         break;
     }
   }

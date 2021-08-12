@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 //J:\awww\www\fwphp\glomodul4\blog\home.php
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
@@ -81,8 +81,9 @@ if( $category_from_url ) {
                       echo '<br />$binds='; print_r($binds) ;
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     echo '</pre>'; }
-$rcnt_filtered_posts = Tbl_crud_post::rrcount( //$sellst='COUNT(*) COUNT_ROWS'
-   $qrywhere, $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+$rcnt_filtered_posts = Tbl_crud_post::rrcount( //'posts'
+   $qrywhere, $binds
+   , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
 $pgn_links = self::get_pgnnav($rcnt_filtered_posts, '/i/home/', $uriq, $rblk);
 $pgnnavbar        = $pgn_links['navbar'];
@@ -91,7 +92,7 @@ $first_rinblock   = $pgn_links['first_rinblock'];
 $last_rinblock    = $pgn_links['last_rinblock'];
 
 if( $pgordno_from_url ) {
-  $dbi = Db_allsites::getdbi() ;
+  $dbi = utldb::getdbi() ;
   switch ($dbi)
   {
     case 'oracle' : 
@@ -108,7 +109,7 @@ if( $pgordno_from_url ) {
       echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
                 .'D B I '. $dbi .' does not exist' . '</h3>';
       break;
-    //default: Config_allsites::Redirect_to($pp1->filter_page) ; break;
+    //default: utl::Redirect_to($pp1->filter_page) ; break;
   }
   
 }
@@ -121,7 +122,7 @@ if( $pgordno_from_url ) {
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     echo '</pre>'; }
 
-Db_allsites::setdo_pgntion('1') ; 
+utldb::setdo_pgntion('1') ; 
 $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
   , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
@@ -162,7 +163,7 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
 
       $ordno = 0 ;
       // isset($rx->id)   Tbl_crud_post::...
-      while ( $rx = Db_allsites::rrnext( $cursor_posts
+      while ( $rx = utldb::rrnext( $cursor_posts
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
       { 
         ++$ordno ;
@@ -253,7 +254,7 @@ $cursor_posts = Tbl_crud_post::rr( $sellst='*', $qrywhere, $binds
                       nl2br(self::escp($rx->summary))
                    ));
               } else {
-                //Db_allsites::readmkdpost($pp1, '','only_help'); //means  i n c  here html 
+                //utldb::readmkdpost($pp1, '','only_help'); //means  i n c  here html 
               }
               ?>
             </h4>

@@ -22,7 +22,7 @@ $pp1  = $this->getp('pp1') ;
                        ,'aaaaaaa'=>'bbbbbbb'
                     ] ) ; }
 if(isset($_SESSION["userid"]) and $_SESSION["userid"]){ 
-   Config_allsites::Redirect_to($pp1->dashboard);
+   utl::Redirect_to($pp1->dashboard);
 } else {
                     if ('') {self::jsmsg( [ basename(__FILE__) //. __METHOD__ 
                     .', line '. __LINE__ .' SAYS'=>' '

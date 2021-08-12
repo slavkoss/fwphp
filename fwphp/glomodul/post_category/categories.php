@@ -6,8 +6,8 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_category ;
 
-use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
@@ -64,8 +64,8 @@ $cursor_category = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", 
 
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
-       echo Config_allsites::ErrorMessage();
-       echo Config_allsites::SuccessMessage();
+       echo utl::ErrorMessage();
+       echo utl::SuccessMessage();
        ?>
 
       <form class="" action="<?=$pp1->categories?>" method="post">
@@ -112,7 +112,7 @@ $cursor_category = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", 
       <?php
 
       $SrNo = 0;
-      while ( $rx = Db_allsites::rrnext( $cursor_category
+      while ( $rx = utldb::rrnext( $cursor_category
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
       {
         $SrNo++;

@@ -2,7 +2,7 @@
 // J:\awww\www\fwphp\glomodul\user\upd_ user_loggedin_frm.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
-use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
@@ -16,7 +16,7 @@ $AdminId = (int)$_SESSION["userid"];
 if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 {
   $cursor = Tbl_crud_admin::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
-  Config_allsites::Redirect_to($pp1->home_usr);
+  utl::Redirect_to($pp1->home_usr);
 } //E n d  of Submit Button If-Condition
 
 

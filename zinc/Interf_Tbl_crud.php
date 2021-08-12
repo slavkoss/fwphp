@@ -20,8 +20,13 @@ interface Interf_Tbl_crud
   //in shared cls because is not module dependant :
   //static public function rrnext(object $cursor): object ;  //returns $cursor
 
+  static public function rrcnt( //string $sellst, 
+    string $tbl, array $other=[]
+  ): int ;
+
   static public function rrcount( //string $sellst, 
-    string $qrywhere='', array $binds=[], array $other=[] ): int ;
+    string $qrywhere='', array $binds=[], array $other=[] 
+  ): int ;
 
   // pre-query - open cursor (execute-query loop is in view script)
   //returns $cursor

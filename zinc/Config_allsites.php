@@ -1,17 +1,17 @@
 <?php
-// J:\awww\www\zinc\Config_allsites.php
-declare(strict_types=1);
 /**
-*  J:\awww\www\zinc\Config_allsites.php
+*  J:\awww\www\zinc\Config_ allsites.php
 * cs02. I N C L U D E D  only i n  i n d e x.p h p 
 * Here is :  module attributes and methods, module CRUD is in module dirs 
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+
+declare(strict_types=1);
+
 namespace B12phpfw\core\zinc ;
-//use B12phpfw\core\zinc\Config_allsites ;
 
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
-abstract class Config_allsites //extends Db_allsites
+abstract class Config_allsites //extends Db_ allsites
 {
   // can be named AbstractEntity
   /** 
@@ -191,7 +191,7 @@ abstract class Config_allsites //extends Db_allsites
           //atr. assigned f or autol.cls in index.php and home ctr before $ p p 1 :
           //, 'autoloads'             => []
           //
-          , 'A D R E S S E S  in Config_allsites.php' => 'cs02. R O U T I N G ~~~~~~~~~~~~~~~~'
+          , 'A D R E S S E S  in Config_ allsites.php' => 'cs02. R O U T I N G ~~~~~~~~~~~~~~~~'
           //, 'vendor_namesp_prefix'=> $vendor_namesp_prefix
           //, 'module_towsroot'     => $module_towsroot
           //, 'wsroot_path'         => $wsroot_path
@@ -287,14 +287,14 @@ abstract class Config_allsites //extends Db_allsites
         $akc = $pp1->uriq->i ;      //fn name (by user entered URL we put in uriq array)
         $this->call_module_method($akc, $pp1) ; //protected fn (in child cls) calls private fns (in child cls)
         // OR (fns in child cls must be public, not private to be called from here) :
-        //Fatal error: Uncaught Error: Call to private method B12phpfw\Home_ctr::home() from context 'B12phpfw\Config_allsites' 
+        //Fatal error: Uncaught Error: Call to private method B12phpfw\Home_ctr::home() from context 'B12phpfw\Config_ allsites' 
         //$this->$akc($pp1) ; 
   } //e n d  __ c o n s t r u c t  see (**3)
 
 
   //UNIVERSAL prop. setter to assign prop. :  __set MAGIC METHOD or:
   public function setp($property, $value){
-    //not working static fn if(property_exists('Config_allsites', $property)){
+    //not working static fn if(property_exists('Config_ allsites', $property)){
     if(property_exists($this, $property)){
       $this->$property = $value;
     }

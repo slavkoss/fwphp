@@ -85,7 +85,7 @@ switch ($akc): // true
 
 default: // b1b2flat
   // ************************************************
-  // H T M L  T A B L E
+  // 3. H T M L  T A B L E
   // ************************************************
   ?>
   <a href="B2_cre_upd.php">Add book</a> Total books: <?=Model::getDetailsCount()?>
@@ -125,23 +125,23 @@ default: // b1b2flat
       </td>
 
       <td><?=htmlspecialchars($b->isbn)?>
-      <a href="?delproduct=<?=$b->id?>"><span style="color:red;">Delete</a> &nbsp;id=<?=$b->id?>
+      <a href="?delproduct=<?=$b->id?>"><span style="color:red;" title="Delete book, product">Delete</a> &nbsp;id=<?=$b->id?>
       </td>
 
       <td><?=htmlspecialchars($b->publisher)?></td>
 
       <td><?=htmlspecialchars($b->year)?></td>
 
-      <td width="40%"><?=nl2br(htmlspecialchars($b->summary))?></td>
+      <td width="35%"><?=nl2br(htmlspecialchars($b->summary))?></td>
 
       <td><?=$b->copies?></td>
 
-      <td>
-      <a href="lnktbl_crerec.php?book=<?=$b->id?>">Lend</a><br />=Bill<br />item
+      <td width="5%">
+      <a href="lnktbl_crerec.php?book=<?=$b->id?>" title="Waybill item, Bill of lading">Lend</a>
       </td>
 
-      <td>
-      <a href="B2_cre_upd.php?bookid=<?=$b->id?>&authorid=<?=$a->id?>">Edit</a> book
+      <td width="5%">
+      <a href="B2_cre_upd.php?bookid=<?=$b->id?>&authorid=<?=$a->id?>" title="Edit book, product">Edit</a> 
       </td>
 
       </tr>

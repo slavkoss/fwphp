@@ -17,12 +17,12 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\user ;
 
-use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
 use B12phpfw\module\blog\Home_ctr ;
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin ;
 
 use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 //use Model\UserInterface, //    Model\User ; //entity
 
 // Gateway class - separate DBI layers
@@ -35,7 +35,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    $cursor =  utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
@@ -48,15 +48,19 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   {
     // open cursor (execute-query loop is in view script)
-    $cursor = Db_allsites::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+    $cursor = utldb::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
+  static public function rrcnt( string $tbl, array $other=[] ): int { 
+    $rcnt = utldb::rrcount($tbl) ;
+    return (int)utl::escp($rcnt) ;
+  } 
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    $cursor_rowcnt_admins =  Db_allsites::rr(
+    $cursor_rowcnt_admins =  utldb::rr(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds
        , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
@@ -67,12 +71,12 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
 
   static public function rr_byid( int $id, array $other=[] ): object
   {
-    $cursor_admin_byid =  Db_allsites::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
+    $cursor_admin_byid =  utldb::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
     ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
     //,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
     ,$other[]=['caller2' => __FILE__ .' '.', ln '. __LINE__ ]
     ) ;
-    $rx = Db_allsites::rrnext( $cursor_admin_byid ) ;
+    $rx = utldb::rrnext( $cursor_admin_byid ) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -84,16 +88,16 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     {
       //WHERE FILTEREDFLD_HERE = :filterfldval ORDER BY datetime desc"
       //eg [ ['placeh'=>':category_from_url', 'valph'=>$filterfldval, 'tip'=>'str'] ]
-      $cursor = Db_allsites::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+      $cursor = utldb::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
         , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
     }
     else{
       // default SQL query
-      $cursor =  Db_allsites::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+      $cursor =  utldb::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
          , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     }
 
-    //$Db_allsites::disconnect(); //problem ON LINUX
+    //$utldb::disconnect(); //problem ON LINUX
     return $cursor ;
   }
 
@@ -111,7 +115,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           ]
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-   $row = ''; while ( $r = Db_allsites::rrnext($cursor_admin_byname) and isset($r->id) ):
+   $row = ''; while ( $r = utldb::rrnext($cursor_admin_byname) and isset($r->id) ):
     {$row = $r ;} endwhile;
                   //echo '<pre>'. __METHOD__ .' SAYS : $row='; print_r($row); echo '</pre>';
     if (isset($r->username) and $r->username == $username) {return true;}
@@ -124,7 +128,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     if (isset($_SESSION["userid"])) { return true;
     }  else {
       $_SESSION["ErrorMessage"]="You are not logged in, log in is required  f o r  action you want !";
-      //Config_allsites::Redirect_to(Config_allsites::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
+      //utl::Redirect_to(utl::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
     }
   }
 
@@ -140,7 +144,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     //
     session_destroy() ;
     // '/' is  U R L query pieces delimiter, '|' is parts of pieces delimiter
-    Config_allsites::Redirect_to(QS.str_replace('|','/',$pp1->logout)) ;
+    utl::Redirect_to(QS.str_replace('|','/',$pp1->logout)) ;
   }
   //e n d  S E S S  I O N  M E T H O D S
 
@@ -178,7 +182,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           if (empty($_POST["username"])) {
              $_SESSION["ErrorMessage"] = "Name is required!";
              goto redirto ;
-          } else { $username = Config_allsites::escp($_POST["username"]);
+          } else { $username = utl::escp($_POST["username"]);
             // check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
               $_SESSION["ErrorMessage"] = '<span style="color: violet; font-size: large; font-weight: bold;">'
@@ -190,7 +194,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
         if (empty($_POST["password"])) {
            $_SESSION["ErrorMessage"] = "Password is required!";
            goto redirto ;
-        } else { $password = Config_allsites::escp($_POST["password"]); }
+        } else { $password = utl::escp($_POST["password"]); }
                     /*if ('') {$db->jsmsg( [ //b asename(__FILE__).
                        __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE Config_allsites construct '
                        ,'$_SESSION["username"]'=>isset($_SESSION["username"])?$_SESSION["username"]:'NOT SET'
@@ -207,7 +211,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
                       echo '</pre>'; }
       }
 
-      $cursor_usr = Db_allsites::rr(
+      $cursor_usr = utldb::rr(
           "SELECT * FROM admins WHERE username=:username AND password=:password"
         , $binds=[
             ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
@@ -215,7 +219,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           ]
         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
       ) ;
-      $rx = Db_allsites::rrnext($cursor_usr);
+      $rx = utldb::rrnext($cursor_usr);
       //all row fld names lowercase
                     if ('') {  //if ($module_ arr['dbg']) {
                       echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
@@ -235,7 +239,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       switch (true)
       {
         case isset($_SESSION["userid"]) and $_SESSION["userid"] :
-          Config_allsites::Redirect_to($goscript) ; //$pp1-> dashboard
+          utl::Redirect_to($goscript) ; //$pp1-> dashboard
           break ;
         case $rx :
           $_SESSION["userid"]     =$rx->id;
@@ -243,12 +247,12 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           $_SESSION["adminname"]  =$rx->aname;
           $_SESSION["SuccessMessage"] = "Wellcome ".$_SESSION["adminname"]."!";
 
-          Config_allsites::Redirect_to($goscript); //$pp1-> dashboard
+          utl::Redirect_to($goscript); //$pp1-> dashboard
           break;
         default:
           $_SESSION["username"]     = $username;
           //$_SESSION["ErrorMessage"] ="Incorrect username/password";
-          Config_allsites::Redirect_to($pp1->loginfrm);
+          utl::Redirect_to($pp1->loginfrm);
           break;
       }
 
@@ -308,7 +312,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     }
     
     if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
-      Config_allsites::Redirect_to($pp1->admins); goto fnerr ; //exit(0) ;
+      utl::Redirect_to($pp1->admins); goto fnerr ; //exit(0) ;
     }
 
       // 3. I N S E R T  D B T B L  R O W
@@ -325,7 +329,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
          ,['placeh'=>':adminname', 'valph'=>$Admin   , 'tip'=>'str']
          ] ;
 
-      $cursor = Db_allsites::cc( self::$tbl, $flds, $valsins, $binds
+      $cursor = utldb::cc( self::$tbl, $flds, $valsins, $binds
                 , $other=['caller'=>__FILE__.' '.',ln '.__LINE__] );
 
       //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
@@ -335,7 +339,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       //move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
 
     // g e t  i d  - see D b _ a l l s i t e s  rr_ last_ id($tbl)
-      Config_allsites::Redirect_to($pp1->admins); 
+      utl::Redirect_to($pp1->admins); 
       return('1');
       fnerr:
       return('0');
@@ -373,7 +377,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     }
     if ($err > '') {
       $_SESSION["ErrorMessage"]= $err ;
-      Config_allsites::Redirect_to($pp1->upd_user_loggedin);
+      utl::Redirect_to($pp1->upd_user_loggedin);
       goto fnerr ; //exit(0) ;
     }
 
@@ -392,7 +396,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
         $binds[] = ['placeh'=>':Image', 'valph'=>$Image, 'tip'=>'str'] ;
       }
 
-      $cursor = Db_allsites::uu(self::$tbl, $flds, $qrywhere, $binds
+      $cursor = utldb::uu(self::$tbl, $flds, $qrywhere, $binds
         //, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]
       );
 

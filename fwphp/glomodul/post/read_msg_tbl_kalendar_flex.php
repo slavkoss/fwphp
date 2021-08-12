@@ -4,10 +4,10 @@
 //if (!defined('URLMODUL_CSS')) { define('URLMODUL_CSS', $module_relpath.'/css'); }
 //J:\awww\www\fwphp\glomodul\post\read_msg_tbl_kalendar_flex.css
 namespace B12phpfw ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\module\user\Home_ctr ;
 
-switch (Db_allsites::getdbi()) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
+switch (utldb::getdbi()) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
   default: $tmp_datetime = 'datetime' ; break; }
 
 $css_files = ["/zinc/themes/read_msg_tbl_kalendar_flex.css"];
@@ -82,7 +82,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
 
     //           EMPTY  D A Y SQUARE (NO  P O S T S)
     //if (!($rx = $this->rrnext($cursor_filtered_posts)))
-    if ( $rx = Db_allsites::rrnext( $cursor_filtered_posts
+    if ( $rx = utldb::rrnext( $cursor_filtered_posts
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and !$rx->rexists )
     { 
                     if ('') {self::jsmsg( [ //b asename(__FILE__).
@@ -139,7 +139,7 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
             $rows_sameday_str .= " $link "; //DDD$post_ddabr \n\t\t\t
 
             //if ( !($rx = $this->rrnext($cursor_filtered_posts)) ) {break;}
-            if ( $rx = Db_allsites::rrnext( $cursor_filtered_posts
+            if ( $rx = utldb::rrnext( $cursor_filtered_posts
               , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and !$rx->rexists )
               {break;} ;
         } endwhile; //all same day r o w s

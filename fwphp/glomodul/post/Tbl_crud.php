@@ -13,11 +13,11 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
 
-use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
 use B12phpfw\module\blog\Home_ctr ;
 
 use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was Home
@@ -28,7 +28,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    $cursor =  utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
@@ -38,29 +38,33 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
   static public function rr(
     string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[] ): object
   { //object $dm
-    $cursor =  Db_allsites::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+    $cursor =  utldb::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
+  static public function rrcnt( string $tbl, array $other=[] ): int { 
+    $rcnt = utldb::rrcount($tbl) ;
+    return (int)utl::escp($rcnt) ;
+  } 
   static public function rrcount( //string $sellst,
     string $qrywhere='', array $binds=[], array $other=[] ): int
   {
-    $cursor_rowcnt_filtered_posts =  Db_allsites::rr(
+    $cursor_rowcnt_filtered_posts =  utldb::rr(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     $rcnt = self::rrnext( $cursor_rowcnt_filtered_posts
      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
     return (int)$rcnt ;
-  }
+  } 
 
   static public function rr_byid( int $id, array $other=[] ): object
   {
-    $cursor =  Db_allsites::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
+    $cursor =  utldb::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
     ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
     ,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
     ) ;
-    $rx = Db_allsites::rrnext($cursor) ;
+    $rx = utldb::rrnext($cursor) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -68,7 +72,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
   static public function rrnext(object $cursor, array $other=[]): object
   {
     // not used
-    $rx = Db_allsites::rrnext($cursor) ;
+    $rx = utldb::rrnext($cursor) ;
     return $rx ;
 
   }
@@ -94,12 +98,12 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
 
     else{
       //             DEFAULT SQL QUERY :
-      $cursor = Db_allsites::rr( "SELECT $sellst FROM ".self::$tbl." ORDER BY datetime desc"
+      $cursor = utldb::rr( "SELECT $sellst FROM ".self::$tbl." ORDER BY datetime desc"
          , $binds, $other ) ;
       return $cursor ;
     }
 
-    //$Db_allsites::disconnect(); //problem ON LINUX
+    //$utldb::disconnect(); //problem ON LINUX
     //self::$cursor = $cursor ;
     return $cursor ;
 
@@ -145,7 +149,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
 
     if ($valid === '1') {} else {
       $_SESSION["ErrorMessage"]= $valid ;
-      Config_allsites::Redirect_to($pp1->addnewpost);
+      utl::Redirect_to($pp1->addnewpost);
       goto fnend ; //exit(0) ;
     }
 
@@ -163,14 +167,14 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
      ,['placeh'=>':img_desc',     'valph'=>$img_desc, 'tip'=>'str']
     ] ;
 
-    $cursor = Db_allsites::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
 
     move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
 
     //if($cursor){ $_SESSION["SuccessMessage"]="Post added Successfully";
     //}else { $_SESSION["ErrorMessage"]= "Post adding went wrong. Try Again !"; }
 
-    Config_allsites::Redirect_to($pp1->addnewpost);
+    utl::Redirect_to($pp1->addnewpost);
 
     return('1');
     fnend:
@@ -207,7 +211,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     }
     if ($valid === '1') {} else {
       $_SESSION["ErrorMessage"]= $valid ;
-      Config_allsites::Redirect_to($pp1->posts);
+      utl::Redirect_to($pp1->posts);
       goto fnend ; //exit(0) ;
     }
 
@@ -230,7 +234,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
         $binds[] = ['placeh'=>':Image', 'valph'=>$Image, 'tip'=>'str'] ;
       }
 
-      $cursor = Db_allsites::uu( self::$tbl, $flds, $qrywhere, $binds );
+      $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds );
 
       // 4. U P L O A D  I M A G E
       move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);

@@ -4,7 +4,7 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 //namespace B12phpfw ;
 //namespace B12phpfw\dbadapter\user ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 //use PDO;
@@ -38,7 +38,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
           <h1 class="lead">Posts</h1>
           <h4 class="display-5"><i class="fab fa-readme"></i>
             <?php 
-              echo Db_allsites::rrcount('posts') ; 
+              echo utldb::rrcount('posts') ; 
             ?>
           </h4>
         </div>
@@ -48,7 +48,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
         <div class="card-body">
           <h1 class="lead">Comments</h1>
           <h4 class="display-5"><i class="fas fa-comments"></i>
-          <?=Db_allsites::rrcount('comments')?></h4>
+          <?=utldb::rrcount('comments')?></h4>
         </div>
       </div>
 
@@ -56,7 +56,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
         <div class="card-body">
           <h1 class="lead">Categories</h1>
           <h4 class="display-5"><i class="fas fa-folder"></i>
-              <?=Db_allsites::rrcount('category')?>
+              <?=utldb::rrcount('category')?>
           </h4>
         </div>
       </div>
@@ -66,7 +66,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
           <h1 class="lead">Admins</h1>
           <!--  -->
           <h4 class="display-5"><i class="fas fa-users"></i>
-               <?=Db_allsites::rrcount('admins')?></h4>
+               <?=utldb::rrcount('admins')?></h4>
         </div>
       </div>
 
@@ -93,22 +93,22 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
         <?php
 
         $SrNo = 0;
-      $dbi = Db_allsites::getdbi() ;
+      $dbi = utldb::getdbi() ;
       switch ($dbi)
       {
         case 'oracle' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
-          Db_allsites::setdo_pgntion('1') ;
+          utldb::setdo_pgntion('1') ;
 
-          $cursor = Db_allsites::rr("SELECT * FROM posts ORDER BY datetime desc"
+          $cursor = utldb::rr("SELECT * FROM posts ORDER BY datetime desc"
             , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
         break;
 
         case 'mysql' :
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
           $binds[]=['placeh'=>':rblk', 'valph'=>6, 'tip'=>'int'];
-          Db_allsites::setdo_pgntion('1') ;
+          utldb::setdo_pgntion('1') ;
 
           $cursor_posts = Tbl_crud_post::rr($sellst='*'
              , $qrywhere= "'1'='1' ORDER BY datetime desc LIMIT :first_rinblock, :rblk"
@@ -117,7 +117,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
       }
 
       // isset($rx->id)   Tbl_crud_post::...
-      while ( $rx = Db_allsites::rrnext( $cursor_posts
+      while ( $rx = utldb::rrnext( $cursor_posts
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       { //all row fld names lowercase
           $SrNo++;
@@ -169,8 +169,8 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 </section>
 <!-- Main Area End
                         //$sql = "S ELECT * FROM posts ORDER BY datetime desc LIMIT 0,6";
-                        //Db_allsites::p repareSQL($sql); Db_allsites::e xecute();;
-                        //while ($rx = Db_allsites::f etchNext()) 
+                        //utldb::p repareSQL($sql); utldb::e xecute();;
+                        //while ($rx = utldb::f etchNext()) 
  -->
 
 

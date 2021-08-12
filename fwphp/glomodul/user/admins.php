@@ -4,7 +4,7 @@ declare(strict_types=1);
 //namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\dbadapter\user\Tbl_crud   as Tbl_crud_admin ;
 use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
@@ -144,7 +144,7 @@ require_once("navbar_admin.php");
         <tbody>
       <?php
       $SrNo = 0;
-      while ( $rx = Db_allsites::rrnext( $cursor_admins
+      while ( $rx = utldb::rrnext( $cursor_admins
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       {
         $id = $rx->id ;

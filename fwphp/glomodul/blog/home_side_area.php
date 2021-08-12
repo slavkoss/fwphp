@@ -1,25 +1,25 @@
 <?php
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
 
 //$pp1  = $this->getp('pp1') ;
 $cursor_categ = Tbl_crud_category::rr($sellst='*', $qrywhere="'1'='1' ORDER BY title", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-$dbi = Db_allsites::getdbi() ;
+$dbi = utldb::getdbi() ;
 switch ($dbi)
 {
   case 'oracle' :
     $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
     $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
-    Db_allsites::setdo_pgntion('1') ;
+    utldb::setdo_pgntion('1') ;
 
     $cursor_recent_posts = Tbl_crud_post::rr($sellst='*', $qrywhere="'1'='1' ORDER BY datetime desc", $binds  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
   break;
   case 'mysql' :
     $binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
     $binds[]=['placeh'=>':rblk', 'valph'=>5, 'tip'=>'int'];
-    Db_allsites::setdo_pgntion('1') ;
+    utldb::setdo_pgntion('1') ;
     $cursor_recent_posts = Tbl_crud_post::rr($sellst='*', $qrywhere="'1'='1' ORDER BY datetime desc", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
   break;
   default:
@@ -58,7 +58,7 @@ switch ($dbi)
     <div class="card-body">
       <a href="<?=$pp1->filter_postcateg?>">ALL</a>&nbsp;&nbsp;&nbsp;
         <?php
-        while ( $rx = Db_allsites::rrnext( $cursor_categ
+        while ( $rx = utldb::rrnext( $cursor_categ
           , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
         {
             ?>
@@ -80,7 +80,7 @@ switch ($dbi)
     <div class="card-body">
       <?php
       $ii=0 ;
-      while ( $rx = Db_allsites::rrnext( $cursor_recent_posts
+      while ( $rx = utldb::rrnext( $cursor_recent_posts
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       {
         if ($ii>9) break ;

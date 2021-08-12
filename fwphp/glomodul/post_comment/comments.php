@@ -3,7 +3,7 @@
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_comment ;
 
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 //use B12phpfw\module\blog\Home_ctr ;
 
@@ -60,7 +60,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
       $SrNo = 0;
-      while ( $rcomment_disappr = Db_allsites::rrnext( $cursor_comments
+      while ( $rcomment_disappr = utldb::rrnext( $cursor_comments
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rcomment_disappr->rexists ):
       {
         $SrNo++; ?>
@@ -70,7 +70,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
           <td><?php echo self::escp($rcomment_disappr->datetime); ?></td>
           <td><?php echo self::escp($rcomment_disappr->name); ?></td>
           <td><?php 
-            switch (Db_allsites::getdbi()) { 
+            switch (utldb::getdbi()) { 
               case 'oracle' : echo self::escp($rcomment_disappr->commenttxt); break; 
               default: echo self::escp($rcomment_disappr->comment); break; 
             }
@@ -123,7 +123,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
       $SrNo = 0;
-      while ( $rcomment_appr = Db_allsites::rrnext( $cursor_comments
+      while ( $rcomment_appr = utldb::rrnext( $cursor_comments
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rcomment_appr->rexists ):
       {
         $SrNo++;
@@ -134,7 +134,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
           <td><?php echo self::escp($rcomment_appr->datetime); ?></td>
           <td><?php echo self::escp($rcomment_appr->name); ?></td>
           <td><?php 
-            switch (Db_allsites::getdbi()) {
+            switch (utldb::getdbi()) {
               case 'oracle' : echo self::escp($rcomment_appr->commenttxt); break; 
               default: echo self::escp($rcomment_appr->comment); break; 
             }

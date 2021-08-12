@@ -2,15 +2,15 @@
 //J:\awww\www\fwphp\glomodul4\blog\upd_post_frm.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
-use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
 use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_category;
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"]))
 {
   $cursor = Tbl_crud_post::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
-  Config_allsites::Redirect_to($pp1->posts);
+  utl::Redirect_to($pp1->posts);
 } //E n d  of Submit Button If-Condition
 
 
@@ -48,7 +48,7 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
 
        // returns object :
        $rpost_toedit = Tbl_crud_post::rr_byid( $IdFromURL, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
-      switch (Db_allsites::getdbi()) { case 'oracle' : $rpost_toedit = self::rlows($rpost_toedit) ; break; default: break; }
+      switch (utldb::getdbi()) { case 'oracle' : $rpost_toedit = self::rlows($rpost_toedit) ; break; default: break; }
 
          $TitleToBeUpdated    = $rpost_toedit->title;
          $CategoryToBeUpdated = $rpost_toedit->category;
@@ -78,7 +78,7 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
               <!-- LOV  C a t e g o r i e s  from  D B -->
               <select class="form-control" id="CategoryTitle"  name="Category">
                  <?php 
-              while ( $rx = Db_allsites::rrnext( $cursor_LOVcategory
+              while ( $rx = utldb::rrnext( $cursor_LOVcategory
                 , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
             {
               ?>

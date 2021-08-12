@@ -16,7 +16,7 @@ namespace B12phpfw\dbadapter\post_comment ;
 use B12phpfw\module\blog\Home_ctr ;
 
 use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsites
@@ -28,7 +28,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    $cursor =  utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
@@ -36,25 +36,29 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
   static public function rr(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
+  static public function rrcnt( string $tbl, array $other=[] ): int { 
+    $rcnt = utldb::rrcount($tbl) ;
+    return (int)utl::escp($rcnt) ;
+  } 
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    $cursor_rowcnt_post_comments =  Db_allsites::rr(
+    $cursor_rowcnt_post_comments =  utldb::rr(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     $rcnt = self::rrnext( $cursor_rowcnt_post_comments
      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
     return (int)$rcnt ;
-  }
+  } 
 
   static public function rrnext(object $cursor): object
   { 
-    $rx = Db_allsites::rrnext($cursor) ;
+    $rx = utldb::rrnext($cursor) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -97,11 +101,11 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
                       echo '<br />:post_id='; print_r($post_id) ;
                     exit(0) ;
                     echo '</pre>'; }
-    $cursor = Db_allsites::rr($dml
+    $cursor = utldb::rr($dml
       , $binds=[ ['placeh'=>':post_id', 'valph'=>$post_id, 'tip'=>'int'] ]
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
-    while ($row = Db_allsites::rrnext($cursor)): {$rcnt = $row ;} endwhile;
+    while ($row = utldb::rrnext($cursor)): {$rcnt = $row ;} endwhile;
     $row_count = $rcnt->COUNT_ROWS ;
 
     //$dm::disconnect(); //problem ON LINUX
@@ -138,7 +142,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
     }
     if ($valid === '1') {} else {
       $_SESSION["ErrorMessage"]= $valid ;
-      Config_allsites::Redirect_to($pp1->read_post."id/{$id}"); //$IdFromURL
+      utl::Redirect_to($pp1->read_post."id/{$id}"); //$IdFromURL
       goto fnend ; //exit(0) ;
     } 
 
@@ -155,13 +159,13 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
      ,['placeh'=>':id',       'valph'=>$id, 'tip'=>'int']
     ] ;
 
-    $cursor = Db_allsites::cc( self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__] );
+    $cursor = utldb::cc( self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__] );
 
     //var_dump($c ursor_cc_comments);
     //if($cursor){ $_SESSION["SuccessMessage"]="Comment added Successfully";
     //}else { $_SESSION["ErrorMessage"]="Post Comment adding went wrong (Comment NOT added). Try Again !"; }
 
-    //Config_allsites::Redirect_to($pp1->read_post."id/{$id}");
+    //utl::Redirect_to($pp1->read_post."id/{$id}");
 
 
 
@@ -200,7 +204,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
        ,['placeh'=>':id',     'valph'=>$id, 'tip'=>'int']
       ] ;
 
-      $cursor = Db_allsites::uu( self::$tbl, $flds, $qrywhere, $binds );
+      $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds );
 
       if ($cursor) {
         if ($stat == 'ON') {$_SESSION["SuccessMessage"]="Comment $id approved ! " ;

@@ -18,11 +18,11 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_category ;
 
-use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
 use B12phpfw\module\blog\Home_ctr ;
 
 use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
@@ -32,23 +32,27 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    $cursor =  utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
   static public function rr(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
+  static public function rrcnt( string $tbl, array $other=[] ): int { 
+    $rcnt = utldb::rrcount($tbl) ;
+    return (int)utl::escp($rcnt) ;
+  } 
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    //$cursor =  Db_allsites::rr("SELECT $sellst FROM comments WHERE $qrywhere"
-    $cursor_rowcnt =  Db_allsites::rr(
+    //$cursor =  utldb::rr("SELECT $sellst FROM comments WHERE $qrywhere"
+    $cursor_rowcnt =  utldb::rr(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     //return $cursor_rowcnt ;
@@ -63,17 +67,17 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
      , array $binds=[], array $other=[]): object  //returns $cursor
   {
       // default SQL query
-      $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl
+      $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl
       ." WHERE $qrywhere ORDER BY title"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-    //$Db_allsites::disconnect(); //problem ON LINUX
+    //$utldb::disconnect(); //problem ON LINUX
     return $cursor ;
   }
 
 
   /* public function rr_last_id(object $dm) {
-    return Config_allsites::rr_last_id(self::$tbl) ;
+    return utl::rr_last_id(self::$tbl) ;
   } */
 
 
@@ -98,13 +102,13 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     $valid = true ;
     if(empty($category_title)){ $valid = false;
       $_SESSION["ErrorMessage"] = "All fields must be filled out";
-      Config_allsites::Redirect_to($pp1->categories);
+      utl::Redirect_to($pp1->categories);
     }elseif (strlen($category_title)<3) { $valid = false;
       $_SESSION["ErrorMessage"] = "Category title should be greater than 2 characters";
-      Config_allsites::Redirect_to($pp1->categories);
+      utl::Redirect_to($pp1->categories);
     }elseif (strlen($category_title)>49) { $valid = false;
       $_SESSION["ErrorMessage"] = "Category title should be less than than 50 characters";
-      Config_allsites::Redirect_to($pp1->categories);
+      utl::Redirect_to($pp1->categories);
     }
     if (!$valid) {goto fnerr ;}
 
@@ -118,9 +122,9 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
      ,['placeh'=>':datetime',     'valph'=>$datetime, 'tip'=>'str']
     ] ;
 
-    //$last_id1 = Db_allsites::rr_last_id($tbl) ;
-    $cursor = Db_allsites::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
-    //$last_id2 = Db_allsites::rr_last_id($tbl) ;
+    //$last_id1 = utldb::rr_last_id($tbl) ;
+    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    //$last_id2 = utldb::rr_last_id($tbl) ;
 
     return('1');
     fnerr:

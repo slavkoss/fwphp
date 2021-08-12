@@ -38,7 +38,7 @@ class Autoload
       .' $nscls='. $nscls;
 
     $nscls_linfmt = str_replace('\\',$DS, $nscls) ; //ON LINUX
-    $clsname     = basename($nscls_linfmt) ;        //eg = Config_allsites
+    $clsname     = basename($nscls_linfmt) ;        //eg = Config_ allsites
     // Eliminated cls name from namespaced cls name :
     $last_nspart = basename(dirname($nscls_linfmt)) ; //=tasks, ON LINUX='.' !!! ???
     
@@ -79,7 +79,7 @@ class Autoload
       // 2. Last part = Eliminated cls name from namespaced cls name from  U R L
       if ( $last_nspart          //from  U R L, eg tasks
            == $routTBL_dirname   //eg tasks, then zinc
-           and file_exists($script) //eg J:/awww/www/zinc/Config_allsites.php
+           and file_exists($script) //eg J:/awww/www/zinc/Config_ allsites.php
       )
       {
         $nsdir_routTBLclsdir = $routTBL_dirname ; //eg tasks, also returned to caller

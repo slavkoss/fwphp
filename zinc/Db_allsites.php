@@ -10,7 +10,7 @@ declare(strict_types=1);
 // *************** FUNCTION 1. N A M E S P A C E S  ***************
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
-use B12phpfw\core\zinc\Config_allsites ;
+//use B12phpfw\core\zinc\Config_allsites as utl ;
             //namespace App\Library;  //use App\Library\App;
             //use PDO;
 
@@ -18,7 +18,7 @@ use B12phpfw\core\zinc\Config_allsites ;
 trait Db_allsites
 {
   /**
-  * DB Trait seems better (?) than abstract cls-es inheritance in B12phpfw because Home_ctr may inherit Config_allsites which NOT extends Db_allsites, so Home_ctr may work with more DB trait. Solution without DB traits in B12phpfw also works (is NOT simpler, better ?).
+  * DB Trait seems better (?) than abstract cls-es inheritance in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_allsites, so Home_ctr may work with more DB trait. Solution without DB traits in B12phpfw also works (is NOT simpler, better ?).
   *
   * B12phpfw has DB adapter for nonCompound module is table CRUD, eg J:\awww\www\fwphp\glomodul\user\Tbl_crud.php.
   *B12phpfw "user" dir contains module (page) code for users table (CRUD code... non shareable with other modules , shares are in zinc dir).
@@ -86,7 +86,7 @@ trait Db_allsites
               <li>Cls <?=basename(explode('::', __METHOD__)[0])?> contains methods : <?=__METHOD__?>, closeConnection, getDBH,
                  <b>abstract (!!) CRUD methods :</b> countAll, all, findById, findWhere, findBySql, completeQueryString, save, create, update, delete, checkCasting.
 
-              <li><b>DB Trait seems better ? than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_allsites which NOT extends Db_allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in zinc dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
+              <li><b>DB Trait seems better ? than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in zinc dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
               </ol>
               <?php
               }
@@ -185,7 +185,6 @@ trait Db_allsites
       if ($Executed) {$_SESSION["SuccessMessage"]="Row id $id Deleted Successfully ! ";
       }else { $_SESSION["ErrorMessage"]="Deleting Went Wrong. Try Again !"; }
 
-      //if (isset(Config_allsites::getp('uriq')->r)) { 
       if (isset($pp1->uriq->r)) { 
         self::Redirect_to(QS.'i/'. $pp1->uriq->r) ; 
       }
@@ -197,12 +196,15 @@ trait Db_allsites
   static public function rrnext(object $cursor, $other = []) //: object
   {
                 //echo '<pre>$other='; print_r($other); echo '</pre>';
+                if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
     $rx = $cursor->fetch(\PDO::FETCH_OBJ);
                 if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
-    //if (!is_object($rx)) { return ((object)$rx); }
-    if (!is_object($rx)) { return ((object)['rexists' => false]); }
+
+    if (!is_object($rx)) { 
+       return ((object)['rexists' => false]); 
+    }
     $rx->rexists = true ;
-    switch (self::getdbi()) { case 'oracle' : $rx = Config_allsites::rlows($rx) ; break; default: break; } //all row fld names lowercase
+    switch (self::getdbi()) { case 'oracle' : $rx = utl::rlows($rx) ; break; default: break; } //all row fld names lowercase
 
     return $rx ;
   }
@@ -251,9 +253,9 @@ trait Db_allsites
   {
                 if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
                 echo '<pre>';
+                echo '<br />$caller='; print_r($other) ; ;
                 echo '$dmlrr=' . $dmlrr ;
                 echo '<br />$binds='; print_r($binds) ;
-                echo '<br />$caller=' . $caller ;
                 echo '</pre>';
                 }
     self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
@@ -443,7 +445,7 @@ trait Db_allsites
                 if ('') {
                   /*
                   self::jsmsg( [ //b asename(__FILE__).' '.
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
+                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_ allsites construct '
                    ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
                    ,'$this->u riq'=>$this->u riq
                    ] ) ; */

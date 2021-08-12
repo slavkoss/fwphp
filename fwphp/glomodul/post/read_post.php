@@ -2,8 +2,8 @@
 // J:\awww\www\fwphp\glomodul\post\read_post.php
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 
-use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 
@@ -11,7 +11,7 @@ use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 // mostly M O D E L  C O D E (why M-V data flow : if this code is in  c t r  we have fat c t r)
 if(isset($_POST["Submit"])){
   Tbl_crud_post_comment::cc($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
-  Config_allsites::Redirect_to($pp1->read_post."id/{$pp1->uriq->id}"); //$IdFromURL
+  utl::Redirect_to($pp1->read_post."id/{$pp1->uriq->id}"); //$IdFromURL
 } //Ending of Submit Button If-Condition
 
 
@@ -63,7 +63,7 @@ if(isset($_POST["Submit"])){
       else{
         if (!isset($IdFromURL)) {
           $_SESSION["ErrorMessage"]="Bad Request !";
-          Config_allsites::Redirect_to($pp1->filter_page."1/i/home/");
+          utl::Redirect_to($pp1->filter_page."1/i/home/");
         }
 
         $cursor_posts = Tbl_crud_post::rr($sellst='*', $qrywhere= "id=:IdFromURL"
@@ -74,7 +74,7 @@ if(isset($_POST["Submit"])){
         ) ;
       }
 
-      while ( $rx = Db_allsites::rrnext( $cursor_posts
+      while ( $rx = utldb::rrnext( $cursor_posts
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       { //echo '<pre>'.__DIR__ .DS.'Uploads'.DS.$rx->image.'</pre>';
         ?>
@@ -191,7 +191,7 @@ if(isset($_POST["Submit"])){
         ) ;
 
 
-    while ( $rcomment = Db_allsites::rrnext( $cursor_comments
+    while ( $rcomment = utldb::rrnext( $cursor_comments
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rcomment->rexists ):
     { ?>
       <div>
