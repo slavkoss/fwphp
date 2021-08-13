@@ -1,14 +1,13 @@
 <?php
 // J:\awww\www\fwphp\glomodul\adrs\index.php
-//before adrs is not required - see $shares_ path
-namespace B12phpfw\module\adrs ; //see below **HELPNS
-//before zinc is not required - see $shares_ path
-use B12phpfw\core\zinc\Autoload ; //see below **HELPNS
+
+//LAST NS part (BEFORE CLSNAME IF ANY) eg "blog" or "adrs" is DIRNAME and module name.
+namespace B12phpfw\module\adrs ;
+use B12phpfw\core\zinc\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
 $app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
-//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
 $wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
 $shares_path = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
 
@@ -62,17 +61,25 @@ exit(0);
 
 
 /**
-*                    **HELPNS
-* first namespace part B12phpfw is NOT REQUIRED : vendor's name space's prefix (functional nspart)
-* 2nd ns part m o d u l e is NOT REQUIRED : functional ns part = processing (behavior) 
-*
-* FNSPs (FUNCTIONAL NS PARTS) are ignored by fw, ee we name them as we wish.
-*    We use FNSPs as description to depict WHAT CODE DOES (processing, behavior).
-*    May be more functional ns parts as we wish - all are ignored !
-*
-* PNSP (POSITIONALnsPart) CAREFULLY! : LAST ns part (BEFORE CLSNAME IF ANY) eg "src" is DIRNAME.
-*    PNSP is actually (de facto, in fact, indeedded) submodule name.
-*    Path OF DIRNAME (of PNSP) is in $pp1 array, 
-*        used for Autoload class to include classes in dir DIRNAME.
-*    Autoload class is include, global, common, reusable.
-*/
+ *                    **HELPNS
+ * first namespace part B12phpfw is NOT REQUIRED : vendor's name NS's prefix (FUNCTIONAL NSPART)
+ * 2nd ns part m o d u l e is NOT REQUIRED : FUNCTIONAL NSPART = processing (behavior) 
+ *
+ * FNSPs (FUNCTIONAL NS PARTS) are ignored by fw, ee we name them as we wish.
+ *    We use FNSPs as description to depict WHAT CODE DOES (processing, behavior).
+ *    May be more functional ns parts as we wish - all are ignored !
+ *
+ * PNSP (POSITIONAL NS Part) CAREFULLY! : LAST NS part (BEFORE CLSNAME IF ANY) eg "blog" is DIRNAME.
+ *    PNSP is actually (de facto, in fact, indeedded) DIRNAME and module name.
+ *    Path OF DIRNAME (of PNSP) is in $pp1 array,       
+ *        used for Autoload class to include classes from dir DIRNAME.
+ *    Autoload class is include, global, common, reusable.
+*/                                                     
+                                                       
+                                                       
+                                                      
+                                                       
+                                                       
+                                                       
+                                                       
+                                                       

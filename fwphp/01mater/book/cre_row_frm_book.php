@@ -7,7 +7,7 @@ namespace B12phpfw\module\fw_popel_onb12 ;
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir 
 //use B12phpfw\core\zinc\Db_allsites as utldb ;
-use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud as Tbl_crud_waybill ;
+use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud as utl_waybill ;
 
 if (isset ($_SESSION["submitted_cc"])) {
   list( $artist, $track, $link) = $_SESSION["submitted_cc"] ;
@@ -18,7 +18,7 @@ if (isset ($_SESSION["submitted_cc"])) {
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["submit_add_song"])){
   // returns string
-  Tbl_crud_waybill::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
+  utl_waybill::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //E n d  of Submit Button If-Condition
 
 ?>

@@ -7,14 +7,15 @@ namespace B12phpfw\module\fw_popel_onb12 ;
 
 use B12phpfw\core\zinc\Config_allsites as utl ;  // init, setings, utils
 use B12phpfw\core\zinc\Db_allsites as utldb ;    // model (fns) for all tbls
-use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud  as Tbl_crud_waybill ; // model (fns) for book tbl
+// model (fns) waybill compound module (more tbls) :
+use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud  as utl_waybill ; 
 
 $tbl='song'; 
 
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["submit_update"]))
 {
-  $cursor = Tbl_crud_waybill::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+  $cursor = utl_waybill::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
 
   utl::Redirect_to($pp1->module_url.QS.'i/rt/');
 } //E n d  of Submit Button If-Condition
@@ -25,7 +26,7 @@ if(isset($_POST["submit_update"]))
                            ,'$pp1->uriq'=>isset($pp1->uriq)?json_encode($pp1->uriq):'NOT SET'
                            ] ) ; }
 
-$c_rr = Tbl_crud_waybill::rr( $sellst='*', $qrywhere='id=:id'
+$c_rr = utl_waybill::rr( $sellst='*', $qrywhere='id=:id'
   , $binds = [['placeh'=>':id', 'valph'=>$IdFromURL, 'tip'=>'int']] //str or int or no 'tip'
   , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 //while ($row_cnt=$this->rrnext($c_rcnt)): {$rcnt=$row_cnt;} endwhile; $rcnt=$rcnt->COUNT_ROWS;

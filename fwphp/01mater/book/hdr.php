@@ -27,6 +27,8 @@
   
   <div class="navigation">
   <a href="index.php" title="BOOKS (products, B2) & Authors (B1) (flat)">MODULE HOME</a>&nbsp;&nbsp;&nbsp;
+  <!--
   <a href="?p=b1_tbl">AUTHORS (suppliers, material docs, B1)</a>&nbsp;&nbsp;&nbsp;
   <a href="?p=lnktbl">BORROWERS (invoiceItms, B3)</a>
+  -->
   </div>

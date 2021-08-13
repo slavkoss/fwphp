@@ -6,8 +6,8 @@ declare(strict_types=1);
 namespace B12phpfw\module\adrs ;
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir 
-use B12phpfw\core\zinc\Db_allsites ;
-use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
+use B12phpfw\core\zinc\Db_allsites   as utldb ;
+use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ;
 
 if (isset ($_SESSION["submitted_cc"])) {
   list( $artist, $track, $link) = $_SESSION["submitted_cc"] ;
@@ -18,7 +18,7 @@ if (isset ($_SESSION["submitted_cc"])) {
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["submit_add_song"])){
   // returns string
-  Tbl_crud_adrs::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
+  utl_adrs::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //E n d  of Submit Button If-Condition
 
 ?>

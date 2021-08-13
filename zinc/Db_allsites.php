@@ -2,25 +2,23 @@
 // J:\awww\www\zinc\Db_allsites.php
 declare(strict_types=1);
 /**
-           DB (PERSISTENT STORAGE) ADAPTER T R A I T - PDO DBI
-      This c l a s s is for all sites - does not know modules CRUD
-    Other such scripts should be for csv persistent storage, web services...
-*/
+ *        DB (PERSISTENT STORAGE) ADAPTER IS T R A I T - PDO DBI
+ *     This  c l a s s  is for all sites - does not know modules CRUD
+ *   Other such scripts should be for csv persistent storage, web services...
+ */
 
 // *************** FUNCTION 1. N A M E S P A C E S  ***************
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\core\zinc ;
-//use B12phpfw\core\zinc\Config_allsites as utl ;
-            //namespace App\Library;  //use App\Library\App;
-            //use PDO;
+//use PDO;
 
 // may be named AbstractEntity :
 trait Db_allsites
 {
   /**
-  * DB Trait seems better (?) than abstract cls-es inheritance in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_allsites, so Home_ctr may work with more DB trait. Solution without DB traits in B12phpfw also works (is NOT simpler, better ?).
+  * DB Trait seems better (?) than abstract cls-es inheritance in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_ allsites, so Home_ctr may work with more DB trait. Solution without DB traits in B12phpfw also works (is NOT simpler, better ?).
   *
-  * B12phpfw has DB adapter for nonCompound module is table CRUD, eg J:\awww\www\fwphp\glomodul\user\Tbl_crud.php.
+  * B12phpfw has DB adapter for nonCompound module is table CRUD, eg J:\awww\www\fwphp\glomodul\user\Tbl_ crud.php.
   *B12phpfw "user" dir contains module (page) code for users table (CRUD code... non shareable with other modules , shares are in zinc dir).
   *
   *Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
@@ -33,7 +31,7 @@ trait Db_allsites
             //To do : improve this (refactoring this code)
             //  For now J:\awww\www\zinc\Dbconn_allsites_mysql.php
             //  is copied to J:\awww\www\zinc\Dbconn_allsites.php
-    //used in home.php switch (Db_allsites::$dbi)...
+    //used in home.php switch (utldb::$dbi)...
     private static $dbi ; // mysql or oracle or any  d b i  you wish
 
     private static $db_hostname ;
@@ -86,7 +84,7 @@ trait Db_allsites
               <li>Cls <?=basename(explode('::', __METHOD__)[0])?> contains methods : <?=__METHOD__?>, closeConnection, getDBH,
                  <b>abstract (!!) CRUD methods :</b> countAll, all, findById, findWhere, findBySql, completeQueryString, save, create, update, delete, checkCasting.
 
-              <li><b>DB Trait seems better ? than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in zinc dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
+              <li><b>DB Trait seems better ? than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_ allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_ crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in zinc dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
               </ol>
               <?php
               }
@@ -225,7 +223,6 @@ trait Db_allsites
 
 
   static public function rr_last_id($tbl) {
-    //           Tbl_crud_post::rr   $ s e l l s t       self::$tbl
     $cursor_maxid = self::rr("SELECT max(id) MAXID FROM ". $tbl //." WHERE $qrywhere"
        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     //return $cursor ;
@@ -233,9 +230,9 @@ trait Db_allsites
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->MAXID ;
     return $maxid;
 
-    /*$cursor_maxid =  Tbl_crud_post::rr( $s ellst='max(id) MAXID' 
+    /*$cursor_maxid =  Tbl_ crud_post::rr( $s ellst='max(id) MAXID' 
       ,$qrywhere="'1'='1'", $binds=[], $other=['caller'=>__FILE__ .' '.',ln '.__LINE__ ]);
-    $maxid = Tbl_crud_post::r rnext($cursor_maxid)->MAXID ;
+    $maxid = Tbl_ crud_post::r rnext($cursor_maxid)->MAXID ;
     return $maxid; */
 
     //while ($row = self::r rnext($c_r)): {$r = $row ;} endwhile;

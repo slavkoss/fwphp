@@ -20,16 +20,14 @@ class Home_ctr extends utl
     /**
     * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
     *  ------------------------------------------------------------------------------
-    *  LINK ALIAS IN VIEW SCRIPT (eg ldd_ admins) => HOME METHOD TO CALL (del_ admins)
-    *  ------------------------------------------------------------------------------
-    * LINK ALIAS ldd_ admins is urlqrystring_keyval1 = $pp1->ldd_ admins = QS.'i/del_ admins/id/', 
-    *     last part $idvalue knows view script, so : URLqry='i/del_ admins/id/'.$id, 
-    * ALL VIEWS LINKS OF MODULE SHOULD BE HERE.
     */
     $pp1_module = [ 
       'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
-      //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
-      //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
+      // LINKALIAS          URLurlqrystring                CALLED METHOD
+      // IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
+      //, 'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
+      //, 'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
+      //      (method parameter /idvalue we assign in view script after ldd_category)
       ,'home_usr'   => QS.'i/home_usr/'
       ,'admins'     => QS.'i/home_usr/'
       ,'cre_usr'    => QS.'i/cre_usr/'

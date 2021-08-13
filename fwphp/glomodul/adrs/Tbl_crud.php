@@ -20,15 +20,15 @@ declare(strict_types=1);
 
 namespace B12phpfw\dbadapter\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
 use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites     as utldb ;
 
 use B12phpfw\module\adrs\Home_ctr ;
-//use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
+//use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;
 
 // Gateway class - separate DBI layers
-class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
+class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
 {
   static protected $tbl = "song";
 
@@ -36,23 +36,27 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function rr(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
+  static public function rrcnt( string $tbl, array $other=[] ): int { 
+    $rcnt = utldb::rrcount($tbl) ;
+    return (int)utl::escp($rcnt) ;
+  } 
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
     /*
-    $cursor_rowcnt =  Db_allsites::rr(
+    $cursor_rowcnt =  utldb::rr(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     $rcnt = self::rrnext( $cursor_rowcnt
      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
     */
-    $rcnt = Db_allsites::rrcount('song') ;
-    return (int)Config_allsites::escp($rcnt) ;
+    $rcnt = utldb::rrcount('song') ;
+    return (int)utl::escp($rcnt) ;
   }
 
 
@@ -61,17 +65,17 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
      , array $binds=[], array $other=[]): object  //returns $cursor
   {
       // default SQL query
-      $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl
+      $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl
       ." WHERE $qrywhere ORDER BY title"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-    //$Db_allsites::disconnect(); //problem ON LINUX
+    //$utldb::disconnect(); //problem ON LINUX
     return $cursor ;
   }
 
 
   /* public function rr_last_id(object $dm) {
-    return Config_allsites::rr_last_id(self::$tbl) ;
+    return utl::rr_last_id(self::$tbl) ;
   } */
 
 
@@ -85,7 +89,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function get_submitted_cc(): array //return '1'
   {
     $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
-      Config_allsites::escp($_POST["artist"]), Config_allsites::escp($_POST["track"]), Config_allsites::escp($_POST["link"])
+      utl::escp($_POST["artist"]), utl::escp($_POST["track"]), utl::escp($_POST["link"])
     ] ;
     return $submitted ;
   }
@@ -125,7 +129,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     }
     
     if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
-      Config_allsites::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
+      utl::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
       //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
       //exit(0) ;
     }
@@ -139,15 +143,15 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
      ,['placeh'=>':track',    'valph'=>$_POST['track'],  'tip'=>'str']
      ,['placeh'=>':link',     'valph'=>$_POST['link'],   'tip'=>'str']
     ] ;
-    //$last_id1 = Db_allsites::rr_last_id($tbl) ;
-    $cursor = Db_allsites::cc(self::$tbl, $flds, $valsins, $binds
+    //$last_id1 = utldb::rr_last_id($tbl) ;
+    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds
                  , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
-    //$last_id2 = Db_allsites::rr_last_id($tbl) ;
+    //$last_id2 = utldb::rr_last_id($tbl) ;
 
     //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
     //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
 
-      Config_allsites::Redirect_to($pp1->module_url.QS.'i/cc/');
+      utl::Redirect_to($pp1->module_url.QS.'i/cc/');
       return('1');
       fnerr:
       return('0');
@@ -158,7 +162,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    $cursor =  utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
@@ -167,7 +171,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function get_submitted_uu(): array //return '1'
   {
     $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
-      Config_allsites::escp($_POST["artist"]), Config_allsites::escp($_POST["track"]), Config_allsites::escp($_POST["link"])
+      utl::escp($_POST["artist"]), utl::escp($_POST["track"]), utl::escp($_POST["link"])
       , $_POST["id"]
     ] ;
     return $submitted ;
@@ -190,8 +194,8 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     }
     if ($valid === '1') {} else {
       $_SESSION["ErrorMessage"]= $valid ;
-      //Config_allsites::Redirect_to($pp1->posts);
-      Config_allsites::Redirect_to($pp1->module_url.QS.'i/rt/');
+      //utl::Redirect_to($pp1->posts);
+      utl::Redirect_to($pp1->module_url.QS.'i/rt/');
       goto fnerr ; //exit(0) ;
     }
 
@@ -208,7 +212,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
        ,['placeh'=>':id',  'valph'=>$id, 'tip'=>'int']
       ] ;
 
-      $cursor = Db_allsites::uu( self::$tbl, $flds, $qrywhere, $binds ); //same for all tbls
+      $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds ); //same for all tbls
 
       //var_dump($cursor);
       if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";

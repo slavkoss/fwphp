@@ -4,7 +4,7 @@
 namespace B12phpfw\module\fw_popel_onb12 ;
 //use PDO;
 use B12phpfw\core\zinc\Config_allsites as utl ;
-use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud   as Tbl_crud_waybill ;
+use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud   as utl_waybill ;
 
 class Home_ctr extends utl
 {
@@ -34,27 +34,14 @@ class Home_ctr extends utl
     *       http://dev1:8083/fwphp/glomodul/adrs/
     */
     $pp1_module = [ // Property pallette module properties
-      '<b style="color: blue">ROUTES (LINKS)  assigned  IN  M O D U L E  CTR Home_ctr.php' => '~~~~~~~~~~~~~~~~~</b>'
-      , '<b>Part of $pp1 is $pp1_module = (module) property pallette.
-          Contains properties =  key-keyvalue pairs : 
-          LINKALIAS => ?i/HOME_METHOD_TO_CALL/param1/param1value...</b>' 
-      => 
-      '
-          <b>~~~~~ Eg in view script :
-          href =  LINKALIAS $pp1->$pp1->cre_row_frm CALLS cc fn in module ctr so: QS."i/cc/"
-              $pp1->cre_row_frm - more generalized, but more writing than QS."i/cc/", 
-                  cc fn is not visible in URL (visible is what cc calls/includes)
-              //,\'home_adrs\'        => QS.\'i/home/\'
-              //,\'cre_row_frm\'        => QS.\'i/cc/\'
-              //,\'ldd_category\'     => QS.\'i/del_category/id/\'
-              //,\'loginfrm\'        => QS.\'i/loginfrm/\'
-              //,\'login\'           => QS.\'i/login/\'
-      IF LINK key-keyvalue PAIR IS NOT IN $pp1_module THEN EG : 
-      in URLurlqrystring : QS.\'i/loginfrm/\' loginfrm must be M E T H O D NAME in this script.
-      </b>'
-      //, 'cre_row_frm'     => QS.'i/cc/'
+      // LINKALIAS          URLurlqrystring                CALLED METHOD
+      // IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
+      //, 'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
+      //, 'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
+      //      (method parameter /idvalue we assign in view script after ldd_category)
+        'cre_row_frm_book'     => QS.'i/cre_row_frm_book/'
     ] ;  //e n d  R O U T I N G  T A B L E
-    //is better $pp1->cre_row_frm ? - more writing, cc fn in module ctr not visible
+
 
     parent::__construct($pp1, $pp1_module);
 
@@ -146,14 +133,16 @@ class Home_ctr extends utl
   /**
   * pgs03.   I N C  C R U D  P A G E  SCRIPTS   &   (code behind) C R U D  M E T H O D S
   */
-  private function cc(object $pp1)
+  private function cre_row_frm_book(object $pp1)
   {
     // I N C  C R U D P A G E  S C R I P T
     // f o r m : http://dev1:8083/fwphp/glomodul/adrs/?i/cc/
     //http://dev1:8083/fwphp/glomodul/adrs
-      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
-      require $pp1->module_path . 'cre_row_frm.php';
-      require $pp1->module_path . 'ftr.php';
+    //[module_relpath] => fwphp/01mater/fw_popel_onb12/index.php
+    //$app_relurl = '/'. dirname(dirname('/'. $pp1->module_relpath)) ;
+    require $pp1->app_dir_path . '/book/hdr.php'; // MODULE_PATH
+    require $pp1->app_dir_path . '/book/cre_row_frm_book.php';
+    require $pp1->app_dir_path . '/book/ftr.php';
   }
 
 
@@ -168,7 +157,7 @@ class Home_ctr extends utl
     $tbl = $pp1->uriq->t = 'song' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
-    Tbl_crud_waybill::dd($pp1, $other); //used for all  t a b l e s !! 
+    utl_waybill::dd($pp1, $other); //used for all  t a b l e s !! 
     utl::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
 
     }
@@ -210,7 +199,7 @@ class Home_ctr extends utl
                     if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
                     , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
                     , '$this->dbobj'=>$this->dbobj ] ) ; }
-      echo Tbl_crud_waybill::rrcnt('song'); // not $this->dbobj->R_tb... !!!
+      echo utl_waybill::rrcnt('song'); // not $this->dbobj->R_tb... !!!
     }
 
 

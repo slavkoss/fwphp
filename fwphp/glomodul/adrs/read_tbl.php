@@ -5,14 +5,14 @@ declare(strict_types=1);
 
 namespace B12phpfw\module\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites ;                 // init, setings, utils
-use B12phpfw\core\zinc\Db_allsites ;                     // model (fns) for all tbls
-use B12phpfw\dbadapter\adrs\Tbl_crud  as Tbl_crud_adrs ; // model (fns) for song tbl
+use B12phpfw\core\zinc\Config_allsites as utl ;    // init, setings, utils
+use B12phpfw\core\zinc\Db_allsites   as utldb ;    // model (fns) for all tbls
+use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ; //Tbl_ crud_ adrs is model (fns) for song tbl
 
 $tbl='song';
 
-$rcount = Db_allsites::rrcount('song') ;
-$cursor = Tbl_crud_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
+$rcount = utldb::rrcount('song') ;
+$cursor = utl_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
   , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
 ?>
@@ -41,18 +41,18 @@ $cursor = Tbl_crud_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
     <tbody>
     <?php
     //foreach ($songs as $song) 
-    while ( $r = Db_allsites::rrnext($cursor) and isset($r->id) ): 
+    while ( $r = utldb::rrnext($cursor) and isset($r->id) ): 
     { 
-      $id = Config_allsites::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+      $id = utl::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
       ?>
       <tr>
         <td><?php echo $id; ?></td>
-        <td><?php if (isset($r->artist)) echo Config_allsites::escp($r->artist); ?></td>
-        <td><?php if (isset($r->track)) echo Config_allsites::escp($r->track); ?></td>
+        <td><?php if (isset($r->artist)) echo utl::escp($r->artist); ?></td>
+        <td><?php if (isset($r->track)) echo utl::escp($r->track); ?></td>
         <td>
             <?php if (isset($r->link)) { ?>
-              <a href="<?=Config_allsites::escp($r->link)?>">
-                 <?=Config_allsites::escp($r->link)?></a>
+              <a href="<?=utl::escp($r->link)?>">
+                 <?=utl::escp($r->link)?></a>
             <?php } ?>
         </td>
         <!-- 

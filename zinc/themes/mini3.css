@@ -23,6 +23,9 @@ table, th, td {
     overflow-x: auto;    // horizontal scroll 
 }
 
+
+
+
 .navigation {
     margin-left: 33px;
 }
@@ -43,15 +46,41 @@ table, th, td {
     color: #fff;
 }
 
+
+
+.btn_green {
+  display: inline-block;
+  cursor: pointer;
+  color: white;
+  background-color: #4CAF50;
+  border: none;
+  padding: 8px 12px; /* w, h*/
+  margin: 4px 2px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+.btn_green a {
+
+} 
+.btn_green a:hover {
+    background: #454545;
+    /* color: #fff; */
+}
+
+
+
+
 .container {
     border: 1px solid #454545;
     border-radius: 3px;
     padding: 20px;
     margin: 33px;
 }
-.container a {
+/* btn_green has problem with : 
+  .container a {
     color: #454545;
-}
+} */
 .container table {
     font-size: 16px;
     margin-top: 20px;
@@ -94,6 +123,7 @@ table, th, td {
     background-color: #222;
     color: #fff;
 }
+
 
 
 .footer {

@@ -1,12 +1,12 @@
 <?php
-// J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php
-// DEFAULT CTR (ONLY ONE IN MODULE), HAS 3 METHODS WHICH  I N C  PAGE VIEW SCRIPT
-namespace B12phpfw\module\adrs ;
+// 
+// DEFAULT CTR (ONLY ONE IN MODULE), HAS METHODS WHICH  I N C  PAGE VIEW SCRIPT OR CALL METDS
+namespace B12phpfw\module\fw_popel_onb12 ;
 //use PDO;
-use B12phpfw\core\zinc\Config_allsites as utl;
-use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;  // Tbl_ crud_ adrs
+use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud   as utl_waybill ;
 
-class Home_ctr extends utl //Config_ allsites
+class Home_ctr extends utl
 {
   public function __construct(object $pp1) 
   {
@@ -119,7 +119,7 @@ class Home_ctr extends utl //Config_ allsites
   /**
   * pgs02. I N C  R  (c R u d)  P A G E  SCRIPTS
   */
-  private function rt(object $pp1)
+  private function xxxrt(object $pp1)
   {
     // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
     require $pp1->module_path . 'hdr.php';
@@ -154,7 +154,7 @@ class Home_ctr extends utl //Config_ allsites
     $tbl = $pp1->uriq->t = 'song' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
-    utl_adrs::dd($pp1, $other); //used for all  t a b l e s !! 
+    utl_waybill::dd($pp1, $other); //used for all  t a b l e s !! 
     utl::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
 
     }
@@ -196,7 +196,7 @@ class Home_ctr extends utl //Config_ allsites
                     if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
                     , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
                     , '$this->dbobj'=>$this->dbobj ] ) ; }
-      echo utl_adrs::rrcount('song'); // not $this->dbobj->R_tb... !!!
+      echo utl_waybill::rrcnt('song'); // not $this->dbobj->R_tb... !!!
     }
 
 
@@ -214,5 +214,5 @@ class Home_ctr extends utl //Config_ allsites
 
 
 
-} // e n d  c l s  Home_ ctr
+} // e n d  c l s  C onfig_ m ini3
 

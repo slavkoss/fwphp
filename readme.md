@@ -420,7 +420,7 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 
 
 
-**Methods** in cls file  Home_ctr.php (27 fns)  
+**Methods** in blog dir where is blog module code,  cls file  Home_ctr.php (27 fns)  
 ```
   J:\awww\www\fwphp\glomodul\blog\Home_ctr.php (41 hits)
 	Line 8: // *************** FUNCTION 1. N A M E S P A C E S  ***************
@@ -441,11 +441,11 @@ class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
 	Line 260:   private function home(object $pp1) //DI page prop.palette   
 	Line 280:   private function dashboard(object $pp1) //private
 	Line 294:   private function kalendar(object $pp1) //private
-	Line 305:   // *************** FUNCTION 5. I N C L U D E  P A G E S  WITHOUT  C R U D ***************
+	Line 305:   // *************** FUNCTION 5. TO I N C L U D E  P A G E S  WITHOUT  C R U D ***************
 	Line 307:   private function contact(object $pp1)
 	Line 314:   private function about(object $pp1)
 	Line 322:   private function features(object $pp1)
-	Line 331:   // *************** FUNCTION SIMPLE MODULE TBL1  A D M I N S ***************
+	Line 331:   // *************** FUNCTION SIMPLE MODULE TBL1  A D M I N S - ALL should be in user dir (where is user module code)
 	Line 336:   private function admins(object $pp1) //private
 	Line 351:   private function read_user(object $pp1) //private
 	Line 369:   private function loginfrm(object $pp1) //private
@@ -521,23 +521,26 @@ See readme_thoughts.md
 
 
 <br /><br />
-## <a name="SimplestCRUD"></a> 1.9 Simplest adrs (MINI3, songs) CRUD module
-CRUD rows in table song(#id, artist, track, link). MINI3 framework https://github.com/panique/mini3 is I think best to learn PHP and frameworks code skeleton. My adrs module in glomodul modules group is MINI3 on B12phpfw. Why ? I think for large sites MINI3 is to simple.
+## <a name="SimplestCRUD"></a> 1.9 Simplest "adrs" (MINI3, songs) CRUD module
+CRUD rows in **table song(#id, artist, track, link)**. MINI3 framework https://github.com/panique/mini3 is I think best to learn PHP and frameworks code skeleton. My adrs module in glomodul modules group is MINI3 on B12phpfw. Why ? I think for large sites MINI3 is to simple.
 
 <a name="scrudIndex"></a>
-### 1\.9\.1 index.php
+### 1\.9\.1 index.php single entry point in module
 [Simplest CRUD](#SimplestCRUD).....**index.php**.....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU) ....[adapter](#scrudadapter) 
+
+We need single entry point in module to avoid mess with links (https://... links are not clear, better are includes and method calls).
 
 ```php
 <?php
 // J:\awww\www\fwphp\glomodul\adrs\index.php
-namespace B12phpfw\module\adrs ; //see below **HELPNS
-use B12phpfw\core\zinc\Autoload ; 
+
+//LAST NS part (BEFORE CLSNAME IF ANY) eg "blog" or "adrs" is DIRNAME and module name.
+namespace B12phpfw\module\adrs ;
+use B12phpfw\core\zinc\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
 $app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
-//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
 $wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
 $shares_path = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
 
@@ -558,19 +561,53 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
     //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
     $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
     //dir of global clses for all sites :
-    ,$shares_path 
+    ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'zinc')) .'/'
+              /* //two master modules (tbls) = blocks in Ora. Forms
+              ,$app_dir_path.'user/'
+              ,$app_dir_path.'post_category/'
+              //detail & subdet modules (tbls) = blocks in Ora. Forms
+              ,$app_dir_path.'post/'
+              ,$app_dir_path.'post_comment/' */
   ]
+  //1.4
+  //     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
+  //    , self::$db_username, self::$db_userpwd) 
+  //    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
+  // Dbconn_allsites.php : return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+  //, 'Dbconn'=>$Dbconn
 ] ;
 
-//2. global cls loads classes scripts automatically
+//2. //2. global cls loads (includes, bootstrap) classes scripts automatically
 require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
 //3. process request from ibrowser & send response to ibrowser :
-//Home_ ctr "inherits" index.php ee inherits $p p 1
+//Home_ ctr "inherits" index.php ee DI $p p 1
 $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
+        if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'where am I'
+           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
+        ] ) ; }
+
 
 exit(0);
+
+
+/**
+ *                    **HELPNS
+ * first namespace part B12phpfw is NOT REQUIRED : vendor's name NS's prefix (FUNCTIONAL NSPART)
+ * 2nd ns part m o d u l e is NOT REQUIRED : FUNCTIONAL NSPART = processing (behavior) 
+ *
+ * FNSPs (FUNCTIONAL NS PARTS) are ignored by fw, ee we name them as we wish.
+ *    We use FNSPs as description to depict WHAT CODE DOES (processing, behavior).
+ *    May be more functional ns parts as we wish - all are ignored !
+ *
+ * PNSP (POSITIONAL NS Part) CAREFULLY! : LAST NS part (BEFORE CLSNAME IF ANY) eg "blog" is DIRNAME.
+ *    PNSP is actually (de facto, in fact, indeedded) DIRNAME and module name.
+ *    Path OF DIRNAME (of PNSP) is in $pp1 array,       
+ *        used for Autoload class to include classes from dir DIRNAME.
+ *    Autoload class is include, global, common, reusable.
+*/                                                     
 ```
 
 
@@ -584,10 +621,10 @@ exit(0);
 // DEFAULT CTR (ONLY ONE IN MODULE), HAS 3 METHODS WHICH  I N C  PAGE VIEW SCRIPT
 namespace B12phpfw\module\adrs ;
 //use PDO;
-use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
+use B12phpfw\core\zinc\Config_allsites as utl;
+use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;  // Tbl_ crud_ adrs
 
-class Home_ctr extends Config_allsites
+class Home_ctr extends utl //Config_ allsites
 {
   public function __construct(object $pp1) 
   {
@@ -749,8 +786,8 @@ class Home_ctr extends Config_allsites
     $tbl = $pp1->uriq->t = 'song' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
-    Tbl_crud_adrs::dd($pp1, $other); //used for all  t a b l e s !! 
-    Config_allsites::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
+    utl_adrs::dd($pp1, $other); //used for all  t a b l e s !! 
+    utl::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
 
     }
 
@@ -768,7 +805,7 @@ class Home_ctr extends Config_allsites
     if (isset($pp1->uriq->id)) {
        $uriq = $pp1->uriq ;
        if (isset($uriq->id)) 
-         $IdFromURL = (int)Config_allsites::escp($uriq->id) ; //NOT (int)Config_allsites::escp($_GET['id']) ; 
+         $IdFromURL = (int)utl::escp($uriq->id) ; //NOT (int)utl::escp($_GET['id']) ; 
     } else $IdFromURL = NULL ;
     require $pp1->module_path . 'hdr.php';
     require $pp1->module_path . 'upd_row_frm.php';  
@@ -791,7 +828,7 @@ class Home_ctr extends Config_allsites
                     if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
                     , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
                     , '$this->dbobj'=>$this->dbobj ] ) ; }
-      echo Tbl_crud_adrs::rrcount('song'); // not $this->dbobj->R_tb... !!!
+      echo utl_adrs::rrcount('song'); // not $this->dbobj->R_tb... !!!
     }
 
 
@@ -809,13 +846,14 @@ class Home_ctr extends Config_allsites
 
 
 
-} // e n d  c l s  C onfig_ m ini3
+} // e n d  c l s  Home_ ctr
 ```
 
 <a name="scrudHomeV"></a>
 ### 1\.9\.3 home.php... - shows links assigned in Home_ctr.php for user interactions or some txt
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....**home (table page.....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
-```php
+```html
+<!-- J:\awww\www\fwphp\glomodul\adrs\home.php -->
 <!-- J:\awww\www\fwphp\glomodul\adrs\home.php -->
 <div class="container">
     <h1>Homepage</h1>
@@ -867,6 +905,9 @@ class Home_ctr extends Config_allsites
 </div>
 ```
 
+
+
+
 <a name="scrudC"></a>
 ### 1\.9\.4 cre_row_frm.php
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....**create**.....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
@@ -880,8 +921,8 @@ declare(strict_types=1);
 namespace B12phpfw\module\adrs ;
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir 
-use B12phpfw\core\zinc\Db_allsites ;
-use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
+use B12phpfw\core\zinc\Db_allsites   as utldb ;
+use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ;
 
 if (isset ($_SESSION["submitted_cc"])) {
   list( $artist, $track, $link) = $_SESSION["submitted_cc"] ;
@@ -892,7 +933,7 @@ if (isset ($_SESSION["submitted_cc"])) {
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["submit_add_song"])){
   // returns string
-  Tbl_crud_adrs::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
+  utl_adrs::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //E n d  of Submit Button If-Condition
 
 ?>
@@ -919,6 +960,8 @@ http://dev1:8083/fwphp/glomodul/adrs/?i/c/t/song/
   </div>
 ```
 
+
+
 <a name="scrudR"></a>
 ### 1\.9\.5 read_tbl.php
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....**read (user profile - form**.....[update](#scrudU)....[adapter](#scrudadapter)    
@@ -931,14 +974,14 @@ declare(strict_types=1);
 
 namespace B12phpfw\module\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites ;                 // init, setings, utils
-use B12phpfw\core\zinc\Db_allsites ;                     // model (fns) for all tbls
-use B12phpfw\dbadapter\adrs\Tbl_crud  as Tbl_crud_adrs ; // model (fns) for song tbl
+use B12phpfw\core\zinc\Config_allsites as utl ;    // init, setings, utils
+use B12phpfw\core\zinc\Db_allsites   as utldb ;    // model (fns) for all tbls
+use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ; //Tbl_ crud_ adrs is model (fns) for song tbl
 
 $tbl='song';
 
-$rcount = Db_allsites::rrcount('song') ;
-$cursor = Tbl_crud_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
+$rcount = utldb::rrcount('song') ;
+$cursor = utl_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
   , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
 ?>
@@ -967,18 +1010,18 @@ $cursor = Tbl_crud_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
     <tbody>
     <?php
     //foreach ($songs as $song) 
-    while ( $r = Db_allsites::rrnext($cursor) and isset($r->id) ): 
+    while ( $r = utldb::rrnext($cursor) and isset($r->id) ): 
     { 
-      $id = Config_allsites::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+      $id = utl::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
       ?>
       <tr>
         <td><?php echo $id; ?></td>
-        <td><?php if (isset($r->artist)) echo Config_allsites::escp($r->artist); ?></td>
-        <td><?php if (isset($r->track)) echo Config_allsites::escp($r->track); ?></td>
+        <td><?php if (isset($r->artist)) echo utl::escp($r->artist); ?></td>
+        <td><?php if (isset($r->track)) echo utl::escp($r->track); ?></td>
         <td>
             <?php if (isset($r->link)) { ?>
-              <a href="<?=Config_allsites::escp($r->link)?>">
-                 <?=Config_allsites::escp($r->link)?></a>
+              <a href="<?=utl::escp($r->link)?>">
+                 <?=utl::escp($r->link)?></a>
             <?php } ?>
         </td>
         <!-- 
@@ -1004,7 +1047,6 @@ $cursor = Tbl_crud_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
 
     <p>You are in View: <?=__FILE__?></p>
 </div>
-
 ```
 
 
@@ -1021,18 +1063,18 @@ declare(strict_types=1);
 //       <!-- u p d  r o w  f o r m -->
 namespace B12phpfw\module\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites ;                 // init, setings, utils
-use B12phpfw\core\zinc\Db_allsites ;                     // model (fns) for all tbls
-use B12phpfw\dbadapter\adrs\Tbl_crud  as Tbl_crud_adrs ; // model (fns) for song tbl
+use B12phpfw\core\zinc\Config_allsites as utl ;      // init, setings, utils
+use B12phpfw\core\zinc\Db_allsites     as utldb ;    // model (fns) for all tbls
+use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ; // model (fns) for song tbl
 
 $tbl='song'; 
 
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["submit_update"]))
 {
-  $cursor = Tbl_crud_adrs::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+  $cursor = utl_adrs::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
 
-  Config_allsites::Redirect_to($pp1->module_url.QS.'i/rt/');
+  utl::Redirect_to($pp1->module_url.QS.'i/rt/');
 } //E n d  of Submit Button If-Condition
 //$fle=basename(__FILE__); $lne=__LINE__; $mtd=__FILE__;
                         if ('') {self::jsmsg( [ basename(__FILE__). //__METHOD__ .
@@ -1041,11 +1083,11 @@ if(isset($_POST["submit_update"]))
                            ,'$pp1->uriq'=>isset($pp1->uriq)?json_encode($pp1->uriq):'NOT SET'
                            ] ) ; }
 
-$c_rr = Tbl_crud_adrs::rr( $sellst='*', $qrywhere='id=:id'
+$c_rr = utl_adrs::rr( $sellst='*', $qrywhere='id=:id'
   , $binds = [['placeh'=>':id', 'valph'=>$IdFromURL, 'tip'=>'int']] //str or int or no 'tip'
   , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 //while ($row_cnt=$this->rrnext($c_rcnt)): {$rcnt=$row_cnt;} endwhile; $rcnt=$rcnt->COUNT_ROWS;
-while ( $rx = Db_allsites::rrnext($c_rr) and isset($rx->id) ): {$r = $rx ;} endwhile;
+while ( $rx = utldb::rrnext($c_rr) and isset($rx->id) ): {$r = $rx ;} endwhile;
                   if ('1') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
                   echo '<pre>';
@@ -1061,22 +1103,22 @@ if (!$r) { // r o w wasn't found, display error page  $errobj = new Error_C();
   );
   exit(0) ;
 }
-
-//$id = Config_allsites::escp((int)$r->id);
 ?>
+
+
 <div class="container">
   <div>
     <h3>E d i t  r o w</h3>
 
     <form action="<?=$pp1->module_url.QS?>i/uu" method="POST">
       <label>Artist </label><input autofocus type="text" name="artist" 
-         value="<?=Config_allsites::escp($r->artist)?>" required />
+         value="<?=utl::escp($r->artist)?>" required />
       
       <label>Track </label><input type="text" name="track" 
-         value="<?=Config_allsites::escp($r->track)?>" required />
+         value="<?=utl::escp($r->track)?>" required />
       
       <label>Link </label><input type="text" name="link" 
-         value="<?=Config_allsites::escp($r->link)?>" />
+         value="<?=utl::escp($r->link)?>" />
       
       <input type="hidden" name="id" value="<?=$IdFromURL?>" />
       
@@ -1088,6 +1130,8 @@ if (!$r) { // r o w wasn't found, display error page  $errobj = new Error_C();
 
 </div>
 ```
+
+
 
 
 <a name="scrudadapter"></a>
@@ -1117,15 +1161,15 @@ declare(strict_types=1);
 
 namespace B12phpfw\dbadapter\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\zinc\Config_allsites as utl ;
 use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\zinc\Db_allsites     as utldb ;
 
 use B12phpfw\module\adrs\Home_ctr ;
-//use B12phpfw\dbadapter\adrs\Tbl_crud   as Tbl_crud_adrs ;
+//use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;
 
 // Gateway class - separate DBI layers
-class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
+class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
 {
   static protected $tbl = "song";
 
@@ -1133,23 +1177,27 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function rr(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
+  static public function rrcnt( string $tbl, array $other=[] ): int { 
+    $rcnt = utldb::rrcount($tbl) ;
+    return (int)utl::escp($rcnt) ;
+  } 
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
     /*
-    $cursor_rowcnt =  Db_allsites::rr(
+    $cursor_rowcnt =  utldb::rr(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     $rcnt = self::rrnext( $cursor_rowcnt
      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
     */
-    $rcnt = Db_allsites::rrcount('song') ;
-    return (int)Config_allsites::escp($rcnt) ;
+    $rcnt = utldb::rrcount('song') ;
+    return (int)utl::escp($rcnt) ;
   }
 
 
@@ -1158,17 +1206,17 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
      , array $binds=[], array $other=[]): object  //returns $cursor
   {
       // default SQL query
-      $cursor =  Db_allsites::rr("SELECT $sellst FROM ". self::$tbl
+      $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl
       ." WHERE $qrywhere ORDER BY title"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-    //$Db_allsites::disconnect(); //problem ON LINUX
+    //$utldb::disconnect(); //problem ON LINUX
     return $cursor ;
   }
 
 
   /* public function rr_last_id(object $dm) {
-    return Config_allsites::rr_last_id(self::$tbl) ;
+    return utl::rr_last_id(self::$tbl) ;
   } */
 
 
@@ -1182,7 +1230,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function get_submitted_cc(): array //return '1'
   {
     $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
-      Config_allsites::escp($_POST["artist"]), Config_allsites::escp($_POST["track"]), Config_allsites::escp($_POST["link"])
+      utl::escp($_POST["artist"]), utl::escp($_POST["track"]), utl::escp($_POST["link"])
     ] ;
     return $submitted ;
   }
@@ -1222,7 +1270,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     }
     
     if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
-      Config_allsites::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
+      utl::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
       //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
       //exit(0) ;
     }
@@ -1236,15 +1284,15 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
      ,['placeh'=>':track',    'valph'=>$_POST['track'],  'tip'=>'str']
      ,['placeh'=>':link',     'valph'=>$_POST['link'],   'tip'=>'str']
     ] ;
-    //$last_id1 = Db_allsites::rr_last_id($tbl) ;
-    $cursor = Db_allsites::cc(self::$tbl, $flds, $valsins, $binds
+    //$last_id1 = utldb::rr_last_id($tbl) ;
+    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds
                  , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
-    //$last_id2 = Db_allsites::rr_last_id($tbl) ;
+    //$last_id2 = utldb::rr_last_id($tbl) ;
 
     //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
     //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
 
-      Config_allsites::Redirect_to($pp1->module_url.QS.'i/cc/');
+      utl::Redirect_to($pp1->module_url.QS.'i/cc/');
       return('1');
       fnerr:
       return('0');
@@ -1255,7 +1303,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  Db_allsites::dd( $pp1, $other ) ;
+    $cursor =  utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
@@ -1264,7 +1312,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function get_submitted_uu(): array //return '1'
   {
     $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
-      Config_allsites::escp($_POST["artist"]), Config_allsites::escp($_POST["track"]), Config_allsites::escp($_POST["link"])
+      utl::escp($_POST["artist"]), utl::escp($_POST["track"]), utl::escp($_POST["link"])
       , $_POST["id"]
     ] ;
     return $submitted ;
@@ -1287,8 +1335,8 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     }
     if ($valid === '1') {} else {
       $_SESSION["ErrorMessage"]= $valid ;
-      //Config_allsites::Redirect_to($pp1->posts);
-      Config_allsites::Redirect_to($pp1->module_url.QS.'i/rt/');
+      //utl::Redirect_to($pp1->posts);
+      utl::Redirect_to($pp1->module_url.QS.'i/rt/');
       goto fnerr ; //exit(0) ;
     }
 
@@ -1305,7 +1353,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
        ,['placeh'=>':id',  'valph'=>$id, 'tip'=>'int']
       ] ;
 
-      $cursor = Db_allsites::uu( self::$tbl, $flds, $qrywhere, $binds ); //same for all tbls
+      $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds ); //same for all tbls
 
       //var_dump($cursor);
       if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";
@@ -1325,7 +1373,6 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
 
 } // e n d  c l s  T b l_ c r u d
-
 ```
 
 

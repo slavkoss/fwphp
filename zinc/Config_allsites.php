@@ -116,6 +116,7 @@ abstract class Config_allsites //extends Db_ allsites
       //FIRST PART of REQUEST_ URI is module_ relpath : eg /fwphp/glomodul/mkd/
       $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); //it is not $moduledir_relpath !!
                        //or rtrim(str_replace($wsroot_path, '', $module_path),'/') ;
+      //$app_relurl = dirname(dirname('/'. $module_relpath)) ;
       
       $module_url = $wsroot_url.$module_relpath.'/';
 
@@ -175,6 +176,33 @@ abstract class Config_allsites //extends Db_ allsites
         }
       } endfor;
 
+      //, 'HELP_PATHS_IN_UTL_MODULE_CLS' => '
+      //ROUTES (LINKS)  IN  M O D U L E  CTR Home_ ctr.php ~~~~~~~~~~~~~~~~~'
+      $uriq['HELP_ROUTING_AND_URL_QUERY'] 
+        = 
+      '<b style="color: blue">
+      $pp1_module is ROUTES (LINKS) ASSIGNED IN MODULE CONTROLLER Home_ ctr.php ~~~~~~~~~~~~~~~~~</b>
+      $pp1_ module is part of $pp1 (module property pallette).
+      Contains properties = key-keyvalue pairs : 
+          LINKALIAS => ?i/HOME_METHOD_TO_CALL/param1/param1value... (? is QS below)
+      
+          <b>Eg in view script : href = QS."i/cc/" or href = LINKALIAS = $pp1->cre_ row_ frm. 
+          1. URLurlqrystring QS."i/cc/" CALLS cc fn in Home_ ctr.php .</b>
+             LINK key-keyvalue PAIR IS NOT IN $pp1_ module, SO :
+                   cc must be M E T H O D NAME in Home_ ctr.php.
+          <b>2. BETTER : LINKALIAS $pp1->cre_ row_ frm in view script is more generalized</b>, 
+             but we have more writing than QS."i/cc/" in view script.
+             Ee $pp1_ module must contain :<b>
+              LINKALIAS            URLurlqrystring        CALLED METHOD
+              IN VIEW SCRIPT       IN Home_ ctr           IN Home_ ctr</b>
+            ,\'cre_row_frm\'     => QS.\'i/cc/\'               cc or cre_row_frm or... 
+            ,\'home_url\'        => QS.\'i/home/\'             home
+            ,\'ldd_category\'    => QS.\'i/del_category/id/\'  del_category, l in ldd means link
+               (method parameter /idvalue we assign in view script after ldd_category)
+            ,\'loginfrm\'        => QS.\'i/loginfrm/\'         loginfrm
+            ,\'login\'           => QS.\'i/login/\'            login
+      ' ;
+
 
       $pp1 = (array)$pp1 ;
       $pp1['uriq'] = (object)$uriq ; //u r l  q u e r y  a r r a y
@@ -185,13 +213,15 @@ abstract class Config_allsites //extends Db_ allsites
 
         $pp1 += [ 
             //'module_version'        => $module_version //c o n n e c t  (states) a t t r i b u t e s
-            'F O R  $_S E S  ARR. (D B S H E M A...)' => '~~~~~~~~~~~~~~~~~'
+            'HELP_STATES_ATTRIBUTES' => '
+            F O R  $_S E S  ARR. (D B S H E M A...) ~~~~~~~~~~~~~~~~~'
           , 'cncts'                 => (object)[] //c o n n e c t  (states) a t t r i b u t e s
           , 'states'                => (object)[] //other states  a t t r i b u t e s
           //atr. assigned f or autol.cls in index.php and home ctr before $ p p 1 :
           //, 'autoloads'             => []
           //
-          , 'A D R E S S E S  in Config_ allsites.php' => 'cs02. R O U T I N G ~~~~~~~~~~~~~~~~'
+          , 'HELP_PATHS_IN_UTL_CLS' => '
+          cs02. R O U T I N G - A D R E S S E S  in Config_ allsites.php ~~~~~~~~~~~~~~~~'
           //, 'vendor_namesp_prefix'=> $vendor_namesp_prefix
           //, 'module_towsroot'     => $module_towsroot
           //, 'wsroot_path'         => $wsroot_path
@@ -207,8 +237,7 @@ abstract class Config_allsites //extends Db_ allsites
           , 'uri_arr'             => $uri_arr
           , 'module_relpath'      => $module_relpath
           , 'module_url'          => $module_url
-          //
-          , 'ROUTES (LINKS)  IN  M O D U L E  CTR Home_ctr.php' => '~~~~~~~~~~~~~~~~~'
+          //, 'app_relurl'          => $app_relurl
         ] ;
 
       $pp1 += $pp1_module ;

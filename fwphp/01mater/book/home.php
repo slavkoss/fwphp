@@ -18,25 +18,22 @@ $path_rel_img = '/zinc/img/';
 
 //         t b l rows count :
 $tbl='books'; //products, suppliers are authors
-$rcount = utl_waybill::rrcnt($tbl) ; //Waybill items    $pp1->module_url.QS.'i/cc/'
+$rcount = utl_waybill::rrcnt($tbl) ; //Waybill items
 ?>
     <h2 style="text-align: center;">Waybill items homepage - (LOV of) all products with suppliers</h2>
 
 <div class="container">
+
   <b><span id="ajax_pgtitle_box">Product count : </span><?=$rcount?></b>
+
     &nbsp;&nbsp;&nbsp;
-    <a href="<?=$pp1->cre_row_frm_book?>" class="btn_green">Add book (product)</a>
-                <!-- 
-                     https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_basic
-                        <button>Default Button</button>
-                        <a href="#" class="button">Link Button</a>
-                        <button class="button">Button</button>
-                        <input type="button" class="button" value="Input Button">
-                -->
+    <div class="navigation">
+    <a href="<?=$pp1->module_url.QS.'i/cc/'?>">Add book (product)</a>
+    </div>
 </div>
 
 
-  <!--     main content output : List of songs  -->
+  <!--        main content output : List of songs  -->
   <div class="xxbox">
     <table>
         <thead style="background-color: #ddd; font-weight: bold;">

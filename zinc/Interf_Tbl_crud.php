@@ -41,10 +41,3 @@ interface Interf_Tbl_crud
 
 
 } // e n d  i n t e r f  I n t e r f _T b l_ c r u d
-
-/*Fatal error: Declaration of B12phpfw\dbadapter\post\Tbl_crud::rr(
-     $sellst, $qrywhere, $binds, $caller)
-  must be compatible with B12phpfw\core\zinc\Interf_Tbl_crud::rr(
-     string $sellst, string $qrywhere, array $binds, string $caller): object
-  in J:\awww\www\fwphp\glomodul\post\Tbl_crud.php on line 19
-*/
