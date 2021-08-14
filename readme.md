@@ -53,9 +53,10 @@ Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
 
 
 <br />
-Explanations below are far less important than demo site and code download mentioned above - open code and learn it, it is simple but needs      
+### Explanations below are far less important than demo site and code download mentioned above - open code and learn it.
+Code is small and simple but needs :      
 > few hours (advanced user) - days (intermediate) - weeks/months (beginner) to understand it.           
-**Understand code is must for any professional code skeleton !**       
+**Understand code is must for any good code skeleton !**       
 <br />
 
          _.-'''''-._
@@ -76,14 +77,17 @@ Explanations below are far less important than demo site and code download menti
 ## 1\.3 Project notable goals  - reasons
 Notable package does something special, is also frequently innovative. 
 
-1. I developed B12phpfw in my free time (my work for last 20 years was :  Oracle Forms & Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".
-
-https://github.com/panique/mini3 is good but to simple.   OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram (Udemy) is good but older programming style.
+1. I developed B12phpfw in my free time (my work for last 20 years was :  Oracle Forms & Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend      
+    because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".     
+    - https://github.com/panique/mini3 is good but to simple.      
+    - OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram (Udemy) is good but older programming style
+    - other books / videos / inet tutorials same plus routing to complicated, does not work... (authors understand own code ?). 
+      Slim routing if app is below web server doc root is not clear before 2021 year version !
    
 2. B12phpfw is good for developing **large sites** (more of them under web server root dir. path).
 
 3. ***Innovative*** is : 
-   1. each module in own folder like Oracle Forms 6i form, Blazor and APEX pages ee no M,V,C folders
+   1. each module in own folder like Oracle Forms \>= 6i form, Blazor and APEX pages ee no M,V,C folders
    2. routing : URL parts in key-keyvalue form
    3. dispatching : call or include like https://github.com/panique/mini3
    4. **simple module** - one table CRUD eg "users" table or **compound module** - more tables CRUD eg my msg (Blog) module or invoice... 
@@ -99,10 +103,11 @@ https://github.com/panique/mini3 is good but to simple.   OOP PHP. CMS blog Vide
        2. or **compound module** eg my msg (Blog) module or invoice... 
    7. own debugging to find logical errors (Xdebug is not enough - shows only sintax errors) - own solution
    
-5. Present best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
+5. Based on best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
     https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
 
-Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **most probably do not nead B12phpfw** code skeleton, see their code, is simmilar to B12phpfw - few important **adresses tricks** (see them below on op.system and on web), **includes instead http// jump to pages** (this is interesting question).
+Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **most probably do not nead B12phpfw** code skeleton, but I did it.     
+**Includes and method calls instead http// jump to pages** - this is interesting question. http// jump to pages in B12phpfw is used only to jump in other module.
 
 ## 1\.4 To do - done
 Everything important is done in current version 7 code. 
@@ -385,6 +390,77 @@ class Autoload
 
 
 # B12phpfw modules
+### call_child_fn_from_parent_cls.php explains B12phpfw routing and dispatching principle
+
+```php
+<?php
+/**
+ * J:\awww\www\fwphp\glomodul\z_examples\call_child_fn_from_parent_cls.php  WHY ?
+ * DISPATCHING is call method according URL parts (extracted with ROUTING code)
+ * BECAUSE MODULE METHODS PARAMS ARE MOSTLY GLOBAL - same for all modules,
+ * TO AVOID LOT OF SAME CODE IN MODULES (CODE REDUNDANCY) 
+ * we assign globals in parent clas, then call child method from parent clas
+ */
+declare(strict_types=1);
+namespace B12phpfw\module\z_examples ;
+
+abstract class utl { // Config_ allsites & global utilities
+  // utilities class
+
+  public function __construct(string $called_module_method) {
+    echo '<br><b>echo from PARENT CONFIG&UTILS cls :</b> '. __METHOD__ 
+    .'<br>MODULE METHODS PARAMS ARE MOSTLY GLOBAL - same for all modules !!' ;
+    $obj_params = (object)['p1'=>'p1value'] ; //global elements of property pallete 
+    return static::$called_module_method($obj_params); // Here comes Late Static Bindings
+  }
+
+    public static function call_module_method(string $akc, object $obj_params) {
+      echo '<br><b>echo from PARENT CONFIG&UTILS cls :</b> See how is created  m e t h o d  name  $ a k c  in abstract class Config_ allsites, m ethod __c onstruct :<br>
+      $this->call_module_method($akc, $pp1) ; //protected fn (in child cls Home_ ctr) calls private fns (in child cls Home_ ctr)
+      ' ;
+                //static::called_module_method(); // Here comes Late Static Bindings
+                //return $this->$akc($pp1) ;
+      return static::$akc($obj_params); // Here comes Late Static Bindings
+    }
+}
+
+class Home_ctr extends utl {
+  // module controller
+
+  public function __construct() {
+    // Do global configuration because 
+    // MODULE METHODS PARAMS ARE MOSTLY GLOBAL - same for all modules
+    parent::__construct('called_module_method'); 
+    //Home_ctr::call_module_method('called_module_method', (object)['p1'=>'p1value']);
+  }
+
+    protected static function called_module_method(object $obj_params) {
+      // here can be added module dependent parameters
+        echo '<br><br><b>echo from child cls :</b> '. __METHOD__ ;
+        echo '<pre><b>$obj_params</b>='; print_r($obj_params) ; echo '</pre>';
+    }
+}
+
+
+$module_ctr = new Home_ctr(); // instatiated in index.php
+//    or :
+//Home_ctr::call_module_method('called_module_method', (object)['p1'=>'p1value']);
+
+
+/*
+//outputs : 
+echo from PARENT CONFIG&UTILS cls : B12phpfw\module\z_examples\utl::__construct
+MODULE METHODS PARAMS ARE MOSTLY GLOBAL - same for all modules !!
+
+echo from child cls : B12phpfw\module\z_examples\Home_ctr::called_module_method
+
+$obj_params=stdClass Object
+(
+    [p1] => p1value
+)
+*/
+```
+
 ## 1\.6 4. Home_ctr cls : MODULE CONTROLLER CODE, ROUTES, CALLS
 B12PHPFW MODULE CODE. LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
 

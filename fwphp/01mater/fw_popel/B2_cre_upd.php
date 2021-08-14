@@ -89,8 +89,7 @@ if(isset($_POST['submit']) and $_POST['submit'])
   " WHERE id=$book[id]";
   }
   else {
-  $sql = "INSERT INTO books(title, author, isbn, publisher,
-  year,summary) VALUES(" .
+  $sql = "INSERT INTO books(title, author, isbn, publisher, year,summary) VALUES(" .
   $conn->quote($_POST['title']) .
   ', ' . $conn->quote($_POST['author']) .
   ', ' . $conn->quote($_POST['isbn']) .

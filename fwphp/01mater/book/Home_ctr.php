@@ -17,33 +17,20 @@ class Home_ctr extends utl
                         }
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
-    //$akc = $pp1->uriq->i ; //=home
-    //$pp1->$akc() ; //include(str_replace('|','/', $db->uriq->i.'.php'));
     /**
-    *  ------------------------------------------------------------------------------
-    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
-    *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
-    *  ------------------------------------------------------------------------------
-    * 1. ALL MODULE VIEWS LINKS SHOULD BE IN $pp1_ module, SHAPED SO :
-    * 2. $pp1->urlqrystringpart1_name => i/M E T H O D NAME/param1name/ param1value...2,3... 
-    *    (urlqrystring LAST PART IS IN VIEW SCRIPT WHICH KNOWS IT, eg idvalue !)
-    * 3. IF LINK key-keyvalue pair IS NOT HERE THEN EG : 
-    *    in URLurlqrystring : QS.'i/home/' home must be M E T H O D NAME in this script.
-    *    Eg http://dev1:8083/fwphp/glomodul/adrs/?i/ex1/  or
-    *       http://dev1:8083/fwphp/glomodul/adrs/?i/home/ or
-    *       http://dev1:8083/fwphp/glomodul/adrs/
-    */
-    $pp1_module = [ // Property pallette module properties
-      // LINKALIAS          URLurlqrystring                CALLED METHOD
-      // IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
-      //, 'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
-      //, 'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
-      //      (method parameter /idvalue we assign in view script after ldd_category)
+     * LINKALIAS          URLurlqrystring                CALLED METHOD
+     * IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
+     *  ,'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
+     * ,'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
+     *      (method parameter /idvalue we assign in view script after ldd_category)
+     */
+    $pp1_module = [ // R O U T I N G  T A B L E
+        'ROUTING_TABLE'     => '<b style="color: blue">
+        $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE</b>'
+      , 'ccbook_frm'        => QS.'i/ccbook_frm/'
     ] ;  //e n d  R O U T I N G  T A B L E
-    //is better $pp1->cre_row_frm ? - more writing, cc fn in module ctr not visible
 
     parent::__construct($pp1, $pp1_module);
-
 
   } // e n d  f n  __ c o n s t r u c t
 

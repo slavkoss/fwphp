@@ -9,6 +9,7 @@ include('common.inc.php');
 if (isset($_REQUEST['author'])) $id = (int)$_REQUEST['author'];
 else $id = '';
 if($id) {
+  //       U P D A T E
   // We have the ID, get the author details from the table
   $q = $conn->query("SELECT * FROM authors WHERE id=$id");
   $author = $q->fetch(PDO::FETCH_ASSOC);
@@ -16,28 +17,29 @@ if($id) {
   $q = null;
 }
 else {
-  // We are creating a new book
+  //      C R E A T E
   $author = array();
 }
-// Now see if the form was submitted
+// See if the form was submitted
 $warnings = array();
-if(isset($_POST['submit']) and $_POST['submit']) {
-// Validate every field
-$warnings = array();
-// First name should be non-empty
-if(!$_POST['firstName']) {
-$warnings[] = 'Please enter first name';
-}
-// Last name should be non-empty
-if(!$_POST['lastName']) {
-$warnings[] = 'Please enter last name';
-}
-// Bio should be non-empty
-if(!$_POST['bio']) {
-  $warnings[] = 'Please enter bio';
-}
-// If there are no errors, we can update the database
-// If there was book ID passed, update that book
+if(isset($_POST['submit']) and $_POST['submit']) 
+{
+  // Validate every field
+  $warnings = array();
+  // First name should be non-empty
+  if(!$_POST['firstName']) {
+  $warnings[] = 'Please enter first name';
+  }
+  // Last name should be non-empty
+  if(!$_POST['lastName']) {
+  $warnings[] = 'Please enter last name';
+  }
+  // Bio should be non-empty
+  if(!$_POST['bio']) {
+    $warnings[] = 'Please enter bio';
+  }
+  // If there are no errors, we can update the database
+  // If there was book ID passed, update that book
   if(count($warnings) == 0) {
     if(@$author['id']) {
     $sql = "UPDATE authors SET firstName=" .
@@ -60,21 +62,20 @@ if(!$_POST['bio']) {
   }
 }
 else {
-// Form was not submitted.
-// Populate the $_POST array with the author's details
-$_POST = $author;
+  // Form was not submitted.
+  // Populate the $_POST array with the author's details
+  $_POST = $author;
 }
 // 
 showHdr('Edit Author');
 // If we have any w arnings, display them now
 if(count($warnings)) {
-echo "<b>Please correct these errors:</b><br>";
-foreach($warnings as $w)
-{
-echo "- ", htmlspecialchars($w), "<br>";
+  echo "<b>Please correct these errors:</b><br>";
+  foreach($warnings as $w) {
+     echo "- ", htmlspecialchars($w), "<br>";
+  }
 }
-}
-// Now display the form
+// Display f o r m
 ?>
 <form action="B1_cre_upd.php" method="post">
   <table border="1" cellpadding="3">
