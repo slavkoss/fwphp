@@ -24,8 +24,9 @@ Names that are not real words ($dgrtty), Methods that are nouns.
 **B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with Laragon  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. Framework core J:\awww\www\vendor\b12phpfw\ is ~ 80 kB.
 ## 1\.1 Demo sites - free hosting with free Mysql
 See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/54) or [here](http://phporacle.heliohost.org/fwphp/glomodul/blog/?i/read_post/id/54)
-1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - here are newest programs (may be more problems than heliohost). Also PHP on Linux is a bit different than on Windows.
-2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL)
+1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - thanks for removing time limit. 
+     PHP on Linux is a bit different than on Windows - see below "To do - done".
+2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL) - I asked them to remove time limit - no answer.
 3. My blog :  http://phporacle.altervista.org
     and  http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
 4. My fwphp site (may be more : fwphp2, 3...) : http://SSPC2:8083/
