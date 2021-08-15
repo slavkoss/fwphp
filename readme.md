@@ -21,7 +21,7 @@ Names that are not real words ($dgrtty), Methods that are nouns.
 
 
 
-**Developed** on home PC on (newest) Windows 10 64 bit with Laragon  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. 
+**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with Laragon  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. Framework core J:\awww\www\vendor\b12phpfw\ is ~ 80 kB.
 ## 1\.1 Demo sites - free hosting with free Mysql
 See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/54) or [here](http://phporacle.heliohost.org/fwphp/glomodul/blog/?i/read_post/id/54)
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - here are newest programs (may be more problems than heliohost). Also PHP on Linux is a bit different than on Windows.
@@ -586,13 +586,15 @@ or many others, Google :  Github php framework
 
 
 
-3 modules  :   
+3 modules  and some utilities :   
 1. Menus (**Mnu module**) are not based - no need, but can be based on B12phpfw which is best for CRUD modules like Oracle Forms form. 
 2. Most frequent (best ?) **Blog - msgs module** design today - Jazeb Akram, Abdul Wali, Edwin Diaz... I used it in Blog (Msg) module based on B12phpfw code skeleton
-3. WYSIWYG web editing : Markdown or HTML (**Mkd module** is not based - no need, but can be based on B12phpfw is used for blog posts or any txt file). Blog posts may be :
+3. WYSIWYG web editing : Markdown or HTML (**Mkd module** is not based - no need, but can be based on B12phpfw is used for blog posts or any txt file). Blog posts
+    may be :
     1. oper. system files - practicaly unlimited size
-    2. or in MySQL/Oracle/or any DB : post (4000 characters I commented this in code), summary (4000 characters) and banner_img description (4000 characters oracle 11g, 32 kB >=12c) 
-
+    2. or in MySQL/Oracle/or any DB : post (4000 characters I commented this in code), summary (4000 characters) and banner_img description
+        (4000 characters oracle 11g, 32 kB >=12c) 
+4. http://dev1:8083/fwphp/glomodul/z_examples/RespectValidation/test.php
 
 
 

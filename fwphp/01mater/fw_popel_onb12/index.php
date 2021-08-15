@@ -4,10 +4,12 @@ namespace B12phpfw\module\fw_popel_onb12 ;
 use B12phpfw\core\zinc\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
+$wsroot_path   = str_replace('\\','/', realpath('../../../')) .'/' ;
+$shares_path   = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
+$autoload_path = $wsroot_path.'vendor/' ; //includes, globals, commons, reusables
+
 $module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
 $app_dir_path = dirname($module_dir_path) .'/' ; //app dir eg "01mater" group of modules
-$wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
-$shares_path = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   
@@ -25,6 +27,7 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
     $module_dir_path // = waybill dir (fw_popel_onb12) = thismodule_cls_dir_path
     //dir of global clses for all sites :
     ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'zinc')) .'/'
+    ,$autoload_path
               //master modules (tbls) = blocks in Ora. Forms
               ,$app_dir_path.'book/'
               ,$app_dir_path.'supplier/'
@@ -41,6 +44,7 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
 ] ;
 
 //2. global cls to load (include, bootstrap) classes scripts automatically
+//require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
 require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
