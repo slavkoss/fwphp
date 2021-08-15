@@ -1,0 +1,21 @@
+<!--
+ J:\awww\www\fwphp\glomodul\z_examples\02_mvc\xuding_glob\____03xuding 2017_users_NPPPSES.txt
+ MODULE_DIR = J:\awww\www\fwphp\glomodul\z_examples\02_mvc\xuding_glob
+-->
+<NotepadPlus>
+  <Session activeView="0">
+    <mainView activeIndex="7">
+      <File firstVisibleLine="3" ... filename="MODULE_DIR\index.php"                                  ... />
+      <File firstVisibleLine="14"... filename="MODULE_DIR\Home_ctr.php"                               ... />
+      <File firstVisibleLine="12"... filename="MODULE_DIR\home.php"                                   ... />
+      <File firstVisibleLine="0" ... filename="MODULE_DIR\create.php"                                 ... />
+      <File firstVisibleLine="0" ... filename="MODULE_DIR\read.php"                                   ... />
+      <File firstVisibleLine="98"... filename="MODULE_DIR\update.php"                                 ... />
+      <File firstVisibleLine="21"... filename="MODULE_DIR\Tbl_crud.php"                               ... />
+      <File firstVisibleLine="7" ... filename="MODULE_DIR\~~~~~~~ 03xuding 2017_users GLOBALS.nppses" ... />
+      <File firstVisibleLine="0" ... filename="MODULE_DIR\z_delete.php"                               ... />
+      <File firstVisibleLine="0" ... filename="MODULE_DIR\help.php"                                   ... />
+    </mainView>
+    <subView activeIndex="0" />
+  </Session>
+</NotepadPlus>

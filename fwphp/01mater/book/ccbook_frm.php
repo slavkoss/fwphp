@@ -1,11 +1,11 @@
 <?php
-// 
+/**
+ * J:\awww\www\fwphp\01mater\book\ccbook_frm.php
+ */
 declare(strict_types=1);
-//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
-//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+// vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
 namespace B12phpfw\module\book ; //invoice, fw_popel_onb12
 
-//vendor_namesp_prefix \ processing (behavior) \ cls dir 
 //use B12phpfw\core\zinc\Db_allsites as utldb ;
 use B12phpfw\dbadapter\book\Tbl_crud as utl_book ; //utl_waybill
 

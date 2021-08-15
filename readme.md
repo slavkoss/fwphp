@@ -394,14 +394,27 @@ class Autoload
 
 ```php
 <?php
-/**
- * J:\awww\www\fwphp\glomodul\z_examples\call_child_fn_from_parent_cls.php  WHY ?
- * DISPATCHING is call method according URL parts (extracted with ROUTING code)
- * BECAUSE MODULE METHODS PARAMS ARE MOSTLY GLOBAL - same for all modules,
- * TO AVOID LOT OF SAME CODE IN MODULES (CODE REDUNDANCY) 
- * we assign globals in parent clas, then call child method from parent clas
+/**     
+ * J:\awww\www\fwphp\glomodul\z_examples\call_child_fn_from_parent_cls.php  WHY ?      
+ * DISPATCHING is calling method according URL parts (extracted with ROUTING code).    
+ * Because MODULE METHODS PARAMS ARE MOSTLY GLOBAL (same for all modules), eg paths,      
+ * to avoid lot of same code in modules (code redundancy) :    
+ * 1. WE ASSIGN GLOBALS IN PARENT CONF&UTL CLS METHOD
+ *    (not knowing which module is going to use them)        
+ * 2. THEN, FROM PARENT CLS WE CALL METHOD IN CHILD MODULE CLS. 
+ *    Module method knows how to use globals 
+ *    and what module needs for parameters beside globals.       
  */
+
 declare(strict_types=1);
+
+/** 
+ *         ns (NAMESPACES) we use in clses script autoloading.
+ * vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
+ * eg B12phpfw is vendor_namesp_prefix  ; //FUNCTIONAL, NOT POSITIONAL
+ *     FUNCTIONAL parts are not requirad, we use them to better understand script purpose.
+ *eg clsdir - only this part of namespace is POSITIONAL, CAREFULLY ! 
+ */
 namespace B12phpfw\module\z_examples ;
 
 abstract class utl { // Config_ allsites & global utilities
@@ -608,9 +621,27 @@ We need single entry point in module to avoid mess with links (https://... links
 
 ```php
 <?php
-// J:\awww\www\fwphp\glomodul\adrs\index.php
+/**     
+ * J:\awww\www\fwphp\glomodul\adrs\index.php
+ * DISPATCHING is calling method according URL parts (extracted with ROUTING code).    
+ * Because MODULE METHODS PARAMS ARE MOSTLY GLOBAL (same for all modules), eg paths,      
+ * to avoid lot of same code in modules (code redundancy) :    
+ * 1. WE ASSIGN GLOBALS IN PARENT CONF&UTL CLS METHOD
+ *    (not knowing which module is going to use them)        
+ * 2. THEN, FROM PARENT CLS WE CALL METHOD IN CHILD MODULE CLS. 
+ *    Module method knows how to use globals 
+ *    and what module needs for parameters beside globals.       
+ */
 
-//LAST NS part (BEFORE CLSNAME IF ANY) eg "blog" or "adrs" is DIRNAME and module name.
+declare(strict_types=1);
+
+/** 
+ *         ns (NAMESPACES) we use in clses script autoloading.
+ * vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
+ * eg B12phpfw is vendor_namesp_prefix  ; //FUNCTIONAL, NOT POSITIONAL
+ *     FUNCTIONAL parts are not requirad, we use them to better understand script purpose.
+ *eg clsdir - only this part of namespace is POSITIONAL, CAREFULLY ! 
+ */
 namespace B12phpfw\module\adrs ;
 use B12phpfw\core\zinc\Autoload ;
 
@@ -1507,7 +1538,15 @@ Git we use eg to syncronize our scripts :
 Track the history of the changes where, when, who and why made. git SW stores or host the versions of project within our hard drive. From where we can backup our project history.  GitHub  site is like hosting to store our versions of projects (case HD crash !).       
 Staging is like a queue, add drops modified files here for push.      
 Push (commit) is method to send the files from working directory to repository.         
-Pull is method to fetch the record from repository to our working directory.   
+Pull is method to fetch the record from repository to our working directory.     
+
+https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/      
+Beginning August 13, 2021, Github no longer accepts account passwords when authenticating Git operations on GitHub.com, and requires the use of **token-based authentication**, such as a **personal access token over HTTPS (recommended) ** (for developers) or an OAuth or GitHub App installation token (for integrators) for all authenticated Git operations on GitHub.com. You may also continue using SSH keys where you prefer..
+
+### Configuring two-factor authentication using a TOTP mobile app     
+https://docs.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication      
+We strongly recommend using a time-based one-time password (**TOTP**) application to configure 2FA.    
+TOTP applications are more reliable than SMS, especially for locations outside the United States. TOTP apps support the secure backup of your authentication codes in the cloud and can be restored if you lose access to your device.     
 
 
 ## To purge remote repository

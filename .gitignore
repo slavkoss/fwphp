@@ -1,6 +1,7 @@
 /.git/
 composer.lock
 /zinc/img/img_big/
+/vendor/RespectValidation/
 /fwphp/glomodul/mkd/01/090_private/
 /fwphp_before_dbtrait/
 /magento2ce/

@@ -14,7 +14,8 @@
   <meta charset="utf-8">
   <link rel="shortcut icon" href="/zinc/img/favicon.ico">
   <link type="text/css" rel="stylesheet" media="all" href="/zinc/themes/mini3.css" />
-  <style></style><!--script src="utl_inc.js"></script-->
+  <style>
+  </style><!--script src="utl_inc.js"></script-->
 </head>
 
 <body>
@@ -64,7 +65,9 @@
 
           <dd>
             <a title="Parse url query string" class="sub" href="03_test_parse_url.php">URL qrystring</a> &nbsp;
-
+            <a title="call_child_fn_from_parent_cls" class="sub" href="03_call_child_fn_from_parent_cls.php">call_child_fn_from_parent_cls</a> &nbsp;
+            
+            <br>
             <a title="login_form_validation.php" class="sub"
                href="login_form_validation.php">Login form validation</a> &nbsp;
 
@@ -73,9 +76,9 @@
 
             <br />
               <!--    J:\xampp\htdocs\fwphp\glomodul\z_examples\pagination_hr_countries -->
-              <a title="Pagination hr countries" class="sub" href="./pagination_hr_countries/">Pagination hr countries</a> &nbsp;
+              <a title="Pagination hr countries" class="sub" href="./MVC_FW/pagination_hr_countries/">Pagination hr countries</a> &nbsp;
 
-              <a title="Steinmetz" class="sub" href="./03steinmetz/ch01_INC_prev_next_links_ARR_rowcolor/paginator_navbar_no_rows.php">Pagination (Steinmetz)</a> &nbsp;
+              <a title="Steinmetz" class="sub" href="./book_video\03steinmetz_2008/ch01_INC_prev_next_links_ARR_rowcolor/paginator_navbar_no_rows.php">Pagination (Steinmetz)</a> &nbsp;
 
           </dd>
 
@@ -113,17 +116,41 @@
           <dt><span>Code examples</span></dt>
 
           <dd>
-            <a href="01_php_bootstrap/flexmoj/FLEX_minisite2017"
-            title="">Basic site main menu module code idea (no B12phpfw)</a>. It is easy to use Bootstrap 4 instead of FLEX but pages are slower (good exercize).
+            <a href="MVC_FW/FLEX_minisite2017"
+            title="">Basic site main menu module code idea (no B12phpfw)</a>. It is easy to use Bootstrap 4 instead of FLEX
+                     (good exercize), but pages are slower.
 
             <br /><a href="php_patterns/singleton_B12phpfw.php?i/read_post/"
-            title="">Basic B12phpfw CRUD code idea 1</a> : In 2 scripts: Home_ctr.php, singleton_B12phpfw.php. It is not easy to learn, same as any framework (but easyer -:).
+            title="">Basic B12phpfw CRUD code idea 1</a> : In 2 scripts: Home_ctr.php, singleton_B12phpfw.php. 
+			Not easy to learn (as any framework, but easyer -:)).
 
-            <br /><a href="02_mvc/xuding_glob/index.php"
+            <br /><a href="MVC_FW/03xuding_glob/"
             title="">Basic B12phpfw CRUD code idea 2</a> : how to use B12phpfw code for CRUD admins table rows.
 
 
           </dd>
+
+
+
+          <br><dt><span>Books, videos</span></dt>
+
+          <dd>
+            <a href="MVC_FW/FLEX_minisite2017"
+            title="">Basic site main menu module code idea (no B12phpfw)</a>. It is easy to use Bootstrap 4 instead of FLEX
+                     (good exercize), but pages are slower.
+
+            <br /><a href="php_patterns/singleton_B12phpfw.php?i/read_post/"
+            title="">Basic B12phpfw CRUD code idea 1</a> : In 2 scripts: Home_ctr.php, singleton_B12phpfw.php. 
+			Not easy to learn (as any framework, but easyer -:)).
+
+            <br /><a href="MVC_FW/03xuding_glob/"
+            title="">Basic B12phpfw CRUD code idea 2</a> : how to use B12phpfw code for CRUD admins table rows.
+
+
+          </dd>
+
+
+
 
         </dl>
 
@@ -133,7 +160,8 @@
 
     </div><!-- id="positioner"-->
 
-               <h2>Tests menu is lsweb module</h2>
+
+	<h2>Tests menu is lsweb module</h2>
 <p>
 
 <!-- http://dev1:8083/fwphp/glomodul

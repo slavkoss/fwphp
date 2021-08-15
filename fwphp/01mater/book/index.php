@@ -1,5 +1,6 @@
 <?php
-// 
+
+// vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
 namespace B12phpfw\module\fw_popel_onb12 ;
 use B12phpfw\core\zinc\Autoload ;
 

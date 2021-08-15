@@ -1,7 +1,25 @@
 <?php
-// J:\awww\www\fwphp\glomodul\adrs\index.php
+/**     
+ * J:\awww\www\fwphp\glomodul\adrs\index.php
+ * DISPATCHING is calling method according URL parts (extracted with ROUTING code).    
+ * Because MODULE METHODS PARAMS ARE MOSTLY GLOBAL (same for all modules), eg paths,      
+ * to avoid lot of same code in modules (code redundancy) :    
+ * 1. WE ASSIGN GLOBALS IN PARENT CONF&UTL CLS METHOD
+ *    (not knowing which module is going to use them)        
+ * 2. THEN, FROM PARENT CLS WE CALL METHOD IN CHILD MODULE CLS. 
+ *    Module method knows how to use globals 
+ *    and what module needs for parameters beside globals.       
+ */
 
-//LAST NS part (BEFORE CLSNAME IF ANY) eg "blog" or "adrs" is DIRNAME and module name.
+declare(strict_types=1);
+
+/** 
+ *         ns (NAMESPACES) we use in clses script autoloading.
+ * vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
+ * eg B12phpfw is vendor_namesp_prefix  ; //FUNCTIONAL, NOT POSITIONAL
+ *     FUNCTIONAL parts are not requirad, we use them to better understand script purpose.
+ *eg clsdir - only this part of namespace is POSITIONAL, CAREFULLY ! 
+ */
 namespace B12phpfw\module\adrs ;
 use B12phpfw\core\zinc\Autoload ;
 
