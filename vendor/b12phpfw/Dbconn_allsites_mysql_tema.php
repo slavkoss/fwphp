@@ -1,8 +1,8 @@
 <?php
-//                   J:\awww\www\zinc\Dbconn_allsites_mysql_tema.php
-//   to be copied to J:\awww\www\zinc\Dbconn_allsites.php
+//                   J:\awww\www\b12phpfw\Dbconn_allsites_mysql_tema.php
+//   to be copied to J:\awww\www\b12phpfw\Dbconn_allsites.php
 // single access point to our database (singleton class).
-namespace B12phpfw\core\zinc ;
+namespace B12phpfw\core\b12phpfw ;
 //use PDO;
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
 abstract class Dbconn_allsites

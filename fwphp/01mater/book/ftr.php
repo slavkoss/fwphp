@@ -8,7 +8,7 @@
             <!-- j Q u e r y, loaded in the recommended protocol-less way 
                  //code.j q uery.com/j query-1.11.1.min.js -->
            <!-- more http://www.paulirish.com/2010/the-protocol-relative-url/ -->
-    <!--script src="/zinc/themes/bootstrap/js/jquery.min.js"></script-->
+    <!--script src="/vendor/b12phpfw/themes/bootstrap/js/jquery.min.js"></script-->
 
     <!-- 
       define project's U R L 

@@ -25,8 +25,9 @@ class Home_ctr extends utl
      */
     $pp1_module = [ // R O U T I N G  T A B L E
         'ROUTING_TABLE'     => '<b style="color: blue">
-        $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE</b>'
-
+        $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE $pp1</b>'
+      //
+      // http://dev1:8083/fwphp/01mater/fw_popel_onb12/index.php?i/ccbook_frm/
       , 'ccbook_frm'     => QS.'i/ccbook_frm/'
     ] ;  //e n d  R O U T I N G  T A B L E
 
@@ -66,9 +67,7 @@ class Home_ctr extends utl
 
 
 
-  /**
-  * pgs01. I N C  TEXT SHOWING  P A G E  S C R I P T S
-  */
+
   private function home(object $pp1)
   {
     // Ver. 7 : Dependency Injection $pp1
@@ -78,43 +77,6 @@ class Home_ctr extends utl
       require $pp1->module_path . 'ftr.php';
   }
 
-  private function ex1(object $pp1)
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
-      require $pp1->module_path . 'hdr.php';
-      require $pp1->module_path . 'example_one.php';
-      require $pp1->module_path . 'ftr.php';
-      
-                  echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
-  }
-
-  private function ex2(object $pp1)
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
-    $param1 = $pp1->uriq->p1 ;
-    $param2 = $pp1->uriq->p2 ;
-    require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'example_two.php';
-    require $pp1->module_path . 'ftr.php';
-                  echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
-  }
-
-
-
-
-
-
-  /**
-  * pgs02. I N C  R  (c R u d)  P A G E  SCRIPTS
-  */
-  private function xxxrt(object $pp1)
-  {
-    // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
-    require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'read_tbl.php';  
-    require $pp1->module_path . 'ftr.php';
-  }
-
 
 
   /**
@@ -122,14 +84,16 @@ class Home_ctr extends utl
   */
   private function ccbook_frm(object $pp1)
   {
-    // I N C  C R U D P A G E  S C R I P T
-    // f o r m : http://dev1:8083/fwphp/glomodul/adrs/?i/cc/
-    //http://dev1:8083/fwphp/glomodul/adrs
-    //[module_relpath] => fwphp/01mater/fw_popel_onb12/index.php
-    //$app_relurl = '/'. dirname(dirname('/'. $pp1->module_relpath)) ;
-    require $pp1->app_dir_path . '/book/hdr.php'; // MODULE_PATH
-    require $pp1->app_dir_path . '/book/ccbook_frm.php';
-    require $pp1->app_dir_path . '/book/ftr.php';
+    // http://dev1:8083/fwphp/01mater/fw_popel_onb12/index.php?i/ccbook_frm/
+    // http://dev1:8083/fwphp/01mater/book/index.php?i/cc/
+    $module_book_url = $pp1->wsroot_url 
+      . basename(dirname(dirname(dirname(__FILE__)))) // fwphp    = site modules group
+      .'/'. basename(dirname(dirname(__FILE__)))      // 01mater  = app modules group
+      .'/book/' ; // module = dir
+    //require $pp1->app_dir_path . '/book/hdr.php'; // MODULE_PATH
+    //require $pp1->app_dir_path . '/book/ccbook_frm.php';
+    utl::Redirect_to($module_book_url.QS.'i/cc_frm/') ; //to  c r e r o w
+    //require $pp1->app_dir_path . '/book/ftr.php';
   }
 
 
@@ -172,22 +136,27 @@ class Home_ctr extends utl
 
 
 
+  private function ex1(object $pp1)
+  {
+    //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
+      require $pp1->module_path . 'hdr.php';
+      require $pp1->module_path . 'example_one.php';
+      require $pp1->module_path . 'ftr.php';
+      
+                  echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
+  }
 
+  private function ex2(object $pp1)
+  {
+    //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
+    $param1 = $pp1->uriq->p1 ;
+    $param2 = $pp1->uriq->p2 ;
+    require $pp1->module_path . 'hdr.php';
+    require $pp1->module_path . 'example_two.php';
+    require $pp1->module_path . 'ftr.php';
+                  echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
+  }
 
-   /**
-    * AJAX-ACTION: ajax Get Stats
-    */
-    private function ajaxcountr()  //p ublic f unction ajaxGetStats()
-    {
-                        //$Song = new Song();
-                        //$amount_of_songs = $Song->getAmountOfSongs();
-                        //supersimple API would be possible by echoing JSON here
-                        //echo $amount_of_songs;
-                    if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
-                    , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
-                    , '$this->dbobj'=>$this->dbobj ] ) ; }
-      echo utl_waybill::rrcnt('song'); // not $this->dbobj->R_tb... !!!
-    }
 
 
 

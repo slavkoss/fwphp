@@ -1,5 +1,5 @@
 <?php
-https://www.w3schools.com/html/html_tables.asp
+//https://www.w3schools.com/html/html_tables.asp
 
 // var_dump(getenv('PHP_ENV'), $_SERVER, $_REQUEST);
 // Enable: E_WARNING | E_PARSE (report typical errors), -1 (report all errors) / Disable: 0 (no error reporting)
@@ -8,20 +8,90 @@ error_reporting(0);
 error_reporting(1);
 ini_set('display_errors', 1);
 
-$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-$countrycode = filter_input(INPUT_POST, "countrycode", FILTER_SANITIZE_STRING);
-
+  /*
   switch (true) {
     case ( $mvno > 0 ):
-
       break ;
     default:
-
       break;
+  } 
+  */
+
+echo urldecode(
+'
+http://dev1:8083/fwphp/01mater/book/%3Cbr%20/%3E%3Cb%3ENotice%3C/b%3E:%20%20Undefined%20variable:%20module_url%20in%20%3Cb%3EJ:/awww/www/fwphp/01mater/book/cc_frm.php%3C/b%3E%20on%20line%20%3Cb%3E56%3C/b%3E%3Cbr%20/%3E?i/cc/
+'
+);
+
+/*
+//$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+//$countrycode = filter_input(INPUT_POST, "countrycode", FILTER_SANITIZE_STRING);
+if(is_null(NULL)){
+    echo "is_null(NULL)<br>";
+}
+
+$vals     =  [0,'0',1,w2,3.45,'3,45','sasd',01,'01',999999999999,'',' ',NULL] ;
+$vals_str = "[0,'0',1,w2,3.45,'3,45','sasd',01,'01',999999999999,'',' ',NULL]" ;
+echo '<br><br>';
+echo "gettype of $vals_str<br>";
+foreach ($vals as $value) {
+  $valtype = gettype($value);
+
+  if( $valtype == 'string' ) {
+    $value = str_replace(',','.',$value);
   }
 
+  $valtype = gettype($value);
+
+  echo "$value is {$valtype}";
+
+  // ---------------------
+  if($value === 0 or $value === '0'){
+    echo ".....0 and '0' are integer" ;
+  }
+
+  // for '01'
+  if( $valtype == 'string' and $value * 1 / (int)$value === 1 ) {
+    echo ".....integer" ;
+  }
+  // for '3,45'
+  if( $valtype == 'string' and $value * 1 !== (int)$value ) {
+    echo ".....double" ;
+  }
+
+  echo '<br>';
+        //}
+}
+echo '<br><br>';
+echo "is_int of $vals_str<br>";
+foreach ($vals as $value) {
+        $valtype = is_int($value);
+            echo "is_int $value ? {$valtype}<br>";
+}
+echo '<br><br>';
+echo "(int) of $vals_str<br>";
+foreach ($vals as $value) {
+  echo "(int)$value=".(int)$value;
+  if($value === 0 or $value === '0'){
+    echo ".....0 and '0' are integer" ;
+  } 
+  echo '<br>';
+}
+
+
+echo '<br><br>';
+
+*/
+  /* else {
+    //if( (int)$value === $value ){ // '01' should be integer
+    if( (int)$value / $value = 1 ){
+      echo ".....integer" ;
+    }
+  } */
 
 ?>
+
+<!--
 ********** Collapsed Borders, Cellpadding, Left-align Headings 
            Cell that spans two columns
 <!DOCTYPE html>
@@ -245,12 +315,13 @@ th, td {
 
 </body>
 </html>
-
+-->
 
 
 
 
 <?php
+/*
 class PDOConnection {
 	private static $dbhost = "127.0.0.1";
 	private static $dbname = "mvcblog";
@@ -261,16 +332,16 @@ class PDOConnection {
 	public static function getInstance() {
 		if (self::$db_singleton == null) {
 			self::$db_singleton = new PDO(
-			"mysql:host=".self::$dbhost.";dbname=".self::$dbname.";charset=utf8", // connection string
-			self::$dbuser,
-			self::$dbpass,
-			array( // options
-				PDO::ATTR_EMULATE_PREPARES => false,
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-			)
-		);
-	}
+        "mysql:host=".self::$dbhost.";dbname=".self::$dbname.";charset=utf8", // connection string
+        self::$dbuser,
+        self::$dbpass,
+        array( // options
+          PDO::ATTR_EMULATE_PREPARES => false,
+          PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        )
+		  );
+	  }
 	return self::$db_singleton;
+  }
 }
-}
-
+*/

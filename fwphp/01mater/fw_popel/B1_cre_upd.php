@@ -112,7 +112,7 @@ if(count($warnings)) {
 </form>
 <?php
 // Display footer
-showFtr();
+showFtr(__FILE__);
 
 
 

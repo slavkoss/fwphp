@@ -11,7 +11,7 @@ use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ; //Tbl_ crud_ adrs is model (f
 
 $tbl='song';
 
-$rcount = utldb::rrcount('song') ;
+$rcount = utldb::rrcount($tbl) ;
 $cursor = utl_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
   , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 

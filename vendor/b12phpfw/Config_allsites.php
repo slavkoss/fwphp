@@ -1,6 +1,6 @@
 <?php
 /**
-*  J:\awww\www\zinc\Config_ allsites.php
+*  J:\awww\www\b12phpfw\Config_ allsites.php
 * cs02. I N C L U D E D  only i n  i n d e x.p h p 
 * Here is :  module attributes and methods, module CRUD is in module dirs 
 */
@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace B12phpfw\core\zinc ;
+namespace B12phpfw\core\b12phpfw ;
 
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
 abstract class Config_allsites //extends Db_ allsites

@@ -1,14 +1,14 @@
 <?php
 
 // vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
-namespace B12phpfw\module\fw_popel_onb12 ;
-use B12phpfw\core\zinc\Autoload ;
+namespace B12phpfw\module\book ;
+use B12phpfw\core\b12phpfw\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
 $app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "01mater" group of modules
 $wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
-$shares_path = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
+$shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, reusables
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
@@ -26,7 +26,7 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
   , 'module_path_arr'=>[
     $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
     //dir of global clses for all sites :
-    ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'zinc')) .'/'
+    ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'b12phpfw')) .'/'
               /* //two master modules (tbls) = blocks in Ora. Forms
               ,$app_dir_path.'user/'
               ,$app_dir_path.'post_category/'

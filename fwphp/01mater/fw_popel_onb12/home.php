@@ -25,7 +25,7 @@ $rcount = utl_waybill::rrcnt($tbl) ; //Waybill items    $pp1->module_url.QS.'i/c
 <div class="container">
   <b><span id="ajax_pgtitle_box">Product count : </span><?=$rcount?></b>
     &nbsp;&nbsp;&nbsp;
-    <a href="<?=$pp1->ccbook_frm?>" class="btn_green">Add book (product)</a>
+    <a href="<?=$pp1->ccbook_frm?>" class="btn_green" title="Shift+Ctrl+klik u novoj kartici">Add book (product)</a>
                 <!-- 
                      https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_basic
                         <button>Default Button</button>

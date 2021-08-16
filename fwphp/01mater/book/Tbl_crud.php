@@ -1,6 +1,6 @@
 <?php
 /**
- * J:\awww\www\fwphp\01mater\fw_popel_onb12\Tbl_crud.php
+ * J:\awww\www\fwphp\01mater\book\Tbl_crud.php
  *        DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI
  *        (PRE) CRUD class - D A O (Data Access Object) or data mapper
  * (PRE) CRUD means pre-Query, pre-insert and on-insert...
@@ -15,14 +15,14 @@
 declare(strict_types=1);
 
 //vendor_namesp_prefix \ processing (behavior) \ clsdir (POSITIONAL part of ns, CAREFULLY!)
-namespace B12phpfw\dbadapter\fw_popel_onb12 ;
+namespace B12phpfw\dbadapter\book ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;
-use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 
-use B12phpfw\module\fw_popel_onb12\Home_ctr ;
-//use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud   as utl_waybill ;
+use B12phpfw\module\book\Home_ctr ;
+//use B12phpfw\dbadapter\book\Tbl_crud   as utl_module ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
@@ -53,6 +53,14 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     return $cursor ;
   }
 
+  static public function rr_suppliers(
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  { 
+    $cursor =  utldb::rr("SELECT $sellst FROM ". 'authors' ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  }
+
   static public function rr_supplier_byid( int $id, array $other=[] ): object
   {
     $cursor =  utldb::rr("SELECT * FROM ".'authors'." WHERE id=:id"
@@ -65,25 +73,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
 
 
-
-
-
-
-
-
-
-
 // not used :
-
-  static public function rr_suppliers(
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
-  { 
-    $cursor =  utldb::rr("SELECT $sellst FROM ". 'authors' ." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    return $cursor ;
-  }
-
-
 
 
   // pre-query
@@ -115,7 +105,8 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function get_submitted_cc(): array //return '1'
   {
     $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
-      utl::escp($_POST["artist"]), utl::escp($_POST["track"]), utl::escp($_POST["link"])
+        utl::escp($_POST["title"]), utl::escp($_POST["author"]), utl::escp($_POST["isbn"])
+      , utl::escp($_POST["publisher"]), utl::escp($_POST["year"]), utl::escp($_POST["summary"])
     ] ;
     return $submitted ;
   }
@@ -143,31 +134,49 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
     // 1. S U B M I T E D  F L D V A L S
       $submitted_cc = self::get_submitted_cc() ;
-      list( $artist, $track, $link) = $submitted_cc ;
+      list( $title, $author, $isbn, $publisher, $year, $summary ) = $submitted_cc ;
       $_SESSION["submitted_cc"] = $submitted_cc ;
 
     // 2. C C  V A L I D A T I O N
-    $err = '' ;
+    $err = [] ;
+    //                non-empty
     switch (true) {
-      case (empty($link)): //||empty($Name)||empty($password)||empty($Confirmpassword))
-        $err = "Link field must be filled out"; break ;
-      //default: break;
+      //case (!array_key_exists($_POST['author'], $authors))  -  FK 
+      case (!$author):          $err[] = 'Please select author for the book'; //break ;
+      case (empty($title)):     $err[] = "Please enter Title"; //break ;
+      case (empty($publisher)): $err[] = "Please enter Publisher"; //break ;
+      case (empty($summary)):   $err[] = "Please enter Summary field"; //break ;
+    //                length 
+      //if(!preg_match('~^\d{4}$~', $_POST['year'])) {
+      //See about integers : gettype in J:\awww\www\fwphp\code_snippets.php
+      //or is_int($year) == false
+      case ( mb_strlen($year) != 4 ): $err[] = "Year should be 4 digits, now is ". count($year); //break ;
+      //if(!preg_match('~^\d{10}$~', $_POST['isbn'])) {
+      case ( mb_strlen($isbn) > 20 ): $err[] = "ISBN should be max 20 characters, now is ". count($isbn); //break ;
+
+
+      default: break;
     }
     
-    if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
-      utl::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
+    //if ($err > '') {
+    if(count($err) > 0) {
+      $_SESSION["ErrorMessage"]= $err ;
+      utl::Redirect_to($pp1->cc_frm); goto fnerr ; // Add row
       //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
       //exit(0) ;
     }
 
 
     // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
-    $flds    = "artist, track, link" ; //names in data source
-    $valsins = "VALUES(:artist, :track, :link)" ;
+    $flds    = "title, author, isbn, publisher, year, summary" ; //names in data source
+    $valsins = "VALUES(:title, :author, :isbn, :publisher, :year, :summary)" ;
     $binds = [
-      ['placeh'=>':artist',   'valph'=>$_POST['artist'], 'tip'=>'str']
-     ,['placeh'=>':track',    'valph'=>$_POST['track'],  'tip'=>'str']
-     ,['placeh'=>':link',     'valph'=>$_POST['link'],   'tip'=>'str']
+      ['placeh'=>':title',   'valph'=>$_POST['title'],  'tip'=>'str']
+     ,['placeh'=>':author',  'valph'=>$_POST['author'], 'tip'=>'str']
+     ,['placeh'=>':isbn',    'valph'=>$_POST['isbn'],   'tip'=>'str']
+     ,['placeh'=>':publisher','valph'=>$_POST['publisher'], 'tip'=>'str']
+     ,['placeh'=>':year',    'valph'=>$_POST['year'],   'tip'=>'int']
+     ,['placeh'=>':summary', 'valph'=>$_POST['summary'],'tip'=>'str']
     ] ;
     //$last_id1 = utldb::rr_last_id($tbl) ;
     $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds
@@ -177,7 +186,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
     //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
 
-      utl::Redirect_to($pp1->module_url.QS.'i/cc/');
+      utl::Redirect_to($pp1->module_url.QS.'i/cc_frm/');
       return('1');
       fnerr:
       return('0');
@@ -258,15 +267,15 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
 /*
 ***** Fatal error thrown when read by nonexistent id *****
-Uncaught Error: Call to undefined method stdClass::fetch() in J:\awww\www\zinc\Db_allsites.php:200 
+Uncaught Error: Call to undefined method stdClass::fetch() in J:\awww\www\b12phpfw\Db_allsites.php:200 
 Stack trace: 
-#0 J:\awww\www\fwphp\01mater\fw_popel_onb12\home.php(61): B12phpfw\core\zinc\utldb::rrnext(Object(stdClass)) 
-#1 J:\awww\www\fwphp\01mater\fw_popel_onb12\Home_ctr.php(103): require('J:\\awww\\www\\fwp...') ee require $pp1->module_path . 'home.php';
-#2 J:\awww\www\fwphp\01mater\fw_popel_onb12\Home_ctr.php(79): B12phpfw\module\fw_popel_onb12\Home_ctr->home(Object(stdClass)) 
-#3 J:\awww\www\zinc\Config_allsites.php(288): B12phpfw\module\fw_popel_onb12\Home_ctr->call_module_method('home', Object(stdClass)) 
-#4 J:\awww\www\fwphp\01mater\fw_popel_onb12\Home_ctr.php(59): B12phpfw\core\zinc\Config_allsites->__construct(Object(stdClass), Array) 
-#5 J:\awww\www\fwphp\01mater\fw_popel_onb12\index.php(49): B12phpfw\module\fw_popel_onb12\Home_ctr->__construct(Object(stdClass)) 
+#0 J:\awww\www\fwphp\01mater\book\home.php(61): B12phpfw\core\b12phpfw\utldb::rrnext(Object(stdClass)) 
+#1 J:\awww\www\fwphp\01mater\book\Home_ctr.php(103): require('J:\\awww\\www\\fwp...') ee require $pp1->module_path . 'home.php';
+#2 J:\awww\www\fwphp\01mater\book\Home_ctr.php(79): B12phpfw\module\book\Home_ctr->home(Object(stdClass)) 
+#3 J:\awww\www\b12phpfw\Config_allsites.php(288): B12phpfw\module\book\Home_ctr->call_module_method('home', Object(stdClass)) 
+#4 J:\awww\www\fwphp\01mater\book\Home_ctr.php(59): B12phpfw\core\b12phpfw\Config_allsites->__construct(Object(stdClass), Array) 
+#5 J:\awww\www\fwphp\01mater\book\index.php(49): B12phpfw\module\book\Home_ctr->__construct(Object(stdClass)) 
 #6 {main} 
-thrown in J:\awww\www\zinc\Db_allsites.php on line 200
+thrown in J:\awww\www\b12phpfw\Db_allsites.php on line 200
 */
 } // e n d  c l s  T b l_ c r u d

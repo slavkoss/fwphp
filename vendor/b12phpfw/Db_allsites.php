@@ -1,5 +1,5 @@
 <?php
-// J:\awww\www\zinc\Db_allsites.php
+// J:\awww\www\b12phpfw\Db_allsites.php
 declare(strict_types=1);
 /**
  *        DB (PERSISTENT STORAGE) ADAPTER IS T R A I T - PDO DBI
@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 // *************** FUNCTION 1. N A M E S P A C E S  ***************
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\core\zinc ;
+namespace B12phpfw\core\b12phpfw ;
 //use PDO;
 
 // may be named AbstractEntity :
@@ -29,8 +29,8 @@ trait Db_allsites
 
     private static $do_pgntion; //used in home.php...
             //To do : improve this (refactoring this code)
-            //  For now J:\awww\www\zinc\Dbconn_allsites_mysql.php
-            //  is copied to J:\awww\www\zinc\Dbconn_allsites.php
+            //  For now J:\awww\www\b12phpfw\Dbconn_allsites_mysql.php
+            //  is copied to J:\awww\www\b12phpfw\Dbconn_allsites.php
     //used in home.php switch (utldb::$dbi)...
     private static $dbi ; // mysql or oracle or any  d b i  you wish
 

@@ -1,9 +1,9 @@
 <?php
-//                   J:\awww\www\zinc\Dbconn_allsites_mysql.php
-//   to be copied to J:\awww\www\zinc\Dbconn_allsites.php
+//                   J:\awww\www\b12phpfw\Dbconn_allsites_mysql.php
+//   to be copied to J:\awww\www\b12phpfw\Dbconn_allsites.php
 // single access point to our database (singleton class).
 //Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'slavkoss_root'@'johnny.heliohost.org' (using password: NO) in /home/slavkoss/public_html/zinc/Dbconn_allsites.php:27
-namespace B12phpfw\core\zinc ;
+namespace B12phpfw\core\b12phpfw ;
 //use PDO;
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
 abstract class Dbconn_allsites

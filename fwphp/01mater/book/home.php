@@ -5,32 +5,36 @@
  */
 declare(strict_types=1);
 
-namespace B12phpfw\module\fw_popel_onb12 ;
+namespace B12phpfw\module\book ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ; // init, setings, utilities
-use B12phpfw\core\zinc\Db_allsites as utldb ;   // model (fns) for PDO CRUD all t b ls
+use B12phpfw\core\b12phpfw\Config_allsites as utl ; // init, setings, utilities
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;   // model (fns) for PDO CRUD all t b ls
 // model (CRUDfns) for waybill compound module (more tbls) :
-use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud  as utl_waybill ; 
+use B12phpfw\dbadapter\book\Tbl_crud  as utl_module ; 
 
 
-$path_rel_img = '/zinc/img/';
+$path_rel_img = '/vendor/b12phpfw/img/';
 
 
 //         t b l rows count :
 $tbl='books'; //products, suppliers are authors
-$rcount = utl_waybill::rrcnt($tbl) ; //Waybill items
+$rcount = utl_module::rrcnt($tbl) ; //Waybill items
 ?>
-    <h2 style="text-align: center;">Waybill items homepage - (LOV of) all products with suppliers</h2>
+    <h2 style="text-align: center;">Books homepage</h2>
 
 <div class="container">
-
   <b><span id="ajax_pgtitle_box">Product count : </span><?=$rcount?></b>
-
     &nbsp;&nbsp;&nbsp;
-    <div class="navigation">
-    <a href="<?=$pp1->module_url.QS.'i/cc/'?>">Add book (product)</a>
-    </div>
+    <a href="<?=$pp1->cc_frm?>" class="btn_green">Add book (product)</a>
+                <!-- 
+                     https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_basic
+                        <button>Default Button</button>
+                        <a href="#" class="button">Link Button</a>
+                        <button class="button">Button</button>
+                        <input type="button" class="button" value="Input Button">
+                -->
 </div>
+
 
 
   <!--        main content output : List of songs  -->
@@ -46,7 +50,7 @@ $rcount = utl_waybill::rrcnt($tbl) ; //Waybill items
     <?php
     // SQL JOIN IS NOT RECOMMENDED :
     // cursor products :
-    $c_products = utl_waybill::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
+    $c_products = utl_module::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     //foreach ($songs as $song) 
     while ( $r = utldb::rrnext($c_products) and isset($r->id) ): 
@@ -64,7 +68,7 @@ $rcount = utl_waybill::rrcnt($tbl) ; //Waybill items
       $r->copies       = utl::escp($r->copies) ;
 
       // $r_supl = $book->getAuthor(); // in  B 1 2 p h p f w  is also one statement :
-      $r_supl = utl_waybill::rr_supplier_byid( $r->author
+      $r_supl = utl_module::rr_supplier_byid( $r->author
                       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
       $r_supl->id        = (int)utl::escp($r_supl->id) ;
       $r_supl->firstName = utl::escp($r_supl->firstName) ;

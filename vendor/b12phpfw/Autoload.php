@@ -1,8 +1,8 @@
 <?php
-// J:\awww\www\zinc\Autoload.php
+// J:\awww\www\b12phpfw\Autoload.php
 declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\core\zinc ;
+namespace B12phpfw\core\b12phpfw ;
 
 //if (!isset($_SESSION)) { session_start(); }
 //if (strnatcmp(phpversion(),'5.4.0') >= 0) {
@@ -122,7 +122,7 @@ class Autoload
         echo '<br />'.'NOT EXISTS CLS SCRIPT : "' . $this->fmt($clsscript_path, 'red' ,'bold') .'"';
         echo '<br />'.'C l a s s : ' . $this->fmt($clsname . ' NOT FOUND', 'red' ,'bold') ;
               echo ', may be  eg : '
-              . $this->fmt( 'use B12phpfw\\core\\zinc\\'. basename($clsscript_path, '.php') .' ?'
+              . $this->fmt( 'use B12phpfw\\core\\b12phpfw\\'. basename($clsscript_path, '.php') .' ?'
               , 'blue', 'bold') .' - see stack trace (caller)';
         echo '<br />'.$this->fmt(' module_path_arr = possible CLASS SCRIPTS DIRS assigned in index.php are :', 'black', 'bold');
         echo '<pre>';

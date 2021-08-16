@@ -6,7 +6,7 @@ return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
 
 /* ///////////// old :
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\core\zinc ;
+namespace B12phpfw\core\b12phpfw ;
 //use PDO;
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
 abstract class Dbconn_allsites
@@ -57,8 +57,8 @@ abstract class Dbconn_allsites
 }
 */
 /*
-* For now (todo refactoring this code) J:\awww\www\zinc\Dbconn_allsites_mysql.php
-*   is copied to J:\awww\www\zinc\Dbconn_allsites.php
+* For now (todo refactoring this code) J:\awww\www\b12phpfw\Dbconn_allsites_mysql.php
+*   is copied to J:\awww\www\b12phpfw\Dbconn_allsites.php
 *        SINGLE ACCESS POINT TO OUR DATABASE (SINGLETON CLASS)
 * SINGLETON PATTERN with a class that establishes a database connection, 
 * and restricts the number of instances to only one.

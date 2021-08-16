@@ -316,4 +316,4 @@ n/a
 <a href="editBook.php">Add book...</a>
 <?php
 // Display footer
-showFtr();
+showFtr(__FILE__);

@@ -1,0 +1,136 @@
+/*style*/
+  head {display: block;}
+  head * {display: none;}
+  /*style*/
+  
+/* style contenteditable
+, trebuchet, geneva, sans-serif;
+*/
+html {
+  /*background-color: #eeeee8; */
+  font-family: trebuchet, geneva, sans-serif;
+} 
+body { 
+  background-color: white; /* #deded8 */
+  margin: 0;
+} 
+
+article, aside, footer, header { 
+  padding: 0.5rem; 
+  box-sizing: border-box; 
+} 
+header { 
+  background-color: gray; /* #333 */
+  /*height: 2em;*/
+  color: #ccc; 
+  text-align: center; 
+  border-bottom: 1px solid; 
+} 
+aside { 
+  /* background: linear-gradient(to bottom, white 50%, #deded8 80%); */
+} 
+
+
+
+        /* left column default navigation values */ 
+nav { 
+    display: flex; 
+    /*margin-left: 3px;*/
+    /*padding: 0 0 0 9; */
+} 
+main nav {
+  flex-flow: column;
+  background: linear-gradient(to bottom, #ccc 50%, #deded8 80%);
+}
+nav a { 
+  text-align: center; 
+  background: #ccc; 
+  color: black;
+
+} 
+nav a:hover { 
+  outline: 1px solid #bbb; 
+  color: red; 
+  text-decoration: underline; 
+}
+
+main nav a {
+  line-height: 3;
+  border-bottom: #aaa solid 1px;
+  margin-bottom: 1px;
+  margin-left: 0px;
+}
+
+              /* f o o t e r */ 
+footer nav a {
+  margin: 0 5px; 
+  padding: 5px 0; 
+  text-decoration: none;
+  flex: auto; 
+}
+ 
+footer {
+  color: white;
+  background-color: #333;
+}
+footer p {
+  text-align: center;
+}
+
+footer p a {
+  color: #aaa;
+}
+
+
+            /* larger screen */ 
+@media screen and (min-width: 30rem)
+{ 
+  body { 
+    max-width: 75rem; 
+    margin: auto;
+  } 
+  main { 
+    display: flex; 
+    flex-wrap: wrap; 
+    box-sizing: border-box; 
+  }  
+  article { 
+    flex: 60%; 
+  } 
+  main nav, 
+  aside { 
+    flex: 20%; 
+  } 
+}
+
+
+body { 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh;
+}
+header, footer {
+  flex: 0 0 content;
+}
+main {
+  flex: 1;
+}
+  /*</style>*/
+
+
+
+/*
+flex sticky hdr / ftr 
+       STICKY FTR : 
+          footer, header, main {...
+          header, footer {...
+       
+
+<style type="text/css">
+  header, main {
+    padding: 10px; box-sizing: border-box;
+  }
+
+style
+*/
+

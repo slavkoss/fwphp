@@ -1,10 +1,10 @@
 <?php
 // 
 // DEFAULT CTR (ONLY ONE IN MODULE), HAS METHODS WHICH  I N C  PAGE VIEW SCRIPT OR CALL METDS
-namespace B12phpfw\module\fw_popel_onb12 ;
+namespace B12phpfw\module\book ;
 //use PDO;
-use B12phpfw\core\zinc\Config_allsites as utl ;
-use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud   as utl_waybill ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ; 
+use B12phpfw\dbadapter\book\Tbl_crud   as utl_module ;
 
 class Home_ctr extends utl
 {
@@ -27,7 +27,8 @@ class Home_ctr extends utl
     $pp1_module = [ // R O U T I N G  T A B L E
         'ROUTING_TABLE'     => '<b style="color: blue">
         $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE</b>'
-      , 'ccbook_frm'        => QS.'i/ccbook_frm/'
+      , 'home_url'        => QS.'i/home/'
+      , 'cc_frm'          => QS.'i/cc_frm/'
     ] ;  //e n d  R O U T I N G  T A B L E
 
     parent::__construct($pp1, $pp1_module);
@@ -70,62 +71,35 @@ class Home_ctr extends utl
   */
   private function home(object $pp1)
   {
+    // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
     // Ver. 7 : Dependency Injection $pp1
     //http://dev1:8083/fwphp/glomodul/adrs
       require $pp1->module_path . 'hdr.php'; // MODULE_PATH
       require $pp1->module_path . 'home.php';
       require $pp1->module_path . 'ftr.php';
   }
-
-  private function ex1(object $pp1)
+  /* private function xxxrt(object $pp1)
   {
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
-      require $pp1->module_path . 'hdr.php';
-      require $pp1->module_path . 'example_one.php';
-      require $pp1->module_path . 'ftr.php';
-      
-                  echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
-  }
-
-  private function ex2(object $pp1)
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
-    $param1 = $pp1->uriq->p1 ;
-    $param2 = $pp1->uriq->p2 ;
+    // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
     require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'example_two.php';
+    require $pp1->module_path . 'read_tbl.php';  
     require $pp1->module_path . 'ftr.php';
-                  echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
-  }
-
-
-
+  } */
 
 
 
   /**
   * pgs02. I N C  R  (c R u d)  P A G E  SCRIPTS
   */
-  private function xxxrt(object $pp1)
-  {
-    // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
-    require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'read_tbl.php';  
-    require $pp1->module_path . 'ftr.php';
-  }
-
-
 
   /**
   * pgs03.   I N C  C R U D  P A G E  SCRIPTS   &   (code behind) C R U D  M E T H O D S
   */
-  private function cc(object $pp1)
+  private function cc_frm(object $pp1)
   {
     // I N C  C R U D P A G E  S C R I P T
-    // f o r m : http://dev1:8083/fwphp/glomodul/adrs/?i/cc/
-    //http://dev1:8083/fwphp/glomodul/adrs
       require $pp1->module_path . 'hdr.php'; // MODULE_PATH
-      require $pp1->module_path . 'cre_row_frm.php';
+      require $pp1->module_path . 'cc_frm.php';
       require $pp1->module_path . 'ftr.php';
   }
 
@@ -141,7 +115,7 @@ class Home_ctr extends utl
     $tbl = $pp1->uriq->t = 'song' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
-    utl_waybill::dd($pp1, $other); //used for all  t a b l e s !! 
+    utl_module::dd($pp1, $other); //used for all  t a b l e s !! 
     utl::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
 
     }
@@ -169,22 +143,26 @@ class Home_ctr extends utl
 
 
 
+  /* private function ex1(object $pp1)
+  {
+    //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
+      require $pp1->module_path . 'hdr.php';
+      require $pp1->module_path . 'example_one.php';
+      require $pp1->module_path . 'ftr.php';
+      
+                  echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
+  }
 
-
-   /**
-    * AJAX-ACTION: ajax Get Stats
-    */
-    private function ajaxcountr()  //p ublic f unction ajaxGetStats()
-    {
-                        //$Song = new Song();
-                        //$amount_of_songs = $Song->getAmountOfSongs();
-                        //supersimple API would be possible by echoing JSON here
-                        //echo $amount_of_songs;
-                    if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
-                    , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
-                    , '$this->dbobj'=>$this->dbobj ] ) ; }
-      echo utl_waybill::rrcnt('song'); // not $this->dbobj->R_tb... !!!
-    }
+  private function ex2(object $pp1)
+  {
+    //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
+    $param1 = $pp1->uriq->p1 ;
+    $param2 = $pp1->uriq->p2 ;
+    require $pp1->module_path . 'hdr.php';
+    require $pp1->module_path . 'example_two.php';
+    require $pp1->module_path . 'ftr.php';
+                  echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
+  } */
 
 
 

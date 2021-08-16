@@ -12,7 +12,7 @@ $author = Model::getAuthor($idfromurl);
 if(!$author) {
   showHdr('Error');
   echo "Invalid Author ID supplied";
-  showFtr();
+  showFtr(__FILE__);
   exit;
 }
 
@@ -81,5 +81,5 @@ while($b = $books->fetch())
 
 <?php
 // Display footer
-showFtr();
+showFtr(__FILE__);
 

@@ -255,6 +255,6 @@ while($r = $q->fetch())
 }
 
 // Display footer
-showFtr();
+showFtr(__FILE__);
 
 

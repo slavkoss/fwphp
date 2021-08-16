@@ -51,7 +51,7 @@ function showHdr($title) // , $nolink = 'books'
  * This function will 'close' the body and html
  * tags opened by the show Hdr() function
  */
-function showFtr() 
+function showFtr($caller='') 
 {
     global $conn;
     
@@ -61,6 +61,7 @@ function showFtr()
       echo "<small>Connecting using PDO syntax & $driverName driver</small>";
     }
     ?>
+            <?php echo '<p>'; print_r($caller) ; echo '</p>'; ?>
     </body>
     </html>
     <?php
@@ -77,7 +78,7 @@ function showErr($message)
 {
   echo "<h2>Error</h2>";
   echo nl2br(htmlspecialchars($message));
-  showFtr();
+  showFtr(__FUNCTION__);
   exit();
 }
 
