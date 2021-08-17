@@ -1,7 +1,7 @@
 <?php
 // J:\awww\apl\dev1\z30GB\04knjige\02popel\ch7books_in_out\B2_cre_upd.php
 // called so: 
-//<a href="B2_cre_upd.php?bookid=?=$b->id?&authorid=?=$a->id?">Edit</a>
+//<a href="B2_cre_upd.php?bookid=?=$b->id?&a uthorid=?=$a->id?">Edit</a>
 /**
 * Page allows to add or edit b ook
 */
@@ -35,7 +35,7 @@ while($a = $q->fetch())
   $authors[$a['id']] = "$a[lastName], $a[firstName]";
 }
 //echo '<pre>$authors='; print_r($authors); echo '</pre>';
-//echo '<pre>$_REQUEST[\'authorid\']='; print_r($_REQUEST['authorid']); echo '</pre>';
+//echo '<pre>$_REQUEST[\'a uthorid\']='; print_r($_REQUEST['a uthorid']); echo '</pre>';
 /*Array
 (
     [4] => Author, Thisappl
@@ -155,13 +155,13 @@ echo "- ", htmlspecialchars($w), "<br>";
     <td width="15%">Author</td>
     <td>
     <?php
-    if ('0') foreach($authors as $authorid=>$author) 
-    {
-      // $_POST['author'] is authorID
-      // $authorid == $_REQUEST['author'] ? 'selected' : ''
-      echo '<pre>$authorid='; print_r($authorid); 
-              if (isset($_REQUEST['authorid']) and $authorid==$_REQUEST['authorid']) echo ' selected'; echo '</pre>';
-    }
+            if ('') foreach($authors as $authorid=>$author) 
+            {
+              // $_POST['author'] is a uthorID
+              // $a uthorid == $_REQUEST['author'] ? 'selected' : ''
+              echo '<pre>$authorid='; print_r($authorid); 
+                      if (isset($_REQUEST['authorid']) and $authorid==$_REQUEST['authorid']) echo ' selected'; echo '</pre>';
+            }
     ?>
     <select name="author" style="width: 100%;">
     <option value="">Please select...</option>

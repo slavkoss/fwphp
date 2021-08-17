@@ -27,7 +27,63 @@ use B12phpfw\module\book\Home_ctr ;
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 {
-  static protected $tbl = "books";
+
+  static protected $tbl = 'books';
+                         //static public function col_ names() : array { ... or :
+
+  static public function is_submited(): void {
+    $_SESSION['submit_cc'] = $_POST['submit_cc'] ?? '' ;
+    $_SESSION['submit_uu'] = $_POST['submit_uu'] ?? '' ;
+  }
+  
+  static public $col_names = 
+  ['title','author','isbn','publisher','year','summary']; static protected $col_bind_types = 
+  ['str' , 'str',    'str', 'str',     'str', 'str']; //int
+
+
+  static public $row = []; //eg utl::escp($_POST["title"]) to $title, $author...
+  static protected $flds        = ''; //eg title, author...
+  static protected $flds_placeh = ''; //eg :title, :author...
+  static protected $binds       = [];
+
+  static public function row_flds_binds(): void 
+  { 
+    // p r e  i n s  o r  u p d     see **1 b i n d s  at end this script
+    /**
+     * OBJECT RELATIONAL MAPPING (ORM) is the technique of accessing a relational DB 
+     * using an object-oriented programming LANGUAGE. 
+     * ORM is a way to manage DB data by "mapping" DB tables rows to classes and c. instances.
+     * ACTIVE RECORD (AR) is one of such ORMs.
+     *
+     * The big difference between AR style and the DATA MAPPER (DM) style is :
+     * DM completely separates your domain (bussiness logic) 
+     * from persistence layer (data source eg DB, csv...). 
+     *
+     * The big benefit of DM pattern is, your domain objects (DO) code don't need to know anything
+     * about how DO are stored in data source.
+     */
+    $ii=0; foreach (self::$col_names as $cname) { //or ($arr as &$value)
+      //$$cname = utl::escp($_POST[$cname]) ;
+      $col_tmp = $_POST[$cname] ?? '' ;
+      $col_value = utl::escp($col_tmp) ;
+      // => $col_value makes $r=stdClass Object ([0] => Array([title] => ) [01 =>...
+      self::$row[$cname] = $col_value ;  //self::$row[] = [$cname => $col_value] ;
+      if ($ii==0) { 
+         self::$flds        = $cname ; 
+         self::$flds_placeh = ':'. $cname ; // placeholder, value, type :
+         self::$binds[]     =
+         ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>self::$col_bind_types[0]];
+      } else { 
+         self::$flds        .= ', '. $cname ; 
+         self::$flds_placeh .= ', '. ':'. $cname ; // placeholder, value, type :
+         self::$binds[]      =
+         ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>self::$col_bind_types[$ii]];
+      }
+      $ii++ ;
+    } unset($cname); // break the reference with the last element
+                 //echo '<pre>self::$row='; print_r(self::$row) ; echo '</pre>';
+  }
+
 
 
   static public function rrcnt( string $tbl, array $other=[] ): int { 
@@ -53,14 +109,16 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     return $cursor ;
   }
 
+  
   static public function rr_suppliers(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
     $cursor =  utldb::rr("SELECT $sellst FROM ". 'authors' ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
-  }
+  } 
 
+  /*
   static public function rr_supplier_byid( int $id, array $other=[] ): object
   {
     $cursor =  utldb::rr("SELECT * FROM ".'authors'." WHERE id=:id"
@@ -69,7 +127,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     ) ;
     $rx = utldb::rrnext($cursor) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
-  }
+  } */
 
 
 
@@ -102,14 +160,14 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   //                   C R E A T E,  D,  U
   // *******************************************
 
-  static public function get_submitted_cc(): array //return '1'
-  {
-    $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
-        utl::escp($_POST["title"]), utl::escp($_POST["author"]), utl::escp($_POST["isbn"])
-      , utl::escp($_POST["publisher"]), utl::escp($_POST["year"]), utl::escp($_POST["summary"])
-    ] ;
-    return $submitted ;
+  //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
+  static public function dd( object $pp1, array $other=[] ): string
+  { 
+    // Like Oracle forms triggers - P R E / O N  D E L E T E"
+    $cursor =  utldb::dd( $pp1, $other ) ;
+    return '' ;
   }
+
 
   /*
   * O N - I N S E R T  (P R E - I N S E R T)
@@ -126,33 +184,34 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
                 if ('') {
                   echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
                   echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
-                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
-                  echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
+                  //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  //echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
                              //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
                   //exit(0);
                 }
-
     // 1. S U B M I T E D  F L D V A L S
-      $submitted_cc = self::get_submitted_cc() ;
-      list( $title, $author, $isbn, $publisher, $year, $summary ) = $submitted_cc ;
-      $_SESSION["submitted_cc"] = $submitted_cc ;
+    self::row_flds_binds() ; // p r e  i n s
 
-    // 2. C C  V A L I D A T I O N
+
+    //                  2. C C  V A L I D A T I O N
     $err = [] ;
+    $r = (object)self::$row ;
     //                non-empty
     switch (true) {
       //case (!array_key_exists($_POST['author'], $authors))  -  FK 
-      case (!$author):          $err[] = 'Please select author for the book'; //break ;
-      case (empty($title)):     $err[] = "Please enter Title"; //break ;
-      case (empty($publisher)): $err[] = "Please enter Publisher"; //break ;
-      case (empty($summary)):   $err[] = "Please enter Summary field"; //break ;
+      case (!$r->author):          $err[] = 'Please select author for the book'; //break ;
+      case (empty($r->title)):     $err[] = "Please enter Title"; //break ;
+      case (empty($r->publisher)): $err[] = "Please enter Publisher"; //break ;
+      case (empty($r->summary)):   $err[] = "Please enter Summary field"; //break ;
     //                length 
       //if(!preg_match('~^\d{4}$~', $_POST['year'])) {
       //See about integers : gettype in J:\awww\www\fwphp\code_snippets.php
       //or is_int($year) == false
-      case ( mb_strlen($year) != 4 ): $err[] = "Year should be 4 digits, now is ". count($year); //break ;
+      case ( mb_strlen($r->year) != 4 ): 
+         $err[] = "Year should be 4 digits, now is ". count($r->year); //break ;
       //if(!preg_match('~^\d{10}$~', $_POST['isbn'])) {
-      case ( mb_strlen($isbn) > 20 ): $err[] = "ISBN should be max 20 characters, now is ". count($isbn); //break ;
+      case ( mb_strlen($r->isbn) > 20 ): 
+         $err[] = "ISBN should be max 20 characters, now is ". count($r->isbn); //break ;
 
 
       default: break;
@@ -168,19 +227,9 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
 
     // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
-    $flds    = "title, author, isbn, publisher, year, summary" ; //names in data source
-    $valsins = "VALUES(:title, :author, :isbn, :publisher, :year, :summary)" ;
-    $binds = [
-      ['placeh'=>':title',   'valph'=>$_POST['title'],  'tip'=>'str']
-     ,['placeh'=>':author',  'valph'=>$_POST['author'], 'tip'=>'str']
-     ,['placeh'=>':isbn',    'valph'=>$_POST['isbn'],   'tip'=>'str']
-     ,['placeh'=>':publisher','valph'=>$_POST['publisher'], 'tip'=>'str']
-     ,['placeh'=>':year',    'valph'=>$_POST['year'],   'tip'=>'int']
-     ,['placeh'=>':summary', 'valph'=>$_POST['summary'],'tip'=>'str']
-    ] ;
     //$last_id1 = utldb::rr_last_id($tbl) ;
-    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds
-                 , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    $cursor = utldb::cc(self::$tbl, self::$flds, 'VALUES('. self::$flds_placeh .')'
+       , self::$binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
     //$last_id2 = utldb::rr_last_id($tbl) ;
 
     //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
@@ -188,72 +237,73 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
       utl::Redirect_to($pp1->module_url.QS.'i/cc_frm/');
       return('1');
+
       fnerr:
       return('0');
   }
 
 
-  //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
-  static public function dd( object $pp1, array $other=[] ): string
-  { 
-    // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  utldb::dd( $pp1, $other ) ;
-    return '' ;
-  }
 
 
 
-  static public function get_submitted_uu(): array //return '1'
-  {
-    $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
-      utl::escp($_POST["artist"]), utl::escp($_POST["track"]), utl::escp($_POST["link"])
-      , $_POST["id"]
-    ] ;
-    return $submitted ;
-  }
 
   // O N - U P D A T E (P R E - U P D A T E)
   //return id or 'err_c c'
-  static public function uu( object $pp1, array $other=[]): string // *************** u u (
+  static public function uu( // *************** u u (
+     object $pp1, array $other=[]): string
   {
+                if ('') {
+                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                  //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  //echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
+                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
+                  //exit(0);
+                }
     // 1. S U B M I T E D  F L D V A L S - P R E  U P D A T E
-      $get_submitted_uu = self::get_submitted_uu() ;
-      list( $artist, $track, $link, $id) = $get_submitted_uu ;
-      //$_SESSION["get_submitted_uu"] = $get_submitted_uu ;
+    self::row_flds_binds() ; // p r e  i n s
 
-    // 2. U U  V A L I D A T I O N
-    $valid = '1' ;
+    // 2.             U U  V A L I D A T I O N
+    $err = [] ;
+    $r = (object)self::$row ;
+    //                non-empty
     switch (true) {
-      case (empty($link)): $valid = "Link Cant be empty"; break ;
-      //default: break;
+      //case (!array_key_exists($_POST['author'], $authors))  -  FK 
+      case (!$r->author):          $err[] = 'Please select author for the book'; //break ;
+      case (empty($r->title)):     $err[] = "Please enter Title"; //break ;
+      case (empty($r->publisher)): $err[] = "Please enter Publisher"; //break ;
+      case (empty($r->summary)):   $err[] = "Please enter Summary field"; //break ;
+    //                length 
+      //if(!preg_match('~^\d{4}$~', $_POST['year'])) {
+      //See about integers : gettype in J:\awww\www\fwphp\code_snippets.php
+      //or is_int($year) == false
+      case ( mb_strlen($r->year) != 4 ): 
+         $err[] = "Year should be 4 digits, now is ". count($r->year); //break ;
+      //if(!preg_match('~^\d{10}$~', $_POST['isbn'])) {
+      case ( mb_strlen($r->isbn) > 20 ): 
+         $err[] = "ISBN should be max 20 characters, now is ". count($r->isbn); //break ;
+
+
+      default: break;
     }
-    if ($valid === '1') {} else {
-      $_SESSION["ErrorMessage"]= $valid ;
-      //utl::Redirect_to($pp1->posts);
-      utl::Redirect_to($pp1->module_url.QS.'i/rt/');
-      goto fnerr ; //exit(0) ;
+    
+    //if ($err > '') {
+    if(count($err) > 0) {
+      $_SESSION["ErrorMessage"]= $err ;
+      utl::Redirect_to($pp1->uu_frm); goto fnerr ; // Add row
+      //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
+      //exit(0) ;
     }
+
 
 
     // 3. U P D A T E  D B T B L R O W
-      // Query to Update Post in DB When everything is fine
-      // NOT USED : post='$PostText' I replaced it with mkd file
-      $flds     = "SET artist=:artist, track=:track, link=:link" ;
-      $qrywhere = "WHERE id=:id" ;
-      $binds = [
-        ['placeh'=>':artist',  'valph'=>$artist, 'tip'=>'str']
-       ,['placeh'=>':track',   'valph'=>$track,  'tip'=>'str']
-       ,['placeh'=>':link',    'valph'=>$link,   'tip'=>'str']
-       ,['placeh'=>':id',  'valph'=>$id, 'tip'=>'int']
-      ] ;
+    $cursor = utldb::cc(self::$tbl, self::$flds, 'VALUES('. self::$flds_placeh .')'
+       , self::$binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
 
-      $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds ); //same for all tbls
-
-      //var_dump($cursor);
-      if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";
-      }else { $_SESSION["ErrorMessage"]= "Post Update went wrong. Try Again !"; }
-
+      utl::Redirect_to($pp1->module_url.QS.'i/uu_frm/');
       return('1');
+
       fnerr:
       return('0');
   }
@@ -263,6 +313,19 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   // *******************************************
   //             E N D  C R E A T E,  D,  U
   // *******************************************
+} // e n d  c l s  T b l_ c r u d
+
+
+
+  /* static public function get_submitted(): array //return '1'
+  {
+    $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
+        utl::escp($_POST["title"]), utl::escp($_POST["author"]), utl::escp($_POST["isbn"])
+      , utl::escp($_POST["publisher"]), utl::escp($_POST["year"]), utl::escp($_POST["summary"])
+    ] ;
+    return $submitted ;
+  } */
+
 
 
 /*
@@ -278,4 +341,27 @@ Stack trace:
 #6 {main} 
 thrown in J:\awww\www\b12phpfw\Db_allsites.php on line 200
 */
-} // e n d  c l s  T b l_ c r u d
+
+
+//**1 b i n d s 
+
+
+    //$col_ names      = self::col_ names() ;
+    //$col_ bind_ types = self::col_ bind_ types() ;
+    //$flds    = "title, author, isbn, publisher, year, summary" ; //names in data source
+    //$v alsins = "VALUES(:title, :author, :isbn, :publisher, :year, :summary)" ;
+    /*$binds = [
+      ['placeh'=>':title',   'valph'=>$_POST['title'],  'tip'=>'str']
+     ,['placeh'=>':author',  'valph'=>$_POST['author'], 'tip'=>'str']
+     ,['placeh'=>':isbn',    'valph'=>$_POST['isbn'],   'tip'=>'str']
+     ,['placeh'=>':publisher','valph'=>$_POST['publisher'], 'tip'=>'str']
+     ,['placeh'=>':year',    'valph'=>$_POST['year'],   'tip'=>'int']
+     ,['placeh'=>':summary', 'valph'=>$_POST['summary'],'tip'=>'str']
+    ] ; */
+
+
+    // 1. S U B M I T E D  F L D V A L S
+    //self::row_flds_binds() ; // p r e  i n s
+                    /* $submitted = self::get_submitted() ;
+                    list( $title, $author, $isbn, $publisher, $year, $summary ) = $submitted ;
+                    $_SESSION["submitted"] = $submitted ; */

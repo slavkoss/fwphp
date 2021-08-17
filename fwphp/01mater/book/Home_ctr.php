@@ -4,7 +4,7 @@
 namespace B12phpfw\module\book ;
 //use PDO;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ; 
-use B12phpfw\dbadapter\book\Tbl_crud   as utl_module ;
+use B12phpfw\dbadapter\book\Tbl_crud       as utl_module ;
 
 class Home_ctr extends utl
 {
@@ -29,8 +29,11 @@ class Home_ctr extends utl
         $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE</b>'
       , 'home_url'        => QS.'i/home/'
       , 'cc_frm'          => QS.'i/cc_frm/'
+      , 'dd'              => QS.'i/dd/id/' // i/dd/ is default fn to call !!
+      , 'uu_frm'          => QS.'i/uu_frm/id/' // $p p1->uu_ frm.QS>?bookid=<=$r->id
     ] ;  //e n d  R O U T I N G  T A B L E
 
+    $pp1->col_names = utl_module::$col_names ;  //utl_ module::col_ names() ;
     parent::__construct($pp1, $pp1_module);
 
   } // e n d  f n  __ c o n s t r u c t
@@ -69,22 +72,14 @@ class Home_ctr extends utl
   /**
   * pgs01. I N C  TEXT SHOWING  P A G E  S C R I P T S
   */
-  private function home(object $pp1)
-  {
+  private function home(object $pp1) {
+    // could be rr_tbl
     // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
     // Ver. 7 : Dependency Injection $pp1
-    //http://dev1:8083/fwphp/glomodul/adrs
       require $pp1->module_path . 'hdr.php'; // MODULE_PATH
       require $pp1->module_path . 'home.php';
       require $pp1->module_path . 'ftr.php';
   }
-  /* private function xxxrt(object $pp1)
-  {
-    // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
-    require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'read_tbl.php';  
-    require $pp1->module_path . 'ftr.php';
-  } */
 
 
 
@@ -106,22 +101,24 @@ class Home_ctr extends utl
 
     private function dd(object $pp1) // dd_song
     {
+      //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
       // http://dev1:8083/fwphp/glomodul/adrs/?i/d/rt/song/id/37
       //$this->uriq=stdClass Object  [i] => d  [t] => song  [id] => 37
                     if ('') {self::jsmsg('D BEFORE dbobj '. __METHOD__, __LINE__
                     , ['$pp1->dbi_obj'=>$pp1->dbi_obj //, 
                     ] ) ; }
     // D e l  &  R e d i r e c t  to  r e f r e s h  t b l  v i e w :
-    $tbl = $pp1->uriq->t = 'song' ; 
+    $tbl = $pp1->uriq->t = 'books' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     utl_module::dd($pp1, $other); //used for all  t a b l e s !! 
-    utl::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
+    //utl::Redirect_to($pp1->module_url.QS.'i/rt/') ; //to read_ tbl
+    utl::Redirect_to($pp1->home_url) ; //to read_ tbl
 
     }
 
 
-  private function uu(object $pp1)
+  private function uu_frm(object $pp1)
   {
            //       R O W U P D  FRM
     //echo 'Method '.__METHOD__ .' SAYS: I &nbsp; i n c l u d e &nbsp; p h p &nbsp;
@@ -130,14 +127,8 @@ class Home_ctr extends utl
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
                   echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
                   echo '</pre>'; }
-
-    if (isset($pp1->uriq->id)) {
-       $uriq = $pp1->uriq ;
-       if (isset($uriq->id)) 
-         $IdFromURL = (int)utl::escp($uriq->id) ; //NOT (int)utl::escp($_GET['id']) ; 
-    } else $IdFromURL = NULL ;
     require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'upd_row_frm.php';  
+    require $pp1->module_path . 'uu_frm.php';  
     require $pp1->module_path . 'ftr.php';
   }
 

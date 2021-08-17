@@ -19,7 +19,7 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
   , 'app_dir_path' => $app_dir_path
 
   //1.2
-  , 'module_version'=>'Book (Product) 1.0.0.0' //, 'vendor_namesp_prefix'=>'B12phpfw'
+  , 'module_version'=>'Product (Book) 1.0.0.0' //, 'vendor_namesp_prefix'=>'B12phpfw'
 
   //1.3 Dirs paths where are class scripts to autoload. Dir name is last in namespace and use. 
   //    MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)

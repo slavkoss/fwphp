@@ -1,5 +1,13 @@
 <!-- -->
-           <?php echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>'; ?>
+    <br>
+    <h3><?= __FILE__ .' SAYS :'?></h3>
+    $pp1->module_relpath below site root = <?=$pp1->module_relpath?><br>
+    $pp1->module_url=<?=$pp1->module_url?><br>
+    
+    Namespaces are FUNCTIONAL, not POSITIONAL (not dir tree).<br>
+    Each module (is like Oracle Forms .fmb) is in own folder, not all modules in 3 dirs: M, V, C.<br>
+
+    <?php echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>'; ?>
     <div class="footer">
         <?=$pp1->module_version?>  &nbsp; on 
         <a href="https://github.com/slavkoss/fwphp">B12phpfw (GitHub)</a>.

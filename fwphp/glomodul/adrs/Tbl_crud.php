@@ -86,6 +86,16 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
   //                   C R E A T E,  D,  U
   // *******************************************
 
+  //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
+  static public function dd( object $pp1, array $other=[] ): string
+  { 
+    // Like Oracle forms triggers - P R E / O N  D E L E T E"
+    $cursor =  utldb::dd( $pp1, $other ) ;
+    return '' ;
+  }
+
+
+
   static public function get_submitted_cc(): array //return '1'
   {
     $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
@@ -155,15 +165,6 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
       return('1');
       fnerr:
       return('0');
-  }
-
-
-  //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
-  static public function dd( object $pp1, array $other=[] ): string
-  { 
-    // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  utldb::dd( $pp1, $other ) ;
-    return '' ;
   }
 
 
