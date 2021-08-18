@@ -14,11 +14,17 @@ namespace B12phpfw\core\b12phpfw ;
 
 interface Interf_Tbl_crud
 {
-  static public function rr(
+  // This is not Interf_Db_allsites !!
+
+  // on-insert. In adapter Tbl_ crud are : $flds, $binds...
+  static public function cc(object $pp1, array $other): object ; //was string
+
+  static public function get_cursor(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[]): object ;
 
   //in shared cls because is not module dependant :
-  //static public function rrnext(object $cursor): object ;  //returns $cursor
+  static public function rrnext(object $cursor ): object ;
+
 
   static public function rrcnt( //string $sellst, 
     string $tbl, array $other=[]
@@ -30,14 +36,9 @@ interface Interf_Tbl_crud
 
   // pre-query - open cursor (execute-query loop is in view script)
   //returns $cursor
-  static public function rr_all(
+  /* static public function rr_all(
     string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[]
-  ): object ;
-
-  // on-insert
-  //public f unction c c(object $dm, array $vv): string ; //return id or 'err_cc'
-  // in adapter Tbl_ crud are : string $flds, string $qrywhat, array $binds
-  static public function cc(object $pp1, array $other): string ;
+  ): object ; */
 
 
 } // e n d  i n t e r f  I n t e r f _T b l_ c r u d

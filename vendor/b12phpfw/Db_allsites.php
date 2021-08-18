@@ -213,7 +213,7 @@ trait Db_allsites
   */
   static public function rrcount($tbl)
   { 
-    $cursor_rowcnt = self::rr("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
+    $cursor_rowcnt = self::get_cursor("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
     //while ($row = self::r rnext($cursor_rowcnt)): {$rx = $row ;} endwhile; //c_, R_, U_, D_
     $COUNT_ROWS = self::rrnext( $cursor_rowcnt
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
@@ -223,21 +223,13 @@ trait Db_allsites
 
 
   static public function rr_last_id($tbl) {
-    $cursor_maxid = self::rr("SELECT max(id) MAXID FROM ". $tbl //." WHERE $qrywhere"
+    $cursor_maxid = self::get_cursor("SELECT max(id) MAXID FROM ". $tbl //." WHERE $qrywhere"
        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     //return $cursor ;
     $maxid = self::rrnext( $cursor_maxid
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->MAXID ;
     return $maxid;
 
-    /*$cursor_maxid =  Tbl_ crud_post::rr( $s ellst='max(id) MAXID' 
-      ,$qrywhere="'1'='1'", $binds=[], $other=['caller'=>__FILE__ .' '.',ln '.__LINE__ ]);
-    $maxid = Tbl_ crud_post::r rnext($cursor_maxid)->MAXID ;
-    return $maxid; */
-
-    //while ($row = self::r rnext($c_r)): {$r = $row ;} endwhile;
-    //$this::disconnect();
-    //return $r->id;
   }
 
 
@@ -246,7 +238,7 @@ trait Db_allsites
   * To access table rows we must read this cursor !!
   */
   //c=cursor - used f or all  t a b l e s !! was read_row
-  static public function rr( $dmlrr, $binds = [], $other = [] ) // *************** r r (
+  static public function get_cursor( $dmlrr, $binds = [], $other = [] ) // *************** r r (
   {
                 if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
                 echo '<pre>';
@@ -405,7 +397,10 @@ trait Db_allsites
 
 
   //used f or all  t a b l e s !!
-  static public function uu( $tbl, $flds, $where, $binds = [] )
+  static public function uu( //$tbl, $flds, $where, $binds = [] 
+      string $tbl, string $flds, string $where //$valsins
+     , array $binds = [], array $other = []
+  )
   {
     self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__); // u u(...
 

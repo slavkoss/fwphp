@@ -25,18 +25,12 @@ if ( isset ($_SESSION["ErrorMessage"]) and count($_SESSION["ErrorMessage"]) > 0 
 }
 
 //    1. S U B M I T E D  A C T I O N S
-utl_module::is_submited() ;
-if (!$_SESSION["submit_cc"]) {
-   // Form was not submitted. Populate ($_POST) variables with user entered values
-   utl_module::row_flds_binds() ;
-   $r = (object)utl_module::$row ;   //$r = (object) ['','','','','',''] ; 
-} else { 
-   // Form was submitted. Populate ($_POST) variables with default values
-   $r = (object)utl_module::$row ;
-   // returns string, calls utldb
-   utl_module::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
+$is_submited_frm = $_POST['submit_cc'] ?? '' ;
+$r = utl_module::row_flds_binds() ; // obj. view flds (empty, populated with defaults) 
+if ($is_submited_frm) {
+   // calls utldb, returns obj. view flds populated with user entered values :
+   $r_posted = utl_module::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 }
-unset ($_SESSION["submit_cc"]) ;
                         //echo '<pre>$r='; print_r($r) ; echo '</pre>';
 //see **1  v a l i d a t i o n
 ?>

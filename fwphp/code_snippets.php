@@ -64,13 +64,13 @@ foreach ($vals as $value) {
 }
 echo '<br><br>';
 echo "is_int of $vals_str<br>";
-foreach ($vals as $value) {
+f oreach ($vals as $value) {
         $valtype = is_int($value);
             echo "is_int $value ? {$valtype}<br>";
 }
 echo '<br><br>';
 echo "(int) of $vals_str<br>";
-foreach ($vals as $value) {
+f oreach ($vals as $value) {
   echo "(int)$value=".(int)$value;
   if($value === 0 or $value === '0'){
     echo ".....0 and '0' are integer" ;

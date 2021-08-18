@@ -380,11 +380,49 @@ abstract class Config_allsites //extends Db_ allsites
       //return h tmlentities($string, ENT_QUOTES, 'UTF-8');
     }
 
-    static protected function secure_form($form) {
-        foreach ($form as $key => $value) {
-            $form[$key] = self::escp($value);
-        }
-    }
+    static public function escp_row(object $r): object
+    {    
+    //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+      /*
+      $r->id           = (int)utl::escp($r->id) ;
+      $r->author       = (int)utl::escp($r->author) ;
+      $r->coverMime    = utl::escp($r->coverMime) ;
+      $r->coverimgname = utl::escp($r->coverimgname) ;
+      $r->title        = utl::escp($r->title) ;
+      $r->isbn         = utl::escp($r->isbn) ;
+      $r->publisher    = utl::escp($r->publisher) ;
+      $r->year         = utl::escp($r->year) ;
+      $r->summary      = utl::escp($r->summary) ;
+      $r->copies       = utl::escp($r->copies) ;
+      */
+            if ('') { 
+            echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+            echo '<pre><b>$r</b>='; var_dump($r); echo '</pre>';
+            }
+    foreach ((array)$r as $name => &$value) {
+                    if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<pre><b>$name</b>='; print_r($name); //echo '</pre>';
+                    echo ' <b>$value</b>='; print_r($value); echo '</pre>';
+                    //exit(0);
+                    }
+      //if (is_int((int)$value)) $value = (int)utl::escp($value) ; else 
+      if (gettype($value) == 'boolean') NULL; else 
+          $value = self::escp($value) ;
+    } unset($value); // break the reference with the last element
+
+                    if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                    echo '<pre><b>$r</b>='; print_r($r); echo '</pre>';
+                    //exit(0);
+                    }
+    return($r) ;
+   }
+
+    //static protected function secure_form($form) {
+    //    foreach ($form as $key => $value) {
+    //        $form[$key] = self::escp($value);
+    //    }
+    //}
 
 
 
@@ -402,6 +440,58 @@ abstract class Config_allsites //extends Db_ allsites
       die() ; //exit;
     }
 
+
+    /**
+     *       PRE cc or uu (in Oracle Forms this code is hidden)
+     *            DIFFERENCES c r e (cc)  -  u p d (uu)
+     * 1. id is not here (cc does not need it)
+     * 2. for cc $ccflds_ placeh, for uu $uuflds_ placeh
+     */
+  
+  static public function row_flds_binds(
+     array $col_names, string &$flds, string &$ccflds_placeh, string &$uuflds_placeh
+    ,array &$binds, array $col_bind_types
+  ): object //void 
+  { 
+    $row = [];
+
+    $ii=0; foreach ($col_names as $cname) //or ($arr as &$value)
+    { 
+      $col_tmp = $_POST[$cname] ?? '' ;
+      $col_value = self::escp($col_tmp) ;
+      $row[$cname] = $col_value ; //for view script fields
+      if ($ii==0) { 
+         $flds          = $cname ;     //eg title, author...
+         $ccflds_placeh = ":$cname" ;         //for VALUES(,  eg :title, :author...
+         $uuflds_placeh = "$cname = :$cname" ;//for SET, title=:title,author=:author...
+         $binds[]       = // placeholder_name , value, type :
+         ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>$col_bind_types[0]];
+      } else { 
+         $flds          .= ", $cname" ; 
+         $ccflds_placeh .= ", :$cname" ; 
+         $uuflds_placeh .= ", $cname = :$cname" ;
+         $binds[]        = 
+         ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>$col_bind_types[$ii]];
+      }
+      $ii++ ;
+    } unset($cname); // break the reference with the last element
+                 //echo '<pre>$row='; print_r($row) ; echo '</pre>';
+    return((object)$row) ;
+  } //e n d  f n  D O
+  
+    /**
+     * OBJECT RELATIONAL MAPPING (ORM) is the technique of accessing a relational DB 
+     * using an object-oriented programming LANGUAGE. 
+     * ORM is a way to manage DB data by "mapping" DB tables rows to classes and c. instances.
+     * ACTIVE RECORD (AR) is one of such ORMs.
+     *
+     * The big difference between AR style and the DATA MAPPER (DM) style is :
+     * DM completely separates your domain (bussiness logic) 
+     * from persistence layer (data source eg DB, csv...). 
+     *
+     * The big benefit of DM pattern is, your domain objects (DO) code don't need to know anything
+     * about how DO are stored in data source.
+     */
 
 
 

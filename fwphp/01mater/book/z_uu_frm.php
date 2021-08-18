@@ -11,32 +11,38 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl; // init, setings, utils
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;  // model (fns) for all t b ls
 use B12phpfw\dbadapter\book\Tbl_crud as utl_module ; // model (fns) for this m odule t b l
 
-    //require $pp1->module_path . 'hdr.php'; 
-//$tbl='authors';
-$c_rrauthors = utl_module::rr_suppliers( $sellst='*', $qrywhere='1=1' //$qrywhere='id=:id' 
-  //[['placeh'=>':id', 'valph'=>$IdFromURL, 'tip'=>'int']] //str or int or no 'tip'
-  , $binds = [] , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
+    //require $pp1->module_path . 'hdr.php'; 
 
 if ( isset ($_SESSION["ErrorMessage"]) and count($_SESSION["ErrorMessage"]) > 0 ) {
   echo '<pre>Error='; print_r($_SESSION["ErrorMessage"]) ; echo '</pre>';
   unset($_SESSION["ErrorMessage"]) ;
 }
 
+//$tbl='authors';
+$c_rrauthors = utl_module::rr_suppliers( $sellst='*', $qrywhere='1=1' //$qrywhere='id=:id' 
+  //[['placeh'=>':id', 'valph'=>$I dFromURL, 'tip'=>'int']] //str or int or no 'tip'
+  , $binds = [] , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+
 //    1. S U B M I T E D  A C T I O N S
-utl_module::is_submited() ;
-if (!$_SESSION["submit_uu"]) {
-   // Form was not submitted. Populate ($_POST) variables with user entered values
-   utl_module::row_flds_binds() ;
-   $r = (object)utl_module::$row ;   //$r = (object) ['','','','','',''] ; 
-} else { 
-   // Form was submitted. Populate ($_POST) variables with default values
-   $r = (object)utl_module::$row ;
-   // returns string, calls utldb
-   utl_module::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
+$is_submited_frm = $_POST['submit_uu'] ?? '' ;
+if (!$is_submited_frm) {
+  $id = (int)$pp1->uriq->id ; //in _GET
+  $r = utl_module::rr_byid($id, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+} else {
+   //$id = (int)$_POST['id'] ?? '' ; //in _POST
+   $id = (int)$_SESSION['id'] ?? '' ; //in _POST
+   $r = utl_module::row_flds_binds() ; // obj. view flds (empty, populated with defaults) 
+   // calls utldb, returns obj. view flds populated with user entered values :
+   $r_posted = utl_module::uu( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 }
-unset ($_SESSION["submit_uu"]) ;
-                        //echo '<pre>$r='; print_r($r) ; echo '</pre>';
+                        if ('') {
+                        echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                        echo '<pre>$is_submited_frm='; print_r($is_submited_frm) ; echo '</pre>';
+                        echo '<pre>$id='; print_r($id) ; echo '</pre>';
+                        echo '<pre>$r='; print_r($r) ; echo '</pre>';
+                        echo '<pre>$r_posted='; print_r($r_posted ?? '') ; echo '</pre>';
+                        }
 //see **1  v a l i d a t i o n
 ?>
 
@@ -120,7 +126,7 @@ unset ($_SESSION["submit_uu"]) ;
               http://dev1:8083/fwphp/01mater/book/index.php/?i/uu_frm/
         -->
         <input type="hidden" name="authorid" value="<?=$r->author?>">
-        <input type="hidden" name="id" value="<?=$pp1->uriq->id?>" />
+        <input type="hidden" name="id" value="<?=$id?>" />
         <input type="submit" name="submit_uu" value="Upd row">
         </td>
         </tr>

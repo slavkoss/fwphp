@@ -1,64 +1,154 @@
 <?php
-  static public function cc( // *************** c c (
-     object $pp1, array $other=[]): string
-  {
-                if ('1') {
-                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
-                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
-                  //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
-                  //echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
-                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
-                  //exit(0);
-                }
-    // 1. S U B M I T E D  F L D V A L S
-    self::row_flds_binds() ; // p r e  i n s
+MODULE HOME   
+B12phpfw\dbadapter\book\Tbl_crud::uu, line 301 SAYS
 
+$_POST=Array
+(
+    [id] => 19
+    [submit_uu] => Upd row
+    [title] => dd xxxx
+    [author] => 1
+    [isbn] => dd
+    [publisher] => dd
+    [year] => 2222
+    [summary] => dd
+)
 
-    //                  2. C C  V A L I D A T I O N
-    $err = [] ;
-    $r = (object)self::$row ;
-    //                non-empty
-    switch (true) {
-      //case (!array_key_exists($_POST['author'], $authors))  -  FK 
-      case (!$r->author):          $err[] = 'Please select author for the book'; //break ;
-      case (empty($r->title)):     $err[] = "Please enter Title"; //break ;
-      case (empty($r->publisher)): $err[] = "Please enter Publisher"; //break ;
-      case (empty($r->summary)):   $err[] = "Please enter Summary field"; //break ;
-    //                length 
-      //if(!preg_match('~^\d{4}$~', $_POST['year'])) {
-      //See about integers : gettype in J:\awww\www\fwphp\code_snippets.php
-      //or is_int($year) == false
-      case ( mb_strlen($r->year) != 4 ): 
-         $err[] = "Year should be 4 digits, now is ". count($r->year); //break ;
-      //if(!preg_match('~^\d{10}$~', $_POST['isbn'])) {
-      case ( mb_strlen($r->isbn) > 20 ): 
-         $err[] = "ISBN should be max 20 characters, now is ". count($r->isbn); //break ;
+$id=int(19)
 
+$r=object(stdClass)#9 (6) {
+  ["title"]=>
+  string(7) "dd xxxx"
+  ["author"]=>
+  string(1) "1"
+  ["isbn"]=>
+  string(2) "dd"
+  ["publisher"]=>
+  string(2) "dd"
+  ["year"]=>
+  string(4) "2222"
+  ["summary"]=>
+  string(2) "dd"
+}
 
-      default: break;
-    }
-    
-    //if ($err > '') {
-    if(count($err) > 0) {
-      $_SESSION["ErrorMessage"]= $err ;
-      utl::Redirect_to($pp1->cc_frm); goto fnerr ; // Add row
-      //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
-      //exit(0) ;
-    }
+$err=Array
+(
+)
 
+$pp1=stdClass Object
+(
+    [dbg] => 1
+    [stack_trace] => Array
+        (
+            [0] => Array
+                (
+                    [0] => J:/awww/www/fwphp/01mater/book/index.php, lin=14
+                )
 
-    // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
-    //$last_id1 = utldb::rr_last_id($tbl) ;
-    $cursor = utldb::cc(self::$tbl, self::$flds, 'VALUES('. self::$flds_placeh .')'
-       , self::$binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
-    //$last_id2 = utldb::rr_last_id($tbl) ;
+            [1] => J:/awww/www/vendor/b12phpfw/Autoload.php, lin=24 (B12phpfw\core\b12phpfw\Autoload::__construct)
+            [2] => B12phpfw\core\b12phpfw\Autoload::get_path, lin=37 $nscls=B12phpfw\module\book\Home_ctr
+            [3] => B12phpfw\core\b12phpfw\Autoload::get_path, lin=37 $nscls=B12phpfw\core\b12phpfw\Config_allsites
+            [4] => B12phpfw\core\b12phpfw\Autoload::get_path, lin=37 $nscls=B12phpfw\dbadapter\book\Tbl_crud
+            [5] => B12phpfw\core\b12phpfw\Autoload::get_path, lin=37 $nscls=B12phpfw\core\b12phpfw\Interf_Tbl_crud
+        )
 
-    //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
-    //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
+    [wsroot_path] => J:/awww/www/
+    [shares_path] => J:/awww/www/vendor/b12phpfw/
+    [app_dir_path] => J:/awww/www/fwphp/01mater/
+    [module_version] => Product (Book) 1.0.0.0
+    [module_path_arr] => Array
+        (
+            [0] => J:/awww/www/fwphp/01mater/book/
+            [1] => J:/awww/www/vendor/b12phpfw/
+        )
 
-      utl::Redirect_to($pp1->module_url.QS.'i/cc_frm/');
-      return('1');
+    [col_names] => Array
+        (
+            [0] => title
+            [1] => author
+            [2] => isbn
+            [3] => publisher
+            [4] => year
+            [5] => summary
+        )
 
-      fnerr:
-      return('0');
-  }
+    [uriq] => stdClass Object
+        (
+            [i] => uu_frm
+            [id] => 19
+            [HELP_ROUTING_AND_URL_QUERY] => 
+      $pp1_module is ROUTES (LINKS) ASSIGNED IN MODULE CONTROLLER Home_ ctr.php ~~~~~~~~~~~~~~~~~
+      $pp1_ module is part of $pp1 (module property pallette).
+      Contains properties = key-keyvalue pairs : 
+          LINKALIAS => ?i/HOME_METHOD_TO_CALL/param1/param1value... (? is QS below)
+      
+          Eg in view script : href = QS."i/cc/" or href = LINKALIAS = $pp1->cre_ row_ frm. 
+          1. URLurlqrystring QS."i/cc/" CALLS cc fn in Home_ ctr.php .
+             LINK key-keyvalue PAIR IS NOT IN $pp1_ module, SO :
+                   cc must be M E T H O D NAME in Home_ ctr.php.
+          2. BETTER : LINKALIAS $pp1->cre_ row_ frm in view script is more generalized, 
+             but we have more writing than QS."i/cc/" in view script.
+             Ee $pp1_ module must contain :
+              LINKALIAS            URLurlqrystring        CALLED METHOD
+              IN VIEW SCRIPT       IN Home_ ctr           IN Home_ ctr
+            ,'cre_row_frm'     => QS.'i/cc/'               cc or cre_row_frm or... 
+            ,'home_url'        => QS.'i/home/'             home
+            ,'ldd_category'    => QS.'i/del_category/id/'  del_category, l in ldd means link
+               (method parameter /idvalue we assign in view script after ldd_category)
+            ,'loginfrm'        => QS.'i/loginfrm/'         loginfrm
+            ,'login'           => QS.'i/login/'            login
+      
+            [submit_uu] => Upd row
+            [posted_r] => stdClass Object
+                (
+                    [title] => dd xxxx
+                    [author] => 1
+                    [isbn] => dd
+                    [publisher] => dd
+                    [year] => 2222
+                    [summary] => dd
+                )
+
+        )
+
+    [HELP_STATES_ATTRIBUTES] => 
+            F O R  $_S E S  ARR. (D B S H E M A...) ~~~~~~~~~~~~~~~~~
+    [cncts] => stdClass Object
+        (
+        )
+
+    [states] => stdClass Object
+        (
+        )
+
+    [HELP_PATHS_IN_UTL_CLS] => 
+          cs02. R O U T I N G - A D R E S S E S  in Config_ allsites.php ~~~~~~~~~~~~~~~~
+    [wsroot_url] => http://dev1:8083/
+    [shares_url] => http://dev1:8083/zinc/
+    [img_url] => http://dev1:8083/zinc/img/
+    [lang] => en
+    [module_path] => J:/awww/www/fwphp/01mater/book/
+    [uri_qrystring] => i/uu_frm/id/19
+    [uri_qrystring_arr] => Array
+        (
+            [0] => i
+            [1] => uu_frm
+            [2] => id
+            [3] => 19
+        )
+
+    [uri_arr] => Array
+        (
+            [0] => /fwphp/01mater/book/index.php/index.php/index.php
+            [1] => i/uu_frm/id/19
+        )
+
+    [module_relpath] => fwphp/01mater/book/index.php/index.php/index.php
+    [module_url] => http://dev1:8083/fwphp/01mater/book/index.php/index.php/index.php/
+    [ROUTING_TABLE] => 
+        $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE
+    [home_url] => ?i/home/
+    [cc_frm] => ?i/cc_frm/
+    [dd] => ?i/dd/id/
+    [uu_frm] => ?i/uu_frm/id/
+)

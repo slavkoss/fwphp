@@ -4,12 +4,20 @@
 namespace B12phpfw\module\book ;
 //use PDO;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ; 
+use B12phpfw\module\book\Cre            as cre ;
+use B12phpfw\module\book\Upd            as upd ;
 use B12phpfw\dbadapter\book\Tbl_crud       as utl_module ;
 
 class Home_ctr extends utl
 {
   public function __construct(object $pp1) 
   {
+                  if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                  echo '<pre>'; echo '<b>$_POST</b>='; print_r($_POST);
+                  //echo '<pre>'; echo '<b>$is_submited_frm</b>='; print_r($is_submited_frm);
+                  //echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
+                  echo '</pre>'; }
                         if ('') { self::jsmsg( [ //b asename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
@@ -30,7 +38,7 @@ class Home_ctr extends utl
       , 'home_url'        => QS.'i/home/'
       , 'cc_frm'          => QS.'i/cc_frm/'
       , 'dd'              => QS.'i/dd/id/' // i/dd/ is default fn to call !!
-      , 'uu_frm'          => QS.'i/uu_frm/id/' // $p p1->uu_ frm.QS>?bookid=<=$r->id
+      , 'uu_frm'          => QS.'i/uu_frm/id/' // $p p1->uu_ frm
     ] ;  //e n d  R O U T I N G  T A B L E
 
     $pp1->col_names = utl_module::$col_names ;  //utl_ module::col_ names() ;
@@ -77,7 +85,7 @@ class Home_ctr extends utl
     // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
     // Ver. 7 : Dependency Injection $pp1
       require $pp1->module_path . 'hdr.php'; // MODULE_PATH
-      require $pp1->module_path . 'home.php';
+      home::displ($pp1) ;  //require $pp1->module_path . 'home.php';
       require $pp1->module_path . 'ftr.php';
   }
 
@@ -90,14 +98,6 @@ class Home_ctr extends utl
   /**
   * pgs03.   I N C  C R U D  P A G E  SCRIPTS   &   (code behind) C R U D  M E T H O D S
   */
-  private function cc_frm(object $pp1)
-  {
-    // I N C  C R U D P A G E  S C R I P T
-      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
-      require $pp1->module_path . 'cc_frm.php';
-      require $pp1->module_path . 'ftr.php';
-  }
-
 
     private function dd(object $pp1) // dd_song
     {
@@ -118,43 +118,34 @@ class Home_ctr extends utl
     }
 
 
+  private function cc_frm(object $pp1)
+  {
+    // I N C  C R U D P A G E  S C R I P T
+      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
+      cre::frm($pp1) ;  //require $pp1->module_path . 'cc_frm.php';
+      require $pp1->module_path . 'ftr.php';
+  }
+
   private function uu_frm(object $pp1)
   {
            //       R O W U P D  FRM
     //echo 'Method '.__METHOD__ .' SAYS: I &nbsp; i n c l u d e &nbsp; p h p &nbsp;
     //http://dev1:8083/fwphp/glomodul/adrs?i/uu/t/song/id/22  see switch default: above !!
-                  if ('0') {  //if ($module_ arr['dbg']) {
+    $is_submited_frm = $_POST['submit_uu'] ?? '' ;
+    $id = $_POST['id'] ?? '' ;
+    //$authorid = $_POST['authorid'] ?? '' ;
+                  if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
-                  echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
+                  echo '<pre>'; echo '<b>$is_submited_frm</b>='; print_r($is_submited_frm);
+                  //echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
                   echo '</pre>'; }
+
     require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'uu_frm.php';  
+    
+    upd::frm($pp1) ; //require $pp1->module_path . 'uu_frm.php'
+
     require $pp1->module_path . 'ftr.php';
   }
-
-
-
-  /* private function ex1(object $pp1)
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
-      require $pp1->module_path . 'hdr.php';
-      require $pp1->module_path . 'example_one.php';
-      require $pp1->module_path . 'ftr.php';
-      
-                  echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
-  }
-
-  private function ex2(object $pp1)
-  {
-    //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
-    $param1 = $pp1->uriq->p1 ;
-    $param2 = $pp1->uriq->p2 ;
-    require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'example_two.php';
-    require $pp1->module_path . 'ftr.php';
-                  echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
-  } */
-
 
 
 

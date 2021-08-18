@@ -111,32 +111,37 @@ Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and 
 **Includes and method calls instead http// jump to pages** - this is interesting question. http// jump to pages in B12phpfw is used only to jump in other module.
 
 ## 1\.4 To do - done
-Everything important is done in current version 7 code. 
+Everything important is done in current version code. 
 
-1.  2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\zinc\Config_allsites.php :  
+1. Difficult parts are not many : 
+   1. **DONE** Navigation - links - I think this is ok.
+   2. TO DO PDO CRUD for more DBI eg : MySQL (DONE), Oracle (DONE)... or TO DO any DB with DB adapter code like for MySQL and Oracle. 
+       I did only basic code - is working - should be improved.   
+   3. Tables : sorting, cols filtering, rows filtering. I have only basic code - working - should be improved.      
+
+2. TO DO Grid with updatable fields, I think, is not needed, but could be useful.
+3. TO DO No charts - see other learning sources.  
+4. TO DO Details like data formats (**page fields should be all characters** like in Oracle APEX), computations... are easy to find in other learning sources.  
+5. TO DO More security.
+
+1.   2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\zinc\Config_allsites.php :  
    Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
    No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
-   
-2. Difficult parts are not many : 
-   1. PDO CRUD more DBI MySQL, Oracle... - any DB with DB adapter code. I have only basic code - working - should be improved.  
 
-   2. Same for tables : sorting, cols filtering, rows filtering.  
-        Grid with updatable fields, I think, is not needed.  
+6.  2020.09.30 **DONE version 7.0.0.0** where 7 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
+    1. declare(strict_types=1) ; - PHP 7
+    2.  DBI improved : **trait Db_allsites** instead class Db_allsites. 
+    3. Each DB table (persistent storage) has adapter **class Tbl_crud :**  which uses B12phpfw\core\zinc\Db_allsites  and  implements Interf_Tbl_crud
+       This means that :
+       1. Module's views or ctrs, eg blog module (see blog folder) work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
+       2. class Home_ctr extends class Config_allsites. ( **Logically all is in Home_ctr**).
 
-3. Details like data formats (page fieds should be all characters like in Oracle APEX), computations... are easy to find in other learning sources.  
+7.  2021.10.xx **TO DO version 8.0.0.0** where 8 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
+     1. Framework module is not in J:\\awww\\www\\zinc folder but in J:\\awww\\www\\vendor\\b12phpfw - like any package used for our applications modules.
+     2. CRUD & navigation code is generalized - global snippets are in global methods where possible.
+     3. Views are classes - clearer and cleaner code than include scripts - eg Upd class as include script was complicated.
 
-4. No charts - see other learning sources.  
-
-5. More security.
-
-6.  2020.09.30 **DONE version 7.0.0 (declare(strict_types=1);)**. DBI improved : **trait Db_allsites** instead class Db_allsites. Each DB table (persistent storage) has adapter **class Tbl_crud :**
-   1. use B12phpfw\core\zinc\Db_allsites
-   2. implements Interf_Tbl_crud
-
-   This means that :
-   1. each module's views or ctrs, eg blog module (see blog folder)
-     - work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
-   2. class Home_ctr extends class Config_allsites, no more also two DB CRUD classes which is unnatural and not easy (but seems easy because **logically all is in Home_ctr**).
+    DONE ver. 8.0.0.0  J:\\awww\\www\\fwphp\\01mater\\book\\index.php  http://dev1:8083/fwphp/01mater/book/
 
 ## 1\.5 Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.

@@ -59,8 +59,8 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
      , $binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
      , $other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
     ) ;
-    $rx = utldb::rrnext($cursor) ;
-    if (is_object($rx)) return $rx ; else return ((object)$rx);
+    $r = utldb::rrnext($cursor) ;
+    if (is_object($r)) return $r ; else return ((object)$r);
   }
 
 
