@@ -4,7 +4,7 @@
 namespace B12phpfw\module\book ;
 use B12phpfw\core\b12phpfw\Autoload ;
 
-//1. settings - properties - assign global variables to use them in any code part
+//1. $PP1 - SETTINGS - PROPERTIES - BOOTSTRAP - assign global variables to use them in any code
 $module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
 $app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "01mater" group of modules
 $wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
@@ -27,27 +27,19 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
     $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
     //dir of global clses for all sites :
     ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'b12phpfw')) .'/'
-              /* //two master modules (tbls) = blocks in Ora. Forms
-              ,$app_dir_path.'user/'
-              ,$app_dir_path.'post_category/'
-              //detail & subdet modules (tbls) = blocks in Ora. Forms
-              ,$app_dir_path.'post/'
-              ,$app_dir_path.'post_comment/' */
+          //two master modules (tbls) = blocks in Ora. Forms
+          //,$app_dir_path.'user/'
+          //detail & subdet modules (tbls) = blocks in Ora. Forms
   ]
 ] ;
-  //1.4 To do : this could be improved ?
-  //     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
-  //    , self::$db_username, self::$db_userpwd) 
-  //    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
-  // Dbconn_allsites.php : return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
-  //, 'Dbconn'=>$Dbconn
 
-//2. global cls to load (include, bootstrap) classes scripts automatically
+
+//2. global fw core cls to LOAD CLASSES SCRIPTS AUTOMATICALLY (include)
 require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
-//3. process request from ibrowser & send response to ibrowser :
-//Home_ ctr "inherits" index.php ee DI $p p 1
+//3. process REQUEST from ibrowser & send RESPONSE to ibrowser :
+//Home_ ctr DI $p p 1 
 $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
         if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
            .', line '. __LINE__ .' SAYS'=>'where am I'
@@ -56,3 +48,10 @@ $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
 
 
 exit(0);
+
+  //1.4 To do : this could be improved ?
+  //     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
+  //    , self::$db_username, self::$db_userpwd) 
+  //    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
+  // Dbconn_allsites.php : return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+  //, 'Dbconn'=>$Dbconn

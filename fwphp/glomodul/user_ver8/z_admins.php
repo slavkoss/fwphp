@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 // J:\awww\www\fwphp\glomodul4\user\admins.php
-//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\b12phpfw\ver5
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\dbadapter\user\Tbl_crud   as Tbl_crud_admin ;
 use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
@@ -75,8 +75,7 @@ require_once("navbar_admin.php");
       <form class="" action="<?=$pp1->admins?>" method="post">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-header">
-            <h2>Add Admin for user level rights (authorization) VERSION 7</h2>
-            See J:\awww\www\fwphp\glomodul\user_ver8 : framework core in &lt;sitedocroot>/vendor/b12phpfw (v. 7 in &lt;sitedocroot>/zinc), improved CRUD sintax, improved links aliases in view scripts.
+            <h2>Add Admin for user level rights (authorization)</h2>
           </div>
 
           <div class="card-body bg-dark">
@@ -211,6 +210,8 @@ require_once("navbar_admin.php");
 </section>
 
 
+<?php require $pp1->shares_path . 'ftr.php'; ?>
+
 
 <!-- End Main Area 
                       /*$sql = "INSERT INTO admins(datetime,username,password,aname,addedby)";
@@ -226,5 +227,4 @@ require_once("navbar_admin.php");
 -->
 
 
-<?php require $pp1->shares_path . 'ftr.php'; ?>
 

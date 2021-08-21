@@ -4,8 +4,8 @@
 namespace B12phpfw\module\book ;
 //use PDO;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ; 
-use B12phpfw\module\book\Cre            as cre ;
-use B12phpfw\module\book\Upd            as upd ;
+use B12phpfw\module\book\Cre               as cre ;
+use B12phpfw\module\book\Upd               as upd ;
 use B12phpfw\dbadapter\book\Tbl_crud       as utl_module ;
 
 class Home_ctr extends utl
@@ -27,7 +27,7 @@ class Home_ctr extends utl
 
     /**
      * LINKALIAS          URLurlqrystring                CALLED METHOD
-     * IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
+     * IN VIEW SCRIPT     IN H ome_ ctr                   IN H ome_ ctr
      *  ,'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
      * ,'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
      *      (method parameter /idvalue we assign in view script after ldd_category)
@@ -35,10 +35,10 @@ class Home_ctr extends utl
     $pp1_module = [ // R O U T I N G  T A B L E
         'ROUTING_TABLE'     => '<b style="color: blue">
         $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE</b>'
-      , 'home_url'        => QS.'i/home/'
+      , 'home_url'        => QS.'i/home/' //href in view script is : $p p1->h ome_url
       , 'cc_frm'          => QS.'i/cc_frm/'
-      , 'dd'              => QS.'i/dd/id/' // i/dd/ is default fn to call !!
-      , 'uu_frm'          => QS.'i/uu_frm/id/' // $p p1->uu_ frm
+      , 'dd'              => QS.'i/dd/id/' 
+      , 'uu_frm'          => QS.'i/uu_frm/id/' 
     ] ;  //e n d  R O U T I N G  T A B L E
 
     $pp1->col_names = utl_module::$col_names ;  //utl_ module::col_ names() ;
@@ -53,13 +53,13 @@ class Home_ctr extends utl
            they 1.call other fns or 2.include script or 3.URL call script
            CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
            so: $pp1->call_module_m ethod($akc, $pp1) ;
-               $ a k c  is  m o d u l e  m ethod (in Home_ ctr, not global fn !!
+               $ a k c  is  m o d u l e  m ethod (in H ome_ ctr, not global fn !!
                  because )
           ***************************************** */
                 //$accessor = "get" . ucfirst(strtolower($akc));
   protected function call_module_method(string $akc, object $pp1)  //fnname, params
   {
-    //This fn calls fn $ a k c in Home_ ctr which has parameters in  $ p p 1
+    //This fn calls fn $ a k c in H ome_ ctr which has parameters in  $ p p 1
     if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
       return $this->$akc($pp1) ;
     } else {

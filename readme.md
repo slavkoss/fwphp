@@ -3,16 +3,6 @@
 **Top**.....[1\.4 Dirs](#directories).....[1\.3 UML](#uml).....[1\.5 DM](#dm).....[2\. IDE](#ide).....[3\. CRUD](#crud).....[SW fw](#swfw)   
 CRUD module example code 7 scripts:  
 [Simplest CRUD](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)   
-> **Clean code** : "Any fool can write code that a computer can understand. Good programmers write code that humans can understand." (Martin Fowler).
-> 
-> When you are dead, you don't know that you are dead. It is difﬁcult only for the others. It is the same when you are lazy (or stupid).
-> 
-> "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live." (John Woods).
-> adapter
-> "Clean code reads like well-written prose" (Grady Booch). Good code reads close to natural speech.
-
-> **Naming** is the best tool we have to express what we do in code (avoid comments). Classes and variables are nouns: Price, CurrentTrade. Booleans are predicates: isScheduled, isRunning. Methods should start with a verb: getStrategyResult, createStrategyResult. Common naming errors : Very small names ( $tr, dd() ),
-Names that are not real words ($dgrtty), Methods that are nouns.
 
 ## 1. My PHP menu & CRUD code skeleton (application architecture I named  B12phpfw)
 
@@ -54,11 +44,8 @@ Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
 
 
 <br />
-### Explanations below are far less important than demo site and code download mentioned above - open code and learn it.
-Code is small and simple but needs :      
-> few hours (advanced user) - days (intermediate) - weeks/months (beginner) to understand it.           
-**Understand code is must for any good code skeleton !**       
-<br />
+
+```
 
          _.-'''''-._
        .'  _     _  '.
@@ -69,7 +56,25 @@ Code is small and simple but needs :
        '.  ''---''  .'
          '-._____.-' 
 
+```
 
+
+<br /><br /><br />
+<span style="color:red;">Explanations below are far less important than demo site and installation mentioned above - open code and learn it.</span>       
+Code is small and simple but needs :      
+> few hours (advanced user) - days (intermediate) - weeks/months (beginner) to understand it.           
+**Understand code is must for any good code skeleton !**       
+
+> **Clean code** : "Any fool can write code that a computer can understand. Good programmers write code that humans can understand." (Martin Fowler).
+> 
+> When you are dead, you don't know that you are dead. It is difﬁcult only for the others. It is the same when you are lazy (or stupid).
+> 
+> "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live." (John Woods).
+> adapter
+> "Clean code reads like well-written prose" (Grady Booch). Good code reads close to natural speech.
+
+> **Naming** is the best tool we have to express what we do in code (avoid comments). Classes and variables are nouns: Price, CurrentTrade. Booleans are predicates: isScheduled, isRunning. Methods should start with a verb: getStrategyResult, createStrategyResult. Common naming errors : Very small names ( $tr, dd() ),
+Names that are not real words ($dgrtty), Methods that are nouns.
 
 
 
@@ -110,25 +115,37 @@ Notable package does something special, is also frequently innovative.
 Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **most probably do not nead B12phpfw** code skeleton, but I did it.     
 **Includes and method calls instead http// jump to pages** - this is interesting question. http// jump to pages in B12phpfw is used only to jump in other module.
 
+
+
+<br /><br /><br /><br />
 ## 1\.4 To do - done
 Everything important is done in current version code. 
 
-1. Difficult parts are not many : 
-   1. **DONE** Navigation - links - I think this is ok.
-   2. TO DO PDO CRUD for more DBI eg : MySQL (DONE), Oracle (DONE)... or TO DO any DB with DB adapter code like for MySQL and Oracle. 
+Done : 
+1. Code logic like Oracle Forms.
+2. Modules mnu (main menu), msg (blog), mkd (WYSIWYG markdown editor, with Simplemde or with Summernote HTML).
+3. FUNCTIONAL namespaces
+4. CRUD PDO trait
+5. pretty URL-s only php, without web server magic
+
+I not intend to do :
+1. TO DO Grid with updatable fields, I think, is not needed, but could be useful.
+2. TO DO No charts - see other learning sources.  
+3. TO DO Details like data formats (**page fields should be all characters** like in Oracle APEX), computations... are easy to find in other learning sources.  
+4. TO DO More security.
+
+Difficult parts are : 
+1. **DONE** Navigation - links - I think this is ok.
+2. TO DO PDO CRUD for more DBI eg : MySQL (DONE), Oracle (DONE)... or TO DO any DB with DB adapter code like for MySQL and Oracle. 
        I did only basic code - is working - should be improved.   
-   3. Tables : sorting, cols filtering, rows filtering. I have only basic code - working - should be improved.      
+3. Tables : sorting, cols filtering, rows filtering. I have only basic code - working - should be improved.      
 
-2. TO DO Grid with updatable fields, I think, is not needed, but could be useful.
-3. TO DO No charts - see other learning sources.  
-4. TO DO Details like data formats (**page fields should be all characters** like in Oracle APEX), computations... are easy to find in other learning sources.  
-5. TO DO More security.
-
+### TO DO / DONE :
 1.   2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\zinc\Config_allsites.php :  
    Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
    No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
 
-6.  2020.09.30 **DONE version 7.0.0.0** where 7 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
+2.  2020.09.30 **DONE version 7.0.0.0** where 7 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
     1. declare(strict_types=1) ; - PHP 7
     2.  DBI improved : **trait Db_allsites** instead class Db_allsites. 
     3. Each DB table (persistent storage) has adapter **class Tbl_crud :**  which uses B12phpfw\core\zinc\Db_allsites  and  implements Interf_Tbl_crud
@@ -136,17 +153,29 @@ Everything important is done in current version code.
        1. Module's views or ctrs, eg blog module (see blog folder) work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
        2. class Home_ctr extends class Config_allsites. ( **Logically all is in Home_ctr**).
 
-7.  2021.10.xx **TO DO version 8.0.0.0** where 8 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
+3.  2021.xx.xx **TO DO version 8.0.0.0** where 8 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
      1. Framework module is not in J:\\awww\\www\\zinc folder but in J:\\awww\\www\\vendor\\b12phpfw - like any package used for our applications modules.
      2. CRUD & navigation code is generalized - global snippets are in global methods where possible.
      3. Views are classes - clearer and cleaner code than include scripts - eg Upd class as include script was complicated.
 
     DONE ver. 8.0.0.0  J:\\awww\\www\\fwphp\\01mater\\book\\index.php  http://dev1:8083/fwphp/01mater/book/
+    
+4. TO DO See J:\\awww\\www\\fwphp\\glomodul\\user_ver8 : 
+    1. DONE framework core in [sitedocroot]/vendor/b12phpfw (v. 7 in [sitedocroot]/zinc)
+    2. improve CRUD sintax
+    3. improve links aliases in view scripts
+    4. Views are classes
 
+
+
+
+<br /><br /><br /><br />
 ## 1\.5 Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
 
 See readme_thoughts.md
+
+
 
 
 <br><br><br><a name="uml"></a>

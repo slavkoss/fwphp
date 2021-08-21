@@ -22,7 +22,7 @@ class Cre extends utl
   static public function frm( object $pp1 ): string 
   {
     //$tbl='authors';
-    $c_rrauthors = utl_module::rr_suppliers( $sellst='*', $qrywhere='1=1' //$qrywhere='id=:id' 
+    $c_authors = utl_module::rr_suppliers( $sellst='*', $qrywhere='1=1' //$qrywhere='id=:id' 
       //[['placeh'=>':id', 'valph'=>$IdFromURL, 'tip'=>'int']] //str or int or no 'tip'
       , $binds = [] , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
@@ -48,7 +48,7 @@ class Cre extends utl
     }
                             //echo '<pre>$r='; print_r($r) ; echo '</pre>';
 
-    self::frm_displ($pp1, $r, $c_rrauthors);
+    self::frm_displ($pp1, $r, $c_authors);
     
     return '1' ;
 
@@ -57,7 +57,7 @@ class Cre extends utl
 
 
   static private function frm_displ(
-     object $pp1, object $r, object $c_rrauthors ): string
+     object $pp1, object $r, object $c_authors ): string
   { ?>
   <br>
   <div class="xxbox">
@@ -84,7 +84,7 @@ class Cre extends utl
               <select name="author" style="width: 100%;">
                 <option value="">Please select...</option>
                 <?php
-                  while ( $r_author = utl_module::rrnext($c_rrauthors) and isset($r_author->id) ): 
+                  while ( $r_author = utl_module::rrnext($c_authors) and isset($r_author->id) ): 
                   { ?>
                    <option value="<?=$r_author->id?>"
                        <?php

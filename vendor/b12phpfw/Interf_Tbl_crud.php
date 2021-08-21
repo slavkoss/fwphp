@@ -2,10 +2,10 @@
 declare(strict_types=1);
 /**
 *  J:\awww\www\b12phpfw\Interf_Tbl_crud.php (4 hits)
-* 9:   static public f unction rr(
+* 9:   static public f unction r r(
 * 12:  static public f unction r rnext(object $cursor): object ;  //returns $cursor
-* 16:  static public f unction rr_all(
-* 23:  static public f unction cc(object $pp1, array $other): string ;
+* 16:  static public f unction r r_all(
+* 23:  static public f unction c c(object $pp1, array $other): string ;
 */
 
 //namespace App\Infrastructure;
@@ -17,7 +17,7 @@ interface Interf_Tbl_crud
   // This is not Interf_Db_allsites !!
 
   // on-insert. In adapter Tbl_ crud are : $flds, $binds...
-  static public function cc(object $pp1, array $other): object ; //was string
+  static public function cc(object $pp1, array $other=[]): object ; //was string
 
   static public function get_cursor(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[]): object ;

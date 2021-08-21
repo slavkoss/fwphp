@@ -29,8 +29,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 {
 
   static protected $tbl = 'books';
-                         //static public function col_ names() : array { ... or :
-
+                         //static p ublic f unction col_ names() : array { ... or :
   static public $col_names = 
   ['title','author','isbn','publisher','year','summary']; 
   static public $col_bind_types = 
@@ -42,7 +41,9 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public    $uuflds_placeh = '';
   static public    $binds         = [];
 
-
+  // *******************************************
+  //                     R E A D
+  // *******************************************
   static public function get_cursor( // returns  cursor, not rr_byid !
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
@@ -51,9 +52,9 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     return $cursor ;
   }
 
-  static public function rrnext(object $cursor ): object
+  static public function rrnext(object $cursor, string $other=''): object
   { 
-    return utldb::rrnext($cursor) ;
+    return utldb::rrnext($cursor, $other) ;
   }
 
   static public function rrcnt( string $tbl, array $other=[] ): int { 
@@ -117,7 +118,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   * called from submit code in view script cre_ row_ frm.php
   *     not via H o m e _ c t r  (also possible if you wish) !
   *
-  * public function c c
+  * public f unction c c
   * returns id or 'e r r_c c' 
   */
   static public function cc( // *************** c c (
@@ -151,7 +152,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
       //See about integers : gettype in J:\awww\www\fwphp\code_snippets.php
       //or is_int($year) == false
       case ( mb_strlen($r->year) != 4 ): 
-         $err[] = "Year should be 4 digits, now is ". count($r->year); //break ;
+         $err[] = "Year should be 4 digits, now is ". mb_strlen($r->year) ; //break ;
       //if(!preg_match('~^\d{10}$~', $_POST['isbn'])) {
       case ( mb_strlen($r->isbn) > 20 ): 
          $err[] = "ISBN should be max 20 characters, now is ". count($r->isbn); //break ;
@@ -280,7 +281,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
 // not used :
 
-  // public function rr_last_id(object $dm) {
+  // public f unction rr_last_id(object $dm) {
   //  return utl::rr_last_id(self::$tbl) ;
   //} 
 
