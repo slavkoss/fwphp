@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="hr">
+              <!-- CODE FOR SPECIFIC SKIN http://standardista.com/flexbox/flexfiles/
+              -->
+<head>
+  <meta charset="utf-8">
+  <title>B12phpfw gallery</title>
+
+  <link href="style_img_gallery.css" type="text/css" rel="stylesheet">
+  
+  <style type="text/css">
+    .font_ftr {
+	  font-size: small;
+    }
+  </style> 
+
+</head>
+
+<body style="font-family:Arial, Helvetica, sans-serif; font-size:large ">
+
+<h2>&quot;B12phpfw&quot; image gallery</h2>
+<h3>Intro (Home)</h3>
+
+<div>
+<!-- ROW01 width="600" height="400" -->
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="../../../vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg">
+      <img src="../../../vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg" 
+      alt="/vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg" >
+    </a>
+
+    <div class="desc"> <a href="some_html" target="_blank"></a>MVC : M_V and M_C_V data flow</div>
+
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="../../../vendor/b12phpfw/img/mvc_M_V_data_flow.jpg">
+      <img src="../../../vendor/b12phpfw/img/mvc_M_V_data_flow.jpg" 
+      alt="/vendor/b12phpfw/img/mvc_M_V_data_flow.jpg" >
+    </a>
+
+    <div class="desc"> <a href="some_html" target="_blank"></a>M_V data flow</div>
+
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="../../../vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg">
+      <img src="../../../vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg" 
+      alt="/vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg" >
+    </a>
+
+    <div class="desc"> <a href="some_html" target="_blank"></a>M_C_V data flow (Laravel)</div>
+
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="../../../vendor/b12phpfw/img/mvc_M_C_V.jpg">
+      <img src="../../../vendor/b12phpfw/img/mvc_M_C_V.jpg" 
+      alt="/vendor/b12phpfw/img/mvc_M_C_V.jpg" >
+    </a>
+
+    <div class="desc"> <a href="some_html" target="_blank"></a>Code separation</div>
+
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+
+<!-- ROW02 width="600" height="400" -->
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="../../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg">
+      <img src="../../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg" 
+      alt="/vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg" >
+    </a>
+
+    <div> <a href="some_html" target="_blank"></a>
+         M_V data flow : MVC 3tier.
+	  </div>
+
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="../../../vendor/b12phpfw/img/meatmirror.jpg">
+      <img src="../../../vendor/b12phpfw/img/meatmirror.jpg" 
+      alt="/vendor/b12phpfw/img/meatmirror.jpg" >
+    </a>
+
+    <div class="desc"> <a href="some_html" target="_blank"></a>
+      Ancient Greek maxim (aphorism) "know thyself" <br> (Greek: γνῶθι σεαυτόν, 
+	  latin "nosce te ipsum").
+	  </div>
+
+  </div>
+</div>
+
+
+<div class="clearfix"></div>
+
+
+<div>
+
+  <p>&nbsp;</p>
+  <p> 
+  
+  <a href="https://en.wikipedia.org/wiki/Know_thyself">
+  https://en.wikipedia.org/wiki/Know_thyself</a> 
+  
+  Ancient Greek maxim (aphorism) "know thyself" (Greek: γνῶθι σεαυτόν, latin 
+  "nosce te ipsum") is one 
+  of the Delphic maxims and was the first of three maxims inscribed in the 
+  pronaos (forecourt) of the Temple of Apollo at Delphi according to the Greek 
+  writer Pausanias.</p>
+  <p> 
+  
+  The two maxims that followed "<strong>know thyself</strong>" were "<strong>nothing 
+  to excess</strong>" and "<strong>surety (security) brings ruin</strong>".</p>
+  <p> 
+  
+  &nbsp;</p>
+  <pre> &lt;a target="_blank" href="../../../vendor/b12phpfw/img/meatmirror.jpg    &lt;img src="../../../vendor/b12phpfw/img/meatmirror.jpg" 
+ a         alt="/vendor/b12phpfw/img/meatmirror.jpg" &gt;
+ &lt;/a&gt;</pre>
+  <p>In code above href="/vendor/b12phpfw/img/meatmirror.jpg" does work in PHP 
+  and in HTML called with URL eg <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  http://dev1:8083/fwphp/glomodul/img_gallery/index.html&nbsp; <br>, 
+  but href="/vendor/b12phpfw/img/meatmirror.jpg" does not work in double clicked HTML 
+  meaning browser does not know where is web server document root !
+  <p>href="../../../vendor/b12phpfw/img/meatmirror.jpg (double clicked HTML) 
+  works if we do not change folder structure - which we do not - no need. Same 
+  for href="/vendor/b12phpfw/img/meatmirror.jpg".<p>&nbsp;</p>
+  <h2> Code separation</h2>
+  <p> DAO tier is Data Access Object abstract interface. In B12phpfw code skeleton Model and DAO tiers are in :
+  </p>
+  <ol>
+  <li>view scripts are Model (Bussiness) tier - they call Tbl_crud method 
+      like in Oracle Forms. 
+      <br><strong>View scripts do not know how DAO makes CRUD !
+  </strong>
+  <li>Tbl_crud.php (code not visible in in Oracle Forms)&nbsp; is Model 
+  (Bussiness) tier and partially DAO tier - knows what module does
+  <li>Db_allsites.php (code not visible in in Oracle Forms) is DAO tier - 
+  <strong>does not know what module does</strong>
+  </ol> 
+  <p>
+  In B12phpfw code skeleton i use M_V data flow for read, but it is easy (but in 
+  my opinion not appropriate) to use M_C_V data flow
+  for read - in Home_ctr.php we examine user entered URL (request) and call method which can read 
+  data (or do any CRUD operation - procedure on data).
+  </p>
+
+</div>
+
+  <hr>
+	<p class="font_ftr">This example 
+    <a href="https://www.w3schools.com/Css/tryit.asp?filename=trycss_image_gallery_responsive">
+    Tryit Editor v3.6 (w3schools.com)</a> use media queries to re-arrange the images on different screen sizes: for screens larger than 700px wide, it will show four images side by side, for screens smaller than 700px, it will show two images side by side. For screens smaller than 500px, the images will stack vertically (100%).
+    You will learn more about media queries and responsive web design later in our CSS Tutorial.
+    See also
+	<a href="https://www.w3schools.com/howto/howto_js_slideshow_gallery.asp">How 
+	To Create a Slideshow (w3schools.com)</a> .</p>
+</div>
+
+
+</body>
+</html>

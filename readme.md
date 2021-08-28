@@ -166,6 +166,13 @@ Difficult parts are :
     3. improve links aliases in view scripts
     4. Views are classes
 
+5. 2021.08.28 ver 7.0.5 : I added  **folder (module) WEBSERVERROOT/fwphp/glomodul/img_gallery**     
+    J:\\awww\\www is my WEBSERVERROOT.    
+    J:\\awww\\www\\fwphp is MYDEVSITEROOT1. You may have more MYDEVSITEROOT2, 3... See how in **WEBSERVERROOT/index_laragon.php** script.    
+    glomodul is group of folders - modules which are not 01mater or 02financ or 03...  glomodul may be named othermodules.     
+    img_gallery module is **first lesson** about (theory behind) code skeleton (application architecture) B12phpfw     
+    
+
 
 
 
