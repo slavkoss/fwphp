@@ -1658,9 +1658,9 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
     MeinPlatz (x64) (part of Symenu portable programs) like Treesize    
     Freecommander, Multicommander, Q-dir, Totalcommander       
 
-4.  **BROWSER**: **Firefox**, Google Chrome, Cyberfox, Pale Moon     
+4.  **BROWSER**: **Firefox (portable in Symenu collection)**, Google Chrome, Cyberfox, Pale Moon     
    
-5.  **DEPLOY (INSTALL)**: **Cmder** (Symenu) is Win CMD, line has Git.
+5.  **DEPLOY (INSTALL)**: **Cmder** (in Symenu) is Win CMD line, has Git.
    Composer.
    FTP client **Winscp**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\zinc\Dbconn_allsites.php`;
     
