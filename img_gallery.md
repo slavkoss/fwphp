@@ -1,27 +1,27 @@
 "B12phpfw" image gallery Intro (Home)
 -------------------------------------
 
-[![/vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg](../../vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg)](../../vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg)
+[![/vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg](./vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg)](./vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg)
 
 [](some_html)MVC : M\_V and M\_C\_V data flow
 
-[![/vendor/b12phpfw/img/mvc_M_V_data_flow.jpg](../../vendor/b12phpfw/img/mvc_M_V_data_flow.jpg)](../../vendor/b12phpfw/img/mvc_M_V_data_flow.jpg)
+[![/vendor/b12phpfw/img/mvc_M_V_data_flow.jpg](./vendor/b12phpfw/img/mvc_M_V_data_flow.jpg)](./vendor/b12phpfw/img/mvc_M_V_data_flow.jpg)
 
 [](some_html)M\_V data flow
 
-[![/vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg](../../vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg)](../../vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg)
+[![/vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg](./vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg)](./vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg)
 
 [](some_html)M\_C\_V data flow (Laravel)
 
-[![/vendor/b12phpfw/img/mvc_M_C_V.jpg](../../vendor/b12phpfw/img/mvc_M_C_V.jpg)](../../vendor/b12phpfw/img/mvc_M_C_V.jpg)
+[![/vendor/b12phpfw/img/mvc_M_C_V.jpg](./vendor/b12phpfw/img/mvc_M_C_V.jpg)](./vendor/b12phpfw/img/mvc_M_C_V.jpg)
 
 [](some_html)Code separation
 
-[![/vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg](../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg)](../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg)
+[![/vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg](./vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg)](./vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg)
 
 [](some_html)M\_V data flow : MVC 3tier Code separation
 
-[![/vendor/b12phpfw/img/meatmirror.jpg](../../vendor/b12phpfw/img/meatmirror.jpg)](../../vendor/b12phpfw/img/meatmirror.jpg)
+[![/vendor/b12phpfw/img/meatmirror.jpg](./vendor/b12phpfw/img/meatmirror.jpg)](./vendor/b12phpfw/img/meatmirror.jpg)
 
 [](some_html)Selfknowing, moderate, no delusion (false opinion)
 
@@ -53,7 +53,7 @@ The two maxims that followed are :
 Script opening methods
 ----------------------
 
- <a target="\_blank" href="../../vendor/b12phpfw/img/meatmirror.jpg    <img src="../../vendor/b12phpfw/img/meatmirror.jpg" 
+ <a target="\_blank" href="./vendor/b12phpfw/img/meatmirror.jpg    <img src="./vendor/b12phpfw/img/meatmirror.jpg" 
  a         alt="/vendor/b12phpfw/img/meatmirror.jpg" >
  </a>
 
@@ -61,7 +61,7 @@ In code above href="/vendor/b12phpfw/img/meatmirror.jpg" does work in PHP and in
             http://dev1:8083/fwphp/glomodul/img\_gallery/index.html   
 , but href="/vendor/b12phpfw/img/meatmirror.jpg" does not work in double clicked HTML meaning browser does not know where is web server document root !
 
-href="../../vendor/b12phpfw/img/meatmirror.jpg works for both script opening methods if we do not change folder structure - which we do not - no need. href="/vendor/b12phpfw/img/meatmirror.jpg" is alike sensitive to folder structure.
+href="./vendor/b12phpfw/img/meatmirror.jpg works for both script opening methods if we do not change folder structure - which we do not - no need. href="/vendor/b12phpfw/img/meatmirror.jpg" is alike sensitive to folder structure.
 
 * * *
 
