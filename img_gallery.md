@@ -3,7 +3,7 @@
 
 [![/vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg](./vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg)](./vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg)
 
-[](some_html)MVC : M\_V and M\_C\_V data flow
+[](some_html)2 ways of data flow : M\_V (V pulls data from M) and M\_C\_V (C push data to V) 
 
 [![/vendor/b12phpfw/img/mvc_M_V_data_flow.jpg](./vendor/b12phpfw/img/mvc_M_V_data_flow.jpg)](./vendor/b12phpfw/img/mvc_M_V_data_flow.jpg)
 
@@ -23,7 +23,7 @@
 
 [![/vendor/b12phpfw/img/meatmirror.jpg](./vendor/b12phpfw/img/meatmirror.jpg)](./vendor/b12phpfw/img/meatmirror.jpg)
 
-[](some_html)Selfknowing, moderate, no delusion (false opinion)
+[](some_html)Selfknowing, be moderate, no delusion (false opinion)
 
 Code separation
 ---------------
