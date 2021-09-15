@@ -49,7 +49,7 @@
         $subtotal = 0;
         foreach ($order_items as $item) :
             $product_id = $item['productID'];
-            $product = get_product($product_id);
+            $product = get_product($pp1); //$product_id
             $item_name = $product['productName'];
             $list_price = $item['itemPrice'];
             $savings = $item['discountAmount'];

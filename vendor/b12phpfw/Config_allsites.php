@@ -226,8 +226,8 @@ abstract class Config_allsites //extends Db_ allsites
           //, 'module_towsroot'     => $module_towsroot
           //, 'wsroot_path'         => $wsroot_path
           , 'wsroot_url'          => $wsroot_url
-          , 'shares_url'          => $wsroot_url . 'zinc/'
-          , 'img_url'             => $wsroot_url . 'zinc/img/'
+          , 'shares_url'          => $wsroot_url . 'vendor/b12phpfw/' //'zinc/'
+          , 'img_url'             => $wsroot_url . 'vendor/b12phpfw/img/' //'zinc/img/'
           //, 'imgrel_ path'         => $imgrel_ path
           , 'lang'                => 'en'
           , 'module_path'         => $module_path

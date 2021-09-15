@@ -3,8 +3,4 @@ composer.lock
 /zinc/img/img_big/
 /vendor/RespectValidation/
 /fwphp/glomodul/mkd/01/090_private/
-/fwphp_before_dbtrait/
-/magento2ce/
-/logs
-Syncfolders_Database_db
-/z_big/
+/fwphp/glomodul/z_examples/bootstrap5/

@@ -1,7 +1,11 @@
+<?php
+$module_relpath = $pp1->module_relpath ;
+$module_path    = $pp1->module_path ;
+?>
 <div class="sidebar">
 
   <h2>Links</h2>
-  <!-- ************************ -->
+  <!-- ************************ J:\awww\www\fwphp\01mater\shop\view\sidebar.php -->
   <ol>
     <li><a href="<?php echo $module_relpath . 'cart'; ?>">View Cart</a>
     </li><?php // Check if user is logged in and display appropriate account links
@@ -24,7 +28,7 @@
     require_once($module_path .'model/database.php');
     require_once($module_path .'model/category_db.php');
 
-    $categories = get_categories();
+    $categories = get_categories($pp1);
     foreach($categories as $category) :
       $name = $category['categoryName'];
       $id   = $category['categoryID'];

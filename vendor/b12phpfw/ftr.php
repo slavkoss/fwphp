@@ -152,7 +152,7 @@ if ($pp1->dbg)
 <!-- needed for bootstrap : -->
 <script src="<?=$shares_url?>themes/bootstrap/js/jquery.min.js" type="text/javascript"></script>
 <!-- needed for ... : -->
-<script src="<?=$shares_url?>themes/bootstrap/js/popper.min.js"></script>
+<!--script src="<=$shares_url>themes/bootstrap/js/popper.min.js"></script-->
 <script src="<?=$shares_url?>themes/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!-- needed for msg, msgyn : -->

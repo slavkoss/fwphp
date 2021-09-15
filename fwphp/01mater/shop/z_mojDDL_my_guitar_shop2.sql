@@ -1,13 +1,17 @@
+/*
+-- J:\awww\www\fwphp\01mater\shop\z_mojDDL_my_guitar_shop2.sql
 --create and select the database
--- psw=sesame FOR ALL DEFAULT ADMINS & USERS
+-- psw=sesame FOR ALL DEFAULT ADMINS and USERS
 --     $password = sha1($email . $password)  40-characterhexadecimal number
 --     It is not recommended to use this function to secure passwords
 --    admin@myguitarshop.com or joel@murach.com or mike@murach.com
 --customer barryz@gmail.com
 --customer new : ss slavkoss22@gmail.com psw 123456
-DROP DATABASE IF EXISTS my_guitar_shop2;
-CREATE DATABASE my_guitar_shop2;
-USE my_guitar_shop2;
+--my_guitar_shop2
+*/
+DROP DATABASE IF EXISTS z_shop; 
+CREATE DATABASE z_shop;
+USE z_shop;
 
 -- create the tables for the database
 CREATE TABLE customers (

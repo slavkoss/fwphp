@@ -1,9 +1,4 @@
 <?php
-// J:\awww\www\fwphp\glomodul\z_examples\02_mvc\guitar_shop\model\product_db.php
-
-require_once($pp1->module_path .'util/tags.php');
-require_once($pp1->module_path .'model/database.php');
-
 function get_products_by_category($category_id) {
     global $db;
     $query = '

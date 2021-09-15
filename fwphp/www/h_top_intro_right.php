@@ -40,7 +40,7 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
 
             This view script <?=__FILE__?> is included in home.php.
             <br />h_... means one of 5 parts of home page (top toolbar, this top intro-menu and 3 page parts). 
-            <br />This is typical static web page with dynamic (PHP) links. Style is Bootstrap 4.3.1.
+            <br />This is typical static web page with dynamic (PHP) links. Style is Bootstrap 5.1.1.
             <!--/section-->
 
         </div><!-- 1.1 TOP LEFT  C O N T E N T   -  LEFT COLUMN -->

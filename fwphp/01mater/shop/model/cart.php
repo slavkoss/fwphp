@@ -9,7 +9,7 @@ function cart_add_item($product_id, $quantity) {
     $_SESSION['cart'][$product_id] = round($quantity, 0);
 
     // Set last category added to cart
-    $product = get_product($product_id);
+    $product = get_product($pp1); // $product_id
     $_SESSION['last_category_id'] = $product['categoryID'];
     $_SESSION['last_category_name'] = $product['categoryName'];
 }
@@ -33,7 +33,7 @@ function cart_get_items() {
     $items = array();
     foreach ($_SESSION['cart'] as $product_id => $quantity ) {
         // Get product data from db
-        $product = get_product($product_id);
+        $product = get_product($pp1); // $product_id
         $list_price = $product['listPrice'];
         $discount_percent = $product['discountPercent'];
         $quantity = intval($quantity);

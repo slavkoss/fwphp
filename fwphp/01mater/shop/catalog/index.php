@@ -1,5 +1,6 @@
 <?php
-require_once('../util/main.php');
+//see 2014_Murach's PHP and MySQL 2ndEd.pdf
+//require_once('../util/m ain.php');
 require_once('../model/product_db.php');
 require_once('../model/category_db.php');
 
@@ -17,7 +18,7 @@ switch ($action) {
         include('./category_view.php');  // Display category
         break;
     case 'product':  // Display the specified product
-        $product = get_product($product_id);  // Get product data
+        $product = get_product($pp1);  // $product_id   Get product data
         include('./product_view.php');  // Display product
         break;
     default:

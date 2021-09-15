@@ -1,5 +1,5 @@
 <?php
-require_once('../../util/main.php');
+//require_once('../../util/m ain.php');
 require_once('util/secure_conn.php');
 require_once('model/admin_db.php');
 require_once('model/fields.php');

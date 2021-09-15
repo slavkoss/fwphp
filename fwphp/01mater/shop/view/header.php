@@ -1,3 +1,8 @@
+<?php
+$css_url_rel = $pp1->wsroot_url . $pp1->module_relpath . '/01sidebar.css';
+//J:\awww\www\zinc\img\img_big\guitar
+$img_dirpath = $pp1->wsroot_url . 'zinc/img/img_big/guitar/'; //$doc_ root .
+?>
 <!DOCTYPE html>
 <html>
 
@@ -8,11 +13,13 @@
           href="<?php
             //if ($skin == '01sidebar') 
               echo $css_url_rel;
+              //noooo echo dirname(__DIR__) . '\\01sidebar.css' ;
             //else echo $module_relpath.'/main.css';
             ?>">
             
     <!--  FLEX STICKY HDR / FTR & SCROLL BAR-->
     <style type="text/css">
+    /*
       footer, header, main {
         padding: 10px; box-sizing: border-box;
       }
@@ -32,6 +39,7 @@
         overflow: scroll;
        
       }
+      */
     </style>
 
 </head>

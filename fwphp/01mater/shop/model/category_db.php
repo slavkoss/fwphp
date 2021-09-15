@@ -1,6 +1,8 @@
 <?php
-function get_categories() {
-    global $db;
+// J:\awww\www\fwphp\01mater\shop\model\category_db.php
+function get_categories($pp1) {
+    //global $db;
+    $db = $pp1->db ;
     $query = 'SELECT *,
                 (SELECT COUNT(*)
                  FROM products

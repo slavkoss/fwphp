@@ -31,6 +31,7 @@ class Home_ctr extends Config_allsites
           //, 'cncts'                 => (object)[] //c o n n e c t  (states) a t t r i b u t e s
     //  all module links (menu items) should be here :
     'home'            => QS.'i/home/' , 
+    /*
     'loginfrm'        => QS.'i/loginfrm/' , 
     'login'           => QS.'i/login/' , 
     'logout'          => QS.'i/logout/r/i|loginfrm|' ,
@@ -63,6 +64,7 @@ class Home_ctr extends Config_allsites
     'about_us'        => QS.'i/about/' ,
     'contact_us'      => QS.'i/contact/' ,
     'features'        => QS.'i/features/'
+    */
     //e n d  R O U T I N G  T A B L E
         ] ;
 
@@ -77,7 +79,7 @@ class Home_ctr extends Config_allsites
 
   //           **** D I S P A T C H I N G
           //$accessor = "get" . ucfirst(strtolower($akc));
-  public function callf(string $akc, object $pp1)  //fnname, params
+  public function call_module_method(string $akc, object $pp1)  //fnname, params
   {
     return ( 
       ( //method_exists($this, $akc) and
@@ -95,7 +97,7 @@ class Home_ctr extends Config_allsites
   /**
        1. S E S S I O N  M E T H O D S
   */
-
+  /*
   private function Login_Confirm_SesUsrId(object $dm) {
     //$dm = $this = domain model = globals for all sites (eg for CRUD...) & for curr.module
     $Db_user = new Tbl_crud_user ; //tbl mtds and attr use globals for all sites !!
@@ -130,7 +132,7 @@ class Home_ctr extends Config_allsites
     //$Db_ user = new Tbl_ crud_ user ;  $Db_ user->login($dm, $pp1, $pp1->dashboard) ;
     (new Tbl_crud_user)->login($this, $pp1, $pp1->dashboard) ;
   }
-
+  */
 
   //e n d  1. S E S S  I O N  M E T H O D S
 
@@ -145,15 +147,9 @@ class Home_ctr extends Config_allsites
 
   private function home(object $pp1) //DI page prop.palette   
   {
-    //As of PHP5, object variable doesn't contain object itself as value. It only contains object identifier. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a copy of the identifier, which points to same object.
-
-    $uriq = $pp1->uriq ;
-
-      $title = 'SHOP HOME';
-
       //require $pp1->wsroot_path . 'zinc/hdr.php';
       //require("navbar.php");
-      require $pp1->module_path . 'home.php';
+    require $pp1->module_path . 'home.php';
       //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 

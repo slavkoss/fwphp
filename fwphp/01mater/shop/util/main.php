@@ -1,5 +1,5 @@
 <?php
-
+// J:\awww\www\fwphp\01mater\shop\util\main.php
 if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR); //dirname, basename
 if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 // ********************************************
