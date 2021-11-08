@@ -7,13 +7,13 @@ $tmp     = $img_url . 'ic_done_black_32dp.png' ;
 $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
 ?>
   <!-- C O N T E N T 1  EXPLORE HEAD -->
-  <section id="explore-head-section">
+  <section id="explore-head-section" class="bg-success bg-gradient text-dark bg-opacity-10">
     <div class="container">
       <div class="row">
         <div class="col text-center">
           <div class="py-5">
             <h1 class="display-4">1. Learn - Explore</h1>
-            <p class="lead">See what your friends write.</p>
+            <p class="lead">See, explore what your friends write. Hard work on learning is worth nothing if not explained & shared.</p>
             <a href="#" class="btn btn-outline-secondary">Find Out More</a>
           </div>
         </div>
@@ -22,7 +22,7 @@ $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
   </section>
 
   <!-- EXPLORE SECTION -->
-  <section id="explore-section" class="bg-light text-muted py-5">
+  <section id="explore-section" class="bg-secondary bg-opacity-10 text-muted py-5">
   
     <div class="container">
       <div class="row">
@@ -35,26 +35,34 @@ $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
         <div class="col-md-6">
           <h3>1.1 Explore & Connect (right collumn)</h3>
           <p>See what your friends write:
-
+                  <br>examples_path_rel=<?=$examples_path_rel?>
+                  <br>examples_url=<?=$examples_url?>
+                  <br>glomodul_url=<?=$glomodul_url?>
+                  <br>
+              <!--  -->
                   <a style="display: inline;"
-                     href="/<?=$path_rel_examples.'singleton.php'?>" 
+                     href="<?=$examples_url.'php_patterns/singleton.php'?>" 
                      class="dropdown-item" target="_blank">
                  <?=$img_url_users_link?>Singleton</a>
+                  <a style="display: inline;"
+                     href="<?=$examples_url.'php_patterns/p08_singleton.php'?>" 
+                     class="dropdown-item" target="_blank">
+                 <?=$img_url_users_link?>Singleton2</a>
 
                   <a style="display: inline;"
-                     href="/<?=$app_glomodul_dir_path.'oraedoop/'?>" 
+                     href="<?=$glomodul_url.'oraedoop/'?>" 
                      class="dropdown-item" target="_blank">
                  <?=$img_url_users_link?>Oraedoop</a>
 
                   <!--
                      http://localhost:8083/adminer/adminer/?oracle 
                      http://dev1:8083/fwphp/glomodul/adminer/adminer/?oracle 
-                     $app_glomodul_dir_path.'adminer/adminer'.QS.'oracle'
+                     $glomodul_path.'adminer/adminer'.QS.'oracle'
                   -->
-                  <a style="display: inline;"
-                     href="http://localhost:8083/adminer/adminer/?oracle" 
+                  <br><a style="display: inline;"
+                     href="<?=$glomodul_url .'lsweb/lsweb.php/?cmd=' . $examples_path?>" 
                      class="dropdown-item" target="_blank">
-                 <?=$img_url_users_link?>adminer</a>
+                 <?=$img_url_users_link .' ALL HELP SW'?></a> &nbsp; 
 
           </p>
           <div class="d-flex flex-row">

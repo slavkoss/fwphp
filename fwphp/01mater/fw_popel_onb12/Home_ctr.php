@@ -3,7 +3,7 @@
 // DEFAULT CTR (ONLY ONE IN MODULE), HAS METHODS WHICH  I N C  PAGE VIEW SCRIPT OR CALL METDS
 namespace B12phpfw\module\fw_popel_onb12 ;
 //use PDO;
-use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;        // c o n f i g  was core\zinc
 use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud   as utl_waybill ;
 
 class Home_ctr extends utl

@@ -1,7 +1,7 @@
 <?php
 
 //$u riq = $this->g etp('u riq') ;
-$pp1  = $this->getp('pp1') ;
+//$pp1  = $this->pp1 ;
 
 ?>
 <!-- NAVBAR ADMIN-->

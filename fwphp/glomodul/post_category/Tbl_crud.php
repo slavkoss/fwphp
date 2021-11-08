@@ -18,11 +18,11 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_category ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\module\blog\Home_ctr ;
 
-use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
@@ -36,13 +36,22 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     return '' ;
   }
 
-  static public function rr(
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  static public function get_cursor(
+    string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[] ): object
   { 
     $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
+  /*static public function rr(
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  { 
+    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  } */
+
+  static public function rrnext(object $cursor ): object {}
 
   static public function rrcnt( string $tbl, array $other=[] ): int { 
     $rcnt = utldb::rrcount($tbl) ;
@@ -91,7 +100,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   *
   * public function cc(UserInterface $user) 
   */
-  static public function cc( object $pp1, array $other=[]): string //return id or 'err_c c'
+  static public function cc( object $pp1, array $other=[]): object //return id or 'err_c c'
   {
     $CurrentTime = time(); $datetime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
 
@@ -101,13 +110,13 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     // 2. V A L I D A T I O N
     $valid = true ;
     if(empty($category_title)){ $valid = false;
-      $_SESSION["ErrorMessage"] = "All fields must be filled out";
+      $_SESSION["MsgErr"] = "All fields must be filled out";
       utl::Redirect_to($pp1->categories);
     }elseif (strlen($category_title)<3) { $valid = false;
-      $_SESSION["ErrorMessage"] = "Category title should be greater than 2 characters";
+      $_SESSION["MsgErr"] = "Category title should be greater than 2 characters";
       utl::Redirect_to($pp1->categories);
     }elseif (strlen($category_title)>49) { $valid = false;
-      $_SESSION["ErrorMessage"] = "Category title should be less than than 50 characters";
+      $_SESSION["MsgErr"] = "Category title should be less than than 50 characters";
       utl::Redirect_to($pp1->categories);
     }
     if (!$valid) {goto fnerr ;}
@@ -126,9 +135,9 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
     //$last_id2 = utldb::rr_last_id($tbl) ;
 
-    return('1');
+    return((object)['1']); //return('1');
     fnerr:
-    return('0');
+    return((object)['0']);
   }
 
 

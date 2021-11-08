@@ -18,22 +18,24 @@ $shares_url = $pp1->shares_url ;
   <?php
   if ('1'): { // '' for testing to see own  d e b u g  m s g s
 
-    $cssexpc = $shares_url .'themes/bootstrap/css/exp_collapse.css' ;
-    echo '<link rel="stylesheet" href="'.$cssexpc.'">';
+    //$cssexpc = $shares_url .'themes/bootstrap/css/exp_collapse.css' ;
+    //echo '<link rel="stylesheet" href="'.$cssexpc.'">';
 
-    $css = $shares_url .'themes/bootstrap/css/bootstrap.min.css' ;
+    $css = $shares_url .'themes/bootstrap/css/styles.css' ;
     echo '<link rel="stylesheet" href="'.$css.'">';
 
+
+    /*
     if (isset($css1)) echo '<link rel="stylesheet" href="'.$css1.'">'; //and !($c ss1==='NO')
     if (isset($css2)) echo '<link rel="stylesheet" href="'.$css2.'">';
     if (isset($css3)) echo '<link rel="stylesheet" href="'.$css3.'">';
     if (isset($css4)) echo '<link rel="stylesheet" href="'.$css4.'">';
     if (isset($css5)) echo '<link rel="stylesheet" href="'.$css5.'">';
     if (isset($css6)) echo '<link rel="stylesheet" href="'.$css6.'">';
-
+    */
   } endif;
-
+  ?>
 
 
 </head>
-<body>
+<!--body-->

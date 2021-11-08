@@ -1,12 +1,11 @@
 <?php
-// 
-// DEFAULT CTR (ONLY ONE IN MODULE), HAS METHODS WHICH  I N C  PAGE VIEW SCRIPT OR CALL METDS
+//MODULE CONTR (MDLE HAS ONLY ONE), HAS METDS WHICH  I N C  PAGE VIEW SCRIPT OR CALL METDS
 namespace B12phpfw\module\book ;
 //use PDO;
-use B12phpfw\core\b12phpfw\Config_allsites as utl ; 
-use B12phpfw\module\book\Cre               as cre ;
-use B12phpfw\module\book\Upd               as upd ;
-use B12phpfw\dbadapter\book\Tbl_crud       as utl_module ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;        // c o n f i g
+use B12phpfw\module\book\Cre               as cre ;        // View (form)
+use B12phpfw\module\book\Upd               as upd ;        // View (form)
+use B12phpfw\dbadapter\book\Tbl_crud       as utl_module ; // MOdel
 
 class Home_ctr extends utl
 {
@@ -48,14 +47,15 @@ class Home_ctr extends utl
 
 
 
-          /* *****************************************
-                 CALL DISPATCH  M E T H O D S
-           they 1.call other fns or 2.include script or 3.URL call script
-           CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
-           so: $pp1->call_module_m ethod($akc, $pp1) ;
-               $ a k c  is  m o d u l e  m ethod (in H ome_ ctr, not global fn !!
-                 because )
-          ***************************************** */
+          /** *****************************************
+           *     CALL DISPATCH  M E T H O D S
+           * they 1.call other fns or 2.include script or 3.URL call script
+           * CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
+           * so: "$pp1->call_module_m ethod($akc, $pp1) ;", where :
+           *     $ a k c  is  m o d u l e  m ethod (in H ome_ ctr, not global fn !!)
+           *     because m o d u l e  knows it's parameters names...
+           *****************************************
+          */
                 //$accessor = "get" . ucfirst(strtolower($akc));
   protected function call_module_method(string $akc, object $pp1)  //fnname, params
   {
@@ -66,7 +66,8 @@ class Home_ctr extends utl
       echo '<h3>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>' ;
       echo 'Home_ ctr  m e t h o d  "<b>'. $akc .'</b>" is not callable.' ;
       
-      echo '<br><br>See how is created  m e t h o d  name  $ a k c  in abstract class Config_ allsites, m ethod __c onstruct :<br>
+      echo '<br><br>See how is created  m e t h o d  name  $ a k c  
+      in abstract class Config_ allsites, m ethod __c onstruct :<br>
       $this->call_module_method($akc, $pp1) ; //protected fn (in child cls Home_ ctr) calls private fns (in child cls Home_ ctr)
       ' ;
       return '0' ;
@@ -85,7 +86,7 @@ class Home_ctr extends utl
     // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
     // Ver. 7 : Dependency Injection $pp1
       require $pp1->module_path . 'hdr.php'; // MODULE_PATH
-      home::displ($pp1) ;  //require $pp1->module_path . 'home.php';
+      Home::displ($pp1) ;  //require $pp1->module_path . 'home.php';
       require $pp1->module_path . 'ftr.php';
   }
 

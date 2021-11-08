@@ -29,18 +29,19 @@ First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH
 
 Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
 
-1. Two folders : vendor and zinc   
+1. Folders : vendor (was also zinc, now zinc no more exists, shares are in /vendor/b12phpfw)   
 
-2. Menu module  /fwphp/www  folder
+2. **Mnu** - menu module  /fwphp/www  folder
 
-3. Markdown content management module in  /fwphp/glomodul/mkd folder  
+3. **Mkd** - Markdown content management module in  /fwphp/glomodul/mkd folder  
 
-4. In phpmyadmin 
+4. **Msg** - CRUD msg-blog module  /fwphp/glomodul/blog, ...user, ...post_category, ...post, ...post_comment (all in glomodul dir).
+    Blog module works with other 4 modules in innovative way (see /fwphp/glomodul/blog/index.php).
+
+5. In phpmyadmin page :
     1. create database z_blogcms  
     2. import in My SQL J:\awww\www\01_DDL_mysql_blog.sql 
 
-5. CRUD msg-blog module  /fwphp/glomodul/blog, ...user, ...post_category, ...post, ...post_comment (all in glomodul dir).
-    Blog module works with other 4 modules in innovative way (see /fwphp/glomodul/blog/index.php).
 
 
 <br />
@@ -60,7 +61,9 @@ Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
 
 
 <br /><br /><br />
-<span style="color:red;">Explanations below are far less important than demo site and installation mentioned above - open code and learn it.</span>       
+### <span style="color:red;">Explanations below are far less important than demo site and installation mentioned above - open code and learn it.</span>       
+
+
 Code is small and simple but needs :      
 > few hours (advanced user) - days (intermediate) - weeks/months (beginner) to understand it.           
 **Understand code is must for any good code skeleton !**       
@@ -109,22 +112,31 @@ Notable package does something special, is also frequently innovative.
        2. or **compound module** eg my msg (Blog) module or invoice... 
    7. own debugging to find logical errors (Xdebug is not enough - shows only sintax errors) - own solution
    
-5. Based on best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples ee fwphp site dir -> glomodul dir (group of module- subgroups), z_examples dir (subgroup of modules)   
+5. Based on best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples, where :    
+    1. my [web server root dir. path] is J:/awww/www/ which contains vendor folder
+    2.  fwphp is site dir     
+    3. glomodul dir is group of modules    
+    4. z_examples dir is subgroup of modules  
     https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
 
-Conclusion after 20 years is : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **most probably do not nead B12phpfw** code skeleton, but I did it.     
-**Includes and method calls instead http// jump to pages** - this is interesting question. http// jump to pages in B12phpfw is used only to jump in other module.
+Conclusion : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **do not nead B12phpfw** code skeleton, but I did it.     
+
+**Includes and method calls instead URL jumps (http// jump to pages)** - this is interesting question. http// jump to pages in B12phpfw is used only to jump somethimes  in other module.
 
 
 
 <br /><br /><br /><br />
 ## 1\.4 To do - done
-Everything important is done in current version code. 
 
 Done : 
 1. Code logic like Oracle Forms.
 2. Modules mnu (main menu), msg (blog), mkd (WYSIWYG markdown editor, with Simplemde or with Summernote HTML).
-3. FUNCTIONAL namespaces
+3. FUNCTIONAL namespaces - last part is **module folder name**, parts before last part code ignores, should be **functionality description** :    
+    1. namespace B12phpfw\\core\\b12phpfw       **shares** in b12phpfw dir
+    2. namespace B12phpfw\\site_home\\www ;   **Mnu** module
+    3. namespace B12phpfw\\module\\blog ;         **Msg** module      
+    4. namespace B12phpfw\flatFilesEd\\mkd ;     **Mkd** module
+    Namespace last part and class name concatenated to some dir in index.php gives class script path to automatic include - see below Autoload class code.
 4. CRUD PDO trait
 5. pretty URL-s only php, without web server magic
 
@@ -141,11 +153,32 @@ Difficult parts are :
 3. Tables : sorting, cols filtering, rows filtering. I have only basic code - working - should be improved.      
 
 ### TO DO / DONE :
-1.   2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\zinc\Config_allsites.php :  
-   Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
-   No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
 
-2.  2020.09.30 **DONE version 7.0.0.0** where 7 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
+November 2021. Current version code is 8.  Msg module version 8 is not finished, but is visible what should be done during next few months (Mkd ver. 8 was finished in half hour, Mnu simmilar, Msg needs much more time because of bootstrap 5, improve CRUD sintax...).     
+See http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) how it should work.    
+
+What’s new in version 8 :
+
+1. **Autoload.php** is refactored, much simpler, see old z_NOT_USED_TO_COMPLICATED_Autoload_1stVersion.php
+    This is good case showing that first code versions are to complicated code – very frequent case – which is one of reasons why I have 8 versions.
+2. **Shares** are not any more in /zinc folder but in in /vendor folder eg shared class /vendor/b12phpfw/Autoload.php (below web server doc root eg J:\awww\www\). 
+    Site root(s) are on same place in folders hierarchy eg \fwphp (may be named site_x). 
+    Also group of modules are on same place in folders hierarchy eg  \fwphp\glomodul. 
+    Also modules are on same place in folders hierarchy eg  \fwphp\glomodul\blog – dir like oracle Forms form module.
+3. **Views are classes** - clearer and cleaner code than **include scripts and URL jumps** - eg Upd class as include script was complicated.
+4. Improve CRUD sintax - **Tbl_crud** DB adapters in module dirs should contain most code which is now in view scripts. 
+    Global code snippets are in global methods where possible.
+5. Improve **links aliases** in Home_ctr and in view scripts
+6. **PHP 8** (ver. 7 still works) and **Bootsrap 5**
+
+2021.08.28 ver 7.0.5 : I added  **folder (module) WEBSERVERROOT/fwphp/glomodul/img_gallery**     
+    J:\\awww\\www is my WEBSERVERROOT.    
+    J:\\awww\\www\\fwphp is MYDEVSITEROOT1. You may have more MYDEVSITEROOT2, 3... See how in **WEBSERVERROOT/index_laragon.php** script.    
+    glomodul is group of folders - modules which are not 01mater or 02financ or 03...  glomodul may be named othermodules.     
+    img_gallery module is **first lesson** about (theory behind) code skeleton (application architecture) B12phpfw     
+    
+
+2020.09.30 **DONE version 7.0.0.0** where 7 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
     1. declare(strict_types=1) ; - PHP 7
     2.  DBI improved : **trait Db_allsites** instead class Db_allsites. 
     3. Each DB table (persistent storage) has adapter **class Tbl_crud :**  which uses B12phpfw\core\zinc\Db_allsites  and  implements Interf_Tbl_crud
@@ -153,31 +186,17 @@ Difficult parts are :
        1. Module's views or ctrs, eg blog module (see blog folder) work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
        2. class Home_ctr extends class Config_allsites. ( **Logically all is in Home_ctr**).
 
-3.  2021.xx.xx **TO DO version 8.0.0.0** where 8 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
-     1. Framework module is not in J:\\awww\\www\\zinc folder but in J:\\awww\\www\\vendor\\b12phpfw - like any package used for our applications modules.
-     2. CRUD & navigation code is generalized - global snippets are in global methods where possible.
-     3. Views are classes - clearer and cleaner code than include scripts - eg Upd class as include script was complicated.
 
-    DONE ver. 8.0.0.0  J:\\awww\\www\\fwphp\\01mater\\book\\index.php  http://dev1:8083/fwphp/01mater/book/
-    
-4. TO DO See J:\\awww\\www\\fwphp\\glomodul\\user_ver8 : 
-    1. DONE framework core in [sitedocroot]/vendor/b12phpfw (v. 7 in [sitedocroot]/zinc)
-    2. improve CRUD sintax
-    3. improve links aliases in view scripts
-    4. Views are classes
-
-5. 2021.08.28 ver 7.0.5 : I added  **folder (module) WEBSERVERROOT/fwphp/glomodul/img_gallery**     
-    J:\\awww\\www is my WEBSERVERROOT.    
-    J:\\awww\\www\\fwphp is MYDEVSITEROOT1. You may have more MYDEVSITEROOT2, 3... See how in **WEBSERVERROOT/index_laragon.php** script.    
-    glomodul is group of folders - modules which are not 01mater or 02financ or 03...  glomodul may be named othermodules.     
-    img_gallery module is **first lesson** about (theory behind) code skeleton (application architecture) B12phpfw     
+2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\zinc\Config_allsites.php :  
+Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
+No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
     
 
 
 
 
 <br /><br /><br /><br />
-## 1\.5 Adresses on op.system and on web are difficult to understand
+#### 1\.5 Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
 
 See readme_thoughts.md
@@ -186,10 +205,10 @@ See readme_thoughts.md
 
 
 <br><br><br><a name="uml"></a>
-## 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
+#### 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
 [Top](#top)......[Dirs](#directories).....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
-### Adapters (implementations - classes or methods) depend on interfaces (features, ports)
+#### Adapters (implementations - classes or methods) depend on interfaces (features, ports)
 
 See readme_thoughts.md
 
@@ -197,8 +216,9 @@ See readme_thoughts.md
 -----
 
 # B12phpfw core 
-## 1\.6 1a. DBI: NO MORE in ver. 7 Dbconn_allsites abstract cls : DB CONNECT
-B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
+## 1\.6 1a. DBI (DB interface, DB adapter):
+TRAIT, NO MORE in ver. 7 Dbconn_allsites abstract cls : DB CONNECT
+B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)
 
 
 -----
@@ -378,49 +398,111 @@ abstract class Config_allsites //extends Db_allsites
 
 
 ## 1\.6 3. Autoload cls included in index.php : TO AVOID INC. COMMANDS IN MANY SCRIPTS
-B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)  
+B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)  
 
 
 -----
 
 
 
-**Attributes**  
+
 ```php
-declare(strict_types=1);
-//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\core\zinc ;
 
-if (strnatcmp(phpversion(),'7.0.0') >= 0) {
-      if (session_status() == PHP_SESSION_NONE) { session_start(); }
-} else { 
-  if(session_id() == '') { session_start(); } 
-}
+<?php
+//http://dev1:8083/fwphp/www/
+// J:\awww\www\fwphp\www\index.php
+namespace B12phpfw\site_home\www ;
 
+use B12phpfw\core\b12phpfw\Autoload ;
+
+//1. settings - properties - assign global variables to use them in any code part
+$module_path = str_replace('\\','/', __DIR__) .'/' ;
+$site_path   = dirname($module_path) .'/' ; //to app dir eg "glomodul" dir and app
+//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
+$wsroot_path = dirname(dirname($module_path)) .'/' ;
+               //or $wsroot_path = str_replace('\\','/', realpath('../../')) .'/' ;
+$shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, reusables
+
+$pp1 = (object)
+[   'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
+  , 'module_version'=>'8.0.0.0 Mnu' //, 'vendor_namesp_prefix'=>'B12phpfw'
+                             // $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+  // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
+  // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
+  , 'wsroot_path' => $wsroot_path  // to awww/www (or any names)
+  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
+  , 'site_path'   => $site_path    // to fwphp (or any names)
+  , 'module_path' => $module_path  // to fwphp/www (or any names)
+  //
+  , 'glomodul_path' => $site_path .'glomodul/'
+  , 'examples_path' => $site_path .'glomodul/z_examples/'
+] ;
+
+//2. global cls loads classes scripts automatically
+require($pp1->shares_path . 'Autoload.php');
+new Autoload($pp1);
+
+//3. process request from ibrowser & send response to ibrowser :
+//Home_ ctr "inherits" index.php ee inherits $p p 1
+$module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
+        if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'where am I'
+           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and $conf = new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
+        ] ) ; }
+
+exit(0);
+
+
+<?php
+// J:\awww\www\vendor\b12phpfw\Autoload.php
+namespace B12phpfw\core\b12phpfw ; //Dir name is last in namespace and use 
+//use B12phpfw\dbadapter\post\Tbl_crud ; //         as Tbl_crud_post ;
 
 class Autoload
-...
-```
+{
+   protected $pp1 ; //M O D U L E PROPERTIES PALLETE like in Oracle Forms
 
-
------
-
-
-
-**Methods** in cls file   Autoload.php (6 fns)
-**public function \_\_construct($pp1)**
-```
-   public function __construct($pp1) {
+   public function __construct(object &$pp1) {
+     $pp1->stack_trace[]=str_replace('\\','/', __FILE__ ).', lin='.__LINE__ .' ('. __METHOD__ .')';
      $this->pp1 = $pp1 ;
-     spl_autoload_register(array($this, 'loader'));
+     spl_autoload_register(array($this, 'autoloader'));
      return null ;
    }
 
-  J:\awww\www\zinc\Autoload.php (4 hits)
-	Line 17:    public function __construct(&$pp1) {
-	Line 32:   private function get_path($nscls, &$nsdir_routTBLclsdir) // static ?
-	Line 97:   private function loader($nscls) //$ n s c l s is namespaced  c l a s s  name
-	Line 139:   private function fmt(string $txt, string $color, string $bold='')
+  function autoloader(string $nscls) 
+  {
+    //$nscls is namespaced called cls name eg B12phpfw\module\book\Home_ctr
+    $DS = DIRECTORY_SEPARATOR ;
+    $nscls_linfmt = str_replace('\\',$DS, $nscls) ; //ON LINUX
+    $clsname      = basename($nscls_linfmt) ; //eg Home_ctr, Config_ allsites, Db_allsites
+    $module_dir   = basename(dirname($nscls_linfmt)) ; //eg Home_ctr, Config_ allsites, Db_allsites
+    //echo '<pre>$nscls='; print($nscls) ; echo ' $module_dir='; print($module_dir) ; echo '</pre>'; 
+
+    switch ($module_dir) {
+    case 'b12phpfw': 
+      $clsscript_path=dirname($this->pp1->shares_path).'/'.$module_dir.'/'.$clsname .'.php' ; 
+      break;
+    default:
+      $clsscript_path=dirname($this->pp1->module_path).'/'.$module_dir.'/'.$clsname .'.php' ; break;
+      break; 
+    }
+        //echo '<p>$clsscript_path='; print($clsscript_path) ; echo ' SAYS: '. __METHOD__ .'</p>'; 
+
+    require $clsscript_path;
+
+
+  }
+}
+
+
+URL example:   http://dev1:8083/fwphp/01mater/fw_popel_onb12/   or other in 01mater folder-modulesgroup.
+```
+
+
+-----
+
+
+
 ```
 
 
@@ -1554,7 +1636,7 @@ j:\\awww\\www (master -> origin)
 ### git status
 ### git add .
 or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
-### git commit -am "ver 7.0.1 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO trait, pretty URL-s"
+### git commit -am "ver 8.0.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
 We stored our project files within our system hard drive.      
 If Cmder shows error  "fatal: unable to auto-detect email address" :      
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       

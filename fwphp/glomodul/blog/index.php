@@ -1,53 +1,41 @@
 <?php
 //J:\awww\www\fwphp\glomodul\blog\index.php, J:\awww\www=WEBSERVER_DOC_ROOT_DIR=../../../
-// ?=QS, p=page=1, i=call Home_ctr method 'home()' to include (or call, or jump to) :
-//http://dev1:8083/fwphp/glomodul/blog/?p/1/i/home/ 
+//http://dev1:8083/fwphp/glomodul/blog/  http://dev1:8083/fwphp/glomodul/blog/?i/home/p/1/ 
+//where : ?=QS, p=page=1, i=call Home_ctr method 'home()' to include (or call, or URL to).
 
-//before blog is not required - see $shares_ path
-namespace B12phpfw\module\blog ; //see below **HELPNS
+//string before blog, b12phpfw... is not required. See below **HELPNS
+namespace B12phpfw\module\blog ;
 
-//before zinc is not required - see $shares_ path
-use B12phpfw\core\zinc\Autoload ; //see below **HELPNS 
+use B12phpfw\core\b12phpfw\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
-$module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
-$app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
-//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
-$wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
-$shares_path = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
+$module_path = str_replace('\\','/', __DIR__) .'/' ;
+$site_path   = dirname(dirname($module_path)) .'/' ; //to app dir eg "glomodul" dir and app
+//to web server doc root or our doc root by ISP :
+$wsroot_path = dirname(dirname(dirname($module_path))) .'/' ;
+               //or $wsroot_path = str_replace('\\','/', realpath('../../')) .'/' ;
+$shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, reusables
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+  , 'module_version'=>'8.0.0.0 Msg' //, 'vendor_namesp_prefix'=>'B12phpfw'
 
-  //1.1
-  , 'wsroot_path'=>$wsroot_path
-  , 'shares_path'=>$shares_path
-
-  //1.2
-  , 'module_version'=>'7.0.0.0 Msg' //, 'vendor_namesp_prefix'=>'B12phpfw'
-
-  //1.3 Dirs paths where are class scripts to autoload. Dir name is last in namespace and use. 
-  , 'module_path_arr'=>[
-    //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
-    $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
-    //dir of global clses for all sites :
-    ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'zinc')) .'/'
-    //two master modules (tbls) = blocks in Ora. Forms
-    ,$app_dir_path.'user/'
-    ,$app_dir_path.'post_category/'
-    //detail & subdet modules (tbls) = blocks in Ora. Forms
-    ,$app_dir_path.'post/'
-    ,$app_dir_path.'post_comment/'
-  ]
-  , 'app_dir_path' => $app_dir_path //for homectrfn kalendar... Assumption : app is glomodule
-] ;
-
+  // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
+  // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
+  , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
+  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
+  , 'site_path'   => $site_path    // to fwphp (or any name)
+  , 'module_path' => $module_path  // to fwphp/glomodul/blog (or any names)
+] ;     
+          //echo '<pre>$pp1->module_path_arr='; print_r($pp1->module_path_arr) ; echo '</pre>'; 
 //2. global cls loads (includes, bootstrap) classes scripts automatically
 require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
+              //require('Autoload.php'); //module-local or Composer's autoload cls-es
+              //$autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
 //3. process request from ibrowser & send response to ibrowser :
-//Home_ ctr "inherits" index.php ee DI $p p 1
+//   Home_ ctr "inherits" index.php ee DI $p p 1
 $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
         if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
            .', line '. __LINE__ .' SAYS'=>'where am I'
@@ -56,6 +44,9 @@ $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
 
 exit(0);
 
+//https://www.oracle.com/database/technologies/databaseappdev-vm.html
+//https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html
+//https://www.oracle.com/database/technologies/databaseappdev-vm.html#license-lightbox
 /**
 *                    **HELPNS
 * first namespace part B12phpfw is NOT REQUIRED : vendor's name space's prefix (functional nspart)
@@ -74,9 +65,6 @@ exit(0);
 
 
 
-//https://www.oracle.com/database/technologies/databaseappdev-vm.html
-//https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html
-//https://www.oracle.com/database/technologies/databaseappdev-vm.html#license-lightbox
 
 /**
 * Blog module on own php menu & CRUD code skeleton (tiny framework)
@@ -86,7 +74,7 @@ exit(0);
 * 1.3 Module dirs: this mdle and other mdle`s = array to autoload module clsscripts
 *     like properties group "autoload" in J:\awww\www\composer.json :
 * 2. C O N F I G  coding step cs02. eliminates need to manually include class scripts
-* TODO: (For now) J:\awww\www\zinc\Dbconn_allsites_mysql.php
+* TODO: (For now) Dbconn_allsites_mysql.php
 *                 copy to ...\Dbconn_allsites.php
 * 3. C O N F I G  - C R U D  C L A S S E S,  R O U T I N G,  coding step cs03.
 *
@@ -99,7 +87,7 @@ exit(0);
 * 1.module (dir blog) 2.mdlegroup (glomodul), 3.site (fwphp), doc_root (www)
 *       MODULE CODE in execution order, eg Blog IS IN 5 OR 6 CODE LEVELS :
 *  1.LEVEL5 index.php 2.L3 n ew Home_ctr($p p1) (3.L4 Home_mdl if needed) extends 4.
-*  4.L2 Config_allsites extends 5.L1 Db_allsites, 6.L6: home.php, zinc/h dr.php and ftr
+*  4.L2 Config_ allsites extends 5.L1 Db_allsites, 6.L6: home.php, z inc/h dr.php and ftr
 * see http://localhost:8083/pdogridbig_original/demo/pages/
 *     http://dev1:8083/fwphp/glomodul/z_examples/05_flex01_2col.php
 

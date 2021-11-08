@@ -17,8 +17,8 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ clsdir (POSITIONAL part of ns, CAREFULLY!)
 namespace B12phpfw\dbadapter\book ;
 
-use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 
 use B12phpfw\module\book\Home_ctr ;
@@ -44,6 +44,10 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   // *******************************************
   //                     R E A D
   // *******************************************
+
+  static public function rr(
+    string $sellst, array $binds=[], array $other=[]): object {} 
+
   static public function get_cursor( // returns  cursor, not rr_byid !
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 

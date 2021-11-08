@@ -1,5 +1,27 @@
 ## XAMPP instalac on Windows 10 64 bit
-2020.03.30
+2021.10.30 PHP 8.0.12  xampp-portable-windows-x64-8.0.12-0-VS16.7z 89.12 MB,    2020.03.30 PHP 7.4.3    
+https://www.apachefriends.org/faq_windows.html    
+  or http://localhost:8083/dashboard/faq.html     
+http://localhost:8083/dashboard/howto.html     
+
+http://localhost:8083/     
+
+http://dev1:8083/     
+
+
+SyMenu -> xampp-control.exe called as admin -> click button "Shell" to open Win CLI    
+J:\xampp>php -v    
+PHP 8.0.12 (cli) (built: Oct 19 2021 11:21:05) ( ZTS Visual C++ 2019 x64 )    
+Copyright (c) The PHP Group     
+Zend Engine v4.0.12, Copyright (c) Zend Technologies    
+
+J:\xampp>composer selfupdate    
+Upgrading to version 2.1.10 (stable channel).    
+Use composer self-update --rollback to return to version 2.0.8    
+
+J:\xampp>composer -v    
+Composer version 2.1.10 2021-10-29 22:34:57     
+
 
 ### 1. C:\Windows\System32\drivers\etc\hosts
 \#localhost name resolution is handled within DNS itself.         
@@ -28,22 +50,26 @@ Now in J:\xampp\xampp-control.exe :
 http://localhost:8083/ shows :          
 Apache Friends    Applications    FAQs    HOW-TO Guides    PHPInfo    phpMyAdmin          
 
-dev1:8083/phpmyadmin/ shows Server: 127.0.0.1 Database :     
+### 3. J:\xampp\phpMyAdmin\config.inc.php    
+change line to be $cfg['Servers'][$i]['host'] = 'localhost';           (not 127.0.0.1 !)    
+buttons "Stop mysql" then "Start mysql"    
+http://localhost:8083/phpmyadmin/  shows Server: localhost      
+Databases :     
    1. information_schema
    2. mysql
    3. performance_schema
    4. phpmyadmin
    5. test
 
-#### my db-s imporeted
-   in http://dev1:8083/phpmyadmin/import.php
-1.  J:\\awww\\www\\01_DDL_mysql_blog.sql
+#### my db-s imported
+   Click "Import" link in top toolbar     
+1.  J:\\awww\\www\\01_DDL_mysql_blog.sql       
 
 
 
 
 To see http://dev1:8083/fwphp/www/ (dev1 is apache virtual host) :      
-### 3. J:\xampp\apache\conf\extra\httpd-vhosts.conf :
+### 4. J:\xampp\apache\conf\extra\httpd-vhosts.conf :
 First VirtualHost section is default or fallback virtual host,     
 used f or all requests that do not match **ServerName or ServerAlias**       
 in any \<VirtualHost> block.      
@@ -64,7 +90,7 @@ in any \<VirtualHost> block.
   SSLCertificateKeyFile "conf/ssl.key/server.key"       
 
 **To see https://dev1/fwphp/www/ (dev1 is apache virtual host) :**      
-**4. J:\xampp\apache\conf\extra\httpd-ssl.conf**      
+**5. J:\xampp\apache\conf\extra\httpd-ssl.conf**      
 
 #### SSL Virtual Host Content
 
@@ -140,5 +166,5 @@ CustomLog "J:/xampp/apache/logs/ssl_request.log" \
 
 
 
-## 5. Deploy (copy) my xampp or dev1 web site win 10 64 bit to new xampp test site
-To see http://dev1:8083/fwphp/www/ :
+## 6. Developing dev1 web site is virtual host, port 8083, dir J:/awww/www
+I put all my php coding in J:/awww/www, ehich is on Github. In J:\xampp\htdocs are some extern (big) applications for testing.

@@ -11,8 +11,38 @@ class WishDB
     private $con = null; //instances of the PDO base class
 
     /**
+     * Class constructor method
+     * @throws RuntimeException if cannot establish connection with database
+     */
+    private function __construct()
+    {
+        /*
+         * To avoid showing database connection details PDO constructor
+         * is wrapped in try/catch block and new Exception is thrown
+         */
+        try {
+            $this->con = new PDO(
+                            self::ORACLE_DSN,
+                            self::USER,
+                            self::PASS,
+                            array(
+                                PDO::ATTR_PERSISTENT => true,
+                                PDO::MYSQL_ATTR_INIT_COMMAND =>
+                                    "SET CHARACTER SET 'utf8'",
+                                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                            )
+            );
+        } catch (Exception $e) {
+            throw new RuntimeException(
+                    "Failed to initiate connection to database. Shutting down!",
+                    1010
+            );
+            exit;
+        }
+    }
+
+    /**
      * Get instance of the class itself
-     *
      * @return WishDB
      */
     public static function getInstance()
@@ -48,38 +78,6 @@ class WishDB
     public function __wakeup()
     {
         throw new RuntimeException('Deserializing is not allowed.', 101);
-    }
-
-    /**
-     * Class constructor method
-     *
-     * @throws RuntimeException if cannot establish connection with database
-     */
-    private function __construct()
-    {
-        /*
-         * To avoid showing database connection details PDO constructor
-         * is wrapped in try/catch block and new Exception is thrown
-         */
-        try {
-            $this->con = new PDO(
-                            self::ORACLE_DSN,
-                            self::USER,
-                            self::PASS,
-                            array(
-                                PDO::ATTR_PERSISTENT => true,
-                                PDO::MYSQL_ATTR_INIT_COMMAND =>
-                                    "SET CHARACTER SET 'utf8'",
-                                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-                            )
-            );
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                    "Failed to initiate connection to database. Shutting down!",
-                    1010
-            );
-            exit;
-        }
     }
 
     /**
@@ -340,4 +338,3 @@ class WishDB
 
 }
 
-?>

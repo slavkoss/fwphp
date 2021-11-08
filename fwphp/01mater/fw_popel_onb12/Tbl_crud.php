@@ -17,9 +17,9 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ clsdir (POSITIONAL part of ns, CAREFULLY!)
 namespace B12phpfw\dbadapter\fw_popel_onb12 ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;
-use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ; // was core\zinc
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 
 use B12phpfw\module\fw_popel_onb12\Home_ctr ;
 //use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud   as utl_waybill ;
@@ -28,6 +28,83 @@ use B12phpfw\module\fw_popel_onb12\Home_ctr ;
 class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 {
   static protected $tbl = "books";
+
+
+  /*
+  * O N - I N S E R T  (P R E - I N S E R T)
+  * 
+  * called from submit code in view script cre_ row_ frm.php
+  *     not via H o m e _ c t r  (also possible if you wish) !
+  *
+  * public function cc
+  * returns id or 'err_c c' 
+  */
+  static public function cc( 
+     object $pp1, array $other=[]): object
+  {
+                if ('') {
+                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
+                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
+                  //exit(0);
+                }
+
+    // 1. S U B M I T E D  F L D V A L S
+      $submitted_cc = self::get_submitted_cc() ;
+      list( $artist, $track, $link) = $submitted_cc ;
+      $_SESSION["submitted_cc"] = $submitted_cc ;
+
+    // 2. C C  V A L I D A T I O N
+    $err = '' ;
+    switch (true) {
+      case (empty($link)): //||empty($Name)||empty($password)||empty($Confirmpassword))
+        $err = "Link field must be filled out"; break ;
+      //default: break;
+    }
+    
+    if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
+      utl::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
+      //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
+      //exit(0) ;
+    }
+
+
+    // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
+    $flds    = "artist, track, link" ; //names in data source
+    $valsins = "VALUES(:artist, :track, :link)" ;
+    $binds = [
+      ['placeh'=>':artist',   'valph'=>$_POST['artist'], 'tip'=>'str']
+     ,['placeh'=>':track',    'valph'=>$_POST['track'],  'tip'=>'str']
+     ,['placeh'=>':link',     'valph'=>$_POST['link'],   'tip'=>'str']
+    ] ;
+    //$last_id1 = utldb::rr_last_id($tbl) ;
+    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds
+                 , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    //$last_id2 = utldb::rr_last_id($tbl) ;
+
+    //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
+    //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
+
+      utl::Redirect_to($pp1->module_url.QS.'i/cc/');
+      return('1');
+      fnerr:
+      return('0');
+  }
+
+  static public function get_cursor( // returns  cursor, not rr_byid !
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  { 
+    $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  }
+
+  static public function rrnext(object $cursor, string $other=''): object
+  { 
+    return utldb::rrnext($cursor, $other) ;
+  }
 
 
   static public function rrcnt( string $tbl, array $other=[] ): int { 
@@ -45,10 +122,12 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     return (int)$rcnt ;
   } 
 
+  //string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   static public function rr(
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+    string $sellst, array $binds=[], array $other=[] ): object
   { 
-    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    //$cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl //." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
@@ -118,69 +197,6 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
       utl::escp($_POST["artist"]), utl::escp($_POST["track"]), utl::escp($_POST["link"])
     ] ;
     return $submitted ;
-  }
-
-  /*
-  * O N - I N S E R T  (P R E - I N S E R T)
-  * 
-  * called from submit code in view script cre_ row_ frm.php
-  *     not via H o m e _ c t r  (also possible if you wish) !
-  *
-  * public function cc
-  * returns id or 'err_c c' 
-  */
-  static public function cc( // *************** c c (
-     object $pp1, array $other=[]): string
-  {
-                if ('') {
-                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
-                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
-                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
-                  echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
-                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
-                  //exit(0);
-                }
-
-    // 1. S U B M I T E D  F L D V A L S
-      $submitted_cc = self::get_submitted_cc() ;
-      list( $artist, $track, $link) = $submitted_cc ;
-      $_SESSION["submitted_cc"] = $submitted_cc ;
-
-    // 2. C C  V A L I D A T I O N
-    $err = '' ;
-    switch (true) {
-      case (empty($link)): //||empty($Name)||empty($password)||empty($Confirmpassword))
-        $err = "Link field must be filled out"; break ;
-      //default: break;
-    }
-    
-    if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
-      utl::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
-      //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
-      //exit(0) ;
-    }
-
-
-    // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
-    $flds    = "artist, track, link" ; //names in data source
-    $valsins = "VALUES(:artist, :track, :link)" ;
-    $binds = [
-      ['placeh'=>':artist',   'valph'=>$_POST['artist'], 'tip'=>'str']
-     ,['placeh'=>':track',    'valph'=>$_POST['track'],  'tip'=>'str']
-     ,['placeh'=>':link',     'valph'=>$_POST['link'],   'tip'=>'str']
-    ] ;
-    //$last_id1 = utldb::rr_last_id($tbl) ;
-    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds
-                 , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
-    //$last_id2 = utldb::rr_last_id($tbl) ;
-
-    //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
-    //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
-
-      utl::Redirect_to($pp1->module_url.QS.'i/cc/');
-      return('1');
-      fnerr:
-      return('0');
   }
 
 

@@ -4,13 +4,13 @@
 //if (!defined('URLMODUL_CSS')) { define('URLMODUL_CSS', $module_relpath.'/css'); }
 //J:\awww\www\fwphp\glomodul\post\read_msg_tbl_kalendar_flex.css
 namespace B12phpfw ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\module\user\Home_ctr ;
 
 switch (utldb::getdbi()) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
   default: $tmp_datetime = 'datetime' ; break; }
 
-$css_files = ["/zinc/themes/read_msg_tbl_kalendar_flex.css"];
+$css_files = ["/b12phpfw/themes/read_msg_tbl_kalendar_flex.css"];
 
 $_from_ymd = date('Y-m-d H:i:s');
 $cal_yyyy_mm  = date('Y-m', strtotime($_from_ymd)); // yyyy-mm  $this->_from_ymd

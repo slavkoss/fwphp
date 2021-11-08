@@ -217,7 +217,7 @@ Users events are handled in Controller class.
 - C assigns users orders in URL to variables telling V what user wants and includes V (not showed in picture).
 - V pulls data from M according C variables (users orders in URL ).
 - V also may call C method for some state changes ordered by user in URL, eg table row updates like approve user comment.
-- V script may contain class but I do not see need for view classes because view script is included in Home_ctr class and can use $this to access methods and attributes in whole class hierarchy : Home_ctr, Config_allsites, Db_allsites. If we do not need CRUD than we do not need class hierarchy : Home_ctr, Config_allsites, Db_allsites meaning that simple coding like in mnu and mkd modules suffices..
+- V script may contain class but I do not see need for view classes because view script is included in Home_ctr class and can use $this to access methods and attributes in whole class hierarchy : Home_ctr, Config_allsites, Db_ allsites. If we do not need CRUD than we do not need class hierarchy : Home_ctr, Config_allsites, Db_ allsites meaning that simple coding like in mnu and mkd modules suffices..
 M-C-V data flow - controller instantiates M and pushes M data to V.
 I do not see advantages compared to M-V data flow. Disadvantage are : for pagination M-V data flow is only possible solution, M-C-V data flow makes C fat in large modules (lot of code). C in my msg (blog) module has lot of code, but code is very simple.
 So view instantiates model and pulls data from M or C instantiates model and pulls data from M. Difference is important only for us - for clearer code, both styles work ok.

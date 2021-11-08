@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 // J:\awww\www\fwphp\glomodul4\user\admins.php
-//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\dbadapter\user\Tbl_crud   as Tbl_crud_admin ;
 use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
@@ -15,7 +15,7 @@ use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 
 $shares_path = $pp1->shares_path ; //includes, globals, commons, reusables
 
-$cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
+$cursor_admins = Tbl_crud_admin::get_cursor($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
   , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
 
@@ -65,8 +65,8 @@ require_once("navbar_admin.php");
 
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
-       echo $this->ErrorMessage();
-       echo $this->SuccessMessage();
+       echo utl::MsgErr();
+       echo utl::MsgSuccess();
        ?>
 
       <!-- 

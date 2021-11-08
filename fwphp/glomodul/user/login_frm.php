@@ -1,10 +1,10 @@
 <?php
 // J:\awww\www\fwphp\glomodul4\blog\login_frm.php
-//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 namespace B12phpfw\module\user ;
 
 //$u riq = $this->g etp('u riq') ;
-$pp1  = $this->getp('pp1') ;
+//$pp1  = $this->pp1 ;
                 if ('1') {self::jsmsg( [ //basename(__FILE__).
                    __FILE__ .', line '. __LINE__ .' SAYS'=>''
                    ,'aaa'=>'bbb'
@@ -87,8 +87,8 @@ $title = 'Log in' ;
     <div class="offset-sm-3 col-sm-6" style="min-height:500px;">
       <br><br><br>
           <?php
-           echo (isset($_SESSION["ErrorMessage"])?$_SESSION["ErrorMessage"]:'' );
-           echo (isset($_SESSION["SuccessMessage"])?$_SESSION["SuccessMessage"]:'' );
+           echo (isset($_SESSION["MsgErr"])?$_SESSION["MsgErr"]:'' );
+           echo (isset($_SESSION["MsgSuccess"])?$_SESSION["MsgSuccess"]:'' );
            ?>
       <div class="card bg-secondary text-light">
         <div class="card-header">

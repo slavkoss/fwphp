@@ -3,15 +3,12 @@
 * step 3 - display user profile
 * J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\read.php
 * called from Home_ ctr cls method  r() when usr clicks link/button or any URL is entered in ibrowser  
-* calls Tbl_ crud cls method rr() =pre-query which sets rows filter (default-where), sort... 
+* calls Tbl_ crud cls method r r() =pre-query which sets rows filter (default-where), sort... 
 * which calls Db_ allsites method rr() =execute-query which creates cursor for read row by row loop here
 */
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
 use B12phpfw\dbadapter\user\Tbl_crud   as Tbl_crud_admin ;
-//use B12phpfw\module\user\Home_ctr ;
-
-//use B12phpfw\core\zinc\Config_allsites ;
 
 use Parsedown ; //in global namespace (version 1.7.4 stil has no namespace)
 

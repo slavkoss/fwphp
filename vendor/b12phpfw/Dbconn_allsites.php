@@ -1,6 +1,6 @@
 <?php
 // J:\awww\www\b12phpfw\Dbconn_allsites.php
-// Is required in trait Db_allsites
+// Is required in t rait Db_ allsites
 //$conn_params = 
 //     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
 //    , self::$db_username, self::$db_userpwd) 

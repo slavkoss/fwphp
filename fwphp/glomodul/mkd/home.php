@@ -18,8 +18,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1 shrink-to-fit=no">
   <title><?=$title?></title>
   
-  <!--link rel="stylesheet" h ref="/zinc/themes/bootstrap/css/bootstrap.min.css"-->
-  <link rel="stylesheet" href="/zinc/themes/flex_2cols.css">
+  <!--link rel="stylesheet" h ref="/z inc/themes/bootstrap/css/bootstrap.min.css"-->
+  <link rel="stylesheet" href="/vendor/b12phpfw/themes/flex_2cols.css">
 </head>
 
 
@@ -45,7 +45,7 @@
       } ?>
 
 
-<?php include $pp1->wsroot_path . 'zinc/ftr.php'; ?>
+<?php include $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php'; ?>
 
 
   </article><!-- e n d  m a i n . a r t i c l e -->

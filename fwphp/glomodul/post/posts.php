@@ -4,8 +4,8 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
 
-use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\core\zinc\Db_allsites ;
+use B12phpfw\core\b12phpfw\Config_allsites ;
+use B12phpfw\core\b12phpfw\Db_allsites ;
 use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
 use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
                   //echo '<pre>$ p p 1='; print_r($pp1); echo '</pre><br />';
@@ -49,8 +49,8 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
 
     <div class="bg-light col-lg-12">
       <?php
-       echo $this->ErrorMessage();
-       echo $this->SuccessMessage();
+       echo utl::MsgErr();
+       echo utl::MsgSuccess();
        ?>
       <br /><table class="table table-striped table-hover">
 

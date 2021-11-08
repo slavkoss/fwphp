@@ -14,7 +14,7 @@ declare(strict_types=1);
     //, $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ) ;
 //while ($row = $this->r rnext($c_r)): {$r = $row ;} endwhile;
 
-$cursor_admins = Tbl_crud_admin::rr($sellst='*', $qrywhere= "username=:username"
+$cursor_admins = Tbl_crud_admin::get_cursor($sellst='*', $qrywhere= "username=:username"
     , $binds=[ ['placeh'=>':username', 'valph'=>$usrname_requested, 'tip'=>'str'] ]
     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 $SrNo = 0;
@@ -56,7 +56,7 @@ if (file_exists($tmp_img_dir_path . $r->aimage)) { } else {
 
 if (isset($r->username) and $r->username == $usrname_requested) {
 }else {
-  $_SESSION["ErrorMessage"]="Bad Request !!";
+  $_SESSION["MsgErr"]="Bad Request !!";
   utl::Redirect_to($pp1->filter_page."1/i/home/");
 }
 

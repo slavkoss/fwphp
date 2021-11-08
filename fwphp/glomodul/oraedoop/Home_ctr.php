@@ -1,16 +1,17 @@
 <?php
 // J:\awww\www\fwphp\glomodul\blog\Home_ctr.php
 // DEFAULT CTR ONLY ONE FOR MODULE-IN-OWN-DIR IS ENOUGH, but may be more.
-namespace B12phpfw ;
-//use B12phpfw\Home_ctr_mini3 ;
+namespace B12phpfw\glomodul\oraedoop ;
+
+use B12phpfw\core\b12phpfw\Config_allsites ;
 
 // was App, Route_dispatch :
-class Home_ctr extends Home_mdl //Config_allsites
+class Home_ctr extends Config_allsites //Home_mdl
 {
   // $saltLength=NULL
-  public function __construct($pp1)
+  public function __construct(object $pp1)
   {
-    parent::__construct($pp1);
+    //parent::__construct($pp1);
     $this->set_default_cls_states_atr($this->pp1);
 
     // R O U T I N G  T A B L E  (ok for modules in own dir) 
@@ -100,11 +101,11 @@ class Home_ctr extends Home_mdl //Config_allsites
       //if (isset($this->uriq->r)) { $this->Redirect_to(QS.'i/'.$this->uriq->r) ; }
     }
 
-  private function logout_me() //pof_ d isconnect()
+  private function logout_me(&$pp1) //pof_ d isconnect()
   { 
      //global $conn; if ($conn) ocilogoff($conn);  //oci_close()
     //$this->logout() ;
-    $this->clearses() ;
+    $this->clearses($pp1) ;
     $this->set_this2ses() ;
     $this->set_ses2this() ;
     $this->Redirect_to($this->pp1->home) ;
@@ -117,7 +118,7 @@ class Home_ctr extends Home_mdl //Config_allsites
 
     public function set_default_cls_states_atr(&$pp1) {
         //public $aplpath     = null; public $aplurl      = null;
-        $this->pp1->states->debug            = false;
+        $this->pp1->states->debug   = false;
         $this->pp1->cncts->username = null ;
         $this->pp1->cncts->password = null ;
         $this->pp1->cncts->service  = null ;
@@ -154,7 +155,7 @@ class Home_ctr extends Home_mdl //Config_allsites
    * if there is one, or else use a hardcoded default.
   */
 
-    public function clearses() {
+    public function clearses(&$pp1) {
       //3. CLEAR SESSION VALUES
       // Logout current D B  u s e r
         $blk_startrow = $this->pp1->states->blk_startrow ;
@@ -182,13 +183,13 @@ class Home_ctr extends Home_mdl //Config_allsites
     // 6. data for LOVs of page parameters:
     //if (! isset($_SESSION['states']->exportformat' ])) $_SESSION['states']->exportformat' ] = 'xml';
     // 7. Initialize  D B c o n  parameters :  or isset($_REQUEST[ 'disconnect' ])
-    //if ( !isset($_SESSION['cncts']) ) $this->clearses(); // p of_b lanksession()
+    //if ( !isset($_SESSION['cncts']) ) $this->c learses(); // p of_b lanksession()
 
     if (isset($_POST[ 'cncts' ]))
     {
       if ( is_array($_POST[ 'cncts' ]) and count($_POST[ 'cncts' ]) > 0 )
       {
-        //$this->clearses(); // p of_bl anksession()
+        //$this->c learses(); // p of_bl anksession()
 
         $_SESSION['cncts'] = (object)$_POST[ 'cncts' ] ;
 

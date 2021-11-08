@@ -1,11 +1,11 @@
 <?php
 // 
 namespace B12phpfw\module\fw_popel_onb12 ;
-use B12phpfw\core\zinc\Autoload ;
+use B12phpfw\module\fw_popel_onb12\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $wsroot_path   = str_replace('\\','/', realpath('../../../')) .'/' ;
-$shares_path   = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
+$shares_path   = $wsroot_path.'vendor/b12phpfw/'; //'zinc/' includes,globals,commons,reusables
 $autoload_path = $wsroot_path.'vendor/' ; //includes, globals, commons, reusables
 
 $module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
@@ -35,17 +35,21 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
               ,$app_dir_path.'waybill_itm/'
               //,$app_dir_path.'post_comment/' */
   ]
-  //1.3 To do : this could be better ?
+  //1.3 now we use z_blogcms because of D bconn_allsites.php :
+  // J:\awww\www\zinc\Dbconn_allsites.php :
+  //      return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
   //     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
   //    , self::$db_username, self::$db_userpwd) 
   //    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
-  // Dbconn_allsites.php : return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+  //1.3 To do : this could be better ?
   //, 'Dbconn'=>$Dbconn
 ] ;
 
-//2. global cls to load (include, bootstrap) classes scripts automatically
-//require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
-require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
+              //2. global cls to load (include, bootstrap) classes scripts automatically
+              //require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
+              //require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
+              //$autoloader = new Autoload($pp1); //eliminates need to include class scripts
+require('Autoload.php'); //module-local or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
 //3. process request from ibrowser & send response to ibrowser :

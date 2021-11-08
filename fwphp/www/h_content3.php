@@ -4,13 +4,13 @@ $tmp     = $img_url . 'ic_done_black_32dp.png' ;
 $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
 ?>
   <!-- C O N T E N T 3  SHARE HEAD -->
-  <section id="share-head-section" class="bg-primary">
+  <section id="share-head-section" class="bg-secondary bg-gradient text-dark bg-opacity-25">
     <div class="container">
       <div class="row">
         <div class="col text-center">
           <div class="py-5">
             <h1 class="display-4">3. Share</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt sed, magni, veritatis aliquam sequi eveniet? Rerum quia accusantium alias provident perferendis</p>
+            <p class="lead"> Share what you create. </p>
             <a href="#" class="btn btn-outline-light">Find Out More</a>
           </div>
         </div>

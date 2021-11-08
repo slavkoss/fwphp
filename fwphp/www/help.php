@@ -11,8 +11,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1 shrink-to-fit=no">
   <title><?=$title?></title>
   
-  <!--link rel="stylesheet" href="/zinc/themes/bootstrap/css/bootstrap.min.c ss"-->
-  <link rel="stylesheet" href="/zinc/themes/flex_2cols.css">
+  <link rel="stylesheet" href="/vendor/b12phpfw/themes/flex_2cols.css">
 </head>
 
 
@@ -61,9 +60,9 @@ if ('') //if ($autoload_arr['dbg'])
          <a id="crud"></a>
          
     <!--
-       <a href="/<=$path_rel_examples>/01_ PHP_bootstrap/ACXE2/" >oci8 PDOOCI CRUD ACXE2</a>
+       <a href="/<=$examples_path>/01_ PHP_bootstrap/ACXE2/" >oci8 PDOOCI CRUD ACXE2</a>
 
-       &nbsp; <a href="/<=$path_rel_examples>/01_ PHP_bootstrap/wishPDO/" >wishPDO PDOOCI</a> 
+       &nbsp; <a href="/<=$examples_path>/01_ PHP_bootstrap/wishPDO/" >wishPDO PDOOCI</a> 
             
             -->
           <!-- ************************************************** -->
@@ -72,36 +71,36 @@ if ('') //if ($autoload_arr['dbg'])
           <br /><!-- title="My example code and real life modules"-->
     CRUD MySQL
 
-            <a href="/<?=dirname($path_rel_examples)?>/encrypt_decrypt_password_hash.php" target="_blank">encrypt_decrypt_password_hash.php</a>&nbsp;&nbsp;
+            <a href="/<?=dirname($examples_path)?>/encrypt_decrypt_password_hash.php" target="_blank">encrypt_decrypt_password_hash.php</a>&nbsp;&nbsp;
 
             <!--http://dev1:8083/fwphp/glomodul/z_user_crud_pdo1stSTEPS/ -->
             
-            <a href="/<?=$path_rel_examples?>user_crud_pdo1stSTEPS/" target="_blank">User CRUD PDO (first steps)</a>
+            <a href="/<?=$examples_path?>user_crud_pdo1stSTEPS/" target="_blank">User CRUD PDO (first steps)</a>
 
-          &nbsp;<br><a href="/<?=$path_rel_examples?>AJAX/01_cars_diaz/" target="_blank">
+          &nbsp;<br><a href="/<?=$examples_path?>AJAX/01_cars_diaz/" target="_blank">
     AJAX search, CRUD</a>&nbsp;&nbsp;&nbsp;
-    <a href="/<?=$path_rel_examples?>0302pdo_search_moj_rep_filter_named_params.php" target="_blank">PDO SQLite search 
+    <a href="/<?=$examples_path?>0302pdo_search_moj_rep_filter_named_params.php" target="_blank">PDO SQLite search 
     (filter rows)</a>
 
           &nbsp;<br>
-    <a href="/<?=$path_rel_examples?>AJAX/enter_tab_emul_validate_best.php" target="_blank">
+    <a href="/<?=$examples_path?>AJAX/enter_tab_emul_validate_best.php" target="_blank">
     enter_tab_emul_validate_best.php</a>&nbsp; <br>
-    <a href="/<?=$path_rel_examples?>login/loginbootstraptemplate/" target="_blank">
+    <a href="/<?=$examples_path?>login/loginbootstraptemplate/" target="_blank">
     login, reg, bootstrap, html</a>&nbsp;&nbsp;&nbsp;
-    <a href="/<?=$path_rel_examples?>login/login_tutspoint/login.php" target="_blank">
+    <a href="/<?=$examples_path?>login/login_tutspoint/login.php" target="_blank">
     login_tutspoint</a>&nbsp;&nbsp;
-    <a href="/<?=$path_rel_examples?>login/login/" target="_blank">login</a>&nbsp;&nbsp;
-    <a href="<?=$path_rel_examples?>login/login_reg_profile/1_template_20180828/" target="_blank">
-    login_</a><a href="/<?=$path_rel_examples?>login/login_bookmark">bookmark</a>&nbsp;&nbsp;
-    <a href="/<?=$path_rel_examples?>login/login_secure" target="_blank">login_secure</a>&nbsp;&nbsp;
-    <a href="/<?=$path_rel_examples?>login/kalob/" target="_blank">login_kalob</a><br>
-    <a href="/<?=$path_rel_examples?>01_PHP_bootstrap/book_popel/" target="_blank">PDO Popel books, <b>invoice items</b></a>&nbsp;&nbsp; <br>
+    <a href="/<?=$examples_path?>login/login/" target="_blank">login</a>&nbsp;&nbsp;
+    <a href="<?=$examples_path?>login/login_reg_profile/1_template_20180828/" target="_blank">
+    login_</a><a href="/<?=$examples_path?>login/login_bookmark">bookmark</a>&nbsp;&nbsp;
+    <a href="/<?=$examples_path?>login/login_secure" target="_blank">login_secure</a>&nbsp;&nbsp;
+    <a href="/<?=$examples_path?>login/kalob/" target="_blank">login_kalob</a><br>
+    <a href="/<?=$examples_path?>01_PHP_bootstrap/book_popel/" target="_blank">PDO Popel books, <b>invoice items</b></a>&nbsp;&nbsp; <br>
 
 
-          <a href="/<?=$path_rel_examples?>user1/" >User login (first steps)</a>
-          &nbsp;<a href="/<?=$path_rel_examples?>login_bookmark/" >User <b>login & bookmarks</b></a>
+          <a href="/<?=$examples_path?>user1/" >User login (first steps)</a>
+          &nbsp;<a href="/<?=$examples_path?>login_bookmark/" >User <b>login & bookmarks</b></a>
             <!-- <br /> -->
-             &nbsp; <a href="/<?=$path_rel_examples?>auction_wrox24h_30/" title="Users login not working.
+             &nbsp; <a href="/<?=$examples_path?>auction_wrox24h_30/" title="Users login not working.
             Beautiful, simple GUI (CSS).
             Has blog functionality (posts table).
             Excellent alternative of menu classes tree but in my opinion not near so good.
@@ -109,7 +108,7 @@ if ('') //if ($autoload_arr['dbg'])
                    >Categories - things with pictures</a>
 
                 &nbsp;&nbsp; 
-    <a href="/<?=$path_rel_examples?>jokeyank/public/" title="Why own php fw: Not for me same as Pair, Nano, Mini3... Too complicated, not clear, only link tables are ok. Login : admin/demo  code 2017. year"
+    <a href="/<?=$examples_path?>jokeyank/public/" title="Why own php fw: Not for me same as Pair, Nano, Mini3... Too complicated, not clear, only link tables are ok. Login : admin/demo  code 2017. year"
                        >UsrMsgs-jokes&nbsp;&nbsp;&nbsp; </a>
 
 
@@ -117,7 +116,7 @@ if ('') //if ($autoload_arr['dbg'])
 
 
                     <br>
-    <a href="/<?=$path_rel_examples?>jokeyank/public/" title="Why own php fw: Not for me same as Pair, Nano, Mini3... Too complicated, not clear, only link tables are ok. Login : admin/demo  code 2017. year"
+    <a href="/<?=$examples_path?>jokeyank/public/" title="Why own php fw: Not for me same as Pair, Nano, Mini3... Too complicated, not clear, only link tables are ok. Login : admin/demo  code 2017. year"
                        >CRUD PDO</a>
 
 
@@ -128,19 +127,19 @@ if ('') //if ($autoload_arr['dbg'])
                title='Aplication advanced type "(User`s) M essages" : "Todo - Done"'>____SOCNET (TODO type)___ -->
 
               
-              <a  href="/<?=$path_rel_examples?>socnet/" title="Login : php/php or html/html or..."><b>Socnet</b> Nixon 4thED, 2015</a>
+              <a  href="/<?=$examples_path?>socnet/" title="Login : php/php or html/html or..."><b>Socnet</b> Nixon 4thED, 2015</a>
 
-               &nbsp; <a  href="/<?=$path_rel_examples?>gallery_powers/" title="Login : php/php or html/html or...Pictures in OS folders."><b>Gallery & Blog</b>, Powers 2014</a>
+               &nbsp; <a  href="/<?=$examples_path?>gallery_powers/" title="Login : php/php or html/html or...Pictures in OS folders."><b>Gallery & Blog</b>, Powers 2014</a>
 
-               &nbsp; <a  href="/<?=$path_rel_examples?>gallery_skoglund/gallery/public/" title="Login : php/php or html/html or...Pictures in MySQL DB."><b>Gallery</b>, Skoglund 2015</a>
-               &nbsp; <a  href="/<?=$path_rel_examples?>gallery_skoglund/gallery/public/admin/" title="Login : php/php or html/html or...Pictures in MySQL DB."><b>Gallery</b>, Skoglund 2015, admin</a>
+               &nbsp; <a  href="/<?=$examples_path?>gallery_skoglund/gallery/public/" title="Login : php/php or html/html or...Pictures in MySQL DB."><b>Gallery</b>, Skoglund 2015</a>
+               &nbsp; <a  href="/<?=$examples_path?>gallery_skoglund/gallery/public/admin/" title="Login : php/php or html/html or...Pictures in MySQL DB."><b>Gallery</b>, Skoglund 2015, admin</a>
 
-               &nbsp; <a  href="/<?=$path_rel_examples?>login_auction_Ullman/" title="Login : php/php or html/html or...">Ullman JS 2012</a>&nbsp;&nbsp;&nbsp;
+               &nbsp; <a  href="/<?=$examples_path?>login_auction_Ullman/" title="Login : php/php or html/html or...">Ullman JS 2012</a>&nbsp;&nbsp;&nbsp;
     <br>
                
 
               <!--  -->
-              <a  href="/<?=$app_glomodul_dir_path?>user_post_kalendar_fmb/kalendar/" 
+              <a  href="/<?=$glomodul_path?>user_post_kalendar_fmb/kalendar/" 
                       title='60 kB. See "Flexbox kalendar". TODO like MKD and MSG.'>Kalendar original</a>
           <!-- ************************************************** -->
 
@@ -182,37 +181,37 @@ if ('') //if ($autoload_arr['dbg'])
 
            <strong>Msg mnu&amp;DBCRUD template</strong></a>&nbsp;- B12phpfw ver.4&nbsp; 
     - pagination, (tree classes for menus&nbsp;I tested, I do not use).&nbsp;&nbsp;&nbsp;
-    <br /><a href="/<?=dirname($path_rel_examples)?>/predlozak_dropmnus.html" 
+    <br /><a href="/<?=dirname($examples_path)?>/predlozak_dropmnus.html" 
                      title="Dropdown menus - my favorite fast page">Simplest page</a> (this page based on 
-    <a href="/<?=$path_rel_examples?>flexmoj/flex01_2col.php" target="_blank" title="Flexbox 2 columns">Flexbox 2 columns</a>&nbsp; 
-    is simpler - css 70 lines + I added 70 !)&nbsp; &nbsp; <br /> <a  href="/<?=dirname($path_rel_examples)?>/test/01menu_OOP" title="">
+    <a href="/<?=$examples_path?>flexmoj/flex01_2col.php" target="_blank" title="Flexbox 2 columns">Flexbox 2 columns</a>&nbsp; 
+    is simpler - css 70 lines + I added 70 !)&nbsp; &nbsp; <br /> <a  href="/<?=dirname($examples_path)?>/test/01menu_OOP" title="">
                   OOP inherited menus</a>
 
                   &nbsp; &nbsp; 
 
                   &nbsp; &nbsp; <br /> <a  href="https://www.w3schools.com/w3css/w3css_slideshow.asp" title="HTML5 slideshow (W3 site)">
                   HTML5 slideshow (W3)</a>&nbsp;&nbsp;&nbsp;&nbsp; <br /><!-- flexbox -->
-    <a href="/<?=$path_rel_examples?>flexmoj/" target="_blank" title="flexbox test dir">Flexbox</a>
+    <a href="/<?=$examples_path?>flexmoj/" target="_blank" title="flexbox test dir">Flexbox</a>
 
                   &nbsp; &nbsp; 
-    <a href="/<?=$path_rel_examples?>flexmoj/flex03_fixed_hdr_ftr.php" target="_blank" title="Flexbox sticky hdr ftr">Flexbox sticky hdr ftr</a>
+    <a href="/<?=$examples_path?>flexmoj/flex03_fixed_hdr_ftr.php" target="_blank" title="Flexbox sticky hdr ftr">Flexbox sticky hdr ftr</a>
 
                   &nbsp; &nbsp; 
-    <a href="/<?=$path_rel_examples?>flexmoj/flex01_2col.php" target="_blank" title="Flexbox 2 columns">Flexbox 2 columns</a>
+    <a href="/<?=$examples_path?>flexmoj/flex01_2col.php" target="_blank" title="Flexbox 2 columns">Flexbox 2 columns</a>
                   &nbsp; &nbsp; 
-    <a href="/<?=$path_rel_examples?>flexmoj/flex05_calendar.html" target="_blank" title="Flexbox kalendar">
+    <a href="/<?=$examples_path?>flexmoj/flex05_calendar.html" target="_blank" title="Flexbox kalendar">
                   <b>Flexbox kalendar</b></a>
           <!-- ************************************************** -->
 
 
           <!-- ************************************************** -->
-              <br /> <a href="/<?=$path_rel_examples?>flexmoj/00_predlozak_side_mnu_tableles.php"
+              <br /> <a href="/<?=$examples_path?>flexmoj/00_predlozak_side_mnu_tableles.php"
                      title="flexbox test dir">Stu Nicholls CSSplay template</a>&nbsp;&nbsp;
 
               <a  href="http://www.cssplay.co.uk/"
-                     title="Stu Nicholls: CSSPLAY site">CSSplay site</a>&nbsp;&nbsp;&nbsp;&nbsp; <a  href="/<?=dirname($path_rel_examples)?>/test/flexmoj/template_predlozak_2cols.html" title="Fast 2 columns template">
+                     title="Stu Nicholls: CSSPLAY site">CSSplay site</a>&nbsp;&nbsp;&nbsp;&nbsp; <a  href="/<?=dirname($examples_path)?>/test/flexmoj/template_predlozak_2cols.html" title="Fast 2 columns template">
               <b>HFS & Ngrok DDNS</b> (Tpl.2col)</a>&nbsp;&nbsp;&nbsp;&nbsp;
-              <br /><br /><a  href="/<?=dirname($path_rel_examples)?>/help_win.html" 
+              <br /><br /><a  href="/<?=dirname($examples_path)?>/help_win.html" 
               title="">Help</a> - Windows keys, GT TEXT - ocr
           <!-- ************************************************** -->
 
@@ -231,7 +230,7 @@ if ('') //if ($autoload_arr['dbg'])
               Forms 12c inst. (HTML)</a>
 
               <a
-              href="/<?=dirname($path_rel_examples)?>/oracle/00oraForms11_1_2_2_0_instalac_moj.php"
+              href="/<?=dirname($examples_path)?>/oracle/00oraForms11_1_2_2_0_instalac_moj.php"
                      title="">
               9 videos Forms 11g install (PHP)</a>
           <!-- ************************************************** -->
@@ -239,7 +238,7 @@ if ('') //if ($autoload_arr['dbg'])
 
           <!-- ************************************************** -->
               &nbsp;<br /><br />Other šđčćž
-              <a  href="/<?=dirname($path_rel_examples)?>/other/Gulas_Zvornicki_sitni_cevab.html"
+              <a  href="/<?=dirname($examples_path)?>/other/Gulas_Zvornicki_sitni_cevab.html"
                  title="">
               Gulaš</a>
 
@@ -267,21 +266,20 @@ if ('') //if ($autoload_arr['dbg'])
 
 
           <!-- **************************************************
-            old href="<='../../zinc/utl/ls web/ls web.php?cmd='. $helpsw_ path?>"
         http://dev1:8083/fwphp/glomodul/lsweb/l sweb.php/?cmd=J:/awww/www//fwphp/glomodul/help_sw/test
           -->
           <!-- title="Learning examples"-->
               My tests &amp; Demos
         
-        <a href="/<?=$app_glomodul_dir_path?>lsweb/lsweb.php/?cmd=' . $path_rel_help?>"
+        <a href="/<?=$glomodul_path?>lsweb/lsweb.php/?cmd=' . $examples_path?>"
            target="_blank">ALL HELP SW (lsweb)</a>
-        &nbsp; <a href="/<?=$path_rel_examples?>" target="_blank" title="Help dir">Help dir</a>
+        &nbsp; <a href="/<?=$examples_path?>" target="_blank" title="Help dir">Help dir</a>
         &nbsp; 
     <a href="<?=$wsroot_url?>phpmyadmin" target="_blank" title="getenv('COMPUTERNAME')">PHPMyAdmin</a>
         &nbsp; 
-    <a href="/<?=$path_rel_examples?>00info_php.php" target="_blank" title="Help dir">PHP info</a>
+    <a href="/<?=$examples_path?>00info_php.php" target="_blank" title="Help dir">PHP info</a>
         <br />
-        <a href="/<?=$path_rel_examples?>curl/curl/curl_test.php" target="_blank" title="Help dir">cURL test & SSL (https)</a>
+        <a href="/<?=$examples_path?>curl/curl/curl_test.php" target="_blank" title="Help dir">cURL test & SSL (https)</a>
         
 
             <hr />
@@ -289,18 +287,18 @@ if ('') //if ($autoload_arr['dbg'])
           <!-- ************************************************** -->
     <!-- ************************************************** --><br>PHP frameworks
                 <!-- /../zbig/yiibasic/requirements.php -->
-    <a href="/<?=$path_rel_examples?>yiirequirements/" target="_blank">Yii2 requir.</a>&nbsp;&nbsp;
+    <a href="/<?=$examples_path?>yiirequirements/" target="_blank">Yii2 requir.</a>&nbsp;&nbsp;
     <a href="<?='..'.'/../zbig/yiibasic/web/'?>" target="_blank">Yii2 (Caldarelli)</a>
     <!-- title='Aplication type "(User`s) Messages" : "Content Management System", "Customer Relations Management"'-->&nbsp;&nbsp;&nbsp;
     <a href="http://dev1:8083/zbig/blog_laravel/public/" target="_blank">Laravel</a>&nbsp;&nbsp;&nbsp;
     <a href="http://dev1:8083/zbig/xcodeig/public" target="_blank">Codeigniter 4</a>&nbsp;
     <br><br>BLOG (CMS type - <strong>summernote, gump</strong>)&nbsp;&nbsp;
-    <a href="/<?=$path_rel_examples?>cms_extern/simplecms/" target="_blank" title="Bootstrap 4 &amp; Summernote 2018.02.27
+    <a href="/<?=$examples_path?>cms_extern/simplecms/" target="_blank" title="Bootstrap 4 &amp; Summernote 2018.02.27
                        Like SimpleMDE works well only for simpler texts.
                        Eg can not display &quot;Simplest page&quot; dropdown menus.">Simple CMS</a>
 
                   &nbsp; 
-    <a href="/<?=$path_rel_examples?>cms_extern/simplecms/admin" target="_blank" title="Bootstrap 4 &amp; Summernote 2018.02.27
+    <a href="/<?=$examples_path?>cms_extern/simplecms/admin" target="_blank" title="Bootstrap 4 &amp; Summernote 2018.02.27
                        Like SimpleMDE works well only for simpler texts.
                        Eg can not display &quot;Simplest page&quot; dropdown menus.">
     ...Simple CMS backend</a>&nbsp; usr/psw : admin/demo
@@ -316,21 +314,21 @@ RewriteCond %{REQUEST_FILENAME} !-f [NC]
 RewriteRule ^(.*)$ <strong>index.php</strong>?pid=$1 [QSA,L]   </pre>
 
 
-    <a href="/<?=$path_rel_examples?>cms_extern/cmsakram/Blog.php%20" title="Lot of functionality but OLD BOOTSTRAP &amp; OLD PHP PROGRAMMING STYLE video  http://jazebakram.com/ &quot;Build CMS Blog...&quot;">OLD CMS frontend (has Search)</a>
-    <a href="/<?=$path_rel_examples?>cms_extern/cmsakram/dashboard.php" title="Login is commented. Lot of functionality but OLD BOOTSTRAP &amp; OLD PHP PROGRAMMING STYLE video  http://jazebakram.com/ &quot;Build CMS Blog...&quot;">...OLD CMS backend admin</a>
+    <a href="/<?=$examples_path?>cms_extern/cmsakram/Blog.php%20" title="Lot of functionality but OLD BOOTSTRAP &amp; OLD PHP PROGRAMMING STYLE video  http://jazebakram.com/ &quot;Build CMS Blog...&quot;">OLD CMS frontend (has Search)</a>
+    <a href="/<?=$examples_path?>cms_extern/cmsakram/dashboard.php" title="Login is commented. Lot of functionality but OLD BOOTSTRAP &amp; OLD PHP PROGRAMMING STYLE video  http://jazebakram.com/ &quot;Build CMS Blog...&quot;">...OLD CMS backend admin</a>
     <!-- *******OLD (Diaz), but lot of functionality ******* --><br>
-    <a href="/<?=$path_rel_examples?>cms_extern/cmsdiaz/" title="Lot of functionality but OLD BOOTSTRAP &amp; OLD PHP PROGRAMMING STYLE video  http://jazebakram.com/ &quot;Build CMS Blog...&quot;">OLD CMS2 frontend (has Search)</a>
+    <a href="/<?=$examples_path?>cms_extern/cmsdiaz/" title="Lot of functionality but OLD BOOTSTRAP &amp; OLD PHP PROGRAMMING STYLE video  http://jazebakram.com/ &quot;Build CMS Blog...&quot;">OLD CMS2 frontend (has Search)</a>
 
                      &nbsp; 
-    <a href="/<?=$path_rel_examples?>cms_extern/cmsdiaz/admin/" title="Login is commented. Lot of functionality but OLD BOOTSTRAP &amp; OLD PHP PROGRAMMING STYLE video">...OLD CMS2 backend admin</a>
+    <a href="/<?=$examples_path?>cms_extern/cmsdiaz/admin/" title="Login is commented. Lot of functionality but OLD BOOTSTRAP &amp; OLD PHP PROGRAMMING STYLE video">...OLD CMS2 backend admin</a>
     <!--title='Aplication type "(User`s) M essages" : "Content Management System", "Customer Relations Management"'-->
     <br><br>BLOG (CMS type) external modules&nbsp;
 
 
                 
-          <a href="/<?=$path_rel_examples?>cms_extern/yellowcms/" title="&quot;DB&quot; is flat files md">YellowCMS files CRUD, search</a>&nbsp;&nbsp;
+          <a href="/<?=$examples_path?>cms_extern/yellowcms/" title="&quot;DB&quot; is flat files md">YellowCMS files CRUD, search</a>&nbsp;&nbsp;
                 
-                  <a href="/<?=$path_rel_examples?>cms_extern/wondercms/" title="&quot;DB&quot; is one .json file">
+                  <a href="/<?=$examples_path?>cms_extern/wondercms/" title="&quot;DB&quot; is one .json file">
     WonderCMS 2.4.2</a> (Summernote)&nbsp;&nbsp;
 
                 
@@ -342,7 +340,7 @@ RewriteRule ^(.*)$ <strong>index.php</strong>?pid=$1 [QSA,L]   </pre>
     <br>
     <a href="<?='/zbig/pair_user'?>" title="class ActiveRecord 2000 lines, 74 f u n c t i o n s !?.">Pair php fw - users</a>
     <!--http://dev1:8083/fwphp/glomodul/help_sw/test//nano/public/?/=home -->
-    <a href="/<?=$path_rel_examples?>nano/public/?/=home" title="92 kB, Jan 2016. See Anchor CMS which is based on Nano php fw.
+    <a href="/<?=$examples_path?>nano/public/?/=home" title="92 kB, Jan 2016. See Anchor CMS which is based on Nano php fw.
                               Error: Call to a member function send() on null in
                               J:\awww\www\fwphp\glomodul\help_sw\test\nano\app\run.php ? - NOT EXPLAINED, TO COMPLICATED, SLOW CODE.">&nbsp;&nbsp;&nbsp; Nano php fw</a>
     <!-- ************************************************** -->
@@ -442,7 +440,7 @@ RewriteRule ^(.*)$ <strong>index.php</strong>?pid=$1 [QSA,L]   </pre>
     <a href="http://phporacle.altervista.org/"  title="phporacle blog">myblog</a>
 
      <!-- http://dev1:8083/fwphp/glomodul/lsweb/l sweb.php/?cmd=J:/awww/www//fwphp/glomodul/help_sw -->
-     &nbsp;<a href="/<?=$app_glomodul_dir_path?>lsweb/lsweb.php/?cmd='.$pathzbig?>"  
+     &nbsp;<a href="/<?=$glomodul_path?>lsweb/lsweb.php/?cmd='.$pathzbig?>"  
            title="phporacle blog articles downloaded on my local PC">myblog</a> on homePC (lsweb, zbig)
 
     </p>

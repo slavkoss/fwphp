@@ -54,7 +54,7 @@ $pp1=stdClass Object
 
     [wsroot_path] => J:/awww/www/
     [shares_path] => J:/awww/www/vendor/b12phpfw/
-    [app_dir_path] => J:/awww/www/fwphp/01mater/
+    [app_path] => J:/awww/www/fwphp/01mater/
     [module_version] => Product (Book) 1.0.0.0
     [module_path_arr] => Array
         (

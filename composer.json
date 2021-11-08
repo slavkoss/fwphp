@@ -10,7 +10,7 @@
     ],
     "autoload": {
     "psr-4": {
-      "B12phpfw\\": ["", "zinc/", "fwphp/"]
+      "B12phpfw\\": ["", "vendor/b12phpfw/", "fwphp/"]
     }
   },
   "require": {

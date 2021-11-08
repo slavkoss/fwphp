@@ -1,7 +1,7 @@
 <?php
 /**
  * J:\awww\www\fwphp\01mater\book\Home.php
- *  P R O D U C T S  A N D  S U P P L I E R S  flat tbl display
+ *  VIEW (NO CODE BEHIND) FOR  p r o d u c t s  a n d  s u p p l i e r s  flat tbl display
  *  <!--    (was and r o w c r e frm)  -->
  */
 declare(strict_types=1);

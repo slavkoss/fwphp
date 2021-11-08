@@ -3,7 +3,7 @@
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_comment ;
 
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 //use B12phpfw\module\blog\Home_ctr ;
 
@@ -39,8 +39,8 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 
     <div class="bg-light col-lg-12" style="min-height:400px;">
       <?php
-       echo $this->ErrorMessage();
-       echo $this->SuccessMessage();
+       echo utl::MsgErr();
+       echo utl::MsgSuccess();
        ?>
 
 
@@ -55,7 +55,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_post_comment::rr($sellst='*' 
+      $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' 
         , $qrywhere="status='OFF' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
@@ -118,7 +118,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_post_comment::rr($sellst='*' 
+      $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' 
         , $qrywhere="status='ON' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;

@@ -1,20 +1,32 @@
 <?php
-namespace B12phpfw ;
-$dirup_tmp = str_replace('\\','/', dirname(__DIR__) ) ;
-$pp1 = (object)[ 'dbg'=>'1', 'module_towsroot'=>'../../../'
-  , 'module_version'=>'1.0.1.0 OraEdOOP', 'vendor_namesp_prefix'=>'B12phpfw'
-  , 'caller'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]] //, 'style'=>''
+namespace B12phpfw\glomodul\oraedoop ;
 
-  , 'module_path_arr'=>[
-      str_replace('\\','/', __DIR__ ).'/' //=module_cls_script_path (CONVENTION!!)
-      // other  m o d u l e s : , $dirup_tmp.'/user/', ...
-     ]
+use B12phpfw\core\b12phpfw\Autoload ;
+
+//1. settings - properties - assign global variables to use them in any code part
+$module_path = str_replace('\\','/', __DIR__) .'/' ;
+$site_path   = dirname($module_path) .'/' ; //to app dir eg "glomodul" dir and app
+//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
+$wsroot_path = dirname(dirname(dirname($module_path))) .'/' ;
+               //or $wsroot_path = str_replace('\\','/', realpath('../../')) .'/' ;
+$shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, reusables
+
+$pp1 = (object)[ 'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
+  , 'module_version'=>'8.0.0.0 OraEdOOP' //, 'vendor_namesp_prefix'=>'B12phpfw'
+                             // $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+  // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
+  // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
+  , 'wsroot_path' => $wsroot_path  // to awww/www (or any names)
+  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
+  , 'site_path'   => $site_path    // to fwphp (or any names)
+  , 'module_path' => $module_path  // to fwphp/www (or any names)
 ] ;
 
-require($pp1->module_towsroot.'zinc/Autoload.php'); 
-$autoloader = new Autoload($pp1); //or Composer's autoload cls-es
+//2. global cls loads classes scripts automatically
+require($pp1->shares_path . 'Autoload.php');
+new Autoload($pp1);
 
-$db = new Home_ctr($pp1) ;
+$module = new Home_ctr($pp1) ;
 
 exit(0);
 

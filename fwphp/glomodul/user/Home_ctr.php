@@ -1,7 +1,7 @@
 <?php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
-use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 //use B12phpfw\module\dbadapter\user\DB_user ; //to Login_ Confirm_ SesUsrId
 //use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;

@@ -22,13 +22,11 @@ abstract class Config_allsites //extends Db_ allsites
   //url parameters (url query string) after QS='?' are key-value pairs
 
   //M O D U L E  & GLOBAL (COMMON) PROPERTIES (for all sites) PALLETE like Oracle Forms
-  private $pp1 ; //was public. If using Composer autoloading classes set QS=''.
+  private $pp1 ; //was public, protected
 
 
   public function __construct(object $pp1, array $pp1_module)
   {
-    // see (**1)
-
     //STEP_1=n ew autol STEP_2=CONF   view/rout/disp preCRUD onCRUD
     //STEP_3=ROUT/DISP is in this parent::__construct : fw core calls method in Home_ctr cls
     
@@ -62,7 +60,7 @@ abstract class Config_allsites //extends Db_ allsites
              } */
 
            if (! function_exists('session_start'))
-             { echo "<h32PHP has no session support</h2>: 
+             { echo "<h2>PHP has no session support</h2>: 
              Your PHP installation doesn't have the 
              <a href=\"http://www.php.net/manual/en/ref.session.php\">Session module</a> 
              installed which is needed to run this program !<br />\n";
@@ -75,13 +73,8 @@ abstract class Config_allsites //extends Db_ allsites
       // 2. DEFINE  A D R E S S E S  (NO CONSTANTS). Adresses = paths & relative paths
       // =============================================
       if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR); //dirname, basename
+        //If using Composer autoloading classes set QS=''.
       if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
-
-      //$module_towsroot = $pp1->module_towsroot ;
-      //rtrim(ltrim(... has error !! :
-      $module_path = $pp1->module_path_arr[0] ; //assigned in index.php ! 
-            //str_replace('\\','/', $module_dir .'/') ; //rtrim(ltrim(... has error !!
-      //$imgrel_path = 'zinc/img/'; // img_big/oop_help/
 
       // =============================================
       //           3. R O U T I N G
@@ -100,7 +93,7 @@ abstract class Config_allsites //extends Db_ allsites
       //req.uri eg : /fwphp/glomodul/blog/?i/categories/
       //     0 is script relpath   : /fwphp/glomodul/blog/
       //     1 is URL query string : i/categories/
-      //CONVENTION : URL query string is key(=property name) - value pairs
+      //CONVENTION : URL query string is key-value pairs. Key is property name
       //   We want $this->u r i q = stdClass Object ( [i] => categories 
       //   or [i] =>any Home_ctr method, than its_first_parameter=>paramvalue... )
 
@@ -115,8 +108,6 @@ abstract class Config_allsites //extends Db_ allsites
       // URL is eg http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme.md
       //FIRST PART of REQUEST_ URI is module_ relpath : eg /fwphp/glomodul/mkd/
       $module_relpath = rtrim(ltrim($uri_arr[0],'/'),'/'); //it is not $moduledir_relpath !!
-                       //or rtrim(str_replace($wsroot_path, '', $module_path),'/') ;
-      //$app_relurl = dirname(dirname('/'. $module_relpath)) ;
       
       $module_url = $wsroot_url.$module_relpath.'/';
 
@@ -206,7 +197,6 @@ abstract class Config_allsites //extends Db_ allsites
 
       $pp1 = (array)$pp1 ;
       $pp1['uriq'] = (object)$uriq ; //u r l  q u e r y  a r r a y
-      //$this->setp('uriq', (object)$uriq) ; //$this->u riq = (object)$u riq ;
 
       // **************************** E N D  R O U T I N G
 
@@ -222,15 +212,11 @@ abstract class Config_allsites //extends Db_ allsites
           //
           , 'HELP_PATHS_IN_UTL_CLS' => '
           cs02. R O U T I N G - A D R E S S E S  in Config_ allsites.php ~~~~~~~~~~~~~~~~'
-          //, 'vendor_namesp_prefix'=> $vendor_namesp_prefix
-          //, 'module_towsroot'     => $module_towsroot
-          //, 'wsroot_path'         => $wsroot_path
           , 'wsroot_url'          => $wsroot_url
           , 'shares_url'          => $wsroot_url . 'vendor/b12phpfw/' //'zinc/'
           , 'img_url'             => $wsroot_url . 'vendor/b12phpfw/img/' //'zinc/img/'
           //, 'imgrel_ path'         => $imgrel_ path
           , 'lang'                => 'en'
-          , 'module_path'         => $module_path
 
           , 'uri_qrystring'       => $uri_qrystring
           , 'uri_qrystring_arr'   => $uri_qrystring_arr
@@ -242,7 +228,7 @@ abstract class Config_allsites //extends Db_ allsites
 
       $pp1 += $pp1_module ;
 
-      $this->setp('pp1', (object)$pp1) ; //$this->p p1 = (object)$p p1 ;
+      $this->pp1 = (object)$pp1 ; // $this->setp('pp1', (object)$pp1) ; 
       $pp1 = $this->pp1 ;
       //$this->set_default_cls_states_atr($this->p p1);
                   // IMPORTANT FOR FINDING ROUTING LOGICAL ERRORS 
@@ -255,17 +241,15 @@ abstract class Config_allsites //extends Db_ allsites
                   //echo '<b>$_ GET</b>='; print_r($_GET); 
                   //echo '<b>$_POST</b>='; print_r($_POST); 
                   //echo '<b>$_SESSION</b>='; print_r($_SESSION); 
-                  //echo '<br /><b>$this->p p 1</b>='; print_r($this->getp('pp1'));
                   //
 
                   //       R O U T I N G  see ftr 
                     echo '<h3>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>'
                     .'Coding step c s 0 2. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
-                  //echo '<br /><b>$this->p p 1</b>='; print_r($this->getp('pp1'));
                   //
                   echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>='; print_r($_SERVER['REQUEST_URI']); 
 
-                  echo '<br /><br />$this->p p1->uri_ arr='; print_r($this->getp('pp1')->uri_arr);
+                  echo '<br /><br />$this->p p1->uri_ arr='; print_r($pp1->uri_arr);
                   echo '<b>$p p1->uri_ arr is exploded string $_SERVER[\'REQUEST_URI\'] (part1 before QS=? and part2 after QS)</b>';
 
                   echo '<br />part1 index 0 is <b>$p p1->module_ relpath=</b>'
@@ -278,9 +262,9 @@ abstract class Config_allsites //extends Db_ allsites
 
                   echo '<br /><br /><b>EXPLODED $p p1->uri_ qrystring (on /) is'
                   .' $this->p p1->uri_ qrystring_ arr</b>=';
-                      print_r($this->getp('pp1')->uri_qrystring_arr);
+                      print_r($pp1->uri_qrystring_arr);
                   //echo '<br /><b>key-value pairs in one assoc arr line =  $u riq</b>='; print_r($u riq);
-                  echo '<br />From $p p1->uri_ qrystring_ arr <b>method in Home_ ctr and method parameters : $this->u riq</b>='; print_r($this->getp('pp1')->uriq);
+                  echo '<br />From $p p1->uri_ qrystring_ arr <b>method in Home_ ctr and method parameters : $this->u riq</b>='; print_r($pp1->uriq);
 
 
                   echo '</pre>'; 
@@ -312,7 +296,7 @@ abstract class Config_allsites //extends Db_ allsites
     *****************************************************
     */
         unset($pp1) ; //for easier debugging if next 2 lines are switched
-        $pp1 = $this->getp('pp1') ; //fn params are in  p p 1
+        $pp1 = $this->pp1 ; //fn params are in  p p 1
         $akc = $pp1->uriq->i ;      //fn name (by user entered URL we put in uriq array)
         $this->call_module_method($akc, $pp1) ; //protected fn (in child cls) calls private fns (in child cls)
         // OR (fns in child cls must be public, not private to be called from here) :
@@ -320,9 +304,9 @@ abstract class Config_allsites //extends Db_ allsites
         //$this->$akc($pp1) ; 
   } //e n d  __ c o n s t r u c t  see (**3)
 
-
+  /*
   //UNIVERSAL prop. setter to assign prop. :  __set MAGIC METHOD or:
-  public function setp($property, $value){
+  //public function setp($property, $value){
     //not working static fn if(property_exists('Config_ allsites', $property)){
     if(property_exists($this, $property)){
       $this->$property = $value;
@@ -330,11 +314,11 @@ abstract class Config_allsites //extends Db_ allsites
     return $this;
   }
   //UNIVERSAL prop. getter to access prop. :  __get MAGIC METHOD or :
-  public function getp($property){
+  //public function getp($property){
     if(property_exists($this, $property)){
       return $this->$property;
     }
-  }
+  } */
   //$user1 = n ew User('John', 40); //$this->name = $name;  $this->age = $age; //both are private
   //$user1->__set('age', 41);
   //echo $user1->__get('age');
@@ -382,41 +366,30 @@ abstract class Config_allsites //extends Db_ allsites
 
     static public function escp_row(object $r): object
     {    
-    //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
-      /*
-      $r->id           = (int)utl::escp($r->id) ;
-      $r->author       = (int)utl::escp($r->author) ;
-      $r->coverMime    = utl::escp($r->coverMime) ;
-      $r->coverimgname = utl::escp($r->coverimgname) ;
-      $r->title        = utl::escp($r->title) ;
-      $r->isbn         = utl::escp($r->isbn) ;
-      $r->publisher    = utl::escp($r->publisher) ;
-      $r->year         = utl::escp($r->year) ;
-      $r->summary      = utl::escp($r->summary) ;
-      $r->copies       = utl::escp($r->copies) ;
-      */
+      //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+      //$r->id           = (int)utl::escp($r->id) ;
+      //$r->author       = (int)utl::escp($r->author) ;
             if ('') { 
             echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
             echo '<pre><b>$r</b>='; var_dump($r); echo '</pre>';
             }
-    foreach ((array)$r as $name => &$value) {
+       foreach ((array)$r as $name => &$value) {
                     if ('') {  //if ($module_ arr['dbg']) {
                     echo '<pre><b>$name</b>='; print_r($name); //echo '</pre>';
                     echo ' <b>$value</b>='; print_r($value); echo '</pre>';
                     //exit(0);
                     }
-      //if (is_int((int)$value)) $value = (int)utl::escp($value) ; else 
-      if (gettype($value) == 'boolean') NULL; else 
-          $value = self::escp($value) ;
-    } unset($value); // break the reference with the last element
-
+         //if (is_int((int)$value)) $value = (int)utl::escp($value) ; else 
+         if (gettype($value) == 'boolean') NULL; else 
+            $value = self::escp($value) ;
+      } unset($value); // break the reference with the last element
                     if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
                     echo '<pre><b>$r</b>='; print_r($r); echo '</pre>';
                     //exit(0);
                     }
-    return($r) ;
-   }
+      return($r) ;
+    }
 
     //static protected function secure_form($form) {
     //    foreach ($form as $key => $value) {
@@ -497,21 +470,21 @@ abstract class Config_allsites //extends Db_ allsites
 
 
     // S E S S  I O N  M E T H O D S  were in cls in Sessions.php
-    public function ErrorMessage(){
-      if(isset($_SESSION["ErrorMessage"])){
+    static public function MsgErr(){
+      if(isset($_SESSION["MsgErr"])){
         $Output = "<div class=\"alert alert-danger\">" ;
-        $Output .= self::escp($_SESSION["ErrorMessage"]);
+        $Output .= self::escp($_SESSION["MsgErr"]);
         $Output .= "</div>";
-        $_SESSION["ErrorMessage"] = null;
+        $_SESSION["MsgErr"] = null;
         return $Output;
       }
     }
-    public function SuccessMessage(){
-      if(isset($_SESSION["SuccessMessage"])){
+    static public function MsgSuccess(){
+      if(isset($_SESSION["MsgSuccess"])){
         $Output = "<div class=\"alert alert-success\">" ;
-        $Output .= self::escp($_SESSION["SuccessMessage"]);
+        $Output .= self::escp($_SESSION["MsgSuccess"]);
         $Output .= "</div>";
-        $_SESSION["SuccessMessage"] = null;
+        $_SESSION["MsgSuccess"] = null;
         return $Output;
       }
     }
@@ -524,10 +497,11 @@ abstract class Config_allsites //extends Db_ allsites
 *             P A G I N A T O R
 *          Creates navigation bar
 */
-//$pgordno_from_url     // requested  p a g e
+//$pgordno_from_url     // requested  p a g e  no
 // nr.records in table
 // nr.records in table block to display
-public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 ) //paginator
+//public static function get_pgnnavXXX( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 ) 
+public static function get_pgnnav($uriq, $rtbl = 0, $mtd_to_inc_view='/i/home/', $rblk=5) 
 {
   $qs = QS;
   $total_pages = ceil($rtbl / $rblk);
@@ -552,16 +526,15 @@ public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $ur
 
 
    //     ~ 2. N A V B A R  P G N  L I N K S  ~
-   // eg  $req_uri  is /zbig/04knjige/...paginator_navbar_no_rows.php?p/15/i/home
+   // eg  $req_uri  is /zbig/04knjige/...paginator_n avbar_no_rows.php?p/15/i/home
    //     $_SERVER["PHP_SELF"] is $req_uri without ?p/15/i/home
 
   // Link to first page                               11111
-      //$n avbar = "<center><div id='pagination'>"
-      $navbar = "<div>"
+  $navbar = "<div>"
        ." <a class='button' href='{$qs}p/1$mtd_to_inc_view'>&lt;&lt;</a>";
       
   // Link to prev page                             -11111
-      $navbar .= 
+  $navbar .= 
         " <a class='button' 
              href='{$qs}p/'
         "
@@ -569,7 +542,7 @@ public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $ur
          . "'>&nbsp;&lt;&nbsp;</a>";
 
   // Link to pages between first and last page
-      for ($pg=1; $pg<=$total_pages; $pg++) {   // 11111...l a s t
+  for ($pg=1; $pg<=$total_pages; $pg++) {   // 11111...l a s t
 
         $fmt_tmp1=''; $fmt_tmp2='';
         // currpg is italic
@@ -579,31 +552,31 @@ public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $ur
           " <a class='button'
                href='{$qs}p/{$pg}{$mtd_to_inc_view}'
           " .'>';
-        $navbar .= $fmt_tmp1.str_pad((string)($pg), 3, '0', STR_PAD_LEFT).$fmt_tmp2 ;
+            $navbar .= $fmt_tmp1.str_pad((string)($pg), 3, '0', STR_PAD_LEFT).$fmt_tmp2 ;
         $navbar .=  '</a>';
-      }
+  }
 
 
   // Link to next page                          +11111
-      $navbar .= " <a class='button' href='{$qs}p/"
-         . ( ($pgordno_from_url < $total_pages) ? $pgordno_from_url+1 : $pgordno_from_url) . $mtd_to_inc_view
-         . "'>&nbsp;&gt;&nbsp;</a>";
+  $navbar .= " <a class='button' href='{$qs}p/"
+         . ( ($pgordno_from_url < $total_pages) ? $pgordno_from_url+1 : $pgordno_from_url)
+         . $mtd_to_inc_view
+     . "'>&nbsp;&gt;&nbsp;</a>";
          
   // Link to last page                        .l a s t
-$navbar .= " <a class='button' 
+  $navbar .= " <a class='button' 
                 href='{$qs}p/{$total_pages}{$mtd_to_inc_view}'>&gt;&gt;</a>"
-                ." &nbsp;&nbsp; 
-          <a class='button' 
-             title='Rows {$first_rinblock} - {$last_rinblock}'
-          " . '</a>'
-       .' Total count '.$rtbl .' (eg 25 on page)'
+         //." &nbsp;&nbsp; "
+         //. " <a class='button' 
+         //    title='Rows {$first_rinblock} - {$last_rinblock}'
+         // " . '</a>'
+       .' &nbsp;&nbsp; Total count '.$rtbl .', '.$rblk.' on page'
           //."href='{$qs}p/1/pgn/all$mtd_to_inc_view'>ALL"
           //title='No pagination (f or c t r l + F)'
           //.' Tot.pages '.$total_pages
-;
+  ;
 
-      //$navbar .= '</center></div>' ;
-      $navbar .= '</div>' ;
+  $navbar .= '</div>' ;
 
 
 
@@ -624,7 +597,7 @@ $navbar .= " <a class='button'
   public function setcsrf() {
   //Records a token to check that any SUBMITTED FORM WAS GENERATED BY THIS APPL. (not by hacker)
   //Aid CSRF protection in HTML forms
-      $this->getp('pp1')->cncts->csrftoken = mt_rand(); // not sufficient f or production systems
+      $this->pp1->cncts->csrftoken = mt_rand(); // not sufficient f or production systems
       //??? $this->i nisetses();
   }
 
@@ -699,18 +672,18 @@ $navbar .= " <a class='button'
     switch ($username) {
       case 'admin': //break;
       case 'nonadmin': //korisnik
-        $this->getp('pp1')->cncts->username = $username;
+        $this->pp1->cncts->username = $username;
         return(true);  // OK to login
         break;
       default:
-        $this->getp('pp1')->cncts->username = null;
+        $this->pp1->cncts->username = null;
         return(false); // Not OK to login
         break;
     }
   }
 
   public function has_rights() {
-    switch ($this->getp('pp1')->cncts->username) {
+    switch ($this->pp1->cncts->username) {
       case 'admin':
         return(1); //all  r i g h t s : to see extra reports, upload n ew data...
         break;

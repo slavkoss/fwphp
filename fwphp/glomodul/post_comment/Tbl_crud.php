@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace B12phpfw\dbadapter\post_comment ;
 use B12phpfw\module\blog\Home_ctr ;
 
-use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsites
@@ -32,6 +32,13 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
     return '' ;
   }
 
+  static public function get_cursor( //instead rr
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[]): object 
+  {
+    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  }
 
   static public function rr(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
@@ -126,7 +133,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
   }
 
   //  c c(UserInterface $user) {
-  static public function cc( object $pp1, array $other=[]): string //return id or 'err_c c'
+  static public function cc( object $pp1, array $other=[]): object //return id or 'err_c c'
   {
     $id= $pp1->uriq->id ;
     // 1. S U B M I T E D  F L D V A L S - P R E  I N S E R T
@@ -141,7 +148,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
       //default: break;
     }
     if ($valid === '1') {} else {
-      $_SESSION["ErrorMessage"]= $valid ;
+      $_SESSION["MsgErr"]= $valid ;
       utl::Redirect_to($pp1->read_post."id/{$id}"); //$IdFromURL
       goto fnend ; //exit(0) ;
     } 
@@ -162,15 +169,15 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
     $cursor = utldb::cc( self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__] );
 
     //var_dump($c ursor_cc_comments);
-    //if($cursor){ $_SESSION["SuccessMessage"]="Comment added Successfully";
-    //}else { $_SESSION["ErrorMessage"]="Post Comment adding went wrong (Comment NOT added). Try Again !"; }
+    //if($cursor){ $_SESSION["MsgSuccess"]="Comment added Successfully";
+    //}else { $_SESSION["MsgErr"]="Post Comment adding went wrong (Comment NOT added). Try Again !"; }
 
     //utl::Redirect_to($pp1->read_post."id/{$id}");
 
 
 
 
-    return('1');
+    return((object)['1']);
     fnend:
   }
 
@@ -207,10 +214,10 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
       $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds );
 
       if ($cursor) {
-        if ($stat == 'ON') {$_SESSION["SuccessMessage"]="Comment $id approved ! " ;
-        } else {$_SESSION["SuccessMessage"]="Comment $id DisApproved ! " ;}
+        if ($stat == 'ON') {$_SESSION["MsgSuccess"]="Comment $id approved ! " ;
+        } else {$_SESSION["MsgSuccess"]="Comment $id DisApproved ! " ;}
       }
-      else { $_SESSION["ErrorMessage"]="Update Comment $id Went Wrong (Comment approve failed). Try Again !"; }
+      else { $_SESSION["MsgErr"]="Update Comment $id Went Wrong (Comment approve failed). Try Again !"; }
 
                       /*  ?><SCRIPT LANGUAGE="JavaScript">
                          alert( "<?php echo __METHOD__ .', line '. __LINE__ .' SAYS: '

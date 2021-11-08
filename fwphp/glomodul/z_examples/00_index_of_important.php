@@ -12,8 +12,8 @@
 <html lang="hr-HR">
 <head><title>EXAMPLES</title>
   <meta charset="utf-8">
-  <link rel="shortcut icon" href="/zinc/img/favicon.ico">
-  <link type="text/css" rel="stylesheet" media="all" href="/zinc/themes/mini3.css" />
+  <link rel="shortcut icon" href="/vendor/b12phpfw/img/favicon.ico">
+  <link type="text/css" rel="stylesheet" media="all" href="/vendor/b12phpfw/themes/mini3.css" />
   <style>
   </style><!--script src="utl_inc.js"></script-->
 </head>
@@ -27,7 +27,7 @@
   <!-- E N D  11111 div class="logo"  width="211" height="47"  -->
 
   <div class="content">
-    <!--img src="/zinc/img/header.jpg" width="100%"-->
+    <!--img src="/vendor/b12phpfw/img/header.jpg" width="100%"-->
 
 
 

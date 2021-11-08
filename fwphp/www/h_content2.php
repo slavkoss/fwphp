@@ -4,7 +4,7 @@ $tmp     = $img_url . 'ic_done_white_32dp.png' ;
 $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
 ?>
   <!-- C O N T E N T 2  CREATE HEAD -->
-  <section id="create-head-section" class="bg-primary">
+  <section id="create-head-section" class="bg-primary bg-gradient text-dark bg-opacity-25">
     <div class="container">
       <div class="row">
         <div class="col text-center">
@@ -19,7 +19,7 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
   </section>
 
   <!-- CREATE SECTION -->
-  <section id="create-section" class="py-5">
+  <section id="create-section" class="bg-secondary bg-opacity-10 py-5">
     <div class="container">
       <div class="row">
         <div class="col-md-6">

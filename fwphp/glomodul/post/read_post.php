@@ -1,9 +1,10 @@
 <?php
 // J:\awww\www\fwphp\glomodul\post\read_post.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+// http://dev1:8083/fwphp/glomodul/post/read_post.php
+namespace b12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 
-use B12phpfw\core\zinc\Config_allsites as utl ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 
@@ -16,7 +17,159 @@ if(isset($_POST["Submit"])){
 
 
 
-//        2. G U I  to get user action
+
+?>
+
+
+<!--         2. G U I  to get user action -->
+
+<!-- Page content CENTER-->
+<div class="container mt-5">
+<div class="row">
+<div class="col-lg-8">
+            <!-- Post content-->
+  <article>
+                <!-- Post header-->
+    <header class="mb-4">
+
+    <!-- Main Area Start  -  P A G E  T I T L E -->
+    <!--div class="col-sm-8"-->
+
+      <?php // $pgordno_ from_url $category_ from_url  $search_ from_submit
+        $t1 = 'Blog' ;
+        if ($category_from_url)  { $t1 .= ' category "'.$category_from_url .'"' ; }
+        if ($search_from_submit) { $t1 .= ' found "'. $search_from_submit .'"' ; }
+        if ($pgordno_from_url)   { $t1 .= ' page '. $pgordno_from_url ; }
+        
+        if ($t1 == 'Blog') { $t1 .= ' - all articles' ; }
+
+        //if ($category_from_url) { echo ' - all ' . $category_from_url . ' articles' ;
+        //} else {echo ' - all articles';} 
+
+       echo utl::MsgErr();
+       echo utl::MsgSuccess(); ?>
+
+
+      <!-- 1. p a g e  t i t l e -->
+
+
+      <h1 class="lead"><b><?=$t1?></b> Responsive CMS Blog (PHP 7 or 8, PDO, Bootstrap 5, jQuery only for Bootstrap, no AJAX, MySQL or Oracle or...)</h1>
+
+      <?php
+      echo $pgn_links['navbar'];
+
+      $ordno = 0 ;
+      // isset($rx->id)   Tbl_crud_post::...
+      /*while ( $rx = utldb::rrnext( $cursor_posts
+         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
+      { */
+        ++$ordno ;
+                  if ('') //if ($autoload_arr['dbg']) 
+                  { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                    echo '<pre>' ; 
+                      echo '$rx='; print_r($rx) ;
+                    //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
+                    echo '</pre>'; }
+        ?>
+
+
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">
+            Posted on January 1, 2021 by Start Bootstrap
+        </div>
+        <!-- Post categories-->
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+    </header>
+
+
+                <!-- Preview image figure-->
+                <figure class="mb-4"><img class="img-fluid rounded" 
+                        src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+                </figure>
+                <!-- Post content-->
+                <section class="mb-5">
+                    <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind... </p>
+                    <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
+                    <p class="fs-5 mb-4">For me, ...</p>
+                    <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. ... were twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. Something bad happened there as well.</p>
+                </section>
+
+
+       <?php
+      //} endwhile;
+      echo $pgn_links['navbar'] ;
+      ?>
+
+  </article>
+      <br><br>
+
+
+
+            <!-- Comments section-->
+            <section class="mb-5">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <!-- Comment form-->
+                        <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                        <!-- Comment with nested comments-->
+                        <div class="d-flex mb-4">
+                            <!-- Parent comment-->
+                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                            <div class="ms-3">
+                                <div class="fw-bold">Commenter Name</div>
+                                If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                <!-- Child comment 1-->
+                                <div class="d-flex mt-4">
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+                                        And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                    </div>
+                                </div>
+                                <!-- Child comment 2-->
+                                <div class="d-flex mt-4">
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+                                        When you put money directly to a problem, it makes a good headline.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single comment-->
+                        <div class="d-flex">
+                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                            <div class="ms-3">
+                                <div class="fw-bold">Commenter Name</div>
+                                When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+       
+
+      <?php echo '<small class="text-muted">'. __FILE__ .'</small>' ; ?>
+      <br><br>
+</div> <!-- end class="col-lg-8" -->
+
+        <!-- SIDE WIDGETS  div class="col-lg-4" -->
+        <!--   Categories widget-->
+        <!--   Other side widget... -->
+        <!--   Search widget-->
+        <?php include("home_side_area.php"); ?>
+        <!-- end div class="col-lg-4" -->
+
+</div> <!-- end class="row" -->
+</div> <!-- end class="container mt-5" -->
+
+
+
+
 /**
 *  <!-- *****************************************************
 * P o s t Part Start (DETAIL OF U S E R  AND  P O S T T Y P E) 
@@ -26,6 +179,9 @@ if(isset($_POST["Submit"])){
  //require_once($pp1->shares_path.'hdr.php');
 // require_once("navbar.php");
 ?>
+
+<?php
+/* ?>
 <!-- HEADER -->
 <div class="container">
   <div class="row mt-4">
@@ -34,15 +190,15 @@ if(isset($_POST["Submit"])){
       <!--h1>Responsive CMS Blog</h1>
       <h1 class="lead">...</h1-->
       <?php
-       echo $this->ErrorMessage();
-       echo $this->SuccessMessage();
+       echo utl::MsgErr();
+       echo utl::MsgSuccess();
        ?>
       <?php
       // SQL query when Searh button is active
       if(isset($_POST["SearchButton"]))
       {
         $Search = $_POST["Search"];
-        $cursor_posts = Tbl_crud_post::rr($sellst='*', $qrywhere="
+        $cursor_posts = Tbl_crud_post::get_cursor($sellst='*', $qrywhere="
               title LIKE :search1
               OR category LIKE :search2
               OR datetime LIKE :search3
@@ -62,11 +218,11 @@ if(isset($_POST["Submit"])){
       // default SQL query
       else{
         if (!isset($IdFromURL)) {
-          $_SESSION["ErrorMessage"]="Bad Request !";
+          $_SESSION["MsgErr"]="Bad Request !";
           utl::Redirect_to($pp1->filter_page."1/i/home/");
         }
 
-        $cursor_posts = Tbl_crud_post::rr($sellst='*', $qrywhere= "id=:IdFromURL"
+        $cursor_posts = Tbl_crud_post::get_cursor($sellst='*', $qrywhere= "id=:IdFromURL"
           , $binds=[
              ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
             ]
@@ -107,7 +263,7 @@ if(isset($_POST["Submit"])){
 
 
 
-          <div class="card-body">
+         <div class="card-body">
             <p><?php echo 
                str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
                   nl2br(self::escp($rx->img_desc))
@@ -182,7 +338,7 @@ if(isset($_POST["Submit"])){
       <br><br>
     <?php
         $qrywhere = "post_id=:IdFromURL" ;
-        $cursor_comments = Tbl_crud_post_comment::rr($sellst='*' // or "SELECT ...
+        $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' // or "SELECT ...
           , $qrywhere="post_id=:IdFromURL ORDER BY datetime desc"
           , $binds=[
              ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
@@ -242,15 +398,17 @@ if(isset($_POST["Submit"])){
             </div>
           </div>
         </form>
-      </div>
+      </div> <!-- end div of form Comment -->
         <!-- Comment Part End -->
-    </div>
+    </div> <!-- end div class="col-sm-8" -->
     <!-- Main Area End-->
 
      <?php require_once("home_side_area.php"); ?>
 
-  </div>
+  </div> <!-- end div class="row mt-4" -->
 
-</div>
+</div> <!-- end div class="container" -->
 
+<?php
+*/ ?>
 <!-- HEADER END -->

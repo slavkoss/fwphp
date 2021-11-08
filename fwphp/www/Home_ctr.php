@@ -1,7 +1,7 @@
 <?php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\site_home\www ;
-use B12phpfw\core\zinc\Config_allsites ;
+use B12phpfw\core\b12phpfw\Config_allsites ;
 //use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 
 
@@ -63,7 +63,7 @@ class Home_ctr extends Config_allsites
 
     //$lang = $pp1->lang ;
     //If (!isset($_GET['lang']) {$_GET['lang'] = $lang ; }
-    //if(!isset($_SESSION['lang'])) { include_ once 'zinc/lang/lang/'. $lang .'.php' ;} 
+    //if(!isset($_SESSION['lang'])) { include_ once 'b12phpfw/lang/lang/'. $lang .'.php' ;} 
 
                 if ('') { /* self::jsmsg( [ //basename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '

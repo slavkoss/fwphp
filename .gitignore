@@ -1,6 +1,5 @@
 /.git/
 composer.lock
-/zinc/img/img_big/
-/vendor/RespectValidation/
 /fwphp/glomodul/mkd/01/090_private/
-/fwphp/glomodul/z_examples/bootstrap5/
+/vendor/RespectValidation/
+/fwphp/z_not_ongithub/

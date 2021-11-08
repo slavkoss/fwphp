@@ -1,4 +1,4 @@
-2020-07-30: Started!
-2020-07-30: Logger has a single instance.
-2020-07-30: Config singleton also works fine.
-2020-07-30: Finished!
+2021-11-07: Started!
+2021-11-07: Logger has a single instance.
+2021-11-07: Config singleton also works fine.
+2021-11-07: Finished!

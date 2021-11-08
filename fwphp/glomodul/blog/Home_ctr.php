@@ -8,17 +8,19 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 // *************** FUNCTION 1. N A M E S P A C E S  ***************
 namespace B12phpfw\module\blog ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;;
-//use B12phpfw\core\zinc\Db_allsites as utldb ;
-//use B12phpfw\core\zinc\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;;
+//use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
+//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud   as Tbl_crud_post_comment ;
 
+use B12phpfw\module\blog\Home as Home_view;
+use B12phpfw\module\blog\Dashboard as Dashboard_view;
 //use PDO;
 
-//extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_allsites" but :
+//extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_ allsites" but :
 //"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites (is not for sake of code reusability and clear code)
 // May be named App, Router_dispatcher... :
 class Home_ctr extends utl //implements Interf_Tbl_crud
@@ -212,21 +214,21 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   // *************** FUNCTION COMPAUND MODULE BLOG ***************
   private function home(object $pp1) //DI page prop.palette   
   {
-    //As of PHP5, object variable doesn't contain object itself as value. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a copy of the identifier, which points to same object.
+    //As of PHP5, object variable doesn't contain object itself as value. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a COPY OF THE IDENTIFIER, which points to same object.
+
+    $pp1->rblk = 25;
+    //$ c ss1 = $shares_url .'themes/bootstrap/styles_blog.css'
+    //$css2 = $pp1->shares_url . 'exp_collapse.css';
 
     $title = 'MSG HOME';
-    $rblk = 25;
-    //$ c ss1 = $shares_url .'themes/bootstrap/styles_blog.css'
-    $css2 = $pp1->shares_url . 'exp_collapse.css';
-
-    $uriq = $pp1->uriq ;
-
-      require $pp1->shares_path . 'hdr.php';
+    require $pp1->shares_path . 'hdr.php';
 
       require("navbar.php");
-      require $pp1->module_path . 'home.php';
+      Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+      //require $pp1->module_path . 'home.php';
+      //utl::Redirect_to($pp1->comments);
 
-      require $pp1->shares_path . 'ftr.php';
+    require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -236,8 +238,9 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     $title = 'MSG Dashboard';
     require $pp1->shares_path . 'hdr.php';
-    require_once("navbar_admin.php");
-    require $pp1->module_path . 'dashboard.php';  
+      require_once("navbar_admin.php");
+      Dashboard_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+      //require $pp1->module_path . 'dashboard.php';  
     require $pp1->shares_path . 'ftr.php';
   }
 
@@ -347,10 +350,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
       //in view script $AdminId = $_SESSION["userid"];
 
       $title = 'MSG u s r u p d ';
-             // Why i n c  h d r  and  f t r  must be in  v i e w  script :
-             //Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\navbar_admin.php:26) in J:\awww\www\zinc\Config_allsites.php on line 306
-      //require $pp1->shares_path . 'hdr.php';
-      //require_once("navbar_admin.php");
+
       require $pp1->module_path . '../user/upd_user_loggedin_frm.php';  
       //require $pp1->shares_path . 'ftr.php';
   }

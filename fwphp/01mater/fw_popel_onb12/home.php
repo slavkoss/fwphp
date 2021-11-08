@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace B12phpfw\module\fw_popel_onb12 ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ; // init, setings, utilities
-use B12phpfw\core\zinc\Db_allsites as utldb ;   // model (fns) for PDO CRUD all t b ls
+use B12phpfw\core\b12phpfw\Config_allsites as utl ; // init, setings, utilities
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;   // model (fns) for PDO CRUD all t b ls
 // model (CRUDfns) for waybill compound module (more tbls) :
 use B12phpfw\dbadapter\fw_popel_onb12\Tbl_crud  as utl_waybill ; 
 
@@ -49,7 +49,7 @@ $rcount = utl_waybill::rrcnt($tbl) ; //Waybill items    $pp1->module_url.QS.'i/c
     <?php
     // SQL JOIN IS NOT RECOMMENDED :
     // cursor products :
-    $c_products = utl_waybill::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
+    $c_products = utl_waybill::rr($sellst='*' //, $qrywhere= "'1'='1'" // ORDER BY aname
       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     //foreach ($songs as $song) 
     while ( $r = utldb::rrnext($c_products) and isset($r->id) ): 

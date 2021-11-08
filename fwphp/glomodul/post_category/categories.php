@@ -6,8 +6,8 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_category ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
@@ -64,8 +64,8 @@ $cursor_category = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", 
 
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
-       echo utl::ErrorMessage();
-       echo utl::SuccessMessage();
+       echo utl::MsgErr();
+       echo utl::MsgSuccess();
        ?>
 
       <form class="" action="<?=$pp1->categories?>" method="post">

@@ -32,7 +32,7 @@ abstract class Dbconn_allsites
     {
       //get    = returns created dbobj (db instance, mem.adress of cls vars & fns) 
       //or_new = creates and returns dbobj
-      //dball  = here (Dbconn_allsites) and Db_allsites is abstract code for any db, any tbl
+      //dball  = here (Dbconn_allsites) and Db_ allsites is abstract code for any db, any tbl
       if(is_null(self::$instance)) {
         $dsn = 'mysql:host='. self::$hostpc .';dbname='. self::$dbname .';' ;
         $options = [

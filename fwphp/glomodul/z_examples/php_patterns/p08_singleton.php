@@ -306,4 +306,5 @@ Establishing a connection with a database is time consuming and slows down our a
 
 <br /><br />
 <?php
-include(dirname(dirname(dirname(dirname(__DIR__)))) .'/zinc/showsource.php');
+include(dirname(dirname(dirname(dirname(__DIR__)))) .'/vendor/b12phpfw/showsource.php');
+//include($pp1->shares_path .'showsource.php');

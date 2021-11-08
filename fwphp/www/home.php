@@ -1,13 +1,12 @@
 <?php
-//J:\awww\www\zinc\ver5\tplt_layout.php
-// P A G E S  (BOOTSTRAP 4 TEMPLATES)  C O N T R O L L E R  S C R I P T
+// J:\awww\www\fwphp\www\home.php
 //    h_... means part of  h o m e  p a g e :
 
 use B12phpfw\Messages as Messages ;
 
     $lang = $pp1->lang ;
     If (!isset($_GET['lang'])) { $_GET['lang'] = $lang ; }
-    if(!isset($_SESSION['lang'])) { include_once $pp1->wsroot_path .'zinc/lang/lang/'. $lang .'.php' ;} 
+    if(!isset($_SESSION['lang'])) { include_once $pp1->shares_path .'lang/lang/'. $lang .'.php' ;} 
 
 $title = 'SITEHOME';
 
@@ -15,16 +14,16 @@ $title = 'SITEHOME';
 $wsroot_path = $pp1->wsroot_path ;
 $wsroot_url  = $pp1->wsroot_url ;
 $img_url     = $pp1->img_url ;
+//see Home_ctr :  lang  eg hr.php en.php
+$glomodul_path = $pp1->glomodul_path ;
+$glomodul_path_rel = str_replace($wsroot_path,'',$pp1->glomodul_path) ;
+$examples_path = $pp1->examples_path ; //$glomodul_path .'/z_examples/' ;
+$examples_path_rel = str_replace($wsroot_path,'',$pp1->examples_path) ;
 
-//see Home_ctr :  lang  J:\awww\www\zinc\l ang\l ang\l ang.php includes eg e n.php
-
-//str_replace('\\','/', dirname(__DIR__) ) .'/glomodul';
-$app_glomodul_dir_path = $pp1->app_glomodul_dir_path ;
-
-$path_rel_examples = $app_glomodul_dir_path .'/z_examples/' ;
-
-$url_examples = $wsroot_url .'fwphp/glomodul/z_examples/' ;
-$url_glomodul = $wsroot_url .'fwphp/glomodul/' ;
+$examples_url = $wsroot_url . $examples_path_rel ;
+                    //$examples_url = $wsroot_url .'fwphp/glomodul/z_examples/' ;
+$glomodul_url = $wsroot_url . $glomodul_path_rel ;
+                    //$glomodul_url = $wsroot_url .'fwphp/glomodul/' ;
 
 
 

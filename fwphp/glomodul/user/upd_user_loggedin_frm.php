@@ -1,14 +1,12 @@
 <?php
 // J:\awww\www\fwphp\glomodul\user\upd_ user_loggedin_frm.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
+namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 
-use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
-// Why i n c  h d r  and  f t r  must be here - in  v i e w  script :
-//Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\navbar_admin.php:26) in J:\awww\www\zinc\Config_allsites.php on line 306
                          //var_dump($_SESSION);
 //$AdminId = (int)$pp1->uriq->id ;
 $AdminId = (int)$_SESSION["userid"];
@@ -78,8 +76,8 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
     <!-- Right Area -->
     <div class="col-md-9" style="min-height:400px;">
       <?php
-       echo $this->ErrorMessage();
-       echo $this->SuccessMessage();
+       echo utl::MsgErr();
+       echo utl::MsgSuccess();
        ?>
 
       <form class="" action="<?=$pp1->upd_user_loggedin . $AdminId?>" 

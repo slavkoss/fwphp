@@ -91,7 +91,8 @@ $frmaction_url_showhtml  = '?i/showhtml/path/'. $fle_to_edit_path ;
           parent::getconf('URLALLSITES_VENDOR')
           -->
           <script src="/vendor/simplemde/simplemde.min.js"></script>
-          <!--script type="text/javascript" src="/zinc/themes/bootstrap/js/jquery.min.js"></script-->
+          <!--script type="text/javascript" 
+                     src="/z inc/themes/bootstrap/js/jquery.min.js"></script-->
           <!-- 269 kB js v1.11.2, 2016 year -->
           <!--script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script-->
           <script>

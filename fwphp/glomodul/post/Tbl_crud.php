@@ -13,11 +13,11 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\module\blog\Home_ctr ;
 
-use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was Home
@@ -35,13 +35,22 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
   // *******************************************
   //                     R E A D
   // *******************************************
-  static public function rr(
-    string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[] ): object
-  { //object $dm
-    $cursor =  utldb::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+
+  static public function get_cursor( //instead rr
+    string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[]): object
+  {
+    $cursor =  utldb::rr("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
+
+  /* static public function rr(
+    string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[] ): object
+  { //object $dm
+    $cursor =  utldb::rr("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  } */
 
   static public function rrcnt( string $tbl, array $other=[] ): int { 
     $rcnt = utldb::rrcount($tbl) ;
@@ -126,7 +135,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     return $submitted ;
   }
   //  c c(UserInterface $user) {
-  static public function cc( object $pp1, array $other=[]): string //return id or 'err_c c'
+  static public function cc( object $pp1, array $other=[]): object  //was string
   {
     // 1. S U B M I T E D  F L D V A L S - P R E / O N  I N S E R T
       $submitted_cc = self::get_submitted_cc() ;
@@ -148,7 +157,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     }
 
     if ($valid === '1') {} else {
-      $_SESSION["ErrorMessage"]= $valid ;
+      $_SESSION["MsgErr"]= $valid ;
       utl::Redirect_to($pp1->addnewpost);
       goto fnend ; //exit(0) ;
     }
@@ -171,12 +180,12 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
 
     move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
 
-    //if($cursor){ $_SESSION["SuccessMessage"]="Post added Successfully";
-    //}else { $_SESSION["ErrorMessage"]= "Post adding went wrong. Try Again !"; }
+    //if($cursor){ $_SESSION["MsgSuccess"]="Post added Successfully";
+    //}else { $_SESSION["MsgErr"]= "Post adding went wrong. Try Again !"; }
 
     utl::Redirect_to($pp1->addnewpost);
 
-    return('1');
+    return((object)['1']);
     fnend:
   }
 
@@ -210,7 +219,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
       //default: break;
     }
     if ($valid === '1') {} else {
-      $_SESSION["ErrorMessage"]= $valid ;
+      $_SESSION["MsgErr"]= $valid ;
       utl::Redirect_to($pp1->posts);
       goto fnend ; //exit(0) ;
     }
@@ -241,8 +250,8 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
 
 
       //var_dump($cursor);
-      if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";
-      }else { $_SESSION["ErrorMessage"]= "Post Update went wrong. Try Again !"; }
+      if($cursor){ $_SESSION["MsgSuccess"]="Post Updated Successfully";
+      }else { $_SESSION["MsgErr"]= "Post Update went wrong. Try Again !"; }
 
       return('1');
 
