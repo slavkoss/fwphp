@@ -9,8 +9,11 @@ namespace B12phpfw\module\blog ;
 
 use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
 use B12phpfw\core\b12phpfw\Db_allsites        as utldb ;
+
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
+use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_post_category ;
+use B12phpfw\dbadapter\user\Tbl_crud          as Tbl_crud_user ;
 //use PDO;
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
@@ -52,7 +55,11 @@ class Dashboard extends utl
             <h1 class="lead">Posts</h1>
             <h4 class="display-5"><i class="fab fa-readme"></i>
               <?php 
-                echo utldb::rrcount('posts') ; 
+                echo Tbl_crud_post::rrcount(
+                  $qrywhere="'1'='1'"
+                , $binds=[]
+                , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )
+                      //'posts') ; 
               ?>
             </h4>
           </div>
@@ -62,7 +69,12 @@ class Dashboard extends utl
           <div class="card-body">
             <h1 class="lead">Comments</h1>
             <h4 class="display-5"><i class="fas fa-comments"></i>
-            <?=utldb::rrcount('comments')?></h4>
+            <?=Tbl_crud_post_comment::rrcount(
+                  $qrywhere="'1'='1'"
+                , $binds=[]
+                , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) 
+                 //'comments')
+            ?></h4>
           </div>
         </div>
 
@@ -70,7 +82,12 @@ class Dashboard extends utl
           <div class="card-body">
             <h1 class="lead">Categories</h1>
             <h4 class="display-5"><i class="fas fa-folder"></i>
-                <?=utldb::rrcount('category')?>
+                <?=Tbl_crud_post_category::rrcount(
+                  $qrywhere="'1'='1'"
+                , $binds=[]
+                , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) 
+                   //'category')
+                ?>
             </h4>
           </div>
         </div>
@@ -80,7 +97,12 @@ class Dashboard extends utl
             <h1 class="lead">Admins</h1>
             <!--  -->
             <h4 class="display-5"><i class="fas fa-users"></i>
-                 <?=utldb::rrcount('admins')?></h4>
+                 <?=Tbl_crud_user::rrcount(
+                  $qrywhere="'1'='1'"
+                , $binds=[]
+                , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) 
+                 //'admins'
+                 ?></h4>
           </div>
         </div>
 
@@ -115,7 +137,7 @@ class Dashboard extends utl
             $binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
             utldb::setdo_pgntion('1') ;
 
-            $cursor = utldb::rr("SELECT * FROM posts ORDER BY datetime desc"
+            $cursor = Tbl_crud_post::get_cursor("SELECT * FROM posts ORDER BY datetime desc"
               , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
           break;
 
@@ -131,7 +153,7 @@ class Dashboard extends utl
         }
 
         // isset($rx->id)   Tbl_crud_post::...
-        while ( $rx = utldb::rrnext( $cursor_posts
+        while ( $rx = Tbl_crud_post::rrnext( $cursor_posts
            , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
         { //all row fld names lowercase
             $SrNo++;
@@ -181,11 +203,7 @@ class Dashboard extends utl
 
     </div>
   </section>
-  <!-- Main Area End
-                          //$sql = "S ELECT * FROM posts ORDER BY datetime desc LIMIT 0,6";
-                          //utldb::p repareSQL($sql); utldb::e xecute();;
-                          //while ($rx = utldb::f etchNext()) 
-   -->
+  <!-- Main Area End -->
 
 
   <?php //require_once($this->p p1->shares_path.'ftr.php'); ?>

@@ -5,7 +5,6 @@
 
 //string before blog, b12phpfw... is not required. See below **HELPNS
 namespace B12phpfw\module\blog ;
-
 use B12phpfw\core\b12phpfw\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part

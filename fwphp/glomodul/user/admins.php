@@ -4,12 +4,12 @@ declare(strict_types=1);
 //namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
+
+use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
+
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\dbadapter\user\Tbl_crud   as Tbl_crud_admin ;
 use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
-//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-//namespace B12phpfw\dbadapter\user ;
-//use B12phpfw\dbadapter\user\Tbl_crud ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 

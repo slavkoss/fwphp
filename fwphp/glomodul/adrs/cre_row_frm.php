@@ -1,12 +1,11 @@
 <?php
 // J:\awww\www\fwphp\glomodul\adrs\cre_row_frm.php
 declare(strict_types=1);
-//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\adrs ;
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir 
-use B12phpfw\core\zinc\Db_allsites   as utldb ;
+use B12phpfw\core\b12phpfw\Db_allsites   as utldb ;
 use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ;
 
 if (isset ($_SESSION["submitted_cc"])) {

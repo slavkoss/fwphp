@@ -186,8 +186,9 @@ class Home_ctr extends Config_allsites
 
   public function b_tmplts(object $pp1)
   {
+    // http://dev1:8083/fwphp/glomodul/z_examples/bootstrap5/
     $this->Redirect_to(
-       dirname($pp1->module_url) .'/glomodul/z_examples/01_php_bootstrap/bootstrap/' ) ;
+       dirname($pp1->module_url) .'/glomodul/z_examples/bootstrap5/' ) ;
   }
 
 

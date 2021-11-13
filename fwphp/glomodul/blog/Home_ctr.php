@@ -398,8 +398,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     if ( isset($pp1->uriq) ) { $uriq = $pp1->uriq ; } else {$uriq = (object)[] ;}
 
-    $category_from_url = 
-       ( isset($uriq->c) and null !== $pp1->uriq->c ) ? $pp1->uriq->c : '' ;
+    $category_from_url = (isset($uriq->c) and null !== $pp1->uriq->c) ? $pp1->uriq->c : '' ;
 
     $this->Login_Confirm_SesUsrId();
 
@@ -429,8 +428,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     //p=posts or home
 
     //      CATEG. NAME is in view h ome.php after c/ :
-    $category_from_url = 
-      ( isset($uriq->c) and null !== $pp1->uriq->c ) ? $pp1->uriq->c : '' ;
+    $category_from_url = (isset($uriq->c) and null !== $pp1->uriq->c) ? $pp1->uriq->c : '' ;
 
     if ( (isset($pp1->uriq->p)) and $pp1->uriq->p == 'posts' ) 
     {
@@ -473,6 +471,15 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     $title = 'Full Post Page' ;
     //$css1  = 'styles.css' ;
+
+    $category_from_url = (isset($uriq->c) and null !== $pp1->uriq->c) ? $pp1->uriq->c : '' ;
+    if (isset( $_SESSION['filter_posts']['search_from_submit']))
+       $search_from_submit = $_SESSION['filter_posts']['search_from_submit'] ; 
+    else $search_from_submit = '' ; 
+    if (isset( $_SESSION['filter_posts']['pgordno_from_url']))
+       $pgordno_from_url = $_SESSION['filter_posts']['pgordno_from_url'] ; 
+    else $pgordno_from_url = '' ; 
+
 
     require_once $pp1->shares_path . 'hdr.php';
 

@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- < 2 kB -->
-    <link href="/zinc/themes/mini3.css" rel="stylesheet">
+    <link href="/vendor/b12phpfw/themes/mini3.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 </head>
 <body>
     <!-- logo, check the CSS file for more info how the logo "image" is shown 

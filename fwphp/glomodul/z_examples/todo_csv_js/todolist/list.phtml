@@ -1,0 +1,53 @@
+<?php
+/*
+ * 
+ */
+
+namespace TodoList;
+
+use \DateTime;
+use \TodoList\Model\Todo;
+use \TodoList\Util\Utils;
+
+//~ Template for list.php
+// variables:
+//  $title - page title
+//  $status - status of TODOs to be displayed
+//  $todos - TODOs to be displayed
+
+?>
+
+<h1>
+    <?php echo Utils::iconStatus($status); ?>
+    <?php echo $title; ?>
+</h1>
+
+<?php if (empty($todos)): ?>
+    <p>No TODO items found.</p>
+<?php else: ?>
+    <ul class="list">
+        <?php foreach ($todos as $todo): ?>
+            <?php /* @var $todo Todo */ ?>
+            <?php $tooLate = $status == Todo::STATUS_PENDING
+                    && $todo->getDueOn() < new DateTime(); ?>
+            <li>
+                <h4>
+                    <a href="<?php echo Utils::createLink('detail', ['id' => $todo->getId()]) ?>"><?php echo Utils::escape($todo->getTitle()); ?></a>
+                    <?php echo Utils::iconPriority($todo->getPriority()); ?>
+                    <?php if ($tooLate): ?>
+                        <i class="material-icons error" title="Should be already done!">error</i>
+                    <?php endif; ?>
+                <span class="label">Created On:</span> <?php echo Utils::escape(Utils::formatDateTime($todo->getCreatedOn())); ?>
+                </h4>
+                <p><span class="label">Due On:</span>
+                    <?php if ($tooLate): ?><span class="too-late"><?php endif; ?>
+                    <?php echo Utils::escape(Utils::formatDateTime($todo->getDueOn())); ?>
+                    <?php if ($tooLate): ?></span><?php endif; ?>
+                <?php if ($todo->getDescription()): ?>
+                    <span class="description"><?php echo Utils::escape($todo->getDescription()); ?></span>
+                <?php endif; ?>
+                </p>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

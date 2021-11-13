@@ -13,11 +13,12 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
 
-use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\module\blog\Home_ctr ;
 
 use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was Home
@@ -39,7 +40,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
   static public function get_cursor( //instead rr
     string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[]): object
   {
-    $cursor =  utldb::rr("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::get_cursor("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
@@ -57,9 +58,10 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
     return (int)utl::escp($rcnt) ;
   } 
   static public function rrcount( //string $sellst,
-    string $qrywhere='', array $binds=[], array $other=[] ): int
+    string $qrywhere='"1"="1"', array $binds=[], array $other=[] ): int
   {
-    $cursor_rowcnt_filtered_posts =  utldb::rr(
+                    //echo '<pre>'.__METHOD__.'SAYS: $other='; print_r($other); echo '</pre>';
+    $cursor_rowcnt_filtered_posts =  utldb::get_cursor(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     $rcnt = self::rrnext( $cursor_rowcnt_filtered_posts

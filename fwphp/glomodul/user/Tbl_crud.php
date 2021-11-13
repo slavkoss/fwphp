@@ -19,11 +19,10 @@ namespace B12phpfw\dbadapter\user ;
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\module\blog\Home_ctr ;
-use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin ;
 
 use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
-use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
-//use Model\UserInterface, //    Model\User ; //entity
+use B12phpfw\core\b12phpfw\Db_allsites    as utldb ;
+use B12phpfw\dbadapter\user\Tbl_crud       as Tbl_crud_admin ;
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implements User_db_intf
@@ -45,19 +44,28 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   // *******************************************
   // pre-query
   static public function get_cursor( //instead rr
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[]): object {}
-
-    //string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
-  static public function rr( // *************** r r (
-    string $sellst, array $binds=[], array $other=[] ): object
+    string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[]): object
   {
-    // open cursor (execute-query loop is in view script)
-    $cursor = utldb::rr("SELECT $sellst FROM ".self::$tbl  //." WHERE $qrywhere"
+    $cursor =  utldb::get_cursor("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
-  static public function rrnext(object $cursor ): object {}
+            //string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+            /*static public function rr( // *************** r r (
+              string $sellst, array $binds=[], array $other=[] ): object
+            {
+              // open cursor (execute-query loop is in view script)
+              $cursor = utldb::rr("SELECT $sellst FROM ".self::$tbl  //." WHERE $qrywhere"
+                 , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+              return $cursor ;
+            } */
+
+  static public function rrnext(object $cursor ): object
+  {
+    $rx = utldb::rrnext($cursor) ;
+    if (is_object($rx)) return $rx ; else return ((object)$rx);
+  }
 
   static public function rrcnt( string $tbl, array $other=[] ): int { 
     $rcnt = utldb::rrcount($tbl) ;
@@ -66,7 +74,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    $cursor_rowcnt_admins =  utldb::rr(
+    $cursor_rowcnt_admins =  utldb::get_cursor(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds
        , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
@@ -217,7 +225,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
                       echo '</pre>'; }
       }
 
-      $cursor_usr = utldb::rr(
+      $cursor_usr = utldb::get_cursor(
           "SELECT * FROM admins WHERE username=:username AND password=:password"
         , $binds=[
             ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']

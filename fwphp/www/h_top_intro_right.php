@@ -114,13 +114,15 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
                        class="btn btn-outline-secondary" target="_blank">
                       ACXE (Ora.DB)
                     </a>
-                  </span><!--data-toggle="modal" data-target="#addUserModal"-->
+                  </span>
+                  <!--data-toggle="modal" data-target="#addUserModal"-->
+                  <!-- 01_PHP_bootstrap/wishPDO/ -> ora11g/wishlist-->
 
                     <a class="btn btn-outline-secondary" target="_blank" 
-                       href="<?=$examples_url?>01_PHP_bootstrap/wishPDO/">Wish Ora</a>
+                       href="<?=$examples_url?>ora11g/wishlist/public/">Wish Ora</a>
 
                     <a class="btn btn-outline-secondary" target="_blank" 
-                       href="<?=$examples_url?>todolist/web/">Todolist SQLite</a>
+                       href="<?=$examples_url?>todo_csv_js/todolist/web/">Todolist SQLite</a>
 
                   </p>
 

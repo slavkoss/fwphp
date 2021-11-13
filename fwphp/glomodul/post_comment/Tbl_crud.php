@@ -16,6 +16,7 @@ namespace B12phpfw\dbadapter\post_comment ;
 use B12phpfw\module\blog\Home_ctr ;
 
 use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 
 // Gateway class - separate DBI layers
@@ -55,7 +56,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    $cursor_rowcnt_post_comments =  utldb::rr(
+    $cursor_rowcnt_post_comments =  utldb::get_cursor(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     $rcnt = self::rrnext( $cursor_rowcnt_post_comments
@@ -63,6 +64,8 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
     return (int)$rcnt ;
   } 
 
+
+  //in shared cls because is not module dependant :
   static public function rrnext(object $cursor): object
   { 
     $rx = utldb::rrnext($cursor) ;

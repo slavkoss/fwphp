@@ -42,12 +42,50 @@ if(isset($_POST["Submit"])){
         if ($pgordno_from_url)   { $t1 .= ' page '. $pgordno_from_url ; }
         
         if ($t1 == 'Blog') { $t1 .= ' - all articles' ; }
-
         //if ($category_from_url) { echo ' - all ' . $category_from_url . ' articles' ;
         //} else {echo ' - all articles';} 
 
        echo utl::MsgErr();
-       echo utl::MsgSuccess(); ?>
+       echo utl::MsgSuccess();
+
+
+      // SQL query when Searh button is active
+      if(isset($_POST["SearchButton"]))
+      {
+        $Search = $_POST["Search"];
+        $cursor_posts = Tbl_crud_post::get_cursor($sellst='*', $qrywhere="
+              title LIKE :search1
+              OR category LIKE :search2
+              OR datetime LIKE :search3
+              OR img_desc LIKE :search4
+              OR summary LIKE :search5
+              ORDER BY datetime" 
+          , $binds=[
+             ['placeh'=>':search1', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ,['placeh'=>':search2', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ,['placeh'=>':search3', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ,['placeh'=>':search4', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ,['placeh'=>':search5', 'valph'=>'%'.$Search_from_submit.'%', 'tip'=>'str']
+            ]
+          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+       ) ;
+      }
+      // default SQL query
+      else 
+      {
+        if (!isset($IdFromURL)) {
+          $_SESSION["MsgErr"]="Bad Request !";
+          utl::Redirect_to($pp1->filter_page."1/i/home/");
+        }
+
+        $cursor_posts = Tbl_crud_post::get_cursor($sellst='*', $qrywhere= "id=:IdFromURL"
+          , $binds=[
+             ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
+            ]
+          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+        ) ;
+      }
+      ?>
 
 
       <!-- 1. p a g e  t i t l e -->
@@ -56,13 +94,14 @@ if(isset($_POST["Submit"])){
       <h1 class="lead"><b><?=$t1?></b> Responsive CMS Blog (PHP 7 or 8, PDO, Bootstrap 5, jQuery only for Bootstrap, no AJAX, MySQL or Oracle or...)</h1>
 
       <?php
-      echo $pgn_links['navbar'];
+      //echo $pgn_links['navbar'];
 
       $ordno = 0 ;
       // isset($rx->id)   Tbl_crud_post::...
-      /*while ( $rx = utldb::rrnext( $cursor_posts
+      while ( $rx = Tbl_crud_post::rrnext( $cursor_posts
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
-      { */
+      { 
+                      //echo '<pre>'.__DIR__ .DS.'Uploads'.DS.$rx->image.'</pre>';
         ++$ordno ;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
@@ -74,34 +113,156 @@ if(isset($_POST["Submit"])){
 
 
         <!-- Post title-->
-        <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
-        <!-- Post meta content-->
-        <div class="text-muted fst-italic mb-2">
+        <h1 class="fw-bolder mb-1"><?=$rx->title?></h1>
+        <!-- Post meta content
             Posted on January 1, 2021 by Start Bootstrap
+
+              <span class="text-dark">
+              </span>
+        -->
+        <div class="text-muted fst-italic mb-2">
+           Category : <a class="badge bg-secondary text-decoration-none link-light"
+              href="<?=$pp1->filter_postcateg?><?=self::escp($rx->category)?>"">
+              <?=self::escp($rx->category)?>
+           </a>
+           <!--a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+           <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a-->
+
+              Written by 
+                <a href="<?=$pp1->read_user?>username/<?php echo self::escp($rx->author); ?>">
+                   <?=self::escp($rx->author)?></a>
+
+              On <span class="text-dark"><?php echo self::escp($rx->datetime); ?></span>
         </div>
-        <!-- Post categories-->
-        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
-    </header>
+        <!-- Post categories
+             class="mb-5"
+        -->
+        <p>
+                    <!--style="float:right;"   class="btn-primary"  btn btn-block btn-primary 
+                         class="btn btn-info"
+                      <small class="text-muted">Category:
+                      </small>
+                    -->
+              <a href="<?=$pp1->edmkdpost?>flename/<?=$rx->title?>/id/<?=$rx->id?>" 
+                 title = "Markdown edit text in FILE (not in database !)"
+              > <span class="btn btn-light fw-bold" >Edit post in <?php echo self::escp($rx->title); ?> 
+                  (We cre/del .txt in op.system. TODO: cre/del .txt here) &rang;&rang; </span>
+              </a>
+
+        </p>
+
+             <p>
+              <a class="btn btn-light" href="<?=$pp1->editpost?>id/<?=$rx->id?>" 
+                 title = "Edit database table row"
+              > <span>
+                  Edit post data in database table row &rang;&rang; </span> </a>
+             
+              <!-- card-title   style="float:right;"
+                <button type="button" class="btn btn-primary">Primary</button>
+                <button type="button" class="btn btn-secondary">Secondary</button>
+                <button type="button" class="btn btn-success">Success</button>
+                <button type="button" class="btn btn-danger">Danger</button>
+                <button type="button" class="btn btn-warning">Warning</button>
+                <button type="button" class="btn btn-info">Info</button>
+                <button type="button" class="btn btn-light">Light</button>
+                <button type="button" class="btn btn-dark">Dark</button>
+
+                <button type="button" class="btn btn-link">Link</button>
+                
+                btn btn-success btn-block
+                btn btn-info
+              -->
 
 
-                <!-- Preview image figure-->
+            <hr>
+
+              <?php
+                 //echo nl2br($rx->summary); //echo nl2br($rx->post);
+                echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
+                        nl2br(self::escp($rx->summary))
+                     ));
+              //means  i n c l u d e  here html :
+              ?>
+
+            </p>
+
+
+
+                <!--  ***********************************
+                           Preview image figure
+                      ***********************************
                 <figure class="mb-4"><img class="img-fluid rounded" 
                         src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
                 </figure>
-                <!-- Post content-->
-                <section class="mb-5">
+                -->
+          <?php
+          //J:/awww/www/fwphp/glomodul/blog/Uploads/mvc_M_V_data_flow.jpg
+          // za img :  style="max-height:450px;" 
+          $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp($rx->image));
+          $tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
+          if (file_exists($tmp_imgpath)) { ?>
+            <figure class="mb-4">
+               <img class="img-fluid rounded" src="<?=$tmp_imgurlrel?>" alt="..." />
+            </figure>
+            <?php
+          }
+                        /*
+                        $tmp_imgpath = str_replace('/',DS, $pp1->shares_path)
+                             . 'img'.DS.'img_big'.DS.self::escp($rx->image) ;
+                        $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($rx->image) ;
+                                      if ('') {self::jsmsg( [ //b asename(__FILE__).
+                                         __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
+                                         ,'$tmp_imgurlrel'=>$tmp_imgurlrel
+                                         ] ) ; }
+                        if ($rx->image and file_exists($tmp_imgpath)) { ?>
+                            <img src="<?=$tmp_imgurlrel?>" style="max-height:450px;" 
+                                 class="img-fluid card-img-top" />
+                            <?php
+                        }
+                        */
+          ?>
+
+
+          <!-- ****************************************
+               I m g  d e s c r i p t i o n
+               ****************************************
+          -->
+          <section class="mb-5">
+            <p class="fs-5 mb-4"><?php echo 
+               str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
+                  nl2br(self::escp($rx->img_desc))
+                  .' $tmp_imgpath='.$tmp_imgpath
+                  .'<br />'.' $tmp_imgurlrel='.$tmp_imgurlrel
+               ));
+               //echo '<br />('.__DIR__ .DS.'Uploads'.DS.$rx->image.')' ;
+               ?>
+            </p>
+
+
+
+          <!-- ****************************************
+               Post content
+               ****************************************
+          -->
+
+
+              <br><br>
+              <?php $this->readmkdpost($pp1, $rx->title, ''); ?>
+
+
                     <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind... </p>
                     <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
                     <p class="fs-5 mb-4">For me, ...</p>
-                    <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. ... were twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. Something bad happened there as well.</p>
-                </section>
+                    <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. ... we're twiddling knobs here on Earth without knowing the consequences of it. Mars once had running water. Something bad happened there as well.</p>
+          </section>
 
 
-       <?php
-      //} endwhile;
-      echo $pgn_links['navbar'] ;
+
+        <?php
+      } endwhile;
+      //echo $pgn_links['navbar'] ;
       ?>
+    </header>
 
   </article>
       <br><br>
@@ -161,7 +322,7 @@ if(isset($_POST["Submit"])){
         <!--   Categories widget-->
         <!--   Other side widget... -->
         <!--   Search widget-->
-        <?php include("home_side_area.php"); ?>
+        <?php //include("home_side_area.php"); ?>
         <!-- end div class="col-lg-4" -->
 
 </div> <!-- end class="row" -->
@@ -216,7 +377,8 @@ if(isset($_POST["Submit"])){
        ) ;
       }
       // default SQL query
-      else{
+      else 
+      {
         if (!isset($IdFromURL)) {
           $_SESSION["MsgErr"]="Bad Request !";
           utl::Redirect_to($pp1->filter_page."1/i/home/");
@@ -230,7 +392,7 @@ if(isset($_POST["Submit"])){
         ) ;
       }
 
-      while ( $rx = utldb::rrnext( $cursor_posts
+      while ( $rx = Tbl_crud_post::rrnext( $cursor_posts
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       { //echo '<pre>'.__DIR__ .DS.'Uploads'.DS.$rx->image.'</pre>';
         ?>

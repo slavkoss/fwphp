@@ -33,7 +33,7 @@ trait Db_allsites  // may be named AbstractEntity :
               <li>Cls <?=basename(explode('::', __METHOD__)[0])?> contains methods : <?=__METHOD__?>, closeConnection, getDBH,
                  <b>abstract (!!) CRUD methods :</b> countAll, all, findById, findWhere, findBySql, completeQueryString, save, create, update, delete, checkCasting.
 
-              <li><b>DB Trait seems better ? than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_ allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_ crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in zinc dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
+              <li><b>DB Trait seems better ? than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_ allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_ crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in vendor/b12phpfw dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
               </ol>
               <?php
               }
@@ -136,7 +136,7 @@ trait Db_allsites  // may be named AbstractEntity :
   */
   static public function rrcount($tbl)
   { 
-    $cursor_rowcnt = self::rr("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
+    $cursor_rowcnt = self::get_cursor("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
     //while ($row = self::r rnext($cursor_rowcnt)): {$rx = $row ;} endwhile; //c_, R_, U_, D_
     $COUNT_ROWS = self::rrnext( $cursor_rowcnt
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
@@ -146,7 +146,7 @@ trait Db_allsites  // may be named AbstractEntity :
 
 
   static public function rr_last_id($tbl) {
-    $cursor_maxid = self::rr("SELECT max(id) MAXID FROM ". $tbl //." WHERE $qrywhere"
+    $cursor_maxid = self::get_cursor("SELECT max(id) MAXID FROM ". $tbl //." WHERE $qrywhere"
        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     //return $cursor ;
     $maxid = self::rrnext( $cursor_maxid
@@ -156,7 +156,7 @@ trait Db_allsites  // may be named AbstractEntity :
   }
 
 
-  static public function get_cursor( $dmlrr, $binds = [], $other = [] ) // *************** r r (
+  static public function get_cursor( $dmlrr, $binds = [], $other = [] ): object // ********* r r (
   {
                 if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
                 echo '<pre>';
@@ -240,95 +240,7 @@ trait Db_allsites  // may be named AbstractEntity :
 
     return $cursor ;
 
-  } //e n d  r r (
-
-
-  static public function rr( $dmlrr, $binds = [], $other = [] ) // *************** r r (
-  {
-                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
-                echo '<pre>';
-                echo '<br />$caller='; print_r($other) ; ;
-                echo '$dmlrr=' . $dmlrr ;
-                echo '<br />$binds='; print_r($binds) ;
-                echo '</pre>';
-                }
-    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
-                    //if ($where == "SQLin_flds") {$dmlrr = $flds;}
-                    //else {$dmlrr = "SELECT $flds FROM $tbl WHERE $where";}
-    $sql_partlimit_arr = explode('LIMIT', $dmlrr) ;
-    $sql_1st_rblk_arr = [] ; // non paginated (limited) SQL
-    if (isset($sql_partlimit_arr[1])) {
-      $sql_1st_rblk_arr = explode(',', $sql_partlimit_arr[1]) ;
-    }
-
-    if (self::$dbi == 'oracle' and self::$do_pgntion) {
-        self::$do_pgntion = '';
-        $dmlrr = str_replace('LIMIT :first_rinblock, :rblk','', $dmlrr) ;
-        switch (self::$dbi)
-        {
-          case 'oracle' :
-            $dmlrr = '
-              SELECT *
-              FROM (SELECT A.*, ROWNUM AS RNUM
-                      FROM (' . $dmlrr . ') A
-                      WHERE ROWNUM <= :last_rinblock
-              )
-              WHERE RNUM >= :first_rinblock
-                  ';
-            break;
-
-          default:
-            break;
-        }
-    }
-
-    $cursor = self::$dbobj->prepare($dmlrr); //not $this->stmt =...
-
-    //      B I N D I N G  VALUES TO SQL PARAMETERS
-    $ph_val_arr = [] ;
-    if (count($binds) > 0) { // ------------
-      foreach ($binds as $idx => $arr) //may be f or array_expression
-      {
-          $ph_val_arr[ $arr['placeh'] ] = $arr['valph'] ;
-          switch ($arr['tip'])
-          {
-            case 'str' :
-              //$this->stmt->bindValue($param, $value, $type);
-              $cursor->bindvalue($arr['placeh'], $arr['valph'], \PDO::PARAM_STR) ;
-              break;
-            case 'int' :
-               $cursor->bindValue($arr['placeh'], (int)$arr['valph'], \PDO::PARAM_INT);
-               break;
-            default:
-               $cursor->bindvalue($arr['placeh'], $arr['valph']) ;
-               break;
-          }
-
-      }
-    } // ----------------------------------
-    //e n d             B I N D I N G
-
-    execute_sql:
-                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' SAYS :<br />';
-                $tmp = self::debugPDO($dmlrr, $binds, $ph_val_arr) ; }
-                //exit() is in d ebugPDO
-                if ('') {echo '<h3>[P D O  DEBUG] '.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
-                  //echo '<br />'.' &nbsp;  &nbsp; $sql_1st_rblk_arr=' . json_encode($sql_1st_rblk_arr) .'<br />'.' &nbsp;  &nbsp; $sql_partlimit_arr=' . json_encode($sql_partlimit_arr)
-                echo //'<br />'.'$o nerow=' . $o nerow
-                '<br />'.'self::$d bi=' . self::$dbi ;
-                  echo '<br />$sql_1st_rblk_arr='; print_r($sql_1st_rblk_arr) ;
-                  echo '<br />$sql_partlimit_arr='; print_r($sql_partlimit_arr) ;
-                echo '</pre>';
-                //exit(); //somethimes we need break execution
-                }
-
-    $cursor->execute();
-
-    return $cursor ;
-
-
-
-  } //e n d  r r (
+  } //e n d  get_ cursor
 
 
 

@@ -39,19 +39,23 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function get_cursor(
     string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[] ): object
   { 
-    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
-  /*static public function rr(
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
-  { 
-    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    return $cursor ;
-  } */
+                  /*static public function rr(
+                    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+                  { 
+                    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+                       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+                    return $cursor ;
+                  } */
 
-  static public function rrnext(object $cursor ): object {}
+  static public function rrnext(object $cursor, array $other=[] ): object
+  {
+    $rx = utldb::rrnext($cursor) ;
+    if (is_object($rx)) return $rx ; else return ((object)$rx);
+  }
 
   static public function rrcnt( string $tbl, array $other=[] ): int { 
     $rcnt = utldb::rrcount($tbl) ;
@@ -61,7 +65,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
     //$cursor =  utldb::rr("SELECT $sellst FROM comments WHERE $qrywhere"
-    $cursor_rowcnt =  utldb::rr(
+    $cursor_rowcnt =  utldb::get_cursor(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     //return $cursor_rowcnt ;

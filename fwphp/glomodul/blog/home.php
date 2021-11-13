@@ -98,9 +98,8 @@ class Home extends utl
                         echo '<br />$binds='; print_r($binds) ;
                       //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                       echo '</pre>'; }
-    $rcnt_filtered_posts = Tbl_crud_post::rrcount( 
-       $qrywhere, $binds
-       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    $rcnt_filtered_posts = Tbl_crud_post::rrcount( $qrywhere, $binds, $other=
+       ['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
     $pgn_links = self::get_pgnnav($pp1->uriq, $rcnt_filtered_posts, '/i/home/', $pp1->rblk);
     $pgnnavbar        = $pgn_links['navbar'];
@@ -162,8 +161,7 @@ class Home extends utl
 
 
           $ordno = 0 ;
-          // isset($rx->id)   Tbl_crud_post::...
-          while ( $rx = utldb::rrnext( $cursor_posts
+          while ( $rx = Tbl_crud_post::rrnext( $cursor_posts // u tldb::r rnext
              , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
           {
             ++$ordno ;
@@ -375,7 +373,7 @@ class Home extends utl
                 <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind... </p>
                 <!--h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
                 <p class="fs-5 mb-4">For me, ...</p>
-                <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. ... we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. Something bad happened there as well.</p-->
+                <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. ... we're twiddling knobs here on Earth without knowing the consequences of it. Mars once had running water. Something bad happened there as well.</p-->
             </section>
             */
             ?>
@@ -469,7 +467,7 @@ class Home extends utl
               nl2br(self::escp($rx->summary))
            ));
       } else {
-        //utldb::readmkdpost($pp1, '','only_help'); //means  i n c  here html 
+
       }
       ?>
 

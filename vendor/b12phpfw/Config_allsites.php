@@ -213,8 +213,8 @@ abstract class Config_allsites //extends Db_ allsites
           , 'HELP_PATHS_IN_UTL_CLS' => '
           cs02. R O U T I N G - A D R E S S E S  in Config_ allsites.php ~~~~~~~~~~~~~~~~'
           , 'wsroot_url'          => $wsroot_url
-          , 'shares_url'          => $wsroot_url . 'vendor/b12phpfw/' //'zinc/'
-          , 'img_url'             => $wsroot_url . 'vendor/b12phpfw/img/' //'zinc/img/'
+          , 'shares_url'          => $wsroot_url . 'vendor/b12phpfw/' //was 'zinc/'
+          , 'img_url'             => $wsroot_url . 'vendor/b12phpfw/img/' //was 'zinc/img/'
           //, 'imgrel_ path'         => $imgrel_ path
           , 'lang'                => 'en'
 

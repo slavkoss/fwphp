@@ -13,7 +13,7 @@ namespace B12phpfw\module\user ;
                       echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                       echo '<pre>';
                       //echo '$_SESSION["username"]=' . $_SESSION["username"]
-                      //.'<br />'.'$username=' .  $username
+                      //.'<br />'.'$ username=' .  $ username
                       // //.'<br />'.'$password='.isset($password)?$password:'NOT SET' 
                       // .'<br />';
                       echo '</pre>'; }
@@ -109,7 +109,7 @@ $title = 'Log in' ;
                         <i class="fas fa-user"></i> </span>
                 </div>
                 <input type="text" class="form-control" name="username" id="username" 
-                       value="<?=$username?>">
+                       value="<?=$username ? $username : 'a' ?>">
               </div>
             </div>
 
@@ -121,7 +121,7 @@ $title = 'Log in' ;
                         <i class="fas fa-lock"></i> </span>
                 </div>
                 <input type="password" class="form-control" name="password" id="password" 
-                       value="">
+                       value="aaaa">
               </div>
             </div>
 

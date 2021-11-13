@@ -1,17 +1,17 @@
 # 1\. PHP menu & CRUD code skeleton (I named it B12phpfw)
 see https://github.com/slavkoss/fwphp/blob/master/readme.md ([web server root dir. path]/readme.md,  [web server root dir. path]=J:/awww/www).
 
-![mvc_M_C_V_data_flow_Laravel.jpg]( /zinc/img/mvc_M_C_V_data_flow_Laravel.jpg "mvc_M_C_V_data_flow_Laravel.jpg" ) 
+![mvc_M_C_V_data_flow_Laravel.jpg]( /vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg "mvc_M_C_V_data_flow_Laravel.jpg" ) 
 
 Picture 01-1. **Laravel CODE STRUCTURE (code flow ee signals flow)** : 1, 2 and 3 are **routing code snippets** (odsječci) all 3 in same script, or separate scripts, or separate classes scripts. 
 
 In B12phpfw :
-1. ROUTING USING KEY-VALUES is **in shared (global) class** [web server root dir. path]/zinc/Config\_allsites.php
+1. ROUTING USING KEY-VALUES is **in shared (global) class** [web server root dir. path]/vendor/b12phpfw/Config\_allsites.php
 2. DISPATCHING USING Home\_ctr CLASS METHODS is in [module dir path]Home_ctr.php ee in [web server root dir. path]/fwphp\glomodul\blog\Home_ctr.php 
    Dispatching is based on Mini3 PHP fw.
 
 <br />
-![mvc_M_C_V.jpg]( /zinc/img/mvc_M_C_V.jpg "mvc_M_C_V.jpg" ) 
+![mvc_M_C_V.jpg]( /vendor/b12phpfw/img/mvc_M_C_V.jpg "mvc_M_C_V.jpg" ) 
 
 Picture 01-2. **M-C-V data flow (Laravel)** : M-C-V data flow is usual in PHP world, not in JS, Blazor, Oracle Forms .fmb-s...
 
@@ -25,7 +25,7 @@ I do not see advantages compared to M-V data flow. Disadvantages are :
 
 
 <br /><br /><br />
-![mvc_M_V_data_flow.jpg]( /zinc/img/mvc_M_V_data_flow.jpg "mvc_M_V_data_flow.jpg" )
+![mvc_M_V_data_flow.jpg]( /vendor/b12phpfw/img/mvc_M_V_data_flow.jpg "mvc_M_V_data_flow.jpg" )
 
 Picture 02-1. **M-V data flow (original MVC idea) ** : **V pulls data from M = cRud actions - only R** using DAO classes : module's  Tbl_crud.php and shared Db\_allsites.
 
@@ -41,7 +41,7 @@ User's events are handled in Controller class. Code (signal) flow :
 
 
 <br />
-![mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg]( /zinc/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg "mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg" )
+![mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg]( /vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg "mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg" )
 
 Picture 02-2. **M-V data flow (original MVC idea) ** 
 
@@ -53,7 +53,7 @@ By mapping app calls in Tbl\_crud.php to  persistence layer Db\_allsites, DAO is
 
 
 <br /><br /><br />
-![mvc_M_V_and_M_C_V_data_flow.jpg]( /zinc/img/mvc_M_V_and_M_C_V_data_flow.jpg "mvc_M_V_and_M_C_V_data_flow.jpg" )
+![mvc_M_V_and_M_C_V_data_flow.jpg]( /vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg "mvc_M_V_and_M_C_V_data_flow.jpg" )
 
 Picture 03. **M-V and M-C-V data flow compared** - both are ok. 
 1. M-V data flow : V instantiates M and pulls data from M 

@@ -3,7 +3,7 @@
 // DEFAULT CTR (ONLY ONE IN MODULE), HAS 3 METHODS WHICH  I N C  PAGE VIEW SCRIPT
 namespace B12phpfw\module\adrs ;
 //use PDO;
-use B12phpfw\core\zinc\Config_allsites as utl;
+use B12phpfw\core\b12phpfw\Config_allsites as utl;
 use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;  // Tbl_ crud_ adrs
 
 class Home_ctr extends utl //Config_ allsites

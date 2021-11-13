@@ -5,8 +5,8 @@ declare(strict_types=1);
 //       <!-- u p d  r o w  f o r m -->
 namespace B12phpfw\module\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;      // init, setings, utils
-use B12phpfw\core\zinc\Db_allsites     as utldb ;    // model (fns) for all tbls
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;      // init, setings, utils
+//use B12phpfw\core\b12phpfw\Db_allsites     as utldb ;    // model (fns) for all tbls
 use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ; // model (fns) for song tbl
 
 $tbl='song'; 
@@ -14,7 +14,7 @@ $tbl='song';
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["submit_update"]))
 {
-  $cursor = utl_adrs::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+  $cursor_uu = utl_adrs::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
 
   utl::Redirect_to($pp1->module_url.QS.'i/rt/');
 } //E n d  of Submit Button If-Condition
@@ -25,11 +25,11 @@ if(isset($_POST["submit_update"]))
                            ,'$pp1->uriq'=>isset($pp1->uriq)?json_encode($pp1->uriq):'NOT SET'
                            ] ) ; }
 
-$c_rr = utl_adrs::rr( $sellst='*', $qrywhere='id=:id'
+$cursor = utl_adrs::get_cursor( $sellst='*', $qrywhere='id=:id'
   , $binds = [['placeh'=>':id', 'valph'=>$IdFromURL, 'tip'=>'int']] //str or int or no 'tip'
   , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 //while ($row_cnt=$this->rrnext($c_rcnt)): {$rcnt=$row_cnt;} endwhile; $rcnt=$rcnt->COUNT_ROWS;
-while ( $rx = utldb::rrnext($c_rr) and isset($rx->id) ): {$r = $rx ;} endwhile;
+while ( $rx = utl_adrs::rrnext($cursor) and isset($rx->id) ): {$r = $rx ;} endwhile;
                   if ('1') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
                   echo '<pre>';

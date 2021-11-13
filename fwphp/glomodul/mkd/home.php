@@ -77,16 +77,17 @@
 
 
       <br /><br /><br /><hr />
-        <b>path key</b> (in any URL, not only in mkd module - <b>example below</b>) MUST BE <u>Windows path</u>, which, where needed, we later change in Linux path.
-        <br /><br />path key must be <u>last key</u> or delimited with something...(lot of not needed coding, see code_snippets.php in more folders).
+        <b>Path key-value</b> - <b>example below</b>) MUST BE <u>Windows path</u>, which, where needed, code changes to Linux path.
+        <br /><br />
 
 
       <pre>
-You can edit any txt using URL query "i/edit/path/J:\awww\www\readme.md" like this:
+You can <b>EDIT</b> any markdown txt using URL query "i/edit/path/J:\awww\www\readme.md" like this:
 <br />http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/<b>path</b>/J:\awww\www\readme.md
 
-You can display any markdown txt using URL like this:
-<br />http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/<b>path</b>/J:\awww\www\readme.md</pre>
+You can <b>DISPLAY</b> any markdown txt using URL like this:
+<br />http://sspc2:8083/fwphp/glomodul/mkd/?i/showhtml/<b>path</b>/J:\awww\www\readme.md
+      </pre>
 
 
 

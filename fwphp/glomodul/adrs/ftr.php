@@ -7,7 +7,7 @@
     <!-- j Q u e r y, loaded in the recommended protocol-less way 
     //code.j q uery.com/j query-1.11.1.min.js -->
     <!-- more http://www.paulirish.com/2010/the-protocol-relative-url/ -->
-    <script src="/zinc/themes/bootstrap/js/jquery.min.js"></script>
+    <script src="/vendor/b12phpfw/themes/bootstrap/js/jquery.min.js"></script>
 
     <!-- 
       define project's U R L 
@@ -23,6 +23,13 @@
     <!-- our JavaScript -->
     <script src="<?=$pp1->module_url?>module.js"></script>
 
+        <!--script src="/vendor/b12phpfw/themes/bootstrap/js/bootstrap.bundle.min.js></script-->
+        <!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script-->
+
+        <script src="/vendor/b12phpfw/simple_data_tbl.js"></script>
+                     <!--script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script-->
+        <script src="/vendor/b12phpfw/simple_data_tbl_new.js"></script>
+                     <!--script src="js/datatables-simple-demo.js"></script-->
 
 </body>
 </html>

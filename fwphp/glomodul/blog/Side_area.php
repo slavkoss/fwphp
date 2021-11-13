@@ -3,6 +3,7 @@
 namespace B12phpfw\module\blog ;
 
 use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
+
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
@@ -156,7 +157,7 @@ class Side_area extends utl
 
           <a href="<?=$pp1->filter_postcateg?>">ALL</a>&nbsp;&nbsp;&nbsp;
             <?php
-            while ( $rx = utldb::rrnext( $cursor_categ
+            while ( $rx = Tbl_crud_category::rrnext( $cursor_categ
               , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
             {
                 ?>
@@ -207,7 +208,7 @@ class Side_area extends utl
     <div class="card-body">
       <?php
       $ii=0 ;
-      while ( $rx = utldb::rrnext( $cursor_recent_posts
+      while ( $rx = Tbl_crud_post::rrnext( $cursor_recent_posts
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
       {
         if ($ii>9) break ;
