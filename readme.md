@@ -1661,36 +1661,29 @@ Git we use eg to syncronize our scripts :
 1.  to your local repository (git commit to .git dir on local PC)     
 2.  and from local repository to remote repository on Github site (git push)      
 
-Track the history of the changes where, when, who and why made. git SW stores or host the versions of project within our hard drive. From where we can backup our project history.  GitHub  site is like hosting to store our versions of projects (case HD crash !).       
-Staging is like a queue, add drops modified files here for push.      
-Push (commit) is method to send the files from working directory to repository.         
-Pull is method to fetch the record from repository to our working directory.     
-
-https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ - I did not need     
 Beginning August 13, 2021, Github no longer accepts account passwords when authenticating Git operations on GitHub.com, and requires the use of **token-based authentication**, such as a **PAT, personal access token over HTTPS = psw 40 characters length (recommended) ** (for developers) or an OAuth or GitHub App installation token (for integrators) for all authenticated Git operations on GitHub.com. You may also continue using SSH keys where you prefer.
 
-### Creating PAT (personal access token) from github's dev settings
+## Creating PAT (personal access token) from github's dev settings
 https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token     
-```
-1 Verify your email address, if it hasn't been verified yet https://docs.github.com/en/github/getting-started-with-github/verifying-your-email-address.
-2 Generate a new token from github's dev settings so : 
-   1. go to https://github.com/slavkoss/fwphp or any Github page
-   2. in the upper-right corner click your profile photo => click Settings => Developer settings => Personal access tokens =>Generate new token
-   3. Give your token a descriptive name, expiration (I 3 months).
-       Select the scopes, or permissions, you'd like to grant this token. To use your token to access repositories from the command line, 
-       **select repo (also gist, user)**.
-   4. Click Generate 40 chars token
-3 Update remote URL **git remote set-url origin https://<token>@github.com/<git_url>**     
-   git remote set-url origin https://<token>@github.com/slavkoss/fwphp
-4 push (or pull : **git pull https://<token>@<git_url>.git**)
-```
+
+1. Verify your email address, if it hasn't been verified yet https://docs.github.com/en/github/getting-started-with-github/verifying-your-email-address.     
+2. Generate a new token from github's dev settings so :     
+   1. go to https://github.com/slavkoss/fwphp or any Github page    
+   2. in the upper-right corner click your profile photo => click Settings => Developer settings => Personal access tokens =>Generate new token      
+   3. Give your token a descriptive name, expiration (I 3 months).        
+       Select the scopes, or permissions, you'd like to grant this token. To use your token **to access repositories from the command line** :       
+       **select repo (also gist, user)**.       
+   4. Click Generate 40 chars token       
+3. Update remote URL      
+    git remote set-url origin https://[token]@github.com/[git_url]      
+    **git remote set-url origin https://[token]@github.com/slavkoss/fwphp.git **        
+4. push (or pull : **git pull https://[token]@[git_url].git**)        
+    **λ git push -u origin master**  λ means I did it in Cmder (contained in SyMenu portable apps collection)        
 
 
-### Configuring two-factor authentication using a TOTP mobile app - I did not need     
-https://docs.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication      
-We strongly recommend using a time-based one-time password (**TOTP**) application to configure 2FA.    
-TOTP applications are more reliable than SMS, especially for locations outside the United States. TOTP apps support the secure backup of your authentication codes in the cloud and can be restored if you lose access to your device. 
-
+λ git remote -v  outputs :     
+origin  https://<token>@github.com/slavkoss/fwphp.git (fetch)    
+origin  https:/<token>@github.com/slavkoss/fwphp.git (push)    
 
 
 ## To purge remote repository
