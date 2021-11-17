@@ -1678,7 +1678,8 @@ https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-
     git remote set-url origin https://[token]@github.com/[git_url]      
     **git remote set-url origin https://[token]@github.com/slavkoss/fwphp.git **        
 4. push (or pull : **git pull https://[token]@[git_url].git**)        
-    **λ git push -u origin master**  λ means I did it in Cmder (contained in SyMenu portable apps collection)        
+    **λ git push -u origin master**  - only one time, later  **git push** suffices     
+    λ means I did it in Cmder (contained in SyMenu portable apps collection)        
 
 
 λ git remote -v  outputs :     
