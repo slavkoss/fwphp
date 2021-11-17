@@ -500,7 +500,6 @@ abstract class Config_allsites //extends Db_ allsites
 //$pgordno_from_url     // requested  p a g e  no
 // nr.records in table
 // nr.records in table block to display
-//public static function get_pgnnavXXX( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 ) 
 public static function get_pgnnav($uriq, $rtbl = 0, $mtd_to_inc_view='/i/home/', $rblk=5) 
 {
   $qs = QS;

@@ -1,6 +1,6 @@
 <?php
 /**
- * J:\awww\www\fwphp\glomodul\z_examples\call_child_fn_from_parent_cls.php  WHY ?
+ * J:\awww\www\fwphp\glomodul\z_examples\03_call_child_fn_from_parent_cls.php  WHY ?
  * DISPATCHING is call method according URL parts (extracted with ROUTING code)
  * BECAUSE MODULE METHODS PARAMS ARE MOSTLY GLOBAL - same for all modules,
  * TO AVOID LOT OF SAME CODE IN MODULES (CODE REDUNDANCY) 

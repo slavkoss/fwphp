@@ -21,7 +21,8 @@ declare(strict_types=1);
 namespace B12phpfw\dbadapter\adrs ;
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
-use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud  ;
 use B12phpfw\core\b12phpfw\Db_allsites     as utldb ;
 
 use B12phpfw\module\adrs\Home_ctr ;
@@ -64,8 +65,8 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    $rcnt = utl_adrs::rrcount('song') ;
-    return (int)utl::escp($rcnt) ;
+    //$rcnt = utldb::rrcount($tbl) ;
+    //return (int)utl::escp($rcnt) ;
   }
 
 

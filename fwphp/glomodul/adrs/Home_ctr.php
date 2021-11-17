@@ -1,6 +1,6 @@
 <?php
 // J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php
-// DEFAULT CTR (ONLY ONE IN MODULE), HAS 3 METHODS WHICH  I N C  PAGE VIEW SCRIPT
+// DEFAULT CTR (ONLY ONE IN MODULE).
 namespace B12phpfw\module\adrs ;
 //use PDO;
 use B12phpfw\core\b12phpfw\Config_allsites as utl;
@@ -17,23 +17,9 @@ class Home_ctr extends utl //Config_ allsites
                         }
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
-    //$akc = $pp1->uriq->i ; //=home
-    //$pp1->$akc() ; //include(str_replace('|','/', $db->uriq->i.'.php'));
-    /**
-    *  ------------------------------------------------------------------------------
-    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
-    *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
-    *  ------------------------------------------------------------------------------
-    * 1. ALL MODULE VIEWS LINKS SHOULD BE IN $pp1_ module, SHAPED SO :
-    * 2. $pp1->urlqrystringpart1_name => i/M E T H O D NAME/param1name/ param1value...2,3... 
-    *    (urlqrystring LAST PART IS IN VIEW SCRIPT WHICH KNOWS IT, eg idvalue !)
-    * 3. IF LINK key-keyvalue pair IS NOT HERE THEN EG : 
-    *    in URLurlqrystring : QS.'i/home/' home must be M E T H O D NAME in this script.
-    *    Eg http://dev1:8083/fwphp/glomodul/adrs/?i/ex1/  or
-    *       http://dev1:8083/fwphp/glomodul/adrs/?i/home/ or
-    *       http://dev1:8083/fwphp/glomodul/adrs/
-    */
-    $pp1_module = [ // Property pallette module properties
+    // Property pallette module properties - ROUTING TBL - module links - is optional
+    // See help at end of this script
+    $pp1_module = [ 
       // LINKALIAS          URLurlqrystring                CALLED METHOD
       // IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
       //, 'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
@@ -48,16 +34,7 @@ class Home_ctr extends utl //Config_ allsites
   } // e n d  f n  __ c o n s t r u c t
 
 
-
-          /* *****************************************
-                 CALL DISPATCH  M E T H O D S
-           they 1.call other fns or 2.include script or 3.URL call script
-           CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
-           so: $pp1->call_module_m ethod($akc, $pp1) ;
-               $ a k c  is  m o d u l e  m ethod (in Home_ ctr, not global fn !!
-                 because )
-          ***************************************** */
-                //$accessor = "get" . ucfirst(strtolower($akc));
+  //CALL DISPATCH  M E T H O D S. See help at end of this script
   protected function call_module_method(string $akc, object $pp1)  //fnname, params
   {
     //This fn calls fn $ a k c in Home_ ctr which has parameters in  $ p p 1
@@ -196,7 +173,7 @@ class Home_ctr extends utl //Config_ allsites
                     if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
                     , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
                     , '$this->dbobj'=>$this->dbobj ] ) ; }
-      echo utl_adrs::rrcount('song'); // not $this->dbobj->R_tb... !!!
+      echo utl_adrs::rrcnt('song'); // not $this->dbobj->R_tb... !!!
     }
 
 
@@ -213,6 +190,38 @@ class Home_ctr extends utl //Config_ allsites
 
 
 
-
 } // e n d  c l s  Home_ ctr
+
+
+    //$akc = $pp1->uriq->i ; //=home
+    //$pp1->$akc() ; //include(str_replace('|','/', $db->uriq->i.'.php'));
+    /**
+    *  ------------------------------------------------------------------------------
+    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
+    *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
+    *  ------------------------------------------------------------------------------
+    * 1. ALL MODULE VIEWS LINKS SHOULD BE IN $pp1_ module, SHAPED SO :
+    * 2. $pp1->urlqrystringpart1_name => i/M E T H O D NAME/param1name/ param1value...2,3... 
+    *    (urlqrystring LAST PART IS IN VIEW SCRIPT WHICH KNOWS IT, eg idvalue !)
+    * 3. IF LINK key-keyvalue pair IS NOT HERE THEN EG : 
+    *    in URLurlqrystring : QS.'i/home/' home must be M E T H O D NAME in this script.
+    *    Eg http://dev1:8083/fwphp/glomodul/adrs/?i/ex1/  or
+    *       http://dev1:8083/fwphp/glomodul/adrs/?i/home/ or
+    *       http://dev1:8083/fwphp/glomodul/adrs/
+    */
+
+
+
+
+          /** *****************************************
+           *       CALL DISPATCH  M E T H O D S
+           * they 1.call other fns or 2.include script or 3.URL call script
+           * CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
+           * so: $pp1->call_module_m ethod($akc, $pp1) ;
+           *    $ a k c  is  m o d u l e  m ethod (in MM Home_ ctr, not global fn !!
+           *      because MM Home_ ctr knows akc parameters)
+           * ****************************************** 
+          */
+                //$accessor = "get" . ucfirst(strtolower($akc));
+
 

@@ -245,8 +245,7 @@ trait Db_allsites  // may be named AbstractEntity :
 
 
 
-  static public function cc( string $tbl, string $flds, string $valsins
-     , array $binds = [], array $other = [] ) //used for all  tabls !!
+  static public function cc( string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] ) //used for all  tabls !!
   {
 
     self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);

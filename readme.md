@@ -1,6 +1,6 @@
 ---
 <a name="top"></a>
-**Top**.....[1\.4 Dirs](#directories).....[1\.3 UML](#uml).....[1\.5 DM](#dm).....[2\. IDE](#ide).....[3\. CRUD](#crud).....[SW fw](#swfw)   
+**Top**.....[1\.4 Dirs](#directories).....[1\.3 UML](#uml).....[1\.5 DM](#dm).....[IDE](#ide).....[3\. CRUD](#crud).....[SW fw](#swfw)   
 CRUD module example code 7 scripts:  
 [Simplest CRUD](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)   
 
@@ -60,8 +60,183 @@ Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
 ```
 
 
+
+
+<br /><br /><br /><br />
+# <a name="ide"></a> 1\.2\.a My developing environment (IDE)
+[Top](#top)......[Dirs](#directories).....[UML](#uml).....[DM](#dm).....**IDE**.....[CRUD](#crud).....[SW fw](#swfw)   
+
+
+## 1\.2\.a 1\. [Git SCM distributed version control system](https://git-scm.com/downloads)
+
+see  https://help.github.com/en/github/writing-on-github    https://git-scm.com/book/en/v2      
+   or eg  https://git-scm.com/docs/git-checkout         
+
+### In Windows Symenu Cmder as administrator (or CLI or Git Bash CLI)
+J:\\aplp\\aplp\\0\_symenu\\ProgramFiles\\SPSSuite\\SyMenuSuite\\Cmder\_sps       
+
+Go to your working directory or project folder (if not git status says: "fatal: not a git repository (or any of the parent directories): .git").      
+
+git config --global user.name 'yourname'         
+git config --global --replace-all user.email 'youremail'         
+Install Git Credential Manager for Windows to avoid login on each push.      
+
+### cd j:\\awww\\www
+j:\\awww\\www (master -> origin)
+### git status
+### git add .
+or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
+### git commit -am "ver 8.0.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
+We stored our project files within our system hard drive.      
+If Cmder shows error  "fatal: unable to auto-detect email address" :      
+git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       
+to set your account's default identity.    Omit --global to set the identity only in this repository.       
+### git push -u origin master
+We stored our project files within our Github site.      
+
+You want to restore an old revision of a file:
+git checkout 8a7b201 index.html
+If you specify "HEAD" as the revision, you will restore the last committed version of the file, effectively undoing any local changes that you current have in that file:       
+git checkout HEAD index.html     
+
+We can roll back our deleted files in working directory using command:      
+**git checkout -- .**    
+or git checkout -- filemame...         
+
+
+
+Git is program and [Github](https://github.com/) is site - deploy ( [book](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) ) [Tutorial](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
+
+Git we use eg to syncronize our scripts :     
+1.  to your local repository (git commit to .git dir on local PC)     
+2.  and from local repository to remote repository on Github site (git push)      
+
+Beginning August 13, 2021, Github no longer accepts account passwords when authenticating Git operations on GitHub.com, and requires the use of **token-based authentication**, such as a **PAT, personal access token over HTTPS = psw 40 characters length (recommended) ** (for developers) or an OAuth or GitHub App installation token (for integrators) for all authenticated Git operations on GitHub.com. You may also continue using SSH keys where you prefer.
+
+## Creating PAT (personal access token) from github's dev settings
+https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token     
+
+1. Verify your email address, if it hasn't been verified yet https://docs.github.com/en/github/getting-started-with-github/verifying-your-email-address.     
+2. Generate a new token from github's dev settings so :     
+   1. go to https://github.com/slavkoss/fwphp or any Github page    
+   2. in the upper-right corner click your profile photo => click Settings => Developer settings => Personal access tokens =>Generate new token      
+   3. Give your token a descriptive name, expiration (I 3 months).        
+       Select the scopes, or permissions, you'd like to grant this token. To use your token **to access repositories from the command line** :       
+       **select repo (also gist, user)**.       
+   4. Click Generate 40 chars token       
+3. Update remote URL      
+    git remote set-url origin https://[token]@github.com/[git_url]      
+    **git remote set-url origin https://[token]@github.com/slavkoss/fwphp.git **        
+4. push (or pull : **git pull https://[token]@[git_url].git**)        
+    **λ git push -u origin master**  - only one time, later  **git push** suffices     
+    λ means I did it in Cmder (contained in SyMenu portable apps collection)        
+
+
+λ git remote -v  outputs :     
+origin  https://[token]@github.com/slavkoss/fwphp.git (fetch)    
+origin  https:/[token]@github.com/slavkoss/fwphp.git (push)    
+
+
+## To purge remote repository
+
+So only last commit remains and it is first commit :
+
+Save your .git/config before, and restore it after. (I delete it in recycle bin).
+1. delete .git/   (< 10 MB) - without this command : git remote add origin... issues error : fatal: remote origin already exists !!
+2. git init   (< 20 kb)
+3. git add .  (< 3 MB)
+4. git commit -am "ver 7.0.1 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO trait, pretty URL-s"
+5. git remote add origin https://github.com/slavkoss/fwphp.git
+6. git push --mirror --force
+
+  
+  
+## 1\.2\.a 2\. Development environment & source code
+
+My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possible) :
+
+1.  Laragon portable (PHP, Apache, Mariadb or MySQL) on Windows 10 64 bit instead XAMPP, WAMP, ZWAMP...      
+   
+2.  **EDITOR**: **npp (Notepad++)** (7 MB).       
+   **Notepad++ Markdown plugin https://github.com/nea/MarkdownViewerPlusPlus**      
+   Copy tMarkdownViewerPlusPlus.dll to the plugins sub-folder at your Notepad++ installation directory.     
+   The plugin adds a small Markdown icon to the toolbar to toggle the viewer as dockable panel.     
+   Then in npp Settings -> Import -> Import plugin(s).     
+   
+   See in J:\\awww\www\\  GLOBALS  nppsess file and other nppsess files.
+   
+   MD to HTML converters on inet :     
+   1. **Notepad++ plugin https://github.com/nea/MarkdownViewerPlusPlus** then in npp Settings -> Import -> Import plugin(s)     
+   2. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**     
+   3. or (many converters)   https://www.browserling.com/tools/markdown-to-html      
+   4. or files convert to many formats :  https://products.aspose.app/pdf/conversion/md-to-html      
+   
+   Also good, all portable : Notepad2-mod (2 MB), Atom (524 MB),       
+   Visual Studio Code (247 MB),  CudaText (28 MB), PSPad (23 MB), RJ TextEd (416 MB),       
+   HTML WYSIWYG editors :  **Microsoft Expression web** (abandoned but still good).     
+   I avoid Dreamveawer, Komposer (abandoned, too old).        
+   
+   **OCR IMG->TXT**  **GT Text**      
+
+3.  **COMMANDER**:    
+    **Locate** is old but best (Janne Huttunen) or simmilar see Symenu.     
+    MeinPlatz (x64) (part of Symenu portable programs) like Treesize    
+    Freecommander, Multicommander, Q-dir, Totalcommander       
+
+4.  **BROWSER**: **Firefox (portable in Symenu collection)**, Google Chrome, Cyberfox, Pale Moon     
+   
+5.  **DEPLOY (INSTALL)**: **Cmder** (in Symenu) is Win CMD line, has Git.
+   Composer.
+   FTP client **Winscp**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\zinc\Dbconn_allsites.php`;
+    
+
+##  1\.2\.a 3\. [Composer](https://getcomposer.org/download/)
+
+I use Laragon portable laragon.7z, 19 MB on newest Windows 10, 64 bit. Not any more xampp-portable-windows-x64-7.3.7-1-VC15.7z, 79 MB. WAMP not any more because is not fully portable,  Composer needs coding displayed below and it is only for Windows. It seems WAMP is not giving newest/simplest solutions as Laragon does.
+
+        WAMP does not like PHP in Windows PATH variable, so :
+        1. I installed Composer-Setup.exe and removed PHP from PATH. 
+        2. **C:\composer\composer7.bat** :
+        ```
+        @echo OFF  
+        :: in case DelayedExpansion is on and a path contains ! 
+        setlocal DISABLEDELAYEDEXPANSION
+        J:\wamp64\bin\php\php7.2.9\php.exe "%~dp0composer.phar" %*
+        ```
+        Save file along with the originally installed composer.bat file.
+    
+        3. Now call the php7 composer with the new command:
+        ```
+        In Windows CLI, cd J:\awww\www and as admin : 
+           composer7 selfupdate   (1.8.4, 2019-02-25, Use composer self-update --rollback to return to version 1.7.3)
+           composer7 update
+        ```
+
+
+## 1\.2\.a 4\. Free hosting with free MySql (or Mariadb) DB
+**Demo site** free hosting where blog (msg) module is installed **http://phporacle.eu5.net/ (freehostingeu) or  http://phporacle.heliohost.org/ (heliohost) **. Some details are to do in version 6.1 but all important is visible in version 6.0.      
+I do not like heliohost activity requirement: "you must visit your site each month" or will be suspended for inactivity after 30 days. They should allow for ever free sites useful for sharing knowledge. I like heliohost simple, clever, very useful pages. I do not like freehostingeu feature "upload zip files not allowed".   
+
+|       Web hosts PHP,  MySQL DB                             |                           Features                                |Other Features |
+| ----------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------ |
+|  **http://phporacle.eu5.net/ (freehostingeu)**        | stable, fast FTP (6x faster than heliohost) | ~~activity requirement~~ ,  upload zip files not allowed, but possible  |
+|  **http://phporacle.heliohost.org/ (heliohost) **     |  stable FTP, Web Disk  | ~~activity requirement, not fast (I am in Europe, Zagreb),~~  |
+| Heroku                                                               |  ~~only Postgres DB~~  |  ~~seems complicated to me~~  |
+| https://www.gigarocket.net/free-hosting.php    |  ~~does not send confirmation email~~  |  |
+| https://infinityfree.net/                                       |   ~~does not send confirmation email~~  |  |
+| https://www.ilbello.com/en/                              |   ~~does not send confirmation email~~  |  |
+| https://www.000webhost.com/                          |  ~~**unstable FTP**~~  |  |
+Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/ , https://www.freehosting.com/free-hosting.html , https://cp1.awardspace.net/beta/login/).      
+
+
+
+
+
+
+
+
 <br /><br /><br />
-### <span style="color:red;">Explanations below are far less important than demo site and installation mentioned above - open code and learn it.</span>       
+## Explanations below are far less important than demo site and installation mentioned above - open code and learn it.
 
 
 Code is small and simple but needs :      
@@ -199,8 +374,6 @@ No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_
 #### 1\.5 Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
 
-See readme_thoughts.md
-
 
 
 
@@ -210,7 +383,7 @@ See readme_thoughts.md
 
 #### Adapters (implementations - classes or methods) depend on interfaces (features, ports)
 
-See readme_thoughts.md
+
 
 
 -----
@@ -259,20 +432,16 @@ Was abstract class. **Trait is simmilar to class**, but **some class may use mor
 
 **Attributes**
 ```php
+// J:\awww\www\vendor\b12phpfw\Db_allsites.php
 declare(strict_types=1);
-namespace B12phpfw\core\zinc ;
-use B12phpfw\core\zinc\Config_allsites ;
-trait Db_allsites
+namespace B12phpfw\core\b12phpfw ; //was B12phpfw\core\zinc ;
+trait Db_allsites  // may be named AbstractEntity :
 {
     private static $instance = null ; //singleton! or protected static $DBH;
 
     private static $do_pgntion; //used in home.php...
 
     private static $dbi ; // mysql or oracle or any  d b i  you wish
-
-    // See list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
-    //     , self::$db_username, self::$db_userpwd) 
-    // = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_once !!
     private static $db_hostname ;
     private static $db_name ;
     private static $dsn ;
@@ -280,8 +449,7 @@ trait Db_allsites
     private static $db_userpwd ;
 
     private static $dbobj;   // or $conn
-    //private $stmt;    //P D O  statement handler, I use it only in dd fn
-    private $errmsg;  //handle our error not used currently, can be useful
+    private $errmsg; //handle our error not used currently, can be useful
 ```
 
 
@@ -289,20 +457,20 @@ trait Db_allsites
 
 
 
-**Methods** in J:\awww\www\zinc\Db_allsites.php (13 hits) :  
+**Methods** in J:\awww\www\vendor\b12phpfw\Db_allsites.php (12 hits)
 ```
-Line   74:   static public function get_or_new_dball(string $called_from ='**UNKNOWN CALLER**')
-Line 129:   static public function closeDBConn()
-Line 137:   static public function getdbi()
-Line 143:   static public function setdo_pgntion($new_val)
-Line 165:   static public function dd(object $pp1, array $other)
-Line 197:   static public function rrnext(object $cursor){
-Line 214:   static public function rrcount($tbl)
-Line 225:   static public function rr_last_id($tbl) {
-Line 250:   static public function rr( $dmlrr, $binds = [], $other = [] )
-Line 348:   static public function cc( string $tbl, string $flds, string $valsins
-Line 409:   static public function uu( $tbl, $flds, $where, $binds = [] )
-Line 475:   static public function debugPDO(string $dmlxx, array $binds, array $ph_val_arr): string
+	Line 21:   static public function get_or_new_dball(string $called_from ='**UNKNOWN CALLER**')
+	Line 66:   static public function closeDBConn()
+	Line 74:   static public function getdbi()
+	Line 80:   static public function setdo_pgntion($new_val)
+	Line 88:   static public function dd(object $pp1, array $other)
+	Line 117:   static public function rrnext(object $cursor, $other = []) //: object
+	Line 137:   static public function rrcount($tbl)
+	Line 148:   static public function rr_last_id($tbl) {
+	Line 159:   static public function get_cursor( $dmlrr, $binds = [], $other = [] ): object // ********* r r (
+	Line 248:   static public function cc( string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] ) //used for all  tabls !!
+	Line 309:   static public function uu( $tbl, $flds, $where, $binds = [] )
+	Line 366:   static public function debugPDO(string $dmlxx, array $binds, array $ph_val_arr): string
 ```
 
 
@@ -328,14 +496,19 @@ B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL
 
  **Attributes**  
 ```php
-declare(strict_types=1);
+/**
+*  J:\awww\www\b12phpfw\Config_ allsites.php
+* cs02. I N C L U D E D  only i n  i n d e x.p h p 
+* Here is :  module attributes and methods, module CRUD is in module dirs 
+*/
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\core\zinc ;
-//use B12phpfw\core\zinc\Config_allsites ;
+
+declare(strict_types=1);
+
+namespace B12phpfw\core\b12phpfw ;
 
 //abstract = Cls or Method for inheritance to avoid code redundancy, not to cre obj
-
-abstract class Config_allsites //extends Db_allsites
+abstract class Config_allsites //extends Db_ allsites
 {
   // can be named AbstractEntity
   /** 
@@ -344,10 +517,9 @@ abstract class Config_allsites //extends Db_allsites
   * ****************************************************
   */
   //url parameters (url query string) after QS='?' are key-value pairs
- 
- //M O D U L E  & GLOBAL (COMMON) PROPERTIES (for all sites) PALLETE like Oracle Forms
-  private $pp1 ; //was public. If using Composer autoloading classes set QS=''.
 
+  //M O D U L E  & GLOBAL (COMMON) PROPERTIES (for all sites) PALLETE like Oracle Forms
+  private $pp1 ; //was public, protected
 ```
 
 
@@ -366,25 +538,27 @@ abstract class Config_allsites //extends Db_allsites
         Dispatching using home class methods is based on Mini3 php fw.
 
 ```
- J:\awww\www\zinc\Config_allsites.php (18 hits)
-	Line   28:   public function __construct(object $pp1, array $pp1_module_links)
-	Line 296:   public function setp($property, $value){
-	Line 238:   public function getp($property){
-	Line 256:     static public function rlows(object $r) //all row fld names lowercase
-	Line 275:     static public function escp(string $string) //ESCAPING OUTPUT
-	Line 288:     static protected function secure\_form($form) {
-	Line 296:     static public function Redirect\_to($New_Location){
-	Line 315:     public function ErrorMessage(){
-	Line 324:     public function SuccessMessage(){
-	Line 345: public static function get_pgnnav( $rtbl = 0, $mtd_to_inc_view = '/i/home/', $uriq, $rblk = 5 ) //paginator
-	Line 439:   public function setcsrf() {
-	Line 448:   public static function jsmsg($msg) 
-	Line 479:     public function toArray($cls) {
-	Line 484:   public function print_objvars($obj)
-	Line 491:   public function print_clsmethods($obj)
-	Line 499:   public function class_parentage($obj, $class)
-	Line 513:   public function uname2clsses($username) { //was auth
-	Line 527:   public function has_rights() {
+    J:\awww\www\vendor\b12phpfw\Config_allsites.php (20 hits)
+	Line 28:   public function __construct(object $pp1, array $pp1_module)
+	Line 309:   //public function setp($property, $value){
+	Line 317:   //public function getp($property){
+	Line 335:     static public function rlows(object $r) //all row fld names lowercase
+	Line 354:     static public function escp(string $string='') //ESCAPING OUTPUT and input
+	Line 367:     static public function escp_row(object $r): object
+	Line 394:     //static protected function secure_form($form) {
+	Line 402:     static public function Redirect_to($New_Location){
+	Line 424:   static public function row_flds_binds(
+	Line 473:     static public function MsgErr(){
+	Line 482:     static public function MsgSuccess(){
+	Line 503: public static function get_pgnnav($uriq, $rtbl = 0, $mtd_to_inc_view='/i/home/', $rblk=5) 
+	Line 596:   public function setcsrf() {
+	Line 605:   public static function jsmsg($msg) 
+	Line 636:     public function toArray($cls) {
+	Line 641:   public function print_objvars($obj)
+	Line 648:   public function print_clsmethods($obj)
+	Line 656:   public function class_parentage($obj, $class)
+	Line 670:   public function uname2clsses($username) { //was auth
+	Line 684:   public function has_rights() {
 ```
 
 
@@ -407,7 +581,6 @@ B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL
 
 
 ```php
-
 <?php
 //http://dev1:8083/fwphp/www/
 // J:\awww\www\fwphp\www\index.php
@@ -503,7 +676,7 @@ URL example:   http://dev1:8083/fwphp/01mater/fw_popel_onb12/   or other in 01ma
 
 
 
-```
+
 
 
 
@@ -513,32 +686,18 @@ URL example:   http://dev1:8083/fwphp/01mater/fw_popel_onb12/   or other in 01ma
 
 
 
-# B12phpfw modules
 ### call_child_fn_from_parent_cls.php explains B12phpfw routing and dispatching principle
 
 ```php
 <?php
-/**     
- * J:\awww\www\fwphp\glomodul\z_examples\call_child_fn_from_parent_cls.php  WHY ?      
- * DISPATCHING is calling method according URL parts (extracted with ROUTING code).    
- * Because MODULE METHODS PARAMS ARE MOSTLY GLOBAL (same for all modules), eg paths,      
- * to avoid lot of same code in modules (code redundancy) :    
- * 1. WE ASSIGN GLOBALS IN PARENT CONF&UTL CLS METHOD
- *    (not knowing which module is going to use them)        
- * 2. THEN, FROM PARENT CLS WE CALL METHOD IN CHILD MODULE CLS. 
- *    Module method knows how to use globals 
- *    and what module needs for parameters beside globals.       
+/**
+ * J:\awww\www\fwphp\glomodul\z_examples\03_call_child_fn_from_parent_cls.php  WHY ?
+ * DISPATCHING is call method according URL parts (extracted with ROUTING code)
+ * BECAUSE MODULE METHODS PARAMS ARE MOSTLY GLOBAL - same for all modules,
+ * TO AVOID LOT OF SAME CODE IN MODULES (CODE REDUNDANCY) 
+ * we assign globals in parent clas, then call child method from parent clas
  */
-
 declare(strict_types=1);
-
-/** 
- *         ns (NAMESPACES) we use in clses script autoloading.
- * vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
- * eg B12phpfw is vendor_namesp_prefix  ; //FUNCTIONAL, NOT POSITIONAL
- *     FUNCTIONAL parts are not requirad, we use them to better understand script purpose.
- *eg clsdir - only this part of namespace is POSITIONAL, CAREFULLY ! 
- */
 namespace B12phpfw\module\z_examples ;
 
 abstract class utl { // Config_ allsites & global utilities
@@ -601,85 +760,14 @@ $obj_params=stdClass Object
 ## 1\.6 4. Home_ctr cls : MODULE CONTROLLER CODE, ROUTES, CALLS
 B12PHPFW MODULE CODE. LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
 
-For program execution class hierarchy is as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why shared attributes and methods are in hierarchy above Home_ctr and not in Home_ctr ? Because we do not want write in each Home_ctr class code in class above. Instead we **reuse code in shared class (globals)** above Home_ctr. 
+For program execution, class hierarchy is : as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why shared attributes and methods are in hierarchy above Home_ctr and not in Home_ctr ? Because we do not want write in each Home_ctr class code in class above. Instead we **reuse code in shared class (globals)** above Home_ctr. 
 
 
 -----
 
 
 
- **Attributes**  
-```php
-declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
-//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\module\blog ;
-
-use B12phpfw\core\zinc\Config_allsites ;
-use B12phpfw\dbadapter\user\Tbl_crud                  as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
-use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
-use B12phpfw\dbadapter\post\Tbl_crud                  as Tbl_crud_post ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
-
-//extends  = ISA relation type ("Is A something") = not HAS_A :  "Home_ ctr has property Config_allsites, like kitchen has knife" but :
-//"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites, but is not for sake of code reusability and clear code because Home_ ctr is module code and we do not want all modules code in shared code Config_ allsites.
-// May be named App, Router_dispatcher... :
-
-class Home_ctr extends Config_allsites //implements Interf_Tbl_crud
-...
-```
-
-
------
-
-
-
-**Methods** in blog dir where is blog module code,  cls file  Home_ctr.php (27 fns)  
-```
-  J:\awww\www\fwphp\glomodul\blog\Home_ctr.php (41 hits)
-	Line 8: // *************** FUNCTION 1. N A M E S P A C E S  ***************
-	Line 29:   // *************** FUNCTION 2. S H A R E S  ***************
-	Line 30:   public function __construct(object $pp1)
-	Line 113:   protected function call_module_method( // also other module method !!
-	Line 130:   private function del_row_do(object $pp1) // *************** SHARED  d d (
-	Line 177:   private function del_category(object $pp1)
-	Line 188:   private function del_admins(object $pp1)
-	Line 199:   private function del_posts(object $pp1)
-	Line 210:   private function del_comments(object $pp1)
-	Line 223:   private function errmsg(object $pp1, string $myerrmsg)
-	Line 235:   * *************** FUNCTION 3.  S E S S I O N  M E T H O D S ***************
-	Line 238:   private function Login_Confirm_SesUsrId() {
-	Line 242:   private function logout(object $pp1)
-	Line 252:   * *************** FUNCTION 4. C R U D  M E T H O D S ***************
-	Line 259:   // *************** FUNCTION COMPAUND MODULE BLOG ***************
-	Line 260:   private function home(object $pp1) //DI page prop.palette   
-	Line 280:   private function dashboard(object $pp1) //private
-	Line 294:   private function kalendar(object $pp1) //private
-	Line 305:   // *************** FUNCTION 5. TO I N C L U D E  P A G E S  WITHOUT  C R U D ***************
-	Line 307:   private function contact(object $pp1)
-	Line 314:   private function about(object $pp1)
-	Line 322:   private function features(object $pp1)
-	Line 331:   // *************** FUNCTION SIMPLE MODULE TBL1  A D M I N S - ALL should be in user dir (where is user module code)
-	Line 336:   private function admins(object $pp1) //private
-	Line 351:   private function read_user(object $pp1) //private
-	Line 369:   private function loginfrm(object $pp1) //private
-	Line 382:   private function login(object $pp1) //private
-	Line 388:   private function upd_user_loggedin(object $pp1) //private
-	Line 408:   // *************** FUNCTION SIMPLE MODULE TBL2  C A T E G O R Y ***************
-	Line 410:   private function categories(object $pp1) //private
-	Line 426:   // *************** FUNCTION SIMPLE MODULE TBL3  P O S T S ***************
-	Line 427:   private function addnewpost(object $pp1) //private
-	Line 442:   private function posts(object $pp1) //private
-	Line 462:   private function filter_postcateg(object $pp1) //private
-	Line 510:   private function read_post(object $pp1)
-	Line 533:   private function editpost(object $pp1) //private
-	Line 551:   private function edmkdpost(object $pp1) //private
-	Line 577:   private function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
-	Line 634:   // *************** FUNCTION SIMPLE MODULE TBL4  C O M M E N T S ***************
-	Line 636:   private function comments(object $pp1) //private
-	Line 649:   private function upd_comment_stat(object $pp1) //private
-
-```
-
+ **Attributes**  and **Methods** - see adrs module below.
 
 
 
@@ -698,7 +786,7 @@ https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_
 
 B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CRUD code skeleton") because dirs are like Oracle FORMS form module .fmb and other reasons mentioned below.    
 
-See readme_thoughts.md
+
 
 
 See Mini3 PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good coding). My **routing using key-values** is different but **dispatching using home class methods is based on Mini3**. 
@@ -727,20 +815,42 @@ or many others, Google :  Github php framework
 ## <a name="dm"></a>1\.8 DM (Domain model)
 [Top](#top)......[Dirs](#directories).....[UML](#uml).....**DM**.....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
-See readme_thoughts.md
 
 
+
+
+
+
+
+
+
+  
+<br /><br /><br /><a name="crud"></a>
+# 3\. PHP 7 or 8, Bootstrap 5 : DB tbls rows PDO CRUD
+[Top](#top)......[Dirs](#directories).....[UML](#uml).....[DM](#dm).....[IDE](#ide).....**CRUD**.....[SW fw](#swfw)   
+
+May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX . Only Javascript I need is dialog yes or no.
 
 
 
 
 
 <br /><br />
-## <a name="SimplestCRUD"></a> 1.9 Simplest "adrs" (MINI3, songs) CRUD module
-CRUD rows in **table song(#id, artist, track, link)**. MINI3 framework https://github.com/panique/mini3 is I think best to learn PHP and frameworks code skeleton. My adrs module in glomodul modules group is MINI3 on B12phpfw. Why ? I think for large sites MINI3 is to simple.
+## <a name="SimplestCRUD"></a> 3\.1 Simplest "adrs" CRUD module (MINI3, play Youtube songs)
+CRUD rows in **table song(#id, artist, track, link)**. **MINI3 framework https://github.com/panique/mini3 is I think best to learn PHP** and frameworks code skeleton. My adrs module in glomodul modules-group is MINI3 on B12phpfw. Why ? I think **for large sites MINI3 is to simple** - no shares...
+
+
+1. **index.php** single entry point in module
+2. **Home_ctr.php** DEFAULT CTR (ONLY ONE IN MODULE). router, dispatcher
+3. **home.php** - shows links assigned in Home_ctr.php for user interactions or some txt
+4. **cre_row_frm.php** - code behind form and form
+5. **read_tbl.php**
+6. **upd_row_frm.php** - code behind form and form
+7. **Tbl_crud.php** - ORM, DM (Domain Model) adapter cls - pre CRUD class, PHPQueryBuilder
+
 
 <a name="scrudIndex"></a>
-### 1\.9\.1 index.php single entry point in module
+### 3\.1\.1 index.php single entry point in module
 [Simplest CRUD](#SimplestCRUD).....**index.php**.....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU) ....[adapter](#scrudadapter) 
 
 We need single entry point in module to avoid mess with links (https://... links are not clear, better are includes and method calls).
@@ -749,68 +859,36 @@ We need single entry point in module to avoid mess with links (https://... links
 <?php
 /**     
  * J:\awww\www\fwphp\glomodul\adrs\index.php
- * DISPATCHING is calling method according URL parts (extracted with ROUTING code).    
- * Because MODULE METHODS PARAMS ARE MOSTLY GLOBAL (same for all modules), eg paths,      
- * to avoid lot of same code in modules (code redundancy) :    
- * 1. WE ASSIGN GLOBALS IN PARENT CONF&UTL CLS METHOD
- *    (not knowing which module is going to use them)        
- * 2. THEN, FROM PARENT CLS WE CALL METHOD IN CHILD MODULE CLS. 
- *    Module method knows how to use globals 
- *    and what module needs for parameters beside globals.       
  */
-
 declare(strict_types=1);
 
-/** 
- *         ns (NAMESPACES) we use in clses script autoloading.
- * vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
- * eg B12phpfw is vendor_namesp_prefix  ; //FUNCTIONAL, NOT POSITIONAL
- *     FUNCTIONAL parts are not requirad, we use them to better understand script purpose.
- *eg clsdir - only this part of namespace is POSITIONAL, CAREFULLY ! 
- */
+//string before adrs, b12phpfw... is not required. See below **HELPNS
 namespace B12phpfw\module\adrs ;
-use B12phpfw\core\zinc\Autoload ;
+use B12phpfw\core\b12phpfw\Autoload ;
 
 //1. settings - properties - assign global variables to use them in any code part
-$module_dir_path = str_replace('\\','/', __DIR__) .'/' ;
-$app_dir_path = dirname($module_dir_path) .'/' ; //to app dir eg "glomodul" dir and app
+$module_path = str_replace('\\','/', __DIR__) .'/' ;
+$site_path = dirname($module_path) .'/' ; //to app dir eg "glomodul" dir and app
 $wsroot_path = str_replace('\\','/', realpath('../../../')) .'/' ;
-$shares_path = $wsroot_path.'zinc/' ; //includes, globals, commons, reusables
+$shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, reusables
 
 //$Dbconn = [ null, 'mysql', 'localhost', 'z_adrs', 'root', ''] ;
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+  , 'module_version'=>'8.0.0.0 Adrs (Mini3)' //, 'vendor_namesp_prefix'=>'B12phpfw'
 
-  //1.1
+  // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
+  // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
   , 'wsroot_path'=>$wsroot_path
   , 'shares_path'=>$shares_path
-
-  //1.2
-  , 'module_version'=>'7.0.0.0 Adrs (Mini3)' //, 'vendor_namesp_prefix'=>'B12phpfw'
-
-  //1.3 Dirs paths where are class scripts to autoload. Dir name is last in namespace and use. 
-  , 'module_path_arr'=>[
-    //MUST BE NUM INDEXED for auto loader loop (not 'string'=>...)
-    $module_dir_path // = thismodule_cls_dir_path = $pp1->module_path
-    //dir of global clses for all sites :
-    ,$shares_path //,str_replace('\\','/',realpath($module_ towsroot.'zinc')) .'/'
-              /* //two master modules (tbls) = blocks in Ora. Forms
-              ,$app_dir_path.'user/'
-              ,$app_dir_path.'post_category/'
-              //detail & subdet modules (tbls) = blocks in Ora. Forms
-              ,$app_dir_path.'post/'
-              ,$app_dir_path.'post_comment/' */
-  ]
-  //1.4
-  //     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
-  //    , self::$db_username, self::$db_userpwd) 
-  //    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
-  // Dbconn_allsites.php : return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
-  //, 'Dbconn'=>$Dbconn
+  , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
+  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
+  , 'site_path'   => $site_path    // to fwphp (or any name)
+  , 'module_path' => $module_path  // to fwphp/glomodul/blog (or any names)
 ] ;
 
-//2. //2. global cls loads (includes, bootstrap) classes scripts automatically
+//2. global cls loads (includes, bootstrap) classes scripts automatically
 require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
@@ -825,6 +903,26 @@ $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
 
 exit(0);
 
+
+/**     
+ * J:\awww\www\fwphp\glomodul\adrs\index.php
+ * DISPATCHING is calling method according URL parts (extracted with ROUTING code).    
+ * Because MODULE METHODS PARAMS ARE MOSTLY GLOBAL (same for all modules), eg paths,      
+ * to avoid lot of same code in modules (code redundancy) :    
+ * 1. WE ASSIGN GLOBALS IN PARENT CONF&UTL CLS METHOD
+ *    (not knowing which module is going to use them)        
+ * 2. THEN, FROM PARENT CLS WE CALL METHOD IN CHILD MODULE CLS. 
+ *    Module method knows how to use globals 
+ *    and what module needs for parameters beside globals.       
+ */
+
+/** 
+ *         ns (NAMESPACES) we use in clses script autoloading.
+ * vendor_namesp_prefix \ processing (behavior) \ clsdir [\ cls] [as clsalias]
+ * eg B12phpfw is vendor_namesp_prefix  ; //FUNCTIONAL, NOT POSITIONAL
+ *     FUNCTIONAL parts are not requirad, we use them to better understand script purpose.
+ *eg clsdir - only this part of namespace is POSITIONAL, CAREFULLY ! 
+ */
 
 /**
  *                    **HELPNS
@@ -841,20 +939,21 @@ exit(0);
  *        used for Autoload class to include classes from dir DIRNAME.
  *    Autoload class is include, global, common, reusable.
 */                                                     
+
 ```
 
 
 <a name="scrudHome_ctr"></a>
-### 1\.9\.2 Home_ctr.php router, dispatcher
+### 3\.1\.2 Home_ctr.php DEFAULT CTR (ONLY ONE IN MODULE). router, dispatcher
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....**Home_ctr**.....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
 
 ```php
 <?php
 // J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php
-// DEFAULT CTR (ONLY ONE IN MODULE), HAS 3 METHODS WHICH  I N C  PAGE VIEW SCRIPT
+// DEFAULT CTR (ONLY ONE IN MODULE).
 namespace B12phpfw\module\adrs ;
 //use PDO;
-use B12phpfw\core\zinc\Config_allsites as utl;
+use B12phpfw\core\b12phpfw\Config_allsites as utl;
 use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;  // Tbl_ crud_ adrs
 
 class Home_ctr extends utl //Config_ allsites
@@ -868,42 +967,14 @@ class Home_ctr extends utl //Config_ allsites
                         }
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
-    //$akc = $pp1->uriq->i ; //=home
-    //$pp1->$akc() ; //include(str_replace('|','/', $db->uriq->i.'.php'));
-    /**
-    *  ------------------------------------------------------------------------------
-    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
-    *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
-    *  ------------------------------------------------------------------------------
-    * 1. ALL MODULE VIEWS LINKS SHOULD BE IN $pp1_ module, SHAPED SO :
-    * 2. $pp1->urlqrystringpart1_name => i/M E T H O D NAME/param1name/ param1value...2,3... 
-    *    (urlqrystring LAST PART IS IN VIEW SCRIPT WHICH KNOWS IT, eg idvalue !)
-    * 3. IF LINK key-keyvalue pair IS NOT HERE THEN EG : 
-    *    in URLurlqrystring : QS.'i/home/' home must be M E T H O D NAME in this script.
-    *    Eg http://dev1:8083/fwphp/glomodul/adrs/?i/ex1/  or
-    *       http://dev1:8083/fwphp/glomodul/adrs/?i/home/ or
-    *       http://dev1:8083/fwphp/glomodul/adrs/
-    */
-    $pp1_module = [ // Property pallette module properties
-      '<b style="color: blue">ROUTES (LINKS)  assigned  IN  M O D U L E  CTR Home_ctr.php' => '~~~~~~~~~~~~~~~~~</b>'
-      , '<b>Part of $pp1 is $pp1_module = (module) property pallette.
-          Contains properties =  key-keyvalue pairs : 
-          LINKALIAS => ?i/HOME_METHOD_TO_CALL/param1/param1value...</b>' 
-      => 
-      '
-          <b>~~~~~ Eg in view script :
-          href =  LINKALIAS $pp1->$pp1->cre_row_frm CALLS cc fn in module ctr so: QS."i/cc/"
-              $pp1->cre_row_frm - more generalized, but more writing than QS."i/cc/", 
-                  cc fn is not visible in URL (visible is what cc calls/includes)
-              //,\'home_adrs\'        => QS.\'i/home/\'
-              //,\'cre_row_frm\'        => QS.\'i/cc/\'
-              //,\'ldd_category\'     => QS.\'i/del_category/id/\'
-              //,\'loginfrm\'        => QS.\'i/loginfrm/\'
-              //,\'login\'           => QS.\'i/login/\'
-      IF LINK key-keyvalue PAIR IS NOT IN $pp1_module THEN EG : 
-      in URLurlqrystring : QS.\'i/loginfrm/\' loginfrm must be M E T H O D NAME in this script.
-      </b>'
-      //, 'cre_row_frm'     => QS.'i/cc/'
+    // Property pallette module properties - ROUTING TBL - module links - is optional
+    // See help at end of this script
+    $pp1_module = [ 
+      // LINKALIAS          URLurlqrystring                CALLED METHOD
+      // IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
+      //, 'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
+      //, 'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
+      //      (method parameter /idvalue we assign in view script after ldd_category)
     ] ;  //e n d  R O U T I N G  T A B L E
     //is better $pp1->cre_row_frm ? - more writing, cc fn in module ctr not visible
 
@@ -913,16 +984,7 @@ class Home_ctr extends utl //Config_ allsites
   } // e n d  f n  __ c o n s t r u c t
 
 
-
-          /* *****************************************
-                 CALL DISPATCH  M E T H O D S
-           they 1.call other fns or 2.include script or 3.URL call script
-           CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
-           so: $pp1->call_module_m ethod($akc, $pp1) ;
-               $ a k c  is  m o d u l e  m ethod (in Home_ ctr, not global fn !!
-                 because )
-          ***************************************** */
-                //$accessor = "get" . ucfirst(strtolower($akc));
+  //CALL DISPATCH  M E T H O D S. See help at end of this script
   protected function call_module_method(string $akc, object $pp1)  //fnname, params
   {
     //This fn calls fn $ a k c in Home_ ctr which has parameters in  $ p p 1
@@ -1061,7 +1123,7 @@ class Home_ctr extends utl //Config_ allsites
                     if ('') {self::jsmsg('s001ajax. '. __METHOD__, __LINE__
                     , ['$this->uriq'=>$this->uriq, '$instance'=>$instance
                     , '$this->dbobj'=>$this->dbobj ] ) ; }
-      echo utl_adrs::rrcount('song'); // not $this->dbobj->R_tb... !!!
+      echo utl_adrs::rrcnt('song'); // not $this->dbobj->R_tb... !!!
     }
 
 
@@ -1078,15 +1140,47 @@ class Home_ctr extends utl //Config_ allsites
 
 
 
-
 } // e n d  c l s  Home_ ctr
+
+
+    //$akc = $pp1->uriq->i ; //=home
+    //$pp1->$akc() ; //include(str_replace('|','/', $db->uriq->i.'.php'));
+    /**
+    *  ------------------------------------------------------------------------------
+    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
+    *  LINK ALIAS IN VIEW SCRIPT (eg l d d) => HOME METHOD TO CALL (eg del_ row_do)
+    *  ------------------------------------------------------------------------------
+    * 1. ALL MODULE VIEWS LINKS SHOULD BE IN $pp1_ module, SHAPED SO :
+    * 2. $pp1->urlqrystringpart1_name => i/M E T H O D NAME/param1name/ param1value...2,3... 
+    *    (urlqrystring LAST PART IS IN VIEW SCRIPT WHICH KNOWS IT, eg idvalue !)
+    * 3. IF LINK key-keyvalue pair IS NOT HERE THEN EG : 
+    *    in URLurlqrystring : QS.'i/home/' home must be M E T H O D NAME in this script.
+    *    Eg http://dev1:8083/fwphp/glomodul/adrs/?i/ex1/  or
+    *       http://dev1:8083/fwphp/glomodul/adrs/?i/home/ or
+    *       http://dev1:8083/fwphp/glomodul/adrs/
+    */
+
+
+
+
+          /** *****************************************
+           *       CALL DISPATCH  M E T H O D S
+           * they 1.call other fns or 2.include script or 3.URL call script
+           * CALLED FROM abstract class Config_ allsites, m ethod __c onstruct
+           * so: $pp1->call_module_m ethod($akc, $pp1) ;
+           *    $ a k c  is  m o d u l e  m ethod (in MM Home_ ctr, not global fn !!
+           *      because MM Home_ ctr knows akc parameters)
+           * ****************************************** 
+          */
+                //$accessor = "get" . ucfirst(strtolower($akc));
+
+
 ```
 
 <a name="scrudHomeV"></a>
-### 1\.9\.3 home.php... - shows links assigned in Home_ctr.php for user interactions or some txt
+### 3\.1\.3 home.php - shows links assigned in Home_ctr.php for user interactions or some txt
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....**home (table page.....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
 ```html
-<!-- J:\awww\www\fwphp\glomodul\adrs\home.php -->
 <!-- J:\awww\www\fwphp\glomodul\adrs\home.php -->
 <div class="container">
     <h1>Homepage</h1>
@@ -1104,6 +1198,10 @@ class Home_ctr extends utl //Config_ allsites
 </div>
 
 
+
+
+
+
 <!-- J:\awww\www\fwphp\glomodul\adrs\example_one.php -->
 <div class="container">
     This page EXAMPLE1 URL (web adress - web name) is :
@@ -1116,6 +1214,9 @@ class Home_ctr extends utl //Config_ allsites
 
   <p> </p>
 </div>
+
+
+
 
 
 <!-- J:\awww\www\fwphp\glomodul\adrs\example_two.php -->
@@ -1142,19 +1243,18 @@ class Home_ctr extends utl //Config_ allsites
 
 
 <a name="scrudC"></a>
-### 1\.9\.4 cre_row_frm.php
+### 3\.1\.4 cre_row_frm.php - code behind form and form
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....**create**.....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
 
 ```php
 <?php
 // J:\awww\www\fwphp\glomodul\adrs\cre_row_frm.php
 declare(strict_types=1);
-//namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\zinc\ver5
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\adrs ;
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir 
-use B12phpfw\core\zinc\Db_allsites   as utldb ;
+use B12phpfw\core\b12phpfw\Db_allsites   as utldb ;
 use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ;
 
 if (isset ($_SESSION["submitted_cc"])) {
@@ -1191,12 +1291,13 @@ http://dev1:8083/fwphp/glomodul/adrs/?i/c/t/song/
 
 
   </div>
+
 ```
 
 
 
 <a name="scrudR"></a>
-### 1\.9\.5 read_tbl.php
+### 3\.1\.5 read_tbl.php
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....**read (user profile - form**.....[update](#scrudU)....[adapter](#scrudadapter)    
 
 ```php
@@ -1207,15 +1308,16 @@ declare(strict_types=1);
 
 namespace B12phpfw\module\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;    // init, setings, utils
-use B12phpfw\core\zinc\Db_allsites   as utldb ;    // model (fns) for all tbls
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;    // init, setings, utils
+//use B12phpfw\core\b12phpfw\Db_allsites   as utldb ;    // model (fns) for all tbls
 use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ; //Tbl_ crud_ adrs is model (fns) for song tbl
 
 $tbl='song';
 
-$rcount = utldb::rrcount('song') ;
-$cursor = utl_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
-  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+$rcount = utl_adrs::rrcnt($tbl) ;
+$cursor = utl_adrs::get_all($other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+//$cursor = utl_adrs::get_cursor($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
+//  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
 ?>
 <div class="container">
@@ -1235,57 +1337,58 @@ $cursor = utl_adrs::rr($sellst='*', $qrywhere= "'1'='1'" // ORDER BY aname
 
   <!--        main content output : List of songs  -->
   <div class="xxbox">
-    <table>
+    <table id="datatablesSimple">
         <thead style="background-color: #ddd; font-weight: bold;">
      <tr><td>Id</td><td>Artist</td><td>Track</td><td>Link</td><td> </td><td> </td></tr>
         </thead>
 
-    <tbody>
-    <?php
-    //foreach ($songs as $song) 
-    while ( $r = utldb::rrnext($cursor) and isset($r->id) ): 
-    { 
-      $id = utl::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
-      ?>
-      <tr>
-        <td><?php echo $id; ?></td>
-        <td><?php if (isset($r->artist)) echo utl::escp($r->artist); ?></td>
-        <td><?php if (isset($r->track)) echo utl::escp($r->track); ?></td>
-        <td>
-            <?php if (isset($r->link)) { ?>
-              <a href="<?=utl::escp($r->link)?>">
-                 <?=utl::escp($r->link)?></a>
-            <?php } ?>
-        </td>
-        <!-- 
-          <td><a href="<=$pp1->module_url . QS . 'i/dd/t/song/id/'.$id?>">Del</a></td>
-          $pp1->ldd_admins.$id
-          <=str_repeat(' ', 8 - strlen($id)) . $id ?>
-        -->
-        <td>
-           <a id="erase_row" class="btn btn-danger"
-              onclick="var yes ; yes = jsmsgyn('Erase row <?=$id?>?','') ;
-              if (yes == '1') { location.href= '<?=$pp1->module_url.QS.'i/dd/t/song/id/'.$id?>/'; }"
-              title="Delete tbl row ID=<?=$id?>"
-           ><b style="color: red">Del</b></a>
-        </td>
-        
-        <td><a href="<?=$pp1->module_url.QS.'i/uu/t/song/id/'.$id?>">Edit</a></td>
-      </tr>
-    <?php } endwhile; ?>
-    </tbody>
+      <tbody>
+      <?php
+      //foreach ($songs as $song)   utldb -> utl_adrs
+      while ( $r = utl_adrs::rrnext($cursor) and isset($r->id) ): 
+      { 
+        $id = utl::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+        ?>
+        <tr>
+          <td><?php echo $id; ?></td>
+          <td><?php if (isset($r->artist)) echo utl::escp($r->artist); ?></td>
+          <td><?php if (isset($r->track)) echo utl::escp($r->track); ?></td>
+          <td>
+              <?php if (isset($r->link)) { ?>
+                <a href="<?=utl::escp($r->link)?>">
+                   <?=utl::escp($r->link)?></a>
+              <?php } ?>
+          </td>
+          <!-- 
+            <td><a href="<=$pp1->module_url . QS . 'i/dd/t/song/id/'.$id?>">Del</a></td>
+            $pp1->ldd_admins.$id
+            <=str_repeat(' ', 8 - strlen($id)) . $id ?>
+          -->
+          <td>
+             <a id="erase_row" class="btn btn-danger"
+                onclick="var yes ; yes = jsmsgyn('Erase row <?=$id?>?','') ;
+                if (yes == '1') { location.href= '<?=$pp1->module_url.QS.'i/dd/t/song/id/'.$id?>/'; }"
+                title="Delete tbl row ID=<?=$id?>"
+             ><b style="color: red">Del</b></a>
+          </td>
+          
+          <td><a href="<?=$pp1->module_url.QS.'i/uu/t/song/id/'.$id?>">Edit</a></td>
+        </tr>
+      <?php } endwhile; ?>
+      </tbody>
     </table>
   </div>
 
 
     <p>You are in View: <?=__FILE__?></p>
 </div>
+
 ```
 
 
 
 <a name="scrudU"></a>
-### 1\.9\.6 upd_row_frm.php
+### 3\.1\.6 upd_row_frm.php
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....**update**....[adapter](#scrudadapter)   
 
 ```php
@@ -1296,8 +1399,8 @@ declare(strict_types=1);
 //       <!-- u p d  r o w  f o r m -->
 namespace B12phpfw\module\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;      // init, setings, utils
-use B12phpfw\core\zinc\Db_allsites     as utldb ;    // model (fns) for all tbls
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;      // init, setings, utils
+//use B12phpfw\core\b12phpfw\Db_allsites     as utldb ;    // model (fns) for all tbls
 use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ; // model (fns) for song tbl
 
 $tbl='song'; 
@@ -1305,7 +1408,7 @@ $tbl='song';
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["submit_update"]))
 {
-  $cursor = utl_adrs::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+  $cursor_uu = utl_adrs::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
 
   utl::Redirect_to($pp1->module_url.QS.'i/rt/');
 } //E n d  of Submit Button If-Condition
@@ -1316,11 +1419,11 @@ if(isset($_POST["submit_update"]))
                            ,'$pp1->uriq'=>isset($pp1->uriq)?json_encode($pp1->uriq):'NOT SET'
                            ] ) ; }
 
-$c_rr = utl_adrs::rr( $sellst='*', $qrywhere='id=:id'
+$cursor = utl_adrs::get_cursor( $sellst='*', $qrywhere='id=:id'
   , $binds = [['placeh'=>':id', 'valph'=>$IdFromURL, 'tip'=>'int']] //str or int or no 'tip'
   , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 //while ($row_cnt=$this->rrnext($c_rcnt)): {$rcnt=$row_cnt;} endwhile; $rcnt=$rcnt->COUNT_ROWS;
-while ( $rx = utldb::rrnext($c_rr) and isset($rx->id) ): {$r = $rx ;} endwhile;
+while ( $rx = utl_adrs::rrnext($cursor) and isset($rx->id) ): {$r = $rx ;} endwhile;
                   if ('1') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
                   echo '<pre>';
@@ -1362,13 +1465,15 @@ if (!$r) { // r o w wasn't found, display error page  $errobj = new Error_C();
   <p>You are in View: <?=__FILE__?></p>
 
 </div>
+
+
 ```
 
 
 
 
 <a name="scrudadapter"></a>
-### 1\.9\.7 Tbl_crud.php - ORM, DM (Domain Model) adapter cls - pre CRUD class, PHPQueryBuilder
+### 3\.1\.7 Tbl_crud.php - ORM, DM (Domain Model) adapter cls - pre CRUD class, PHPQueryBuilder
 [SimplestCRUD index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....**[adapter]**
 
 ```php
@@ -1394,26 +1499,43 @@ declare(strict_types=1);
 
 namespace B12phpfw\dbadapter\adrs ;
 
-use B12phpfw\core\zinc\Config_allsites as utl ;
-use B12phpfw\core\zinc\Interf_Tbl_crud ;
-use B12phpfw\core\zinc\Db_allsites     as utldb ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
+
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud  ;
+use B12phpfw\core\b12phpfw\Db_allsites     as utldb ;
 
 use B12phpfw\module\adrs\Home_ctr ;
 //use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;
 
-// Gateway class - separate DBI layers
+// Gateway class - DB adapter - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
 {
   static protected $tbl = "song";
 
-
-  static public function rr(
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
-  { 
-    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+  // *********************************************** R functions :
+  static public function get_cursor( //instead rr
+    string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[]): object
+  {
+    $cursor =  utldb::get_cursor("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
+
+  //in shared cls because is not module dependant :
+  //static public function rrnext(object $cursor ): object { return utldb::rrnext($cursor) ; }
+  static public function rrnext(object $cursor): object
+  { 
+    $rx = utldb::rrnext($cursor) ;
+    if (is_object($rx)) return $rx ; else return ((object)$rx);
+  }
+
+  /*static public function r r(
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  { 
+    $cursor =  utldb::r r("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  } */
 
   static public function rrcnt( string $tbl, array $other=[] ): int { 
     $rcnt = utldb::rrcount($tbl) ;
@@ -1422,30 +1544,34 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    /*
-    $cursor_rowcnt =  utldb::rr(
-        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    $rcnt = self::rrnext( $cursor_rowcnt
-     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
-    */
-    $rcnt = utldb::rrcount('song') ;
-    return (int)utl::escp($rcnt) ;
+    //$rcnt = utldb::rrcount($tbl) ;
+    //return (int)utl::escp($rcnt) ;
   }
 
 
+  static public function get_all(array $other=[]): object  //returns $cursor
+  {
+    $cursor = utldb::get_cursor(
+      "Select * from ".self::$tbl." ORDER BY artist", $binds=[], $other) ;
+    //utldb::get_cursor($sellst='*', $qrywhere= "'1'='1'", $binds=[], $other) ;
+
+    //$utldb::disconnect(); //problem ON LINUX
+    return $cursor ;
+  } 
+
   // pre-query
-  static public function rr_all( string $sellst, string $qrywhere="'1'='1'"
+  /* static public f unction rr_ all( string $sellst, string $qrywhere="'1'='1'"
      , array $binds=[], array $other=[]): object  //returns $cursor
   {
       // default SQL query
-      $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl
+      $cursor =  utldb::get_cursor(
+       "SELECT $sellst FROM ". self::$tbl
       ." WHERE $qrywhere ORDER BY title"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
     //$utldb::disconnect(); //problem ON LINUX
     return $cursor ;
-  }
+  } */
 
 
   /* public function rr_last_id(object $dm) {
@@ -1460,6 +1586,16 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
   //                   C R E A T E,  D,  U
   // *******************************************
 
+  //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
+  static public function dd( object $pp1, array $other=[] ): string
+  { 
+    // Like Oracle forms triggers - P R E / O N  D E L E T E"
+    $cursor =  utldb::dd( $pp1, $other ) ;
+    return '' ;
+  }
+
+
+
   static public function get_submitted_cc(): array //return '1'
   {
     $submitted = [ //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
@@ -1468,17 +1604,18 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
     return $submitted ;
   }
 
+  // *********************************************** C functions :
   /*
   * O N - I N S E R T  (P R E - I N S E R T)
   * 
   * called from submit code in view script cre_ row_ frm.php
   *     not via H o m e _ c t r  (also possible if you wish) !
   *
-  * public function cc
+  * public f unction cc
   * returns id or 'err_c c' 
   */
   static public function cc( // *************** c c (
-     object $pp1, array $other=[]): string
+     object $pp1, array $other=[]): object
   {
                 if ('') {
                   echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
@@ -1526,18 +1663,9 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
     //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
 
       utl::Redirect_to($pp1->module_url.QS.'i/cc/');
-      return('1');
+      return((object)['1']);
       fnerr:
-      return('0');
-  }
-
-
-  //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
-  static public function dd( object $pp1, array $other=[] ): string
-  { 
-    // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  utldb::dd( $pp1, $other ) ;
-    return '' ;
+      return((object)['0']);
   }
 
 
@@ -1606,192 +1734,20 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
 
 
 } // e n d  c l s  T b l_ c r u d
+
 ```
 
 
 
 
 
-<br /><br /><br /><br />
-# <a name="ide"></a> 2\. My developing environment (IDE)
-[Top](#top)......[Dirs](#directories).....[UML](#uml).....[DM](#dm).....**IDE**.....[CRUD](#crud).....[SW fw](#swfw)   
-
-
-## 2\.1 [Git SCM distributed version control system](https://git-scm.com/downloads)
-
-see  https://help.github.com/en/github/writing-on-github    https://git-scm.com/book/en/v2      
-   or eg  https://git-scm.com/docs/git-checkout         
-
-### In Windows Symenu Cmder as administrator (or CLI or Git Bash CLI)
-J:\\aplp\\aplp\\0\_symenu\\ProgramFiles\\SPSSuite\\SyMenuSuite\\Cmder\_sps       
-
-Go to your working directory or project folder (if not git status says: "fatal: not a git repository (or any of the parent directories): .git").      
-
-git config --global user.name 'yourname'         
-git config --global --replace-all user.email 'youremail'         
-Install Git Credential Manager for Windows to avoid login on each push.      
-
-### cd j:\\awww\\www
-j:\\awww\\www (master -> origin)
-### git status
-### git add .
-or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
-### git commit -am "ver 8.0.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
-We stored our project files within our system hard drive.      
-If Cmder shows error  "fatal: unable to auto-detect email address" :      
-git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       
-to set your account's default identity.    Omit --global to set the identity only in this repository.       
-### git push -u origin master
-We stored our project files within our Github site.      
-
-You want to restore an old revision of a file:
-git checkout 8a7b201 index.html
-If you specify "HEAD" as the revision, you will restore the last committed version of the file, effectively undoing any local changes that you current have in that file:       
-git checkout HEAD index.html     
-
-We can roll back our deleted files in working directory using command:      
-**git checkout -- .**    
-or git checkout -- filemame...         
 
 
 
-Git is program and [Github](https://github.com/) is site - deploy ( [book](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) ) [Tutorial](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
-
-Git we use eg to syncronize our scripts :     
-1.  to your local repository (git commit to .git dir on local PC)     
-2.  and from local repository to remote repository on Github site (git push)      
-
-Beginning August 13, 2021, Github no longer accepts account passwords when authenticating Git operations on GitHub.com, and requires the use of **token-based authentication**, such as a **PAT, personal access token over HTTPS = psw 40 characters length (recommended) ** (for developers) or an OAuth or GitHub App installation token (for integrators) for all authenticated Git operations on GitHub.com. You may also continue using SSH keys where you prefer.
-
-## Creating PAT (personal access token) from github's dev settings
-https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token     
-
-1. Verify your email address, if it hasn't been verified yet https://docs.github.com/en/github/getting-started-with-github/verifying-your-email-address.     
-2. Generate a new token from github's dev settings so :     
-   1. go to https://github.com/slavkoss/fwphp or any Github page    
-   2. in the upper-right corner click your profile photo => click Settings => Developer settings => Personal access tokens =>Generate new token      
-   3. Give your token a descriptive name, expiration (I 3 months).        
-       Select the scopes, or permissions, you'd like to grant this token. To use your token **to access repositories from the command line** :       
-       **select repo (also gist, user)**.       
-   4. Click Generate 40 chars token       
-3. Update remote URL      
-    git remote set-url origin https://[token]@github.com/[git_url]      
-    **git remote set-url origin https://[token]@github.com/slavkoss/fwphp.git **        
-4. push (or pull : **git pull https://[token]@[git_url].git**)        
-    **λ git push -u origin master**  - only one time, later  **git push** suffices     
-    λ means I did it in Cmder (contained in SyMenu portable apps collection)        
 
 
-λ git remote -v  outputs :     
-origin  https://<token>@github.com/slavkoss/fwphp.git (fetch)    
-origin  https:/<token>@github.com/slavkoss/fwphp.git (push)    
+## 3\.2 B12phpfw core (CRUD) code - How to get ONLY banana ?
 
-
-## To purge remote repository
-
-So only last commit remains and it is first commit :
-
-Save your .git/config before, and restore it after. (I delete it in recycle bin).
-1. delete .git/   (< 10 MB) - without this command : git remote add origin... issues error : fatal: remote origin already exists !!
-2. git init   (< 20 kb)
-3. git add .  (< 3 MB)
-4. git commit -am "ver 7.0.1 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO trait, pretty URL-s"
-5. git remote add origin https://github.com/slavkoss/fwphp.git
-6. git push --mirror --force
-
-  
-  
-## 2\.2 Development environment & source code
-
-My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possible) :
-
-1.  Laragon portable (PHP, Apache, Mariadb or MySQL) on Windows 10 64 bit instead XAMPP, WAMP, ZWAMP...      
-   
-2.  **EDITOR**: **npp (Notepad++)** (7 MB).       
-   http://dev1:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme_thoughts.md  or    
-   **Notepad++ Markdown plugin https://github.com/nea/MarkdownViewerPlusPlus**      
-   Copy tMarkdownViewerPlusPlus.dll to the plugins sub-folder at your Notepad++ installation directory.     
-   The plugin adds a small Markdown icon to the toolbar to toggle the viewer as dockable panel.     
-   Then in npp Settings -> Import -> Import plugin(s).     
-   
-   See in J:\\awww\www\\  GLOBALS  nppsess file and other nppsess files.
-   
-   MD to HTML converters on inet :     
-   1. **Notepad++ plugin https://github.com/nea/MarkdownViewerPlusPlus** then in npp Settings -> Import -> Import plugin(s)     
-   2. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**     
-   3. or (many converters)   https://www.browserling.com/tools/markdown-to-html      
-   4. or files convert to many formats :  https://products.aspose.app/pdf/conversion/md-to-html      
-   
-   Also good, all portable : Notepad2-mod (2 MB), Atom (524 MB),       
-   Visual Studio Code (247 MB),  CudaText (28 MB), PSPad (23 MB), RJ TextEd (416 MB),       
-   HTML WYSIWYG editors :  **Microsoft Expression web** (abandoned but still good).     
-   I avoid Dreamveawer, Komposer (abandoned, too old).        
-   
-   **OCR IMG->TXT**  **GT Text**      
-
-3.  **COMMANDER**:    
-    **Locate** is old but best (Janne Huttunen) or simmilar see Symenu.     
-    MeinPlatz (x64) (part of Symenu portable programs) like Treesize    
-    Freecommander, Multicommander, Q-dir, Totalcommander       
-
-4.  **BROWSER**: **Firefox (portable in Symenu collection)**, Google Chrome, Cyberfox, Pale Moon     
-   
-5.  **DEPLOY (INSTALL)**: **Cmder** (in Symenu) is Win CMD line, has Git.
-   Composer.
-   FTP client **Winscp**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\zinc\Dbconn_allsites.php`;
-    
-
-##  2\.3 [Composer](https://getcomposer.org/download/)
-
-I use Laragon portable laragon.7z, 19 MB on newest Windows 10, 64 bit. Not any more xampp-portable-windows-x64-7.3.7-1-VC15.7z, 79 MB. WAMP not any more because is not fully portable,  Composer needs coding displayed below and it is only for Windows. It seems WAMP is not giving newest/simplest solutions as Laragon does.
-
-        WAMP does not like PHP in Windows PATH variable, so :
-        1. I installed Composer-Setup.exe and removed PHP from PATH. 
-        2. **C:\composer\composer7.bat** :
-        ```
-        @echo OFF  
-        :: in case DelayedExpansion is on and a path contains ! 
-        setlocal DISABLEDELAYEDEXPANSION
-        J:\wamp64\bin\php\php7.2.9\php.exe "%~dp0composer.phar" %*
-        ```
-        Save file along with the originally installed composer.bat file.
-    
-        3. Now call the php7 composer with the new command:
-        ```
-        In Windows CLI, cd J:\awww\www and as admin : 
-           composer7 selfupdate   (1.8.4, 2019-02-25, Use composer self-update --rollback to return to version 1.7.3)
-           composer7 update
-        ```
-
-
-## 2\.4 Free hosting with free MySql (or Mariadb) DB
-**Demo site** free hosting where blog (msg) module is installed **http://phporacle.eu5.net/ (freehostingeu) or  http://phporacle.heliohost.org/ (heliohost) **. Some details are to do in version 6.1 but all important is visible in version 6.0.      
-I do not like heliohost activity requirement: "you must visit your site each month" or will be suspended for inactivity after 30 days. They should allow for ever free sites useful for sharing knowledge. I like heliohost simple, clever, very useful pages. I do not like freehostingeu feature "upload zip files not allowed".   
-
-|       Web hosts PHP,  MySQL DB                             |                           Features                                |Other Features |
-| ----------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------ |
-|  **http://phporacle.eu5.net/ (freehostingeu)**        | stable, fast FTP (6x faster than heliohost) | ~~activity requirement~~ ,  upload zip files not allowed, but possible  |
-|  **http://phporacle.heliohost.org/ (heliohost) **     |  stable FTP, Web Disk  | ~~activity requirement, not fast (I am in Europe, Zagreb),~~  |
-| Heroku                                                               |  ~~only Postgres DB~~  |  ~~seems complicated to me~~  |
-| https://www.gigarocket.net/free-hosting.php    |  ~~does not send confirmation email~~  |  |
-| https://infinityfree.net/                                       |   ~~does not send confirmation email~~  |  |
-| https://www.ilbello.com/en/                              |   ~~does not send confirmation email~~  |  |
-| https://www.000webhost.com/                          |  ~~**unstable FTP**~~  |  |
-Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/ , https://www.freehosting.com/free-hosting.html , https://cp1.awardspace.net/beta/login/).      
-
-
-
-  
-<br /><br /><br /><a name="crud"></a>
-# 3\. PHP 7, Bootstrap 4 : DB tbls rows PDO CRUD
-[Top](#top)......[Dirs](#directories).....[UML](#uml).....[DM](#dm).....[IDE](#ide).....**CRUD**.....[SW fw](#swfw)   
-
-May be jQuery, PHP, Bootstrap AJAX DB table rows CRUD is simplest, fastest best CRUD but I prefer no jQuery AJAX . Only Javascript I need is dialog yes or no.
-
-See readme_thoughts.md.  
-
-## 3\.1 B12phpfw core (CRUD) code - How to get ONLY banana ?
-See readme_thoughts.md.  
 
 <br /><br />
 It is not easy to see need to eg for user module convert code from procedural MVC to OOP MVC with namespaces and autoloading  For navigation (url-s, links) code is same - OOP does not help. Procedural MVC user module code is more clear and readable. So why is OOP better ?
@@ -1851,7 +1807,7 @@ It is why I spent so many hours on this (huge time wasting which should do tools
     
   
 
-## 3\.2 Code with functional namespaces and Autoload class to include classes scripts : shared, module-local and external
+## 3\.3 Code with functional namespaces and Autoload class to include classes scripts : shared, module-local and external
 This code skeleton seems complicated compared with [https://github.com/panique/\*\*mini3](https://github.com/panique/**mini3)\*\* which is may be best fw code template for smaller projects (and learning PHP).
 
 For large projects **SHARES - GLOBALS - REUSABLES** which I use here are very important, same as **modules in own folders (not all in only 3 dirs M,V,C)**.
@@ -1904,7 +1860,7 @@ TraversyMVC (has video) and Mini3 are simplified, with some (many?) differences 
 
 
 <br /><br /><br /><br />
-## 3\.3 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
+## 3\.4 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
 ```
 One of (Apache) WEB SERVER DOCROOT-s (see B12phpfw directories (modules) structure)
 |       
@@ -1976,7 +1932,7 @@ Common fw dir structure are **items in (...) and marked with NO - are not used i
 
 
 <br /><br /><br /><br /><a name="swfw"></a>
-## 3\.4 What is SW fw (Software framework)
+## 3\.5 What is SW fw (Software framework)
 [Top](#top)......[Dirs](#directories).....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....**SW fw**   
 
 See "What is SW fw (Software framework)" (using mkd in fwphp/glomodul/mkd/02/01\_fwphp/**PHP_DIP\_DI.txt/**)  which states :        
@@ -2043,4 +1999,6 @@ http://dev1:8083/fwphp/glomodul/mkd/?showhtml=J:/awww/www/readme.md
 
 
 [SimplestCRUD index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)     
+
+See http://dev1:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme_thoughts.md for my earlier thoughts.
 
