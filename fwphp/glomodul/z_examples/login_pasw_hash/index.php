@@ -1,171 +1,168 @@
 <?php
-// J:\ylaragon\www\login_pasw_hash\index.php
 /*
- * 	This example script can be downloaded from Alex Web Develop "PHP Login and Authentication Tutorial":
- * 	
- * 	https://alexwebdevelop.com/user-authentication/
- * 	
- * 	You are free to use and share this script as you like.
- * 	If you share it, please leave this disclaimer inside.
- * 	
- * 	Subscribe to my free newsletter and get my exclusive PHP tips and learning advice:
- * 	
- * 	https://alexwebdevelop.com/
- * 	
+ * J:\awww\www\fwphp\glomodul\z_examples\login_pasw_hash\index.php
+ * Based on PHPLoginAuthTut (Tutorial) : https://alexwebdevelop.com/user-authentication/
+
+   If you want to password-protect any page, add such snippet of code at the beginning of it:
+  session_start(); // Starts the session 
+  if($_SESSION['Active'] == false){ // Redirects user to login.php if not logged in
+    header("location:login.php");
+    exit;
+  }
+
+
 */
+//string before login_pasw_hash is not required :
+namespace B12phpfw\PHPLoginAuthTut\login_pasw_hash ;
+//use B12phpfw\core\b12phpfw\Autoload ;
+require('ini.php') ;  // bootstrap script is on module level
+
+$account = new Account();  // Create a new Account object
 
 
 
-/*	Start the Session, required for Session-based authentication.
-	Remeber to call session_start() before sending any output to the remote client.
-	Also, make sure to set a proper session cookie lifetime in your php.ini.
-	
-	For example, this sets the cookie lifetime to 7 days:
-	session.cookie_lifetime=604800
-*/
-session_start();
+/*  ******************************************************************
+ Uncomment the following code blocks, one at a time, to test different Account operations.
+********************************************************************** */
 
-/* Include the database connection file (remember to change the connection parameters) */
-require './db_inc.php';
-
-/* Include the Account class file */
-require './account_class.php';
-
-/* Create a new Account object */
-$account = new Account();
-
-
-
-/*	Uncomment the following code blocks, one at a time, to test different Account operations. */
-
-/*
-// 1. Crud - Insert a new account (execute twice to test the "already existing" account error)
-try {	$newId = $account->addAccount('login_pasw_hash', 'login_pasw_hash'); }
+// 1. Crud - R e a d existing account $name_psw or  C r e a t e  new acc. $name_psw
+$name_psw = 'usrnam_hashedp' ; // 8 TO 16 CHARS
+try {  
+    $idUsr = $account->getIdFromName($name_psw);
+    if (is_null($idUsr)) { 
+       $idUsr = $account->addAccount($name_psw, $name_psw);
+       echo '<h3>The new account ID of $name_psw='. $name_psw .' is $idUsr=' . $idUsr .'</h3>'; 
+    }
+    else { echo '<h3>Existing account ID of $name_psw '. $name_psw .' is ' . $idUsr .'</h3>'; } 
+}
 catch (Exception $e) {
-	echo $e->getMessage();
-	die();
-} echo 'The new account ID is ' . $newId; // 73
-*/
+  echo $e->getMessage();
+  die();
+} 
+
+
 
 // 2. crUd - Edit an account. Try passing invalid parameters to test error messages.
-/*
-$accountId = 1;
-try {	$account->editAccount($accountId, 'myNewName', 'new password', TRUE); }
+$name_psw2 = 'usrnam_hashedp2' ;
+try {  $account->editAccount($idUsr, $name_psw2, $name_psw2, TRUE); }
 catch (Exception $e) {
-	echo $e->getMessage();
-	die();
-} echo 'Account edit successful.';
-*/
+  echo $e->getMessage();
+  die();
+} echo '<h3>Edit of account id '. $idUsr .' successful, new $name_psw2='. $name_psw2 .'</h3>';
 
-// 3. cruD - Delete an account.
-/*
-$accountId = 1;
-try { $account->deleteAccount($accountId); }
-catch (Exception $e) {
-	echo $e->getMessage();
-	die();
-} echo 'Account delete successful.';
-*/
 
-// 4. cRud - Login with username and password.
-/*
+
+
+// 3. cRud - Login with username and password.
 $login = FALSE;
-try { $login = $account->login('myUserName', 'myPassword'); }
+try { $login = $account->login($name_psw2, $name_psw2); }
 catch (Exception $e) {
-	echo $e->getMessage();
-	die();
+  echo $e->getMessage();
+  die();
 }
 
 if ($login) {
-	echo 'Authentication successful.';
-	echo 'Account ID: ' . $account->getId() . '<br>';
-	echo 'Account name: ' . $account->getName() . '<br>';
-} else { 	echo 'Authentication failed.'; }
-*/
+  echo 'Authentication successful.';
+  echo 'Account ID: ' . $account->getId() . '<br>';
+  echo 'Account name: ' . $account->getName() . '<br>';
+  if ($account->isAuthenticated()) echo '$account->authenticated is TRUE.' . '<br>';
+  else echo '$account->authenticated is FALSE.' . '<br>';
+} else {   echo 'Authentication failed.'; }
 
-// 5. cRud - Session login
-/*
-$login = FALSE;
-try {	$login = $account->sessionLogin(); }
-catch (Exception $e) {
-	echo $e->getMessage();
-	die();
-}
-if ($login) {
-	echo 'Authentication successful.';
-	echo 'Account ID: ' . $account->getId() . '<br>';
-	echo 'Account name: ' . $account->getName() . '<br>';
-} else { echo 'Authentication failed.'; }
-*/
+
+                      // 5. cRud - S ession login
+                      /*
+                      $login = FALSE;
+                      try {  $login = $account->sessLogin(); }
+                      catch (Exception $e) {
+                        echo $e->getMessage();
+                        die();
+                      }
+                      if ($login) {
+                        echo 'Authentication successful.';
+                        echo 'Account ID: ' . $account->getId() . '<br>';
+                        echo 'Account name: ' . $account->getName() . '<br>';
+                      } else { echo 'Authentication failed.'; }
+                      */
 
 
 
 
 // 6. Logout.
-/*
-try
-{
-	$login = $account->login('myUserName', 'myPassword');
-	
-	if ($login)
-	{
-		echo 'Authentication successful.';
-		echo 'Account ID: ' . $account->getId() . '<br>';
-		echo 'Account name: ' . $account->getName() . '<br>';
-	}
-	else
-	{
-		echo 'Authentication failed.<br>';
-	}
-	
-	$account->logout();
-	
-	$login = $account->sessionLogin();
-	
-	if ($login)
-	{
-		echo 'Authentication successful.';
-		echo 'Account ID: ' . $account->getId() . '<br>';
-		echo 'Account name: ' . $account->getName() . '<br>';
-	}
-	else
-	{
-		echo 'Authentication failed.<br>';
-	}
-}
-catch (Exception $e)
-{
-	echo $e->getMessage();
-	die();
-}
+                      /* try
+                      {
+                        $login = $account->login($name_psw2, $name_psw2);
+                        
+                        if ($login)
+                        {
+                          echo 'Authentication successful.';
+                          echo 'Account ID: ' . $account->getId() . '<br>';
+                          echo 'Account name: ' . $account->getName() . '<br>';
+                        }
+                        else
+                        {
+                          echo 'Authentication failed.<br>';
+                        } */
+  $account->logout();
 
-echo 'Logout successful.';
-*/
+                        /* $login = $account->sessLogin();
+                        if ($login)
+                        {
+                          echo 'Authentication successful.';
+                          echo 'Account ID: ' . $account->getId() . '<br>';
+                          echo 'Account name: ' . $account->getName() . '<br>';
+                        }
+                        else
+                        {
+                          echo 'Authentication failed.<br>';
+                        } */
+                      /* }
+                      catch (Exception $e)
+                      {
+                        echo $e->getMessage();
+                        die();
+                      } */
 
-// 7. Close other open Sessions (if any).
-/*
-try
-{
-	$login = $account->login('myUserName', 'myPassword');
-	
-	if ($login)
-	{
-		echo 'Authentication successful.';
-		echo 'Account ID: ' . $account->getId() . '<br>';
-		echo 'Account name: ' . $account->getName() . '<br>';
-	}
-	else
-	{
-		echo 'Authentication failed.<br>';
-	}
-	
-	$account->closeOtherSessions();
-}
-catch (Exception $e)
-{
-	echo $e->getMessage();
-	die();
-}
+echo '<br>Logout successful.';
+echo 'Account ID: ' . $account->getId() . '<br>';
+echo 'Account name: ' . $account->getName() . '<br>';
+if ($account->isAuthenticated()) echo '$account->authenticated is TRUE.' . '<br>';
+else echo '$account->authenticated is FALSE.' . '<br>';
 
-echo 'Sessions closed successfully.';
-*/
+
+                      // 7. Close other open S essions (if any).
+                      /*
+                      try
+                      {
+                        $login = $account->login('myUserName', 'myPassword');
+                        
+                        if ($login)
+                        {
+                          echo 'Authentication successful.';
+                          echo 'Account ID: ' . $account->getId() . '<br>';
+                          echo 'Account name: ' . $account->getName() . '<br>';
+                        }
+                        else
+                        {
+                          echo 'Authentication failed.<br>';
+                        }
+                        
+                        $account->closeOtherSessns();
+                      }
+                      catch (Exception $e)
+                      {
+                        echo $e->getMessage();
+                        die();
+                      }
+
+                      echo 'S essions closed successfully.';
+                      */
+
+
+// cruD - Delete an account.
+try { $account->deleteAccount($idUsr); }
+catch (Exception $e) {
+  echo $e->getMessage();
+  die();
+} echo '<h3>Account $idUsr='. $idUsr .' deleted successful.'.'</h3>';
+

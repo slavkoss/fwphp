@@ -1,13 +1,20 @@
 <?php
-//$conn_params = 
-//     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
-//    , self::$db_username, self::$db_userpwd) 
-//    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
-return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+//J:\awww\www\vendor\b12phpfw\Dbconn_allsites_oracle.php
+
+// Assigned in t rait Db_ allsites so :
+//     $conn_params = 
+//         list( self::$do_pgntion, self::$dbi, self::$db_hostname
+//             , self::$db_name, self::$db_username, self::$db_userpwd) 
+//         = require __DIR__ . '/Dbconn_ allsites.php'; // not r equire_ once !!
+//return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+
+//return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+return [ null, 'oracle', getenv('USERDOMAIN',true)?:getenv('USERDOMAIN').'/XE:pooled;charset=UTF8'
+    , 'hr', 'hr', 'hr'] ;
 
 /*  //////////// old :
-//                   J:\awww\www\b12phpfw\Dbconn_allsites_oracle.php
-//   to be copied to J:\awww\www\b12phpfw\Dbconn_allsites.php
+//                   J:\awww\www\b12phpfw\Dbconn_ allsites_oracle.php
+//   to be copied to J:\awww\www\b12phpfw\Dbconn_ allsites.php
 // single access point to our database (singleton class).
 namespace B12phpfw\core\b12phpfw ;
 //use PDO;
@@ -36,17 +43,17 @@ abstract class Dbconn_allsites
           getenv('USERDOMAIN',true)?:getenv('USERDOMAIN').'/XE:pooled;charset=UTF8' ;
         $dsn  ='oci:dbname='.$host ;
         self::$instance = new \PDO($dsn, 'hr', 'hr', $options); 
-        //$dsn = "mysql:host=localhost;dbname=z_blogcms" ;
-        //self::$instance=n ew \PDO($dsn,'root','',$options);
+                           //$dsn = "mysql:host=localhost;dbname=z_blogcms" ;
+                           //self::$instance=n ew \PDO($dsn,'root','',$options);
       }
       return self::$instance;
     }
 
     public static function getdbi($caller='') { return self::$dbi ; }
 
-*/
 }
-      //WORK ALL THREE : (etenv('USERDOMAIN') does not work for MySql !!)
+*/
+      //WORKING ALL THREE : (getenv('USERDOMAIN') does not work for MySql !!)
       //,'host'=>getenv('USERDOMAIN',true)?:getenv('USERDOMAIN').'/XE:pooled;charset=UTF8'
       //,'host'=>'sspc2/XE:pooled;charset=UTF8'
       //,'host'=>'localhost/XE:pooled;charset=UTF8'
@@ -54,5 +61,3 @@ abstract class Dbconn_allsites
       // Safely get the value of an environment variable, ignoring whether 
       // or not it was set by a SAPI or has been changed with putenv
       //$ip = getenv('REMOTE_ADDR', true) ?: getenv('REMOTE_ADDR')
-      // define  h o s t :
-      //, 'host'=>'define  h o s t  in Config_ allsites.php'

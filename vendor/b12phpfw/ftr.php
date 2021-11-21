@@ -114,6 +114,7 @@ if ($pp1->dbg)
         echo '<br />'.'$_SERVER[\'DOCUMENT_ROOT\']='.$_SERVER['DOCUMENT_ROOT']  ;
         echo '<br />'.'$_SERVER[\'REQUEST_URI\']='.$_SERVER['REQUEST_URI']  ;
         echo '<br />'.'$_SERVER[\'QUERY_STRING\']='.$_SERVER['QUERY_STRING']  ;
+        echo '<br />'.'$_SERVER[\'HTTP_HOST\']='.$_SERVER['HTTP_HOST']  ;
 
 
           //if (isset($this))  //try 

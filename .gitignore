@@ -3,3 +3,5 @@ composer.lock
 /fwphp/glomodul/mkd/01/090_private/
 /vendor/RespectValidation/
 /fwphp/z_not_ongithub/
+/vendor/b12phpfw/Dbconn_allsites_mysql_freehostingeu.php
+/vendor/b12phpfw/Dbconn_allsites_mysql_heliohost.php

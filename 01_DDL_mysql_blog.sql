@@ -62,6 +62,8 @@ CREATE TABLE `admins` (
   `hasrights` varchar(10) COLLATE utf8_croatian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
+ALTER TABLE `admins` ADD UNIQUE(`username`); 
+
 --
 -- Dumping data for table `admins`
 --
