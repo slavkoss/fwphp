@@ -2,6 +2,8 @@
 /*
  * J:\awww\www\fwphp\glomodul\z_examples\login_pasw_hash\index.php
  * Based on PHPLoginAuthTut (Tutorial) : https://alexwebdevelop.com/user-authentication/
+ * See https://www.binarytides.com/php-add-login-with-github-to-your-website/
+ *     https://techglimpse.com/git-push-github-token-based-passwordless/
 
    If you want to password-protect any page, add such snippet of code at the beginning of it:
   session_start(); // Starts the session 
