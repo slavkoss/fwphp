@@ -36,7 +36,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
   static public function get_cursor( //instead rr
     string $sellst, string $qrywhere='', array $binds=[], array $other=[]): object 
   {
-    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
@@ -44,7 +44,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
   static public function rr(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
@@ -111,7 +111,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_comment //extends Db_allsite
                       echo '<br />:post_id='; print_r($post_id) ;
                     exit(0) ;
                     echo '</pre>'; }
-    $cursor = utldb::rr($dml
+    $cursor = utldb::get_cursor($dml
       , $binds=[ ['placeh'=>':post_id', 'valph'=>$post_id, 'tip'=>'int'] ]
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 

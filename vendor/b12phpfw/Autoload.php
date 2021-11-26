@@ -1,7 +1,14 @@
 <?php
 // J:\awww\www\vendor\b12phpfw\Autoload.php
+declare(strict_types=1);
+
 namespace B12phpfw\core\b12phpfw ; //Dir name is last in namespace and use 
 //use B12phpfw\dbadapter\post\Tbl_crud ; //         as Tbl_crud_post ;
+
+//if (!isset($_SESSION)) { session_start(); }
+//if (strnatcmp(phpversion(),'5.4.0') >= 0) {
+   if (session_status() == PHP_SESSION_NONE) { session_start(); }
+//} else { if(session_id() == '') { session_start(); } }
 
 class Autoload
 {

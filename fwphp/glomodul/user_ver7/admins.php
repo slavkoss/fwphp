@@ -1,6 +1,11 @@
 <?php
+/**
+ * J:\awww\www\fwphp\glomodul4\user\admins.php
+ *       1. S U B M I T E D  U S R  A C T I O N S
+ *       2. G U I  to get  u s r  a c t i o n
+ *    A D M I N  F O R M,  A D M I N S  T A B L E
+*/
 declare(strict_types=1);
-// J:\awww\www\fwphp\glomodul4\user\admins.php
 //namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
@@ -13,32 +18,26 @@ use B12phpfw\dbadapter\post\Tbl_crud   as Tbl_crud_post ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
+//    1. S U B M I T E D  A C T I O N S
 $shares_path = $pp1->shares_path ; //includes, globals, commons, reusables
 
 $cursor_admins = Tbl_crud_admin::get_cursor($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
   , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-
+//in Tbl_ crud : $_SESSION["submitted_cc"] = ... ;   //self::get_ submitted_cc() ;
 if (isset ($_SESSION["submitted_cc"])) {
-  list( $DateTime, $username, $Name, $password, $Admin
-      , $Confirmpassword
-  ) = $_SESSION["submitted_cc"] ;
+  $tmp = $_SESSION["submitted_cc"] ;
   unset ($_SESSION["submitted_cc"]) ;
-} else {
-  $tmp = ['','','','','',''] ; //self::get_ submitted_cc() ;
-  list( $DateTime, $username, $Name, $password, $Admin
-        , $Confirmpassword
-  ) = $tmp ;
-  //in Tbl_ crud : $_SESSION["submitted_cc"] = ... ;
-}
+} else {$tmp = ['','','','','',''] ;}
+list($DateTime, $username, $Name, $password, $Admin, $Confirmpassword) = $tmp ;
 
 
-//    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"])){
-
   // returns string
   Tbl_crud_admin::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //Ending of Submit Button If-Condition
+
+
 
 //Warning: Cannot modify header information :
 require $pp1->shares_path . 'hdr.php';
@@ -75,7 +74,7 @@ require_once("navbar_admin.php");
       <form class="" action="<?=$pp1->admins?>" method="post">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-header">
-            <h2>Add Admin for user level rights (authorization) VERSION 7</h2>
+            <h2>Add Admin for user level rights (authorization)</h2>
             See J:\awww\www\fwphp\glomodul\user_ver8 : framework core in &lt;sitedocroot>/vendor/b12phpfw (v. 7 in &lt;sitedocroot>/zinc), improved CRUD sintax, improved links aliases in view scripts.
           </div>
 
@@ -108,6 +107,7 @@ require_once("navbar_admin.php");
             <!-- **********Two big b u t t o n s  after  f o r m************ 
                  Back To Dashboard is $pp1-> dashboard
             -->
+              <br>
             <div class="row">
               <div class="col-lg-6 mb-2">
                 <a href="<?=$pp1->home_usr?>" class="btn btn-warning btn-block">

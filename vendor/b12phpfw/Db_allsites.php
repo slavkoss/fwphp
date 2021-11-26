@@ -2,6 +2,9 @@
 // J:\awww\www\vendor\b12phpfw\Db_allsites.php
 declare(strict_types=1);
 namespace B12phpfw\core\b12phpfw ; //was B12phpfw\core\zinc ;
+
+use \PDO as PDO ;
+
 trait Db_allsites  // may be named AbstractEntity :
 {
     private static $instance = null ; //singleton! or protected static $DBH;
@@ -24,6 +27,8 @@ trait Db_allsites  // may be named AbstractEntity :
     , self::$db_username, self::$db_userpwd) 
     = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
 
+            //      mysql:host=localhost;dbname=test;port=3306;charset=utf8mb4
+            //driver^    ^ colon         ^param=value pair    ^semicolon 
     self::$dsn = self::$dbi.':host='.self::$db_hostname.';dbname='.self::$db_name.';' ;
 
               if ('0') { ?>
@@ -37,18 +42,20 @@ trait Db_allsites  // may be named AbstractEntity :
               </ol>
               <?php
               }
-
+              //see ***1
     try
     {
       if( !isset( self::$instance ) || !(self::$instance instanceof PDO) )
       {
-        //$dsn = 'mysql:host='. self::$hostpc .';dbname='. self::$dbname .';' ;
+        // FETCH_ASSOC
         $options = [
-           \PDO::ATTR_PERSISTENT   => true
-          ,\PDO::ATTR_ERRMODE      => \PDO::ERRMODE_EXCEPTION
-          ,\PDO::ATTR_ORACLE_NULLS => \PDO::NULL_TO_STRING
+           PDO::ATTR_PERSISTENT   => true
+          ,PDO::ATTR_ERRMODE      => PDO::ERRMODE_EXCEPTION
+          ,PDO::ATTR_ORACLE_NULLS => PDO::NULL_TO_STRING
+          //,PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+          //,PDO::ATTR_EMULATE_PREPARES   => false
         ];
-        self::$instance = new \PDO(self::$dsn,self::$db_username,self::$db_userpwd,$options);
+        self::$instance = new PDO(self::$dsn,self::$db_username,self::$db_userpwd,$options);
 
       }
 
@@ -67,7 +74,7 @@ trait Db_allsites  // may be named AbstractEntity :
   {
     if( isset( self::$instance ) )
       self::$instance = null;
-    # Method End
+    //also eg $sth = null; where $sth = $dbh->query('SELECT * FROM foo')
   }
 
 
@@ -100,7 +107,7 @@ trait Db_allsites  // may be named AbstractEntity :
 
       $stmt = self::$dbobj->prepare($dmldd); 
 
-      $stmt->bindValue(':id',    $id,    \PDO::PARAM_INT); //PARAM_STR
+      $stmt->bindValue(':id',    $id,    PDO::PARAM_INT); //PARAM_STR
       $Executed = $stmt->execute(); //self::e xecute();
 
       if ($Executed) {$_SESSION["MsgSuccess"]="Row id $id Deleted Successfully ! ";
@@ -118,7 +125,7 @@ trait Db_allsites  // may be named AbstractEntity :
   {
                 //echo '<pre>$other='; print_r($other); echo '</pre>';
                 if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
-    $rx = $cursor->fetch(\PDO::FETCH_OBJ);
+    $rx = $cursor->fetch(PDO::FETCH_OBJ);
                 if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
 
     if (!is_object($rx)) { 
@@ -208,10 +215,10 @@ trait Db_allsites  // may be named AbstractEntity :
           {
             case 'str' :
               //$this->stmt->bindValue($param, $value, $type);
-              $cursor->bindvalue($arr['placeh'], $arr['valph'], \PDO::PARAM_STR) ;
+              $cursor->bindvalue($arr['placeh'], $arr['valph'], PDO::PARAM_STR) ;
               break;
             case 'int' :
-               $cursor->bindValue($arr['placeh'], (int)$arr['valph'], \PDO::PARAM_INT);
+               $cursor->bindValue($arr['placeh'], (int)$arr['valph'], PDO::PARAM_INT);
                break;
             default:
                $cursor->bindvalue($arr['placeh'], $arr['valph']) ;
@@ -273,10 +280,10 @@ trait Db_allsites  // may be named AbstractEntity :
           switch ($arr['tip'])
           {
             case 'str' :
-              $cursor->bindvalue($arr['placeh'], $arr['valph'], \PDO::PARAM_STR) ;
+              $cursor->bindvalue($arr['placeh'], $arr['valph'], PDO::PARAM_STR) ;
               break;
             case 'int' :
-               $cursor->bindValue($arr['placeh'], $arr['valph'], \PDO::PARAM_INT);
+               $cursor->bindValue($arr['placeh'], $arr['valph'], PDO::PARAM_INT);
                break;
             default:
                $cursor->bindvalue($arr['placeh'], $arr['valph']) ;
@@ -322,10 +329,10 @@ trait Db_allsites  // may be named AbstractEntity :
           switch ($arr['tip'])
           {
             case 'str' :
-              $cursor->bindvalue($arr['placeh'], $arr['valph'], \PDO::PARAM_STR) ;
+              $cursor->bindvalue($arr['placeh'], $arr['valph'], PDO::PARAM_STR) ;
               break;
             case 'int' :
-               $cursor->bindValue($arr['placeh'], $arr['valph'], \PDO::PARAM_INT);
+               $cursor->bindValue($arr['placeh'], $arr['valph'], PDO::PARAM_INT);
                break;
             default:
                $cursor->bindvalue($arr['placeh'], $arr['valph']) ;
@@ -408,6 +415,12 @@ trait Db_allsites  // may be named AbstractEntity :
 
 } // e n d  c l s  D b_ allsites
 
-/*
+/* // ***1 :
+ * https://www.php.net/manual/en/pdo.connections.php
+ *PERSISTENT CONNECTIONS are not closed at the end of the script, but are cached and re-used when another script requests a connection using the same credentials. Persistent connection cache allows you to avoid the overhead of establishing a new connection every time a script needs to talk to DB, resulting in faster web app.
+
+ *The value of the PDO::ATTR_PERSISTENT option is converted to bool (enable/disable persistent connections), unless it is a non-numeric string, in which case it allows to use MULTIPLE PERSISTENT CONNECTION POOLS. This is useful if different connections use incompatible settings, for instance, different values of PDO::MYSQL_ATTR_USE_BUFFERED_QUERY.
+
+ * https://phpdelusions.net/pdo
 
 */

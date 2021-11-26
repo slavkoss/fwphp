@@ -1,8 +1,5 @@
 <?php
 
-//$u riq = $this->g etp('u riq') ;
-//$pp1  = $this->pp1 ;
-
 ?>
 <!-- NAVBAR ADMIN-->
 <div style="height:10px; background:#27aae1;"></div>
@@ -10,6 +7,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
   <div class="container">
+    <!--a href="<?=$pp1->home_usr?>1/" class="navbar-brand">Home</a>
+    &nbsp;  -->
     <a href="<?=$pp1->home_blog.$pp1->filter_page?>1/" class="navbar-brand">Home</a>
     
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">

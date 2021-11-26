@@ -10,7 +10,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
   <div class="container">
-    <a href="<?=$pp1->home_usr?>" title="Refresh this page" class="navbar-brand">Home</a>
+    <a href="<?=$pp1->home_url?>" title="Refresh this page" class="navbar-brand">Home</a>
     
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
       <span class="navbar-toggler-icon"></span>
@@ -20,12 +20,6 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><a href="<?=$pp1->sitehome?>" class="nav-link">Sitehome</a></li>
       <li class="nav-item"><a href="" class="nav-link">|</a></li>
-
-      <!--li class="nav-item"><a href="<=$pp1->admins?>" class="nav-link">Admins</a></li>
-      <li class="nav-item"><a href="<=$pp1->categories?>" class="nav-link">Categories</a></li>
-      <li class="nav-item"><a href="<=$pp1->posts?>" class="nav-link">Msgs (Posts)</a></li>
-      <li class="nav-item"><a href="<=$pp1->comments?>" class="nav-link">Comments</a></li>
-      <li class="nav-item"><a href="" class="nav-link">|</a></li-->
     </ul>
 
     <ul class="navbar-nav ml-auto">

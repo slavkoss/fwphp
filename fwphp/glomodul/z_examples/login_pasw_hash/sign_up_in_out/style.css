@@ -1,0 +1,98 @@
+/*
+Theme Name: PHP URL Shortener
+Author: Naeem Hussain
+Description: In this theme user can add Logn URL and Get Short URL.
+Version: 1.0
+File: Style CSS
+*/
+
+
+/***********************************************/
+/*************** Selector Reset ****************/
+/***********************************************/
+
+html, body, blockquote, pre,address, code, img,
+small, strong, dl, dt, dd, ol, ul, li,h1, h2, h3, h4, h5, h6,p,
+fieldset, form, label, div, span, object,a, tr,td,th
+{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+body{
+  line-height: 1.5;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  background: #1f447f
+}
+ol, ul {
+  list-style: none;
+}
+
+/***********************************************/
+/***************** Tag Selector ***********************/
+/***********************************************/
+h1{
+  font-size: 24px;
+}
+h1,p{
+  margin: 5px;
+}
+table {
+  background: #ffffff;
+  width: 350px;
+  border: none;
+}
+input{
+  width: 350px;
+  height: 45px;
+  margin: 5px;
+  padding: 0;
+  padding-left: 15px;
+  border: 1px solid #bbb;
+}
+
+select{
+
+  width: 370px;
+  height: 45px;
+  margin: 5px;
+  padding: 0;
+  padding-left: 15px;
+  border: 1px solid #bbb;
+
+}
+
+input:hover{
+  border-color: #0459e2;
+}
+
+/***********************************************/
+/***************** ID Seletor  ******************/
+/***********************************************/
+#main{
+
+  margin: auto;
+  width: 380px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  margin-top: 200px;
+}
+
+
+/***********************************************/
+/*****************Class Selector ****************/
+/***********************************************/
+.button{
+  background-color: #1f447f;
+  color: #ffffff;
+  height: 45px;
+  border: none;
+  width: 367px;
+}
+.g-recaptcha{
+  margin: 10px 0 0 5px ;
+}

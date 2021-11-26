@@ -1,22 +1,20 @@
 <?php
 // J:\awww\www\fwphp\glomodul\user\upd_ user_loggedin_frm.php
-namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL eg : B12phpfw\b12phpfw\ver5
+namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
-use B12phpfw\dbadapter\user\Tbl_crud as utl_module;  //to Login_ Confirm_ SesUsrId
+use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
-// Why i n c  h d r  and  f t r  must be here - in  v i e w  script :
-//Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\navbar_admin.php:26) in J:\awww\www\b12phpfw\Config_allsites.php on line 306
                          //var_dump($_SESSION);
 //$AdminId = (int)$pp1->uriq->id ;
-$AdminId = (int)$_SESSION["userid"];
+$AdminId = (int)$_SESSION['userid'];
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 {
-  $cursor = utl_module::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
-  utl::Redirect_to($pp1->home_url);
+  $cursor = Tbl_crud_admin::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+  utl::Redirect_to($pp1->home_usr);
 } //E n d  of Submit Button If-Condition
 
 
@@ -24,7 +22,7 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 
     //        2. G U I  to get user action
        // returns object :
-    $rr = utl_module::rr_byid( $AdminId, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+    $rr = Tbl_crud_admin::rr_byid( $AdminId, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
 
       require $pp1->shares_path . 'hdr.php';
@@ -38,7 +36,7 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 
       <h1>
         @User: <span class="text-dark">
-          <a href="<?=$pp1->rr?>username/<?php echo self::escp($rr->username); ?>"
+          <a href="<?=$pp1->read_user?>username/<?php echo self::escp($rr->username); ?>"
              title="Show profile">
              <?=self::escp($rr->username)?></a>
                  </span>
@@ -78,8 +76,8 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
     <!-- Right Area -->
     <div class="col-md-9" style="min-height:400px;">
       <?php
-       echo $this->ErrorMessage();
-       echo $this->SuccessMessage();
+       echo utl::MsgErr();
+       echo utl::MsgSuccess();
        ?>
 
       <form class="" action="<?=$pp1->upd_user_loggedin . $AdminId?>" 
@@ -126,7 +124,7 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
             <div class="row">
               <!-- was $pp1-> dashboard  Back To Dashboard -->
               <div class="col-lg-6 mb-2">
-                <a href="<?=$pp1->home_url?>" class="btn btn-warning btn-block">
+                <a href="<?=$pp1->home_usr?>" class="btn btn-warning btn-block">
                    <i class="fas fa-arrow-left"></i> Back To Home</a>
               </div>
 

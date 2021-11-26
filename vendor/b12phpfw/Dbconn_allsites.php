@@ -26,7 +26,7 @@ switch ($_SERVER['HTTP_HOST']) {
               $host = // USERDOMAIN = pcname eg sspc2 is ok for oracle not for mysql
                 getenv('USERDOMAIN',true)?:getenv('USERDOMAIN').'/XE:pooled;charset=UTF8' ;
               $dsn  ='oci:dbname='.$host ;
-              self::$instance = new \PDO($dsn, 'hr', 'hr', $options);
+              self::$instance = new PDO($dsn, 'hr', 'hr', $options);
               */
     return [null,'mysql','localhost','z_blogcms','root',''];
                 //$_SERVER['DOCUMENT_ROOT']=J:/awww/www

@@ -30,7 +30,7 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ; // init, setings, utilities
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                    <?php
-                     if (isset($_SESSION["userid"])) { 
+                     if (isset($_SESSION['userid'])) { 
                         ?><a href="<?=$pp1->dashboard?>" class="nav-link text-danger">
                         <?php
                         echo 'Tables';

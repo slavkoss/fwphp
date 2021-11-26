@@ -1,13 +1,10 @@
 <?php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
-//use PDO;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
-use B12phpfw\module\user\Cre               as cre ;
-use B12phpfw\module\user\Upd               as upd ;
-use B12phpfw\dbadapter\user\Tbl_crud       as utl_module;  //to Login_ Confirm_ SesUsrId
-use B12phpfw\dbadapter\user\Home           as Home_view ;
-
+use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
+//use B12phpfw\module\dbadapter\user\DB_user ; //to Login_ Confirm_ SesUsrId
+//use B12phpfw\module\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment ;
 
 class Home_ctr extends utl
 {
@@ -23,26 +20,30 @@ class Home_ctr extends utl
     /**
     * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
     *  ------------------------------------------------------------------------------
-     * LINKALIAS          URLurlqrystring                CALLED METHOD
-     * IN VIEW SCRIPT     IN H ome_ ctr                   IN H ome_ ctr
-     *  ,'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
     */
-    $pp1_module = [ // R O U T I N G  T A B L E
-        'ROUTING_TABLE'     => '<b style="color: blue">
-        $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE</b>'
-      //     In view script: $pp1->uu_ frm.$id calls uu_ frm method.
-      ,'home_url'         => QS.'i/home/' //or 'home_usr' or 'admins' 
-      , 'cc_frm'          => QS.'i/cc_frm/'  //or 'cre_usr'
-      , 'rr'              => QS.'i/read_row/id/' //or 'read_user' =  profile
-      , 'dd'              => QS.'i/dd/id/' //or 'ldd_admins' => QS.'i/del_admins/id/'
-                //,'upd_user_loggedin' => QS.'i/upd_ user_ loggedin/id/' //also profile
-      , 'uu_frm'          => QS.'i/uu_frm/id/' 
-      //
+    $pp1_module = [ 
+      'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
+      // LINKALIAS          URLurlqrystring                CALLED METHOD
+      // IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
+      //, 'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
+      //, 'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
+      //      (method parameter /idvalue we assign in view script after ldd_category)
+      ,'home_usr'   => QS.'i/home_usr/'
+      ,'admins'     => QS.'i/home_usr/'
+      ,'cre_usr'    => QS.'i/cre_usr/'
+      //link $pp1->ldd.$id in view script admins.php calls del_ row_ do method here :
+      ,'ldd_admins' => QS.'i/del_admins/id/'
+      ,'read_user'  => QS.'i/read_user/id/' //$pp1->read_user.$id (not $pp1->r)  profile
+      ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/' //also profile
+      //ed_usr = LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
+      //,'ed_ usr' => QS.'i/ed_ usr/id/' //in view script: $pp1->ed_ usr.$id 
+
       ,'sitehome'   => QS.'i/sitehome/' //$pp1->sitehome
+      //$this->uriq->i/home_fn, t/tbl_name, id/idval key/value
       //in home.php onclick does j s m s g y n dialog,  home_fn "d" calls dd() (no need include script)
       // -------------------------
       ,'loginfrm' => QS.'i/loginfrm/'
-      ,'login'    => QS.'i/login/' //read by id, then compare with entered id, then sess.var.
+      ,'login'    => QS.'i/login/' 
       ,'logout'   => QS.'i/logout/r/i|loginfrm|' //logout & r=redirect
     ] ;
 
@@ -51,14 +52,14 @@ class Home_ctr extends utl
 
                 if ('') { self::jsmsg( [ //basename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
-                   ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
-                   ,'$pp1->uriq'=>$pp1->uriq
+                   ,'ses. userid'=>isset($_SESSION['userid'])?$_SESSION['userid']:'NOT SET'
+                   ,'$this->uriq'=>$this->uriq
                    ] ) ; 
                    echo '<h3>'. basename(__FILE__).' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
                    echo '<pre>$_GET='; print_r($_GET); echo '</pre><br />'; // [d/39] => 
                    echo '<pre>$_POST='; print_r($_POST); echo '</pre><br />'; // [d/39] => 
-                   echo '<pre>$pp1->uriq='; print_r($pp1->uriq); echo '</pre><br />';
-                   // $pp1->uriq=stdClass Object( [d] => 39 )
+                   echo '<pre>$this->uriq='; print_r($this->uriq); echo '</pre><br />';
+                   // $this->uriq=stdClass Object( [d] => 39 )
                 }
 
 
@@ -73,21 +74,16 @@ class Home_ctr extends utl
           // CALLED FROM Config_ allsites __c onstruct
           //******************************************
           //$accessor = "get" . ucfirst(strtolower($akc));
-  protected function call_module_method(string $akc, object $pp1)  //fnname, params
+  public function call_module_method(string $akc, object $pp1)  //fnname, params
   {
-    //This fn calls fn $ a k c in H ome_ ctr which has parameters in  $ p p 1
-    if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
+    if ( is_callable(array($this, $akc)) ) { // and method_exists($this, $akc)
       return $this->$akc($pp1) ;
     } else {
-      echo '<h3>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>' ;
-      echo 'Home_ ctr  m e t h o d  "<b>'. $akc .'</b>" is not callable.' ;
-      
-      echo '<br><br>See how is created  m e t h o d  name  $ a k c  in abstract class Config_ allsites, m ethod __c onstruct :<br>
-      $this->call_module_method($akc, $pp1) ; //protected fn (in child cls Home_ ctr) calls private fns (in child cls Home_ ctr)
-      ' ;
+      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+      echo 'Home_ ctr method "<b>'. $akc .'</b>" is not callable.' ;
+      echo ' See how is created method name in Config_ allsites code snippet c s 0 2. R O U T I N G."' ;
       return '0' ;
     }
-
   }
 
   // *************************************************
@@ -109,37 +105,35 @@ class Home_ctr extends utl
                               else { echo ' not set' ; } 
                               exit(0) ;
                               }
-    utl_module::dd($pp1, $other);
-    utl::Redirect_to($pp1->home_url) ;
+    Tbl_crud_admin::dd($pp1, $other);
+    utl::Redirect_to($pp1->admins) ;
 
   }
 
-  public function cc_frm(object $pp1)
+  public function cre_usr(object $pp1)
   {
     //         i n s  f o r m is in home.php before tbl display
       $title = 'USER Crud';
-      //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
+      //require $pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar.php");
         //require $pp1->module_path . 'create.php';
-        cre::frm($pp1) ;  //require $pp1->module_path . 'home.php'; //create.php not used
-      //require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+        require $pp1->module_path . 'home.php'; //create.php not used
+      //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
 
-  //public function home_usr(object $pp1)
-  //{
-  //  $this->home($pp1) ;
-  //} 
+  public function home_usr(object $pp1)
+  {
+    $this->home($pp1) ;
+  }
   public function home(object $pp1)
   {
     //        t b l  r e a d, display
       $title = 'USER CRud';
-                            //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php'; //Warning: Cannot modify header information
+      //require $pp1->wsroot_path . 'zinc/hdr.php'; //Warning: Cannot modify header information
         require("navbar_admin.php");
-        //require $pp1->module_path . 'home.php';
-        home::displ($pp1) ;  //require $pp1->module_path . 'home.php';
-        //require $pp1->module_path . 'ftr.php';
-                            //require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+        require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
+      //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
   public function sitehome(object $pp1)
@@ -151,21 +145,21 @@ class Home_ctr extends utl
 
   // U S E R  R E A D
 
-  public function read_row(object $pp1)
+  public function read_user(object $pp1)
   {
     //r o w  r e a d
       $title = 'USER SHOW PROFILE (cRud)';
       $css1 = 'NO';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
+      require $pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar.php");
         require $pp1->module_path . 'read.php';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+      require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
 
   private function logout(object $pp1)
   {
-     utl_module::logout($pp1);
+     Tbl_crud_admin::logout($pp1);
      //$this = $dm = domain model = globals for all sites (eg for CRUD...) & for curr.module
      //$dm = $this ;
      //$Db_ user = new Db_user ;
@@ -184,7 +178,7 @@ class Home_ctr extends utl
 
   private function login(object $pp1) //private
   {
-      utl_module::login($pp1);
+      Tbl_crud_admin::login($pp1);
       //$dm = $this ;            //this globals for all sites are for CRUD... !!
       //$Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
       //$Db_user->login($dm, $pp1) ;
@@ -192,7 +186,7 @@ class Home_ctr extends utl
 
 
   private function Login_Confirm_SesUsrId(object $dm) {
-    utl_module::Login_Confirm_SesUsrId();
+    Tbl_crud_admin::Login_Confirm_SesUsrId();
   }
 
   private function upd_user_loggedin(object $pp1) //private
@@ -201,21 +195,21 @@ class Home_ctr extends utl
       //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
       $title = 'USER UPDATE';
       $this->Login_Confirm_SesUsrId($this);
-      //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
+      //require $pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar_admin.php");
         require $pp1->module_path . 'upd_user_loggedin_frm.php';  
                   //require $pp1->module_path . '../user/upd_user_loggedin_frm.php';  
-      //require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+      //require $pp1->wsroot_path . 'zinc/ftr.php';
   }
 
-  /* //public f unction ed_usr(object $pp1)
+  /* //public function ed_usr(object $pp1)
   {
     //LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
       $title = 'USER UPDATE';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
+      require $pp1->wsroot_path . 'zinc/hdr.php';
         //require_once("navbar.php");
         require $pp1->module_path . 'update.php';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+      require $pp1->wsroot_path . 'zinc/ftr.php';
   } */
 
   public function d(object $pp1)
@@ -228,10 +222,10 @@ class Home_ctr extends utl
     //$this->dd() ;
     $this->dd($pp1->uriq->t, $pp1->uriq->id) ;
     // R e d i r e c t = r e f r e s h  t b l  v i e w :
-    $this->Redirect_to($pp1->home_url) ;
+    $this->Redirect_to($pp1->home_usr) ;
       /* switch ($this->uriq->t)
       {
-        case 'admins' : $this->Redirect_to($pp1->home_url) ; break;
+        case 'admins' : $this->Redirect_to($pp1->home_usr) ; break;
         default: 
           echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '.'T a b l e '. $this->uriq->t 
           .' does not exist (put it in home.php, in del link !)'.'</h3>';

@@ -18,17 +18,32 @@ declare(strict_types=1);
 namespace B12phpfw\dbadapter\user ;
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
-use B12phpfw\module\blog\Home_ctr ;
+//use B12phpfw\module\blog\Home_ctr ;
+use B12phpfw\dbadapter\user\Tbl_crud as utl_module ;
 
 use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
-use B12phpfw\core\b12phpfw\Db_allsites    as utldb ;
-use B12phpfw\dbadapter\user\Tbl_crud       as Tbl_crud_admin ;
+use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
+//use Model\UserInterface, //    Model\User ; //entity
 
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implements User_db_intf
 {
-  static protected $tbl = "admins";
+  static protected $tbl = 'admins';
+                         //static public function col_ names() : array { ... or :
 
+  static public $col_names = 
+  ['dateTime','username','password','aname','aheadline','abio']; 
+  static public $col_bind_types = 
+  ['str',       'str',      'str',   'str',     'str',  'str']; //int
+  //$binds=[...,['placeh'=>':aheadline', 'valph'=>'~~~aheadline varchar(30)~~~', 'tip'=>'str']
+  //,['placeh'=>':abio',     'valph'=>'~~~abio varchar(500)~~~', 'tip'=>'str']
+  //,['placeh'=>':adminname', 'valph'=>$Admin   , 'tip'=>'str'] ] ;
+
+  static public    $row = []; //eg utl::escp($_POST["title"]) to $title, $author...
+  static public    $flds          = '';
+  static public    $ccflds_placeh = '';
+  static public    $uuflds_placeh = '';
+  static public    $binds         = [];
 
 
   static public function dd( object $pp1, array $other=[] ): string
@@ -43,23 +58,13 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   //                     R E A D
   // *******************************************
   // pre-query
-  static public function get_cursor( //instead rr
-    string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[]): object
-  {
-    $cursor =  utldb::get_cursor("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
+  static public function get_cursor( // returns  cursor, not rr_byid !
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  { 
+    $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
-
-            //string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
-            /*static public function rr( // *************** r r (
-              string $sellst, array $binds=[], array $other=[] ): object
-            {
-              // open cursor (execute-query loop is in view script)
-              $cursor = utldb::rr("SELECT $sellst FROM ".self::$tbl  //." WHERE $qrywhere"
-                 , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-              return $cursor ;
-            } */
 
   static public function rrnext(object $cursor ): object
   {
@@ -83,9 +88,10 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     return (int)$rcnt_admins ;
   }
 
+
   static public function rr_byid( int $id, array $other=[] ): object
   {
-    $cursor_admin_byid =  utldb::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
+    $cursor_admin_byid =  utldb::get_cursor("SELECT * FROM ".self::$tbl." WHERE id=:id"
     ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
     //,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
     ,$other[]=['caller2' => __FILE__ .' '.', ln '. __LINE__ ]
@@ -102,12 +108,12 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     {
       //WHERE FILTEREDFLD_HERE = :filterfldval ORDER BY datetime desc"
       //eg [ ['placeh'=>':category_from_url', 'valph'=>$filterfldval, 'tip'=>'str'] ]
-      $cursor = utldb::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+      $cursor = utldb::get_cursor("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
         , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
     }
     else{
       // default SQL query
-      $cursor =  utldb::rr("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+      $cursor =  utldb::get_cursor("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
          , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     }
 
@@ -124,7 +130,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   static public function ChkUsrNameExists(string $username)
   {
     // called only before a d d admin to warn "Username Exists. Try Another One!"
-    $cursor_admin_byname = self::rr($sellst='*', $qrywhere="username=:username"
+    $cursor_admin_byname = self::get_cursor($sellst='*', $qrywhere="username=:username"
       , $binds = [ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
           ]
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
@@ -138,13 +144,13 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   }
 
 
-  static public function Login_Confirm_SesUsrId(){
+  /* static public function Login_Confirm_SesUsrId(){
     if (isset($_SESSION["userid"])) { return true;
     }  else {
-      $_SESSION["MsgErr"]="You are not logged in, log in is required  f o r  action you want !";
+      $_SESSION["ErrorMessage"]="You are not logged in, log in is required  f o r  action you want !";
       //utl::Redirect_to(utl::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
     }
-  }
+  } */
 
 
 
@@ -190,27 +196,27 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       // define variables and set to empty values
       $username = $password = ''; //$nameErr = $passwordErr = '';
       //if ($_SERVER["REQUEST_METHOD"] == "POST")
-      if (!isset($_POST["Submit"])) { $_SESSION["MsgErr"]="l o g i n() is not called from l o g i n _ f r m  script";
+      if (!isset($_POST["Submit"])) { $_SESSION["ErrorMessage"]="l o g i n() is not called from l o g i n _ f r m  script";
         goto redirto ; //return ;
       } else {
           if (empty($_POST["username"])) {
-             $_SESSION["MsgErr"] = "Name is required!";
+             $_SESSION["ErrorMessage"] = "Name is required!";
              goto redirto ;
           } else { $username = utl::escp($_POST["username"]);
             // check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
-              $_SESSION["MsgErr"] = '<span style="color: violet; font-size: large; font-weight: bold;">'
+              $_SESSION["ErrorMessage"] = '<span style="color: violet; font-size: large; font-weight: bold;">'
               ."Only letters and white space are allowed in name!".'</span>';
               goto redirto ;
             }
           }
 
         if (empty($_POST["password"])) {
-           $_SESSION["MsgErr"] = "Password is required!";
+           $_SESSION["ErrorMessage"] = "Password is required!";
            goto redirto ;
         } else { $password = utl::escp($_POST["password"]); }
                     /*if ('') {$db->jsmsg( [ //b asename(__FILE__).
-                       __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE Config_ allsites construct '
+                       __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. BEFORE Config_allsites construct '
                        ,'$_SESSION["username"]'=>isset($_SESSION["username"])?$_SESSION["username"]:'NOT SET'
                        ,'$username'=>isset($username)?$username:'NOT SET'
                        ,'$password'=>isset($password)?$password:'NOT SET'
@@ -259,13 +265,13 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           $_SESSION["userid"]     =$rx->id;
           $_SESSION["username"]   =$rx->username;
           $_SESSION["adminname"]  =$rx->aname;
-          $_SESSION["MsgSuccess"] = "Wellcome ".$_SESSION["adminname"]."!";
+          $_SESSION["SuccessMessage"] = "Wellcome ".$_SESSION["adminname"]."!";
 
           utl::Redirect_to($goscript); //$pp1-> dashboard
           break;
         default:
           $_SESSION["username"]     = $username;
-          //$_SESSION["MsgErr"] ="Incorrect username/password";
+          //$_SESSION["ErrorMessage"] ="Incorrect username/password";
           utl::Redirect_to($pp1->loginfrm);
           break;
       }
@@ -280,23 +286,19 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   // *******************************************
   //                   C R E A T E,  U,  D
   // *******************************************
-  static public function get_submitted_cc(): array //return '1'
+  /*static public function get_submitted_cc(): array //return '1'
   {
     $submitted = [
       strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
-
-      ,$_POST["username"]
-      ,$_POST["Name"] // $aName ?
-      ,$_POST["password"]
-      ,$_SESSION["username"]
-      ,$_POST["Confirmpassword"]
+      ,$_POST["username"] ,$_POST["Name"] ,$_POST["password"] ,$_SESSION["username"]
+      ,$_POST["c onfirmpassword"]
     ] ;
     return $submitted ;
-  }
+  } */
   // O N - I N S E R T  (P R E - I N S E R T)
   //return id or 'err_c c'   public f unction c c(UserInterface $user) {
   static public function cc( // *************** c c (
-     object $pp1, array $other=[]): object //was string
+     object $pp1, array $other=[]): object //was string  void
   {
                 if ('') {
                   echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
@@ -307,56 +309,82 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
                   //exit(0);
                 }
 
-    // 1. S U B M I T E D  F L D V A L S
-      $submitted_cc = self::get_submitted_cc() ;
-      list( $DateTime, $username, $Name, $password, $Admin, $Confirmpassword
-      ) = $submitted_cc ;
-      $_SESSION["submitted_cc"] = $submitted_cc ;
-    // 2. C C  V A L I D A T I O N
+    // 1. S U B M I T E D  F L D V A L S - P R E  I N S E R T
+    $r = utl::row_flds_binds(
+       self::$col_names, self::$flds, self::$ccflds_placeh, self::$uuflds_placeh
+     , self::$binds, self::$col_bind_types
+    ) ; //obj. for view fields 
+                      //$submitted_cc = self::get_submitted_cc() ;
+                      //list( $DateTime, $username, $Name, $password, $A dmin, $c onfirmpassword
+                      //) = $submitted_cc ;
+                      //$_SESSION["submitted_cc"] = $submitted_cc ;
+
+    // 2. C C  V A L I D A T I O N - P R E  I N S
     $err = '' ;
+    $err = [] ;
+    //['dateTime','username','password','aname','aheadline','abio']; 
+    //strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
+    //,$_POST["username"] ,$_POST["Name"] ,$_POST["password"] ,$_SESSION["username"]
+    //,$_POST["c onfirmpassword"]
     switch (true) {
-      case (empty($username)||empty($Name)||empty($password)||empty($Confirmpassword)):
-        $err = "All fields must be filled out"; break ;
-      case (strlen($password)<4): $err = "Password should be min 4 characters"; break ;
-      case ($password !== $Confirmpassword):
-        $err = "Password and Confirm password should match"; break ;
-      case (self::ChkUsrNameExists($username)):
-        $err = "Username Exists. Try Another One!"; break ;
-      //default: break;
+    //                non-empty
+      //case (!array_key_exists($_POST['author'], $authors))  -  FK 
+      //case (!$r->author):          $err[] = 'Please select author for the book'; //break ;
+      case (empty($r->username)):     $err[] = "Please enter username"; //break ;
+      case (empty($r->name)): $err[] = "Please enter Name"; //break ;
+      case (empty($r->password)):   $err[] = "Please enter password"; //break ;
+      case (empty($r->confirmpassword)):   $err[] = "Please confirmpassword"; //break ;
+    //                length 
+      case ( mb_strlen($r->password) < 4 ): 
+         $err[] = "Password should be min 4 characters is ". mb_strlen($r->password); //break ;
+      //if(!preg_match('~^\d{10}$~', $_POST['isbn'])) {
+      case ( mb_strlen($r->isbn) > 20 ): 
+         $err[] = "ISBN should be max 20 characters, now is ". count($r->isbn); //break ;
+
+      case ($r->password !== $r->confirmpassword):
+         $err[] = "Password and Confirm password should match"; //break ;
+      case (self::ChkUsrNameExists($r->username)):
+      $err[] = "Username Exists. Try Another One!"; //break ;
+      default: break;
     }
     
-    if ($err > '') { $_SESSION["MsgErr"]= $err ;
-      utl::Redirect_to($pp1->admins); goto fnerr ; //exit(0) ;
+    if(count($err) > 0) { //if ($err > '') {
+      $_SESSION["ErrorMessage"]= $err ;
+      utl::Redirect_to($pp1->cc_frm); goto fnerr ; // Add row
+      exit(0) ;
     }
 
-      // 3. I N S E R T  D B T B L  R O W
-      // Query to insert admin in DB When everything is fine
-     $flds="datetime,username,password,aname,aheadline,abio,addedby" ;
-     $valsins="VALUES(:dateTime,:username,:password,:aName,:aheadline,:abio,:adminname)" ;
-     $binds=[
-          ['placeh'=>':dateTime',  'valph'=>$DateTime, 'tip'=>'str']
-         ,['placeh'=>':username',  'valph'=>$username, 'tip'=>'str']
-         ,['placeh'=>':password',  'valph'=>$password, 'tip'=>'str']
-         ,['placeh'=>':aName',     'valph'=>$Name    , 'tip'=>'str']
-         ,['placeh'=>':aheadline', 'valph'=>'~~~aheadline varchar(30)~~~', 'tip'=>'str']
-         ,['placeh'=>':abio',     'valph'=>'~~~abio varchar(500)~~~', 'tip'=>'str']
-         ,['placeh'=>':adminname', 'valph'=>$Admin   , 'tip'=>'str']
-         ] ;
+    // 3. I N S E R T  D B T B L  R O W - O N  I N S E R T
+    //$last_id1 = utldb::rr_last_id($tbl) ;
+    //Same for all tbls, does : $dmlcc = "INSERT INTO $tbl($flds) $valsins";
+    $cursor = utldb::cc(self::$tbl, self::$flds, 'VALUES('. self::$ccflds_placeh .')'
+       , self::$binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    //$last_id2 = utldb::rr_last_id($tbl) ;
+                         /*$flds="datetime,username,password,aname,aheadline,abio,addedby" ;
+                         $valsins="VALUES(:dateTime,:username,:password,:aname,:aheadline,:abio,:adminname)" ;
+                         $binds=[
+                              ['placeh'=>':dateTime',  'valph'=>$DateTime, 'tip'=>'str']
+                             ,['placeh'=>':username',  'valph'=>$username, 'tip'=>'str']
+                             ,['placeh'=>':password',  'valph'=>$password, 'tip'=>'str']
+                             ,['placeh'=>':aname',     'valph'=>$Name    , 'tip'=>'str']
+                             ,['placeh'=>':aheadline', 'valph'=>'~~~aheadline varchar(30)~~~', 'tip'=>'str']
+                             ,['placeh'=>':abio',     'valph'=>'~~~abio varchar(500)~~~', 'tip'=>'str']
+                             ,['placeh'=>':adminname', 'valph'=>$Admin   , 'tip'=>'str']
+                             ] ;
+                          $cursor = utldb::cc( self::$tbl, $flds, $valsins, $binds
+                                    , $other=['caller'=>__FILE__.' '.',ln '.__LINE__] ); */
 
-      $cursor = utldb::cc( self::$tbl, $flds, $valsins, $binds
-                , $other=['caller'=>__FILE__.' '.',ln '.__LINE__] );
+                    //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
+                    //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
 
-      //if($cursor){$_SESSION["MsgSuccess"]="Admin with the name of ".$Name." added Successfully";
-      //}else { $_SESSION["MsgErr"]= "Something went wrong (cre admin). Try Again !"; }
-
-      // 4. U P L O A D  I M A G E
-      //move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
+    // 4. U P L O A D  I M A G E
+    //move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
 
     // g e t  i d  - see D b _ a l l s i t e s  rr_ last_ id($tbl)
-      utl::Redirect_to($pp1->admins); 
-      return((object)['1']); // return('1');
+      //utl::Redirect_to($pp1->cc_frm); 
+      return($r); // it is r_ posted !!
       fnerr:
-      return((object)['0']); // return('0');
+      return(NULL);
   }
 
 
@@ -376,10 +404,10 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   //return id or 'err_c c'
   static public function uu( object $pp1, array $other=[]): string // *************** u u (
   {
-    $AdminId = (int)$pp1->uriq->id ;  //$AdminId = $_SESSION["userid"];
+    $AdminId = (int)$pp1->uriq->id ;  //$A dminId = $_SESSION["userid"];
 
     // 1. S U B M I T E D  F L D V A L S - P R E  U P D A T E
-    list($AName, $AHeadline, $ABio, $Image, $Target) = self::get_submitted_uu() ;
+    list($aname, $AHeadline, $ABio, $Image, $Target) = self::get_submitted_uu() ;
 
     // 2. U U  V A L I D A T I O N
     $err = '' ;
@@ -390,17 +418,17 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       //default: break;
     }
     if ($err > '') {
-      $_SESSION["MsgErr"]= $err ;
+      $_SESSION["ErrorMessage"]= $err ;
       utl::Redirect_to($pp1->upd_user_loggedin);
       goto fnerr ; //exit(0) ;
     }
 
     // 3. U P D A T E  D B T B L R O W
       // Query to Update u s e r in DB When everything is fine
-      $flds     = "SET aname=:AName, aheadline=:AHeadline, abio=:ABio" ;
+      $flds     = "SET aname=:aname, aheadline=:AHeadline, abio=:ABio" ;
       $qrywhere = "WHERE id=:AdminId" ;
       $binds = [
-        ['placeh'=>':AName',     'valph'=>$AName, 'tip'=>'str']
+        ['placeh'=>':aname',     'valph'=>$aname, 'tip'=>'str']
        ,['placeh'=>':AHeadline', 'valph'=>$AHeadline, 'tip'=>'str']
        ,['placeh'=>':ABio',      'valph'=>$ABio, 'tip'=>'str']
        ,['placeh'=>':AdminId',   'valph'=>$AdminId, 'tip'=>'int']
@@ -414,8 +442,8 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
         //, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]
       );
 
-      if($cursor){ $_SESSION["MsgSuccess"]="U s e r Updated Successfully";
-      }else {$_SESSION["MsgErr"]= "U s e r NOT Updated. Try Again !";}
+      if($cursor){ $_SESSION["SuccessMessage"]="U s e r Updated Successfully";
+      }else {$_SESSION["ErrorMessage"]= "U s e r NOT Updated. Try Again !";}
 
       // 4. U P L O A D  I M A G E
       move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
@@ -427,14 +455,6 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   }
 
 
-
-  /*
-    rr(
-    cc(object $pp1, array $other=[]): object ; //was string
-    get_cursor(
-    rrnext(object $cursor ): object ;
-    rrcnt( //string $sellst, 
-  */
 
 
 

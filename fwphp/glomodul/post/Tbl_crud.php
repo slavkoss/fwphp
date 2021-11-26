@@ -71,7 +71,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
 
   static public function rr_byid( int $id, array $other=[] ): object
   {
-    $cursor =  utldb::rr("SELECT * FROM ".self::$tbl." WHERE id=:id"
+    $cursor =  utldb::get_cursor("SELECT * FROM ".self::$tbl." WHERE id=:id"
     ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
     ,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
     ) ;
@@ -109,7 +109,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
 
     else{
       //             DEFAULT SQL QUERY :
-      $cursor = utldb::rr( "SELECT $sellst FROM ".self::$tbl." ORDER BY datetime desc"
+      $cursor = utldb::get_cursor( "SELECT $sellst FROM ".self::$tbl." ORDER BY datetime desc"
          , $binds, $other ) ;
       return $cursor ;
     }
@@ -127,7 +127,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was
      $_POST["PostTitle"]
     ,$_POST["Category"]
     ,"Uploads/".basename($_FILES["Image"]["name"])
-    ,$_SESSION["username"]
+    ,$_SESSION['username']
     ,$_FILES["Image"]["name"]
     ,$_POST["img_desc"] // self::escp($_POST["img_desc"])
     ,$_POST["SummaryDescription"]

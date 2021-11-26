@@ -8,10 +8,10 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 // *************** FUNCTION 1. N A M E S P A C E S  ***************
 namespace B12phpfw\module\blog ;
 
-use B12phpfw\core\b12phpfw\Config_allsites as utl ;;
+use B12phpfw\core\b12phpfw\Config_allsites     as utl ;;
 //use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 //use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
-use B12phpfw\dbadapter\user\Tbl_crud as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
+use B12phpfw\dbadapter\user\Tbl_crud           as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud   as Tbl_crud_post_comment ;
@@ -190,8 +190,8 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   * *************** FUNCTION 3.  S E S S I O N  M E T H O D S ***************
   */
 
-  private function Login_Confirm_SesUsrId() {
-    Tbl_crud_admin::Login_Confirm_SesUsrId();
+  static public function Login_Confirm_SesUsrId() {
+    utl::Login_Confirm_SesUsrId(); //Tbl_crud_admin
   }
 
   private function logout(object $pp1)
@@ -295,12 +295,15 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     $this->Login_Confirm_SesUsrId();
     $title = 'Admin Page' ;
     // http skip is ok for other module :
-    ?><!--script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user'?>');</script--><?php
-            //utl::Redirect_to( dirname($pp1->module_url) .'/user' );
+
+    //<script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user/'>');</script>
+
+    utl::Redirect_to( dirname($pp1->module_url) .'/user/' );
                   //Warning: Cannot modify header information :
                   //require $pp1->shares_path . 'hdr.php';
                   //require_once("navbar_admin.php");
-    require $pp1->module_path . '../user/admins.php';
+    //require $pp1->module_path . '../user/';
+    //require $pp1->module_path . '../user/admins.php';
     require $pp1->shares_path . 'ftr.php';
   }
 
@@ -346,8 +349,6 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     //     A D M I N  P R O F I L E  navbar admin -> My Profile
       //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
       $this->Login_Confirm_SesUsrId();
-
-      //in view script $AdminId = $_SESSION["userid"];
 
       $title = 'MSG u s r u p d ';
 

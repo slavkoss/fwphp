@@ -414,6 +414,15 @@ abstract class Config_allsites //extends Db_ allsites
     }
 
 
+    static public function Login_Confirm_SesUsrId(){
+      if (isset($_SESSION["userid"])) { return true;
+      }  else {
+        $_SESSION["ErrorMessage"]="You are not logged in, log in is required  f o r  action you want !";
+        //utl::Redirect_to(utl::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
+      }
+    }
+
+
     /**
      *       PRE cc or uu (in Oracle Forms this code is hidden)
      *            DIFFERENCES c r e (cc)  -  u p d (uu)

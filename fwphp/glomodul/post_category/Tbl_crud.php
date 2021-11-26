@@ -64,7 +64,6 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    //$cursor =  utldb::rr("SELECT $sellst FROM comments WHERE $qrywhere"
     $cursor_rowcnt =  utldb::get_cursor(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
@@ -80,7 +79,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
      , array $binds=[], array $other=[]): object  //returns $cursor
   {
       // default SQL query
-      $cursor =  utldb::rr("SELECT $sellst FROM ". self::$tbl
+      $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl
       ." WHERE $qrywhere ORDER BY title"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
@@ -110,7 +109,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 
     // 1. S U B M I T E D  F L D V A L S :
     $category_title = $_POST["category_title"];
-    $username       = $_SESSION["username"];
+    $username       = $_SESSION['username'];
     // 2. V A L I D A T I O N
     $valid = true ;
     if(empty($category_title)){ $valid = false;
