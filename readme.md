@@ -339,7 +339,7 @@ November 2021. Current version code is 8.  Msg module version 8 is not finished,
 See http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) how it should work.    
 
 What’s new in version 8.1.0.0 :       
-User (TODO: or any) module may be caled from blog module so http://dev1:8083/fwphp/glomodul/blog/?i/home/p/1/ ,       
+User (TODO: or any) module may be caled from blog module so http://dev1:8083/fwphp/glomodul/blog/?i/home/p/1/ -> login -> tables (dashboard) ->admins       
 but also **independent of some compound module** so :  http://dev1:8083/fwphp/glomodul/user/ .      
 
 What’s new in version 8.0.0.0 :      
