@@ -76,8 +76,10 @@ class Home extends utl
 
         <div class="offset-lg-1 col-lg-10" style="min-height:0px;">
           <?php
-           echo $_SESSION["ErrorMessage"] ?? '' ; //$this->ErrorMessage();
-           echo $_SESSION["SuccessMessage"] ?? '' ; //$this->SuccessMessage();
+          $err_tmp = $_SESSION["ErrorMessage"] ?? '' ;
+          $suc_tmp = $_SESSION["SuccessMessage"] ?? '' ;
+          if (count($err_tmp) > 0) print_r( $err_tmp ) ; 
+          if (count($suc_tmp) > 0) print_r( $_suc_tmp );
 
 
            //$pp1->rr . $id
@@ -117,11 +119,13 @@ class Home extends utl
                   <td width=16%>
                      <!--str_pad( $SrNo, 5 - strlen($SrNo), '&nbsp;', STR_PAD_LEFT )
                          str_repeat('&nbsp;', 5 - strlen($SrNo)) . $SrNo
+                         
+                         $pp1->ldd_admins.$id
                      -->
                      <?=str_repeat('&nbsp;', 5 - strlen((string)$SrNo)) . $SrNo?>
                      <a id="erase_row" class="btn btn-danger"
-                        onclick="var yes ; yes = jsmsgyn('admins.php: Erase row <?=$id?>?','') ;
-                        if (yes == '1') { location.href= '<?=$pp1->ldd_admins.$id?>/'; }"
+                        onclick="var yes ; yes = jsmsgyn('Home.php: Erase row <?=$id?>?','') ;
+                        if (yes == '1') { location.href= '<?=$pp1->dd.$id?>/'; }"
                         title="Delete tbl row ID=$id"
                      ><?=str_repeat('&nbsp;', 8 - strlen($id)) . $id ?></a>
                   </td>

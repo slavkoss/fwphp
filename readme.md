@@ -86,7 +86,7 @@ j:\\awww\\www (master -> origin)
 ### git status
 ### git add .
 or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
-### git commit -am "ver 8.0.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
+### git commit -am "ver 8.1.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
 We stored our project files within our system hard drive.      
 If Cmder shows error  "fatal: unable to auto-detect email address" :      
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       
@@ -332,7 +332,11 @@ Difficult parts are :
 November 2021. Current version code is 8.  Msg module version 8 is not finished, but is visible what should be done during next few months (Mkd ver. 8 was finished in half hour, Mnu simmilar, Msg needs much more time because of bootstrap 5, improve CRUD sintax...).     
 See http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) how it should work.    
 
-What’s new in version 8 :
+What’s new in version 8.0.0.0 : where :     
+- 8 is main ver. (refactored core code)
+- 1st 0 is MAJOR incompatible API changes eg DB change
+- 2nd 0 is MINOR backwards compatible code change
+- 3rd 0 is PATCH  ee error correction change
 
 1. **Autoload.php** is refactored, much simpler, see old z_NOT_USED_TO_COMPLICATED_Autoload_1stVersion.php
     This is good case showing that first code versions are to complicated code – very frequent case – which is one of reasons why I have 8 versions.
@@ -353,7 +357,7 @@ What’s new in version 8 :
     img_gallery module is **first lesson** about (theory behind) code skeleton (application architecture) B12phpfw     
     
 
-2020.09.30 **DONE version 7.0.0.0** where 7 is main ver. (refactored core code), 1st 0 is DB change, 2nd 0 is code change, 3rd 0 is error correction change
+2020.09.30 **DONE version 7.0.0.0** 
     1. declare(strict_types=1) ; - PHP 7
     2.  DBI improved : **trait Db_allsites** instead class Db_allsites. 
     3. Each DB table (persistent storage) has adapter **class Tbl_crud :**  which uses B12phpfw\core\zinc\Db_allsites  and  implements Interf_Tbl_crud

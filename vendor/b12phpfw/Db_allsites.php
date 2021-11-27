@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace B12phpfw\core\b12phpfw ; //was B12phpfw\core\zinc ;
 
 use \PDO as PDO ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
 trait Db_allsites  // may be named AbstractEntity :
 {
@@ -252,23 +253,78 @@ trait Db_allsites  // may be named AbstractEntity :
 
 
 
-  static public function cc( string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] ) //used for all  tabls !!
-  {
 
+
+    /**
+     *       PRE cc or uu (in Oracle Forms this code is hidden)
+     *            DIFFERENCES c r e (cc)  -  u p d (uu)
+     * 1. id is not here (cc does not need it)
+     * 2. for cc : $ccflds_ placeh, for uu : $uuflds_ placeh
+     */
+  static public function pre_cc_uu(
+       array $col_names, string &$col_nam_str
+     , string &$ccflds_placeh, string &$uuflds_placeh
+     , array &$binds, array $col_bind_types
+  ): object //void 
+  { 
+    $row = [];
+
+    $ii=0; foreach ($col_names as $cname) //array
+    { 
+      $col_tmp = $_POST[$cname] ?? '' ;
+      $col_value = utl::escp($col_tmp) ;
+      $row[$cname] = $col_value ; //for view script fields
+      if ($ii==0) { 
+         $col_nam_str   = $cname ;     //string eg title, author...
+         $ccflds_placeh = ":$cname" ;         //for VALUES(,  eg :title, :author...
+         $uuflds_placeh = "$cname = :$cname" ;//for SET, title=:title,author=:author...
+         $binds[]       = // placeholder_name , value, type :
+         ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>$col_bind_types[0]];
+      } else { 
+         $col_nam_str   .= ", $cname" ; 
+         $ccflds_placeh .= ", :$cname" ; 
+         $uuflds_placeh .= ", $cname = :$cname" ;
+         $binds[]        = 
+         ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>$col_bind_types[$ii]];
+      }
+      $ii++ ;
+    } unset($cname); // break the reference with the last element
+                 //echo '<pre>$row='; print_r($row) ; echo '</pre>';
+    return((object)$row) ;
+  } //e n d  f n  D O
+  
+    /**
+     * OBJECT RELATIONAL MAPPING (ORM) is the technique of accessing a relational DB 
+     * using an object-oriented programming LANGUAGE. 
+     * ORM is a way to manage DB data by "mapping" DB tables rows to classes and c. instances.
+     * ACTIVE RECORD (AR) is one of such ORMs.
+     *
+     * The big difference between AR style and the DATA MAPPER (DM) style is :
+     * DM completely separates your domain (bussiness logic) 
+     * from persistence layer (data source eg DB, csv...). 
+     *
+     * The big benefit of DM pattern is, your domain objects (DO) code don't need to know anything
+     * about how DO are stored in data source.
+     */
+
+
+  //used for all  tabls !!
+  static public function cc(
+    string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] ) 
+  {
+              //if ('1') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' SAYS :11111'.'</h4>';}
     self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
 
     $last_id1 = self::rr_last_id($tbl) ;
-                if ('') { echo '<h2>'. __METHOD__ .'</h2>, line '. __LINE__ .' SAYS :<br />';
-                } 
+              //if ('') { echo '<h2>'. __METHOD__ .'</h2>, line '. __LINE__ .' SAYS :<br />';} 
     $dmlcc = "INSERT INTO $tbl($flds) $valsins"; // *************** c c (
                         if ('') {self::jsmsg( [ //b asename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE d b o b j'
-                           ,'self::$d bi'=>self::$dbi
+                           ,'self::$ d b i'=>self::$dbi
                            //,'$caller'=>$caller
                            //, '$dsn'=>$dsn
                            ] ) ;
                         }
-
 
     $cursor = self::$dbobj->prepare($dmlcc);
 
@@ -285,6 +341,8 @@ trait Db_allsites  // may be named AbstractEntity :
             case 'int' :
                $cursor->bindValue($arr['placeh'], $arr['valph'], PDO::PARAM_INT);
                break;
+            case 'frm_' : // ignore non DB data
+               break;
             default:
                $cursor->bindvalue($arr['placeh'], $arr['valph']) ;
                break;
@@ -292,10 +350,16 @@ trait Db_allsites  // may be named AbstractEntity :
 
       }
     } // ----------------------------------
-                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' SAYS :<br />';
-                  $tmp = self::debugPDO($dmlcc, $binds, $ph_val_arr) ; } 
-                //exit() is in d ebugPDO
+
+
+
+
+                if ('') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' SAYS :11111'.'</h4>';
+                  $tmp = self::debugPDO($dmlcc, $binds, $ph_val_arr) ; 
+                  exit() ; //is not in d ebugPDO
+                } 
     $Executed = $cursor->execute(); //$this->e xecute();
+
     $last_id2 = self::rr_last_id($tbl) ;
 
     if ($last_id2 > $last_id1) // if ($Executed) 
@@ -406,7 +470,7 @@ trait Db_allsites  // may be named AbstractEntity :
         echo( str_replace( 'VALUES(', '<br />VALUES(', $dmlxx_binded ) ) ;
    echo '</pre>';
 
-    exit() ; 
+    //exit() ; 
     return $dmlxx_binded;
   }
 

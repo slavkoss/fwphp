@@ -190,9 +190,9 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   * *************** FUNCTION 3.  S E S S I O N  M E T H O D S ***************
   */
 
-  static public function Login_Confirm_SesUsrId() {
-    utl::Login_Confirm_SesUsrId(); //Tbl_crud_admin
-  }
+  //static public function Login_ Confirm_ SesUsrId() {
+  //  utl::Login_ Confirm_ SesUsrId(); //Tbl_ crud_ admin
+  //}
 
   private function logout(object $pp1)
   {
@@ -234,7 +234,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
   private function dashboard(object $pp1) //private
   {
-    $this->Login_Confirm_SesUsrId();
+    utl::Login_Confirm_SesUsrId(); //$this->
 
     $title = 'MSG Dashboard';
     require $pp1->shares_path . 'hdr.php';
@@ -292,7 +292,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   //        u s e r s  r e a d
   private function admins(object $pp1) //private
   {
-    $this->Login_Confirm_SesUsrId();
+    utl::Login_Confirm_SesUsrId(); //$this->
     $title = 'Admin Page' ;
     // http skip is ok for other module :
 
@@ -347,8 +347,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   private function upd_user_loggedin(object $pp1) //private
   {
     //     A D M I N  P R O F I L E  navbar admin -> My Profile
-      //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
-      $this->Login_Confirm_SesUsrId();
+    utl::Login_Confirm_SesUsrId(); //$this->
 
       $title = 'MSG u s r u p d ';
 
@@ -363,9 +362,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   //        c a t e g o r i e s  t b l
   private function categories(object $pp1) //private
   {
-
-    //$dm = $this ; //globals for all sites (eg for CRUD...) !!
-    $this->Login_Confirm_SesUsrId(); //$dm
+    utl::Login_Confirm_SesUsrId(); //$this->
 
     $title = 'MSG Categories' ;
     require $pp1->shares_path . 'hdr.php';
@@ -382,8 +379,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   {
 
     // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/
-    //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
-    $this->Login_Confirm_SesUsrId();
+    utl::Login_Confirm_SesUsrId(); //$this->
 
       $title = 'Add Post' ;
       //require $pp1->shares_path . 'hdr.php';
@@ -401,7 +397,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     $category_from_url = (isset($uriq->c) and null !== $pp1->uriq->c) ? $pp1->uriq->c : '' ;
 
-    $this->Login_Confirm_SesUsrId();
+    utl::Login_Confirm_SesUsrId(); //$this->
 
     $title = 'Posts' ;
     require_once("navbar_admin.php");
@@ -435,7 +431,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     {
       //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
 
-      $this->Login_Confirm_SesUsrId();
+      utl::Login_Confirm_SesUsrId(); //$this->
 
       $title = 'Posts' ;
       require_once("navbar_admin.php");
@@ -498,7 +494,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     $IdFromURL = $uriq->id ;
     //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
 
-    $this->Login_Confirm_SesUsrId();
+    utl::Login_Confirm_SesUsrId(); //$this->
 
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
@@ -597,7 +593,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   private function comments(object $pp1) //private
   {
 
-    $this->Login_Confirm_SesUsrId();
+    utl::Login_Confirm_SesUsrId(); //$this->
 
     $title = 'Comments' ;
     require $pp1->shares_path . 'hdr.php';

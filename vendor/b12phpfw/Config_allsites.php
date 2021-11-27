@@ -415,65 +415,18 @@ abstract class Config_allsites //extends Db_ allsites
 
 
     static public function Login_Confirm_SesUsrId(){
-      if (isset($_SESSION["userid"])) { return true;
+      if (isset($_SESSION["userid"])) {
+         $_SESSION["ErrorMessage"]=" " ;
+         return true;
       }  else {
-        $_SESSION["ErrorMessage"]="You are not logged in, log in is required  f o r  action you want !";
-        //utl::Redirect_to(utl::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
+         $_SESSION["ErrorMessage"]="You are not logged in, log in is required  f o r  action you want !";
+         //utl::Redirect_to(utl::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
+         return false;
       }
     }
 
 
-    /**
-     *       PRE cc or uu (in Oracle Forms this code is hidden)
-     *            DIFFERENCES c r e (cc)  -  u p d (uu)
-     * 1. id is not here (cc does not need it)
-     * 2. for cc $ccflds_ placeh, for uu $uuflds_ placeh
-     */
-  
-  static public function row_flds_binds(
-     array $col_names, string &$flds, string &$ccflds_placeh, string &$uuflds_placeh
-    ,array &$binds, array $col_bind_types
-  ): object //void 
-  { 
-    $row = [];
 
-    $ii=0; foreach ($col_names as $cname) //or ($arr as &$value)
-    { 
-      $col_tmp = $_POST[$cname] ?? '' ;
-      $col_value = self::escp($col_tmp) ;
-      $row[$cname] = $col_value ; //for view script fields
-      if ($ii==0) { 
-         $flds          = $cname ;     //eg title, author...
-         $ccflds_placeh = ":$cname" ;         //for VALUES(,  eg :title, :author...
-         $uuflds_placeh = "$cname = :$cname" ;//for SET, title=:title,author=:author...
-         $binds[]       = // placeholder_name , value, type :
-         ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>$col_bind_types[0]];
-      } else { 
-         $flds          .= ", $cname" ; 
-         $ccflds_placeh .= ", :$cname" ; 
-         $uuflds_placeh .= ", $cname = :$cname" ;
-         $binds[]        = 
-         ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>$col_bind_types[$ii]];
-      }
-      $ii++ ;
-    } unset($cname); // break the reference with the last element
-                 //echo '<pre>$row='; print_r($row) ; echo '</pre>';
-    return((object)$row) ;
-  } //e n d  f n  D O
-  
-    /**
-     * OBJECT RELATIONAL MAPPING (ORM) is the technique of accessing a relational DB 
-     * using an object-oriented programming LANGUAGE. 
-     * ORM is a way to manage DB data by "mapping" DB tables rows to classes and c. instances.
-     * ACTIVE RECORD (AR) is one of such ORMs.
-     *
-     * The big difference between AR style and the DATA MAPPER (DM) style is :
-     * DM completely separates your domain (bussiness logic) 
-     * from persistence layer (data source eg DB, csv...). 
-     *
-     * The big benefit of DM pattern is, your domain objects (DO) code don't need to know anything
-     * about how DO are stored in data source.
-     */
 
 
 
