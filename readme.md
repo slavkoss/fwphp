@@ -329,14 +329,20 @@ Difficult parts are :
 
 ### TO DO / DONE :
 
-November 2021. Current version code is 8.  Msg module version 8 is not finished, but is visible what should be done during next few months (Mkd ver. 8 was finished in half hour, Mnu simmilar, Msg needs much more time because of bootstrap 5, improve CRUD sintax...).     
-See http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) how it should work.    
-
-What’s new in version 8.0.0.0 : where :     
+version 8.0.0.0 means (https://semver.org/) :     
 - 8 is main ver. (refactored core code)
 - 1st 0 is MAJOR incompatible API changes eg DB change
 - 2nd 0 is MINOR backwards compatible code change
 - 3rd 0 is PATCH  ee error correction change
+
+November 2021. Current version code is 8.  Msg module version 8 is not finished, but is visible what should be done during next few months (Mkd ver. 8 was finished in half hour, Mnu simmilar, Msg needs much more time because of bootstrap 5, improve CRUD sintax...).     
+See http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) how it should work.    
+
+What’s new in version 8.1.0.0 :       
+User (TODO: or any) module may be caled from blog module so http://dev1:8083/fwphp/glomodul/blog/?i/home/p/1/ ,       
+but also **independent of some compound module** so :  http://dev1:8083/fwphp/glomodul/user/ .      
+
+What’s new in version 8.0.0.0 :      
 
 1. **Autoload.php** is refactored, much simpler, see old z_NOT_USED_TO_COMPLICATED_Autoload_1stVersion.php
     This is good case showing that first code versions are to complicated code – very frequent case – which is one of reasons why I have 8 versions.
