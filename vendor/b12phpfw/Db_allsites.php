@@ -110,9 +110,9 @@ trait Db_allsites  // may be named AbstractEntity :
 
       $stmt->bindValue(':id',    $id,    PDO::PARAM_INT); //PARAM_STR
       $Executed = $stmt->execute(); //self::e xecute();
-
-      if ($Executed) {$_SESSION["MsgSuccess"]="Row id $id Deleted Successfully ! ";
-      }else { $_SESSION["MsgErr"]="Deleting Went Wrong. Try Again !"; }
+                if ('1') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '$_SESSION["SuccessMessage"]='; echo '<pre>'; print_r($_SESSION["SuccessMessage"]); echo '</pre>'; } 
+      if ($Executed) {$_SESSION["SuccessMessage"][] ="Row id $id Deleted Successfully ! ";
+      }else { $_SESSION["ErrorMessage"][] ="Deleting Went Wrong. Try Again !"; }
 
       if (isset($pp1->uriq->r)) { 
         self::Redirect_to(QS.'i/'. $pp1->uriq->r) ; 
@@ -198,7 +198,7 @@ trait Db_allsites  // may be named AbstractEntity :
                   ';
             break;
             //$first_rinblock = $firstrow, -1 ;
-            //$last_rinblock  = $firstrow + $numrows - 1 ;
+            //$l ast_rinblock  = $firstrow + $numrows - 1 ;
           default:
             break;
         }
@@ -288,7 +288,7 @@ trait Db_allsites  // may be named AbstractEntity :
          ['placeh'=>':'. $cname,'valph'=>$col_value,'tip'=>$col_bind_types[$ii]];
       }
       $ii++ ;
-    } unset($cname); // break the reference with the last element
+    } unset($cname); // break the reference with the  l a s t  element
                  //echo '<pre>$row='; print_r($row) ; echo '</pre>';
     return((object)$row) ;
   } //e n d  f n  D O
@@ -363,8 +363,8 @@ trait Db_allsites  // may be named AbstractEntity :
     $last_id2 = self::rr_last_id($tbl) ;
 
     if ($last_id2 > $last_id1) // if ($Executed) 
-    { $_SESSION["MsgSuccess"]="Last row id $last_id2 Added Successfully ! ";
-    } else { $_SESSION["MsgErr"]="Adding Went Wrong. Try Again !"; }
+    { $_SESSION["SuccessMessage"][] ="Last row id $last_id2 Added Successfully ! ";
+    } else { $_SESSION["ErrorMessage"][] ="Adding Went Wrong. Try Again !"; }
 
     //return $cursor ;
 

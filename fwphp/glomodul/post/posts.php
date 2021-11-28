@@ -3,10 +3,9 @@ declare(strict_types=1);
 // J:\awww\www\fwphp\glomodul\post\posts.php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
-
-use B12phpfw\core\b12phpfw\Config_allsites ;
-use B12phpfw\core\b12phpfw\Db_allsites ;
-use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
+use B12phpfw\core\b12phpfw\Config_allsites   as utl ;
+use B12phpfw\core\b12phpfw\Db_allsites       as utldb ;
+use B12phpfw\dbadapter\post\Tbl_crud         as Tbl_crud_post;
 use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
                   //echo '<pre>$ p p 1='; print_r($pp1); echo '</pre><br />';
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];

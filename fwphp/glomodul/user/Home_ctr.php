@@ -98,8 +98,6 @@ class Home_ctr extends utl
 
   private function dd(object &$pp1) // *************** SHARED  d d (
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
     //parameter $pp1 is AUTOMATICALLY sent in all h o m e fns from call_module_method fn !!
     $tbl = $pp1->uriq->t = 'admins' ;
@@ -118,8 +116,6 @@ class Home_ctr extends utl
 
   public function cc_frm(object $pp1)
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
     //         i n s  f o r m is in home.php before tbl display
       $title = 'USER Crud';
       //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
@@ -136,8 +132,6 @@ class Home_ctr extends utl
   //} 
   public function home(object $pp1)
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
     //        t b l  r e a d, display
       $title = 'USER CRud';
                             //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php'; //Warning: Cannot modify header information
@@ -150,8 +144,6 @@ class Home_ctr extends utl
 
   public function sitehome(object $pp1)
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
     $this->Redirect_to('/');
   }
 
@@ -161,8 +153,6 @@ class Home_ctr extends utl
 
   public function read_row(object $pp1)
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
     //r o w  r e a d
       $title = 'USER SHOW PROFILE (cRud)';
       $css1 = 'NO';
@@ -175,8 +165,6 @@ class Home_ctr extends utl
 
   private function logout(object $pp1)
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
      utl_module::logout($pp1);
      //$this = $dm = domain model = globals for all sites (eg for CRUD...) & for curr.module
      //$dm = $this ;
@@ -187,8 +175,6 @@ class Home_ctr extends utl
 
   private function loginfrm(object $pp1) //private
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
     //called from link, Config_ allsites based on url (calling link) calls  f n  l o g i n
       //require $pp1->shares_path . 'hdr.php';
                 //require $pp1->module_path . '../user/login_frm.php';  
@@ -198,12 +184,10 @@ class Home_ctr extends utl
 
   private function login(object $pp1) //private
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
       utl_module::login($pp1);
-      //$dm = $this ;            //this globals for all sites are for CRUD... !!
-      //$Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
-      //$Db_user->login($dm, $pp1) ;
+                //$dm = $this ;            //this globals for all sites are for CRUD... !!
+                //$Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
+                //$Db_user->login($dm, $pp1) ;
   }
 
 
@@ -213,8 +197,6 @@ class Home_ctr extends utl
 
   private function upd_user_loggedin(object $pp1)
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
     // U P D A T E  A D M I N  P R O F I L E  no need navbar admin -> My Profile
     // http://dev1:8083/fwphp/glomodul/user/?i/upd_user_loggedin/id/75
       $title = 'USER UPDATE';
@@ -237,8 +219,6 @@ class Home_ctr extends utl
 
   public function d(object $pp1)
   {
-       $_SESSION["ErrorMessage"] = [] ;
-       $_SESSION["SuccessMessage"] = [] ;
                               if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: '
                               .'<br />U R L  query array ='.'$this->uriq=' ;
                               if (isset($this->uriq))

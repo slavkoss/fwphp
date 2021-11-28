@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace B12phpfw\core\b12phpfw ; //Dir name is last in namespace and use 
 //use B12phpfw\dbadapter\post\Tbl_crud ; //         as Tbl_crud_post ;
 
-//if (!isset($_SESSION)) { session_start(); }
-//if (strnatcmp(phpversion(),'5.4.0') >= 0) {
-   if (session_status() == PHP_SESSION_NONE) { session_start(); }
-//} else { if(session_id() == '') { session_start(); } }
-
 class Autoload
 {
    protected $pp1 ; //M O D U L E PROPERTIES PALLETE like in Oracle Forms
 
    public function __construct(object &$pp1) {
+
+     //NOOO  $_SESSION["SuccessMessage"] = [] ;
+     //      $_SESSION["ErrorMessage"] = [] ;
+
      $pp1->stack_trace[]=str_replace('\\','/', __FILE__ ).', lin='.__LINE__ .' ('. __METHOD__ .')';
      $this->pp1 = $pp1 ;
      spl_autoload_register(array($this, 'autoloader'));

@@ -122,11 +122,11 @@ abstract class Config_allsites //extends Db_ allsites
       $uri_qrystring = '' ;
 
         /** ---------------------------------------
-        *            PATH KEY (IN ANY URL)
+        *            PATH KEY/VALUE (IN ANY URL)
         *  ---------------------------------------
         * PART2 of REQUEST_ URI is after QS (=?): eg i/edit/path/J:\awww\www\readme.md
-        * edit is method in Home_ctr, for path (in any URL) CONVENTIONS are :
-        *   1. path key must be last key (or delimited with something...) :
+        * edit is method in Home_ctr. For path (in any URL) CONVENTIONS are :
+        *   1. path key must be  l a s t  key (or delimited with something...) :
         *   2. path key value MUST BE Windows path (which we later change in Linux path) :
         *      (also for Linux !! which we later change in Linux path)
         */
@@ -382,7 +382,7 @@ abstract class Config_allsites //extends Db_ allsites
          //if (is_int((int)$value)) $value = (int)utl::escp($value) ; else 
          if (gettype($value) == 'boolean') NULL; else 
             $value = self::escp($value) ;
-      } unset($value); // break the reference with the last element
+      } unset($value); // break the reference with the  l a s t  element
                     if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
                     echo '<pre><b>$r</b>='; print_r($r); echo '</pre>';
@@ -416,10 +416,10 @@ abstract class Config_allsites //extends Db_ allsites
 
     static public function Login_Confirm_SesUsrId(){
       if (isset($_SESSION["userid"])) {
-         $_SESSION["ErrorMessage"]=" " ;
+         //$_SESSION["ErrorMessage"] = [] ;
          return true;
       }  else {
-         $_SESSION["ErrorMessage"]="You are not logged in, log in is required  f o r  action you want !";
+         $_SESSION["ErrorMessage"][] ="You are not logged in, log in is required  f o r  action you want !";
          //utl::Redirect_to(utl::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
          return false;
       }
@@ -432,24 +432,60 @@ abstract class Config_allsites //extends Db_ allsites
 
 
     // S E S S  I O N  M E T H O D S  were in cls in Sessions.php
-    static public function MsgErr(){
-      if(isset($_SESSION["MsgErr"])){
+    static public function msg_err_succ(string $caller): string
+    {
+      $Output = '' ; 
+      
+      if (!isset($_SESSION["ErrorMessage"])) $_SESSION["ErrorMessage"] = [] ;
+      if (!isset($_SESSION["SuccessMessage"])) $_SESSION["SuccessMessage"] = [] ;
+                if ('') { self::jsmsg( [ //str_replace('\\','/',__FILE__ ) or __METHOD__
+                    str_replace('\\','\\\\',__METHOD__) .', line '. __LINE__ .' SAYS sucmsg ' => json_encode($_SESSION["SuccessMessage"])
+                ] ) ; }
+      //$Output = '***GREŠKA u '. $caller .'<br>' ; //for testing
+      //echo $Output ; 
+
+      $err_tmp = $_SESSION["ErrorMessage"] ;
+      if (count($err_tmp) > 0): //print_r( $err_tmp ) ;
+        //$Output = '***GREŠKA u '. $caller .'<br>' ; 
+        $Output .= "<div class=\"alert alert-danger\">" ;
+          foreach ($err_tmp as $value) {$Output .= self::escp($value) .'<br>' ; }
+        $Output .= "</div>";
+        unset($value); //unset($_SESSION["ErrorMessage"]) ;
+        $_SESSION["ErrorMessage"] = [] ;
+        //unset($_SESSION["MsgSuccess"]);
+      endif; //break reference with  l a s t  element
+
+      $suc_tmp = $_SESSION["SuccessMessage"] ;
+      if (count($suc_tmp) > 0):
+        //$Output = 'Uspjelo u '. $caller .'<br>' ; 
+        $Output .= "<div class=\"alert alert-success\">" ;
+          foreach ($suc_tmp as $value) {$Output .= self::escp($value) .'<br>'; }
+        $Output .= "</div>";
+        unset($value); //unset($_SESSION["SuccessMessage"]) ;
+        $_SESSION["SuccessMessage"] = [] ;
+      endif;
+      
+      return $Output;
+    }
+
+    /*static public function M sgErr(){
+      if(isset($_SESSION["M sgErr"])){
         $Output = "<div class=\"alert alert-danger\">" ;
-        $Output .= self::escp($_SESSION["MsgErr"]);
+        $Output .= self::escp($_SESSION["M sgErr"]);
         $Output .= "</div>";
-        $_SESSION["MsgErr"] = null;
+        $_SESSION["M sgErr"] = null;
         return $Output;
       }
     }
-    static public function MsgSuccess(){
-      if(isset($_SESSION["MsgSuccess"])){
+    static public function M sgSuccess(){
+      if(isset($_SESSION["M sgSuccess"])){
         $Output = "<div class=\"alert alert-success\">" ;
-        $Output .= self::escp($_SESSION["MsgSuccess"]);
+        $Output .= self::escp($_SESSION["M sgSuccess"]);
         $Output .= "</div>";
-        $_SESSION["MsgSuccess"] = null;
+        $_SESSION["M sgSuccess"] = null;
         return $Output;
       }
-    }
+    } */
 
 
 
@@ -480,7 +516,7 @@ public static function get_pgnnav($uriq, $rtbl = 0, $mtd_to_inc_view='/i/home/',
         if($pgordno_from_url < 2){ $first_rinblock = 1; } 
         else{$first_rinblock = ($pgordno_from_url * $rblk) - $rblk + 1; }
 
-      //if($show_all_r){ $last_rinblock  = $rtbl ; } else
+      //if($show_all_r){ $l ast_ r inb lock  = $rtbl ; } else
          $last_rinblock  = $first_rinblock + $rblk - 1 ;
          if ($last_rinblock > $rtbl) $last_rinblock  = $rtbl ;
 
@@ -502,7 +538,7 @@ public static function get_pgnnav($uriq, $rtbl = 0, $mtd_to_inc_view='/i/home/',
          . ( ($pgordno_from_url > 1) ? $pgordno_from_url-1 : $pgordno_from_url).$mtd_to_inc_view
          . "'>&nbsp;&lt;&nbsp;</a>";
 
-  // Link to pages between first and last page
+  // Link to pages between first and  l a s t  page
   for ($pg=1; $pg<=$total_pages; $pg++) {   // 11111...l a s t
 
         $fmt_tmp1=''; $fmt_tmp2='';
@@ -524,12 +560,12 @@ public static function get_pgnnav($uriq, $rtbl = 0, $mtd_to_inc_view='/i/home/',
          . $mtd_to_inc_view
      . "'>&nbsp;&gt;&nbsp;</a>";
          
-  // Link to last page                        .l a s t
+  // Link to  l a s t  page                        .l a s t
   $navbar .= " <a class='button' 
                 href='{$qs}p/{$total_pages}{$mtd_to_inc_view}'>&gt;&gt;</a>"
          //." &nbsp;&nbsp; "
          //. " <a class='button' 
-         //    title='Rows {$first_rinblock} - {$last_rinblock}'
+         //    title='Rows {$first_rinblock} - {$l ast_rinblock}'
          // " . '</a>'
        .' &nbsp;&nbsp; Total count '.$rtbl .', '.$rblk.' on page'
           //."href='{$qs}p/1/pgn/all$mtd_to_inc_view'>ALL"

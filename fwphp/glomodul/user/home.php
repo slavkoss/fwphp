@@ -27,67 +27,25 @@ class Home extends utl
     $c_admins = utl_module::get_cursor($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-                                  /*
-                                  if (isset ($_SESSION["submitted_cc"])) {
-                                    list( $DateTime, $username, $Name, $password, $Admin
-                                        , $confirmpassword
-                                    ) = $_SESSION["submitted_cc"] ;
-                                    unset ($_SESSION["submitted_cc"]) ;
-                                  } else {
-                                    $tmp = ['','','','','',''] ; //self::get_ submitted_cc() ;
-                                    list( $DateTime, $username, $Name, $password, $Admin
-                                          , $confirmpassword
-                                    ) = $tmp ;
-                                    //in Tbl_ crud : $_SESSION["submitted_cc"] = ... ;
-                                  }
-
-
-                                  //    1. S U B M I T E D  A C T I O N S
-                                  if(isset($_POST["Submit"])){
-
-                                    // returns string
-                                    utl_module::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
-                                  } //Ending of Submit Button If-Condition
-
-                                  */
-
-
-
     //Warning: Cannot modify header information :
     require $pp1->shares_path . 'hdr.php';
     require_once("navbar_admin.php");
-    //        2. G U I  to get user action
     ?>
-                              <!-- HEADER -->
-                              <!--header class="bg-dark text-white py-3">
-                                <div class="container">
-                                  <div class="row">
-                                    <div class="col-md-12">
-                                    <h1><i class="fas fa-user" style="color:#27aae1;"></i> Manage Admins</h1>
-                                    </div>
-                                  </div>
-                                </div>
-                              </header-->
-                              <!-- HEADER END -->
+    <!-- 2. G U I  to get user action -->
+        <!-- HEADER -->
+ 
          <!-- Main Area -->
     <section class="container py-2 mb-4">
       <div class="row">
 
-
+        <!-- err, succ, pgtitle -->
         <div class="offset-lg-1 col-lg-10" style="min-height:0px;">
-          <?php
-          $err_tmp = $_SESSION["ErrorMessage"] ?? '' ;
-          $suc_tmp = $_SESSION["SuccessMessage"] ?? '' ;
-          if (count($err_tmp) > 0) print_r( $err_tmp ) ; 
-          if (count($suc_tmp) > 0) print_r( $_suc_tmp );
+          <?php echo utl::msg_err_succ(__METHOD__) ; ?>
 
-
-           //$pp1->rr . $id
-           ?>
           <h2>Admins
             <a class="btn btn-success" href="<?=$pp1->cc_frm?>" title="Add user">Add admin</a>
           </h2>
-        </div><!-- E N D  d i v  o f  f o r m-->
+        </div><!-- E N D  d i v  err, succ, pgtitle -->
 
           <!-- 
                     A D M I N S  T A B L E
@@ -180,25 +138,60 @@ class Home extends utl
     <?php
     require $pp1->shares_path . 'ftr.php'; 
 
-
+    return('1') ;
   } //e n d  f n  d i s p l
 
 
 
 } //e n d  c l s
 
-?>
+/*$sql = "INSERT INTO admins(datetime,username,password,aname,addedby)";
+$sql .= "VALUES(:dateTime,:username,:password,:aname,:adminname)";
+$this->pr epareSQL($sql); 
+$this->b indvalue(':username', $username, \PDO::PARAM_STR);
+$this->b indvalue(':password', $password, \PDO::PARAM_STR);
+$this->b indvalue(':aname', $Name, \PDO::PARAM_STR);
+$this->b indvalue(':adminname', $Admin, \PDO::PARAM_STR);
+$CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+$this->b indvalue(':dateTime', $DateTime, \PDO::PARAM_STR);
+$cursor = $this->e xecute(); */
 
 
-<!-- End Main Area 
-                      /*$sql = "INSERT INTO admins(datetime,username,password,aname,addedby)";
-                      $sql .= "VALUES(:dateTime,:username,:password,:aname,:adminname)";
-                      $this->pr epareSQL($sql); 
-                      $this->b indvalue(':username', $username, \PDO::PARAM_STR);
-                      $this->b indvalue(':password', $password, \PDO::PARAM_STR);
-                      $this->b indvalue(':aname', $Name, \PDO::PARAM_STR);
-                      $this->b indvalue(':adminname', $Admin, \PDO::PARAM_STR);
-                      $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-                      $this->b indvalue(':dateTime', $DateTime, \PDO::PARAM_STR);
-                      $cursor = $this->e xecute(); */
--->
+/*
+if (isset ($_SESSION["submitted_cc"])) {
+  list( $DateTime, $username, $Name, $password, $Admin
+      , $confirmpassword
+  ) = $_SESSION["submitted_cc"] ;
+  unset ($_SESSION["submitted_cc"]) ;
+} else {
+  $tmp = ['','','','','',''] ; //self::get_ submitted_cc() ;
+  list( $DateTime, $username, $Name, $password, $Admin
+        , $confirmpassword
+  ) = $tmp ;
+  //in Tbl_ crud : $_SESSION["submitted_cc"] = ... ;
+}
+
+
+//    1. S U B M I T E D  A C T I O N S
+if(isset($_POST["Submit"])){
+
+  // returns string
+  utl_module::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
+} //Ending of Submit Button If-Condition
+
+*/
+
+/*
+    <!-- 2. G U I  to get user action -->
+        <!-- HEADER -->
+        <!--header class="bg-dark text-white py-3">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+              <h1><i class="fas fa-user" style="color:#27aae1;"></i> Manage Admins</h1>
+              </div>
+            </div>
+          </div>
+        </header-->
+        <!-- HEADER END -->
+*/

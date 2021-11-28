@@ -77,11 +77,7 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 
     <!-- Right Area -->
     <div class="col-md-9" style="min-height:400px;">
-      <?php
-         echo $_SESSION["ErrorMessage"] ?? '' ; //$this->ErrorMessage();
-         echo $_SESSION["SuccessMessage"] ?? '' ; //$this->SuccessMessage();
-         //echo $this->ErrorMessage(); echo $this->SuccessMessage();
-      ?>
+      <?php echo utl::msg_err_succ('script='. basename(__FILE__) .' line='. __LINE__) ; ?>
 
       <form class="" action="<?=$pp1->upd_user_loggedin . $AdminId?>" 
             method="post" enctype="multipart/form-data">

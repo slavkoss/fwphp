@@ -21,12 +21,24 @@ class Cre extends utl
     //    1. S U B M I T E D  A C T I O N S
                                 //see  f r m  ***2
     $is_submited_frm = $_POST['submit_cc'] ?? '' ;
+
+    //if $_POST[username] in usrtbl msg "usr exists" :
+    $r_usr = (object)[];
+    if ($is_submited_frm) {
+        $r_usr = utl_module::rr_byusrname($_POST['username']) ;
+        if ($r_usr->username == $_POST['username']) {
+           $_SESSION["ErrorMessage"][] = 'User '.  $_POST['username'] .' exists !' ;
+           utl::Redirect_to($pp1->cc_frm); //admins same !?
                 if ('') {echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
                   echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
                   echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
                   echo '<pre>$is_submited_frm='; print_r($is_submited_frm); echo '</pre>';
-                  //exit(0);
+                  echo '<pre>$r_usr='; print_r($r_usr); echo '</pre>';
+                  echo '<pre>$_SESSION='; print_r($_SESSION); echo '</pre>';
+                  exit(0);
                 }    //see  f r m  ***3
+        }
+    }
 
     // obj. for view flds (empty, populated with defaults) 
     $r = utldb::pre_cc_uu(
@@ -82,16 +94,15 @@ class Cre extends utl
 
 
         <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
-          <?php
-          $err_tmp = $_SESSION["ErrorMessage"] ?? '' ;
-          $suc_tmp = $_SESSION["SuccessMessage"] ?? '' ;
-          if (count($err_tmp) > 0) print_r( $err_tmp ) ; 
-          if (count($suc_tmp) > 0) print_r( $_suc_tmp );
-           /* if ( isset ($_SESSION["ErrorMessage"]) and count($_SESSION["ErrorMessage"]) > 0 ) {
-              echo '<pre>Error='; print_r($_SESSION["ErrorMessage"]) ; echo '</pre>';
-              unset($_SESSION["ErrorMessage"]) ;
-            } */
-           ?>
+                <?php if ('1') {echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                  //echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                  //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  //echo '<pre>$is_submited_frm='; print_r($is_submited_frm); echo '</pre>';
+                  //echo '<pre>$r_usr='; print_r($r_usr); echo '</pre>';
+                  echo '<pre>$_SESSION='; print_r($_SESSION); echo '</pre>';
+                  //exit(0);
+                }    //see  f r m  ***3 ?>
+          <?php echo utl::msg_err_succ(__METHOD__) ; ?>
 
           <!-- 
                     C R E A T E  A D M I N  F O R M
@@ -135,16 +146,19 @@ class Cre extends utl
                 -->
                 <div class="row">
                   <div class="col-lg-6 mb-2">
+                    <br>
                     <a href="<?=$pp1->home_url?>" class="btn btn-warning btn-block">
                        <i class="fas fa-arrow-left"></i> To admin table</a>
                   </div>
                   <div class="col-lg-6 mb-2">
+                    <br>
                     <button type="submit" name="submit_cc" value="1" 
                              class="btn btn-success btn-block">
                       <i class="fas fa-check"></i> Save
                     </button>
                   </div>
                 </div>
+
               </div>
             </div>
           </form><!--  e n d       A D D  A D M I N  F O R M -->

@@ -12,6 +12,13 @@
 namespace B12phpfw\module\user ;
 use B12phpfw\core\b12phpfw\Autoload ; //only b12phpfw is required - see $shares_ path
 
+//if (!isset($_SESSION)) { session_start(); }
+//if (strnatcmp(phpversion(),'5.4.0') >= 0) {
+   if (session_status() == PHP_SESSION_NONE) { session_start(); }
+//} else { if(session_id() == '') { session_start(); } }
+
+//$_SESSION = [] ; //unset($_SESSION) ;
+
 //1. settings - properties - assign global variables to use them in any code part
 $module_path = str_replace('\\','/', __DIR__) .'/' ;
 $site_path   = dirname(dirname($module_path)) .'/' ; //to app dir eg "glomodul" dir and app
