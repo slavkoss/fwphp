@@ -1,0 +1,42 @@
+See League.php : class League extends AbstractController, public function indexMethod()
+<pre>return parent::getView(
+    __METHOD__ ,
+    [
+        'title' => MODULE_NAME.' - Home',
+        'header' => 'League list',
+        'league_list' => 'A B C',
+    ]
+);
+
+AbstractController calls template->getView so :
+return $this->template->getView($controller, $variables);
+
+    public function getView($controller, array $variables = [])
+    {
+        $variables = $this->validateVariables($variables);
+ 
+        $parts = explode('::', $controller);
+        $directory = $this->getDirectory($parts[0]);
+        $file = $this->getFile($parts[1]);
+ 
+        $viewPath = $this->viewPath.'/'.$directory.'/'.$file.'.html';
+        if (file_exists($viewPath)) {
+            $baseView = file_get_contents($this->viewPath.'/'.$this->baseView);
+            $body = file_get_contents($viewPath);
+            $view = str_replace('{{ body }}', $body, $baseView);
+ 
+            foreach ($variables as $key => $value) {
+                $view = str_replace('{{ '.$key.' }}', $value, $view);
+            }
+ 
+            return $view;
+        }
+ 
+        http_response_code(404);
+        throw new Exception(sprintf('View cannot be found: [%s]', $viewPath), 404);
+    }
+</pre>
+<br />{{ whoami }} league_list of Football Leagues is : 
+
+<h2>{{ league_list }}</h2>
+

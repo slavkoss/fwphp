@@ -39,8 +39,8 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 
     <div class="bg-light col-lg-12" style="min-height:400px;">
       <?php
-       echo utl::MsgErr();
-       echo utl::MsgSuccess();
+       //echo utl::M sgErr();  echo utl::M sgSuccess();
+       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
        ?>
 
 

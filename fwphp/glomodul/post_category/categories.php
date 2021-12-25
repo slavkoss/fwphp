@@ -64,8 +64,8 @@ $cursor_category = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'", 
 
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
-       echo utl::MsgErr();
-       echo utl::MsgSuccess();
+       //echo utl::M sgErr();  echo utl::M sgSuccess();
+       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
        ?>
 
       <form class="" action="<?=$pp1->categories?>" method="post">

@@ -246,10 +246,9 @@ class Home extends utl
                 <!-- P a g e   h e a d e r -->
     <header class="mb-4">
       <?php
-
-
-       echo utl::MsgErr();
-       echo utl::MsgSuccess(); ?>
+       //echo utl::M sgErr();  echo utl::M sgSuccess();
+       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
+       ?>
 
       <!-- 1. p a g e  s u m m a r y -->
       <!--h1 class="lead"><b><?=$fltr_sort?></b> Responsive CMS Blog (PHP 7 or 8, PDO, Bootstrap 5, jQuery only for Bootstrap, no AJAX, MySQL or Oracle or...)</h1-->

@@ -240,9 +240,9 @@ class Home_ctr extends Config_allsites
   }
 
 
-  private function Login_Confirm_SesUsrId(object $dm) {
-    Tbl_crud_admin::Login_Confirm_SesUsrId();
-  }
+  /* private function Login_Confirm_SesUsrId() {
+   Tbl_crud_admin::Login_Confirm_SesUsrId();
+  } */
 
 
 } // e n d  c l s  

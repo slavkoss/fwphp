@@ -62,7 +62,7 @@ $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
                   <br><a style="display: inline;"
                      href="<?=$glomodul_url .'lsweb/lsweb.php/?cmd=' . $examples_path?>" 
                      class="dropdown-item" target="_blank">
-                 <?=$img_url_users_link .' ALL HELP SW'?></a> &nbsp; 
+                 <?=$img_url_users_link .' ALL HELP SW'?></a> - here see picocss scripts... &nbsp;  
 
           </p>
           <div class="d-flex flex-row">

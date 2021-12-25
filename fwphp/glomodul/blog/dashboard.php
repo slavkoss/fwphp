@@ -115,8 +115,8 @@ class Dashboard extends utl
       <!-- T B L  - Right Side Area Start -->
       <div class="bg-light col-lg-10">
         <?php
-         echo utl::MsgErr();
-         echo utl::MsgSuccess();
+       //echo utl::M sgErr();  echo utl::M sgSuccess();
+       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
          ?>
         <h1>Latest posts</h1>
         <table class="table table-striped table-hover">

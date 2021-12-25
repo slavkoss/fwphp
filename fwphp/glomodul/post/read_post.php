@@ -45,9 +45,8 @@ if(isset($_POST["Submit"])){
         //if ($category_from_url) { echo ' - all ' . $category_from_url . ' articles' ;
         //} else {echo ' - all articles';} 
 
-       echo utl::MsgErr();
-       echo utl::MsgSuccess();
-
+       //echo utl::M sgErr();  echo utl::M sgSuccess();
+       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
 
       // SQL query when Searh button is active
       if(isset($_POST["SearchButton"]))

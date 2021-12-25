@@ -54,8 +54,8 @@ require_once("navbar_admin.php");
   <div class="row">
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
-       echo utl::MsgErr();
-       echo utl::MsgSuccess();
+       //echo utl::M sgErr();  echo utl::M sgSuccess();
+       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
        ?>
 
       <form class="" action="<?=$pp1->addnewpost?>" method="post" 

@@ -48,8 +48,8 @@ $cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[
 
     <div class="bg-light col-lg-12">
       <?php
-       echo utl::MsgErr();
-       echo utl::MsgSuccess();
+       //echo utl::M sgErr();  echo utl::M sgSuccess();
+       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
        ?>
       <br /><table class="table table-striped table-hover">
 
