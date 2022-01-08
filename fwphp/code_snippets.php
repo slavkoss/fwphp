@@ -12,7 +12,7 @@ echo urldecode(
 '
 http://dev1:8083/fwphp/glomodul/user/%3Cbr%20/%3E%3Cb%3ENotice%3C/b%3E:%20%20Undefined%20variable:%20id%20in%20%3Cb%3EJ:/awww/www/fwphp/glomodul/user/Home.php%3C/b%3E%20on%20line%20%3Cb%3E85%3C/b%3E%3Cbr%20/%3E?i/read_row/id/
 '
-);
+); -- ' --'
 
 
   /*
@@ -105,10 +105,10 @@ table, th, td {
 }
 th, td {
   padding: 5px;
-  text-align: left;    
+  text-align: left;
 }
 #t01 {
-  width: 100%;    
+  width: 100%;
   background-color: #f1f1c1;
 }
 </style>
@@ -167,7 +167,7 @@ table, th, td {
 }
 th, td {
   padding: 5px;
-  text-align: left;    
+  text-align: left;
 }
 </style>
 </head>
@@ -321,7 +321,7 @@ th, td {
 
 
 
-<?php
+
 
 /**
 * ALTER TABLE `admins` ADD `email` VARCHAR(100) NULL AFTER `addedby`;

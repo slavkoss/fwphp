@@ -1,7 +1,7 @@
 /.git/
 composer.lock
+/z_not_ongithub/
 /fwphp/glomodul/mkd/01/090_private/
-/fwphp/z_not_ongithub/
 /vendor/RespectValidation/
 /vendor/b12phpfw/Dbconn_allsites_mysql_freehostingeu.php
 /vendor/b12phpfw/Dbconn_allsites_mysql_heliohost.php

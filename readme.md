@@ -73,13 +73,14 @@ see  https://help.github.com/en/github/writing-on-github    https://git-scm.com/
    or eg  https://git-scm.com/docs/git-checkout         
 
 ### In Windows Symenu Cmder as administrator (or CLI or Git Bash CLI)
-J:\\aplp\\aplp\\0\_symenu\\ProgramFiles\\SPSSuite\\SyMenuSuite\\Cmder\_sps       
+J:\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Cmder_sps      
 
 Go to your working directory or project folder (if not git status says: "fatal: not a git repository (or any of the parent directories): .git").      
 
-git config --global user.name 'yourname'         
+**git config --global user.name 'yourname'         
 git config --global --replace-all user.email 'youremail'         
-Install Git Credential Manager for Windows to avoid login on each push.      
+git config --local -l**
+Install Git Credential Manager for Windows to avoid login on each push - in  Cmder Git Extensions   (git update-git-for-windows)     
 
 ### cd j:\\awww\\www
 j:\\awww\\www (master -> origin)
@@ -88,7 +89,7 @@ j:\\awww\\www (master -> origin)
 or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
 ### git commit -am "ver 8.1.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
 We stored our project files within our system hard drive.      
-If Cmder shows error  "fatal: unable to auto-detect email address" :      
+If Cmder shows error  "fatal: unable to auto-detect email address" : see above git config...       
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       
 to set your account's default identity.    Omit --global to set the identity only in this repository.       
 ### git push -u origin master
