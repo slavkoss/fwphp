@@ -87,7 +87,7 @@ j:\\awww\\www (master -> origin)
 ### git status
 ### git add .
 or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
-### git commit -am "ver 8.1.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
+### git commit -am "ver 8.2.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
 We stored our project files within our system hard drive.      
 If Cmder shows error  "fatal: unable to auto-detect email address" : see above git config...       
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       

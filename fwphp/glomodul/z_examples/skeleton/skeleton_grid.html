@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript | JSON & AJAX</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+</head>
+
+
+<body>
+
+<!-- .container is main centered wrapper -->
+<div class="container">
+
+
+<br><br><br><h4>1. TYPOGRAPHY</h4>
+<!-- Standard Headings -->
+<h1>Skeleton < 20 kB  H1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+
+<!-- Base type size -->
+<p>The base type is 15px over 1.6 line height (24px)</p>
+
+<!-- Other styled text tags -->
+<strong>Bolded</strong>
+<em>Italicized</em>
+<a>Colored</a>
+<u>Underlined</u>
+
+
+
+<br><br><br><h4>2. GRID</h4>
+
+<p>The grid is a 12-column fluid grid with a max width of 960px, that shrinks with the browser/device at smaller sizes. The max width can be changed with one line of CSS and all columns will resize accordingly. The syntax is simple and it makes coding responsive much easier.
+Go ahead, resize the browser.
+</p>
+
+  <!-- columns should be the immediate child of a .row -->
+  <div class="row">
+    <div class="one column">1of1</div>
+    <div class="eleven columns">
+2of11, 1 + 11 = 12 ALLWAYS !!------------ -------------------74
+-------------- ---------------------- ----------------- ---------------- ---------------90
+    </div>
+    <!--div class="eleven columns">One</div>
+    <div class="eleven columns">2 of 11</div>
+    <div class="eleven columns">3</div>
+    <div class="eleven columns">4</div>
+    <div class="eleven columns">5</div>
+    <div class="eleven columns">6</div>
+    <div class="eleven columns">7</div>
+    <div class="eleven columns">8</div>
+    <div class="eleven columns">9</div>
+    <div class="eleven columns">10</div>
+    <div class="eleven columns">11</div-->
+  </div>
+
+  <!-- just use a number and class 'column' or 'columns' -->
+  <div class="row">
+    <div class="two columns">1of2</div>
+    <div class="ten columns">
+2of10 --------------- ------------------- -------------57
+------------ ------------- ------------ ------------- ------------------ ---------------90
+    </div>
+  </div>
+
+  <!-- there are a few shorthand columns widths as well 
+2/3 ------------ ------------------ ------------------- ----------------- --------------------- ----------------- 117
+  -->
+  <div class="row">
+    <div class="one-third column">1/3</div>
+    <div class="two-thirds column">2/3
+    <div class="two-thirds column">3/3
+    </div>
+  </div>
+  <div class="row">
+    <div class="one-half column">1/2</div>
+    <div class="one-half column">1/2</div>
+  </div>
+
+
+<br>
+<p>Note: columns can be nested, but it's not recommended since Skeleton's grid has %-based gutters,
+meaning a nested grid results in variable with gutters (which can end up being *really* small 
+on certain browser/device sizes).
+</p>
+
+
+
+
+<br><br><br><h4>3. BUTTONS</h4>
+<br>Standard buttons
+<a class="button" href="#">Anchor button</a>
+<button>Button elem.(tag)</button>
+<input type="submit" value="submit input">
+<input type="button" value="button input">
+
+<br>Primary buttons
+<a class="button button-primary" href="#">Anchor btn (href)</a>
+<button class="button-primary">Button element</button>
+<input class="button-primary" type="submit" value="submit input">
+<input class="button-primary" type="button" value="button input">
+
+
+
+
+<br><br><br><h4>4. FORMS</h4>
+<br><!--  -->
+<form>
+  <div class="row">
+    <div class="six columns">
+      <label for="exampleEmailInput">Your email</label>
+      <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
+    </div>
+    <div class="six columns">
+      <label for="exampleRecipientInput">Reason for contacting</label>
+      <select class="u-full-width" id="exampleRecipientInput">
+        <option value="Option 1">Questions</option>
+        <option value="Option 2">Admiration</option>
+        <option value="Option 3">Can I get your number?</option>
+      </select>
+    </div>
+  </div>
+  <label for="exampleMessage">Message</label>
+  <textarea class="u-full-width" placeholder="Hi Dave …" id="exampleMessage"></textarea>
+  <label class="example-send-yourself-copy">
+    <input type="checkbox">
+    <span class="label-body">Send a copy to yourself</span>
+  </label>
+  <input class="button-primary" type="submit" value="Submit">
+</form>
+
+<p>Always wrap checkbox and radio inputs in a label and use a <span class="label-body"> inside of it</p>
+
+<p>Note: The class .u-full-width is just a utility class shorthand for width: 100% </p>
+
+
+
+
+<br><br><br><h4>5. LISTS</h4>
+<ul>
+  <li>Item 1</li>
+  <li>
+    Item 2
+    <ul>
+      <li>Item 2.1</li>
+      <li>Item 2.2</li>
+    </ul>
+  </li>
+  <li>Item 3</li>
+</ul>
+
+<p>
+Easily substitute any &lt;ul> or an &lt;ol> to get number lists or sublists. 
+Skeleton doesn't support lists nested deeper than 2 levels
+</p>
+
+
+
+
+
+<br><br><br><h4>6. CODE</h4>
+<pre><code>.some-class {
+  background-color: red;
+}</code></pre>
+
+
+
+
+
+
+
+
+<br><br><br><h4>7. TABLES</h4>
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dave Gamache</td>
+      <td>26</td>
+      <td>Male</td>
+      <td>San Francisco</td>
+    </tr>
+    <tr>
+      <td>Dwayne Johnson</td>
+      <td>42</td>
+      <td>Male</td>
+      <td>Hayward</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+<br><br><br><h4>8. MEDIA QUERIES</h4>
+Skeleton uses media queries to serve its scalable grid, 
+but also has a list of queries for convenience of styling your site across devices.
+The queries are mobile-first, meaning they target min-width. 
+Mobile-first queries are how Skeleton's grid is built and is the preferrable method of organizing CSS. 
+It means all styles outside of a query apply to all devices, then larger devices are targeted for enhancement.
+This prevents small devices from having to parse tons of unused CSS. The sizes for the queries are:
+<pre><code>
+Desktop HD: 1200px        Phablet: 550px
+Desktop: 1000px           Mobile: 400px
+Tablet: 750px
+
+
+/* Mobile first queries */
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}
+</code></pre>
+
+
+
+
+
+
+
+
+<br><br><br><h4>9. UTILITIES</h4>
+<pre><code>
+/* Utility Classes */
+
+/* Make element full width */
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; }
+
+/* Make sure elements don't run outside containers (great for images in columns) */
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; }
+
+/* Float either direction */
+.u-pull-right {
+  float: right; }
+.u-pull-left {
+  float: left; }
+
+/* Clear a float */
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
+</code></pre>
+
+
+
+
+
+<br><br><br><h4>10. EXAMPLES</h4>
+<a class="button button-primary" href="skeleton_example.html">skeleton_example.html</a>
+
+
+
+
+
+
+</div>
+
+
+    <style>
+        .container {
+            margin-top: 40px;
+        }
+    </style>
+</body>
+</html>

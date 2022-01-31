@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script src="json.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+      function getXHR() {
+        var req;
+        if (window.XMLHttpRequest) {
+          req = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+          req = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return req;
+      }
+
+      function getServerTime() {
+        xhr = getXHR();
+        rand = Math.random(1);
+
+        //CHANGE THIS LINE DOMAINS MUST MATCH!
+        url = "http://example.com/time.php?id="+ rand;
+
+        xhr.open("GET", url, false);
+        xhr.send();
+        json = xhr.responseText;
+        time = json.parseJSON();
+        div = document.getElementById("jsonData");
+        div.innerHTML = time;
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#" onclick="getServerTime()">Get Server Time</a>
+    <div id="jsonData"></div>
+  </body>
+<html>

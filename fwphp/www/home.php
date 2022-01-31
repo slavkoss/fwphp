@@ -28,16 +28,21 @@ $glomodul_url = $wsroot_url . $glomodul_path_rel ;
 
 
 
-include $pp1->shares_path . 'hdr.php';
-   include 'h_top_toolbar.php';
-   include 'h_top_intro_right.php';  //<!-- HOME SECTION -->
+include $pp1->shares_path . 'hdr_skeleton.php';
+                                   //include 'h_top_toolbar.php';
+   include 'h_top_intro_right_skeleton.php';  //<!-- HOME SECTION -->
+   include 'h_content1_skeleton.php';  //<!-- eg LEARN (EXPLORE) -->
+   include 'h_content2_skeleton.php';  //<!-- eg CREATE -->
+   include 'h_content3_skeleton.php';  //<!-- eg SHARE -->
 
-   include 'h_content1.php';  //<!-- eg LEARN (EXPLORE) -->
-   include 'h_content2.php';  //<!-- eg CREATE -->
-   include 'h_content3.php';  //<!-- eg SHARE -->
-
-include $pp1->shares_path . 'ftr.php';
+//include $pp1->shares_path . 'ftr.php';
+?>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
+<?php
                         if ('') {echo '<h2> lin='. __LINE__ .' *** '.__FILE__ .' SAYS *** šđčćž</h2>';}
 
-//include 'help.php'; 
+                                 //include 'help.php'; 
 

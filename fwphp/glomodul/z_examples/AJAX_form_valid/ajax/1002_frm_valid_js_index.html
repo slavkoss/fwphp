@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+  <title>1002 Validating Form Fields</title>
+
+  <link rel="stylesheet" type="text/css" href="css/basic_2.css" />
+
+    <script>
+
+        function validateForm()
+        {
+          var errmsg = '';
+
+          var firstname = document.getElementById('firstname').value;
+
+          if (firstname == null || firstname == "")
+          {
+            errmsg += "<br />You must enter a First Name";
+            }
+
+          var age = document.getElementById('age').value;
+
+          if (age == null || age == "")
+          {
+            errmsg += "<br />You must enter your Age";
+
+            } else {
+
+              if (isNaN(age))
+              {
+              errmsg += "<br />Age must be a number";
+              }
+
+            }
+
+            var messageDiv = document.getElementById('messagediv');
+
+          messageDiv.innerHTML = errmsg;
+
+          if (errmsg == '')
+          {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<div>
+
+  <form method="post" action="1002_frm_valid_js.php">
+
+  <h2>Enter Your Name and Age for a Secret Message
+
+  <p>
+  First Name:<br />
+  <input type="text" name="firstname" id="firstname" size="30" />
+  </p>
+
+  <p>
+  Your Age:<br />
+  <input type="text" name="age" id="age" size="3" />
+  </p>
+
+  <p>
+  <input type="submit" value="Submit Information" onclick="return validateForm();" />
+  <input type="reset" />
+  </p>
+
+  </form>
+
+</div>
+
+<div style="color: red;" id="messagediv">
+</div>
+
+
+</body>
+</html>

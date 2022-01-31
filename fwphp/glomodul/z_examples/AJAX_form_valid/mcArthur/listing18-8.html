@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <script src="json.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+      //Create a global variable for the XHR object
+      var xhr;
+
+      function getXHR() {
+        var req;
+        if (window.XMLHttpRequest) {
+          req = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+          req = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return req;
+      }
+
+      function suggest() {
+
+        //If there already is an outstanding
+        //XHR request going on, abort it.
+        if(xhr && xhr.readyState != 0) {
+          xhr.abort();
+        }
+
+        xhr = getXHR();
+
+        //Set up an asynchronous POST (CHANGE ME)
+        xhr.open("POST","http://example.com/suggest.php",true);
+
+        //Read the search value
+        searchValue = document.getElementById("search").value;
+
+        //URL encode the data
+        data = "search="+encodeURIComponent(searchValue);
+
+        //Define the function that will receive
+        //notifications about state changes.
+        xhr.onreadystatechange = readyStateChange;
+
+        //Set the request header so that PHP
+        //knows that this is a form submission
+        xhr.setRequestHeader
+          ("Content-type", "application/x-www-form-urlencoded");
+
+        //Post the data to the server
+        xhr.send(data);
+      }
+
+      function readyStateChange() {
+        //State 4 means the data is ready
+        if(xhr.readyState == 4) {
+
+          //Check if the server sent any data and the request was 200 ok
+          if(xhr.responseText && xhr.status == 200) {
+
+            json = xhr.responseText;
+
+            //Parse the server response, creating a JS array.
+            try {
+              suggestionArr = json.parseJSON();
+            } catch (e) {
+              //Problem with/parsing JSON data.
+            }
+
+            //Create some HTML
+            tmpHtml="";
+            for(i=0, len = suggestionArr.length; i < len; i++) {
+              tmpHtml += suggestionArr[i] + "<br />";
+            }
+
+            div = document.getElementById("suggestions");
+            div.innerHTML = tmpHtml;
+          } //else blank response, 404 request etc.
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+    <input id="search" type="text" onkeyup="suggest()" />
+    <div id="suggestions"></div>
+  </body>
+<html>
