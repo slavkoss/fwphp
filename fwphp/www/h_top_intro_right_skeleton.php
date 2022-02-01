@@ -32,11 +32,17 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
         <div class="one-third column value">
           <h2 class="value-multiplier">1. Modules</h2>
           <h5 class="value-heading">Links, utilities, modules</h5>
-          <p class="value-description">Modules are folders like Oracle fmb.</p>
+          <p class="value-description">Modules are folders like Oracle fmb.
+          This page is Mnu module.</p>
           <!-- *********************************************
                  1.1  U t i l s  L E F T  S I D E  M N U 
           ********************************************* -->
           <div>
+              <a class="button button-primary" target="_blank" 
+                 title="Users (=master, same as msgtype), messages (=detail) , replies (=subdetail) 
+                       or todo/done or...any master-detil. CRUD PDO of MySQL DB tbl rows."
+                 href="<?=$pp1->msg?>">Blog (Msg-s) MySQL DB</a>
+
               <a class="button button-primary" target="_blank" 
                  title="Redirect_to( <?=dirname($pp1->module_url) .'/glomodul/mkd/'?> ). Mkd module. Rich text edit on web. SimpleMDE & Parsedown. CRUD of .txt or .md or .mkd oper.sys texsts. Summernote add is easy."
                  href="<?=$pp1->mkd?>">Mkd (ed txt files)</a>
@@ -67,33 +73,28 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
         <div class="one-third column value">
           <h2 class="value-multiplier">2. CRUD</h2>
           <h5 class="value-heading">CRUD PDO trait (MODEL)</h5>
-          <p class="value-description"></p>
+          <p class="value-description">Some modules on MySQL, SQLite, Oracle.</p>
           <!-- *********************************************
                     1.2  C R U D  (LEFT  M N U)
           ********************************************* -->
           <!-- class="btn btn-warning btn-block" -->
           <div>
               <a class="button button-primary" target="_blank" 
-                 title="Users (=master, same as msgtype), messages (=detail) , replies (=subdetail) 
-                       or todo/done or...any master-detil. CRUD PDO of MySQL DB tbl rows."
-                 href="<?=$pp1->msg?>">Blog (Msg-s) MySQL DB</a>
-
-              <a class="button button-primary" target="_blank" 
                  title=""
-                 href="<?=$glomodul_url?>adrs/">Songs Mini3 PDO</a>
+                 href="<?=$glomodul_url?>adrs/">Songs Mini3 MySQL PDO</a>
 
               <a class="button button-primary" target="_blank" 
                  title="Users equipment (or messages or...) - any master-detail. CRUD PDO of Oracle 11g XE DB tbl rows."
                        class="btn btn-outline-secondary"
-                 href="<?=$pp1->acxe?>">ACXE (Ora.DB)</a>
+                 href="<?=$pp1->acxe?>">ACXE Oracle PDO</a>
 
               <a class="button button-primary" target="_blank" 
                  title=""
-                 href="<?=$examples_url?>todo_csv_js/todolist/web/">Todolist SQLite</a>
+                 href="<?=$examples_url?>todo_csv_js/todolist/web/">Todolist SQLite PDO</a>
 
               <a class="button button-primary" target="_blank" 
                  title=""
-                 href="<?=$examples_url?>ora11g/wishlist/public/">Wish Ora</a>
+                 href="<?=$examples_url?>ora11g/wishlist/public/">Wish Oracle PDO</a>
           </div>
         </div><!--e n d  1.2  C R U D  (RIGHT  M N U)-->
 
@@ -107,8 +108,12 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
         <div class="one-third column value">
           <h2 class="value-multiplier">3. VIEW</h2>
           <h5 class="value-heading">CSS</h5>
-          <p class="value-description"></p>
+          <p class="value-description">CSS for responsive Web pages.</p>
           <div>
+              <a class="button button-primary" target="_blank" 
+                 title="Skeleton help" 
+                 href="<?=$glomodul_url?>z_examples/skeleton/">Skeleton V2.0.4 (2014)</a>
+
               <a class="button button-primary" target="_blank" 
                  title="Bootstrap templates (PHP)" 
                  href="<?=QS?>i/b_tmplts">Bootstrap 5, PHP 8</a>
