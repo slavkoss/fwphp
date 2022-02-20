@@ -29,7 +29,7 @@ First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH
 
 Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
 
-1. Folders : vendor (was also zinc, now zinc no more exists, shares are in /vendor/b12phpfw)   
+1. Folders : vendor (was zinc, now zinc no more exists, shares are in /vendor/b12phpfw)   
 
 2. **Mnu** - menu module  /fwphp/www  folder
 
@@ -188,7 +188,7 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
    
 5.  **DEPLOY (INSTALL)**: **Cmder** (in Symenu) is Win CMD line, has Git.
    Composer.
-   FTP client **Winscp**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\zinc\Dbconn_allsites.php`;
+   FTP client **Winscp**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\vendor/B12phpfw/Dbconn_allsites.php`;
     
 
 ##  1\.2\.a 3\. [Composer](https://getcomposer.org/download/)
@@ -367,13 +367,13 @@ What’s new in version 8.0.0.0 :
 2020.09.30 **DONE version 7.0.0.0** 
     1. declare(strict_types=1) ; - PHP 7
     2.  DBI improved : **trait Db_allsites** instead class Db_allsites. 
-    3. Each DB table (persistent storage) has adapter **class Tbl_crud :**  which uses B12phpfw\core\zinc\Db_allsites  and  implements Interf_Tbl_crud
+    3. Each DB table (persistent storage) has adapter **class Tbl_crud :**  which uses B12phpfw\core\vendor/B12phpfw\Db_allsites  and  implements Interf_Tbl_crud
        This means that :
        1. Module's views or ctrs, eg blog module (see blog folder) work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
        2. class Home_ctr extends class Config_allsites. ( **Logically all is in Home_ctr**).
 
 
-2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\zinc\Config_allsites.php :  
+2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\vendor/b12phpfw\Config_allsites.php :  
 Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
 No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
     
@@ -411,7 +411,7 @@ B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL
 No more Dbconn_allsites class, only trait Db_allsites and :
 ```php
 <?php
-// J:\awww\www\zinc\Dbconn_allsites.php
+// J:\awww\www\vendor/b12phpfw\Dbconn_allsites.php
 // Is required in trait Db_allsites
 //$conn_params = 
 return [
@@ -1768,7 +1768,7 @@ Some say: "is OOP mistake ?" - eg **lack of reusability in OOP** - to get banana
 Eg Interfaces help to get ONLY banana, but coding is complicated - I could find only strong-talk-weak-work code examples about this subject.  
 1. So my not complicated **interface Interf_Tbl_crud** I made **to standardize coding Tbl_crud classes**. Each simple ee **one table module** like "invoice items" module has own dir and own Tbl_crud class leading to more than 100 Tbl_crud.php model adapter scripts in big application (eg material and financial book keeping).
 ```
-*  J:\awww\www\zinc\Interf_Tbl_crud.php (4 hits)
+*  J:\awww\www\vendor/b12phpfw\Interf_Tbl_crud.php (4 hits)
 * 9:   static public f unction rr(
 * 12:  static public f unction rrnext(object $cursor): object ;  //returns $cursor
 * 16:  static public f unction rr_all(
@@ -1878,72 +1878,89 @@ TraversyMVC (has video) and Mini3 are simplified, with some (many?) differences 
 
 <br /><br /><br /><br />
 ## 3\.4 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
+
+##  B12phpfw directories (modules) 
 ```
-One of (Apache) WEB SERVER DOCROOT-s (see B12phpfw directories (modules) structure)
+One of (Apache) WEB SERVER DOCROOT-s, my is  J:\\awww\\www\\
 |       
 |       
-|-- **1. fwphp** (app)       # **or SITE1, or APLications1** = Main MVC site dirs structure,               
-|   |                        # my J:\awww\www\fwphp\ = Apache_docroot\fwphp         
-|   |                        # Contains **MODULE GROUPS** eg APLication1, 2.  eg  **www** (main menu), **glomodul**,       
-|   |                        # **finance**, **material**. fwphp is optional name. Namespace is only one: B12phpfw.            
-|   |-- Controllers          # **NO M,V,C dirs (ee Controllers) but dirs are like Oracle FORMS form module.fmb  !**         
-|   |   └── example.php      # Example Controller with basic functionality explanation. Start here learning !         
-|   |                        # My is https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/       
-|   |                        # (03xuding, 01vanilla...)
+|-- **I. fwphp** (app)       # **or SITE1, or APLications1** = Main MVC site dirs structure,               
+|            # my J:\\awww\\www\\fwphp\\ = Apache_docroot\site_root         
+|            # Contains **MODULE GROUPS** eg APLication1 or **www** (main menu), **glomodul**,       
+|            # **finance**, **material**. fwphp is optional name. Namespace is only one: B12phpfw.            
+|      
+|       
+|-- **II. index.php**         # redirects to main menu url fwphp/www/index.php        
+|      
+|                
+|--**III. vendor **           
+|  └──--**B12phpfw**   # B12phpfw has own (internal) resources here, external in other vendor subdirs.       
+|                      # Here are **class Autoload and other for all sites shared - common - global**                  
+|                      # **classes** Db_allsites and Config_allsites....                   
+```
+
+
+###  other PHP fw-s
+```
+One of (Apache) WEB SERVER DOCROOT-s, my is  J:\\awww\\www\\
+|       
+|       
+|-- **I. fwphp** (app)       # **or SITE1, or APLications1** = Main MVC site dirs structure,               
+|   |              # my J:\awww\www\fwphp\ = Apache_docroot\fwphp         
+|   |              # Contains **MODULE GROUPS** eg APLication1 or **www** (main menu), **glomodul**,       
+|   |              # **finance**, **material**. fwphp is optional name. Namespace is only one: B12phpfw.            
+|   |-- ~~Controllers~~          # **NO M,V,C dirs but dirs are like Oracle FORMS form module.fmb  !**         
+|  └── ~~example.php~~      # NO Example Controller 
+|   |                             
 |   |       
-|   |-- Models               # **NO M,V,C dirs** ee NO Models directory       
-|   |   └── example.php      # Example Model with functionality explanation       
-|   |                        #  My is .../fwphp/glomodul/z_examples/02_MVC/01vanilla       
+|   |-- ~~Models~~               # **NO M,V,C dirs** ee NO Models directory       
+|  └── ~~example.php~~      # Example Model with functionality explanation       
+|   |                        
 |   |         
-|   |__ Views                # **NO M,V,C dirs** ee NO Views directory, no template engines (PHP is template language)        
+|   |--~~Views~~   # **NO M,V,C dirs** ee NO Views directory, no template engines (PHP is template language)        
 |        
 |        
-|-- **2. zinc** (core)       # Basically mvc engine directory. zinc is for search more selective than core  -:).                  
-|   |                        # Here are **class Autoload and other all sites global classes** and some public resources                 
-|   |                        # (some are in vendor dir).            
-|   |-- app.php              # **NO** Main fw file. nice abstraction (questionable value in real life programming) :       
+|   |-- ~~app.php~~   # **NO** Main fw file. nice abstraction (questionable value in real life programming) :       
 |   |                        # **$app = new App();  $app->autoload(); $app->config(); $app->start();**       
 |   |                        # Where is UML diagram for this beauty ?        
 |   |                        # I think much better is **new Home\_ctr($pp1) ** // Home\_ ctr "inherits" index.php       
 |   |                        # ee "inherits" $pp1, (global & module prroperties palette array),       
 |   |                        # but also inherits see B12phpfw core UML diagram below.      .      
 |   |             
-|   |-- classes              # **NO** classes directory for autoloading.         
-|   |   |                    # B12phpfw global classes are in zinc dir, module clses are in module dir.       
-|   |   |-- controller.php   # **NO** but **in module dir global abstract DISPATCHER (RESPONSE) class**             
-|   |   |                    # **Home\_ctr  (<span style="color:blue;">level 4<span>)** extends Config\_allsites         
-|   |   |__ model.php        # **NO, no model class for each table** but **in zinc dir global abstract CRUD class               
-|   |                        # Db_allsites  (<span style="color:blue;">level 2<span>)** includes Dbconn_allsites             
+|   |-- ~~classes~~              # **NO** classes directory for autoloading.         
+|   |   |                    # B12phpfw global classes are in vendor/b12phpfw dir, module clses are in module dir.       
+|   |  └──-- ~~controller.php~~   # **NO** but **in module dir global abstract DISPATCHER (RESPONSE) class**             
+|   |   |                    # **Home\_ctr ** extends Config\_allsites         
+|   |   |--~~model.php~~        # **NO, no model class for each table** but **in vendor/b12phpfw** dir                
+|   |                        # global abstract CRUD class **Db_allsites  ** includes Dbconn_allsites             
 |   |                        # In Db_allsites are **cc, rr, uu, dd methods** instead model class for each table !        
 |   |                        # cc, rr, uu, dd methods are like Oracle Forms           
 |   |                        # pre-insert, pre- and execute- query, pre-update instead model class for each table !         
-|   |                        # To me seem model class for each table and ORM-s, active records not needed.         
+|   |                        # To me seems not needed :  model class for each table and ORM-s, active records         
 |   |       
-|   |-- config               # **NO** config dir but **in zinc dir global abstract CONFIG & ROUTING (REQUEST) class**            
-|   |   |                    # **Config_allsites  (level 3)** extends Db_allsites (see core UML diagram). 
+|   |-- ~~config~~   # **NO** config dir but in vendor/B12phpfw dir             
+|   |   |                    # **Config_allsites** extends Db_allsites (see core UML diagram). 
 |   |   |                    # Here is property palette array.           
-|   |   |-- database.php     # = in zinc **Dbconn_allsites.php**        
-|   |   |__ session.php            
+|   |   |-- ~~database.php~~     # = in vendor/b12phpfw **Dbconn_allsites.php**        
+|   |   |-- ~~session.php~~            
 |   |                     
-|   |__ helpers              # **NO** helpers dir, but in zinc dir global abstract classes Db_allsites and Config_allsites.          
-|       |__ examplhelper.php # **NO** but own debugging and Xdebug php extension.              
+|   |-- ~~helpers~~     # **NO** helpers dir, but classes Db_allsites and Config_allsites.          
+|       |-- ~~examplhelper.php~~ # **NO** but own debugging (and Xdebug php extension - I do not use it any more).              
 |      
 |       
-|-- **3. index.php**         # redirects to main menu url fwphp/www/index.php        
+|-- **II. index.php**         # redirects to main menu url fwphp/www/index.php        
 |      
+|                
+|   |-- **III. vendor **           
+|       |--**B12phpfw**   # B12phpfw has own (internal) resources here, external in other vendor subdirs.       
+|                      # Here are **class Autoload and other for all sites shared - common - global**                  
+|                      # **classes** Db_allsites and Config_allsites....             
 |         
-|-- **4. vendor** (public)   # dir for external code (vendor's plugins) & resources :  javascript files, stylesheets.            
-|   |                        # B12phpfw has own (internal) resources in zinc dir, external in vendor dir.          
-|   |-- javascripts          
-|   |-- stylesheets          
-|   |__ vendor           
-|     
-|         
-|-- .htaccess                # **NO** .htaccess (Apache mod_rewrite) URL rewriting all requests to MVC endpoint index.php            
-                             # (single module entry point). B12phpfw has **QS=?** constant instead.       
-
+|-- .htaccess        # **NO** .htaccess (Apache mod_rewrite) URL rewriting all requests to MVC endpoint         
+                    # index.php  (single module entry point). B12phpfw has **QS=?** constant instead.       
 ```
-Common fw dir structure are **items in (...) and marked with NO - are not used in B12phpfw** but basics are same. B12phpfw is better for large sites.             
+
+Common fw dir structure are **items in marked with NO - are not used in B12phpfw** but basics are same. B12phpfw is better for large sites.             
 
 
 
