@@ -11,7 +11,7 @@ CRUD module example code 7 scripts:
 
 
 
-**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with Laragon  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. Framework core J:\awww\www\vendor\b12phpfw\ is ~ 80 kB.
+**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with XAMPP  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. Framework core <DOCROOT>\vendor\b12phpfw\ is ~ 80 kB (my DOCROOT is J:\awww\www).
 ## 1\.1 Demo sites - free hosting with free Mysql
 See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/54) or [here](http://phporacle.heliohost.org/fwphp/glomodul/blog/?i/read_post/id/54)
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - thanks for removing time limit. 
@@ -1796,15 +1796,21 @@ I did much simpler B12phpfw code based on ideas in Jazeb Akram CMS blog and Mini
 
 2.  [**Mini3**](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/adrs) (Mini3 PHP fw [https://github.com/panique/mini3](https://github.com/panique/mini3) - rare not to simple module but could have more functionality.
 
-3.  https://github.com/ngrt/MVC_todo Code is explained in this article blog 2017.12.17: https://medium.com/@noufel.gouirhate/create-your-own-mvc-framework-in-php-af7bd1f0ca19
-4.  https://dev.to/jorgecc/a-minimalist-mvc-project-using-php-and-without-a-framework-4pd8
-5.  https://github.com/TRPB/ImmutableMVC
+3.  /glomodul/z_examples/MVC_FW/hcstudio_easy/public/  to simple fw example but good code for learning PHP (only Read of CRUD), explained Middleware. To complicated routing and Middleware.
 
-6. Other :
+4.  https://github.com/ngrt/MVC_todo Code is explained in this article blog 2017.12.17: https://medium.com/@noufel.gouirhate/create-your-own-mvc-framework-in-php-af7bd1f0ca19
+5.  https://dev.to/jorgecc/a-minimalist-mvc-project-using-php-and-without-a-framework-4pd8
+6.  https://github.com/TRPB/ImmutableMVC
+
+7. Other :
    1. video 8/2016 Paul Amissah [https://freecourseweb.com/building-database-web-app-php-oop-pdo-ajax-mysql/](https://freecourseweb.com/building-database-web-app-php-oop-pdo-ajax-mysql/) :  PHP, procedural MVC PDO MySQL, Bootstrap, AJAX jQuery - good basic code. **Not good are (as in almost all tutorials)** : names, globals,  code snippets composing - no single entry point ee including scripts instead http jumping in scripts
    3.  video Shan Shah 2019 [https://desirecourse.com/login-registration-and-profile-management-in-php-mysql-2018/](https://desirecourse.com/login-registration-and-profile-management-in-php-mysql-2018/),
-   4.  video Learn\_OOP\_PHP\_By\_Building\_Complete\_Website\_by\_Traversy\_2018 [bad example](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/traversymvc) to complisated, despite some good code snippets.
-   5.  Inanz, Hopkins, Xuding... to simple examples good only for clear ideas and for total beginers (dummies).
+   4.  video Learn\_OOP\_PHP\_By\_Building\_Complete\_Website\_by\_Traversy\_2018 [bad example](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples/02_MVC/traversymvc) to complicated despite some good code snippets.            
+   5.  Inanz, Hopkins, Xuding... to simple examples, good only for clear ideas and for total beginners.         
+      fwphp/glomodul/z_examples/MVC_FW/02hopkins_2009_clickme/         
+      /fwphp/glomodul/z_examples/MVC_FW/02L2adlian_mvc_2009/          
+      /fwphp/glomodul/z_examples/MVC_FW/01inanz/        
+      /fwphp/glomodul/z_examples/MVC_FW/03xuding_users2017/       
 
 I made many changes (I hope improvements) which I did because I do not like proposed solutions in best php frameworks and in learning sources mentioned above  (especcialy coding eg Traversy tutorial). Shares (reusables, globals) are not well coded there. I think that eg invoice php code should be in **own folder - module - like Oracle forms invoice.fmb** (not all forms/reports in 3 folders: M,V,C). **Application** glomodul consists of group of modules subgroups - unlimited levels  eg subgroup [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z\_examples](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples)
 

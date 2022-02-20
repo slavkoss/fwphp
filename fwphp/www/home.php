@@ -29,7 +29,7 @@ $glomodul_url = $wsroot_url . $glomodul_path_rel ;
 
 
 include $pp1->shares_path . 'hdr_skeleton.php';
-                                   //include 'h_top_toolbar.php';
+   //include 'h_top_toolbar_skeleton.php';
    include 'h_top_intro_right_skeleton.php';  //<!-- HOME SECTION -->
    include 'h_content1_skeleton.php';  //<!-- eg LEARN (EXPLORE) -->
    include 'h_content2_skeleton.php';  //<!-- eg CREATE -->
@@ -37,6 +37,8 @@ include $pp1->shares_path . 'hdr_skeleton.php';
 
 //include $pp1->shares_path . 'ftr.php';
 ?>
+<!-- /div--> <!-- End class="container"> -->
+
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>

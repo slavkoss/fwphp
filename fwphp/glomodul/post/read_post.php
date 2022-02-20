@@ -141,8 +141,10 @@ if(isset($_POST["Submit"])){
                          class="btn btn-info"
                       <small class="text-muted">Category:
                       </small>
-                    -->
+
               <a href="<?=$pp1->edmkdpost?>flename/<?=$rx->title?>/id/<?=$rx->id?>" 
+                    -->
+              <a href="<?=$pp1->wsroot_url .'fwphp/glomodul/mkd/?i/edit/path/J:\\awww\\www\\fwphp\\glomodul\\blog\\msgmkd\\'. $rx->title?>" 
                  title = "Markdown edit text in FILE (not in database !)"
               > <span class="btn btn-light fw-bold" >Edit post in <?php echo self::escp($rx->title); ?> 
                   (We cre/del .txt in op.system. TODO: cre/del .txt here) &rang;&rang; </span>

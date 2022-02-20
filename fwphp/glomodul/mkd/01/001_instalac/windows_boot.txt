@@ -1,0 +1,290 @@
+
+Boot Ubuntu-based ISOs with persistence
+---------------------------------------
+https://easy2boot.xyz/boot-ubuntu-based-isos-with-persistence/
+Open the .ISO file (e.g. using 7Zip) and ensure it has a /isolinux folder and a /casper folder.
+1. Change file extension from .iso to .isopersist eg 
+   H:\_ISO\LINUX\ubuntu_21_10_desktop_amd64.isopersist  NO /isolinux folder so
+   error PTN TABLE 3 IS ALREADY IN USE
+
+3. Under Windows, run \_ISO\_Make_Ext.bat file (or \_ISO\docs\Make_Ext\Make_Ext.exe) as admin
+   filename must match the ISO filename but end in -rw eg (H: is root of the E2B USB drive)
+       H:\_ISO\LINUX\ubuntu_21_10_desktop_amd64-rw  (~1 GB)
+   Volume Name must be casper-rw for Ubuntu-based distros. 
+   Choose ext3 and a suitable file size eg 200 MB 
+   Click on the Make Ext File button.
+
+3. Run the MAKE_THIS_DRIVE_CONTIGUOUS.cmd script as admin. Both files need to be contiguous.
+
+You should now be able to boot with persistence using the E2B or agFM menu system. 
+Try creating a new folder on the Desktop and reboot to test it.
+
+Remember to ALWAYS use ‘Shutdown’ when you exit.
+
+Note: E2B requires that both partition 3 and 4 of the USB drive are unused. 
+Use the agFM menu system if you have used Partition 3.
+
+Tip: If the .isopersist file fails to boot at a later date, then the persistence file has 
+     probably become corrupted. Use a BACKUP of an earlier version (if you saved one) 
+     or delete it and make another one (but all your changes will be lost).
+
+
+
+
+
+
+Add Fedora with persistence to E2B
+----------------------------------
+https://rmprepusb.blogspot.com/2017/04/add-fedora-with-persistence-to-e2b.html
+
+
+UEFI-booting
+------------
+An Easy2Boot v2 USB drive can UEFI-boot to the 'agFM' grub2 menu system and can directly load 
+ISO/VHD/IMG/EFI files (if the 'agFM' UEFI boot files were added to Partition 2 when it was created). 
+
+In addition, you can convert a payload to a .imgPTN partition image file using the 
+MPI Tool Kit (a Windows utility). You then copy the .imgPTN file onto the E2B USB drive. 
+Using the boot menu, you can then select any one of your .imgPTN files. This will then cause the 
+Easy2Boot partition 1 to be instantly replaced by the contents of the .imgPTN file (you can instead 
+use the Switch_E2B.exe utility to switch in any .imgPTN file). 
+Once the .imgPTN file has been 'switched-in,' you can UEFI-boot (even Secure UEFI-boot) directly 
+from the USB drive. In this way, you can have hundreds of Secure UEFI-bootable images such as 
+
+Windows Installers, Linux Installers, Linux Live OS's, WindowsToGo OS, MemTest86, KonBoot, etc.
+
+all on the same USB drive.
+
+
+Linux ISOs + persistence
+------------------------
+To set up most linux ISOs with persistence, find a suitable .mnu file in the
+\_ISO\docs\Sample mnu Files folder on the E2B USB drive and read the instructions at the top of the file.
+
+You will need to change the  name of the ISO in the title line and a line below the title line.
+
+You will need to create a ext2\3\4 persistence file (ext3 recommended as ext2 files are easily corrupted) 
+using RMPrepUSB, see
+https://www.easy2boot.com/add-payload-files/linux-isos/linux-with-persistence/
+
+***** Fedora + persistence - However, Fedora is different! *****
+
+The sample menu provided in the E2B \_ISO\docs\Sample Mnu Files folder for Fedora+persistence 
+only works if you have a FAT32 E2B USB drive - Fedora does not like NTFS volumes when 'flat-file' booting.
+
+Here is a way to add Fedora+persistence to an NTFS E2B USB drive (MBR and UEFI).
+
+The maximum size for the persistence file is 4GB because we will add it to a FAT32 .imgPTN partition.
+
+Let us start with MBR-booting
+1. Download your Fedora Live ISO file - author used Fedora-Workstation-Live-x86_64-25-1.3.iso
+   and Fedora-Workstation-Live-x86_64-33-1.2.iso worked.
+   I used Fedora-Workstation-Live-x86_64-35-1.2.iso
+   
+2. Install the MPI Tool Kit onto your Windows system https://www.fosshub.com/Easy2Boot.html
+
+3. Drag-and-Drop the ISO onto the MPI_FAT32 Desktop shortcut.
+
+When prompted for a size, you must add the amount of space you want to use for persistence - e.g. 
+add 500MB to the suggested size. 
+
+Do not add more than 4GB as we cannot create a file >4GB for the persistence file.
+
+4. Copy the resultant .imgPTN file to your E2B USB drive 
+   (e.g. \_ISO\LINUX\Fedora-Workstation-Live-x86_64-25-1.3.imgPTN). 
+
+Rename the file extension to .imgPTN23 if you have agFM on your E2B USB drive.
+
+5. Run the \_ISO\SWITCH_E2B.exe utility and double-click on the .imgPTN file to switch in the 
+   new Fedora partition as partition #1.
+
+   Check in Explorer that you can now see a \LiveOS folder on the USB drive.
+
+6. Edit the \menu.lst to add in the following lines to the bottom of the file...
+
+    title FEDORA with persistence (/fedora.img)\n Boot to Fedora with persistence
+    uuid () > nul
+    set UUID=%?%
+    echo UUID=%UUID%
+    if not exist /fedora.img echo WARNING: Changes will not be remembered unless a /fedora.img ext file is created! && pause
+    kernel /syslinux/vmlinuz root=live:UUID=%UUID% rd.live.overlay=/dev/disk/by-uuid/%UUID%:/fedora.img rd.live.dir=/LiveOS rootfstype=auto rw rd.live.image quiet splash rhgb rd.luks=0 rd.md=0 rd.dm=0 xdriver=vesa nomodeset
+    initrd /syslinux/initrd.img
+    boot
+
+    Tip: add vga=ask after nomodeset if you cannot see a Desktop and try a different graphics mode.
+
+7. Run a recent version of RMPrepUSB.exe, select the USB drive and click on the Create Ext2\3\4 button, 
+   then use the following settings:
+
+    Ext Filename: fedora.img  (all lower case)
+    Volume Name: LIVE (anything you like here!)
+    Size: YYY  (where YYY is the remaining amount of free space in the FAT32 partition - use Explorer to tell you how much free space there is)
+    Ext type: ext3   (ext3 is more resilient than ext2 - you can use ext4 if you wish but it may run Fedora slightly slower than ext3)
+
+10. Now boot on a real system in MBR mode and check it works. 
+    If you change the Desktop wallpaper, the change should be persistent.
+
+Note: Only after booting on a real system first, was I then able to successfully boot under VBox!
+
+
+
+
+
+
+
+
+
+
+https://support.microsoft.com/en-us/office/change-the-location-of-your-onedrive-folder-f386fb81-1461-40a7-be2c-712676b2c4ae
+
+Select the Microsoft OneDrive cloud icon in the taskbar or menu bar.     
+Select  OneDrive Help and Settings iconHelp & Settings > Settings.   
+In the Account tab, select Unlink this PC or Unlink this Mac.    
+The OneDrive setup screen will appear; ignore it for now, but don't close it.        
+
+Next, move your OneDrive for home or OneDrive for work or school folder.       
+   Using File Explorer or Mac Finder, drag the OneDrive folder to your preferred location.  slowwwwwwwww    
+
+Go back to the OneDrive setup screen, select Get started, and then follow the instructions     
+   until you get to the screen where you can change your OneDrive folder's location.       
+   Select Change Location, choose the new folder location, and then select OK.   
+You'll see a message letting you know that the OneDrive folder in the new location already has files in it. 
+   Select Use this location, and then finish setting up OneDrive.
+If you had chosen to sync only some folders before the reset, you'll need to do that again once sync has completed.
+   See Choose which OneDrive folders to sync to your computer for more information.
+You'll need to complete this for your personal OneDrive and OneDrive for work or school.
+
+
+
+
+
+
+https://www.groovypost.com/howto/fix-windows-10-wont-boot-startup-repair-bootrec/
+
+Sometimes, Windows 10 fails to boot because of problems with the master boot record. 
+In these cases, repairs need to be made to the master boot record.
+Windows 10 recovery environment includes an automated option for doing just that. 
+And if that doesn’t work, you can do it manually in the command prompt.
+
+When your computer starts :
+  1. BIOS or UEFI Firmware is loaded,
+  2. which performs a small set of checks on your hardware called the Power On Self Test (POST)
+  3. BIOS then scans HDMBR (hard disk master boot record)
+  4. HDMBR loads an essential file into main memory WINLOAD.EXE
+  5. This kicks off the start-up process by loading the NTOSKRNL.EXE (NT Kernel, the heart of Windows)
+  6. and HAL (Hardware Abstraction Layer) 
+  7. Windows 10 then performs tasks such as initializing your hardware like your mouse and keyboard 
+     and reading the Windows Registry and user profile.
+
+Performing a Startup Repair
+---------------------------
+The first thing you can try is booting into the RECOVERY ENVIRONMENT, if possible, 
+and then performing a startup repair. To access the recovery environment, turn your computer on and off three times. 
+While booting, make sure you turn off the computer when you see the Windows logo. 
+After the third time, Windows 10 will boot into diagnostics mode. Click Advanced options when the 
+recovery screen appears.
+
+Click Troubleshoot.
+
+Click Advanced options.
+
+Then, click Startup Repair.
+
+
+
+Fix Windows 10 Winload.exe Using the Command Prompt
+---------------------------------------------------
+If you are unable to perform a startup repair, then your next option is to try using your 
+Windows 10 installation media to fix the boot error.
+
+If you don’t have installation media, you will need to go to a working computer and 
+Create a Windows 10 USB Bootable Flash Drive. You can also go to a working Windows 10 PC and 
+create a recovery drive.  When using a USB drive, make sure to set up your BIOS to boot from the USB drive.
+
+After booting into setup, choose the Repair Computer option > Troubleshoot > Advanced Options > Command Prompt. 
+If you are using a recovery drive, click Troubleshoot > Advanced Options > Command Prompt.
+
+
+Once you have the command prompt up on the screen, you will need to issue a set of commands 
+to find and resolve issues that might be preventing your computer from booting.
+
+Type BOOTREC /FIXMBR and hit <Enter>.
+
+This command will attempt to fix any corruption issues with the master boot record.
+
+If all goes well, you should see The operation completed successfully.
+
+Next, type BOOTREC /FIXBOOT then hit <Enter>.
+
+This command will attempt to write a new boot sector on the hard disk if Windows detects damage. 
+Usually, this happens in cases where an older version of Windows was installed, 
+or a non-compatible operating system such as Linux was installed.
+
+If you are seeing an error such as Boot Manager is Missing, then the BOOTREC /RebuildBcd command 
+might be able to fix it. This operation can also restore boot entries for older versions of Windows 
+if you have a dual boot configuration.
+
+If BOOTREC /RebuildBcd does not work, then Microsoft recommends you back up your BCD (Boot Configuration Data) 
+store, then run the BOOTREC /RebuildBcd command again. Here is how you do it. 
+
+bcdedit /export C:\BCD_Backup
+c:
+cd boot
+attrib bcd -s -h -r
+ren c:\boot\bcd bcd.old
+bootrec /RebuildBcd
+Another option if you are dual booting with older versions of Windows such as Windows 7 
+is the BOOTREC /ScanOs command. The ScanOS command can find and restore entries for older versions of Windows.
+
+What if None of These Options Work?
+-----------------------------------
+Your next best option is to try salvaging your data and then reinstalling Windows 10 and your applications. 
+If you have your Windows 10 install media, you can boot from it, then perform a custom install. 
+This will create an archive of the old installation called Windows.old. 
+
+You can then recover your personal files from this folder. Make sure you perform a custom install 
+that migrates your Windows.old data. Otherwise, all your data will be erased.
+
+If you don’t want to risk overwriting your data by reinstalling Windows, check out this article on 
+How to Recover Data from a Hard Drive that Won’t Boot.
+https://www.groovypost.com/howto/recover-data-non-booting-hard-drive/
+
+Conclusion
+-----------------
+That’s a look at repairing a broken Windows 10 installation. While these occurrences should be exceedingly 
+rare for most everyday users, they can occur during riskier operations, like reinstalling Windows, 
+resizing partitions, or SETTING UP A DUAL BOOT. While the steps above can help, it’s always a 
+good idea to perform a thorough backup in advance.
+https://www.groovypost.com/howto/create-windows-10-system-image-backup/
+
+
+
+After a failed Ubuntu installation due to corrupt files, I ended up with an unbootable system. 
+I couldn’t boot into my Windows 10. Tried the above and didn’t work.
+The /fixmbr always claims to be successful, but /fixboot comes up with “not found”.
+
+I had to boot Ubuntu live usb, then marked my windows partition as bootable.
+
+Thereafter, I followed the sequence
+/fixmbr “successfull”
+/fixboot “access denied” ?!!!
+/rebuildbcd “successful”
+
+Finally I was able to boot.
+
+
+
+
+Easy BCD from NeoSmart is a superb way to clear up most of these issues as well, and it’s 
+free for non-commercial use. Might take a look at it if you haven’t yet…I build computers for a living 
+and I’ve been using it for years. It’s ESPECIALLY helpful for multi-boot systems (I have 4 bootable drives 
+on mine: Win 10 Pro, LINUX, Win 7 Ult. and Win 10 Home)…this was a godsend for me, as 2 of those OS’s 
+boot from M.2 drives, 1 from a standard HDD and 1 from an SSD… that tends to scramble ANY boot record :-)
+
+Easy BCD from Neosmart screwed up my computer royally and I advice against using it. 
+There are no instructions on how to use it and it disabled my computer completely. 
+I had to purchase a new Windows 10 to fix the damage it caused. 
+
+
+
+

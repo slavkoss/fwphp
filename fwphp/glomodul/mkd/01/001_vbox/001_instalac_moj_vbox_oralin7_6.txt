@@ -1,22 +1,50 @@
 <a name="top"></a>
-2020.04.15     
-**[Top](#top)** | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)   | [Deploy](#deploy) | [Lin. site access](#linsite) | [Ora 11g](#ora11g)
-# Install OEL (Oracle Linux) 7.8 on VirtualBox 6.1.4
-Simmilar are Redhat RHEL, Fedora, CentOS - rpm (yum) based Linux distros.      
+2022.02.04
+**[Top](#top)** | [VBox](#vbox) | [VM](#vm) | [Utils](#utils) | [XAMPP](#xampp) | [Samba ](#samba)   | [Deploy](#deploy) | [Lin. site access](#linsite) | [Ora 11g](#ora11g)     
 
-OEL was 7.6, after yum update 7.8. VirtualBox 6.1.4 did not work, I installed 6.1.2.
+http://dev1:8083/fwphp/glomodul/mkd/?i/edit/path/01\001_vbox\001_instalac_moj_vbox_oralin7_6.txt
+
+> Older :    2020.04.15  OEL (Oracle Linux) 7.8 on VirtualBox 6.1.4  - Guest Additions 6.1.4 did not work, I installed 6.1.2. CPU load is ~5% and was ~50% 
+> 2020.04.06 Oracle DB 19c on VBOX 6.1.4 Ora Linux 7.6       12-MAY-2019    vbox 6.0.6  oralin73 
+> 29.jul 2017 vbox 5.1.26, 1.jun 2016 (vbox 5.1.6),   2.oct.2016 (vbox 5.0.20)...
+
+L:\_instalac_ISO\1_instalac\1_instalirano\linux\2_oralinux     
+J:\app\vbox     
+
+https://yum.oracle.com/oracle-linux-isos.html    
+
+L:\3_sw_video\4_db\2_oracle\21c_oracle\21cXE_instalac_img     
+
+
+su -     
+dnf update    or   yum update   
+reboot    
+
+df -h     
+
+df -h | grep -v tmpfs    
+
+cat /etc/os-release    
+
+uname -a    
+
+top    
+
+free -m     
+
+
+# Install OEL (Oracle Linux) 8.5 on VirtualBox 6.1.32
+Simmilar are Redhat RHEL, Fedora, CentOS - rpm (yum) based Linux distros.      
 
 1. sudo /opt/lampp/manager-linux-x64.run - start XAMPP
    service firewalld stop
    service iptables stop
-   On windows 10 sspc2 :  http://oralin76/fwphp/www/  WORKS !! (Lin firewall disabled)
-2. On oralin76 :  http://localhost/fwphp/www/  WORKS !!
+   On windows 10 sspc2 :  http://oralin85/fwphp/www/  WORKS !! (**Lin firewall disabled**)
+2. On oralin85 :  http://localhost/fwphp/www/  WORKS !!
 3. WinScp sinchroniz. to Lin.
 4. http://localhost/phpmyadmin/db_import.php?db=z_blogcms     /opt/lampp/01_DDL_mysql_blog.sql
 
 
-Ver. 7.8 and 8.1 clipboard sharing Win - Lin is not working  (oralin_8_1_V984216-01.iso)      
-**use older VBox Guest Additions instead ver 6.1.4 - also CPU load is ~5% and was ~50% ! :**      
 L:\1_instalac\1_instalirano\5_virtualbox\VBoxGuestAdditions_6.1.2.iso     
 
 L:\1_instalac\1_instalirano\5_virtualbox\VBOX_UserManual.cleaned.pdf       
@@ -113,7 +141,7 @@ On Windows sspc2 PC, in explorer : \192.168.5.12 and \192.168.56.1 = Win shares 
 
 ## 1\.2 Oracle_VM_VirtualBox_Extension_Pack-6.1.4.vbox-extpack
 Download Oracle VM Extension Pack   https://www.virtualbox.org/wiki/Downloads   
-to L:\1_instalac\1_instalirano\5_virtualbox\Oracle_VM_VirtualBox_Extension_Pack-6.1.4.vbox-extpack      
+to J:\a_instl\linux\2_oralinux\Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack    
 **double-click on the package** and a Network Operations Manager window will appear, guiding you through steps.       
 
 >Extension pack provides the following added functionality:
@@ -1741,7 +1769,7 @@ if you forgot the admin password, you can change it follow the [steps](http://ww
 
     /etc/init.d/oracle-xe restart
 
-Do experiment for Joel Spolsky's The Law of Leaky Abstractions
+Do experiment for Joel Spolskys The Law of Leaky Abstractions
 
 ...  
 

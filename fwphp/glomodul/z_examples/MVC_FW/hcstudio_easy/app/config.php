@@ -29,7 +29,8 @@ define('ERROR_PAGE', CORE_DIR . '/error.php');
 /* END EDIT HERE */
 
 define('WEB_URL', 
-(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://'.$_SERVER['HTTP_HOST']);
+  (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://'.$_SERVER['HTTP_HOST']
+);
 define('BASE_URL', WEB_URL . (!empty(WEB_PATH)?'/'.WEB_PATH:''));
 
 define('DEBUG', !$production);

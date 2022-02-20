@@ -18,6 +18,8 @@ $config = [
     ]
 ];
                       echo '<h4>__FILE__='; print_r(__FILE__); echo ' SAYS :</h4>';
+                      echo '<h2>EXAMPLE OF WRONG UNDERSTOOD NAMESPACES (PARROT PROGRAMMING)</h2>';
+                      echo '<p>Author made 7 videos on Github</p>';
                       echo '<pre>$config='; print_r($config); echo '</pre>';
 
 $app = new Application(dirname(__DIR__), $config);

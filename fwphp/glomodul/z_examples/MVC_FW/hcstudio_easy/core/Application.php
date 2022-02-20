@@ -20,6 +20,7 @@ class Application
 
     public function database()
     {
+        // called from  r u n ( )  in this script
         $config = self::$config['db'];
         $this->connection = Database::connection($config);
     }
@@ -62,6 +63,10 @@ class Application
         }
         $this->controller['id'] = str_replace('/', '', strtolower($controllerID));
         $this->controller['action_id'] = str_replace('/', '', strtolower($actionID));
+                                echo '<pre>'; 
+                                  print_r('Method '. __METHOD__ .' SAYS :<br>$this->controller=');
+                                  print_r($this->controller);
+                                echo '</pre>'; 
     }
 
     public function getMiddleware()
@@ -118,7 +123,7 @@ class Application
             $this->controller['object']->$action($params);
             $this->afterAction($this->controller['action_id']);
         } else {
-            $error_message = 'action not exists';
+            $error_message = 'Action not exists : "'. $action .'"';
             require ERROR_PAGE;
             exit;
         }

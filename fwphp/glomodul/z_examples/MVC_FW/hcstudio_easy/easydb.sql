@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `easydb`
+-- Database: `easydb`  username : admin password : 123456
 --
 
 -- --------------------------------------------------------
@@ -46,7 +46,7 @@ INSERT INTO `article` (`id`, `title`, `body`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `user` username : admin password : 123456
 --
 
 CREATE TABLE `user` (
@@ -62,6 +62,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password_hash`, `status`) VALUES
 (1, 'admin', '$2y$10$/U5fl3BVUNyWFx7CZpg.2uoS818qgk/x8AhJNgFPKPBKkDEEWU3J6', 1);
+
+--INSERT INTO `admins` (`id`, `username`, `password_hash`, `status`) VALUES
+--(3, 'admin', '$2y$10$/U5fl3BVUNyWFx7CZpg.2uoS818qgk/x8AhJNgFPKPBKkDEEWU3J6', 1);
 
 --
 -- Indexes for dumped tables

@@ -80,16 +80,18 @@ class Controller
     {
         if (is_array($object)) {
             $this->getView($object[0]);
-            ob_start();
-            if (!empty($object[1])) {
-                foreach ($object[1] as $num => $var) {
-                    ${$num} = $var;
+ 
+           ob_start();
+                if (!empty($object[1])) {
+                    foreach ($object[1] as $num => $var) {
+                        ${$num} = $var;
+                    }
                 }
-            }
-            $controller = $this;
-            require_once $this->viewFile;
+                $controller = $this;
+                require_once $this->viewFile;
             $content = ob_get_contents();
             ob_end_clean();
+
             $js_header = $this->js_header;
             $this->getLayout();
             require_once $this->layoutFile;
@@ -117,9 +119,7 @@ class Controller
             }
         }
 
-        $this->render([
-            'login',
-        ]);
+        $this->render([ 'login', ]);
     }
 
     public function actionLogout()
