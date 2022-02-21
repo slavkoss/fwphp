@@ -7,14 +7,13 @@ $tmp     = $img_url . 'ic_done_black_32dp.png' ;
 $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
 ?>
 
-  <!-- –––––––––––––––––––––––––––––––– section hero must be first (preklapa div) !! -->
   <article data-theme="light">
     <div class="container">
 
 
-      <div class="row">
-        <div class="one-half column">
-          <h1 class="section-heading">1. Learn - Explore, Connect</h1>
+      <div>
+        <div id="explore1"><a href="#lcs">TOP</a>
+          <h1>1. Learn - Explore, Connect</h1>
           <p>See and explore what your friends write. 
              Hard work on learning is worth nothing if not explained & shared.</p>
               <!--  -->

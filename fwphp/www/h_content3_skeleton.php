@@ -8,9 +8,7 @@ $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
   <article data-theme="light">
     <main class="container">
 
-
-      <div class="row">
-        <div>
+        <div id="share3" class="container"><a href="#lcs">TOP</a>
           <h1 class="section-heading">3. Share</h1>
           Share what you create. <a href="#">More</a> 
         </div><!-- E N D   half column -->

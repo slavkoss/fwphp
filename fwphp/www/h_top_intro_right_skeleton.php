@@ -83,16 +83,20 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
           <!-- *********************************************
                     2. A B O U T
           ********************************************* -->
-      <div>
-      <h1 class="display-4"><strong>LCS</strong> - Build social profiles</h1>
+      <div id="lcs">
+        <h1><strong>LCS</strong> - Build social profiles</h1>
 
         <?=$img_url_done_link_white?>
-         <b>L</b>EARN something - Connect and explore what your friends write. 
-         Hard work on learning is worth nothing if not explained & shared.
+         <b>L</b><a href="#explore1">EARN</a>
+         something - Connect and explore what your friends write. 
+         <br>Hard work on learning is worth nothing if not explained & shared.
 
-        <br /><br /><?=$img_url_done_link_white?><b>C</b>REATE - explain - write text about something.
+        <br /><br /><?=$img_url_done_link_white?>
+        <b>C</b><a href="#create2">REATE</a>
+        - explain - write text about something.
 
-        <br /><br /><?=$img_url_done_link_white?><b>S</b>HARE what you create. 
+        <br /><br /><?=$img_url_done_link_white?>
+        <b>S</b><a href="#share3">HARE</a> what you create. 
 
         <p>&nbsp;</p>
 
