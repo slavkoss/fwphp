@@ -5,32 +5,34 @@ $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
 ?>
 
   <!-- –––––––––––––––––––––––––––––––– section hero must be first (preklapa div) !! -->
-  <div class="section get-help">
-    <div class="container">
+  <article data-theme="light">
+    <main class="container">
 
 
       <div class="row">
-        <div class="one-half column">
-          <h4 class="section-heading">3. Share</h4>
-          <p>Share what you create.</p>
-          <a class="button button-primary" href="#">More</a>
-
+        <div>
+          <h1 class="section-heading">3. Share</h1>
+          Share what you create. <a href="#">More</a> 
         </div><!-- E N D   half column -->
 
-        <div class="one-half column phones">
-          <img class="phone" src="/vendor/b12phpfw/img/meatmirror.jpg">
-          <!--img class="phone" src="/vendor/b12phpfw/img/mvc_M_V_data_flow.jpg"-->
-        </div>
-            <div>
-              <a target="_blank" href="https://github.com/slavkoss/fwphp/">Github</a>
-              &nbsp; &nbsp; 
-              <a target="_blank" href="http://phporacle.altervista.org/">phporacle blog</a>
-              &nbsp; &nbsp;  <a target="_blank" href="http://phporacle.altervista.org/wp-admin/index.php/">blog admin</a>
-              <br /><br />
-              <a target="_blank" href="http://phporacle.eu5.net/">Demo site on Linux (freehostingeu)</a>
-              <br /><br />
-              <a target="_blank" href=" http://phporacle.heliohost.org/">Demo site on Linux (heliohost )</a>
-            </div>
+
+
+      <!-- Grid Bootstrap -->
+      <div class="row row-example">
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div> <!-- -->
+            <img src="/vendor/b12phpfw/img/meatmirror.jpg"> </div> </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
+              <a target="_blank" href="https://github.com/slavkoss/fwphp/">Github</a> </div> </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
+              <a target="_blank" href="http://phporacle.altervista.org/">phporacle blog</a> </div> </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
+              <a target="_blank" href="http://phporacle.altervista.org/wp-admin/index.php/">blog admin</a> </div> </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
+              <a target="_blank" href="http://phporacle.eu5.net/">Demo site on Linux (freehostingeu)</a> </div> </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
+              <a target="_blank" href=" http://phporacle.heliohost.org/">Demo site on Linux (heliohost )</a> </div> </div>
+      </div><!--e n d  Grid Bootstrap -->
+
 
 
 
@@ -43,10 +45,10 @@ $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
         </div>
 
         <div>
-          <p>aa111 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus provident sed mollitia, ...</p>
+          <p>aa111 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus provident sed mollitia, ... &nbsp; </p>
 
             <div>
-              <?=$img_url_done_link_black?> &nbsp; ddd dddddddddd
+              <?=$img_url_done_link_black?>ddd dddddddddd
             </div>
 
 
@@ -67,7 +69,47 @@ $img_url_done_link_black = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
         <br>examples_path_rel = <?=$examples_path_rel?>
         <br>examples_url = <?=$examples_url?>
         <br>glomodul_url = <?=$glomodul_url?>
-    </div><!-- E N D   c o n t a i n e r -->
-  </div><!-- E N D   s e c t i o n -->
+    </main><!-- E N D   c o n t a i n e r -->
+  </article><!-- E N D   s e c t i o n -->
 
 
+    <!-- Footer -->
+    <footer class="container">
+
+      <small>
+
+      <nav>
+        <ul>
+          <li>Theme:</li>
+          <!--li><a href="#" data-theme-switcher="auto">Auto</a></li-->
+          <li><a href="#" data-theme-switcher="light">Light</a></li>
+          <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+          <li>Built with</li>
+          <li><a href="https://picocss.com">Pico</a></li>
+          <li><a href="https://github.com/picocss/examples/blob/master/bootstrap-grid/">Source code</a></li>
+        </ul>
+      </nav>
+
+
+
+
+      <p>This grid example displays:
+        &nbsp; &nbsp; 1 column on <strong>extra small</strong> devices <code>&lt;576px</code>
+        &nbsp; &nbsp; 2 columns on <strong>small</strong> devices <code>≥576px</code>
+        &nbsp; &nbsp; 3 columns on <strong>medium</strong> devices <code>≥768px</code>
+        &nbsp; &nbsp; 4 columns on <strong>large</strong> devices <code>≥992px</code>
+        &nbsp; &nbsp; 6 columns on <strong>extra large</strong> devices <code>≥1200px</code>
+      </p>
+
+        <p>Created with PHP 8.0.12, Pico css v1.4.4 or Skeleton V2.0.4 (2014 year) or Bootstrap 5.1.3. 
+        This is typical static web page with dynamic (PHP) links. </p>
+
+
+      </small>
+
+
+
+    </footer><!-- ./ Footer -->
+
+    <!-- Minimal theme switcher -->
+    <script src="/vendor/b12phpfw/themes/picocss/minimal-theme-switcher.js"></script>

@@ -1,11 +1,12 @@
 /*!
  * Minimal theme switcher
- * J:\awww\www\fwphp\glomodul\z_examples\picocss_minimal_theme_switcher.js
+ *
  * Pico.css - https://picocss.com
  * Copyright 2020 - Licensed under MIT
  */
 
-const themeSwitcher = {
+const themeSwitcher = 
+{
   // Config
   buttonsTarget: "a[data-theme-switcher]",
   buttonAttribute: "data-theme-switcher",
@@ -13,10 +14,12 @@ const themeSwitcher = {
 
   // Init
   init() {
-    document.querySelectorAll(this.buttonsTarget).forEach(
+    document.querySelectorAll(this.buttonsTarget).forEach
+    (
       function (button) {
         button.addEventListener(
           "click",
+
           function (event) {
             event.preventDefault();
             document
@@ -26,6 +29,7 @@ const themeSwitcher = {
                 event.target.getAttribute(this.buttonAttribute)
               );
           }.bind(this),
+
           false
         );
       }.bind(this)

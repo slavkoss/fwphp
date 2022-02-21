@@ -247,35 +247,3 @@ class Home_ctr extends Config_allsites
 
 } // e n d  c l s  
 
-
-/**
-* 1=autol STEP_2=CONF 3=view/rout/disp 4=preCRUD 5=onCRUD
-* STEP_3=rout/disp is in parent::__construct : fw core calls method in Home_ctr cls
-J:\awww\www\fwphp\glomodul\z_examples\02_mvc\03xuding_glob\Home_ctr.php
-* Instantiated in i ndex.php 
-*
-* Home_ ctr cls is router, dispatcher :
-* 1. Assigns links for user interactions (module routing table) in home.php
-* 2. Calls own method when user clicks link/button in home.php 
-*    or any URL is entered in ibrowser adress field
-* 3. Own method includes view CRUD scripts h ome.php or c reate.php or r ead.php or ... 
-*    (no need for view classes ?) or calls some method or url calls other module i ndex.php
-*/
-
-//**1
-    /* <div class="col-md-3">
-      <a 
-      href="shell_exec.php?p=<=realpath($pp1->wsroot_ path.'../').DS>0_phpmanual.chm"
-         class="btn btn-primary btn-block" target="_blank"
-      >PHP manual</a>
-    </div> */
-
-    //wants download : $this->Redirect_to( $pp1->wsroot_url .'0_phpmanual.chm' ) ;
-    
-    // NOT WORKING: both realpath($pp1->wsroot_ path) and wsroot_url
-    //embed src="files/Brochure.pdf" type="application/pdf"
-    //><embed src="<=realpath($pp1->wsroot_ path). DS .'0_phpmanual.chm'>" type="application/mshelp" width="100%" height="600px" /><php
-    
-    // welcome.pdf - ok, phpmanual.chm  NOT WORKING
-    //$this->Redirect_to( $pp1->module_url 
-    //  .'shell_exec.php?p='.realpath($wsroot_ path.'../../') .DS.'phpmanual.chm' ) ;

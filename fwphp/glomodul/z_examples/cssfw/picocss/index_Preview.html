@@ -1,39 +1,45 @@
-
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Preview • Pico.css</title>
+
     <meta name="description" content="A starter example with all elements and components used in Pico design system. Built with Pico CSS.">
     <link rel="shortcut icon" href="https://picocss.com/favicon.ico">
     <link rel="canonical" href="https://picocss.com/examples/preview/">
 
     <!-- Pico.css -->
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link rel="stylesheet" href="/vendor/b12phpfw/themes/picocss/pico.min.css">
+    <!--link rel="stylesheet" href="/vendor/b12phpfw/themes/picocss/pico-bootstrap-grid.min.css"-->
+    <!--link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"-->
 
   </head>
 
   <body>
+    <!-- 
+    Themes can be forced on document level <html data-theme="light"> 
+    or on any HTML element <article data-theme="dark">
+    -->
 
     <!-- Header -->
     <header class="container">
       <hgroup>
-        <h1>Pico</h1>
-        <h2>A starter example with all elements and components used in 
-             <a href="https://github.com/picocss/">Pico</a> design system.
-             See <a href="https://picocss.com/docs/">docs</a>.
-        </h2>
+        <h1>Pico (pico.min.css)</h1>
+        <h2>A starter example with all elements and components used in Pico design system.</h2>
       </hgroup>
+
       <nav>
         <ul>
           <li>Theme:</li>
-          <li><a href="#" data-theme-switcher="auto">Auto</a></li>
           <li><a href="#" data-theme-switcher="light">Light</a></li>
           <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+          <!--li><a href="#" data-theme-switcher="auto">Auto</a></li-->
         </ul>
       </nav>
+
     </header><!-- ./ Header -->
 
     <!-- Main -->
@@ -356,7 +362,7 @@
     </footer><!-- ./ Footer -->
 
     <!-- Minimal theme switcher -->
-    <script src="picocss_minimal_theme_switcher.js"></script>
+    <script src="/vendor/b12phpfw/themes/picocss/minimal-theme-switcher.js"></script>
 
     <script>
     // Set indeterminate progress bar

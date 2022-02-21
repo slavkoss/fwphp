@@ -1,25 +1,64 @@
-<?php
-/**
- *  J:\awww\www\fwphp\www\h_top_intro_right.php
- *                C O N T E N T  C O N T R O L L E R
- *  This is second of 5 home page parts (all are prefixed with "h_")
- *
- */
-$tmp     = $img_url . 'ic_done_white_32dp.png' ;
-$img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">';
-?>
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bootstrap grid system example • Pico.css</title>
+
+    <meta name="description" content="Custom CSS build with the Bootstrap grid system to manage complex grid layouts in Pico.">
+    <link rel="shortcut icon" href="https://picocss.com/favicon.ico">
+    <link rel="canonical" href="https://picocss.com/examples/bootstrap-grid/">
+
+     <!-- Pico.css custom build with Bootstrap grid -->
+    <link rel="stylesheet" href="/vendor/b12phpfw/themes/picocss/pico-bootstrap-grid.min.css">
+
+    <!-- Custom Styles for this example -->
+    <style>
+        .row-example {
+          margin-top: calc(var(--typography-spacing-vertical) * 2);
+          margin-bottom: calc(var(--typography-spacing-vertical) * 2);
+        }
+        .col-example {
+          margin-bottom: 30px;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          background: var(--secondary);
+          color: var(--secondary-inverse);
+          text-align: center;
+        }
+    </style>
+  </head>
+
+  <body>
 
     <!-- Header -->
+    <header class="container">
+      <hgroup>
+        <h1>Pico + Bootstrap grid system</h1>
+        <h2>Custom CSS build with the <a href="https://getbootstrap.com/docs/5.1/layout/grid/">Bootstrap grid system</a> to manage complex grid layouts in <a href="https://github.com/picocss/pico">Pico</a></h2>
+      </hgroup>
+
+    </header><!-- ./ Header -->
 
     <!-- Main -->
     <main class="container">
+      <p>For this example, we have merged and compiled Pico design system with the Bootstrap grid system (<a href="https://github.com/picocss/examples/blob/master/bootstrap-grid/scss/pico-bootstrap-grid.scss">Source code here</a>).</p>
+      <p>
+        This allows to use the powerful Boostrap grid system to build layouts with:
+        <a href="https://getbootstrap.com/docs/5.1/layout/grid/#auto-layout-columns">Auto-columns</a>,
+        <a href="https://getbootstrap.com/docs/5.1/layout/grid/#responsive-classes">Responsive classes</a>,
+        <a href="https://getbootstrap.com/docs/5.1/layout/columns/#alignment">Alignment</a>,
+        <a href="https://getbootstrap.com/docs/5.1/layout/columns/#reordering">Reordering</a> and
+        <a href="https://getbootstrap.com/docs/5.1/layout/grid/#nesting">Nesting</a>.
+      </p>
 
           <!-- *********************************************
                  1.1  U t i l s
           ********************************************* -->
-      <b>I. Links to modules (and utils). Modules are folders with functionality like Oracle fmb-s.
-            This is Mnu module home page.</b>
-
+        <h4>I. Modules (and utilities) links</h4>
+        Modules are folders like Oracle fmb-s. This is Mnu module home page.
       <!-- Grid Bootstrap -->
       <div class="row row-example">
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div> <!-- -->
@@ -43,8 +82,8 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
           <!-- *********************************************
                     1.2  C R U D 
           ********************************************* -->
-        <b>II. CRUD PDO trait (MODEL). Modules on MySQL, SQLite, Oracle.</b>
-
+          <h4>II. CRUD</h4>
+          CRUD PDO trait (MODEL). Modules on MySQL, SQLite, Oracle.
       <div class="row row-example">
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
             <a target="_blank" title="" href="<?=$glomodul_url?>adrs/">7. Songs Mini3 MySQL PDO</a></div></div>
@@ -60,8 +99,8 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
           <!-- *********************************************
                     1.3 V I E W
           ********************************************* -->
-      <b>III. View - CSS for responsive Web pages.</b>
-
+          <h4>III. View</h4>
+          CSS for responsive Web pages.
       <div class="row row-example">
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
               <a target="_blank" title="Pico css help" 
@@ -80,6 +119,19 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
 
 
 
+
+
+      <p>This grid example displays:</p>
+      <ul>
+        <li>1 column on <strong>extra small</strong> devices <code>&lt;576px</code></li>
+        <li>2 columns on <strong>small</strong> devices <code>≥576px</code></li>
+        <li>3 columns on <strong>medium</strong> devices <code>≥768px</code></li>
+        <li>4 columns on <strong>large</strong> devices <code>≥992px</code></li>
+        <li>6 columns on <strong>extra large</strong> devices <code>≥1200px</code></li>
+      </ul>
+
+
+
           <!-- *********************************************
                     2. A B O U T
           ********************************************* -->
@@ -90,18 +142,55 @@ $img_url_done_link_white = '<img src="'.$tmp.'" alt="'.$tmp.'" title="'.$tmp.'">
          <b>L</b>EARN something - Connect and explore what your friends write. 
          Hard work on learning is worth nothing if not explained & shared.
 
-        <br /><br /><?=$img_url_done_link_white?><b>C</b>REATE - explain - write text about something.
+        <br /><br /><?=$img_url_done_link_white?>
+        <b>C</b>REATE - explain - write text about something.
 
-        <br /><br /><?=$img_url_done_link_white?><b>S</b>HARE what you create. 
+        <br /><br /><?=$img_url_done_link_white?>
+        <b>S</b>HARE what you create. 
+      </div>
 
-        <p>&nbsp;</p>
 
+      <div>
+        Created with PHP 8.0.12, Pico css v1.4.4 or Skeleton V2.0.4 (2014 year) or Bootstrap 5.1.3. 
+        This is typical static web page with dynamic (PHP) links. 
+        <br><br>
         This view script <?=__FILE__?> is included in home.php.
         <br>
         h_... means one of 4 parts of home page (this top intro-menu and 3 page parts).
-        </p>
       </div>
 
 
 
     </main><!--e n d  Main -->
+
+    <!-- Footer -->
+    <footer class="container">
+
+      <small>
+
+
+      <nav>
+        <ul>
+          <li>Theme:</li>
+          <!--li><a href="#" data-theme-switcher="auto">Auto</a></li-->
+          <li><a href="#" data-theme-switcher="light">Light</a></li>
+          <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+          <li>Built with</li>
+          <li><a href="https://picocss.com">Pico</a></li>
+          <li><a href="https://github.com/picocss/examples/blob/master/bootstrap-grid/">Source code</a></li>
+        </ul>
+      </nav>
+
+
+      </small>
+
+
+
+    </footer><!-- ./ Footer -->
+
+    <!-- Minimal theme switcher -->
+    <script src="/vendor/b12phpfw/themes/picocss/minimal-theme-switcher.js"></script>
+
+  </body>
+
+</html>
