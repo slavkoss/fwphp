@@ -1,4 +1,14 @@
 SSL_ERROR_RX_RECORD_TOO_LONG   -   https://www.clickssl.net/blog/ssl_error_rx_record_too_long         
+
+https://www.devdungeon.com/content/creating-self-signed-ssl-certificates-openssl       
+
+https://www.devdungeon.com/content/letsencrypt-free-ssl-certificate-tutorial      
+
+https://github.com/DevDungeon/Cookbook/tree/master/php/sockets_ssl     
+
+
+
+
 ### Buy a Reliable SSL certificate, or get free SSL cert., or I DID: cre self-signed SSL .crt file
 
 At end we have :     
@@ -58,7 +68,7 @@ dir J:\xampp\apache\bin\z_ssl
       "...potential security threat... attackers could try to steal information like your passwords, emails, or credit card details.      
       ...Firefox does not trust this site because it uses a certificate that is not valid for localhost.     
       ...Error code: MOZILLA_PKIX_ERROR_SELF_SIGNED_CERT"
-      Buttons : "Goback", "Advanced" -&gt; click "Advanced" then "Accept"      
+      Buttons : "Goback", "Advanced" -> click "Advanced" then "Accept"      
       Now lock icon in ibrowser URL adress shows "...you added exception..."      
 
 
