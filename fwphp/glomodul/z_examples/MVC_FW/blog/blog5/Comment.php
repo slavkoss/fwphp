@@ -25,6 +25,11 @@ class Comment{
 		$result = mysqli_query($this->db,$sql);
 		return mysqli_num_rows($result);
 	}
+	public function getAllComments(){
+		$sql = "SELECT * FROM comments";
+		$result = mysqli_query($this->db,$sql);
+		return $result;
+	}
 	public function getPendingComments(){
 		$sql = "SELECT * FROM comments WHERE  status =0";
 		$result = mysqli_query($this->db,$sql);

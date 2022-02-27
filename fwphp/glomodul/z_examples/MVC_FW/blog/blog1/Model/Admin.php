@@ -8,6 +8,10 @@
 
 namespace TestProject\Model;
 
+// admin password is: pwd123
+//INSERT INTO admins (email, password) VALUES
+//('test@test.com', '$2y$14$kefF6aqkuOEWo7CIFduNf.7O8BuGR4uWrIAFcHWm2u99OcLPDFWOe'); 
+
 class Admin extends Blog
 {
     public function login($sEmail)
@@ -17,6 +21,6 @@ class Admin extends Blog
         $oStmt->execute();
         $oRow = $oStmt->fetch(\PDO::FETCH_OBJ);
 
-        return @$oRow->password; // Use the PHP 5.5 password function
+        return @$oRow->password; // it is HashPassword - Use the PHP 5.5 password function
     }
 }

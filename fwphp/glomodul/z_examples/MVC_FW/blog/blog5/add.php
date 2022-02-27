@@ -1,7 +1,7 @@
 <?php include('session.php'); ?>
-<?php include('header.php');?>
+<?php include('hdr.php');?>
 <?php include('post.php'); ?>
-<?php //include('functions/functions.php'); ?>
+<?php //include('f unctions.php'); ?>
 
 <?php include('Tag.php');?>
 

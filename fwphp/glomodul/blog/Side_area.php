@@ -47,13 +47,10 @@ class Side_area extends utl
     ?>
 
 
-    <div class="col-lg-4">
+    <div>
                       <!-- Right pge content-->
       <?php
-      self::show_search(
-         $pp1
-       , $category_from_url, $search_from_submit, $pgordno_from_url
-      ) ;
+      self::show_search( $pp1, $category_from_url, $search_from_submit, $pgordno_from_url ) ;
       self::show_categories($pp1, $cursor_categ) ;
       self::show_other($pp1, $cursor_recent_posts) ;
       ?>
@@ -89,14 +86,9 @@ class Side_area extends utl
         if ($search_from_submit) { $fltr_sort .= ' found "'. $search_from_submit .'"' ; }
         if ($pgordno_from_url)   { $fltr_sort .= ' page '. $pgordno_from_url ; }
         
-        //if ($fltr_sort == 'Blog') 
         if (!$category_from_url and !$search_from_submit) { $fltr_sort .= ' - all articles' ; }
-
-        //if ($category_from_url) { echo ' - all ' . $category_from_url . ' articles' ;
-        //} else {echo ' - all articles';} 
-
-  ?>
-    <!-- 1. Search widget-->
+        ?>
+        <!-- 1. Search widget-->
             <!-- 
                http://dev1:8083/fwphp/glomodul/blog/?Search=Nobody+made&SearchButton=  = method="get"
                http://dev1:8083/fwphp/glomodul/blog/?p/1  = method="post", but :
@@ -104,40 +96,28 @@ class Side_area extends utl
                   [Search] => Nobody made
                   [SearchButton] => 
                )
+               $pp1->filter_page  1/i/home/     $pp1->search_from_submit
+               input  S e a r c h  is not "required"
             -->
-    <div class="card mb-4">
- 
-
-      <div class="card-header">
-        <!--div class="text-center">  </div-->
-
-        <p><b><?=$fltr_sort .' order by recent'?></b></p>
-
-        <!--h4>Real life site code examples</h4-->
-        <!--span style="display: inline;">
-          <img src="Uploads/twitter.jpg" class="d-block img-fluid mb-3" alt="">
-        </span-->
-
-
+    <div>
+      <div>
+        <p style="color:lightblue;"><?=$fltr_sort .' order by recent'?></p>
       </div>
 
-      <div class="card-header">Search</div>
 
-      <div class="card-body">
-
-            <form method="post" action="<?=$pp1->filter_page?>1/i/home/"
-                  class="form-inline d-none d-sm-block" 
-                  title="$this->p p1->filter_page...=<?=$pp1->filter_page?>1/i/home/"
-            >
-
-              <div class="input-group">
-                  <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                  <button class="btn btn-primary" id="button-search" type="button"
-                          title="Find in title, summary (4000 chars), img desc (4000 chars), category, datetime. 
-                          TODO: Find in content in op.system file.">
-                  Go!</button>
-              </div>
-            </form>
+      <div>
+        Search in title, summary, img desc, category, datetime
+        <form method="post" action="<?=$pp1->home_blog?>"
+          <div class="XXXgrid">
+            <input type="text" name="Search" placeholder="Enter search term..." aria-label="Search">
+            
+            <button type="submit" name="SearchButton" id="button-search"
+                    title="Find in title, summary (4000 chars), img desc (4000 chars), category, datetime. 
+                  TODO: Find in content in op.system file.
+                  <?=$pp1->home_blog?>        
+            ">Search</button>
+          </div>
+        </form>
 
       </div>
     </div>
@@ -151,9 +131,9 @@ class Side_area extends utl
   static private function show_categories(object $pp1, object $cursor_categ): string
   { ?>
                 <!-- 2. Categories widget-->
-    <div class="card mb-4">
-        <div class="card-header">1. Teme (posts categories filter)</div>
-        <div class="card-body">
+    <div>
+        <p style="color:lightblue;">1. Themes (posts categories filter)</p>
+        <div>
 
           <a href="<?=$pp1->filter_postcateg?>">ALL</a>&nbsp;&nbsp;&nbsp;
             <?php
@@ -162,24 +142,22 @@ class Side_area extends utl
             {
                 ?>
                 <a href="<?=$pp1->filter_postcateg?><?=$rx->title?>/p/1">
-                 <span class="heading"> <?=$rx->title?></span> </a>&nbsp;&nbsp;&nbsp;
+                 <span> <?=$rx->title?></span> </a>&nbsp;&nbsp;&nbsp;
                 <?php 
             } endwhile; ?>
             <br><br>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <ul class="list-unstyled mb-0">
-                        <li><a href="#!">Web Design</a></li>
-                        <li><a href="#!">HTML</a></li>
-                        <li><a href="#!">Freebies</a></li>
+            <p style="color:lightblue;">Other possible themes</p>
+            <div>
+                <div>
+                    <ul>
+                        <li><a href="#!">Web Design, HTML, CSS, JavaScript</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-6">
-                    <ul class="list-unstyled mb-0">
-                        <li><a href="#!">JavaScript</a></li>
-                        <li><a href="#!">CSS</a></li>
+                <div>
+                    <ul>
                         <li><a href="#!">Tutorials</a></li>
+                        <li><a href="#!">Freebies</a></li>
                     </ul>
                 </div>
             </div>
@@ -193,109 +171,65 @@ class Side_area extends utl
     return('1') ;
   } //e n d  f n  show_ categories
 
-  static private function show_other(
-    object $pp1, object $cursor_recent_posts
-  ): string
+  static private function show_other( object $pp1, object $cursor_recent_posts ): string
   { 
-    /*
-  ?>
-  <br>
-  <div class="card mb-4">
-    <div class="card-header">2. Recent posts (date filter)</div>
-    <!--div class="card-header bg-info text-white">
-       <h2 class="lead"> 2. Recent posts (date filter)</h2>
-    </div-->
-    <div class="card-body">
-      <?php
-      $ii=0 ;
-      while ( $rx = Tbl_crud_post::rrnext( $cursor_recent_posts
-         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
-      {
-        if ($ii>9) break ;
-        ?>
-        <a href="<?=$pp1->filter_postcateg?><?=$rx->category?>">
-         <span class="heading"> <?=$rx->category?></span> </a>&nbsp;&nbsp;&nbsp;
-
-        <div class="media">
-          <?php
-          $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp($rx->image));
-          $tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
-          //$tmp_imgpath = if no img this is dir
-          if ($rx->image > '' and file_exists($tmp_imgpath)
-          ) 
-          { 
-          ?>
-            <img src="<?=$tmp_imgurlrel?>" class="d-block img-fluid
-                 align-self-start" width="90" height="94" alt=""
-                 title="<?='$tmp_imgpath='.$tmp_imgpath.' $rx->image='.$rx->image?>">
-            <?php
-          } ?>
-
-
-          <div class="media-body ml-2">
-            <a style="text-decoration:none;" 
-               href="<?=$pp1->read_post?>id/<?php echo self::escp($rx->id) ; ?>" 
-               target="_blank">
-                 <span class="lead"><?php echo self::escp($rx->title); ?></span> </a>
-            <p class="small"><?php echo self::escp($rx->datetime); ?></p>
-          </div>
-
-        </div>
-
-        <hr>
-        <?php
-        $ii++ ;
-      } endwhile;
+      //2. Recent posts (date filter)
+      //3. Join the Forum (todo)
       ?>
-    </div> <!--e n d <div class="card-body"-->
-  </div> <!--e n d <div class="card"-->
+      <br>
+      <div>
+        <p style="color:lightblue;">2. Recent posts (date filter)</p>
+        <div>
+          <?php
+          $ii=0 ;
+          while ( $rx = Tbl_crud_post::rrnext( $cursor_recent_posts
+             , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
+          {
+            if ($ii>9) break ;
+            ?>
+            <a href="<?=$pp1->filter_postcateg?><?=$rx->category?>">
+             <span> <?=$rx->category?></span> </a>&nbsp;&nbsp;&nbsp;
+
+            <div class="media">
+              <?php
+              $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp($rx->image));
+              $tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
+              //$tmp_imgpath = if no img this is dir
+              if ($rx->image > '' and file_exists($tmp_imgpath)
+              ) 
+              { 
+              ?>
+                <img src="<?=$tmp_imgurlrel?>" class="d-block img-fluid
+                     align-self-start" width="90" height="94" alt=""
+                     title="<?='$tmp_imgpath='.$tmp_imgpath.' $rx->image='.$rx->image?>">
+                <?php
+              } ?>
 
 
+              <div>
+                <a style="text-decoration:none;" 
+                   href="<?=$pp1->read_post?>id/<?php echo self::escp($rx->id) ; ?>" 
+                   target="_blank">
+                     <span><?php echo self::escp($rx->title); ?></span> </a>
+                <p class="small"><?php echo self::escp($rx->datetime); ?></p>
+              </div>
 
-  <br>
-  <div class="card mb-4">
-    <!--div class="card-header bg-dark text-light">
-      <h2 class="lead">Sign Up !</h2>
-    </div-->
-    <div class="card-body">
-      <button type="button" class="btn btn-success btn-block text-center text-white mb-4" 
-              name="button">3. Join the Forum (todo)</button>
-      <!--button type="button" class="btn btn-danger btn-block text-center text-white mb-4" 
-              name="button">Log in</button-->
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" name="" placeholder="Enter your email" value="">
-        <div class="input-group-append">
-          <button type="button" class="btn btn-primary btn-sm text-center text-white" name="button">Subscribe Now</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <?php 
-  */ ?>
+            </div>
 
+            <hr>
+            <?php
+            $ii++ ;
+          } endwhile;
+          ?>
+        </div> <!--e n d <div class="card-body"-->
+      </div> <!--e n d <div class="card"-->
 
 
     
 
 
     <!-- 3. Other side widget-->
-    <div class="card mb-4">
-
-    <!--div class="card-header"></div-->
-    <div class="card-header bg-primary text-light">
-      <h2 class="lead">Side Widget</h2>
-    </div>
-      <div class="card-body">
-        <p>We can put anything you want inside of these side widgets.
-        They are easy to use, and feature the Bootstrap 5 card component!
-        </p>
-
-      <p>Responsive CMS Blog (PHP 7 or 8, PDO, Bootstrap 5, jQuery only for Bootstrap, no AJAX, MySQL or Oracle or...)</p>
-
-      </div>
-
-
-        <?php echo "<pre>
+    <div><pre>
           _.-'''''-._
         .'  _     _  '.
        /   (o)   (o)   \
@@ -304,10 +238,7 @@ class Side_area extends utl
        \  '. Zagreb.'  /
         '.  ''---''  .'
           '-._____.-' 
-        </pre>"; ?>
-
-
-    </div>
+    </pre></div>
 
 
     <?php

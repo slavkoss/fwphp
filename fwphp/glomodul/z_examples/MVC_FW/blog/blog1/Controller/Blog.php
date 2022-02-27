@@ -71,9 +71,13 @@ class Blog
 
         if (!empty($_POST['add_submit']))
         {
-            if (isset($_POST['title'], $_POST['body']) && mb_strlen($_POST['title']) <= 50) // Allow a maximum of 50 characters
+            if (isset($_POST['title'], $_POST['post']) && mb_strlen($_POST['title']) <= 50) // Allow a maximum of 50 characters
             {
-                $aData = array('title' => $_POST['title'], 'body' => $_POST['body'], 'created_date' => date('Y-m-d H:i:s'));
+              //https://www.delftstack.com/howto/php/how-to-convert-datetime-to-string-in-php/
+                $time = new \DateTime(); $formattedTime = $time->format('Y-m-d H:i:s');
+                $aData = array('title' => $_POST['title'], 'post' => $_POST['post']
+                                , 'created_date' => $formattedTime);
+                                //, 'created_date' => date('Y-m-d H:i:s'));
 
                 if ($this->oModel->add($aData))
                     $this->oUtil->sSuccMsg = 'Hurray!! The post has been added.';
@@ -95,9 +99,9 @@ class Blog
 
         if (!empty($_POST['edit_submit']))
         {
-            if (isset($_POST['title'], $_POST['body']))
+            if (isset($_POST['title'], $_POST['post']))
             {
-                $aData = array('post_id' => $this->_iId, 'title' => $_POST['title'], 'body' => $_POST['body']);
+                $aData = array('post_id' => $this->_iId, 'title' => $_POST['title'], 'post' => $_POST['post']);
 
                 if ($this->oModel->update($aData))
                     $this->oUtil->sSuccMsg = 'Hurray! The post has been updated.';

@@ -19,7 +19,7 @@ class Blog
 
     public function get($iOffset, $iLimit)
     {
-        $oStmt = $this->oDb->prepare('SELECT * FROM Posts ORDER BY createdDate DESC LIMIT :offset, :limit');
+        $oStmt = $this->oDb->prepare('SELECT * FROM Posts ORDER BY datetime DESC LIMIT :offset, :limit');
         $oStmt->bindParam(':offset', $iOffset, \PDO::PARAM_INT);
         $oStmt->bindParam(':limit', $iLimit, \PDO::PARAM_INT);
         $oStmt->execute();
@@ -28,13 +28,14 @@ class Blog
 
     public function getAll()
     {
-        $oStmt = $this->oDb->query('SELECT * FROM Posts ORDER BY createdDate DESC');
+        $oStmt = $this->oDb->query('SELECT * FROM Posts ORDER BY datetime DESC');
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function add(array $aData)
     {
-        $oStmt = $this->oDb->prepare('INSERT INTO Posts (title, body, createdDate) VALUES(:title, :body, :created_date)');
+                               echo '<pre>$aData='; print_r($aData); echo '</pre>';
+        $oStmt = $this->oDb->prepare('INSERT INTO Posts (title, post, datetime) VALUES(:title, :post, :created_date)');
         return $oStmt->execute($aData);
     }
 
@@ -48,10 +49,10 @@ class Blog
 
     public function update(array $aData)
     {
-        $oStmt = $this->oDb->prepare('UPDATE Posts SET title = :title, body = :body WHERE id = :postId LIMIT 1');
+        $oStmt = $this->oDb->prepare('UPDATE Posts SET title = :title, post = :body WHERE id = :postId LIMIT 1');
         $oStmt->bindValue(':postId', $aData['post_id'], \PDO::PARAM_INT);
         $oStmt->bindValue(':title', $aData['title']);
-        $oStmt->bindValue(':body', $aData['body']);
+        $oStmt->bindValue(':body', $aData['post']);
         return $oStmt->execute();
     }
 

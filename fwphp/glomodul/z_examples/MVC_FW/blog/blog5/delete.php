@@ -1,8 +1,8 @@
-<?php include('header.php'); ?>
+<?php include('hdr.php'); ?>
 <?php include('post.php');
 	$post = new Post($db);
 ?>
 <?php
 $post->deletePostBySlug($_GET['slug']);
-header('Location:result.php');
+header('Location:dashboard.php');
 ?>

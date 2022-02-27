@@ -10,9 +10,9 @@ namespace B12phpfw\module\blog ;
 use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 use B12phpfw\core\b12phpfw\Db_allsites        as utldb ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_pcomment ;
 
-use B12phpfw\module\blog\Side_area            as Side_view;
+use B12phpfw\module\blog\Side_area as Side_view;
 
 class Home extends utl
 {
@@ -22,13 +22,10 @@ class Home extends utl
 
   static public function show( object $pp1, array $other ): string 
   {
-    if (isset($pp1->category_from_url)) $category_from_url  = $pp1->category_from_url ;
-    else $category_from_url  = '' ;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
-                      //echo '<br />$ u r i q='; print_r($pp1->uriq) ;
-                      echo '<br />$_POST='; print_r($_POST) ;
+                      echo '<br />$ u r i q='; print_r($pp1->uriq) ;
                       //echo 'ses fltr pg ='; print_r($_SESSION['filter_posts']) ;
                       //echo 'For pagination (not for c o u n t !!) $qrywhere='; print_r($qrywhere) ;
                       //echo '<br />$binds='; print_r($binds) ;
@@ -53,7 +50,7 @@ class Home extends utl
       }
     }
 
-    if ( isset($_POST["SearchButton"]) and isset($_POST["Search"]) 
+    if ( isset($_POST["SearchButton"]) and isset($_POST["Search"]) //and $_POST["Search"] 
     ) {
        $_SESSION['filter_posts']['search_from_submit'] = $_POST["Search"] ;
        $_SESSION['filter_posts']['pgordno_from_url'] = 1 ;
@@ -61,7 +58,7 @@ class Home extends utl
       if (!isset($_SESSION['filter_posts']['search_from_submit'])) {
         $_SESSION['filter_posts']['search_from_submit']  = '' ;
       }
-    } 
+    }
 
 
     // 3 types of filter :
@@ -74,8 +71,7 @@ class Home extends utl
 
     $qrywhere = "'1'='1'" ;
     $binds = [] ;
-    if( $search_from_submit ) 
-    {
+    if( $search_from_submit ) {
       $qrywhere .= " and (title LIKE :search1
             OR category LIKE :search2
             OR datetime LIKE :search3
@@ -101,11 +97,9 @@ class Home extends utl
                         echo 'For c o u n t !! $qrywhere='; print_r($qrywhere) ;
                         echo '<br />$binds='; print_r($binds) ;
                       //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
-                      echo '</pre>';
-                      exit(0) ;
-                    }
-    $rcnt_filtered_posts = Tbl_crud_post::rrcount( $qrywhere, $binds, $other=
-       ['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+                      echo '</pre>'; }
+    $rcnt_filtered_posts = Tbl_crud_post::rrcount( $qrywhere, $binds
+          , $other = ['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
     $pgn_links = self::get_pgnnav($pp1->uriq, $rcnt_filtered_posts, '/i/home/', $pp1->rblk);
     $pgnnavbar        = $pgn_links['navbar'];
@@ -148,14 +142,9 @@ class Home extends utl
     $cursor_posts = Tbl_crud_post::get_cursor( $sellst='*', $qrywhere, $binds
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );  // , $qrywhere
 
-
-
-
-
-    $title = 'MSG HOME';
-    require_once $pp1->shares_path . 'hdr.php';  //require $pp1->shares_path . 'hdr.php';
-    require_once("navbar.php");
  ?>
+
+
 
 
   <!-- Page content CENTER-->
@@ -164,11 +153,26 @@ class Home extends utl
       <div class="grid">
 
         <section>
-          <!-- Left pge content-->
-          <?php
-          self::show_pge_hdr( $pp1, $pgn_links ) ;
-                              //, $category_from_url, $search_from_submit, $pgordno_from_url
 
+          <hgroup>
+            <h2>Tag hgroup is page title</h2>
+            <h3>Page subtitle</h3>
+          </hgroup>
+
+
+          <?php
+            //if(isset($_GET['keyword'])){
+            //  echo 'Search for:'.'<i>'.$_GET['keyword'].'</i>';
+            //}
+
+
+          self::show_pge_hdr(
+            $pp1 //, $category_from_url, $search_from_submit, $pgordno_from_url
+            , $pgn_links
+          ) ;
+
+
+          //echo '$rcnt_filtered_posts='. $rcnt_filtered_posts ;
           $ordno = 0 ;
           while ( $rx = Tbl_crud_post::rrnext( $cursor_posts // u tldb::r rnext
              , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
@@ -182,28 +186,73 @@ class Home extends utl
                             echo '</pre>'; 
                           }
             ?>
-
-                  <!-- P o s t  c o n t e n t    class="text-muted fst-italic mb-2"-->
-            <div>
-              <?php
-              self::show_post_ttle($pp1, $rx, $first_rinblock, $ordno) ;
-              self::show_post_meta($pp1, $rx, $first_rinblock, $ordno) ;
-              self::show_post_summary($pp1, $rx) ;
-              self::show_post_img($pp1, $rx) ;
-              ?>
-            </div> <!-- e n d  P o s t  c o n t e n t -->
+              <div class="media">
+                <div class="media-left media-top">
+                  <!--img src="/vendor/b12phpfw/img/<?php echo $post['image']; ?>" class="media-object" 
+                       style="width:200px;"-->
+                  <!--p>
+                    Author:Admin<br>
+                    Created:<?php echo date('Y-m-d',strtotime($post['created_at'])); ?>
+                  </p-->
+                  <?php
+                  self::show_post_ttle($pp1, $rx, $first_rinblock, $ordno) ;
+                  self::show_post_meta($pp1, $rx, $first_rinblock, $ordno) ;
+                  self::show_post_img($pp1, $rx) ;
+                  self::show_post_summary($pp1, $rx) ;
+                  echo 'Summary='. self::escp($rx->summary) ;
+                  ?>
+                </div>
+                <div class="media-body">
+                  <!--h4 class="media-heading"><a href="view.php?slug=<?php echo $post['slug'];?>">
+                        <?php echo $post['title']; ?></a></h4>
+                    <?php echo htmlspecialchars_decode($post['description'] );?> 
+                    -->
+                </div>
+              </div>
             <?php
           } endwhile;
 
-          echo $pgn_links['navbar'] ;
-          echo '<br><small class="text-muted">'. __FILE__ .'</small>' ;
+            /*
+            $sql = "SELECT count(id) from posts";
+            $result = mysqli_query($db,$sql);
+            $row = mysqli_fetch_row($result);
+            $totalRecords = $row[0];
+            $totalPages = ceil($totalRecords/5);
+            $pageLink = "<ul class='pagination'>";
+            
+            if(!isset($_GET['tag'])){
+              //if there is "tag" we don't show pagination
+              if (!isset($_GET['page'])) {
+                //is there is no "page" we set $_GET=1 
+                $_GET['page']=1;
+              }
+
+            $page = $_GET['page'];
+            
+            if($page>1){
+
+              $pageLink.="<a class='page-link'href='index.php?page=1'>First</a>";
+
+              $pageLink.="<a class='page-link'href='index.php?page=".($page-1)."'><<<</a>";
+            }
+
+            for($i=1;$i<=$totalPages;$i++){
+              $pageLink.="<a class='page-link'href='index.php?page=".$i."'>".$i."</a>  ";
+            }
+
+            if($page<=$totalPages){
+
+              $pageLink.="<a class='page-link'href='index.php?page=".($page+1)."'>>>></a>";
+
+              $pageLink.="<a class='page-link'href='index.php?page=".$totalPages."'>Last</a>";
+            }
+
+
+            echo $pageLink."</ul>";
+
+          }
+          */
           ?>
-          <br>
-
-
-
-
-
         </section>
 
 
@@ -212,15 +261,90 @@ class Home extends utl
 
 
         <aside>
-            <?php
-               Side_view::show(  $pp1  //, $fltr_sort
-                  , $category_from_url, $search_from_submit, $pgordno_from_url
-                  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
-            ?>
+
+
+            <p>
+              <h4>Search Posts</h4>
+              <form action="" method="GET">
+                <input type="tetx" name="keyword" class="form-control" placeholder="search...">
+              </form>
+            </p>
+
+
+
+
+            <h4>Browse by Tags</h4>
+            <p>
+            <?php //  type="button" class="btn btn-outline-warning btn-sm"
+            foreach($tags->getAllTags() as $tag){?>
+              <a href="index.php?tag=<?php  echo $tag['tag'];?>">
+                <button>
+                   <?php  echo $tag['tag'];?>
+                </button>
+              </a>
+
+            <?php  } ?>
+            </p>
+
+
+
+            
+              <h4>Popular posts</h4>
+              <?php foreach($posts->getPopularPosts() as $p) {?>
+                <p>
+              <a href="view.php?slug=<?=$p['slug']?>" 
+                 style="color:white;border-bottom: 1px dashed green;"><?=$p['title'];?></a>
+              </p>
+            <?php }?>
+	
+	
+
+
+
+
         </aside>
 
       </div><!-- grid -->
     </main><!-- Main -->
+
+
+
+
+
+    <!-- Subscribe -->
+    <!--section aria-label="Subscribe example">
+      <div class="container">
+        <article>
+          <hgroup>
+            <h2>Subscribe</h2>
+            <h3>Litora torquent per conubia nostra</h3>
+          </hgroup>
+            <form class="grid">
+              <input type="text" id="firstname" name="firstname" placeholder="First name" aria-label="First name" required>
+              <input type="email" id="email" name="email" placeholder="Email address" aria-label="Email address" required>
+              <button type="submit" onclick="event.preventDefault()">Subscribe</button>
+          </form>
+        </article>
+      </div>
+    </section--><!-- ./ Subscribe -->
+
+
+
+
+    <!-- Footer -->
+    <footer class="container">
+      <small>Built with <a href="https://picocss.com">Pico</a> • <a href="https://github.com/picocss/examples/tree/master/company/">Source code</a></small>
+    </footer><!-- ./ Footer -->
+
+
+
+
+
+
+
+
+
+
 
 
     <!--no more : ftr.php script src="<=$pp1->wsroot_url?>zinc/exp_collapse.js" 
@@ -228,17 +352,10 @@ class Home extends utl
     </script-->
 
     <?php
-    require_once $pp1->shares_path . 'ftr.php';
 
     return('1') ;
   } //e n d  f n  s h o w
   //<!-- CENTER END -->
-
-
-
-
-
-
 
 
 
@@ -252,13 +369,14 @@ class Home extends utl
   } //e n d  f n  xxx
   */
 
-  static private function show_pge_hdr( object $pp1
-         //, string $category_from_url, string $search_from_submit, int $pgordno_from_url
+  static private function show_pge_hdr(
+      object $pp1
+    //, string $category_from_url, string $search_from_submit, int $pgordno_from_url
     , array $pgn_links
   ) 
   { ?>
-                <!-- P a g e   h e a d e r  header  -->
-    <div>
+                <!-- P a g e   h e a d e r -->
+    <header class="mb-4">
       <?php
        //echo utl::M sgErr();  echo utl::M sgSuccess();
        echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
@@ -269,7 +387,7 @@ class Home extends utl
       <?php
       echo $pgn_links['navbar'];
       ?>
-    </div>
+    </header>
 
 
     <?php
@@ -277,16 +395,10 @@ class Home extends utl
   } //e n d  f n  show_ pge_ hdr
 
 
-
-
-
-
-
   static private function show_post_ttle(
      object $pp1, object $rx, int $first_rinblock, int $ordno
   ): string
   { ?>
-    <br><br><br>
         <!-- Post title-->
         <!-- *********exp_collapse Open/close summary, img...********** 
         <button type="button" class="collapsible">
@@ -296,10 +408,10 @@ class Home extends utl
                 h3 class="xxcard-title"
             -->
             <hr>
-            <h3 style="color:lightblue;">
+            <h4 style="color:gray;">
                 <?php echo '' //. ($category_from_url?$ordno.'. ':'')
                    . self::escp($rx->title) . ''; ?>
-            </h3>
+            </h4>
             <!-- e n d  1. a r t i c l e  O S  f i l e  n a m e -->
         <!-- </button> -->
     <?php
@@ -313,30 +425,26 @@ class Home extends utl
   { 
     //<!-- 2. P o s t  m e t a  c o n t e n t-->
 
-    echo //'<br><br><br>'. 
-      str_replace('!', "&nbsp;", 
-      //str_pad( 
-         (string) ($first_rinblock + $ordno - 1)
-      //   , 6, '!', STR_PAD_LEFT
-      //) 
+   echo str_replace('!', "&nbsp;", 
+      str_pad( (string)($first_rinblock + $ordno - 1), 6, '!', STR_PAD_LEFT)
     ) .'. ' ;
-    ?>
-      &nbsp; 
-      <!-- eg: Posted on January 1, 2021 by Start Bootstrap -->
-    <a href="<?=$pp1->filter_postcateg?><?=self::escp($rx->category)?>/p/1">
-       <?=self::escp($rx->category)?> </a>
+   ?>
 
-    Written by 
+      <!-- eg: Posted on January 1, 2021 by Start Bootstrap -->
+          <a href="<?=$pp1->filter_postcateg?><?=self::escp($rx->category)?>/p/1">
+           <?=self::escp($rx->category)?> </a>
+
+        Written by 
             <a href="<?=$pp1->read_user?>username/<?=self::escp($rx->author)?>">
                <?=self::escp($rx->author)?></a>
 
 
-    On <a href="<?=$pp1->kalendar?>mm/<?=self::escp(substr($rx->datetime,0,7))?>"
+        On <a href="<?=$pp1->kalendar?>mm/<?=self::escp(substr($rx->datetime,0,7))?>"
            title="Show all posts in post month"><?=self::escp($rx->datetime)?></a>
 
 
           <?php
-          $rcnt_post_comments = Tbl_crud_post_comment::rrcount( 
+          $rcnt_post_comments = Tbl_crud_pcomment::rrcount( 
               $qrywhere="post_id=:id AND status=:status"
             , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
                      , ['placeh'=>':status', 'valph'=>'ON', 'tip'=>'str']
@@ -349,9 +457,9 @@ class Home extends utl
             <span> <!-- style="float:right;" class="badge badge-dark text-light" -->
              Comments: <?=$rcnt_post_comments?>
             </span>
-
-         &nbsp; <a href="<?=$pp1->read_post?>id/<?=$rx->id?>" >More</a>
+         <!--/a-->
          <!-- e n d  2. P o s t  m e t a  c o n t e n t-->
+
     <?php
     return('1') ;
   } //e n d  f n  show_ post_ meta
@@ -363,10 +471,44 @@ class Home extends utl
       <a class="btn btn-primary" 
     &nbsp; <a class="badge bg-secondary text-decoration-none link-light" 
     -->
+    &nbsp; <a class="badge bg-secondary text-decoration-none link-light"
+           href="<?=$pp1->read_post?>id/<?=$rx->id?>"
+        > <!-- style="float:right;" -->
+           More<!--span class="btn btn-info">More</span-->
+        </a>
+
+    &nbsp; <a" 
+         data-bs-toggle="collapse" href="#clpsedTxt" role="button" 
+         aria-expanded="false" aria-controls="clpsedTxt">
+        Show/hide images
+      </a>
+                              <!--OR button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#clpsedTxt" aria-expanded="false" aria-controls="clpsedTxt">
+                                Button with data-bs-target
+                              </button-->
+    <div class="collapse" id="clpsedTxt">
+      <div class="card card-body">
+         <!--***** Content for collapse component **********
+             This panel is hidden by default.-->
 
 
-    <div id="clpsedTxt">
-      <div>
+
+            <?php
+            /*
+            <!-- Preview image figure-->
+            <figure class="mb-4"><img class="img-fluid rounded" 
+                    src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+            </figure>
+            <!-- Post content-->
+            <section class="mb-5">
+                <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind... </p>
+                <!--h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
+                <p class="fs-5 mb-4">For me, ...</p>
+                <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. ... we're twiddling knobs here on Earth without knowing the consequences of it. Mars once had running water. Something bad happened there as well.</p-->
+            </section>
+            */
+            ?>
+
+
         <!-- 3. a r t i c l e  i m a g e -->
         <?php
         //J://awww//www//fwphp//glomodul//blog//Uploads//mvc_M_V_data_flow.jpg
@@ -374,17 +516,16 @@ class Home extends utl
         $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp(
            (null == $rx->image ? 'NON EXISTENT' : $rx->image)
         ));
-        //$tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
-        $tmp_imgurlrel = '/vendor/b12phpfw/img/'.self::escp($rx->image) ;
-        //if (file_exists($tmp_imgpath)) 
-        { ?>
+        $tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
+        if (file_exists($tmp_imgpath)) { ?>
           <figure class="mb-4">
-            <img src="<?=$tmp_imgurlrel?>" class="img-fluid card-img-top"
+            <img class="img-fluid rounded" 
+                 src="<?=$tmp_imgurlrel?>" class="img-fluid card-img-top"
                  title = "<?='$rx->image='. $rx->image .', $tmp_imgpath='
                            .$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
                  style="max-height:450px;" 
                alt="<?=$tmp_imgurlrel?>" />
-          </figure>
+            </figure>
           <?php
         } 
 
@@ -392,7 +533,7 @@ class Home extends utl
              . 'img'.DS.'img_big'.DS.self::escp(
              (null == $rx->image ? 'NON EXISTENT' : $rx->image)
         ) ) ;
-        $tmp_imgurlrel = '/vendor/b12phpfw/img/img_big/'.self::escp($rx->image) ;
+        $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($rx->image) ;
                       if ('') {self::jsmsg( [ //b asename(__FILE__).
                          __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
                          ,'$tmp_imgurlrel'=>$tmp_imgurlrel
@@ -401,7 +542,8 @@ class Home extends utl
             <img src="<?=$tmp_imgurlrel?>"
                  title = "<?='$rx->image='. $rx->image 
                  .', $tmp_imgpath='.$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
-                 style="width:100%;" 
+                 class="img-fluid card-img-top"
+                 style="max-height:450px;" 
             /><?php
 
 
@@ -451,9 +593,9 @@ class Home extends utl
       <?php
       if ($rx->summary and $rx->summary > '') {
         //echo '<h5>Article summary</h5>' ;
-        echo '<b>'. str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
+        echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
               nl2br(self::escp($rx->summary))
-           )) .'</b>';
+           ));
       } else {
 
       }

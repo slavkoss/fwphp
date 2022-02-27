@@ -1,4 +1,4 @@
-<?php include('header.php');
+<?php include('hdr.php');
 	  include('post.php');
 	  include('Comment.php');
 

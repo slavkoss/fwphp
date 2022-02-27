@@ -8,7 +8,7 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 // *************** FUNCTION 1. N A M E S P A C E S  ***************
 namespace B12phpfw\module\blog ;
 
-use B12phpfw\core\b12phpfw\Config_allsites     as utl ;;
+use B12phpfw\core\b12phpfw\Config_allsites     as utl ;
 //use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 //use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 use B12phpfw\dbadapter\user\Tbl_crud           as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
@@ -17,7 +17,7 @@ use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud   as Tbl_crud_post_comment ;
 
 use B12phpfw\module\blog\Home as Home_view;
-use B12phpfw\module\blog\Dashboard as Dashboard_view;
+use B12phpfw\module\post\Posts as Dashboard_view; //no more D ashboard cls
 //use PDO;
 
 //extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_ allsites" but :
@@ -31,6 +31,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   // *************** FUNCTION 2. S H A R E S  ***************
   public function __construct(object $pp1)
   {
+      $pp1->rblk = 10;
                         if ('') { self::jsmsg( [ //b asename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
@@ -42,27 +43,28 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
     *  ------------------------------------------------------------------------------
     */
-    $pp1_module = [ 
-      'LINK ALIAS => HOME METHOD TO CALL' => '~~~~~in view script eg href = $pp1->login calls QS."i/login/"~~~~~'
-      // LINKALIAS          URLurlqrystring                CALLED METHOD
+    $pp1_module = [ 'LINK_ALIASES' => '<b style="color: blue">$ p p 1->LINK_ALIAS => HOME METHOD TO CALL
+      ~~~~~ in view script eg href="&lt;?=$pp1->login?&gt;" calls login method in Home_ctr so : 
+      QS."i/login/"~~~~~</b> where QS is question mark ("?")'
+      // LINKALIAS          URLqrystring                CALLED METHOD
       // IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
       //, 'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
       //      (method parameter /idvalue we assign in view script after ldd_category)
     ,'home_blog'        => QS.'i/home/'
+    ,'sitehome'         => QS.'i/sitehome/' //$pp1->s itehome
+    //
     ,'ldd_category'     => QS.'i/del_category/id/'
     ,'ldd_admins'       => QS.'i/del_admins/id/'
     ,'ldd_posts'        => QS.'i/del_posts/id/'
     ,'ldd_comments'     => QS.'i/del_comments/id/'
                 //utl::Redirect_to(QS.str_replace('|','/',$db->uriq->r)) ;
          //,'del_row'         => QS.'i/del_ row_do/id/' //used for all tables !!
+    //,'filter_page'     => QS.'/' 
     ,'filter_page'     => 'p/' //QS.'p/'   // i/home_blog/
 
     //
     // T A B L E S  (M O D E L S)
-    ,'dashboard'       => QS.'i/dashboard/'
-    //
-    ,'home_usr'        => QS.'i/admins/'
-    ,'admins'          => QS.'i/admins/'
+    ,'admins'          => QS.'i/admins/' // same is 'home_usr' - posts with summary 
     //
     ,'loginfrm'        => QS.'i/loginfrm/'
     ,'login'           => QS.'i/login/'
@@ -76,10 +78,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     ,'categories'      => QS.'i/categories/'
 
-    ,'posts'           => QS.'i/posts/'
-       //in view h ome.php after c/ we add categ. name so :
-       //<a href="<=filter_ postcateg><=h escp($r->c ategory)>">
-       // filter_ postcateg is  m ethod  name in this  c lass
+    ,'posts'           => QS.'i/posts/' // - was dashboard
        ,'filter_postcateg' => QS.'i/filter_postcateg/c/'
        ,'addnewpost'      => QS.'i/addnewpost/'
        ,'read_post'       => QS.'i/read_post/'
@@ -189,11 +188,6 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   /**
   * *************** FUNCTION 3.  S E S S I O N  M E T H O D S ***************
   */
-
-  //static public function Login_ Confirm_ SesUsrId() {
-  //  utl::Login_ Confirm_ SesUsrId(); //Tbl_ crud_ admin
-  //}
-
   private function logout(object $pp1)
   {
     //$dm = $this = domain model = globals for all sites
@@ -212,46 +206,24 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   */
 
   // *************** FUNCTION COMPAUND MODULE BLOG ***************
-  private function home(object $pp1) //DI page prop.palette   
+
+  public function sitehome(object $pp1)
   {
     //As of PHP5, object variable doesn't contain object itself as value. When an object is sent as parameter (argument), returned or assigned to another variable, those variables are not aliases: they hold a COPY OF THE IDENTIFIER, which points to same object.
-
-    $pp1->rblk = 25;
-    //$ c ss1 = $shares_url .'themes/bootstrap/styles_blog.css'
-    //$css2 = $pp1->shares_url . 'exp_collapse.css';
-
-    $title = 'MSG HOME';
-    require $pp1->shares_path . 'hdr.php';
-
-      require("navbar.php");
-      Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
-      //require $pp1->module_path . 'home.php';
-      //utl::Redirect_to($pp1->comments);
-
-    require $pp1->shares_path . 'ftr.php';
+    $this->Redirect_to('/'); // utl::Redirect_to($pp1->c omments);
   }
 
-
-  private function dashboard(object $pp1) //private
+  private function home(object $pp1) //DI page prop.palette   
   {
-    utl::Login_Confirm_SesUsrId(); //$this->
-
-    $title = 'MSG Dashboard';
-    require $pp1->shares_path . 'hdr.php';
-      require_once("navbar_admin.php");
-      Dashboard_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
-      //require $pp1->module_path . 'dashboard.php';  
-    require $pp1->shares_path . 'ftr.php';
+      Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
   }
-
-
 
 
   private function kalendar(object $pp1) //private
   {
     require $pp1->shares_path . 'hdr.php';
     //require $pp1->module_path . '../post/read_msg_tbl_kalendar_flex.php';
-    require $pp1->app_dir_path .'post/read_msg_tbl_kalendar_flex.php';
+    require dirname($pp1->module_path) .'/post/read_msg_tbl_kalendar_flex.php';
     require $pp1->shares_path . 'ftr.php';
   }
 
@@ -295,15 +267,11 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     utl::Login_Confirm_SesUsrId(); //$this->
     $title = 'Admin Page' ;
     // http skip is ok for other module :
-
-    //<script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user/'>');</script>
-
-    utl::Redirect_to( dirname($pp1->module_url) .'/user/' );
+    utl::Redirect_to( $pp1->site_url .'user/' ) ; // http://dev1:8083/fwphp/glomodul/user/
                   //Warning: Cannot modify header information :
                   //require $pp1->shares_path . 'hdr.php';
                   //require_once("navbar_admin.php");
-    //require $pp1->module_path . '../user/';
-    //require $pp1->module_path . '../user/admins.php';
+    //<script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user/'>');</script>
     require $pp1->shares_path . 'ftr.php';
   }
 
@@ -319,10 +287,10 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     $title = 'Profile' ;
     //$css1 = 'styles.css' ;
 
-    require $pp1->shares_path . 'hdr.php';
-    require_once("navbar.php");
+    //require $pp1->shares_path . 'hdr.php';
+    //require_once("navbar.php");
     require dirname($pp1->module_path) . '/user/read.php'; //was read_user.php
-    require $pp1->shares_path . 'ftr.php';
+    //require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -340,7 +308,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   }
 
   private function login(object $pp1) {
-    Tbl_crud_admin::login($pp1, $pp1->dashboard) ;
+    Tbl_crud_admin::login($pp1, $pp1->posts) ;
   }
 
 
@@ -363,12 +331,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   private function categories(object $pp1) //private
   {
     utl::Login_Confirm_SesUsrId(); //$this->
-
-    $title = 'MSG Categories' ;
-    require $pp1->shares_path . 'hdr.php';
-    require_once("navbar_admin.php");
     require $pp1->module_path . '../post_category/categories.php';  
-    require $pp1->shares_path . 'ftr.php';
   }
 
 
@@ -378,39 +341,40 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   private function addnewpost(object $pp1) //private
   {
 
-    // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/
+    // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/  
+    // http://dev1:8083/fwphp/glomodul/blog/index.php?i/addnewpost/
     utl::Login_Confirm_SesUsrId(); //$this->
-
-      $title = 'Add Post' ;
-      //require $pp1->shares_path . 'hdr.php';
-      //require_once("navbar_admin.php");
-      require $pp1->module_path . '../post/cre_post_frm.php';  
-      //require $pp1->shares_path . 'ftr.php';
+    require $pp1->module_path . '../post/cre_post_frm.php';  
   }
 
+
+                        /* see posts(    private function dashboard(object $pp1) //private
+                        {
+                          utl::Login_Confirm_SesUsrId(); //$this->
+
+                          $title = 'MSG D ashboard';
+                          require $pp1->shares_path . 'hdr.php';
+                            require_once("navbar_admin.php");
+                            D ashboard_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+                            //require $pp1->module_path . 'd ashboard.php';  
+                          require $pp1->shares_path . 'ftr.php';
+                        } */
   //        p o s t s  v i e w  t b l
   private function posts(object $pp1) //private
   {
-    //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
-
-    if ( isset($pp1->uriq) ) { $uriq = $pp1->uriq ; } else {$uriq = (object)[] ;}
-
-    $category_from_url = (isset($uriq->c) and null !== $pp1->uriq->c) ? $pp1->uriq->c : '' ;
-
     utl::Login_Confirm_SesUsrId(); //$this->
-
-    $title = 'Posts' ;
-    require_once("navbar_admin.php");
-      require $pp1->shares_path . 'hdr.php';
-      require $pp1->module_path . '../post/posts.php';  
-      require $pp1->shares_path . 'ftr.php';
+    Dashboard_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+                                    //require $pp1->module_path . 'd ashboard.php';  
+                                    //require $pp1->module_path . '../post/posts.php';  // no more
   }
 
 
   //        p o s t s  f i l t e r e d  v i e w  t b l
   private function filter_postcateg(object $pp1) //private
   {
-    if ( isset($pp1->uriq) ) { $uriq = $pp1->uriq ; } else {$uriq = (object)[] ;}
+    //http://dev1:8083/fwphp/glomodul/blog/index.php?i/filter_postcateg/c/B12phpfw/p/1
+    $pp1->category_from_url = (isset($uriq->c) and null !== $pp1->uriq->c) ? $pp1->uriq->c : '' ;
+                  $uriq = isset($pp1->uriq) ? $pp1->uriq : (object)[] ;
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
@@ -424,30 +388,21 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     //p=posts or home
 
-    //      CATEG. NAME is in view h ome.php after c/ :
-    $category_from_url = (isset($uriq->c) and null !== $pp1->uriq->c) ? $pp1->uriq->c : '' ;
 
-    if ( (isset($pp1->uriq->p)) and $pp1->uriq->p == 'posts' ) 
+    /*if ( (isset($pp1->uriq->p)) and $pp1->uriq->p == 'posts' ) 
     {
-      //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
-
       utl::Login_Confirm_SesUsrId(); //$this->
 
       $title = 'Posts' ;
-      require_once("navbar_admin.php");
-      require $pp1->shares_path . 'hdr.php';
+      //require_once("navbar_admin.php");
+      //require $pp1->shares_path . 'hdr.php';
          require $pp1->module_path . '../post/posts.php';  
-      require $pp1->shares_path . 'ftr.php';
+      //require $pp1->shares_path . 'ftr.php';
 
-    } else  {
-        //http://dev1:8083/fwphp/glomodul/blog/?i/filter_postcateg/c/Movies/p/1
-        //$ u r i q=stdClass Object( [i] => filter_postcateg  [c] => Movies  [p] => 1 )
-        $title = 'MSG HOME';
-        require $pp1->shares_path . 'hdr.php'; // MODULE_PATH
-        require_once("navbar.php");
-           require $pp1->module_path . 'home.php';
-        require $pp1->shares_path . 'ftr.php';
-    }
+    } else  { */
+        Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+                                        //require $pp1->module_path . 'home.php';
+    //}
 
 
   }
@@ -473,17 +428,18 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     if (isset( $_SESSION['filter_posts']['search_from_submit']))
        $search_from_submit = $_SESSION['filter_posts']['search_from_submit'] ; 
     else $search_from_submit = '' ; 
+
     if (isset( $_SESSION['filter_posts']['pgordno_from_url']))
        $pgordno_from_url = $_SESSION['filter_posts']['pgordno_from_url'] ; 
     else $pgordno_from_url = '' ; 
 
 
-    require_once $pp1->shares_path . 'hdr.php';
+    //require_once $pp1->shares_path . 'hdr.php';
 
-      require_once("navbar.php");
+    //  require_once("navbar.php");
       require $pp1->module_path . '../post/read_post.php';  
 
-    require_once $pp1->shares_path . 'ftr.php';
+    //require_once $pp1->shares_path . 'ftr.php';
   }
 
   //        e d i t  p o s t 
@@ -592,14 +548,8 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   //          p o s t  c o m m e n t s
   private function comments(object $pp1) //private
   {
-
     utl::Login_Confirm_SesUsrId(); //$this->
-
-    $title = 'Comments' ;
-    require $pp1->shares_path . 'hdr.php';
-    require_once("navbar_admin.php");
     require $pp1->module_path . '../post_comment/comments.php';  
-    require $pp1->shares_path . 'ftr.php';
   }
 
   //         u p d  c o m m e n t _ s t a t

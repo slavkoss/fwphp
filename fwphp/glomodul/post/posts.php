@@ -1,154 +1,166 @@
 <?php
-declare(strict_types=1);
-// J:\awww\www\fwphp\glomodul\post\posts.php
-//vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
-namespace B12phpfw\dbadapter\post ;
-use B12phpfw\core\b12phpfw\Config_allsites   as utl ;
-use B12phpfw\core\b12phpfw\Db_allsites       as utldb ;
-use B12phpfw\dbadapter\post\Tbl_crud         as Tbl_crud_post;
-use B12phpfw\dbadapter\post_comment\Tbl_crud as Tbl_crud_post_comment;
-                  //echo '<pre>$ p p 1='; print_r($pp1); echo '</pre><br />';
+//J:\awww\www\fwphp\glomodul\post\Posts.php
+declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
+
+//FUNCTIONAL, NOT POSITIONAL :
+namespace B12phpfw\module\post ;
+
+use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
+use B12phpfw\core\b12phpfw\Db_allsites        as utldb ;
+
+use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_pcomment ;
+use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_pcategory ;
+use B12phpfw\dbadapter\user\Tbl_crud          as Tbl_crud_user ;
+//use PDO;
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
-//           1. S U B M I T E D  A C T I O N S
 
-//               2. R E A D  D B T B L R O W S
-//no sense to put this in controller (Home_ctr) because details cursor (approved comments)
-//can not be there !
-$cursor_post = Tbl_crud_post::rr_all( $sellst='*', $qrywhere="'1'='1'", $binds=[]
-  , $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ 
-           , 'category_from_url'=>$category_from_url
-    ]
-) ;
+class Posts extends utl
+{
+  public function __construct(object $pp1) 
+  {
+  }
 
+  static public function show( object $pp1, array $other ): string 
+  {
+    $title = 'MSG Dashboard';
+    require $pp1->shares_path . 'hdr.php';
+    require_once("navbar.php");  //require_once("navbar_admin.php");
+  ?>
 
-?>
-<!-- HEADER & n avbar_ ad min2 -->
-<header class="bg-dark text-white py-3">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-      <h1>
-         <i class="fas fa-blog" style="color:#27aae1;"></i> Posts (msgs) table 
-         <?php if ($category_from_url) { echo ' - all ' . $category_from_url . ' articles' ;
-         } else {echo ' - all articles';} ?>
-      </h1>
-      </div>
-      <?php require('navbar_admin2.php'); ?>
-    </div>
-  </div>
-</header>
-<!-- HEADER END -->
+  <!-- HEADER -->
+  <!-- HEADER END -->
 
 
+  <!-- Main Area -->
+  <main class="container">
+    <div class="grid">
 
-<!-- Main Area -->
-<section class="container py-2 mb-4">
-  <div class="row">
-
-    <div class="bg-light col-lg-12">
-      <?php
-       //echo utl::M sgErr();  echo utl::M sgSuccess();
-       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
-       ?>
-      <br /><table class="table table-striped table-hover">
-
-        <thead class="thead-dark">
-        <tr>
-          <th>#</th><th>Title</th><th>Category</th><th>Date&Time</th><th>Author</th><th>Banner</th><th>Comments</th><th>Edit</th><th>Delete</th><!--th>L ive P review</th-->
-        </tr>
-        </thead>
-
-      <tbody>
-        <?php
+      <section>
+         <h4>Posts table (dashboard), order by recent</h4>
 
 
-        $Sr = 0;
-        while ($rx = Tbl_crud_post::rrnext($cursor_post) and isset($rx->id)): 
-        {
-          $Sr++; ?>
-          <tr>
-          <td><?=$Sr?></td>
+          <!-- S U M S  &  L I N K S -->
+          <a title="Create post" class="contrast" href="<?=$pp1->addnewpost?>">Posts : 
+              <?php echo Tbl_crud_post::rrcount( $qrywhere="'1'='1'"
+                 , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //'posts'
+          ?></a>
 
-            <td><?php
-              $tmp = self::escp($rx->title) ;
-              if(strlen($tmp)>20) {$tmp= substr($tmp,0,18).'..';}?>
-                <a href="<?=$pp1->read_post?>id/<?=$rx->id?>"
-                   title="Show post <?=$tmp?>" ><span><?=$tmp?></span></a>
+          &nbsp; &nbsp; &nbsp;
+          <a title="Create comment" class="contrast" href="<?=$pp1->comments?>">Comments : 
+              <?php echo Tbl_crud_pcomment::rrcount( $qrywhere="'1'='1'"
+                 , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ); //'comments'
+          ?></a>
 
-          </td>
-
-          <td><?php
-                $tmp = self::escp($rx->category) ;
-                //if(strlen($tmp)>10){ $tmp= substr($tmp,0,10).'..'; }
-               ?>
-              <span class="text-dark">
-                 <a href="<?=$pp1->filter_postcateg?><?=$tmp?>/p/posts"
-                    title="Show all posts in category <?=$tmp?>"
-                 ><?=substr($tmp,0,10)?></a>
-              </span>
-          </td>
-
-          <td><?php
-               $tmp = self::escp($rx->datetime) ;
-               //if(strlen($tmp)>11){$tmp = substr($tmp,0,11).'..';} 
-               ?><span title="<?=$tmp?>"><?=substr($tmp,0,10)?></span>
-               </td>
-
-          <td><?php
-               $tmp = self::escp($rx->author) ;
-               if(strlen($tmp)>10){$tmp= substr($tmp,0,10).'..';}
-               echo $tmp ;
-               ?></td>
+          &nbsp; &nbsp; &nbsp;
+          <a title="Create category" class="contrast" href="<?=$pp1->categories?>">Categories : 
+              <?php echo Tbl_crud_pcategory::rrcount( $qrywhere="'1'='1'"
+                  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ); //'category'
+          ?></a>
+          &nbsp; &nbsp; &nbsp
+          <a title="Create admin" class="contrast" href="<?=$pp1->admins?>">Admins : 
+              <?php echo Tbl_crud_user::rrcount( $qrywhere="'1'='1'"
+                    , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //'admins'
+          ?></a>
+          <!-- E n d  s u m s -->
 
 
 
-
-          <td><img src="Uploads/<?=$rx->image?>" width="170px;" height="50px"></td>
-          <td>
+        <!-- T B L -->
+        <div>
+          <?php
+          echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
+           ?>
+          <table>
+            <thead><tr><th>No.</th><th>Title</th><th>Date&Time</th><th>Category</th><th>Author</th>
+                  <th>Comments</th><th>Show</th></tr></thead>
+            <tbody>
             <?php
-            // A p p r o v e d  c o m m e n t s  c o u n t  count_post_comment_aproved
-            //$count_ rows_ on = Tbl_crud_post_comment::rr_count_aproved($rx->id, 'ON');
-            $count_rows_on = Tbl_crud_post_comment::rrcount( 
-                    $qrywhere="post_id=:post_id AND status='ON'"
-                  , $binds=[ ['placeh'=>':post_id', 'valph'=>$rx->id, 'tip'=>'int'] ]
-                  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-            if ($count_rows_on>0) { ?> <span class="badge badge-success"><?=$count_rows_on?></span> <?php } 
-            // D i s a p p r o v e d  c o m m e n t s  c o u n t
-            //$count_ rows_ off = Tbl_crud_post_comment::rr_count_aproved($rx->id, 'OFF');
-            $count_rows_off = Tbl_crud_post_comment::rrcount( 
-                    $qrywhere="post_id=:post_id AND status='OFF' or status < '0'"
-                  , $binds=[ ['placeh'=>':post_id', 'valph'=>$rx->id, 'tip'=>'int'] ]
-                  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-            if ($count_rows_off>0) { ?> <span class="badge badge-danger"><?=$count_rows_off?></span> <?php } ?>
-          </td>
+
+            $SrNo = 0;
+            $dbi = utldb::getdbi() ;
+            switch ($dbi)
+            {
+              case 'oracle' :
+                //$binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
+                //$binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
+                utldb::setdo_pgntion('1') ;
+
+                $cursor_posts = Tbl_crud_post::get_cursor("SELECT * FROM posts ORDER BY datetime desc"
+                  , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+              break;
+
+              case 'mysql' :
+                //$binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
+                //$binds[]=['placeh'=>':rblk', 'valph'=>6, 'tip'=>'int'];
+                utldb::setdo_pgntion('1') ;
+
+                // LIMIT :first_rinblock, :rblk
+                $cursor_posts = Tbl_crud_post::get_cursor($sellst='*'
+                   , $qrywhere= "'1'='1' ORDER BY datetime desc"
+                   , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+                ) ;
+            }
+
+          // isset($rx->id)   Tbl_crud_post::...
+          while ( $rx = Tbl_crud_post::rrnext( $cursor_posts
+             , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
+          { //all row fld names lowercase
+              $SrNo++;
+
+              $rcnt_approved = Tbl_crud_pcomment::rrcount( 
+                  $qrywhere="post_id=:id AND status=:status"
+                , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
+                         , ['placeh'=>':status', 'valph'=>'ON', 'tip'=>'str']
+                ]
+                , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+              $rcnt_disapproved = Tbl_crud_pcomment::rrcount( 
+                  $qrywhere="post_id=:id AND status=:status"
+                , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
+                         , ['placeh'=>':status', 'valph'=>'OFF', 'tip'=>'str']
+                ]
+                , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+              ?>
+
+                <tr>
+                  <td><?=$SrNo?></td><td><?=$rx->title?></td><td><?=$rx->datetime?></td>
+                  <td><?=$rx->category?></td><td><?=$rx->author?></td>
+                  <td>
+                    <?php
+                    if ($rcnt_approved > 0) { ?>
+                       <span class="badge badge-success"><?=$rcnt_approved?></span><?php }
+                    ?>
+                    <?php
+                    if ($rcnt_disapproved > 0) { ?>
+                       <span class="badge badge-danger"><?=$rcnt_disapproved?></span><?php }
+                    ?>
+                  </td>
+                  <td> 1
+                     <a target="_blank" href="<?=$pp1->read_post?>id/<?=$rx->id?>"
+                        title="Preview post id <?=$rx->id?>"
+                     ><span class="btn btn-info"><?=$rx->id?></span>
+                       </a>
+                  </td>
+                </tr>
+              <?php 
+            } endwhile; ?>
+            </tbody>
+          </table>
+        </div><!-- E n d  T B L -->
+
+      </section>
+
+    </div><!--  class="grid" -->
+
+  </main><!-- Main Area End -->
 
 
-          <td>
-            <a href="<?=$pp1->editpost?>id/<?=$rx->id?>"><span class="btn btn-warning"> Ed</span></a>
-            <!--   -->
-          </td>
-          <td>
-            <!--   -->
-           <a id="erase_row" class="btn btn-danger"
-              onclick="var yes ; yes = jsmsgyn('Erase row <?=$rx->id?>?','') ;
-              if (yes == '1') { location.href= '<?=$pp1->ldd_posts.$rx->id?>/'; }"
-           ><?=$rx->id?></a>
-          </td>
-          <!--td>
+   <?php 
+   require $pp1->shares_path . 'ftr.php';
 
-          </td-->
-          </tr>
-          <?php 
-        } endwhile;
-        ?>  <!--  Ending of  W h i l e  l o o p -->
-        </tbody>
-
-      </table>
-
-    </div><!-- E N D  d i v  o f  t b l-->
-
-  </div><!-- E N D  class="row"-->
-
-</section>
-<!-- Main Area End -->
+    return('1') ;
+  } //e n d  f n  s h o w
+}  //e n d  c l s

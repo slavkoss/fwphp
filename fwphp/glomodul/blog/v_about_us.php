@@ -10,14 +10,13 @@
 
     <!-- Main Area Start-->
     <div class="col-sm-8 ">
-      <h1>About us</h1>
-      <h1 class="lead">Responsive CMS Blog (PHP, PDO, Bootstrap 4, jQuery only for Bootstrap, no AJAX)</h1>
+      <h4>About us</h4>
 
         aaaaaaa  aaaaaa
 
       </div>
 
-      <?php require_once("home_side_area.php"); ?>
+      <?php //require_once("home_side_area.php"); ?>
     </div>
   </div>
 

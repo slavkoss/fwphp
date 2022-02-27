@@ -3,8 +3,9 @@
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_comment ;
 
-use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
+use B12phpfw\core\b12phpfw\Config_allsites    as utl ;
+use B12phpfw\core\b12phpfw\Db_allsites        as utldb ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_pcomment ;
 //use B12phpfw\module\blog\Home_ctr ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
@@ -18,31 +19,22 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 
 
 //               3. G U I  (FRM) to get user action
+    $title = 'Comments';
+    require_once $pp1->shares_path . 'hdr.php';  //require $pp1->shares_path . 'hdr.php';
+    require_once("navbar.php");
 ?>
     <!-- HEADER -->
-    <!--header class="bg-dark text-white py-3">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-          <h1><i class="fas fa-comments" style="color:#27aae1;"></i> Manage Comments</h1>
-          </div>
-        </div>
-      </div>
-    </header-->
     <!-- HEADER END -->
 
+     <!-- Main Area -->
+<main class="container">
+  <div class="grid">
 
-    <!-- Main Area Start -->
-<section class="container py-2 mb-4">
-  <div class="row" style="min-height:30px;">
-
-
-    <div class="bg-light col-lg-12" style="min-height:400px;">
+    <section>
+      <!--h4>Manage Comments</h4-->
       <?php
-       //echo utl::M sgErr();  echo utl::M sgSuccess();
        echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
        ?>
-
 
             <!-- ********************** -->
             <br /><h2 class="bg-dark">Un-Approved Comments</h2>
@@ -55,7 +47,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' 
+      $cursor_comments = Tbl_crud_pcomment::get_cursor($sellst='*' 
         , $qrywhere="status='OFF' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
@@ -118,7 +110,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' 
+      $cursor_comments = Tbl_crud_pcomment::get_cursor($sellst='*' 
         , $qrywhere="status='ON' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
@@ -162,13 +154,17 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
       </table>
 
 
-    </div><!-- E N D  d i v  o f  t b l-->
+    </section>
+
+  </div><!--  class="grid" -->
+
+</main><!-- Main Area End -->
 
 
-  </div>
+<?php require $pp1->shares_path . 'ftr.php'; ?>
 
-</section>
-<!--  Main Area End 
+
+<!--
                           //$sql = "S ELECT * FROM comments WHERE s tatus='ON' ORDER BY datetime desc";
                           //$this->p repareSQL($sql); $this->e xecute();;
                           //w hile ($rcom_approved = $this->f etchNext()) 

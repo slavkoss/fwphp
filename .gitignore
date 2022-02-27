@@ -6,3 +6,4 @@ composer.lock
 /vendor/b12phpfw/Dbconn_allsites_mysql_freehostingeu.php
 /vendor/b12phpfw/Dbconn_allsites_mysql_heliohost.php
 /vendor/b12phpfw/PHPmailer_ini.php
+/vendor/b12phpfw/img/img_big

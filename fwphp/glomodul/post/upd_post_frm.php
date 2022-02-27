@@ -43,8 +43,8 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
   <div class="row">
     <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
       <?php
-       echo utl::MsgErr();
-       echo utl::MsgSuccess();
+       //echo utl::MsgErr(); echo utl::MsgSuccess();
+       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
 
        // returns object :
        $rpost_toedit = Tbl_crud_post::rr_byid( $IdFromURL, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );

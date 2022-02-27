@@ -1,18 +1,29 @@
-# Simple PHP MVC Blog System
-
+# Simple PHP MVC Blog System 
+Tech info :
+- you need PHP 5.5 or higher to execute the script
+- create DB name/user and exucute "db.sql" first
+- To change the MySQL connection information, edit /Engine/Config.php
+- Admin login (email/password) is: test@test.com / pwd123
+- Navigation Tip. On the website, there is no logo or "Homepage" link. To come back to the homepage, please click on the "Simple Blog" link located in the bottom page
 
 ## Description
 
-This *PHP Blog System* has an MVC pattern, uses Traits (PHP 5.4), Namespace (PHP 5.3), Singleton pattern, PDO (PHP 5.1) and the new PHP Password Hashing feature (PHP 5.5).
+This *PHP Blog System* 
+1. has an MVC pattern,     
+2. uses Traits (PHP 5.4),    
+3. Namespace (PHP 5.3),       
+4. Singleton pattern,    
+5. PDO (PHP 5.1)      
+6. and the new PHP Password Hashing feature (PHP 5.5).
 
 The project was a *PHP Challenge Project* I have done.
 
 
 ## Why this MVC Blog System can be very Useful for You?
 
-If you need to code a simple website under a Professional and very nice/clean code (as I really enjoy doing), this script will be very useful in order to *start on good basis* and *save time and money*.
+If you need to code a SIMPLE WEBSITE under a PROFESSIONAL AND VERY NICE/CLEAN CODE (as I really enjoy doing), this script will be very useful in order to *start on good basis* and *save time and money*.
 
-However, if you need to build a blog system, again this project can be used as a *framework* to start your project easily under a *good development pattern* and *good development practice* and organization.
+However, if you need to BUILD A BLOG SYSTEM, again this project can be used as a *FRAMEWORK* TO START your project easily under a *GOOD DEVELOPMENT PATTERN* and *GOOD DEVELOPMENT PRACTICE* AND ORGANIZATION.
 
 
 ## Requirements that were Requested for the Project
@@ -35,10 +46,10 @@ However, if you need to build a blog system, again this project can be used as a
 
 #### The Backend
 
-* List of all the blog articles
-* Possibility to add a new blog article with a title and body. The title should allow a maximum of 50 characters
-* Possibility to edit an existing blog article
-* Possibility to delete an article
+* C Possibility to add a new blog article with a title and body. The title should allow a maximum of 50 characters
+* R List of all the blog articles
+* U Possibility to edit an existing blog article
+* D Possibility to delete an article
 * Logout feature for the admin user
 
 HTML and CSS code should be kept to the minimum needed to make the website functional – This project is purely to assess how you approach the problem and not how good it looks.

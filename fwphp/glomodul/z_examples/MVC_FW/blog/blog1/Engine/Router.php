@@ -6,6 +6,8 @@
  * @link             http://hizup.uk
  */
 
+//This is dispatcher - calls method in $aParams. Router finds $aParams from URL.
+
 namespace TestProject\Engine;
 
 class Router
@@ -22,7 +24,9 @@ class Router
             $sCtrl = $sNamespace . $sCtrl;
             $oCtrl = new $sCtrl;
 
-            if ((new \ReflectionClass($oCtrl))->hasMethod($aParams['act']) && (new \ReflectionMethod($oCtrl, $aParams['act']))->isPublic())
+            if ( (new \ReflectionClass($oCtrl))->hasMethod($aParams['act']) 
+                 && (new \ReflectionMethod($oCtrl, $aParams['act']))->isPublic()
+               )
                 call_user_func(array($oCtrl, $aParams['act']));
             else
                 call_user_func(array($oCtrl, 'notFound'));

@@ -45,7 +45,6 @@ if(isset($_POST["Submit"])){
         //if ($category_from_url) { echo ' - all ' . $category_from_url . ' articles' ;
         //} else {echo ' - all articles';} 
 
-       //echo utl::M sgErr();  echo utl::M sgSuccess();
        echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
 
       // SQL query when Searh button is active
@@ -88,9 +87,6 @@ if(isset($_POST["Submit"])){
 
 
       <!-- 1. p a g e  t i t l e -->
-
-
-      <h1 class="lead"><b><?=$t1?></b> Responsive CMS Blog (PHP 7 or 8, PDO, Bootstrap 5, jQuery only for Bootstrap, no AJAX, MySQL or Oracle or...)</h1>
 
       <?php
       //echo $pgn_links['navbar'];
@@ -332,6 +328,7 @@ if(isset($_POST["Submit"])){
 
 
 
+<?php
 /**
 *  <!-- *****************************************************
 * P o s t Part Start (DETAIL OF U S E R  AND  P O S T T Y P E) 
@@ -340,9 +337,8 @@ if(isset($_POST["Submit"])){
 // $title = 'Full Post Page' ;
  //require_once($pp1->shares_path.'hdr.php');
 // require_once("navbar.php");
-?>
 
-<?php
+
 /* ?>
 <!-- HEADER -->
 <div class="container">

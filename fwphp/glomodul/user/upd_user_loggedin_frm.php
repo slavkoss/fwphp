@@ -8,7 +8,7 @@ use B12phpfw\dbadapter\user\Tbl_crud as utl_module;  //to Login_ Confirm_ SesUsr
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
 // Why i n c  h d r  and  f t r  must be here - in  v i e w  script :
-//Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\navbar_admin.php:26) in J:\awww\www\b12phpfw\Config_allsites.php on line 306
+//Warning: Cannot modify header information - headers already sent by (output started at J:\awww\www\fwphp\glomodul\user\n avbar.php:26) in J:\awww\www\b12phpfw\Config_allsites.php on line 306
                          //var_dump($_SESSION);
 //$AdminId = (int)$pp1->uriq->id ;
 $AdminId = (int)$_SESSION["userid"];
@@ -28,7 +28,7 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 
 
       require $pp1->shares_path . 'hdr.php';
-      require_once("navbar_admin.php");
+      require_once("navbar.php");
 ?>
 <!-- HEADER -->
 <header class="bg-dark text-white py-3">

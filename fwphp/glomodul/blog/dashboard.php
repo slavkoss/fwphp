@@ -18,7 +18,7 @@ use B12phpfw\dbadapter\user\Tbl_crud          as Tbl_crud_user ;
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
 
-class Dashboard extends utl
+class z_Dashboard extends utl // no more
 {
   public function __construct(object $pp1) 
   {

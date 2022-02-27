@@ -5,7 +5,7 @@ namespace B12phpfw\module\user ;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\module\user\Cre               as cre ;
 use B12phpfw\module\user\Upd               as upd ;
-use B12phpfw\dbadapter\user\Tbl_crud       as utl_module;  //to Login_ Confirm_ SesUsrId
+use B12phpfw\dbadapter\user\Tbl_crud       as utl_module;  //middleware to Login_ Confirm_ SesUsrId
 use B12phpfw\dbadapter\user\Home           as Home_view ;
 
 
@@ -21,7 +21,7 @@ class Home_ctr extends utl
                         }
     if (!defined('QS')) define('QS', '?');
     /**
-    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
+    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key => keyvalue pairs :
     *  ------------------------------------------------------------------------------
      * LINKALIAS          URLurlqrystring                CALLED METHOD
      * IN VIEW SCRIPT     IN H ome_ ctr                   IN H ome_ ctr
@@ -38,7 +38,7 @@ class Home_ctr extends utl
       ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/' //also profile
       , 'uu_frm'          => QS.'i/uu_frm/id/' 
       //
-      ,'sitehome'   => QS.'i/sitehome/' //$pp1->sitehome
+      ,'sitehome'   => QS.'i/sitehome/' //$pp1->s itehome
       //in home.php onclick does j s m s g y n dialog,  home_fn "d" calls dd() (no need include script)
       // -------------------------
       ,'loginfrm' => QS.'i/loginfrm/'
@@ -75,15 +75,17 @@ class Home_ctr extends utl
           //$accessor = "get" . ucfirst(strtolower($akc));
   protected function call_module_method(string $akc, object $pp1)  //fnname, params
   {
-    //This fn calls fn $ a k c in H ome_ ctr which has parameters in  $ p p 1
+    // This fn is called from router in Config_ allsites, see how below
+    // This fn calls fn $ a k c in H ome_ ctr which has parameters in  $ p p 1
     if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
       return $this->$akc($pp1) ;
     } else {
       echo '<h3>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>' ;
       echo 'Home_ ctr  m e t h o d  "<b>'. $akc .'</b>" is not callable.' ;
-      
-      echo '<br><br>See how is created  m e t h o d  name  $ a k c  in abstract class Config_ allsites, m ethod __c onstruct :<br>
-      $this->call_module_method($akc, $pp1) ; //protected fn (in child cls Home_ ctr) calls private fns (in child cls Home_ ctr)
+      echo '<br><br>See how is created  m e t h o d  name  $ a k c  
+         in abstract class Config_ allsites, m ethod __c onstruct :<br>
+         //protected fn (in child cls Home_ ctr) calls private fns (in child cls Home_ ctr) :
+         $this->call_module_method($akc, $pp1) ; 
       ' ;
       return '0' ;
     }
@@ -126,20 +128,10 @@ class Home_ctr extends utl
   }
 
 
-  //public function home_usr(object $pp1)
-  //{
-  //  $this->home($pp1) ;
-  //} 
   public function home(object $pp1)
   {
-    //        t b l  r e a d, display
-      $title = 'USER CRud';
-                            //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php'; //Warning: Cannot modify header information
-        require("navbar_admin.php");
-        //require $pp1->module_path . 'home.php';
-        home::displ($pp1) ;  //require $pp1->module_path . 'home.php';
-        //require $pp1->module_path . 'ftr.php';
-                            //require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+      // t b l  r e a d, display
+      Home::displ($pp1) ;
   }
 
   public function sitehome(object $pp1)
@@ -154,10 +146,9 @@ class Home_ctr extends utl
   public function read_row(object $pp1)
   {
     //r o w  r e a d
-      $title = 'USER SHOW PROFILE (cRud)';
+      $title = 'USER PROFILE (cRud)';
       $css1 = 'NO';
       require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
-        //require_once("navbar.php");
         require $pp1->module_path . 'read.php';
       require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
   }
@@ -175,11 +166,7 @@ class Home_ctr extends utl
 
   private function loginfrm(object $pp1) //private
   {
-    //called from link, Config_ allsites based on url (calling link) calls  f n  l o g i n
-      //require $pp1->shares_path . 'hdr.php';
-                //require $pp1->module_path . '../user/login_frm.php';  
       require $pp1->module_path . 'login_frm.php';  
-      //require $pp1->shares_path . 'ftr.php';
   }
 
   private function login(object $pp1) //private
@@ -202,7 +189,7 @@ class Home_ctr extends utl
       $title = 'USER UPDATE';
       utl::Login_Confirm_SesUsrId(); //$this
                 //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
-                //require_once("navbar_admin.php");
+                //require_once("navbar.php");
         require $pp1->module_path . 'upd_user_loggedin_frm.php';  
       //require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
   }
@@ -211,7 +198,7 @@ class Home_ctr extends utl
   {
     //LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
       $title = 'USER UPDATE';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
+      require $pp1->wsroot_path . 'vendor/b12phpfw/h dr.php';
         //require_once("navbar.php");
         require $pp1->module_path . 'update.php';
       require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';

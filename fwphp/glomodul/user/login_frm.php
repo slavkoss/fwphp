@@ -2,6 +2,7 @@
 // J:\awww\www\fwphp\glomodul4\blog\login_frm.php
 //namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 namespace B12phpfw\module\user ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
                 if ('1') {self::jsmsg( [ //basename(__FILE__).
                    __FILE__ .', line '. __LINE__ .' SAYS'=>''
@@ -49,10 +50,11 @@ else { $username = $_SESSION['username'] ; }
 
 
 $title = 'Log in' ;
-      require $pp1->shares_path . 'hdr.php';
+require_once $pp1->shares_path . 'hdr.php';
+require_once("navbar.php");
 ?>
   <!-- NAVBAR -->
-<div style="height:10px; background:#27aae1;"></div>
+<!--div style="height:10px; background:#27aae1;"></div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -64,43 +66,38 @@ $title = 'Log in' ;
       </div>
     </div>
 </nav>
-<div style="height:10px; background:#27aae1;"></div>
+<div style="height:10px; background:#27aae1;"></div-->
 <!-- NAVBAR END -->
 
 <!-- HEADER -->
-<header class="bg-dark text-white py-3">
+<!--header class="bg-dark text-white py-3">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
           </div>
         </div>
       </div>
-</header>
+</header-->
 <!-- HEADER END -->
 
 
 <!-- Main Area Start -->
-<section class="container py-2 mb-4">
-  <div class="row">
-    <div class="offset-sm-3 col-sm-6" style="min-height:500px;">
-      <br><br><br>
+    <!-- Main -->
+<main class="container">
+  <div class="grid">
+
+    <section>
           <?php
            echo (isset($_SESSION["MsgErr"])?$_SESSION["MsgErr"]:'' );
            echo (isset($_SESSION["MsgSuccess"])?$_SESSION["MsgSuccess"]:'' );
            ?>
-      <div class="card bg-secondary text-light">
-        <div class="card-header">
-              <h4>Wellcome Back !</h4>
-        </div>
-
-        <div class="card-body bg-dark">
-
-
+      <div>
+        <!--h4>Wellcome Back !</h4-->
 
           <form class="" action="<?=$pp1->login?>" method="post">
 
             <div class="form-group">
-              <label for="username"><span class="FieldInfo">USERNAME eg a or w (first add such user Tables->Admins page or in in phpMyAdmin) :</span></label>
+              <label for="username"><span class="FieldInfo">USERNAME eg a or w (first add user Tables->Admins page or in phpMyAdmin) :</span></label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text text-white bg-info"> 
@@ -130,10 +127,18 @@ $title = 'Log in' ;
 
 
 
-        </div><!--div class="card-body bg-dark"-->
-      </div><!--div class="card bg-secondary text-light"-->
-    </div><!--div class="offset-sm-3 col-sm-6" style="min-height:500px;"-->
-  </div><!--div class="row"-->
-</section><!--section class="container py-2 mb-4"-->
+
+      </div><!--e n d  f o r m-->
+    </section>
+
+
+        <!--aside>
+
+        </aside-->
+
+  </div><!-- grid -->
+</main><!-- Main -->
 <!-- Main Area End -->
+
+
 <?php  require $pp1->shares_path . 'ftr.php'; ?>

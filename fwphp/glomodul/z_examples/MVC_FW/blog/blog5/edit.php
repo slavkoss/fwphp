@@ -1,7 +1,7 @@
-<?php include('header.php'); ?>
+<?php include('hdr.php'); ?>
 <?php include('session.php'); ?>
 <?php   
-//include('functions/functions.php');
+//include('f unctions.php');
 include('post.php');
 $posts = new Post($db);
 

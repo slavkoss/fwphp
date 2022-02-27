@@ -18,8 +18,8 @@
             <input type="text" name="title" id="title" value="<?=htmlspecialchars($this->oPost->title)?>" required="required" />
         </p>
 
-        <p><label for="body">Body:</label><br />
-            <textarea name="body" id="body" rows="5" cols="35" required="required"><?=htmlspecialchars($this->oPost->body)?></textarea>
+        <p><label for="post">Body:</label><br />
+            <textarea name="post" id="post" rows="5" cols="35" required="required"><?=htmlspecialchars($this->oPost->post)?></textarea>
         </p>
 
         <p><input type="submit" name="edit_submit" value="Update" /></p>

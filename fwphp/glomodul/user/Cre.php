@@ -83,7 +83,7 @@ class Cre extends utl
   { 
     //Warning: Cannot modify header information :
     require $pp1->shares_path . 'hdr.php';
-    require_once("navbar_admin.php");
+    require_once("navbar.php");
 
     //        2. G U I  to get user action
     ?>

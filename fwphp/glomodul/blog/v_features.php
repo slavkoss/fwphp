@@ -9,8 +9,7 @@
 
     <!-- Main Area Start-->
     <div class="col-sm-8 ">
-      <h1>Blog module features</h1>
-      <h1 class="lead">Responsive CMS Blog (PHP, PDO, Bootstrap 4, jQuery only for Bootstrap, no AJAX)</h1>
+      <h4>Blog module features</h4>
 
 
         Real life site code examples. PHP WEB modules like Oracle Forms, ee each module in own dir (not three dirs M, V, C for all modules) - it is not easy to see need to eg for user module convert code from procedural MVC to OOP MVC with namespaces and autoloading like my fwphp modules : main mnu fwphp\www5 and op.system files cRUd fwphp\glomodul4\mkd (c and d we do in op.system, not in mkd !). 
@@ -18,6 +17,6 @@
 
       </div>
 
-      <?php require_once("home_side_area.php"); ?>
+      <?php //require_once("home_side_area.php"); ?>
     </div>
 </div>

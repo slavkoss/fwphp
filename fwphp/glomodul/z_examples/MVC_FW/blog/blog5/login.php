@@ -1,4 +1,4 @@
-<?php include('header.php'); ?>
+<?php include('hdr.php'); ?>
 <?php include('Account.php');  ?>
 
 <?php
@@ -19,12 +19,12 @@ if(isset($_POST['btnLogin'])){
 		<h4>Admin Login</h4>
 		<div class="col-md-4">
 			<div class="form-group">
-				<label for="username">Username</label>
-				<input type="text" name="username" class="form-control" placeholder="username...">
+				<label for="username">Username (john)</label>
+				<input type="text" name="username" class="form-control" placeholder="username..." value="john">
 			</div>
 			<div class="form-group">
-				<label for="password">password</label>
-				<input type="password" name="password" class="form-control" placeholder="password...">
+				<label for="password">password (john123)</label>
+				<input type="password" name="password" class="form-control" placeholder="password..."  value="john123">
 			</div>
 			<div class="form-group">
 				<button type="submit" name="btnLogin" class="btn btn-success">Login</button>
