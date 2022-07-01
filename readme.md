@@ -11,7 +11,11 @@ CRUD module example code 7 scripts:
 
 
 
-**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with XAMPP  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP**. Framework core <DOCROOT>\vendor\b12phpfw\ is ~ 80 kB (my DOCROOT is J:\awww\www).
+**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with XAMPP  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP** (but no production installation). 
+
+Framework core WEBSERVERDOCROOT\vendor\b12phpfw\\    is ~ 80 kB (my WEBSERVERDOCROOT is J:\awww\www).
+
+
 ## 1\.1 Demo sites - free hosting with free Mysql
 See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/54) or [here](http://phporacle.heliohost.org/fwphp/glomodul/blog/?i/read_post/id/54)
 1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - thanks for removing time limit. 
@@ -42,22 +46,6 @@ Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
     1. create database z_blogcms  
     2. import in My SQL J:\awww\www\01_DDL_mysql_blog.sql 
 
-
-
-<br />
-
-```
-
-         _.-'''''-._
-       .'  _     _  '.
-      /   (o)   (o)   \
-     |                 |
-     |  \           /  |
-      \  '.       .'  /
-       '.  ''---''  .'
-         '-._____.-' 
-
-```
 
 
 
@@ -156,10 +144,10 @@ Save your .git/config before, and restore it after. (I delete it in recycle bin)
 
 My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possible) :
 
-1.  Laragon portable (PHP, Apache, Mariadb or MySQL) on Windows 10 64 bit instead XAMPP, WAMP, ZWAMP...      
+1.  [xampp](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.1.6/)      
    
-2.  **EDITOR**: **npp (Notepad++)** (7 MB).       
-   **Notepad++ Markdown plugin https://github.com/nea/MarkdownViewerPlusPlus**      
+2.  **EDITOR**: Symenu\'s **npp (Notepad++)** (7 MB).       
+   **[Notepad++ Markdown plugin](https://github.com/nea/MarkdownViewerPlusPlus)**      
    Copy tMarkdownViewerPlusPlus.dll to the plugins sub-folder at your Notepad++ installation directory.     
    The plugin adds a small Markdown icon to the toolbar to toggle the viewer as dockable panel.     
    Then in npp Settings -> Import -> Import plugin(s).     
@@ -167,12 +155,11 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
    See in J:\\awww\www\\  GLOBALS  nppsess file and other nppsess files.
    
    MD to HTML converters on inet :     
-   1. **Notepad++ plugin https://github.com/nea/MarkdownViewerPlusPlus** then in npp Settings -> Import -> Import plugin(s)     
-   2. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**     
+   1. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**     
    3. or (many converters)   https://www.browserling.com/tools/markdown-to-html      
    4. or files convert to many formats :  https://products.aspose.app/pdf/conversion/md-to-html      
    
-   Also good, all portable : Notepad2-mod (2 MB), Atom (524 MB),       
+   Also good, all portable all in Symenu : Notepad2-mod (2 MB), Atom (524 MB),       
    Visual Studio Code (247 MB),  CudaText (28 MB), PSPad (23 MB), RJ TextEd (416 MB),       
    HTML WYSIWYG editors :  **Microsoft Expression web** (abandoned but still good).     
    I avoid Dreamveawer, Komposer (abandoned, too old).        
@@ -186,35 +173,35 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
 
 4.  **BROWSER**: **Firefox (portable in Symenu collection)**, Google Chrome, Cyberfox, Pale Moon     
    
-5.  **DEPLOY (INSTALL)**: **Cmder** (in Symenu) is Win CMD line, has Git.
-   Composer.
-   FTP client **Winscp**.  Ignore : ` | *.zip; J:\awww\www\.git; J:\awww\www\vendor/B12phpfw/Dbconn_allsites.php`;
+5.  **DEPLOY (INSTALL)**: **Cmder** (in Symenu) is Win CMD line, has Git.    
+   Composer.    
+   FTP client **Winscp**.  Ignore :  | *.zip; J:\awww\www\.git; J:\awww\www\vendor/B12phpfw/Dbconn_allsites.php;    
+   FTP server Symenu\'s  Serva Community
+
+
+### Other tools
+
+[PHP Manual](https://www.php.net/manual/en/index.php)
+
+[PHP Style Guide](https://gist.github.com/ryansechrest/8138375)
+
+[PHP tutorial by W3Schools](https://www.w3schools.com/php/)
+
+[Composer](https://getcomposer.org/) helps you declare, manage, and install dependencies of PHP projects.
+
+[Guzzle](https://github.com/guzzle/guzzle) is a PHP HTTP client that makes it easy to send HTTP requests and trivial to integrate with web services.
+
+[DesignPatternsPHP](https://designpatternsphp.readthedocs.io/) is a collection of known design patterns and some sample code how to implement them in PHP 7.4. Every pattern has a small list of examples.
+
+[Grav](https://getgrav.org/) portable flat-file CMS with powerful Package Management System of plugins and themes and Grav itself.
+
+[PHP Guide](https://github.com/mikeroyal/PHP-Guide)
+   
+   
     
 
-##  1\.2\.a 3\. [Composer](https://getcomposer.org/download/)
 
-I use Laragon portable laragon.7z, 19 MB on newest Windows 10, 64 bit. Not any more xampp-portable-windows-x64-7.3.7-1-VC15.7z, 79 MB. WAMP not any more because is not fully portable,  Composer needs coding displayed below and it is only for Windows. It seems WAMP is not giving newest/simplest solutions as Laragon does.
-
-        WAMP does not like PHP in Windows PATH variable, so :
-        1. I installed Composer-Setup.exe and removed PHP from PATH. 
-        2. **C:\composer\composer7.bat** :
-        ```
-        @echo OFF  
-        :: in case DelayedExpansion is on and a path contains ! 
-        setlocal DISABLEDELAYEDEXPANSION
-        J:\wamp64\bin\php\php7.2.9\php.exe "%~dp0composer.phar" %*
-        ```
-        Save file along with the originally installed composer.bat file.
-    
-        3. Now call the php7 composer with the new command:
-        ```
-        In Windows CLI, cd J:\awww\www and as admin : 
-           composer7 selfupdate   (1.8.4, 2019-02-25, Use composer self-update --rollback to return to version 1.7.3)
-           composer7 update
-        ```
-
-
-## 1\.2\.a 4\. Free hosting with free MySql (or Mariadb) DB
+## 1\.2\.a 3\. Free hosting with free MySql (or Mariadb) DB
 **Demo site** free hosting where blog (msg) module is installed **http://phporacle.eu5.net/ (freehostingeu) or  http://phporacle.heliohost.org/ (heliohost) **. Some details are to do in version 6.1 but all important is visible in version 6.0.      
 I do not like heliohost activity requirement: "you must visit your site each month" or will be suspended for inactivity after 30 days. They should allow for ever free sites useful for sharing knowledge. I like heliohost simple, clever, very useful pages. I do not like freehostingeu feature "upload zip files not allowed".   
 
@@ -237,146 +224,19 @@ Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/
 
 
 <br /><br /><br />
-## Explanations below are far less important than demo site and installation mentioned above - open code and learn it.
+```
 
+         _.-'''''-._
+       .'  _     _  '.
+      /   (o)   (o)   \
+     |                 |
+     |  \           /  |
+      \  '.       .'  /
+       '.  ''---''  .'
+         '-._____.-' 
 
-Code is small and simple but needs :      
-> few hours (advanced user) - days (intermediate) - weeks/months (beginner) to understand it.           
-**Understand code is must for any good code skeleton !**       
-
-> **Clean code** : "Any fool can write code that a computer can understand. Good programmers write code that humans can understand." (Martin Fowler).
-> 
-> When you are dead, you don't know that you are dead. It is difﬁcult only for the others. It is the same when you are lazy (or stupid).
-> 
-> "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live." (John Woods).
-> adapter
-> "Clean code reads like well-written prose" (Grady Booch). Good code reads close to natural speech.
-
-> **Naming** is the best tool we have to express what we do in code (avoid comments). Classes and variables are nouns: Price, CurrentTrade. Booleans are predicates: isScheduled, isRunning. Methods should start with a verb: getStrategyResult, createStrategyResult. Common naming errors : Very small names ( $tr, dd() ),
-Names that are not real words ($dgrtty), Methods that are nouns.
-
-
-
-
-<br /><br /><br /><br />
-## 1\.3 Project notable goals  - reasons
-Notable package does something special, is also frequently innovative. 
-
-1. I developed B12phpfw in my free time (my work for last 20 years was :  Oracle Forms & Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend      
-    because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".     
-    - https://github.com/panique/mini3 is good but to simple.      
-    - OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram (Udemy) is good but older programming style
-    - other books / videos / inet tutorials same plus routing to complicated, does not work... (authors understand own code ?). 
-      Slim routing if app is below web server doc root is not clear before 2021 year version !
-   
-2. B12phpfw is good for developing **large sites** (more of them under web server root dir. path).
-
-3. ***Innovative*** is : 
-   1. each module in own folder like Oracle Forms \>= 6i form, Blazor and APEX pages ee no M,V,C folders
-   2. routing : URL parts in key-keyvalue form
-   3. dispatching : call or include like https://github.com/panique/mini3
-   4. **simple module** - one table CRUD eg "users" table or **compound module** - more tables CRUD eg my msg (Blog) module or invoice... 
-
-4. Compared to all PHP frameworks and learning sources  : 
-   1. clean code, easier to understand (as much as possible)
-   2. smallest code
-   3. reusable (**globals on site level or below** - shares, commons, includes)
-   4. namespaces for autoloading classes scripts - own solution
-   5. routing (URL disassembled in parts in key-value form) and dispatching (call or include) - own solution
-   6. PHP PDO CRUD (Create, Read, Upd, Del) on **any DB** - own solution
-       1. **simple module** eg "users" table rows 
-       2. or **compound module** eg my msg (Blog) module or invoice... 
-   7. own debugging to find logical errors (Xdebug is not enough - shows only sintax errors) - own solution
-   
-5. Based on best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples, where :    
-    1. my [web server root dir. path] is J:/awww/www/ which contains vendor folder
-    2.  fwphp is site dir     
-    3. glomodul dir is group of modules    
-    4. z_examples dir is subgroup of modules  
-    https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
-
-Conclusion : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **do not nead B12phpfw** code skeleton, but I did it.     
-
-**Includes and method calls instead URL jumps (http// jump to pages)** - this is interesting question. http// jump to pages in B12phpfw is used only to jump somethimes  in other module.
-
-
-
-<br /><br /><br /><br />
-## 1\.4 To do - done
-
-Done : 
-1. Code logic like Oracle Forms.
-2. Modules mnu (main menu), msg (blog), mkd (WYSIWYG markdown editor, with Simplemde or with Summernote HTML).
-3. FUNCTIONAL namespaces - last part is **module folder name**, parts before last part code ignores, should be **functionality description** :    
-    1. namespace B12phpfw\\core\\b12phpfw       **shares** in b12phpfw dir
-    2. namespace B12phpfw\\site_home\\www ;   **Mnu** module
-    3. namespace B12phpfw\\module\\blog ;         **Msg** module      
-    4. namespace B12phpfw\flatFilesEd\\mkd ;     **Mkd** module
-    Namespace last part and class name concatenated to some dir in index.php gives class script path to automatic include - see below Autoload class code.
-4. CRUD PDO trait
-5. pretty URL-s only php, without web server magic
-
-I not intend to do :
-1. TO DO Grid with updatable fields, I think, is not needed, but could be useful.
-2. TO DO No charts - see other learning sources.  
-3. TO DO Details like data formats (**page fields should be all characters** like in Oracle APEX), computations... are easy to find in other learning sources.  
-4. TO DO More security.
-
-Difficult parts are : 
-1. **DONE** Navigation - links - I think this is ok.
-2. TO DO PDO CRUD for more DBI eg : MySQL (DONE), Oracle (DONE)... or TO DO any DB with DB adapter code like for MySQL and Oracle. 
-       I did only basic code - is working - should be improved.   
-3. Tables : sorting, cols filtering, rows filtering. I have only basic code - working - should be improved.      
-
-### TO DO / DONE :
-
-version 8.0.0.0 means (https://semver.org/) :     
-- 8 is main ver. (refactored core code)
-- 1st 0 is MAJOR incompatible API changes eg DB change
-- 2nd 0 is MINOR backwards compatible code change
-- 3rd 0 is PATCH  ee error correction change
-
-November 2021. Current version code is 8.  Msg module version 8 is not finished, but is visible what should be done during next few months (Mkd ver. 8 was finished in half hour, Mnu simmilar, Msg needs much more time because of bootstrap 5, improve CRUD sintax...).     
-See http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) how it should work.    
-
-What’s new in version 8.1.0.0 :       
-User (TODO: or any) module may be caled from blog module so http://dev1:8083/fwphp/glomodul/blog/?i/home/p/1/ -> login -> tables (dashboard) ->admins       
-but also **independent of some compound module** so :  http://dev1:8083/fwphp/glomodul/user/ .      
-
-What’s new in version 8.0.0.0 :      
-
-1. **Autoload.php** is refactored, much simpler, see old z_NOT_USED_TO_COMPLICATED_Autoload_1stVersion.php
-    This is good case showing that first code versions are to complicated code – very frequent case – which is one of reasons why I have 8 versions.
-2. **Shares** are not any more in /zinc folder but in in /vendor folder eg shared class /vendor/b12phpfw/Autoload.php (below web server doc root eg J:\awww\www\). 
-    Site root(s) are on same place in folders hierarchy eg \fwphp (may be named site_x). 
-    Also group of modules are on same place in folders hierarchy eg  \fwphp\glomodul. 
-    Also modules are on same place in folders hierarchy eg  \fwphp\glomodul\blog – dir like oracle Forms form module.
-3. **Views are classes** - clearer and cleaner code than **include scripts and URL jumps** - eg Upd class as include script was complicated.
-4. Improve CRUD sintax - **Tbl_crud** DB adapters in module dirs should contain most code which is now in view scripts. 
-    Global code snippets are in global methods where possible.
-5. Improve **links aliases** in Home_ctr and in view scripts
-6. **PHP 8** (ver. 7 still works) and **Bootsrap 5**
-
-2021.08.28 ver 7.0.5 : I added  **folder (module) WEBSERVERROOT/fwphp/glomodul/img_gallery**     
-    J:\\awww\\www is my WEBSERVERROOT.    
-    J:\\awww\\www\\fwphp is MYDEVSITEROOT1. You may have more MYDEVSITEROOT2, 3... See how in **WEBSERVERROOT/index_laragon.php** script.    
-    glomodul is group of folders - modules which are not 01mater or 02financ or 03...  glomodul may be named othermodules.     
-    img_gallery module is **first lesson** about (theory behind) code skeleton (application architecture) B12phpfw     
-    
-
-2020.09.30 **DONE version 7.0.0.0** 
-    1. declare(strict_types=1) ; - PHP 7
-    2.  DBI improved : **trait Db_allsites** instead class Db_allsites. 
-    3. Each DB table (persistent storage) has adapter **class Tbl_crud :**  which uses B12phpfw\core\vendor/B12phpfw\Db_allsites  and  implements Interf_Tbl_crud
-       This means that :
-       1. Module's views or ctrs, eg blog module (see blog folder) work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
-       2. class Home_ctr extends class Config_allsites. ( **Logically all is in Home_ctr**).
-
-
-2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\vendor/b12phpfw\Config_allsites.php :  
-Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
-No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
-    
+```
+## Explanations below are far less important than installation and demo site mentioned above - open code and learn it.
 
 
 
@@ -389,7 +249,7 @@ and bad explained in all PHP frameworks and learning sources.
 
 
 <br><br><br><a name="uml"></a>
-#### 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
+# 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
 [Top](#top)......[Dirs](#directories).....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
 #### Adapters (implementations - classes or methods) depend on interfaces (features, ports)
@@ -401,8 +261,9 @@ and bad explained in all PHP frameworks and learning sources.
 
 # B12phpfw core 
 ## 1\.6 1a. DBI (DB interface, DB adapter):
-TRAIT, NO MORE in ver. 7 Dbconn_allsites abstract cls : DB CONNECT
-B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)
+TRAIT, (NO MORE since ver. 7 Dbconn_allsites abstract cls) : DB CONNECT
+B12PHPFW CORE CODE. 
+LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)
 
 
 -----
@@ -441,7 +302,7 @@ Was abstract class. **Trait is simmilar to class**, but **some class may use mor
 
 
 
-**Attributes**
+## Attributes
 ```php
 // J:\awww\www\vendor\b12phpfw\Db_allsites.php
 declare(strict_types=1);
@@ -468,7 +329,7 @@ trait Db_allsites  // may be named AbstractEntity :
 
 
 
-**Methods** in J:\awww\www\vendor\b12phpfw\Db_allsites.php (12 hits)
+## Methods in J:\awww\www\vendor\b12phpfw\Db_allsites.php (12 hits)
 ```
 	Line 21:   static public function get_or_new_dball(string $called_from ='**UNKNOWN CALLER**')
 	Line 66:   static public function closeDBConn()
@@ -505,7 +366,7 @@ B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL
 
 
 
- **Attributes**  
+## Attributes 
 ```php
 /**
 *  J:\awww\www\b12phpfw\Config_ allsites.php
@@ -538,7 +399,7 @@ abstract class Config_allsites //extends Db_ allsites
 
 
 
-**Methods** in cls file Config_allsites.php (18 fns) **less than 250 important lines**
+## Methods in cls file Config_allsites.php (18 fns) **less than 250 important lines**
 1.   public function \_\_construct(object $pp1, array $pp1\_module)
      1. C H E C K  R E Q U I R E M E N T S
      2. DEFINE  A D R E S S E S  (NO CONSTANTS). Adresses = paths & relative paths
@@ -802,14 +663,14 @@ B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CR
 
 See Mini3 PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good coding). My **routing using key-values** is different but **dispatching using home class methods is based on Mini3**. 
 
-See very good coding (to simple examples and have no namespaces) : 
-1. https://github.com/ngrt/MVC_todo 
-2. or https://github.com/DawidYerginyan/simple-php-mvc/ 
+https://github.com/ngrt/MVC_todo - very good coding, shows usual routing idea (to simple example,no globals, no namespaces...) : 
+...\\glomodul\\z_examples\\MVC_FW\\ngrt_MVC_todo
+
 or many others, Google :  Github php framework
 
 
 
-3 modules  and some utilities :   
+B12phpfw has 3 modules  and some utilities :   
 1. Menus (**Mnu module**) are not based - no need, but can be based on B12phpfw which is best for CRUD modules like Oracle Forms form. 
 2. Most frequent (best ?) **Blog - msgs module** design today - Jazeb Akram, Abdul Wali, Edwin Diaz... I used it in Blog (Msg) module based on B12phpfw code skeleton
 3. WYSIWYG web editing : Markdown or HTML (**Mkd module** is not based - no need, but can be based on B12phpfw is used for blog posts or any txt file). Blog posts
@@ -2008,7 +1869,173 @@ To be sure, use DI or IoC with DIP.
 > 12 = steps of code flow must be clear, good explained.  **cs01 means code flow step 1.**       
 > phpfw = PHP framework = code skeleton for menus & CRUD (and many other functionalities,      
 
-I never understood enough fw authors explanations which is one of reasons why I do not believe them).   (font Century Gothic 16)      
+I never understood enough fw authors explanations which is one of reasons why I do not believe them).   
+
+
+<br /><br /><br /><br />
+Code is small and simple but needs :      
+> few hours (advanced user) - days (intermediate) - weeks/months (beginner) to understand it.           
+**Understand code is must for any good code skeleton !**       
+
+> **Clean code** : "Any fool can write code that a computer can understand. Good programmers write code that humans can understand." (Martin Fowler).
+> 
+> When you are dead, you don't know that you are dead. It is difﬁcult only for the others. It is the same when you are lazy (or stupid).
+> 
+> "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live." (John Woods).
+> adapter
+> "Clean code reads like well-written prose" (Grady Booch). Good code reads close to natural speech.
+
+> **Naming** is the best tool we have to express what we do in code (avoid comments). Classes and variables are nouns: Price, CurrentTrade. Booleans are predicates: isScheduled, isRunning. Methods should start with a verb: getStrategyResult, createStrategyResult. Common naming errors : Very small names ( $tr, dd() ),
+Names that are not real words ($dgrtty), Methods that are nouns.
+
+
+
+
+<br /><br /><br /><br />
+## 1\.3 Project notable goals  - reasons
+Notable package does something special, is also frequently innovative. 
+
+1. I developed B12phpfw in my free time (my work for last 20 years was :  Oracle Forms & Reports 6i and Crystal reports. We wanted migrate them to PHP - never happend      
+    because **I cound not find near so good** tool as abandoned Oracle Forms 6i - shame.  See also below "...compared to all PHP frameworks...".     
+    - https://github.com/panique/mini3 is good but to simple.      
+    - OOP PHP. CMS blog Video (7.7 GB) Jazeb Akram (Udemy) is good but older programming style
+    - other books / videos / inet tutorials same plus routing to complicated, does not work... (authors understand own code ?). 
+      Slim routing if app is below web server doc root is not clear before 2021 year version !
+   
+2. B12phpfw is good for developing **large sites** (more of them under web server root dir. path).
+
+3. ***Innovative*** is : 
+   1. each module in own folder like Oracle Forms \>= 6i form, Blazor and APEX pages ee no M,V,C folders
+   2. routing : URL parts in key-keyvalue form
+   3. dispatching : call or include like https://github.com/panique/mini3
+   4. **simple module** - one table CRUD eg "users" table or **compound module** - more tables CRUD eg my msg (Blog) module or invoice... 
+
+4. Compared to all PHP frameworks and learning sources  : 
+   1. clean code, easier to understand (as much as possible)
+   2. smallest code
+   3. reusable (**globals on site level or below** - shares, commons, includes)
+   4. namespaces for autoloading classes scripts - own solution
+   5. routing (URL disassembled in parts in key-value form) and dispatching (call or include) - own solution
+   6. PHP PDO CRUD (Create, Read, Upd, Del) on **any DB** - own solution
+       1. **simple module** eg "users" table rows 
+       2. or **compound module** eg my msg (Blog) module or invoice... 
+   7. own debugging to find logical errors (Xdebug is not enough - shows only sintax errors) - own solution
+   
+5. Based on best PHP learning code I could find. See [web server root dir. path]fwphp/glomodul/z_examples, where :    
+    1. my [web server root dir. path] is J:/awww/www/ which contains vendor folder
+    2.  fwphp is site dir     
+    3. glomodul dir is group of modules    
+    4. z_examples dir is subgroup of modules  
+    https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples - to do make them best possible.
+
+Conclusion : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, so it is **precisely B12phpCRUDfw**. For mnu and mkd markdown WYSIWYG editor and simmilar modules we **do not nead B12phpfw** code skeleton, but I did it.     
+
+**Includes and method calls instead URL jumps (http// jump to pages)** - this is interesting question. http// jump to pages in B12phpfw is used only to jump somethimes  in other module.
+
+
+
+<br /><br /><br /><br />
+## 1\.4 To do - done
+
+Done : 
+1. Code logic like Oracle Forms.
+2. Modules mnu (main menu), msg (blog), mkd (WYSIWYG markdown editor, with Simplemde or with Summernote HTML).
+3. FUNCTIONAL namespaces - last part is **module folder name**, parts before last part code ignores, should be **functionality description** :    
+    1. namespace B12phpfw\\core\\b12phpfw       **shares** in b12phpfw dir
+    2. namespace B12phpfw\\site_home\\www ;   **Mnu** module
+    3. namespace B12phpfw\\module\\blog ;         **Msg** module      
+    4. namespace B12phpfw\flatFilesEd\\mkd ;     **Mkd** module
+    Namespace last part and class name concatenated to some dir in index.php gives class script path to automatic include - see below Autoload class code.
+4. CRUD PDO trait
+5. pretty URL-s only php, without web server magic
+
+I not intend to do :
+1. TO DO Grid with updatable fields, I think, is not needed, but could be useful.
+2. TO DO No charts - see other learning sources.  
+3. TO DO Details like data formats (**page fields should be all characters** like in Oracle APEX), computations... are easy to find in other learning sources.  
+4. TO DO More security.
+
+Difficult parts are : 
+1. **DONE** Navigation - links - I think this is ok.
+2. TO DO PDO CRUD for more DBI eg : MySQL (DONE), Oracle (DONE)... or TO DO any DB with DB adapter code like for MySQL and Oracle. 
+       I did only basic code - is working - should be improved.   
+3. Tables : sorting, cols filtering, rows filtering. I have only basic code - working - should be improved.      
+
+### TO DO / DONE :
+
+version 8.0.0.0 means (https://semver.org/) :     
+- 8 is main ver. (refactored core code)
+- 1st 0 is MAJOR incompatible API changes eg DB change
+- 2nd 0 is MINOR backwards compatible code change
+- 3rd 0 is PATCH  ee error correction change
+
+November 2021. Current version code is 8.  Msg module version 8 is not finished, but is visible what should be done during next few months (Mkd ver. 8 was finished in half hour, Mnu simmilar, Msg needs much more time because of bootstrap 5, improve CRUD sintax...).     
+See http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) how it should work.    
+
+What’s new in version 8.1.0.0 :       
+User (TODO: or any) module may be caled from blog module so http://dev1:8083/fwphp/glomodul/blog/?i/home/p/1/ -> login -> tables (dashboard) ->admins       
+but also **independent of some compound module** so :  http://dev1:8083/fwphp/glomodul/user/ .      
+
+What’s new in version 8.0.0.0 :      
+
+1. **Autoload.php** is refactored, much simpler, see old z_NOT_USED_TO_COMPLICATED_Autoload_1stVersion.php
+    This is good case showing that first code versions are to complicated code – very frequent case – which is one of reasons why I have 8 versions.
+2. **Shares** are not any more in /zinc folder but in in /vendor folder eg shared class /vendor/b12phpfw/Autoload.php (below web server doc root eg J:\awww\www\). 
+    Site root(s) are on same place in folders hierarchy eg \fwphp (may be named site_x). 
+    Also group of modules are on same place in folders hierarchy eg  \fwphp\glomodul. 
+    Also modules are on same place in folders hierarchy eg  \fwphp\glomodul\blog – dir like oracle Forms form module.
+3. **Views are classes** - clearer and cleaner code than **include scripts and URL jumps** - eg Upd class as include script was complicated.
+4. Improve CRUD sintax - **Tbl_crud** DB adapters in module dirs should contain most code which is now in view scripts. 
+    Global code snippets are in global methods where possible.
+5. Improve **links aliases** in Home_ctr and in view scripts
+6. **PHP 8** (ver. 7 still works) and **Bootsrap 5**
+
+2021.08.28 ver 7.0.5 : I added  **folder (module) WEBSERVERROOT/fwphp/glomodul/img_gallery**     
+    J:\\awww\\www is my WEBSERVERROOT.    
+    J:\\awww\\www\\fwphp is MYDEVSITEROOT1. You may have more MYDEVSITEROOT2, 3... See how in **WEBSERVERROOT/index_laragon.php** script.    
+    glomodul is group of folders - modules which are not 01mater or 02financ or 03...  glomodul may be named othermodules.     
+    img_gallery module is **first lesson** about (theory behind) code skeleton (application architecture) B12phpfw     
+    
+
+2020.09.30 **DONE version 7.0.0.0** 
+    1. declare(strict_types=1) ; - PHP 7
+    2.  DBI improved : **trait Db_allsites** instead class Db_allsites. 
+    3. Each DB table (persistent storage) has adapter **class Tbl_crud :**  which uses B12phpfw\core\vendor/B12phpfw\Db_allsites  and  implements Interf_Tbl_crud
+       This means that :
+       1. Module's views or ctrs, eg blog module (see blog folder) work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's.
+       2. class Home_ctr extends class Config_allsites. ( **Logically all is in Home_ctr**).
+
+
+2020.09.05 **DONE** On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules)  :   DONE in wsroot_path\vendor/b12phpfw\Config_allsites.php :  
+Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);  
+No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;  
+    
+
+##  [xampp](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.1.6/)
+
+I use xampp-portable-windows-x64-8.1.5-0-VS16.7z  92 Mb on newest Windows 10, 64 bit.
+No more : Laragon portable laragon.7z, 19 MB.  No more WAMP because is not fully portable,  Composer needs coding displayed below and it is only for Windows. It seems WAMP and Laragon not giving newest/simplest solutions as xampp does.
+
+        WAMP does not like PHP in Windows PATH variable, so :
+        1. I installed Composer-Setup.exe and removed PHP from PATH. 
+        2. **C:\composer\composer7.bat** :
+        ```
+        @echo OFF  
+        :: in case DelayedExpansion is on and a path contains ! 
+        setlocal DISABLEDELAYEDEXPANSION
+        J:\wamp64\bin\php\php7.2.9\php.exe "%~dp0composer.phar" %*
+        ```
+        Save file along with the originally installed composer.bat file.
+    
+        3. Now call the php7 composer with the new command:
+        ```
+        In Windows CLI, cd J:\awww\www and as admin : 
+           composer7 selfupdate   (1.8.4, 2019-02-25, Use composer self-update --rollback to return to version 1.7.3)
+           composer7 update
+        ```
+
+
+
 
 ***  
 ## Links

@@ -559,6 +559,15 @@ if(isset($_POST["Submit"])){
         </form>
       </div> <!-- end div of form Comment -->
         <!-- Comment Part End -->
+
+
+
+
+
+
+
+
+
     </div> <!-- end div class="col-sm-8" -->
     <!-- Main Area End-->
 

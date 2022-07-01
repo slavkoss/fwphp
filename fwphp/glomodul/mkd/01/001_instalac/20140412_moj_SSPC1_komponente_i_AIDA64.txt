@@ -1,0 +1,433 @@
+Case - https://www.techpowerup.com/review/cooler-master-gladiator-600/===================it's cheaper version of the Cooler Master Storm Scout $70 US$ less than the CM Storm Sniper CM 150$Model:	Cooler Master Gladiator 600Case Type:	Mid towerNet Weight:	7 / 8.5 kg ; 15.4 / 18.7 poundsDimension (W x H x D):	202 x 440 x 485 mm ; 8 x 17.3 x 19.1 inchesMaterial:	SECC (case body) ; Mesh (front bazel) ; Electroplate (I/O Panel)Color:	BlackCooling System:	Top: 140 x 25 mm fan x 1 / 1200 RPM / 17 dBA (support 120 mm fan)Front: 120 x 25 mm Blue LED on / off fan x 1 / 1200 RPM / 19 dBA (support 140 mm fan)Side: 120 / 140 mm fan x 2 (optional)Rear: 120 mm fan x 1 (optional)Motherboards:	Micro-ATX/ATXDrive Bays:	5 x 5.25" Exposed (without the use of exposed 3.5 inch Drive Bay), 5x 3.5" Hidden & 1x 3.5" Exposed (converted from one 5.25 inch Drive Bay)Front I/O:	USB2.0 x 2; eSATA x 1; Mic x 1; HD Audio+AC’97 x 1Expansion Slots:	7 + 1+==========Affordable case, with clean designGood interior layoutInteresting choice for entry level gamersSilent operation of fansSwitch to toggle the fan LEDs    Dust filter for PSU included    Sturdy handle to carry the case aroundSolid plastic sliding locks for the external drivesSimple but well constructed rail system for hard drives    Dust filter for the entire front of the chassisFan lighting can be turned off with a push of a buttonCutout in mainboard tray for backplate installation without mainboard removalWell packaged-==========Top fan blocks access to connectors of mainboardScrew-less system for optical drives does not hold perfectly.Many openings in the case do not have dust filtersNo rear fan includedClips to hold expansion cards in place won't manage large and heavy cards------------------Overview------------------
+Processor : Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz
+Memory : 8109MB(1333)
+Mother Board : Z68AP-D3
+Windows Version : Microsoft Windows 8.1 Pro
+Installation Date : 2014-01-17
+Monitor : Default Monitor
+Video Adapter : Intel(R) HD Graphics 3000
+Mouse : Logitech HID-compliant Cordless Mouse
+Keyboard : USB Input Device
+Disk Drive : WDC WD1002FAEX-00Y9A0(931GB,IDE)
+DVD/CD-ROM Drive : DTSOFT Virtual CdRom Device
+------------------Overview------------------
+Processor : Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz
+Memory : 8109MB(1333)
+Mother Board : Z68AP-D3
+Windows Version : Microsoft Windows 8.1 Pro
+Installation Date : 2014-01-17
+Monitor : Default Monitor
+Video Adapter : Intel(R) HD Graphics 3000
+Mouse : Logitech HID-compliant Cordless Mouse
+Keyboard : USB Input Device
+Disk Drive : WDC WD1002FAEX-00Y9A0(931GB,IDE)
+DVD/CD-ROM Drive : DTSOFT Virtual CdRom Device
+------------------Operating System------------------
+OS Name : Microsoft Windows 8.1 Pro
+OS Language : Croatian (Croatia)
+OS Version : 6.3.9600
+Registered Owner : ss
+Registered Organization : 
+Product ID : 00261-50000-00000-AA989
+Product Key : VKTXG-GXXY3-W97QP-GP4PV-PWD3K
+OS Installation Date : 20140117234127.000000+060
+OS Root : C:\Windows
+Computer Name : SSPC
+User Name : ss
+Logon Domain : -
+Uptime : 14768SEC(4 Hour 6 Minutes 8 Seconds)
+Internet Explorer : 9.11.9600.16521
+Windows Media Player : 12,0,9600,16384
+DirectX : 4.09.00.0904
+------------------System Devices------------------
+Motherboard Name : Z68AP-D3
+Motherboard Manufacturer : Gigabyte Technology Co., Ltd.
+BIOS Version : F8
+System BIOS Date : 03/21/12
+Video BIOS Date : 09/03/09
+CPU Identification : Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz
+CPU Generic Name : Intel64 Family 6 Model 10 Stepping 7
+CPU Vendor : GenuineIntel
+Serial Number : 0002-06A7-BFEB-FBFF-1F9A-E3BF
+CPU Frequency : 3364 MB
+L1 Code Cache : 
+L1 Data Cache : 
+L2 Cache : 
+CPU Socket : Socket 1155
+Core Per Package : 4
+Logical Per Core : 4
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+DE - Debugging extensions : Yes
+PSE - Page size extension : Yes
+TSC - Time stamp counter : Yes
+MSR - Machine specific registers : Yes
+PAE - Physical address extension : Yes
+MCE - Machine check extension : Yes
+CX8 - CMPXCHG8 instrucion support : Yes
+APIC - APIC : Yes
+SEP - Fast system call (SYSENTER/SYSEXIT) : Yes
+MTRR - Memory type range registers : Yes
+PGE - Page global extension : Yes
+CMOV - Conditional move support : Yes
+PAT - Page attribute table : Yes
+PSE36 - 36-bit page size extension : Yes
+PSN - Processor serial number : No
+CLFSH - CLFLUSH instruction support : Yes
+DS - Debug trace store : Yes
+ACPI - Thermal monitor and software controlled clock : Yes
+MMX - MMX architecture support : Yes
+FXSR - Fast floating point save (FXSAVE/FXRSTOR) : Yes
+SSE - Streaming SIMD instruction support : Yes
+SSE2 - Streaming SIMD extensions 2 : Yes
+SS - Self snoop : Yes
+HTT - Hyper-Threading technology : Yes
+TM - Thermal monitor support : Yes
+IA-64 - IA-64 Intel : No
+SBF - Signal break on FERR : Yes
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+DE - Debugging extensions : Yes
+PSE - Page size extension : Yes
+TSC - Time stamp counter : Yes
+MSR - Machine specific registers : Yes
+PAE - Physical address extension : Yes
+MCE - Machine check extension : Yes
+CX8 - CMPXCHG8 instrucion support : Yes
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+DE - Debugging extensions : Yes
+PSE - Page size extension : Yes
+TSC - Time stamp counter : Yes
+MSR - Machine specific registers : Yes
+PAE - Physical address extension : Yes
+MCE - Machine check extension : Yes
+CX8 - CMPXCHG8 instrucion support : Yes
+APIC - APIC : Yes
+SEP - Fast system call (SYSENTER/SYSEXIT) : Yes
+MTRR - Memory type range registers : Yes
+PGE - Page global extension : Yes
+CMOV - Conditional move support : Yes
+PAT - Page attribute table : Yes
+PSE36 - 36-bit page size extension : Yes
+PSN - Processor serial number : No
+CLFSH - CLFLUSH instruction support : Yes
+DS - Debug trace store : Yes
+ACPI - Thermal monitor and software controlled clock : Yes
+MMX - MMX architecture support : Yes
+FXSR - Fast floating point save (FXSAVE/FXRSTOR) : Yes
+SSE - Streaming SIMD instruction support : Yes
+SSE2 - Streaming SIMD extensions 2 : Yes
+SS - Self snoop : Yes
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+FPU - Floating point unit : Yes
+VME - Virtual mode extension : Yes
+DE - Debugging extensions : Yes
+PSE - Page size extension : Yes
+TSC - Time stamp counter : Yes
+MSR - Machine specific registers : Yes
+PAE - Physical address extension : Yes
+------------------Memory------------------
+Physical Memory : 8,109 MB
+Virtual Memory : 200 MB
+Total Memory : 8,309 MB
+Free Memory : 3,405 MB
+Used Memory : 4,903 MB
+Selected Memory : N/A
+------------------Drives------------------
+(C:)
+Disk Letter : C:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 216,882,126,848 B
+Bytes Free : 165,864,583,168 B
+Bytes Used : 51,017,543,680 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 52,949,738
+Free Clusters : 40,494,283
+Used Clusters : 12,455,455
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 99,643,640
+Free Sectors : 323,954,264
+Bytes per Sector : 4,096 bytes
+Total Sectors : 423,597,904
+(D:)
+Disk Letter : D:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 109,877,129,216 B
+Bytes Free : 85,398,376,448 B
+Bytes Used : 24,478,752,768 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 26,825,471
+Free Clusters : 20,849,213
+Used Clusters : 5,976,258
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 47,810,064
+Free Sectors : 166,793,704
+Bytes per Sector : 4,096 bytes
+Total Sectors : 214,603,768
+(E:)
+Disk Letter : E:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 503,450,693,632 B
+Bytes Free : 131,638,272,000 B
+Bytes Used : 371,812,421,632 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 122,912,767
+Free Clusters : 32,138,250
+Used Clusters : 90,774,517
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 726,196,136
+Free Sectors : 257,106,000
+Bytes per Sector : 4,096 bytes
+Total Sectors : 983,302,136
+(F:)
+Disk Letter : F:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 386,872,111,104 B
+Bytes Free : 289,002,278,912 B
+Bytes Used : 97,869,832,192 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 94,451,199
+Free Clusters : 70,557,197
+Used Clusters : 23,894,002
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 191,152,016
+Free Sectors : 564,457,576
+Bytes per Sector : 4,096 bytes
+Total Sectors : 755,609,592
+(G:)
+Disk Letter : G:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 366,997,504 B
+Bytes Free : 21,938,176 B
+Bytes Used : 345,059,328 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 89,599
+Free Clusters : 5,356
+Used Clusters : 84,243
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 673,944
+Free Sectors : 42,848
+Bytes per Sector : 4,096 bytes
+Total Sectors : 716,792
+(H:)
+Disk Letter : H:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 1,843,111,391,232 B
+Bytes Free : 1,005,339,901,952 B
+Bytes Used : 837,771,489,280 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 449,978,367
+Free Clusters : 245,444,312
+Used Clusters : 204,534,055
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 1,636,272,440
+Free Sectors : 1,963,554,496
+Bytes per Sector : 4,096 bytes
+Total Sectors : -,695,140,360
+(I:)
+Disk Letter : I:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 59,864,522,752 B
+Bytes Free : 36,844,978,176 B
+Bytes Used : 23,019,544,576 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 14,615,362
+Free Clusters : 8,995,356
+Used Clusters : 5,620,006
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 44,960,048
+Free Sectors : 71,962,848
+Bytes per Sector : 4,096 bytes
+Total Sectors : 116,922,896
+(J:)
+Disk Letter : J:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 440,234,143,744 B
+Bytes Free : 268,963,291,136 B
+Bytes Used : 171,270,852,608 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 107,479,039
+Free Clusters : 65,664,866
+Used Clusters : 41,814,173
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 334,513,384
+Free Sectors : 525,318,928
+Bytes per Sector : 4,096 bytes
+Total Sectors : 859,832,312
+(K:)
+Disk Letter : K:
+Device Type : CD-ROM Disc
+File System : 
+Total Bytes : 0 B
+Bytes Free : 0 B
+Bytes Used : 0 B
+File Compression Enabled : No
+Volume is Compressed : No
+Long File Name Enabled : No
+Unicode File Name Enabled : No
+Encrypted File System : No
+Numbers of Clusters : 0
+Free Clusters : 0
+Used Clusters : 0
+Bytes per Cluster : 0 bytes
+Sectors per Cluster : 0
+Used Sectors : 0
+Free Sectors : 0
+Bytes per Sector : 0 bytes
+Total Sectors : 0
+(L:)
+Disk Letter : L:
+Device Type : CD-ROM Disc
+File System : 
+Total Bytes : 0 B
+Bytes Free : 0 B
+Bytes Used : 0 B
+File Compression Enabled : No
+Volume is Compressed : No
+Long File Name Enabled : No
+Unicode File Name Enabled : No
+Encrypted File System : No
+Numbers of Clusters : 0
+Free Clusters : 0
+Used Clusters : 0
+Bytes per Cluster : 0 bytes
+Sectors per Cluster : 0
+Used Sectors : 0
+Free Sectors : 0
+Bytes per Sector : 0 bytes
+Total Sectors : 0
+(M:)
+Disk Letter : M:
+Device Type : Local Fixed Disk
+File System : NTFS
+Total Bytes : 156,919,394,304 B
+Bytes Free : 138,095,501,312 B
+Bytes Used : 18,823,892,992 B
+File Compression Enabled : Yes
+Volume is Compressed : No
+Long File Name Enabled : Yes
+Unicode File Name Enabled : Yes
+Encrypted File System : Yes
+Numbers of Clusters : 38,310,399
+Free Clusters : 33,714,722
+Used Clusters : 4,595,677
+Bytes per Cluster : 4,096 bytes
+Sectors per Cluster : 8
+Used Sectors : 36,765,416
+Free Sectors : 269,717,776
+Bytes per Sector : 4,096 bytes
+Total Sectors : 306,483,192
+------------------Display------------------
+Device Description : Intel(R) HD Graphics 3000
+Adapter String : Intel(R) HD Graphics Family
+BIOS String : -
+Chip Type : Intel(R) HD Graphics Family
+DAC Type : Internal
+Driver Date : 2014-01-29
+Driver Version : 9.17.10.3347
+Driver Provider : Intel Corporation
+Memory Size : 4294965308 MB
+Monitor Name : 4294965308 MB
+Model : 4294965308 MB
+Manufacture Date : 4294965308 MB
+Serial Number : 4294965308 MB
+Max.Visible Display Size : 4294965308 MB
+Gamma : 4294965308 MB
+...
+1920 x 1080 - 8 bit
+------------------Network------------------
+Network Adapter : Realtek PCIe GBE Family Controller
+Interface Type : Ethernet
+Connection Name : Ethernet
+Connection Speed : 100 MB
+MTU : 1500 B
+IP/Subnet Mask : 192.168.5.101
+Gateway : 192.168.5.1
+DNS : 213.191.128.8 213.191.128.9
+Network Adapter : TechniSat DVB-PC TV Star PCI
+Interface Type : Ethernet
+Connection Name : Local Area Connection
+Connection Speed : 100 MB
+MTU : 4096 B
+IP/Subnet Mask : 169.254.178.3
+Gateway : 0.0.0.0
+DNS : 
+Network Adapter : VirtualBox Host-Only Ethernet Adapter
+Interface Type : Ethernet
+Connection Name : VirtualBox Host-Only Network
+Connection Speed : 100 MB
+MTU : 1500 B
+IP/Subnet Mask : 192.168.56.1
+Gateway : 0.0.0.0
+DNS : 
+------------------Other Devices------------------
+PRIMARY IDE : None
+SECONDARY IDE : None
+FDD : 
+COM1 : Serial Port 16450 Compatible
+COM2 : Serial Port 16450 Compatible
+LPT1 : Parallel Port ECP/EPP
+Keyboard : Keyboard Port
+PS/2 Mouse : Mouse Port
+USB : USB
+USB : USB
+USB Controller : Generic USB Hub
+USB Controller : USB Root Hub
+USB Controller : USB Root Hub
+USB Controller : USB Composite Device
+USB Controller : Generic USB Hub
+USB Controller : USB Root Hub (xHCI)
+PDFCreator : pdfcmon
+OKI B2200 : USB001
+Microsoft XPS Document Writer : PORTPROMPT:
+Fax : SHRFAX:

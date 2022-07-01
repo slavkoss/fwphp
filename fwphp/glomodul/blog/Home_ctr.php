@@ -16,8 +16,8 @@ use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud   as Tbl_crud_post_comment ;
 
-use B12phpfw\module\blog\Home as Home_view;
-use B12phpfw\module\post\Posts as Dashboard_view; //no more D ashboard cls
+use B12phpfw\module\blog\Home                  as Home_view;
+use B12phpfw\module\post\Posts                 as Dashboard_view; //no more D ashboard cls
 //use PDO;
 
 //extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_ allsites" but :
@@ -32,6 +32,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   public function __construct(object $pp1)
   {
       $pp1->rblk = 10;
+      $pp1->Home_ctr_obj = $this ;
                         if ('') { self::jsmsg( [ //b asename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
@@ -190,7 +191,6 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   */
   private function logout(object $pp1)
   {
-    //$dm = $this = domain model = globals for all sites
     $Db_user = Tbl_crud_admin::logout($pp1) ;
   }
 
@@ -264,7 +264,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   //        u s e r s  r e a d
   private function admins(object $pp1) //private
   {
-    utl::Login_Confirm_SesUsrId(); //$this->
+    utl::Login_Confirm_SesUsrId(); 
     $title = 'Admin Page' ;
     // http skip is ok for other module :
     utl::Redirect_to( $pp1->site_url .'user/' ) ; // http://dev1:8083/fwphp/glomodul/user/
@@ -315,7 +315,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   private function upd_user_loggedin(object $pp1) //private
   {
     //     A D M I N  P R O F I L E  navbar admin -> My Profile
-    utl::Login_Confirm_SesUsrId(); //$this->
+    utl::Login_Confirm_SesUsrId();
 
       $title = 'MSG u s r u p d ';
 
@@ -330,7 +330,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   //        c a t e g o r i e s  t b l
   private function categories(object $pp1) //private
   {
-    utl::Login_Confirm_SesUsrId(); //$this->
+    utl::Login_Confirm_SesUsrId();
     require $pp1->module_path . '../post_category/categories.php';  
   }
 
@@ -343,14 +343,14 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/  
     // http://dev1:8083/fwphp/glomodul/blog/index.php?i/addnewpost/
-    utl::Login_Confirm_SesUsrId(); //$this->
+    utl::Login_Confirm_SesUsrId();
     require $pp1->module_path . '../post/cre_post_frm.php';  
   }
 
 
                         /* see posts(    private function dashboard(object $pp1) //private
                         {
-                          utl::Login_Confirm_SesUsrId(); //$this->
+                          utl::Login_Confirm_SesUsrId();
 
                           $title = 'MSG D ashboard';
                           require $pp1->shares_path . 'hdr.php';
@@ -362,7 +362,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   //        p o s t s  v i e w  t b l
   private function posts(object $pp1) //private
   {
-    utl::Login_Confirm_SesUsrId(); //$this->
+    utl::Login_Confirm_SesUsrId();
     Dashboard_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
                                     //require $pp1->module_path . 'd ashboard.php';  
                                     //require $pp1->module_path . '../post/posts.php';  // no more
@@ -391,7 +391,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     /*if ( (isset($pp1->uriq->p)) and $pp1->uriq->p == 'posts' ) 
     {
-      utl::Login_Confirm_SesUsrId(); //$this->
+      utl::Login_Confirm_SesUsrId();
 
       $title = 'Posts' ;
       //require_once("navbar_admin.php");
@@ -417,7 +417,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     $css2 = '<link rel="stylesheet" href="/vendor/erusev/parsedown/styles/default.css">' ;
     $css3 = '<script src="/vendor/erusev/parsedown/highlight.pack.js"></script>' ; //js :-) 
     $css4 = '<script>hljs.initHighlightingOnLoad();</script>'; */
-
+    /*
     $uriq = $pp1->uriq ;
     $IdFromURL = (int)$uriq->id ; 
 
@@ -432,12 +432,13 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     if (isset( $_SESSION['filter_posts']['pgordno_from_url']))
        $pgordno_from_url = $_SESSION['filter_posts']['pgordno_from_url'] ; 
     else $pgordno_from_url = '' ; 
-
+    */
 
     //require_once $pp1->shares_path . 'hdr.php';
 
     //  require_once("navbar.php");
-      require $pp1->module_path . '../post/read_post.php';  
+    //  require $pp1->module_path . '../post/read_post.php';  
+    Dashboard_view::read_post($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
 
     //require_once $pp1->shares_path . 'ftr.php';
   }
@@ -445,17 +446,16 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   //        e d i t  p o s t 
   private function editpost(object $pp1) //private
   {
-    $uriq = $pp1->uriq ;
-    //$SarchQueryParameter = $this->ctr akc par_ arr['id'] ; //$_ GET["id"] :
+    /* $uriq = $pp1->uriq ;
     $IdFromURL = $uriq->id ;
-    //$dm = $this ;            //globals for all sites (eg for CRUD...) !!
 
-    utl::Login_Confirm_SesUsrId(); //$this->
+    utl::Login_Confirm_SesUsrId();
 
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
     //require $pp1->shares_path . 'hdr.php';
-    //require_once("navbar_admin.php");
+    //require_once("navbar.php");
+    */
     require $pp1->module_path . '../post/upd_post_frm.php';
     //require $pp1->shares_path . 'ftr.php';
   }
@@ -487,11 +487,8 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   }
   //        d i s p l a y  p o s t  m a r k d o w n
 
-  private function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
+  public function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
   {
-
-    //see read_ post.php  $this->r eadmkdpost($r->title); //means  i n c l u d e  here html
-    //$fle_to_displ_name = "J:/awww/www/fwphp/glomodul/blog/msgmkd/001. Menu_CRUD.txt" ;
     $fle_to_displ_path = "{$pp1->module_path}msgmkd/$fle_to_displ_name" ;
     $helptxt_path = "{$pp1->module_path}msgmkd/000_markdown_posts_help.txt" ;
                     //require $mkdflename ; //e r r o r with  ``` or with...who knows
@@ -548,15 +545,13 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   //          p o s t  c o m m e n t s
   private function comments(object $pp1) //private
   {
-    utl::Login_Confirm_SesUsrId(); //$this->
+    utl::Login_Confirm_SesUsrId();
     require $pp1->module_path . '../post_comment/comments.php';  
   }
 
   //         u p d  c o m m e n t _ s t a t
   private function upd_comment_stat(object $pp1) //private
   {
-    //$dm = $this ; // Domain Model is B12phpfw CRUD code skeleton
-    //$Tbl_crud_post_comment = new Tbl_crud_post_comment ;
     //copy of an already created object can be made by cloning it. 
                               if ('') { echo '<br /><h3>'.__METHOD__ .', line '. __LINE__ .' SAYS:</h3>'
                               .'<br />works if redirect commented U R L  query array ='.'$this->u riq=' ;

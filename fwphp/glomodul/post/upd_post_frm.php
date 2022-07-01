@@ -14,9 +14,6 @@ if(isset($_POST["Submit"]))
 } //E n d  of Submit Button If-Condition
 
 
-    require $pp1->shares_path . 'hdr.php';
-    require_once("navbar_admin.php");
-
 //               2. R E A D  D B T B L R O W S
 // returns object :
 $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'"
@@ -25,6 +22,17 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
 
 
 //        3. G U I  to get user action
+
+    //$uriq = $pp1->uriq ;  $IdFromURL = $uriq->id ;
+    $IdFromURL = $pp1->uriq->id ;
+
+    utl::Login_Confirm_SesUsrId();
+
+    $title = 'Edit Post' ;
+    //if form and form processing are in same script, redirect has problem :
+    require_once $pp1->shares_path . 'hdr.php';
+    require_once("navbar.php");
+
 ?>
     <!-- HEADER -->
     <!--header class="bg-dark text-white py-3">
