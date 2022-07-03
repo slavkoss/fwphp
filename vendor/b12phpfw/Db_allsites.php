@@ -6,7 +6,10 @@ namespace B12phpfw\core\b12phpfw ; //was B12phpfw\core\zinc ;
 use \PDO as PDO ;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
-trait Db_allsites  // may be named AbstractEntity :
+//trait Db_allsites
+    //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
+    //            it should only be called on a class using the trait
+abstract class Db_allsites  // may be named AbstractEntity :
 {
     private static $instance = null ; //singleton! or protected static $DBH;
 
@@ -93,7 +96,7 @@ trait Db_allsites  // may be named AbstractEntity :
   }
 
 
-  static public function dd(object $pp1, array $other)
+  static public function dd(object $pp1, array $other)             // DELETE TBL ROW
   {
                     if ('') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ;
                     //echo '<pre>$pp1->uriq='; print_r($pp1->uriq) ; echo '</pre>';
@@ -122,7 +125,7 @@ trait Db_allsites  // may be named AbstractEntity :
   }
 
 
-  static public function rrnext(object $cursor, $other = []) //: object
+  static public function rrnext(object $cursor, $other = []) //: object //READ NEXT TBL ROW FROM CURSOR
   {
                 //echo '<pre>$other='; print_r($other); echo '</pre>';
                 if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
@@ -309,7 +312,7 @@ trait Db_allsites  // may be named AbstractEntity :
 
 
   //used for all  tabls !!
-  static public function cc(
+  static public function cc(                                       // CREATE TBL ROW
     string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] ) 
   {
               //if ('1') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' SAYS :11111'.'</h4>';}
@@ -376,7 +379,7 @@ trait Db_allsites  // may be named AbstractEntity :
 
 
   //used f or all  t a b l e s !!
-  static public function uu( $tbl, $flds, $where, $binds = [] )
+  static public function uu( $tbl, $flds, $where, $binds = [] )    // UPDATE TBL ROW
   {
     self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__); // u u(...
 

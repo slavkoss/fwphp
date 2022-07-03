@@ -44,7 +44,8 @@ $cursor = utl_adrs::get_all($other=['caller' => __FILE__ .' '.', ln '. __LINE__ 
       //foreach ($songs as $song)   utldb -> utl_adrs
       while ( $r = utl_adrs::rrnext($cursor) and isset($r->id) ): 
       { 
-        $id = utl::escp($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+        $id = (int)($r->id) ; //htmlspecialchars($r->id, ENT_QUOTES, 'UTF-8'); 
+        //$id = utl::escp($r->id) ; //Argument #1 ($string) must be of type string, int given
         ?>
         <tr>
           <td><?php echo $id; ?></td>

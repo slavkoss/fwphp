@@ -11,19 +11,18 @@ CRUD module example code 7 scripts:
 
 
 
-**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with XAMPP  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP** (but no production installation). 
+**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with XAMPP  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP** (but no production installations). 
 
-Framework core WEBSERVERDOCROOT\vendor\b12phpfw\\    is ~ 80 kB (my WEBSERVERDOCROOT is J:\awww\www).
-
-
-## 1\.1 Demo sites - free hosting with free Mysql
+## 1\.1 Demo sites - free hosting with free Mysql,  my blog and more sites
 See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/54) or [here](http://phporacle.heliohost.org/fwphp/glomodul/blog/?i/read_post/id/54)
-1. On Linux : http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) - thanks for removing time limit. 
-     PHP on Linux is a bit different than on Windows - see below "To do - done".
-2. or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL) - I asked them to remove time limit - no answer.
-3. My blog :  http://phporacle.altervista.org
+1. **Demo sites onn Linux** : **http://phporacle.eu5.net/** (freehostingeu - fast, stable, has free MySQL) - thanks for removing time limit.     
+     PHP on Linux is a bit different than on Windows - see below "To do - done".     
+     or On Linux :  http://phporacle.heliohost.org/ (heliohost - slow, stable, has free MySQL) - I asked them to remove time limit - no answer.      
+2. **My blog** :  http://phporacle.altervista.org      
     and  http://phporacle.altervista.org/fwphp/www/ - tech core of Mondadori digital magazine (leading publishing company in Italy) plans to offer free MySQL. 
-4. My fwphp site (may be more : fwphp2, 3...) : http://SSPC2:8083/
+3. **My fwphp site on home PC**  (may be more sites : fwphp2, 3...) : XAMPP and virtual host outside XAMPP root dir, so XAMPP new version unzip is fast and easy :       
+     Oper. system (Windows) adress: J:\awww\www,  Web adress:  http://SSPC2:8083/       
+     Framework core WEBSERVERDOCROOT\vendor\b12phpfw\\    is less than 100 kB (my WEBSERVERDOCROOT is J:\awww\www).     
     
 ## 1\.2 Download and unzip code from my Github repo
 
@@ -31,24 +30,93 @@ Download from **https://github.com/slavkoss/fwphp**
 
 First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH    
 
-Extract from fwphp-master.zip (with many adds ~ 3 MB) only next ~300 kB  :
+Extract from fwphp-master.zip only  ~300 kB (with many adds ~ 3 MB, core less than 100 kB)   :
 
 1. Folders : vendor (was zinc, now zinc no more exists, shares are in /vendor/b12phpfw)   
 
-2. **Mnu** - menu module  /fwphp/www  folder
+2. In J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - first learning step - not to simple example but not enough to learn B12phpfw menu & CRUD code skeleton ! Enough not to simple learning modules are Mnu, Mkd and Msg modules ! Seems complicated but is not.      
 
-3. **Mkd** - Markdown content management module in  /fwphp/glomodul/mkd folder  
+   Most (all ?) PHP learning sources on internet and books (Nixon, Powers, Yank, Ullman...) seem simple, but are in my opinion good only for basic sintax and lead to wrong
+   menu & CRUD code skeleton, so are more complicated ! It is one of life paradoxes : "illusion, semblance of appearance". 
+   
+   **We must look at the whole - all (main) code  functions**, but PHP learning sources are more self-advertisement to earn money, not to teach all (main) code functions. **I wish Microsoft and others would teach (eg Blazor) the way I've shown here**. Who can understand many megabytes of unexplained includes ? If something goes wrong seek error in many megabytes code ? For me it is child play. To complicated as Oracle Forms after last client-server version 6i. Instalation, calling form and servers is science. Call form after 6i Oracle replaces every 2-3 years with non-compatible ones (problem: huge Java central library !), like Microsoft their development tools.
 
-4. **Msg** - CRUD msg-blog module  /fwphp/glomodul/blog, ...user, ...post_category, ...post, ...post_comment (all in glomodul dir).
+3. **Mnu** - menu module  /fwphp/www  folder
+
+4. **Mkd** - Markdown content management module in  /fwphp/glomodul/mkd folder  
+
+5. **Msg** - CRUD msg-blog module  /fwphp/glomodul/blog, ...user, ...post_category, ...post, ...post_comment (all in glomodul dir).
     Blog module works with other 4 modules in innovative way (see /fwphp/glomodul/blog/index.php).
 
-5. In phpmyadmin page :
-    1. create database z_blogcms  
-    2. import in My SQL J:\awww\www\01_DDL_mysql_blog.sql 
+6. In phpmyadmin page :
+    1. create database z_blogcms , utf8mb4
+    2. import in My SQL J:\\awww\\www\\z_DDL_and_other\\01_DDL_mysql_blog.sql
+
+## First learning step : http://dev1:8083/fwphp/glomodul/adrs/  
+Replace http://dev1:8083 with your Web adress. Opens home page :        
+
+**HOME.......EXAMPLE1.......EXAMPLE2.......ADDRESSES** --MAIN MENU IN MODULE (OR SITE) HDR        
+
+Homepage --PAGE TITLE        
+
+--PAGE CONTENT :          
+
+You are in View: J:\\awww\\www\\fwphp\\glomodul\\adrs\\home.php         
+
+$pp1->module_relpath below site root = fwphp/glomodul/adrs       
+
+$pp1->module_url=http://dev1:8083/fwphp/glomodul/adrs/           
+
+B12phpfw is diffrent from other (PHP) frameworks (menu and CRUD code skeletons). Main (big) differences  :
+
+1.  Each module (is like Oracle Forms .fmb) is in own folder, not all modules in 3 dirs: M, V, C.   
+    So J:\\awww\\www\\fwphp\\glomodul\\adrs\\...MINI3 ADRS...NPPSES    
+    contains scripts in only one adrs module folder : adrs.    
+    Global scripts are in :  J:\\awww\\www\\vendor\\b12phpfw\\ folder.    
+
+2.  Namespaces are FUNCTIONAL, not POSITIONAL (not dir tree which is unnecessary, but dir is sufficient !).    
+    Eg namespace B12phpfw\site_home\www ; or B12phpfw\site2_home\www (!) or B12phpfw\module\adrs      
+        1. B12phpfw\module is FUNCTIONAL part of namespace - what script does - we may write here whatever we wish    
+        2. adrs is folder in which script is (J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php, http://dev1:8083/fwphp/glomodul/adrs/)    
 
 
+Site logo (if you wish) : in CSS background: url('data:image/png;base64,iVBORw0KGgoAA...QmCC');     
 
+--MODULE (OR SITE) FOOTER :     
+This is MINI3 PHP fw on B12phpfw based on MINI3 on GitHub.      
 
+#### Link EXAMPLE1 opens page :
+This page EXAMPLE1 URL (web adress - web name) is :
+http://dev1:8083/fwphp/glomodul/adrs/?i/ex1/
+where ex1 is method in Home cls.
+
+ex1 method I N C L U D E S this page = view whose oper.system adress is : J:\awww\www\fwphp\glomodul\adrs\example_one.php. 
+
+#### Link EXAMPLE2 opens page :
+This page EXAMPLE2 RECIVES TWO PARAMETERS p1='param1' and p2='param2'.
+This page is i n c l u d e d with Home cls ex2 method.
+This page URL is :
+http://dev1:8083/fwphp/glomodul/adrs/?i/ex2/p1/param1/p2/param2/
+
+Important part of Property pallette $pp1 is uriq = URL (URI) query parts :
+[i] => ex2 where ex2 is method in Home cls to be called which calls some method or includes some script
+[p1] => param1 This is method (script) parameter 1
+[p2] => param2 This is method (script) parameter 2
+
+url GET parameter p1=param1
+url GET parameter p2=param2
+
+You are in View: J:\awww\www\fwphp\glomodul\adrs\example_two.php
+
+#### Link ADDRESSES opens page : "Links to youtube videos" or too... as you wish
+Trait Db_allsites static public function rrcnt called from "class Tbl_crud implements Interf_Tbl_crud" has problem :
+>Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
+>            it should only be called on a class using the trait -- **PHP authors did not explain this problem ?**
+**so it is (abstract ?) Class for now** (2022-07-03) - **works but should be updated till end in Adrs module and in Msg module...**.
+(Old good rule: do not use advanced language features because language authors don't test the changes in enough detail !)
+
+There is lot to learn about Adrs module. If seems difficult try first [Mini3](https://github.com/panique/mini3) . 
+Msg module adds "more modules" functionality which is real life programming not easy but neccessary.
 
 <br /><br /><br /><br />
 # <a name="ide"></a> 1\.2\.a My developing environment (IDE)
@@ -142,11 +210,11 @@ Save your .git/config before, and restore it after. (I delete it in recycle bin)
   
 ## 1\.2\.a 2\. Development environment & source code
 
-My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possible) :
+My PHP IDE is **[Symenu zip package](https://www.ugmfree.it/SyMenuDownload.aspx)** as launcher for all SW listed below (portable if possible) :
 
-1.  [xampp](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.1.6/)      
+1.  ## [xampp](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.1.6/)      
    
-2.  **EDITOR**: Symenu\'s **npp (Notepad++)** (7 MB).       
+2.  ## Text editor : Symenu\'s npp (Notepad++)  (7 MB).       
    **[Notepad++ Markdown plugin](https://github.com/nea/MarkdownViewerPlusPlus)**      
    Copy tMarkdownViewerPlusPlus.dll to the plugins sub-folder at your Notepad++ installation directory.     
    The plugin adds a small Markdown icon to the toolbar to toggle the viewer as dockable panel.     
@@ -155,7 +223,7 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
    See in J:\\awww\www\\  GLOBALS  nppsess file and other nppsess files.
    
    MD to HTML converters on inet :     
-   1. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/**     
+   1. **https://www.tutorialspoint.com/online_markdown_editor.php     or     https://markdowntohtml.com/    
    3. or (many converters)   https://www.browserling.com/tools/markdown-to-html      
    4. or files convert to many formats :  https://products.aspose.app/pdf/conversion/md-to-html      
    
@@ -164,19 +232,25 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
    HTML WYSIWYG editors :  **Microsoft Expression web** (abandoned but still good).     
    I avoid Dreamveawer, Komposer (abandoned, too old).        
    
-   **OCR IMG->TXT**  **GT Text**      
+   ## OCR IMG->TXT :  Symenu\'s "GT Text" program      
 
 3.  **COMMANDER**:    
-    **Locate** is old but best (Janne Huttunen) or simmilar see Symenu.     
-    MeinPlatz (x64) (part of Symenu portable programs) like Treesize    
-    Freecommander, Multicommander, Q-dir, Totalcommander       
+    ## Locate 
+    is old but best (Janne Huttunen) or simmilar see Symenu      
+    **MeinPlatz** (x64) (part of Symenu portable programs) like Treesize    
+    ## Freecommander
+    or Multicommander, Q-dir, Totalcommander...       
 
-4.  **BROWSER**: **Firefox (portable in Symenu collection)**, Google Chrome, Cyberfox, Pale Moon     
+4.  **BROWSER**: 
+   ## Firefox (portable in Symenu collection)
+   Google Chrome, Cyberfox, Pale Moon     
    
-5.  **DEPLOY (INSTALL)**: **Cmder** (in Symenu) is Win CMD line, has Git.    
-   Composer.    
+5.  **DEPLOY (INSTALL)**: 
+   ## Cmder
+   (in Symenu) is Win CMD line, has Git.    
+   [Composer](https://getcomposer.org/) helps you declare, manage, and install dependencies of PHP projects.     
    FTP client **Winscp**.  Ignore :  | *.zip; J:\awww\www\.git; J:\awww\www\vendor/B12phpfw/Dbconn_allsites.php;    
-   FTP server Symenu\'s  Serva Community
+   FTP server Symenu\'s  **Serva Community**
 
 
 ### Other tools
@@ -187,8 +261,6 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
 
 [PHP tutorial by W3Schools](https://www.w3schools.com/php/)
 
-[Composer](https://getcomposer.org/) helps you declare, manage, and install dependencies of PHP projects.
-
 [Guzzle](https://github.com/guzzle/guzzle) is a PHP HTTP client that makes it easy to send HTTP requests and trivial to integrate with web services.
 
 [DesignPatternsPHP](https://designpatternsphp.readthedocs.io/) is a collection of known design patterns and some sample code how to implement them in PHP 7.4. Every pattern has a small list of examples.
@@ -198,23 +270,7 @@ My PHP IDE is **Symenu** as launcher for all SW listed below (portable if possib
 [PHP Guide](https://github.com/mikeroyal/PHP-Guide)
    
    
-    
 
-
-## 1\.2\.a 3\. Free hosting with free MySql (or Mariadb) DB
-**Demo site** free hosting where blog (msg) module is installed **http://phporacle.eu5.net/ (freehostingeu) or  http://phporacle.heliohost.org/ (heliohost) **. Some details are to do in version 6.1 but all important is visible in version 6.0.      
-I do not like heliohost activity requirement: "you must visit your site each month" or will be suspended for inactivity after 30 days. They should allow for ever free sites useful for sharing knowledge. I like heliohost simple, clever, very useful pages. I do not like freehostingeu feature "upload zip files not allowed".   
-
-|       Web hosts PHP,  MySQL DB                             |                           Features                                |Other Features |
-| ----------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------ |
-|  **http://phporacle.eu5.net/ (freehostingeu)**        | stable, fast FTP (6x faster than heliohost) | ~~activity requirement~~ ,  upload zip files not allowed, but possible  |
-|  **http://phporacle.heliohost.org/ (heliohost) **     |  stable FTP, Web Disk  | ~~activity requirement, not fast (I am in Europe, Zagreb),~~  |
-| Heroku                                                               |  ~~only Postgres DB~~  |  ~~seems complicated to me~~  |
-| https://www.gigarocket.net/free-hosting.php    |  ~~does not send confirmation email~~  |  |
-| https://infinityfree.net/                                       |   ~~does not send confirmation email~~  |  |
-| https://www.ilbello.com/en/                              |   ~~does not send confirmation email~~  |  |
-| https://www.000webhost.com/                          |  ~~**unstable FTP**~~  |  |
-Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/ , https://www.freehosting.com/free-hosting.html , https://cp1.awardspace.net/beta/login/).      
 
 
 
@@ -241,6 +297,30 @@ Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/
 
 
 
+
+## 1\.2\.a 3\. Free hosting with free MySql (or Mariadb) DB
+**Demo site** free hosting where blog (msg) module is installed **http://phporacle.eu5.net/ (freehostingeu) or  http://phporacle.heliohost.org/ (heliohost) **. Some details are to do in version 6.1 but all important is visible in version 6.0.      
+I do not like heliohost activity requirement: "you must visit your site each month" or will be suspended for inactivity after 30 days. They should allow for ever free sites useful for sharing knowledge. I like heliohost simple, clever, very useful pages. I do not like freehostingeu feature "upload zip files not allowed".   
+
+|       Web hosts PHP,  MySQL DB                             |                           Features                                |Other Features |
+| ----------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------ |
+|  **http://phporacle.eu5.net/ (freehostingeu)**        | stable, fast FTP (6x faster than heliohost) | ~~activity requirement~~ ,  upload zip files not allowed, but possible  |
+|  **http://phporacle.heliohost.org/ (heliohost) **     |  stable FTP, Web Disk  | ~~activity requirement, not fast (I am in Europe, Zagreb),~~  |
+| Heroku                                                               |  ~~only Postgres DB~~  |  ~~seems complicated to me~~  |
+| https://www.gigarocket.net/free-hosting.php    |  ~~does not send confirmation email~~  |  |
+| https://infinityfree.net/                                       |   ~~does not send confirmation email~~  |  |
+| https://www.ilbello.com/en/                              |   ~~does not send confirmation email~~  |  |
+| https://www.000webhost.com/                          |  ~~**unstable FTP**~~  |  |
+Some ask 3, 5 or 15 $ (per year ?) for domain (eg https://client.googiehost.com/ , https://www.freehosting.com/free-hosting.html , https://cp1.awardspace.net/beta/login/).      
+
+
+
+
+
+
+
+
+
 <br /><br /><br /><br />
 #### 1\.5 Adresses on op.system and on web are difficult to understand
 and bad explained in all PHP frameworks and learning sources.
@@ -249,10 +329,12 @@ and bad explained in all PHP frameworks and learning sources.
 
 
 <br><br><br><a name="uml"></a>
-# 1\.6 B12phpfw UML diagram - classes structure - Attributes and Methods
+# 1\.6 B12phpfw UML diagram 
+shows classes structure - Attributes and Methods
+
 [Top](#top)......[Dirs](#directories).....**UML**.....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
-#### Adapters (implementations - classes or methods) depend on interfaces (features, ports)
+#### Adapters (implementations - classes or methods) depend on interfaces (features, ports).
 
 
 
@@ -261,13 +343,6 @@ and bad explained in all PHP frameworks and learning sources.
 
 # B12phpfw core 
 ## 1\.6 1a. DBI (DB interface, DB adapter):
-TRAIT, (NO MORE since ver. 7 Dbconn_allsites abstract cls) : DB CONNECT
-B12PHPFW CORE CODE. 
-LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)
-
-
------
-
 
 No more Dbconn_allsites class, only trait Db_allsites and :
 ```php
@@ -291,22 +366,30 @@ return [
 
 
 
-## 1\.6 1b. DBI: trait Db_allsites  : code type DB PDO CRUD ADAPTER, PDOQueryBuilder  
-B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES, SHARED, GLOBAL, REUSABLE)  
-(MODEL, AbstractEntity)
+## 1\.6 1b. DBI: trait Db_allsites  : code type MODEL, DB PDO CRUD ADAPTER, PDOQueryBuilder  
+(NO MORE abstract cls Dbconn_allsites since ver. 7)    
 
-Was abstract class. **Trait is simmilar to class**, but **some class may use more traits (net - more parents),  but may extend only one class (hierarchy)**. 
+B12PHPFW CORE CODE.   
+LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)      
+(**MODEL**, AbstractEntity)     
+
+Was abstract class Dbconn_allsites till ver. 7). **Trait is simmilar to class**. Reason for trait is net code structure :       
+some class may use more traits - **net** - more parents,  but may extend only one class - **hierarchy**. 
 
 
 -----
 
 
 
-## Attributes
+## Attributes in J:\awww\www\vendor\b12phpfw\Db_allsites.php
 ```php
 // J:\awww\www\vendor\b12phpfw\Db_allsites.php
 declare(strict_types=1);
 namespace B12phpfw\core\b12phpfw ; //was B12phpfw\core\zinc ;
+
+use \PDO as PDO ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
+
 trait Db_allsites  // may be named AbstractEntity :
 {
     private static $instance = null ; //singleton! or protected static $DBH;
@@ -331,18 +414,21 @@ trait Db_allsites  // may be named AbstractEntity :
 
 ## Methods in J:\awww\www\vendor\b12phpfw\Db_allsites.php (12 hits)
 ```
-	Line 21:   static public function get_or_new_dball(string $called_from ='**UNKNOWN CALLER**')
-	Line 66:   static public function closeDBConn()
-	Line 74:   static public function getdbi()
-	Line 80:   static public function setdo_pgntion($new_val)
-	Line 88:   static public function dd(object $pp1, array $other)
-	Line 117:   static public function rrnext(object $cursor, $other = []) //: object
-	Line 137:   static public function rrcount($tbl)
-	Line 148:   static public function rr_last_id($tbl) {
-	Line 159:   static public function get_cursor( $dmlrr, $binds = [], $other = [] ): object // ********* r r (
-	Line 248:   static public function cc( string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] ) //used for all  tabls !!
-	Line 309:   static public function uu( $tbl, $flds, $where, $binds = [] )
-	Line 366:   static public function debugPDO(string $dmlxx, array $binds, array $ph_val_arr): string
+J:\awww\www\vendor\b12phpfw\Db_allsites.php (13 hits - PDO CRUD functions)
+	Line  25:   static public function get_or_new_dball(string $called_from ='**UNKNOWN CALLER**')
+	Line  74:   static public function closeDBConn()
+	Line  82:   static public function getdbi()
+	Line  88:   static public function setdo_pgntion($new_val)
+	Line  96:   static public function dd(object $pp1, array $other)                        // DELETE TBL ROW
+	Line 125:   static public function rrnext(object $cursor, $other = []) //: object //READ NEXT TBL ROW FROM CURSOR
+	Line 145:   static public function rrcount($tbl)
+	Line 156:   static public function rr_last_id($tbl) {
+	Line 167:   static public function get_cursor( $dmlrr, $binds = [], $other = [] ): object // ********* r r (
+	Line 264:   static public function pre_cc_uu(
+	Line 312:   static public function cc(                                                     // CREATE TBL ROW
+	Line 379:   static public function uu( $tbl, $flds, $where, $binds = [] ) // UPDATE TBL ROW
+	Line 436:   static public function debugPDO(string $dmlxx, array $binds, array $ph_val_arr): string
+Search "function " (21 hits in 1 file of 1 searched)
 ```
 
 
@@ -359,14 +445,15 @@ trait Db_allsites  // may be named AbstractEntity :
 
 
 ## 1\.6 2. Conﬁg_allsites abstract cls : CONFIG AND UTILS (functions)
-B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)
+B12PHPFW CORE CODE.     
+LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL)     
 
 
 -----
 
 
 
-## Attributes 
+## Attributes in J:\awww\www\vendor\b12phpfw\Config_allsites.php
 ```php
 /**
 *  J:\awww\www\b12phpfw\Config_ allsites.php
@@ -399,38 +486,41 @@ abstract class Config_allsites //extends Db_ allsites
 
 
 
-## Methods in cls file Config_allsites.php (18 fns) **less than 250 important lines**
-1.   public function \_\_construct(object $pp1, array $pp1\_module)
-     1. C H E C K  R E Q U I R E M E N T S
-     2. DEFINE  A D R E S S E S  (NO CONSTANTS). Adresses = paths & relative paths
-        3.1 R O U T I N G - find URL parts for user events methods calls ee $uri_arr = explode(QS, $REQUEST_URI)
-        3.2 Assign  $ p p 1 = array of module properties
-     4. D I S P A T C H I N G = calls Home_ctr cls method (CONVENTION : i=ctrakcmethod)
-        which calls fns or includes view scripts (http jumps only to other module).
-        Dispatching using home class methods is based on Mini3 php fw.
+## Methods in cls file Config_allsites.php (16 fns) **less than 250 important lines**
+1.   public function \_\_construct(object $pp1, array $pp1\_module)    
+     1. C H E C K  R E Q U I R E M E N T S     
+     2. DEFINE  A D R E S S E S  (NO CONSTANTS). Adresses = paths & relative paths      
+        2.1 R O U T I N G - find URL parts for user events methods calls ee $uri_arr = explode(QS, $REQUEST_URI)    
+        2.2 Assign  $ p p 1 = array of module (and above module) properties     
+     3. D I S P A T C H I N G      
+        DISPATCHER code calls Home_ctr cls method (CONVENTION : i=ctrakcmethod)    
+        which calls fns or includes view scripts (http jumps only to other module)    
+        Dispatching using home class methods is based on Mini3 php fw.    
+        "?" in "?edit" is QS (U R L Query Separator)     
 
 ```
-    J:\awww\www\vendor\b12phpfw\Config_allsites.php (20 hits)
-	Line 28:   public function __construct(object $pp1, array $pp1_module)
-	Line 309:   //public function setp($property, $value){
-	Line 317:   //public function getp($property){
-	Line 335:     static public function rlows(object $r) //all row fld names lowercase
-	Line 354:     static public function escp(string $string='') //ESCAPING OUTPUT and input
-	Line 367:     static public function escp_row(object $r): object
-	Line 394:     //static protected function secure_form($form) {
-	Line 402:     static public function Redirect_to($New_Location){
-	Line 424:   static public function row_flds_binds(
-	Line 473:     static public function MsgErr(){
-	Line 482:     static public function MsgSuccess(){
-	Line 503: public static function get_pgnnav($uriq, $rtbl = 0, $mtd_to_inc_view='/i/home/', $rblk=5) 
-	Line 596:   public function setcsrf() {
-	Line 605:   public static function jsmsg($msg) 
-	Line 636:     public function toArray($cls) {
-	Line 641:   public function print_objvars($obj)
-	Line 648:   public function print_clsmethods($obj)
-	Line 656:   public function class_parentage($obj, $class)
-	Line 670:   public function uname2clsses($username) { //was auth
-	Line 684:   public function has_rights() {
+  J:\awww\www\vendor\b12phpfw\Config_allsites.php (21 hits but not all used)
+	Line  28:   public function __construct(object $pp1, array $pp1_module)
+	Line 301:   //public function setp($property, $value){
+	Line 309:   //public function getp($property){
+	Line 327:     static public function rlows(object $r) //all row fld names lowercase
+	Line 346:     static public function escp(string $string='') //ESCAPING OUTPUT and input
+	Line 359:     static public function escp_row(object $r): object
+	Line 386:     //static protected function secure_form($form) {
+	Line 394:     static public function Redirect_to($New_Location){
+	Line 409:     static public function Login_Confirm_SesUsrId(){
+	Line 427:     static public function msg_err_succ(string $caller): string
+	Line 463:     //static public function M sgErr(){
+	Line 472:     //static public function M sgSuccess(){
+	Line 493: public static function get_pgnnav($uriq, $rtbl = 0, $mtd_to_inc_view='/i/home/', $rblk=5) 
+	Line 586:   public function setcsrf() {
+	Line 595:   public static function jsmsg($msg) 
+	Line 626:     public function toArray($cls) {
+	Line 631:   public function print_objvars($obj)
+	Line 638:   public function print_clsmethods($obj)
+	Line 646:   public function class_parentage($obj, $class)
+	Line 660:   public function uname2clsses($username) { //was auth
+	Line 674:   public function has_rights() {
 ```
 
 
@@ -444,13 +534,14 @@ abstract class Config_allsites //extends Db_ allsites
 
 
 ## 1\.6 3. Autoload cls included in index.php : TO AVOID INC. COMMANDS IN MANY SCRIPTS
-B12PHPFW CORE CODE. LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)  
+B12PHPFW CORE CODE.     
+LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)     
 
 
 -----
 
 
-
+### J:\awww\www\fwphp\www\index.php
 
 ```php
 <?php
@@ -498,8 +589,23 @@ $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
 exit(0);
 
 
+/**
+* J:\awww\www\fwphp\www\index.php     http://sspc2:8083/fwphp/www/
+*
+*        M N U  M O D U L E  S I N G L E  E N T R Y  P O I N T
+* #c s 0 1. Codeflow Step 1: bootstrap script, single entry point in module mkd
+* cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic), cs05. OUTPUT (view)
+*/
+```
+
+
+
+### J:\awww\www\vendor\b12phpfw\Autoload.php
+```
 <?php
 // J:\awww\www\vendor\b12phpfw\Autoload.php
+declare(strict_types=1);
+
 namespace B12phpfw\core\b12phpfw ; //Dir name is last in namespace and use 
 //use B12phpfw\dbadapter\post\Tbl_crud ; //         as Tbl_crud_post ;
 
@@ -508,6 +614,13 @@ class Autoload
    protected $pp1 ; //M O D U L E PROPERTIES PALLETE like in Oracle Forms
 
    public function __construct(object &$pp1) {
+
+      if (strnatcmp(phpversion(),'5.4.0') >= 0) {
+            if (session_status() == PHP_SESSION_NONE) { session_start(); }
+      } else { if(session_id() == '') { session_start(); } }
+     //NOOO  $_SESSION["SuccessMessage"] = [] ;
+     //      $_SESSION["ErrorMessage"] = [] ;
+
      $pp1->stack_trace[]=str_replace('\\','/', __FILE__ ).', lin='.__LINE__ .' ('. __METHOD__ .')';
      $this->pp1 = $pp1 ;
      spl_autoload_register(array($this, 'autoloader'));
@@ -540,7 +653,8 @@ class Autoload
 }
 
 
-URL example:   http://dev1:8083/fwphp/01mater/fw_popel_onb12/   or other in 01mater folder-modulesgroup.
+//URL example: http://dev1:8083/fwphp/01mater/fw_popel_onb12/index.php?p=b1b2tree&id=1
+//    http://dev1:8083/fwphp/01mater/fw_popel_onb12/B2_cre_upd.php?bookid=1&authorid=1
 ```
 
 
@@ -558,7 +672,7 @@ URL example:   http://dev1:8083/fwphp/01mater/fw_popel_onb12/   or other in 01ma
 
 
 
-### call_child_fn_from_parent_cls.php explains B12phpfw routing and dispatching principle
+### J:\awww\www\fwphp\glomodul\z_examples\03_call_child_fn_from_parent_cls.php explains B12phpfw routing and dispatching principle
 
 ```php
 <?php
@@ -630,16 +744,22 @@ $obj_params=stdClass Object
 ```
 
 ## 1\.6 4. Home_ctr cls : MODULE CONTROLLER CODE, ROUTES, CALLS
-B12PHPFW MODULE CODE. LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
+B12PHPFW MODULE CODE.     
+LEVEL : MODULE (SAME CODE FOR MODULE ee FOLDER, eg mnu or mkd or msg=blog)
 
-For program execution, class hierarchy is : as all attributes and methods in classes above  Home_ctr are in Home_ctr class ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above). Why shared attributes and methods are in hierarchy above Home_ctr and not in Home_ctr ? Because we do not want write in each Home_ctr class code in class above. Instead we **reuse code in shared class (globals)** above Home_ctr. 
+For program execution, class hierarchy is : as all attributes and methods in classes above  Home_ctr are in Home_ctr class     
+ee in **$this object** which is instantiated (created in memory) Home_ctr (and automatically all classes above).   
+
+Why shared attributes and methods are in hierarchy above Home_ctr and not in Home_ctr ?     
+
+Because **we do not want write in each Home_ctr class code in classes above** ee we **reuse code in shared classes (globals)** above Home_ctr.     
 
 
 -----
 
 
 
- **Attributes**  and **Methods** - see adrs module below.
+Home_ctr cls **Attributes**  and **Methods** - see adrs module below.       
 
 
 
@@ -656,18 +776,15 @@ See **info code :**
 http://phporacle.eu5.net/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php       
 https://github.com/slavkoss/fwphp/blob/master/fwphp/glomodul/z_examples/03_info_php_apache_config_scripts.php        
 
-B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CRUD code skeleton") because dirs are like Oracle FORMS form module .fmb and other reasons mentioned below.    
+B12phpfw is very diferent than (all ?) other PHP frameworks (I prefer "menu & CRUD code skeletons") because :      
+1. dirs are like Oracle FORMS form module .fmb 
+     https://github.com/ngrt/MVC_todo - very good coding  (but to simple example,no globals, no namespaces...) , shows usual PHP frameworks dirs and routing idea : 
+     ...\\glomodul\\z_examples\\MVC_FW\\ngrt_MVC_todo    or many others in my MVC_FW dir or search Google :  Github php framework
 
-
+2. and other reasons mentioned below        
 
 
 See Mini3 PHP framework [https://github.com/panique/mini3](https://github.com/panique/mini3) which is excellent rare not to simple MVC example (lot of good coding). My **routing using key-values** is different but **dispatching using home class methods is based on Mini3**. 
-
-https://github.com/ngrt/MVC_todo - very good coding, shows usual routing idea (to simple example,no globals, no namespaces...) : 
-...\\glomodul\\z_examples\\MVC_FW\\ngrt_MVC_todo
-
-or many others, Google :  Github php framework
-
 
 
 B12phpfw has 3 modules  and some utilities :   

@@ -32,7 +32,8 @@ interface Interf_Tbl_crud
   static public function rrcnt( string $tbl, array $other=[] ): int ;
 
   //string $sellst, 
-  static public function rrcount(string $qrywhere='', array $binds=[], array $other=[]): int ;
+  //static public function rrcount_module(string $qrywhere='', array $binds=[], array $other=[]): int ;
+  //static public function rrcount(string $qrywhere='', array $binds=[], array $other=[]): int ; //deprecated
 
   // *********************************************** C functions :
   // on-insert. In adapter Tbl_ crud are : $flds, $binds...

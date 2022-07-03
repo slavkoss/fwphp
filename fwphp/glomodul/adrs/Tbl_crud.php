@@ -58,16 +58,25 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
     return $cursor ;
   } */
 
-  static public function rrcnt( string $tbl, array $other=[] ): int { 
-    $rcnt = utldb::rrcount($tbl) ;
-    return (int)utl::escp($rcnt) ;
-  } 
-  static public function rrcount( //string $sellst, 
-    string $qrywhere='', array $binds=[], array $other=[] ): int
+
+  static public function rrcnt( //string $sellst, 
+    string $tbl, array $other=[]  ): int
+    //string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    //$rcnt = utldb::rrcount($tbl) ;
-    //return (int)utl::escp($rcnt) ;
+    //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
+    //            it should only be called on a class using the trait
+    $rcnt = utldb::rrcount($tbl) ;
+    return (int)($rcnt) ;
+    //$rcnt = Tbl_crud::rrcount($tbl) ;
+    //$rcnt = Db_allsites::rrcount($tbl) ;
+    //return (int)utl::escp($rcnt) ; //Argument #1 ($string) must be of type string, int given
   }
+
+  /*static public function rrcnt( string $tbl, array $other=[] ): int { 
+    $rcnt = utldb::rrcount($tbl) ;
+    //$rcnt = $this->rrcount($tbl) ; //not in object context
+    return (int)utl::escp($rcnt) ;
+  } */
 
 
   static public function get_all(array $other=[]): object  //returns $cursor

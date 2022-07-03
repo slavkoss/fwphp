@@ -1,10 +1,10 @@
 <?php
 // J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php
-// DEFAULT CTR (ONLY ONE IN MODULE).
+// DEFAULT MODULE CTR (ONLY ONE IN MODULE).
 namespace B12phpfw\module\adrs ;
 //use PDO;
-use B12phpfw\core\b12phpfw\Config_allsites as utl;
-use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;  // Tbl_ crud_ adrs
+use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
+use B12phpfw\dbadapter\adrs\Tbl_crud          as utl_adrs ;  // Tbl_ crud_ adrs
 
 class Home_ctr extends utl //Config_ allsites
 {

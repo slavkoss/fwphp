@@ -12,6 +12,7 @@ class Dispatcher
 
         $controller = $this->loadController();
 
+        // call_user_func_array( callable $callback, array $args) : mixed
         call_user_func_array([$controller, $this->request->action], $this->request->params);
     }
 

@@ -1,7 +1,6 @@
 <!-- J:\awww\www\fwphp\glomodul\adrs\ftr.php -->
     <div class="footer">
-        <a href="https://github.com/panique/mini3">MINI3 on GitHub</a>.
-        If you like the project, support it by <a href="http://tracking.rackspace.com/SH1ES">using Rackspace</a> as your hoster [affiliate link].
+        This is MINI3 PHP fw on B12phpfw based on <a href="https://github.com/panique/mini3">MINI3 on GitHub</a>.
     </div>
 
     <!-- j Q u e r y, loaded in the recommended protocol-less way 

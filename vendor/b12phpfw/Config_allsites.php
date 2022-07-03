@@ -77,9 +77,8 @@ abstract class Config_allsites //extends Db_ allsites
       if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
       // =============================================
-      //           3. R O U T I N G
+      //           2.1 R O U T I N G
       // =============================================
-      // see (**2)
 
       //$wsroot_path = str_replace('\\','/', realpath($module_towsroot) .'/') ; 
 
@@ -185,11 +184,15 @@ abstract class Config_allsites //extends Db_ allsites
   ,\'login\'           => QS.\'i/login/\'            METHOD login
       ' ;
 
+      // **************************** E N D  R O U T I N G
 
+
+      // =============================================
+      // 2.2 Assign  $ p p 1 = array of module (and above module) properties
+      // =============================================
       $pp1 = (array)$pp1 ;
       $pp1['uriq'] = (object)$uriq ; //u r l  q u e r y  a r r a y
 
-      // **************************** E N D  R O U T I N G
 
 
         $pp1 += [ 
@@ -267,23 +270,21 @@ abstract class Config_allsites //extends Db_ allsites
                     .'</span>' */
 
     // =============================================
-    //           4. D I S P A T C H I N G
+    //           3. D I S P A T C H I N G
     // =============================================
     // may be in module`s Home_ ctr (code here in Config_ allsites is global for all sites)
     /**
-    * ************* coding step cs04. *******************
-    * DISPATCHER: calls Home_ctr cls method (CONVENTION : i=ctrakcmethod)
+    * ************* coding step cs03. *******************
+    * DISPATCHER code calls Home_ctr cls method (CONVENTION : i=ctrakcmethod)
     * which calls fns or includes view scripts (http jumps only to other module)
     * Dispatching using home class methods is based on Mini3 php fw.
+    * ? in "?edit" is QS (U R L Query Separator)
     *              E x a m p l e s  INVALID  U R L s  :
     * 1. http://phporacle.eu5.net/fwphp/glomodul/mkd/?edit=001_MDcheatsheet.txt
     * 2. http://phporacle.eu5.net/fwphp/glomodul/mkd/?edit=01/001_php/B12phpfw.mkd
     * or txt, md, mkd anywhere :
     * 3. http://sspc2:8083/fwphp/glomodul/mkd/?edit=J:/awww/www/readme.md
-    * ? in "?edit" is QS (U R L Query Separator)
     *             E x a m p l e s  VALID  U R L s  :
-    * Must be present "i/m" where m=Home_ctr_method_name which includes script 
-    * or calls any method in any class in clsscripts dirlist in index.php !!, so :
     * http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/"J:/awww/www/readme.md"
     *****************************************************
     */
@@ -460,7 +461,8 @@ abstract class Config_allsites //extends Db_ allsites
       return $Output;
     }
 
-    /*static public function M sgErr(){
+    /*
+    //static public function M sgErr(){
       if(isset($_SESSION["M sgErr"])){
         $Output = "<div class=\"alert alert-danger\">" ;
         $Output .= self::escp($_SESSION["M sgErr"]);
@@ -469,7 +471,7 @@ abstract class Config_allsites //extends Db_ allsites
         return $Output;
       }
     }
-    static public function M sgSuccess(){
+    //static public function M sgSuccess(){
       if(isset($_SESSION["M sgSuccess"])){
         $Output = "<div class=\"alert alert-success\">" ;
         $Output .= self::escp($_SESSION["M sgSuccess"]);
