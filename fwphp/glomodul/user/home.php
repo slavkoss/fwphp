@@ -45,7 +45,7 @@ class Home extends utl
 
       <?= utl::msg_err_succ(__METHOD__) ?>
 
-      <h2>Admins<a class="btn btn-success" href="<?=$pp1->cc_frm?>" title="Add user">Add admin</a></h2>
+      <h2>Admins <a class="btn btn-success" href="<?=$pp1->cc_frm?>" title="Add user">Add admin</a></h2>
 
       <table class="table table-striped">
         <thead>

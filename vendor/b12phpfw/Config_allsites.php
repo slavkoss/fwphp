@@ -449,6 +449,7 @@ abstract class Config_allsites //extends Db_ allsites
       endif; //break reference with  l a s t  element
 
       $suc_tmp = $_SESSION["SuccessMessage"] ;
+      if (!is_array($suc_tmp)) {$suc_tmp = [];}
       if (count($suc_tmp) > 0):
         //$Output = 'Uspjelo u '. $caller .'<br>' ; 
         $Output .= "<div class=\"alert alert-success\">" ;

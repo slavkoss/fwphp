@@ -268,10 +268,7 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
     $title = 'Admin Page' ;
     // http skip is ok for other module :
     utl::Redirect_to( $pp1->site_url .'user/' ) ; // http://dev1:8083/fwphp/glomodul/user/
-                  //Warning: Cannot modify header information :
-                  //require $pp1->shares_path . 'hdr.php';
-                  //require_once("navbar_admin.php");
-    //<script type="text/javascript">window.open('<=dirname($pp1->module_url) .'/user/'>');</script>
+
     require $pp1->shares_path . 'ftr.php';
   }
 
@@ -348,17 +345,6 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
   }
 
 
-                        /* see posts(    private function dashboard(object $pp1) //private
-                        {
-                          utl::Login_Confirm_SesUsrId();
-
-                          $title = 'MSG D ashboard';
-                          require $pp1->shares_path . 'hdr.php';
-                            require_once("navbar_admin.php");
-                            D ashboard_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
-                            //require $pp1->module_path . 'd ashboard.php';  
-                          require $pp1->shares_path . 'ftr.php';
-                        } */
   //        p o s t s  v i e w  t b l
   private function posts(object $pp1) //private
   {
@@ -388,18 +374,6 @@ class Home_ctr extends utl //implements Interf_Tbl_crud
 
     //p=posts or home
 
-
-    /*if ( (isset($pp1->uriq->p)) and $pp1->uriq->p == 'posts' ) 
-    {
-      utl::Login_Confirm_SesUsrId();
-
-      $title = 'Posts' ;
-      //require_once("navbar_admin.php");
-      //require $pp1->shares_path . 'hdr.php';
-         require $pp1->module_path . '../post/posts.php';  
-      //require $pp1->shares_path . 'ftr.php';
-
-    } else  { */
         Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
                                         //require $pp1->module_path . 'home.php';
     //}

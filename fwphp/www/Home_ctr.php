@@ -9,7 +9,7 @@ class Home_ctr extends Config_allsites
 {
   public function __construct(object $pp1)
   {
-    $DateTime = strftime( "%Y.%m.%d %H:%M:%S", time() );
+    //deprecated $DateTime = strftime( "%Y.%m.%d %H:%M:%S", time() );
                         if ('') { self::jsmsg( [ //basename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'

@@ -52,7 +52,7 @@ if (file_exists($img_path . $rr->aimage)) { } else {
         <div class="row">
           <div class="col-md-6">
 
-          <h1><!--i class="fas fa-user text-success mr-2" style="color:#27aae1;"></i-->
+          <h1>
              Profile of admin username <?=$rr->username?>
           </h1>
  

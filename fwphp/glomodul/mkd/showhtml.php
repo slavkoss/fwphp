@@ -41,8 +41,12 @@
       WYSIWYG md editor SimpleMDE or use some desktop markdown text editor
         &nbsp; &nbsp;<a href="index.php" title="index.php">Home</a>
 
-      &nbsp; &nbsp;[<a href="https://domchristie.github.io/turndown/"
-          title="html2markdown"> html2markdown </a>]
+      &nbsp; &nbsp;
+   [<a href="https://www.tutorialspoint.com/online_markdown_editor.php/" title="Tutorialspoint html2markdown"> html2markdown </a>]
+      &nbsp; &nbsp;
+   [<a href="https://codebeautify.org/html-to-markdown/" title="Codebeautify html2markdown"> html2markdown </a>]
+      &nbsp; &nbsp;
+   [<a href="https://www.browserling.com/tools/html-to-markdown/" title="Browserling html2markdown"> html2markdown </a>]
 
       <br /><b>Markdown txt <?=$fle_to_displ_path?> Parsedown-ed to HTML.</b>
         &nbsp; &nbsp;[<a href="<?=$fle_displ_url?>"

@@ -143,7 +143,7 @@ j:\\awww\\www (master -> origin)
 ### git status
 ### git add .
 or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
-### git commit -am "ver 8.2.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
+### git commit -am "ver 9.0.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
 We stored our project files within our system hard drive.      
 If Cmder shows error  "fatal: unable to auto-detect email address" : see above git config...       
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       
@@ -2156,27 +2156,33 @@ No more : Laragon portable laragon.7z, 19 MB.  No more WAMP because is not fully
 
 ***  
 ## Links
-http://dev1:8083/fwphp/glomodul/mkd/?edit=001_MDcheatsheet.txt  
+https://kevinsmith.io/modern-php-without-a-framework/           
+https://github.com/PatrickLouys/no-framework-tutorial           
+https://github.com/mmeyer724/Frameworkless        
 
-http://dev1:8083/fwphp/www/  
-http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/01_oracle_DB_18c_instalac.txt  
-http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/02_oracle_APEX_20_1_instalac.txt  
-http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/03_1oracle_apex_sales_module.txt  
-http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/03_2oracle_apex_sales_apl_cloud.txt  
+https://symfony.com/doc/current/create_framework/index.html
 
-http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/devsuite10g_instalac.txt  
-http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/devsuite10g_F6i_to_apex.txt  
+http://dev1:8083/fwphp/glomodul/mkd/?edit=001_MDcheatsheet.txt        
 
+http://dev1:8083/fwphp/www/      
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/01_oracle_DB_18c_instalac.txt        
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/02_oracle_APEX_20_1_instalac.txt           
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/03_1oracle_apex_sales_module.txt             
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/03_2oracle_apex_sales_apl_cloud.txt            
 
-http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_vbox/001_instalac_moj_vbox_oralin76.mkd  
-http://dev1:8083/fwphp/glomodul/mkd/?showhtml=J:/awww/www/readme.md  
-
-
-
-[Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/devsuite10g_instalac.txt           
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_db/devsuite10g_F6i_to_apex.txt              
 
 
-[SimplestCRUD index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)     
+http://dev1:8083/fwphp/glomodul/mkd/?edit=01/001_vbox/001_instalac_moj_vbox_oralin76.mkd          
+http://dev1:8083/fwphp/glomodul/mkd/?showhtml=J:/awww/www/readme.md             
 
-See http://dev1:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme_thoughts.md for my earlier thoughts.
+
+
+[Top](#top).....<a href="#directories" id="lnkdirectories">Dirs</a>.....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)           
+
+
+[SimplestCRUD index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)        
+
+See http://dev1:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\readme_thoughts.md for my earlier thoughts.          
 

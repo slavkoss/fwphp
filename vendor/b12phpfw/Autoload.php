@@ -14,8 +14,9 @@ class Autoload
       if (strnatcmp(phpversion(),'5.4.0') >= 0) {
             if (session_status() == PHP_SESSION_NONE) { session_start(); }
       } else { if(session_id() == '') { session_start(); } }
-     //NOOO  $_SESSION["SuccessMessage"] = [] ;
-     //      $_SESSION["ErrorMessage"] = [] ;
+
+     $_SESSION["SuccessMessage"] = [] ;
+     $_SESSION["ErrorMessage"] = [] ;
 
      $pp1->stack_trace[]=str_replace('\\','/', __FILE__ ).', lin='.__LINE__ .' ('. __METHOD__ .')';
      $this->pp1 = $pp1 ;

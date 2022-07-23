@@ -1,5 +1,6 @@
 ##### This help txt is in    
-{{help_file_path}}
+{{help_file_path}} 
+<br>It is displayed because op. system txt does not exist.
 
 <p>To create/edit message (post) in op.system file eg "001. Menu_CRUD.txt" (or any extension) you must log in and :</p>
 <ol>

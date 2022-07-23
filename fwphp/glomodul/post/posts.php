@@ -43,7 +43,6 @@ class Posts extends utl
       <section>
          <h4>Posts table (dashboard), order by recent</h4>
 
-
           <!-- S U M S  &  L I N K S -->
           <a title="Create post" class="contrast" href="<?=$pp1->addnewpost?>">Posts : 
               <?php echo Tbl_crud_post::rrcount( $qrywhere="'1'='1'"
@@ -76,7 +75,7 @@ class Posts extends utl
           echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
            ?>
           <table>
-            <thead><tr><th>No.</th><th>Title</th><th>Date&Time</th><th>Category</th><th>Author</th>
+            <thead><tr><th>No.</th><th>Title is (markd./html) op.system file</th><th>Date&Time</th><th>Category</th><th>Author</th>
                   <th>Comments</th><th>Show</th></tr></thead>
             <tbody>
             <?php
@@ -128,26 +127,37 @@ class Posts extends utl
 
               ?>
 
+
                 <tr>
                   <td><?=$SrNo?></td><td><?=$rx->title?></td><td><?=$rx->datetime?></td>
+
                   <td><?=$rx->category?></td><td><?=$rx->author?></td>
+
                   <td>
                     <?php
                     if ($rcnt_approved > 0) { ?>
-                       <span class="badge badge-success"><?=$rcnt_approved?></span><?php }
+                       <span class="badge badge-success"><?=$rcnt_approved?> approved </span><?php }
                     ?>
                     <?php
                     if ($rcnt_disapproved > 0) { ?>
-                       <span class="badge badge-danger"><?=$rcnt_disapproved?></span><?php }
+                       <span class="badge badge-danger"><?=$rcnt_disapproved?> disappr. </span><?php }
                     ?>
                   </td>
-                  <td> 1
+
+                  <td>
                      <a target="_blank" href="<?=$pp1->read_post?>id/<?=$rx->id?>"
-                        title="Preview post id <?=$rx->id?>"
-                     ><span class="btn btn-info"><?=$rx->id?></span>
-                       </a>
+                        title="Preview post id <?=$rx->id?>. To delete post :
+1. delete op.system file <?=$rx->title?> (if exists)
+2. delete post in PHPMyAdmin 
+or write code to do 1. and 2. (it is easy)"
+><span><?=$rx->id?></span></a>
+
                   </td>
+
                 </tr>
+
+
+
               <?php 
             } endwhile; ?>
             </tbody>
@@ -157,6 +167,9 @@ class Posts extends utl
       </section>
 
     </div><!--  class="grid" -->
+
+    
+
 
   </main><!-- Main Area End -->
 
@@ -329,17 +342,16 @@ class Posts extends utl
                         -->
                   <a href="<?=$pp1->wsroot_url .'fwphp/glomodul/mkd/?i/edit/path/J:\\awww\\www\\fwphp\\glomodul\\blog\\msgmkd\\'. $rx->title?>" 
                      title = "Markdown edit text in FILE (not in database !)"
-                  > <span>Edit post in <?php echo self::escp($rx->title); ?> 
-                      (We cre/del .txt in op.system. TODO: cre/del .txt here) &rang;&rang; </span>
+                  > Edit post in op. system file <?php echo self::escp($rx->title); ?>  &rang;&rang;
                   </a>
+                  <br><span>We cre/edit .txt here and del .txt in op.system. TODO: del .txt here). </span>
 
             </p>
 
                  <p>
                   <a class="btn btn-light" href="<?=$pp1->editpost?>id/<?=$rx->id?>" 
                      title = "Edit database table row"
-                  > <span>
-                      Edit post data in database table row &rang;&rang; </span> </a>
+                  > <span>Edit post data in database table row &rang;&rang; </span> </a>
                  
                   <!-- card-title   style="float:right;"
                     <button type="button" class="btn btn-primary">Primary</button>
@@ -359,7 +371,7 @@ class Posts extends utl
 
 
                 <hr>
-
+                <h3>Post summary :</h3>
                   <?php
                      //echo nl2br($rx->summary); //echo nl2br($rx->post);
                     echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
@@ -379,6 +391,7 @@ class Posts extends utl
                             src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
                     </figure>
                     -->
+              <h3>Image :</h3>
               <?php
               //J:/awww/www/fwphp/glomodul/blog/Uploads/mvc_M_V_data_flow.jpg
               // za img :  style="max-height:450px;" 
@@ -390,20 +403,7 @@ class Posts extends utl
                 </figure>
                 <?php
               }
-                            /*
-                            $tmp_imgpath = str_replace('/',DS, $pp1->shares_path)
-                                 . 'img'.DS.'img_big'.DS.self::escp($rx->image) ;
-                            $tmp_imgurlrel = '/zinc/img/img_big/'.self::escp($rx->image) ;
-                                          if ('') {self::jsmsg( [ //b asename(__FILE__).
-                                             __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
-                                             ,'$tmp_imgurlrel'=>$tmp_imgurlrel
-                                             ] ) ; }
-                            if ($rx->image and file_exists($tmp_imgpath)) { ?>
-                                <img src="<?=$tmp_imgurlrel?>" style="max-height:450px;" 
-                                     class="img-fluid card-img-top" />
-                                <?php
-                            }
-                            */
+
               ?>
 
 
@@ -411,6 +411,7 @@ class Posts extends utl
                    I m g  d e s c r i p t i o n
                    ****************************************
               -->
+              <h3>Image description :</h3>
               <section class="mb-5">
                 <p class="fs-5 mb-4"><?php echo 
                    str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
@@ -428,16 +429,16 @@ class Posts extends utl
                    Post content
                    ****************************************
               -->
-
-
-                  <br><br>
+                  <h3>Post content :</h3>
                   <?php $pp1->Home_ctr_obj->readmkdpost($pp1, $rx->title, ''); ?>
 
 
+                        <h4>TXT AFTER EACH POST : I have odd cosmic thoughts every day</h4>
+
                         <p>Science is an enterprise that should be cherished as an activity of the free human mind... </p>
-                        <h2>I have odd cosmic thoughts every day</h2>
-                        <p>For me, ...</p>
+
                         <p>Venus has a runaway greenhouse effect. ... we're twiddling knobs here on Earth without knowing the consequences of it. Mars once had running water. Something bad happened there as well.</p>
+
               </section>
 
 

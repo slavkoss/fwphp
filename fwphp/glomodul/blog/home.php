@@ -155,7 +155,7 @@ class Home extends utl
     $title = 'MSG HOME';
     require_once $pp1->shares_path . 'hdr.php';  //require $pp1->shares_path . 'hdr.php';
     require_once("navbar.php");
- ?>
+    ?>
 
 
   <!-- Page content CENTER-->
