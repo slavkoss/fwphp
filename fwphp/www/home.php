@@ -9,7 +9,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
 
-        <title>Creative - Start Bootstrap Theme</title>
+        <title>B12phpfw</title>
 
         <!-- Favicon
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
