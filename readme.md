@@ -177,6 +177,7 @@ https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-
 2. Generate a new token from github's dev settings so :     
    1. go to https://github.com/slavkoss/fwphp or any Github page    
    2. in the upper-right corner click your profile photo => click Settings => Developer settings => Personal access tokens =>Generate new token      
+       or https://github.com/settings/tokens/new
    3. Give your token a descriptive name, expiration (I 3 months).        
        Select the scopes, or permissions, you'd like to grant this token. To use your token **to access repositories from the command line** :       
        **select repo (also gist, user)**.       
