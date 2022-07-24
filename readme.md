@@ -11,7 +11,7 @@ CRUD module example code 7 scripts:
 
 
 
-**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with XAMPP  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP** (but no production installations). 
+**B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with XAMPP  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP as hobby** (but I have no production installations). 
 
 ## 1\.1 Demo sites - free hosting with free Mysql,  my blog and more sites
 See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul/blog/?i/read_post/id/54) or [here](http://phporacle.heliohost.org/fwphp/glomodul/blog/?i/read_post/id/54)
@@ -28,48 +28,51 @@ See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul
 
 Download from **https://github.com/slavkoss/fwphp**
 
-First "/" in paths below is ownWebServer_or_hosting_DOCROOT_PATH    
+First "/" in paths below is "J:\\awww\\www\\" = "http://dev1:8083/" = ownWebServer_or_hosting_DOCROOT_PATH, eg **first "/" in "/vendor/b12phpfw"**      
 
-Extract from fwphp-master.zip only  ~300 kB (with many adds ~ 3 MB, core less than 100 kB)   :
+Extract from fwphp-master.zip only  ~300 kB (B12phpfw core is less than 100 kB, with many added examples ~3 MB)   :
 
-1. Folders : vendor (was zinc, now zinc no more exists, shares are in /vendor/b12phpfw)   
+1. Folders : vendor (was zinc, now zinc no more exists, shares are in **/vendor/b12phpfw**)   
 
-2. In J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - first learning step - not to simple example but not enough to learn B12phpfw menu & CRUD code skeleton ! Enough not to simple learning modules are Mnu, Mkd and Msg modules ! Seems complicated but is not.      
-
-   Most (all ?) PHP learning sources on internet and books (Nixon, Powers, Yank, Ullman...) seem simple, but are in my opinion good only for basic sintax and lead to wrong
-   menu & CRUD code skeleton, so are more complicated ! It is one of life paradoxes : "illusion, semblance of appearance". 
-   
-   **We must look at the whole - all (main) code  functions**, but PHP learning sources are more self-advertisement to earn money, not to teach all (main) code functions. **I wish Microsoft and others would teach (eg Blazor) the way I've shown here**. Who can understand many megabytes of unexplained includes ? If something goes wrong seek error in many megabytes code ? For me it is child play. To complicated as Oracle Forms after last client-server version 6i. Instalation, calling form and servers is science. Call form after 6i Oracle replaces every 2-3 years with non-compatible ones (problem: huge Java central library !), like Microsoft their development tools.
-
-3. **Mnu** - menu module  /fwphp/www  folder
-
-4. **Mkd** - Markdown content management module in  /fwphp/glomodul/mkd folder  
-
-5. **Msg** - CRUD msg-blog module  /fwphp/glomodul/blog, ...user, ...post_category, ...post, ...post_comment (all in glomodul dir).
-    Blog module works with other 4 modules in innovative way (see /fwphp/glomodul/blog/index.php).
-
-6. In phpmyadmin page :
+2. In phpmyadmin page :
     1. create database z_blogcms , utf8mb4
     2. import in My SQL J:\\awww\\www\\z_DDL_and_other\\01_DDL_mysql_blog.sql
 
+In J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - first learning step beside Mnu module in J:\\awww\\www\\fwphp\\www\\. Adrs is not to simple example but is not enough to learn B12phpfw menu & CRUD code skeleton ! Enough not to simple learning modules are Mnu, Mkd and Msg modules ! Seems complicated but is not.      
+
+>Most (all ?) PHP learning sources on internet and books (Nixon, Powers, Yank, Ullman...) seem simple, but are in my opinion good only for basic sintax and lead to wrong
+>menu & CRUD code skeleton, so are more complicated than B12phpfw ! It is one of life paradoxes : "illusion, semblance of appearance". 
+   
+**We must look at the whole - all (main) code  functions**, but PHP learning sources are more self-advertisement to earn money, not to teach all (main) code functions. **I wish Microsoft and others would teach (eg Blazor)  the way I do here**. Who can understand many megabytes of unexplained includes ? If something goes wrong seek error in many megabytes code ? For me it is child play, to complicated like Oracle Forms after last client-server version 6i. Instalation, calling form and maintain servers is (unexplained) science. Call form after 6i Oracle replaces every 2-3 years with incompatible ones (problem: huge Java central library !). Microsoft development tools are like Oracle`s incompatible and some abandoned.
+
+**Mnu** - menu module in  /fwphp/www  folder
+
+**Mkd** - Markdown content management module in  /fwphp/glomodul/mkd folder  
+
+**Msg** - CRUD msg-blog module in  /fwphp/glomodul/blog, ...user, ...post_category, ...post, ...post_comment (all in glomodul dir).
+
+
+
+
+
 ## First learning step : http://dev1:8083/fwphp/glomodul/adrs/  
-Replace http://dev1:8083 with your Web adress. Opens home page :        
+Replace http://dev1:8083 with your Web adress. Opens Adrs module`s home page :        
 
-**HOME.......EXAMPLE1.......EXAMPLE2.......ADDRESSES** --MAIN MENU IN MODULE (OR SITE) HDR        
+**HOME.......EXAMPLE1.......EXAMPLE2.......ADDRESSES**         *-- MAIN MENU IN MODULE (OR SITE) HDR*        
 
-Homepage --PAGE TITLE        
+Homepage           *--PAGE TITLE*        
 
---PAGE CONTENT :          
+*--PAGE CONTENT :*          
 
 You are in View: J:\\awww\\www\\fwphp\\glomodul\\adrs\\home.php         
 
 $pp1->module_relpath below site root = fwphp/glomodul/adrs       
 
-$pp1->module_url=http://dev1:8083/fwphp/glomodul/adrs/           
+$pp1->module_url = http://dev1:8083/fwphp/glomodul/adrs/           
 
 B12phpfw is diffrent from other (PHP) frameworks (menu and CRUD code skeletons). Main (big) differences  :
 
-1.  Each module (is like Oracle Forms .fmb) is in own folder, not all modules in 3 dirs: M, V, C.   
+1.  Each module (is like Oracle Forms6i .fmb) is in own folder, not all modules in 3 dirs: M, V, C.   
     So J:\\awww\\www\\fwphp\\glomodul\\adrs\\...MINI3 ADRS...NPPSES    
     contains scripts in only one adrs module folder : adrs.    
     Global scripts are in :  J:\\awww\\www\\vendor\\b12phpfw\\ folder.    
@@ -82,7 +85,7 @@ B12phpfw is diffrent from other (PHP) frameworks (menu and CRUD code skeletons).
 
 Site logo (if you wish) : in CSS background: url('data:image/png;base64,iVBORw0KGgoAA...QmCC');     
 
---MODULE (OR SITE) FOOTER :     
+*--MODULE (OR SITE) FOOTER :*     
 This is MINI3 PHP fw on B12phpfw based on MINI3 on GitHub.      
 
 #### Link EXAMPLE1 opens page :
@@ -2050,6 +2053,16 @@ Conclusion : B12phpfw is most useful for CRUD in msg-blog and simmilar modules, 
 
 **Includes and method calls instead URL jumps (http// jump to pages)** - this is interesting question. http// jump to pages in B12phpfw is used only to jump somethimes  in other module.
 
+It is a shame that Oracle does not support the latest client-server SW Forms6i (replacement for the infamous Power objects) and Reports6i, but only the WEB version, which has repeatedly changed some basic functionalities (incompatibilities as with Microsoft tools) and which, for smaller companies, has too many flaws . Why does the WEB version of F6i, R6i not generate something like razor code or PHP code that do not need several servers and have no problem with large Java libraries, with starting...
+(The simplest Blazor form (#ID, name) is ~ 6 MB, PHP form 6 kB !)
+
+Mr. Ferrante says "strongly discourage" which means "with the lure of Power objects, F6i, R6i..." we have hooked you on expensive and for smaller businesses inappropriate SW.
+
+Is this the reason why few developers start new projects with Oracle Forms, the transition from Oracle to Java, APEX (declarative programming with attributes - can clicking be done seriously!?) . These are harmful wanderings similar to those of Microsoft, which is unable to explain the basics of, for example, Blazor without killing several months of hard work for a student?
+
+Do Microsoft, Oracle and other manufacturers of SW tools have anyone from real life who can save us from their children's games?
+
+
 
 
 <br /><br /><br /><br />
@@ -2131,7 +2144,7 @@ No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_
 
 ##  [xampp](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.1.6/)
 
-I use xampp-portable-windows-x64-8.1.5-0-VS16.7z  92 Mb on newest Windows 10, 64 bit.
+I use xampp-portable-windows-x64-8.1.5-0-VS16.7z  92 Mb or newer on newest Windows 10, 64 bit.
 No more : Laragon portable laragon.7z, 19 MB.  No more WAMP because is not fully portable,  Composer needs coding displayed below and it is only for Windows. It seems WAMP and Laragon not giving newest/simplest solutions as xampp does.
 
         WAMP does not like PHP in Windows PATH variable, so :
