@@ -278,22 +278,23 @@
                             <p class="text-muted mb-0">
                                <img class="phone" src="/vendor/b12phpfw/img/mvc_M_V_data_flow.jpg">
                             </p>
+                            <p class="text-muted mb-0">
+          <b>1. SEES</b> in picture means :  C assigns variables from user request in URL
+          (from URL query) telling V what user wants and calls V method or includes V (not showed in picture). 
+          <br><b>2. UPDATES</b> in picture means : V pulls data from M according C variables assigned in 1. 
+                            </p>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">M-V data flow</h3>
+                            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                             <p class="text-muted mb-0">
-          <b>1. SEES</b> in picture means :  C assigns variables from user request in URL
-          (from URL query) telling V what user wants and calls V method or includes V (not showed in picture). 
-          <br><b>2. UPDATES</b> in picture means : V pulls data from M according C variables assigned in 1. 
-          <br><b>3. MANIPULATES</b> means : V (user request) may call C method for some state 
+          3. MANIPULATES</b> means : V (user request) may call C method for some state 
           changes ordered in URL by user (<b>USES</b> in picture).
           <br>Eg : table row update "Approve 
           user comment" in msg module. User`s events are so handled in Controller class.
-          <br>          
                             </p>
                         </div>
                     </div>
@@ -418,14 +419,17 @@
                            title="mvc_M_V_and_M_C_V_data_flow.jpg">
                            <img class="img-fluid" src="/vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg"
                                 alt="/vendor/b12phpfw/img//mvc_M_V_and_M_C_V_data_flow.jpg" />
-                                  /vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg
+                                  /vendor/b12phpfw/img/
+                                  <br>mvc_M_V_and_M_C_V
+                                  <br>_data_flow.jpg
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/vendor/b12phpfw/img/mvc_M_C_V.jpg" 
                            title="/vendor/b12phpfw/img/mvc_M_C_V.jpg">
                            <img class="img-fluid" src="/vendor/b12phpfw/img/mvc_M_C_V.jpg" alt="mvc_M_C_V.jpg" />
-                           /vendor/b12phpfw/img/mvc_M_C_V.jpg
+                           /vendor/b12phpfw/img/
+                           <BR>mvc_M_C_V.jpg
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
@@ -433,7 +437,8 @@
                            title="Project Name">
                            <img class="img-fluid" src="/vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg" 
                                 alt="[project image]" />
-                           /vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg
+                           /vendor/b12phpfw/img/
+                           <br>mvc_M_C_V_data_flow_Laravel.jpg
                         </a>
                     </div>
 
@@ -444,7 +449,8 @@
                            title="Project Name">
                             <img class="img-fluid" src="/vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg"
                                  alt="[project image]" />
-                            mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface
+                            mvc_M_V_data_flow
+                            <br>_MVC_3tier_DAO_abstract_interface.jpg
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
