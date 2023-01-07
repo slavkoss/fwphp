@@ -442,7 +442,7 @@ Search "function " (21 hits in 1 file of 1 searched)
 
 
 ## Db_allsites.php is based on SOLID and Clean Code programming principles
-Basically it works like this (it could be refined according to the following code) :
+Basically Db_allsites.php read (rr , report) works like this (it could be refined according to the following code) :
 
 
 ```php
@@ -500,7 +500,6 @@ $report_ora = new Repcls($ora);
 $report_ora->rr();
 
 
-## ssss   
 Output from $report_mysql->rr(); and from $report_ora->rr();  : 
 
 rr method says : this txt we can load from some Mysql DB table row       
