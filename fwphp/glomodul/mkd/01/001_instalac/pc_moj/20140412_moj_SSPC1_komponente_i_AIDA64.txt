@@ -1,0 +1,603 @@
+--------[ AIDA64 Extreme ]----------------------------------------------------------------------------------------------
+
+    Version                                           AIDA64 v6.30.5500/hr
+    Benchmark Module                                  4.5.837.8-x64
+    Homepage                                          http://www.aida64.com/
+    Report Type                                       Report Wizard
+    Computer                                          SSPC1
+    Generator                                         ss1
+    Operating System                                  Microsoft Windows 10 Pro 10.0.19044.2006
+    Date                                              2022-09-24
+    Time                                              11:50
+
+
+--------[ Summary ]-----------------------------------------------------------------------------------------------------
+
+    Computer:
+      Computer Type                                     ACPI x64-based PC
+      Operating System                                  Microsoft Windows 10 Pro
+      OS Service Pack                                   -
+      Internet Explorer                                 11.789.19041.0
+      Edge                                              105.0.1343.50
+      DirectX                                           DirectX 12.0
+      Computer Name                                     SSPC1
+      User Name                                         ss1
+      Logon Domain                                      SSPC1
+      Date / Time                                       2022-09-24 / 11:50
+
+    Motherboard:
+      CPU Type                                          QuadCore Intel Core i5-2500K, 3633 MHz (37 x 98)
+      Motherboard Name                                  Gigabyte GA-Z68AP-D3  (2 PCI, 3 PCI-E x1, 2 PCI-E x16, 1 mSATA, 4 DDR3 DIMM, Audio, Video, Gigabit LAN)
+      Motherboard Chipset                               Intel Cougar Point Z68, Intel Sandy Bridge
+      System Memory                                     14253 MB  (DDR3 SDRAM)
+      DIMM1: Kingston 99U5471-020.A00LF                 4 GB DDR3-1333 DDR3 SDRAM  (9-9-9-24 @ 666 MHz)  (8-8-8-22 @ 609 MHz)  (7-7-7-20 @ 533 MHz)  (6-6-6-17 @ 457 MHz)
+      DIMM2: Corsair XMS3 CMX8GX3M2A1333C9              4 GB DDR3-1333 DDR3 SDRAM  (9-9-9-24 @ 666 MHz)  (8-8-8-22 @ 592 MHz)  (7-7-7-19 @ 518 MHz)  (6-6-6-16 @ 444 MHz)
+      DIMM3: Kingston 9905403-173.A00LF                 2 GB DDR3-1333 DDR3 SDRAM  (9-9-9-24 @ 666 MHz)  (8-8-8-22 @ 609 MHz)  (7-7-7-20 @ 533 MHz)  (6-6-6-17 @ 457 MHz)
+      DIMM4: Corsair XMS3 CMX8GX3M2A1333C9              4 GB DDR3-1333 DDR3 SDRAM  (9-9-9-24 @ 666 MHz)  (8-8-8-22 @ 592 MHz)  (7-7-7-19 @ 518 MHz)  (6-6-6-16 @ 444 MHz)
+      BIOS Type                                         Award Modular (03/21/12)
+      Communication Port                                Communications Port (COM1)
+      Communication Port                                Printer Port (LPT1)
+
+    Display:
+      Video Adapter                                     Intel(R) HD Graphics 3000  (2108 MB)
+      Video Adapter                                     Intel(R) HD Graphics 3000  (2108 MB)
+      Video Adapter                                     NVIDIA GeForce GTX 1050  (2 GB)
+      Video Adapter                                     NVIDIA GeForce GTX 1050  (2 GB)
+      Video Adapter                                     NVIDIA GeForce GTX 1050  (2 GB)
+      Video Adapter                                     NVIDIA GeForce GTX 1050  (2 GB)
+      3D Accelerator                                    Intel HD Graphics 3000
+      3D Accelerator                                    nVIDIA GeForce GTX 1050
+      Monitor                                           Generic PnP Monitor [NoDB]
+
+    Multimedia:
+      Audio Adapter                                     Intel Cougar Point HDMI @ Intel Cougar Point PCH - High Definition Audio Controller [B3]
+      Audio Adapter                                     nVIDIA GP107 HDMI/DP @ nVIDIA GP107 - High Definition Audio Controller
+      Audio Adapter                                     Realtek ALC889 @ Intel Cougar Point PCH - High Definition Audio Controller [B3]
+
+    Storage:
+      IDE Controller                                    Intel(R) 6 Series/C200 Series Chipset Family 2 port Serial ATA Storage Controller - 1C08
+      IDE Controller                                    Intel(R) 6 Series/C200 Series Chipset Family 4 port Serial ATA Storage Controller - 1C00
+      Storage Controller                                Microsoft Storage Spaces Controller
+      Disk Drive                                        Samsung SSD 840 PRO Series ATA Device  (SATA-III)
+      Disk Drive                                        WDC WD1002FAEX-00Y9A0 ATA Device  (1 TB, 7200 RPM, SATA-III)
+      Disk Drive                                        WDC WD20EZRX-00DC0B0 ATA Device  (2 TB, SATA-III)
+      Disk Drive                                        WDC WD40EZRZ-00GXCB0 ATA Device  (4 TB, SATA-III)
+      Optical Drive                                     HL-DT-ST DVDRAM GH22NS70 ATA Device  (DVD+R9:8x, DVD-R9:8x, DVD+RW:22x/8x, DVD-RW:22x/6x, DVD-RAM:12x, DVD-ROM:16x, CD:48x/32x/48x DVD+RW/DVD-RW/DVD-RAM)
+      SMART Hard Disks Status                           OK
+
+    Partitions:
+      C: (NTFS)                                         237.9 GB (79.5 GB free)
+      D: (NTFS)                                         146.5 GB (114.6 GB free)
+      E: (NTFS)                                         99999 MB (69449 MB free)
+      F: (NTFS)                                         196.3 GB (196.2 GB free)
+      J: (NTFS)                                         1716.5 GB (1418.6 GB free)
+      K: (NTFS)                                         833.9 GB (642.6 GB free)
+      L: (NTFS)                                         3529.6 GB (635.6 GB free)
+      Total Size                                        6758.3 GB (3154.9 GB free)
+
+    Input:
+      Keyboard                                          HID Keyboard Device
+      Mouse                                             HID-compliant Optical Wheel Mouse
+      Game Controller                                   Microsoft PC-joystick driver
+
+    Network:
+      Primary IP Address                                192.168.56.1
+      Primary MAC Address                               50-3E-AA-08-23-F8
+      Network Adapter                                   Realtek PCIe GbE Family Controller
+      Network Adapter                                   TP-Link Gigabit PCI Express Adapter  (192.168.5.10)
+      Network Adapter                                   VirtualBox Host-Only Ethernet Adapter  (192.168.56.1)
+
+    Peripherals:
+      Printer                                           AnyDesk Printer
+      Printer                                           CutePDF Writer
+      Printer                                           Fax
+      Printer                                           Microsoft Print to PDF
+      Printer                                           Microsoft XPS Document Writer
+      Printer                                           OneNote for Windows 10
+      Printer                                           OneNote
+      Printer                                           PDFCreator
+      USB2 Controller                                   Intel Cougar Point PCH - USB EHCI #1 Controller [B3]
+      USB2 Controller                                   Intel Cougar Point PCH - USB EHCI #2 Controller [B3]
+      USB3 Controller                                   Etron EJ168 USB 3.0 xHCI Controller
+      USB Device                                        AVerMedia TD310 USB Pure DVB-T/T2/C
+      USB Device                                        Generic USB Hub
+      USB Device                                        Generic USB Hub
+      USB Device                                        USB Composite Device
+      USB Device                                        USB Input Device
+      USB Device                                        USB Input Device
+      USB Device                                        USB Input Device
+      USB Device                                        USB Input Device
+      USB Device                                        Xbox 360 Controller for Windows
+
+    DMI:
+      DMI BIOS Vendor                                   Award Software International, Inc.
+      DMI BIOS Version                                  F8
+      DMI System Manufacturer                           Gigabyte Technology Co., Ltd.
+      DMI System Product                                Z68AP-D3
+      DMI System Version                                
+      DMI System Serial Number                          
+      DMI System UUID                                   00000000-00000000-000050E5-495300B4
+      DMI Motherboard Manufacturer                      Gigabyte Technology Co., Ltd.
+      DMI Motherboard Product                           Z68AP-D3
+      DMI Motherboard Version                           x.x
+      DMI Motherboard Serial Number                     
+      DMI Chassis Manufacturer                          Gigabyte Technology Co., Ltd.
+      DMI Chassis Version                               
+      DMI Chassis Serial Number                         
+      DMI Chassis Asset Tag                             
+      DMI Chassis Type                                  Desktop Case
+      DMI Total / Free Memory Sockets                   4 / 0
+
+
+--------[ Computer Name ]-----------------------------------------------------------------------------------------------
+
+    Computer Comment          Logical   
+    NetBIOS Name              Logical   SSPC1
+    DNS Host Name             Logical   SSPC1
+    DNS Domain Name           Logical   
+    Fully Qualified DNS Name  Logical   SSPC1
+    NetBIOS Name              Physical  SSPC1
+    DNS Host Name             Physical  SSPC1
+    DNS Domain Name           Physical  
+    Fully Qualified DNS Name  Physical  SSPC1
+
+
+--------[ DMI ]---------------------------------------------------------------------------------------------------------
+
+  [ BIOS ]
+
+    BIOS Properties:
+      Vendor                                            Award Software International, Inc.
+      Version                                           F8
+      Release Date                                      03/21/2012
+      Size                                              4 MB
+      Boot Devices                                      Floppy Disk, Hard Disk, CD-ROM
+      Capabilities                                      Flash BIOS, Shadow BIOS, Selectable Boot, EDD, BBS
+      Supported Standards                               DMI, ACPI, PnP
+      Expansion Capabilities                            PCI, USB
+      Virtual Machine                                   No
+
+    BIOS Manufacturer:
+      Company Name                                      Phoenix Technologies Ltd.
+      Product Information                               http://www.phoenix.com/products
+      BIOS Upgrades                                     http://www.aida64.com/goto/?p=biosupdates
+
+  [ System ]
+
+    System Properties:
+      Manufacturer                                      Gigabyte Technology Co., Ltd.
+      Product                                           Z68AP-D3
+      Universal Unique ID                               00000000-00000000-000050E5-495300B4
+      Universal Unique ID (GUID)                        00000000-0000-0000-0000-50E5495300B4
+      Wake-Up Type                                      Power Switch
+
+  [ Motherboard ]
+
+    Motherboard Properties:
+      Manufacturer                                      Gigabyte Technology Co., Ltd.
+      Product                                           Z68AP-D3
+      Version                                           x.x
+
+    Motherboard Manufacturer:
+      Company Name                                      Gigabyte Technology Co., Ltd.
+      Product Information                               https://www.gigabyte.com/Motherboard
+      BIOS Download                                     https://www.gigabyte.com/Support
+      Driver Update                                     http://www.aida64.com/goto/?p=drvupdates
+      BIOS Upgrades                                     http://www.aida64.com/goto/?p=biosupdates
+
+  [ Chassis ]
+
+    Chassis Properties:
+      Manufacturer                                      Gigabyte Technology Co., Ltd.
+      Chassis Type                                      Desktop Case
+
+  [ Memory Controller ]
+
+    Memory Controller Properties:
+      Error Detection Method                            8-bit Parity
+      Error Correction                                  None
+      Supported Memory Interleave                       1-Way
+      Current Memory Interleave                         1-Way
+      Supported Memory Voltages                         5V
+      Maximum Memory Module Size                        1024 MB
+      Memory Slots                                      4
+
+  [ Processors / Intel(R) Core(TM) i5-2500K CPU ]
+
+    Processor Properties:
+      Manufacturer                                      Intel
+      Version                                           Intel(R) Core(TM) i5-2500K CPU
+      External Clock                                    100 MHz
+      Maximum Clock                                     4000 MHz
+      Current Clock                                     3400 MHz
+      Type                                              Central Processor
+      Voltage                                           1.0 V
+      Status                                            Enabled
+      Upgrade                                           Socket 478
+      Socket Designation                                Socket 1155
+
+    CPU Manufacturer:
+      Company Name                                      Intel Corporation
+      Product Information                               https://ark.intel.com/content/www/us/en/ark/search.html?q=Intel%20Core%20i5-2500K
+      Driver Update                                     http://www.aida64.com/goto/?p=drvupdates
+
+  [ Caches / Internal Cache ]
+
+    Cache Properties:
+      Type                                              Internal
+      Status                                            Enabled
+      Operational Mode                                  Write-Back
+      Maximum Size                                      64 KB
+      Installed Size                                    64 KB
+      Supported SRAM Type                               Synchronous
+      Current SRAM Type                                 Synchronous
+      Socket Designation                                Internal Cache
+
+  [ Caches / External Cache ]
+
+    Cache Properties:
+      Type                                              Internal
+      Status                                            Enabled
+      Operational Mode                                  Write-Back
+      Maximum Size                                      2 MB
+      Installed Size                                    6 MB
+      Supported SRAM Type                               Synchronous
+      Current SRAM Type                                 Synchronous
+      Socket Designation                                External Cache
+
+  [ Memory Arrays / System Memory ]
+
+    Memory Array Properties:
+      Location                                          Motherboard
+      Memory Array Function                             System Memory
+      Error Correction                                  None
+      Max. Memory Capacity                              32 GB
+      Memory Devices                                    4
+
+  [ Memory Modules / A0 ]
+
+    Memory Module Properties:
+      Socket Designation                                A0
+      Installed Size                                    4096 MB
+      Enabled Size                                      4096 MB
+
+  [ Memory Modules / A1 ]
+
+    Memory Module Properties:
+      Socket Designation                                A1
+      Installed Size                                    4096 MB
+      Enabled Size                                      4096 MB
+
+  [ Memory Modules / A2 ]
+
+    Memory Module Properties:
+      Socket Designation                                A2
+      Installed Size                                    2048 MB
+      Enabled Size                                      2048 MB
+
+  [ Memory Modules / A3 ]
+
+    Memory Module Properties:
+      Socket Designation                                A3
+      Installed Size                                    4096 MB
+      Enabled Size                                      4096 MB
+
+  [ Memory Devices / A0 ]
+
+    Memory Device Properties:
+      Form Factor                                       DIMM
+      Size                                              4 GB
+      Max. Clock Speed                                  1333 MT/s
+      Total Width                                       2304-bit
+      Data Width                                        2244-bit
+      Device Locator                                    A0
+      Bank Locator                                      Bank0/1
+
+  [ Memory Devices / A1 ]
+
+    Memory Device Properties:
+      Form Factor                                       DIMM
+      Size                                              4 GB
+      Max. Clock Speed                                  1333 MT/s
+      Total Width                                       2304-bit
+      Data Width                                        2244-bit
+      Device Locator                                    A1
+      Bank Locator                                      Bank2/3
+
+  [ Memory Devices / A2 ]
+
+    Memory Device Properties:
+      Form Factor                                       DIMM
+      Size                                              2 GB
+      Max. Clock Speed                                  1333 MT/s
+      Total Width                                       2304-bit
+      Data Width                                        2244-bit
+      Device Locator                                    A2
+      Bank Locator                                      Bank4/5
+
+  [ Memory Devices / A3 ]
+
+    Memory Device Properties:
+      Form Factor                                       DIMM
+      Size                                              4 GB
+      Max. Clock Speed                                  1333 MT/s
+      Total Width                                       2304-bit
+      Data Width                                        2244-bit
+      Device Locator                                    A3
+      Bank Locator                                      Bank6/7
+
+  [ System Slots / PCI ]
+
+    System Slot Properties:
+      Slot Designation                                  PCI
+      Type                                              PCI
+      Usage                                             Available
+      Data Bus Width                                    32-bit
+      Length                                            Long
+      ID                                                0
+
+  [ System Slots / PCI ]
+
+    System Slot Properties:
+      Slot Designation                                  PCI
+      Type                                              PCI
+      Usage                                             Available
+      Data Bus Width                                    32-bit
+      Length                                            Long
+      ID                                                0
+
+  [ Port Connectors / PRIMARY IDE ]
+
+    Port Connector Properties:
+      Internal Reference Designator                     PRIMARY IDE
+      Internal Connector Type                           On-Board IDE
+      External Connector Type                           None
+
+  [ Port Connectors / SECONDARY IDE ]
+
+    Port Connector Properties:
+      Internal Reference Designator                     SECONDARY IDE
+      Internal Connector Type                           On-Board IDE
+      External Connector Type                           None
+
+  [ Port Connectors / FDD ]
+
+    Port Connector Properties:
+      Port Type                                         8251 FIFO Compatible
+      Internal Reference Designator                     FDD
+      Internal Connector Type                           On-Board Floppy
+      External Connector Type                           None
+
+  [ Port Connectors / COM1 ]
+
+    Port Connector Properties:
+      Port Type                                         Serial Port 16450 Compatible
+      Internal Reference Designator                     COM1
+      Internal Connector Type                           9 Pin Dual Inline (pin 10 cut)
+      External Connector Type                           DB-9 pin male
+
+  [ Port Connectors / COM2 ]
+
+    Port Connector Properties:
+      Port Type                                         Serial Port 16450 Compatible
+      Internal Reference Designator                     COM2
+      Internal Connector Type                           9 Pin Dual Inline (pin 10 cut)
+      External Connector Type                           DB-9 pin male
+
+  [ Port Connectors / LPT1 ]
+
+    Port Connector Properties:
+      Port Type                                         Parallel Port ECP/EPP
+      Internal Reference Designator                     LPT1
+      Internal Connector Type                           DB-25 pin female
+      External Connector Type                           DB-25 pin female
+
+  [ Port Connectors / Keyboard ]
+
+    Port Connector Properties:
+      Port Type                                         Keyboard Port
+      Internal Reference Designator                     Keyboard
+      External Connector Type                           PS/2
+
+  [ Port Connectors / No Detected ]
+
+    Port Connector Properties:
+      Port Type                                         Mouse Port
+      Internal Reference Designator                     PS/2 Mouse
+      Internal Connector Type                           PS/2
+      External Reference Designator                     No Detected
+      External Connector Type                           PS/2
+
+  [ Port Connectors / USB ]
+
+    Port Connector Properties:
+      Port Type                                         USB
+      Internal Reference Designator                     USB
+      Internal Connector Type                           None
+      External Connector Type                           USB
+
+  [ Port Connectors / USB ]
+
+    Port Connector Properties:
+      Port Type                                         USB
+      Internal Reference Designator                     USB
+      Internal Connector Type                           None
+      External Connector Type                           USB
+
+
+--------[ Overclock ]---------------------------------------------------------------------------------------------------
+
+    CPU Properties:
+      CPU Type                                          QuadCore Intel Core i5-2500K
+      CPU Alias                                         Sandy Bridge-DT
+      CPU Stepping                                      D2
+      Engineering Sample                                No
+      CPUID CPU Name                                    Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz
+      CPUID Revision                                    000206A7h
+      CPU VID                                           1.2760 V
+
+    CPU Speed:
+      CPU Clock                                         3340.1 MHz  (original: 3300 MHz)
+      CPU Multiplier                                    34x
+      CPU FSB                                           98.2 MHz  (original: 100 MHz)
+      North Bridge Clock                                3340.1 MHz
+      Memory Bus                                        654.9 MHz
+      DRAM:FSB Ratio                                    20:3
+
+    CPU Cache:
+      L1 Code Cache                                     32 KB per core
+      L1 Data Cache                                     32 KB per core
+      L2 Cache                                          256 KB per core  (On-Die, ECC, Full-Speed)
+      L3 Cache                                          6 MB  (On-Die, ECC, Full-Speed)
+
+    Motherboard Properties:
+      Motherboard ID                                    03/21/2012-Z68-7A89WG0DC-00
+      Motherboard Name                                  Gigabyte GA-Z68AP-D3  (2 PCI, 3 PCI-E x1, 2 PCI-E x16, 1 mSATA, 4 DDR3 DIMM, Audio, Video, Gigabit LAN)
+
+    Chipset Properties:
+      Motherboard Chipset                               Intel Cougar Point Z68, Intel Sandy Bridge
+      Memory Timings                                    9-9-9-24  (CL-RCD-RP-RAS)
+      Command Rate (CR)                                 2T
+      DIMM1: Kingston 99U5471-020.A00LF                 4 GB DDR3-1333 DDR3 SDRAM  (9-9-9-24 @ 666 MHz)  (8-8-8-22 @ 609 MHz)  (7-7-7-20 @ 533 MHz)  (6-6-6-17 @ 457 MHz)
+      DIMM2: Corsair XMS3 CMX8GX3M2A1333C9              4 GB DDR3-1333 DDR3 SDRAM  (9-9-9-24 @ 666 MHz)  (8-8-8-22 @ 592 MHz)  (7-7-7-19 @ 518 MHz)  (6-6-6-16 @ 444 MHz)
+      DIMM3: Kingston 9905403-173.A00LF                 2 GB DDR3-1333 DDR3 SDRAM  (9-9-9-24 @ 666 MHz)  (8-8-8-22 @ 609 MHz)  (7-7-7-20 @ 533 MHz)  (6-6-6-17 @ 457 MHz)
+      DIMM4: Corsair XMS3 CMX8GX3M2A1333C9              4 GB DDR3-1333 DDR3 SDRAM  (9-9-9-24 @ 666 MHz)  (8-8-8-22 @ 592 MHz)  (7-7-7-19 @ 518 MHz)  (6-6-6-16 @ 444 MHz)
+
+    BIOS Properties:
+      System BIOS Date                                  03/21/12
+      Video BIOS Date                                   01/10/17
+      Award BIOS Type                                   Award Modular BIOS v6.00PG
+      Award BIOS Message                                Z68AP-D3 F8
+      DMI BIOS Version                                  F8
+
+    Graphics Processor Properties:
+      Video Adapter                                     MSI GTX 1050 (MS-V809)
+      GPU Code Name                                     GP107-300  (PCI Express 2.0 x16 10DE / 1C81, Rev A1)
+      GPU Clock                                         139 MHz
+      Memory Clock                                      202 MHz
+
+
+--------[ Sensor ]------------------------------------------------------------------------------------------------------
+
+    Sensor Properties:
+      Sensor Type                                       ITE IT8728F  (ISA 290h)
+      GPU Sensor Type                                   Diode  (NV-Diode)
+      Motherboard Name                                  Gigabyte P67 / P67A / P67X / PH67 / Z68A / Z68P / Z68X Series
+      Chassis Intrusion Detected                        Yes
+
+    Temperatures:
+      Motherboard                                       33 °C
+      CPU                                               35 °C
+      CPU Package                                       46 °C
+      CPU IA Cores                                      46 °C
+      CPU GT Cores                                      46 °C
+      CPU #1 / Core #1                                  46 °C
+      CPU #1 / Core #2                                  46 °C
+      CPU #1 / Core #3                                  46 °C
+      CPU #1 / Core #4                                  46 °C
+      PCH Diode                                         46 °C
+      GPU Diode                                         28 °C
+      WDC WD1002FAEX-00Y9A0                             39 °C
+      WDC WD20EZRX-00DC0B0                              34 °C
+      Samsung SSD 840 PRO Series                        34 °C
+      WDC WD40EZRZ-00GXCB0                              31 °C
+
+    Cooling Fans:
+      CPU                                               1389 RPM
+      Chassis #1                                        499 RPM
+      GPU                                               40%
+
+    Voltage Values:
+      CPU Core                                          1.212 V
+      CPU VID                                           1.276 V
+      +3.3 V                                            3.384 V
+      +5 V                                              5.166 V
+      +12 V                                             12.466 V
+      DIMM                                              1.524 V
+      VTT                                               1.044 V
+      GPU Core                                          0.675 V
+
+    Power Values:
+      CPU Package                                       7.87 W
+      CPU IA Cores                                      3.11 W
+      CPU GT Cores                                      0.17 W
+      CPU Uncore                                        4.59 W
+      GPU                                               35.38 W
+      GPU TDP%                                          0%
+      Debug Info F                                      01E6 FFFF 0548 FFFF 0000
+      Debug Info T                                      33 26 35
+      Debug Info V                                      57 AB FE FB 06 65 7F 8C 85
+
+
+--------[ CPU ]---------------------------------------------------------------------------------------------------------
+
+    CPU Properties:
+      CPU Type                                          QuadCore Intel Core i5-2500K, 3633 MHz (37 x 98)
+      CPU Alias                                         Sandy Bridge-DT
+      CPU Stepping                                      D2
+      Instruction Set                                   x86, x86-64, MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, AVX, AES
+      Original Clock                                    3300 MHz
+      Min / Max CPU Multiplier                          16x / 57x
+      Engineering Sample                                No
+      L1 Code Cache                                     32 KB per core
+      L1 Data Cache                                     32 KB per core
+      L2 Cache                                          256 KB per core  (On-Die, ECC, Full-Speed)
+      L3 Cache                                          6 MB  (On-Die, ECC, Full-Speed)
+
+    CPU Physical Info:
+      Package Type                                      1155 Contact FC-LGA
+      Package Size                                      37.5 mm x 37.5 mm
+      Transistors                                       1160 million
+      Process Technology                                32 nm, CMOS, Cu, High-K + Metal Gate
+      Die Size                                          216 mm2
+      Typical Power                                     95 W
+
+    CPU Manufacturer:
+      Company Name                                      Intel Corporation
+      Product Information                               https://ark.intel.com/content/www/us/en/ark/search.html?q=Intel%20Core%20i5-2500K
+      Driver Update                                     http://www.aida64.com/goto/?p=drvupdates
+
+    Multi CPU:
+      Motherboard ID                                    OEM00000 PROD00000000
+      CPU #1                                            Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz, 3293 MHz
+      CPU #2                                            Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz, 3293 MHz
+      CPU #3                                            Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz, 3293 MHz
+      CPU #4                                            Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz, 3293 MHz
+
+    CPU Utilization:
+      CPU #1 / Core #1                                  0%
+      CPU #1 / Core #2                                  25%
+      CPU #1 / Core #3                                  25%
+      CPU #1 / Core #4                                  0%
+
+
+--------[ CPUID ]-------------------------------------------------------------------------------------------------------
+
+    CPUID Properties:
+      CPUID Manufacturer                                GenuineIntel
+      CPUID CPU Name                                    Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz
+      CPUID Revision                                    000206A7h
+      IA Brand ID                                       00h  (Unknown)
+      Platform ID                                       4Bh / MC 02h  (LGA1155)
+      Microcode Update Revision                         2Fh
+      SMT / CMP Units                                   0 / 4
+      Tjmax Temperature                                 98 °C  (208 °F)
+      CPU Thermal Design Power (TDP)                    95 W
+      CPU IA Cores Thermal Design Current               280 A
+      CPU GT Cores Thermal Design Current               280 A
+      CPU Max Power Limit                               Unlimited Power / Unlimited Time
+      CPU Power Limit 1 (Long Duration)                 300 W / Unlimited Time  (Unlocked)
+      CPU Power Limit 2 (Short Duration)                1200 W / Unlimited Time  (Unlocked)
+      Max Turbo Boost Multipliers                       1C: 37x, 2C: 36x, 3C: 35x, 4C: 34x
+
+    
+--------[ Debug - Unknown ]---------------------------------------------------------------------------------------------
+
+    Monitor ID      SAM0659: Generic PnP Monitor [NoDB]
+    Monitor Vendor  SAMSUNG
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+The names of actual companies and products mentioned herein may be the trademarks of their respective owners.
+

@@ -154,7 +154,7 @@ foreach ($attributes as $val) {
 
 //pdooci:
 // ******************************************
-echo "<h1>2. Oracle DB 18c XE PHP PDO</h1>";
+echo "<h1>2. Oracle DB 11g, 18c... XE PHP PDO</h1>";
 // ******************************************
 //works : Sqlplus HR/HR@XEPDB1     Sqlplus HR/HR@ora7
 //        Sqlplus HR/HR@SSPC2:1521/XEPDB1
@@ -162,16 +162,20 @@ echo "<h1>2. Oracle DB 18c XE PHP PDO</h1>";
 //global $DSN, $USR, $PSW;
 global $DSN, $USR, $PSW;
 $USR = 'hr'; //case insensitive
-$PSW = 'HR'; //case sensitive
+$PSW = 'hr'; //case sensitive
 
 //Data Source Name : SERVER_NAME=dev1   SERVER_PORT=8083   HTTP_HOST=dev1:8083
 //$USERDOMAIN = getenv('USERDOMAIN', true) ?: getenv('USERDOMAIN') ; //dev1:8083
 $USERDOMAIN = filter_var( $_SERVER['SERVER_NAME'] , FILTER_SANITIZE_URL ) ;
-//11g XE : $DSN = 'oci:dbname=sspc2/XE:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
-//18c XE : $DSN = 'oci:dbname=sspc2/ora7:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
-$DSN = 'oci:dbname='
+//11g XE : $DSN = 'oci:dbname=sspc1/XE:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
+//18c XE : $DSN = 'oci:dbname=sspc1/ora7:pooled;charset=UTF8'; //charset=UTF8 EE8MSWIN1250
+
+// $DSN is : oci:dbname=dev1:1521/XE:pooled;charset=UTF8 //ok
+$DSN = 'oci:dbname=' 
   . $USERDOMAIN //filter_var( $_SERVER['HTTP_HOST'] . '/', FILTER_SANITIZE_URL )
-  .':1521/XEPDB1'
+  .':1521/XE:pooled;charset=UTF8' //ok
+  //.':SSPC1/XE:pooled;charset=UTF8' // :SSPC1 or :sspc1 are not working 
+  //.':1521/XEPDB1'
   //.':pooled;charset=UTF8' //charset=UTF8 EE8MSWIN1250
 ; 
 
@@ -310,7 +314,7 @@ ocilabel:
 
 //require 'xxx.php';
 // ******************************************
-echo "<h1>3. Oracle DB 18c XE PHP oci_ pconnect</h1>";
+echo "<h1>3. Oracle DB 11g, 18c... XE PHP oci_ pconnect</h1>";
 // ******************************************
 
 // C O N T R O L L E R
@@ -328,27 +332,29 @@ DATA FLOW M -> V is data to present to user.
 <?php
 
 // M O D E L
+//      (SERVICE_NAME = xepdb1)
+//      (SERVICE_NAME = xe)
 $conn = oci_conn(
   "
   (DESCRIPTION =
-    (ADDRESS = (PROTOCOL = TCP)(HOST = sspc2)(PORT = 1521))
+    (ADDRESS = (PROTOCOL = TCP)(HOST = sspc1)(PORT = 1521))
     (CONNECT_DATA =
       (SERVER = DEDICATED)
-      (SERVICE_NAME = xepdb1)
+      (SERVICE_NAME = xe)
     )
   )
   "
 
-  , 'Full connect string like in tnsnames.ora') ;
+  , '<br>3.1 FULL CONNECT STRING LIKE IN TNSNAMES.ORA') ;
 
 emp_tbl_v($conn) ;
 
 
 $conn = oci_conn(
     // usr/psw@
-    "sspc2:1521/XEPDB1"
-  , 'Easy connect string') ;
-//$conn_easy = oci_conn_easystring('Easy connect string') ;
+    "sspc1:1521/XE"
+    //"sspc1:1521/XEPDB1"
+  , '<br>3.2 EASY CONNECT STRING') ;
 
 emp_tbl_v($conn) ;
 
@@ -361,11 +367,22 @@ emp_tbl_v($conn) ;
 
 
 //phpinfolabel:
-echo '<br /><br /><hr />'; include(dirname(dirname(dirname(__DIR__))) .'/zinc/showsource.php');
+// J:\awww\www\vendor\b12phpfw\showsource.php
+echo '<br /><br /><hr />'; include(dirname(dirname(dirname(__DIR__))) .'/vendor/b12phpfw/showsource.php');
+//echo '<br /><br /><hr />'; include(dirname(dirname(dirname(__DIR__))) .'/zinc/showsource.php');
 //phpinfo();
 // ************************ E N D
 
 
+
+
+
+
+
+
+// *************************************************
+//  F N s
+// *************************************************
 
 
 function emp_tbl_v($conn = null)
@@ -394,20 +411,25 @@ function emp_tbl_v($conn = null)
 
 
 
+
 function oci_conn($connstring, $helptxt)
 {
 
-  $conn = oci_pconnect("hr", "HR", $connstring);
+  $conn = oci_pconnect("hr", "hr", $connstring);
 
   if (!$conn) {
       $e = oci_error();
       $e = htmlentities($e['message'], ENT_QUOTES);
-      echo '<br />***** 11111. UNSUCCESSFULL oci_ connect ***** '.$e;
+      echo '<br />***** '. __FUNCTION__ .' SAYS: UNSUCCESSFULL oci_ connect ***** '.$e;
+      ?>
+      <p><b>$connstring is : <?=$connstring?></b>, $USR=<?=$USR?> $PSW=<?=$PSW?>
+      </p>
+      <?php
       //trigger_error($e, E_USER_ERROR);
       return null; //goto oc ilabe l2 ; //p hpinfol abel
   } else { ?>
 
-    <h3>psw is CASE SENSITIVE : Successful $conn = oci_pconnect("hr", "HR", $connstring);  : <?=$helptxt?></h3>
+    <h3><?=__FUNCTION__?> SAYS: psw is CASE SENSITIVE : Successful $conn = oci_pconnect("hr", "HR", $connstring);  : <?=$helptxt?></h3>
       <?='<pre>$connstring='. $connstring .'</pre>'?>
 
     <?php
