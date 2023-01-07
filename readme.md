@@ -444,7 +444,7 @@ Search "function " (21 hits in 1 file of 1 searched)
 ## Db_allsites.php is based on SOLID and Clean Code programming principles
 Basically it works like this (it could be refined according to the following code) :
 
-<br>
+
 ```php
 
 interface IDBcls {
@@ -500,7 +500,7 @@ $report_ora = new Repcls($ora);
 $report_ora->rr();
 
 
-
+## ssss   
 Output from $report_mysql->rr(); and from $report_ora->rr();  : 
 
 rr method says : this txt we can load from some Mysql DB table row       
@@ -510,6 +510,11 @@ rr method says : this txt we can load from some Oracle DB table row.
 ```
   
   
+
+
+-----
+
+
 
 
 
@@ -585,14 +590,10 @@ High-level modules should not import anything from low-level modules; they shoul
 \- You can use basic structs or simple Data Transfer objects if you like.  
 \- Or the data can simply be ***arguments in function calls***.  
           
-        
+
 5.   Don't cross different levels of abstraction
 6.   Give **proper names** and use the scope rule - Stay away from comments and express yourself in code  
          Some comments are ok  
-         \- When you can't express yourself with code:  
-             //Extract the text between the two title elements  
-             $pattern = "(?i)(<tit1e.*?>)(.+?)()";  
-        \- When you want to warn people
 7.   Less than three parameters
 8.  **Don't use boolean or null arguments**
 9.   Beautify predicates when appropriate
@@ -619,7 +620,7 @@ High-level modules should not import anything from low-level modules; they shoul
 16.  Try to use **command and query separation**, **tell don't ask** and even the **law of Demeter**
 17.  Don't use **complex patterns and don't over-engineer**  
       
-    
+ 
 
 [https://en.wikipedia.org/wiki/James\_Martin\_(author)](https://en.wikipedia.org/wiki/James_Martin_(author))  
 From the 1990s onwards, Martin (1933-2013) lived on his own private island, Agar's Island, in Bermuda. In 2004 Martin donated £60m to help establish The Oxford Martin School.  
