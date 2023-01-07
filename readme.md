@@ -445,8 +445,8 @@ Search "function " (21 hits in 1 file of 1 searched)
 Basically it works like this (it could be refined according to the following code) :
 
 <br>
-```
-<?php
+```php
+
 interface IDBcls {
 // CRUD read any DB table rows class contains cc, rr, uu, dd methods
 public function rr(); // Read any DB table row method
@@ -499,7 +499,7 @@ $ora = new Oraclecls();
 $report_ora = new Repcls($ora);
 $report_ora->rr();
 
-?>
+
 
 Output from $report_mysql->rr(); and from $report_ora->rr();  : 
 
