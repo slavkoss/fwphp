@@ -548,10 +548,9 @@ is group of 5 programming principles created by Robert C. Martin (uncle Bob) :
 
 [https://github.com/abiodunjames/Awesome-Clean-Code-Resources](https://github.com/abiodunjames/Awesome-Clean-Code-Resources)
 
-1.  Use TDD/li>
-2.   Always think if your code is **easy to understand**
-3.   Write small functions and classes
-4.   Respect SRP - Small functions advantages (function **5-10 lines, class 10-50-100** lines):
+1.   Always think if your code is **easy to understand**
+2.   Write small functions and classes
+3.   Respect SRP - Small functions advantages (function **5-10 lines, class 10-50-100** lines):
     1.   Easy to understand, maintain, debug, reuse, test, keep bug free
     2.   Avoid code repetition (code redundance), but also use SRP to avoid **too coupled code**, hard to manage the project (complicated, nonunderstandable if-commands).  
         **SRP** = Single Responsibility Principle is **same as Small functions concept**. Function and class should only do one thing (should have only one reason to change)
@@ -590,34 +589,34 @@ High-level modules should not import anything from low-level modules; they shoul
 \- Or the data can simply be ***arguments in function calls***.  
           
 
-5.   Don't cross different levels of abstraction
-6.   Give **proper names** and use the scope rule - Stay away from comments and express yourself in code  
+4.   Don't cross different levels of abstraction
+5.   Give **proper names** and use the scope rule - Stay away from comments and express yourself in code  
          Some comments are ok  
-7.   Less than three parameters
-8.  **Don't use boolean or null arguments**
-9.   Beautify predicates when appropriate
-10.  Use **only custom runtime exceptions  
+6.   Less than three parameters
+7.  **Don't use boolean or null arguments**
+8.   Beautify predicates when appropriate
+9.  Use **only custom runtime exceptions  
     **     \- Use exceptions instead of error codes  
          \- Use your own exceptions
-11.  Treat objects properly keeping in mind if they are **OOP Objects or Data Structure objects**.
-12.  **Use Composition over Inheritance**  
+10.  Treat objects properly keeping in mind if they are **OOP Objects or Data Structure objects**.
+11.  **Use Composition over Inheritance**  
          Signs that inheritance is plotting against you :  
          \- You want to inherit more than one class (greed, pohlepa)  
          \- You feel like you inherit too much  
          \- The abstract world shatters (Dog becomes FoodEeater, BallChaser, MansBestFriend)
-13.  Be on the watch for symptoms of bad code :  
+12.  Be on the watch for symptoms of bad code :  
         1\. Rigidity - Code is **hard to change**. Business is scared to ask for things because everything takes so long.  
         2\. Fragility - When you **touch code in one place it breaks in another**. Business is afraid to ask for things  
             because the    projects breaks everytime you change it.  
         3\. Immobility - You **can't reuse your methods and classes** \- changes take long time.  
         4\. Viscosity - It's hard to do anything because of **design / framework / development** environment  
         5\. tests **run time / deploy time** \- changes take long time.
-14.  Treat **state** carefully. What is state in programming and why is it important :  
+13.  Treat **state** carefully. What is state in programming and why is it important :  
           \- State is prone (sklon) to bugs.  
           \- Keep mutable objects small.
-15.  Keep your **coupling low and your cohesion high**
-16.  Try to use **command and query separation**, **tell don't ask** and even the **law of Demeter**
-17.  Don't use **complex patterns and don't over-engineer**  
+14.  Keep your **coupling low and your cohesion high**
+15.  Try to use **command and query separation**, **tell don't ask** and even the **law of Demeter**
+16.  Don't use **complex patterns and don't over-engineer**  
       
  
 

@@ -212,7 +212,6 @@ https://www.freecodecamp.org/news/clean-coding-for-beginners/</a> </p>
 <p><a href="https://github.com/abiodunjames/Awesome-Clean-Code-Resources">
 https://github.com/abiodunjames/Awesome-Clean-Code-Resources</a> </p>
 <ol>
-	<li>Use TDD/li>
 	<li>&nbsp;Always think if your code is <strong>easy to understand</strong></li>
 	<li>&nbsp;Write small functions and classes</li>
 	<li>&nbsp;Respect SRP - Small functions advantages (function <strong>5-10 lines, class 10-50-100</strong> 
