@@ -11,7 +11,7 @@ class Home_ctr extends utl //Config_ allsites
   public function __construct(object $pp1) 
   {
                         if ('') { self::jsmsg( [ //b asename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'testttttt'
+                           __METHOD__ .', line '. __LINE__ .' said'=>'testttttt'
                            ,'aaaaaa'=>'bbbbbb'
                            ] ) ; 
                         }
@@ -41,7 +41,7 @@ class Home_ctr extends utl //Config_ allsites
     if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
       return $this->$akc($pp1) ;
     } else {
-      echo '<h3>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>' ;
+      echo '<h3>'.__METHOD__ .'() '.', line '. __LINE__ .' said: '.'</h3>' ;
       echo 'Home_ ctr  m e t h o d  "<b>'. $akc .'</b>" is not callable.' ;
       
       echo '<br><br>See how is created  m e t h o d  name  $ a k c  in abstract class Config_ allsites, m ethod __c onstruct :<br>
@@ -62,19 +62,19 @@ class Home_ctr extends utl //Config_ allsites
   {
     // Ver. 7 : Dependency Injection $pp1
     //http://dev1:8083/fwphp/glomodul/adrs
-      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
-      require $pp1->module_path . 'home.php';
-      require $pp1->module_path . 'ftr.php';
+      require $pp1->module_path . '/hdr.php'; // MODULE_PATH
+      require $pp1->module_path . '/home.php';
+      require $pp1->module_path . '/ftr.php';
   }
 
   private function ex1(object $pp1)
   {
     //http://dev1:8083/fwphp/glomodul/adrs?i/ex1/
-      require $pp1->module_path . 'hdr.php';
-      require $pp1->module_path . 'example_one.php';
-      require $pp1->module_path . 'ftr.php';
+      require $pp1->module_path . '/hdr.php';
+      require $pp1->module_path . '/example_one.php';
+      require $pp1->module_path . '/ftr.php';
       
-                  echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
+                  //echo '<pre>Property pallette $pp1='; print_r($pp1) ; echo '</pre>';
   }
 
   private function ex2(object $pp1)
@@ -82,10 +82,10 @@ class Home_ctr extends utl //Config_ allsites
     //http://dev1:8083/fwphp/glomodul/adrs?i/ex2/p1/param1/p2/param2/
     $param1 = $pp1->uriq->p1 ;
     $param2 = $pp1->uriq->p2 ;
-    require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'example_two.php';
-    require $pp1->module_path . 'ftr.php';
-                  echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
+    require $pp1->module_path . '/hdr.php';
+    require $pp1->module_path . '/example_two.php';
+    require $pp1->module_path . '/ftr.php';
+                  //echo '<pre><b>Property pallette $pp1</b>='; print_r($pp1) ; echo '</pre>';
   }
 
 
@@ -99,9 +99,9 @@ class Home_ctr extends utl //Config_ allsites
   private function rt(object $pp1)
   {
     // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
-    require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'read_tbl.php';  
-    require $pp1->module_path . 'ftr.php';
+    require $pp1->module_path . '/hdr.php';
+    require $pp1->module_path . '/read_tbl.php';  
+    require $pp1->module_path . '/ftr.php';
   }
 
 
@@ -114,9 +114,9 @@ class Home_ctr extends utl //Config_ allsites
     // I N C  C R U D P A G E  S C R I P T
     // f o r m : http://dev1:8083/fwphp/glomodul/adrs/?i/cc/
     //http://dev1:8083/fwphp/glomodul/adrs
-      require $pp1->module_path . 'hdr.php'; // MODULE_PATH
-      require $pp1->module_path . 'cre_row_frm.php';
-      require $pp1->module_path . 'ftr.php';
+      require $pp1->module_path . '/hdr.php'; // MODULE_PATH
+      require $pp1->module_path . '/cre_row_frm.php';
+      require $pp1->module_path . '/ftr.php';
   }
 
 
@@ -140,10 +140,10 @@ class Home_ctr extends utl //Config_ allsites
   private function uu(object $pp1)
   {
            //       R O W U P D  FRM
-    //echo 'Method '.__METHOD__ .' SAYS: I &nbsp; i n c l u d e &nbsp; p h p &nbsp;
+    //echo 'Method '.__METHOD__ .' said: I &nbsp; i n c l u d e &nbsp; p h p &nbsp;
     //http://dev1:8083/fwphp/glomodul/adrs?i/uu/t/song/id/22  see switch default: above !!
                   if ('0') {  //if ($module_ arr['dbg']) {
-                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h2>' ;
                   echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
                   echo '</pre>'; }
 
@@ -152,9 +152,9 @@ class Home_ctr extends utl //Config_ allsites
        if (isset($uriq->id)) 
          $IdFromURL = (int)utl::escp($uriq->id) ; //NOT (int)utl::escp($_GET['id']) ; 
     } else $IdFromURL = NULL ;
-    require $pp1->module_path . 'hdr.php';
-    require $pp1->module_path . 'upd_row_frm.php';  
-    require $pp1->module_path . 'ftr.php';
+    require $pp1->module_path . '/hdr.php';
+    require $pp1->module_path . '/upd_row_frm.php';  
+    require $pp1->module_path . '/ftr.php';
   }
 
 
@@ -184,8 +184,8 @@ class Home_ctr extends utl //Config_ allsites
     {
         // h d r  is  in  p a g e  which  i n c l u d e s  t h i s
                    //require $pp1->module_path . 'hdr.php'; //or __DIR__
-        require $pp1->module_path . 'error.php';
-        require $pp1->module_path . 'ftr.php';
+        require $pp1->module_path . '/error.php';
+        require $pp1->module_path . '/ftr.php';
     }
 
 

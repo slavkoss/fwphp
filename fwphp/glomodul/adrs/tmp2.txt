@@ -1,6 +1,6 @@
   static public function r r( $dmlrr, $binds = [], $other = [] ) // *************** r r (
   {
-                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
+                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
                 echo '<pre>';
                 echo '<br />$caller='; print_r($other) ; ;
                 echo '$dmlrr=' . $dmlrr ;
@@ -16,12 +16,12 @@
       $sql_1st_rblk_arr = explode(',', $sql_partlimit_arr[1]) ;
     }
 
-    if (self::$dbi == 'oracle' and self::$do_pgntion) {
+    if (self::$dbi == 'oci' and self::$do_pgntion) {
         self::$do_pgntion = '';
         $dmlrr = str_replace('LIMIT :first_rinblock, :rblk','', $dmlrr) ;
         switch (self::$dbi)
         {
-          case 'oracle' :
+          case 'oci' :
             $dmlrr = '
               SELECT *
               FROM (SELECT A.*, ROWNUM AS RNUM
@@ -64,10 +64,10 @@
     //e n d             B I N D I N G
 
     execute_sql:
-                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' SAYS :<br />';
+                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' said :<br />';
                 $tmp = self::debugPDO($dmlrr, $binds, $ph_val_arr) ; }
                 //exit() is in d ebugPDO
-                if ('') {echo '<h3>[P D O  DEBUG] '.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
+                if ('') {echo '<h3>[P D O  DEBUG] '.__METHOD__.' ln='.__LINE__.' said:</h3>';
                   //echo '<br />'.' &nbsp;  &nbsp; $sql_1st_rblk_arr=' . json_encode($sql_1st_rblk_arr) .'<br />'.' &nbsp;  &nbsp; $sql_partlimit_arr=' . json_encode($sql_partlimit_arr)
                 echo //'<br />'.'$o nerow=' . $o nerow
                 '<br />'.'self::$d bi=' . self::$dbi ;

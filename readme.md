@@ -55,8 +55,17 @@ In J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - first learning st
 
 
 
-## First learning step : http://dev1:8083/fwphp/glomodul/adrs/  
-Replace http://dev1:8083 with your Web adress. Opens Adrs module`s home page :        
+## First learning step : adrs module
+Currently 2023.01.15, B12phpfw version 10.0.0.0 "Same module db adapter for any shared db adapter" (10=main.0=DDL.0=DML.0=error) :      
+
+Only the addrs module works on Mysql or Oracle 11g DB (not all functionalities, but enough to clearly see everything important). It's not hard to update the whole addrs module and msg module to version 10, but it takes a **lot of time, so I'm not in a hurry** because I think **I've achieved** the goal of the menu and CRUD skeleton code B12phpfw . A lot of time in the previous sentence means that SW tools as well as user applications require a lot of time for finishing if we change something. The best example of how to avoid this is shared (global) code eg "Same module db adapter for any shared db adapter".
+
+The goal of B12phpfw PHP SW tool is, based on over twenty years of work with Oracle Forms 6i, to make tool for *.php websites with the logic like Oracle Forms 6i.
+
+mnu, addrs... folders (modules) are like Oracle Forms 6i *.fmb and *.php are like programs inside some .fmb. I am convinced that this approach is much better than three folders M, V, C for all pages (*.fmb) which seems to me to be the work of authors of SW tools who do not have enough practical experience. Such authors have done a lot of damage in our time (Microsoft, Oracle, all Linux stupid versions and even Windows).
+
+http://dev1:8083/fwphp/glomodul/adrs/         
+Replace http://dev1:8083 with your Web adress eg http://localhost\b12 - opens Adrs module`s home page :        
 
 **HOME.......EXAMPLE1.......EXAMPLE2.......ADDRESSES**         *-- MAIN MENU IN MODULE (OR SITE) HDR*        
 
@@ -111,7 +120,7 @@ url GET parameter p2=param2
 
 You are in View: J:\awww\www\fwphp\glomodul\adrs\example_two.php
 
-#### Link ADDRESSES opens page : "Links to youtube videos" or too... as you wish
+#### Link ADDRESSES opens page : "Links to youtube videos" or to... any page you wish
 Trait Db_allsites static public function rrcnt called from "class Tbl_crud implements Interf_Tbl_crud" has problem :
 >Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
 >            it should only be called on a class using the trait -- **PHP authors did not explain this problem ?**
@@ -120,6 +129,54 @@ Trait Db_allsites static public function rrcnt called from "class Tbl_crud imple
 
 There is lot to learn about Adrs module. If seems difficult try first [Mini3](https://github.com/panique/mini3) . 
 Msg module adds "more modules" functionality which is real life programming not easy but neccessary.
+
+## 5steps CODE FLOW in adrs module or any other B12phpfw module
+after Click on "ADDRESSES" button or any other link.         
+
+See clean_architecture.md where is code levels image from https://github.com/nazonohito51/clean-architecture-sample  .         
+
+Try edit md file so : http://dev1:8083/fwphp/glomodul/mkd/?i/showhtml/path/J:\awww\www\clean_architecture.md
+
+Output from Autoload class after we change if ('') {... to if ('1') {... is :       
+
+1. B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said:           
+SHARED (GLOBAL) CLS TO LOAD $clsname=Db_allsites_ORA $module_dir=b12phpfw                
+instantiated in index.php so :            
+    //3. SAME MODULE DB ADAPTER FOR ANY shared DB adapter              
+    //$pp1->dbicls = Db_allsites_ORA or Db_allsites for MySql :                
+    $tmp = 'B12phpfw\\core\\b12phpfw\\'. $pp1->dbicls ;                   
+    //shared DB adapter :            
+    $AllTbl_crud_obj = new $tmp() ;           
+    //module DB adapter IS SAME for Db_allsites_ORA and Db_allsites for MySql !!              
+    $Tbl_crud_obj = new Tbl_crud($AllTbl_crud_obj) ;              
+namespaced class $nscls=B12phpfw\core\b12phpfw\Db_allsites_ORA           
+
+2. B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said:               
+SHARED (GLOBAL) CLS TO LOAD $clsname=Interf_Tbl_crud $module_dir=b12phpfw                         
+PHP Interface is a list of methods as a package in oracle plsql. PHP class is like package body in oracle plsql.                  
+Reasons for using Interface:              
+  1. mandatory form of method call, 
+  2.  same module db adapter for any shared db adapter. 
+namespaced class $nscls=B12phpfw\core\b12phpfw\Interf_Tbl_crud             
+
+3. B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said:                   
+SHARED (GLOBAL) CLS TO LOAD $clsname=Tbl_crud $module_dir=adrs                   
+has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :                
+                  public function __construct(Interf_Tbl_crud $utldb) {                
+                     self::$utldb = $utldb;              
+                  }          
+namespaced class $nscls=B12phpfw\dbadapter\adrs\Tbl_crud            
+
+4. B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said:           
+SHARED (GLOBAL) CLS TO LOAD $clsname=Home_ctr $module_dir=adrs             
+Home_ctr extends Config_allsites (alias, nickname is utl)             
+namespaced class $nscls=B12phpfw\module\adrs\Home_ctr                
+
+5. B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said:              
+SHARED (GLOBAL) CLS TO LOAD $clsname=Config_allsites $module_dir=b12phpfw              
+namespaced class $nscls=B12phpfw\core\b12phpfw\Config_allsites                
+
+
 
 <br /><br /><br /><br />
 # <a name="ide"></a> 1\.2\.a My developing environment (IDE)
@@ -146,7 +203,7 @@ j:\\awww\\www (master -> origin)
 ### git status
 ### git add .
 or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
-### git commit -am "ver 9.0.0.0 mnu, msg, mkd FUNCTIONAL namespaces, CRUD PDO, pretty URL-s"
+### git commit -am "ver 10.0.0.0 mnu, adrs, msg, mkd. Same module db adapter for any shared db adapter"
 We stored our project files within our system hard drive.      
 If Cmder shows error  "fatal: unable to auto-detect email address" : see above git config...       
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       
@@ -370,15 +427,15 @@ return [
 
 
 
-## 1\.6 1b. DBI: trait Db_allsites  : code type MODEL, DB PDO CRUD ADAPTER, PDOQueryBuilder  
-(NO MORE abstract cls Dbconn_allsites since ver. 7)    
+## 1\.6 1b. DBI:  class Db_allsites  : code type MODEL, DB PDO CRUD ADAPTER, PDOQueryBuilder  
 
 B12PHPFW CORE CODE.   
 LEVEL : ALL SITES (SAME CODE FOR ALL SITES ee SHARED, GLOBAL, COMMON)      
 (**MODEL**, AbstractEntity)     
 
-Was abstract class Dbconn_allsites till ver. 7). **Trait is simmilar to class**. Reason for trait is net code structure :       
-some class may use more traits - **net** - more parents,  but may extend only one class - **hierarchy**. 
+class Dbconn_allsites . **Trait is simmilar to class**. Reason for trait is net code structure :       
+some class may use more traits - **net** - more parents,  but may extend only one class - **hierarchy**.     
+I do not use trait - had some bug as advanced code frequently has.
 
 
 -----
@@ -442,191 +499,10 @@ Search "function " (21 hits in 1 file of 1 searched)
 
 
 ## Db_allsites.php is based on SOLID and Clean Code programming principles
-Basically Db_allsites.php read (rr , report) works like this (it could be refined according to the following code) :
+Basically Db_allsites.php read (rr , report) works like this (it could be refined according to the code in      ) .
+/awww/www/clean_architecture.md. I did it for module adrs - it is version 10, for other later.
 
-
-```php
-
-interface IDBcls {
-// CRUD read any DB table rows class contains cc, rr, uu, dd methods
-public function rr(); // Read any DB table row method
-}
-
-class Mysqlcls implements IDBcls {
-  public function rr() {
-    ?>
-    <br><br>rr method says : this txt we can load from some Mysql DB table row
-    <?php
-  }
-}
-
-
-class Oraclecls implements IDBcls {
-  public function rr() {
-    ?>
-    <br><br>rr method says : this txt we can load from some Oracle DB table row.
-    <?php
-  }
-}
-
-
-
-
-/* interface IRepcls { // also possible
-public function usesrr(IDBcls $db);
-} */
-
-//class Repcls implements IRepcls {
-class Repcls {
-  public $db ;
-
-  public function __construct(IDBcls $db)
-  {
-    $this->db = $db;
-  }
-  public function rr() {
-    $this->db->rr();
-  }
-}
-
-
-// Client
-$mysql = new Mysqlcls();
-$report_mysql = new Repcls($mysql);
-$report_mysql->rr();
-
-$ora = new Oraclecls();
-$report_ora = new Repcls($ora);
-$report_ora->rr();
-
-
-Output from $report_mysql->rr(); and from $report_ora->rr();  : 
-
-rr method says : this txt we can load from some Mysql DB table row       
-  
-rr method says : this txt we can load from some Oracle DB table row.        
-
-```
-  
-  
-
-
------
-
-
-
-
-
-<br><br>
-### SOLID
-
-is group of 5 programming principles created by Robert C. Martin (uncle Bob) :  
-
-1.  S ingle-responsibility. **SRP** class should only have one reason to change, ee **class should do only one thing** \- every class is owned exactly by one entity - **person who manipulates data has his class methods**. It is people who request changes. And you don’t want to confuse those people, or yourself, by mixing together the code that many different people care about for different reasons.  
-          [https://dev.to/tamerlang/understanding-solid-principles-single-responsibility-principle-523j](https://dev.to/tamerlang/understanding-solid-principles-single-responsibility-principle-523j)
-2.  **O pen-closed** Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification - 100% ready to be used by other classes - its interface is clearly defined and won’t be changed in the future  - keep the existing code from breaking when you implement new features - **do not modify code, but extend it**. Create a subclass and override parts of the original class that you want to behave differently or you can extend the functionality and add your own methods. You'll achieve your goal but also won't break the existing functionality of the original class. If you see a bug then go ahead and fix it; don't create a subclass for it.
-3.  **L iskov** substitution - in object-oriented programming, subclasses should be able to substitute their parent classes without breaking any client functionality. 
-    1.   **Parameter types** in a method of a class should match or are more abstract than parameter types in the superclass. Eg feed(Dog d) : we created a subclass that overrode feed(Dog d) so that it can feed any animal (a superclass of dogs): feed(Animal d) - method can feed all animals, so it can still feed any cat passed by the client. 
-    2.  Inverse to the requirements of the parameter type :  The **return type** in a method of a subclass should match or be a subtype of the return type in the superclass. 
-    3.  ... [https://dev.to/tamerlang/understanding-solid-principles-liskov-substitution-principle-46an](https://dev.to/tamerlang/understanding-solid-principles-liskov-substitution-principle-46an)
-4.  **I nterface segregation (separation)** no client should be forced to depend on methods it does not use. Ee interface shouldn't force a class to implement methods that it won't be using. Do I have a bunch of one method interfaces? No. SOLID principles shouldn't be followed to the teeth, eg PizzaIface fn orderPizza($qty) class PizzaOrder, DrinkIface...
-5.  **D ependency inversion [https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f](https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f)** High-level modules should not import anything from low-level modules; they should **both depend on abstractions**. Abstractions should not depend on details. Details should depend upon abstractions.
-    
-    Code that doesn't follow this principle can be **too coupled**, hard to manage the project.
-    
-    Report class does not depend concretely on the database class but on its abstraction DatabaseInterface. This approach also follows the **open-closed principle** because **to use any new DB we don\\'t have to change Report class**. We just need to add a new database class that implements the DatabaseInterface.
-    
-    For me, it doesn't matter whether **car engine** (details) has changed, I still should be able to drive my car the same way.  
-    Details should depend upon abstractions, same as high-level modules (brakes , reports) - I would not want an **engine that causes the brake to double the speed**.
-    
-      
-    
-
-### Clean Code Project - readable code
-
-"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."                  – Martin Fowler [https://www.freecodecamp.org/news/clean-coding-for-beginners/](https://www.freecodecamp.org/news/clean-coding-for-beginners/)
-
-[https://github.com/abiodunjames/Awesome-Clean-Code-Resources](https://github.com/abiodunjames/Awesome-Clean-Code-Resources)
-
-1.   Always think if your code is **easy to understand**
-2.   Write small functions and classes
-3.   Respect SRP - Small functions advantages (function **5-10 lines, class 10-50-100** lines):
-    1.   Easy to understand, maintain, debug, reuse, test, keep bug free
-    2.   Avoid code repetition (code redundance), but also use SRP to avoid **too coupled code**, hard to manage the project (complicated, nonunderstandable if-commands).  
-        **SRP** = Single Responsibility Principle is **same as Small functions concept**. Function and class should only do one thing (should have only one reason to change)
-    3.   Beautify code
-    4.   Separate concepts into their **levels of abstraction :  
-        ### Layers  
-          
-**see image J:\\awww\\www\\vendor\\b12phpfw\\img\\img\_big\\Clean\_Architecture.jpg and ...\_older\_DDD.jpg.  **       
-Clean_Architecture.jpg description :  https://github.com/nazonohito51/clean-architecture-sample 
-          
-### **1\. Entities** \- 1st (inner) circle - YELLOW. Entities encapsulate ***enterprise wide business rules***.  
-It doesn’t matter so long as the entities could be used by many different applications in the enterprise.  
-  
-### **2\. Use Cases** \- 2nd circle (1st outer circle) - HIGHER LAYER - PINK. The software in this layer contains ***application specific business rules***.     
-These use cases orchestrate the **flow of data to and from the entities**, and direct those entities to use their enterprise wide business rules to achieve the goals of the use case.  
-  
-### **3\. Interface Adapters** \- 3rd - HIGHER LAYER - GREEN  
-The software in this layer is a set of adapters that **convert data** from the format most convenient for the use cases and entities.  
-That will wholly contain the MVC architecture of a GUI.  
-The models are likely just data structures that are passed from the controllers to the use cases, and then back from the use cases to the presenters and views.  
-  
-### **4\. Frameworks & Drivers** \- 4th - HIGHER LAYER - BLUE  
-The outermost layer is generally composed of frameworks and tools such as the Database, the Web Framework, etc.  
-  
-### Dependency Rule  
-  
-1\. is overriding rule (Glavno pravilo) that makes this architecture work :  
-source code dependencies can only point inwards :  
-\- Nothing in an inner circle can know anything at all about something in an outer circle.  
-\- The name of something declared in an outer circle must not be mentioned by the code in an inner circle.  
-We usually resolve this apparent contradiction by using the ****dependency inversion***** Principle :  
-High-level modules should not import anything from low-level modules; they should **both depend on abstractions**. Abstractions should not depend on details.  
-  
-2\. Typically the data that crosses the boundaries is simple data structures.  
-\- You can use basic structs or simple Data Transfer objects if you like.  
-\- Or the data can simply be ***arguments in function calls***.  
-          
-
-4.   Don't cross different levels of abstraction
-5.   Give **proper names** and use the scope rule - Stay away from comments and express yourself in code  
-         Some comments are ok  
-6.   Less than three parameters
-7.  **Don't use boolean or null arguments**
-8.   Beautify predicates when appropriate
-9.  Use **only custom runtime exceptions  
-    **     \- Use exceptions instead of error codes  
-         \- Use your own exceptions
-10.  Treat objects properly keeping in mind if they are **OOP Objects or Data Structure objects**.
-11.  **Use Composition over Inheritance**  
-         Signs that inheritance is plotting against you :  
-         \- You want to inherit more than one class (greed, pohlepa)  
-         \- You feel like you inherit too much  
-         \- The abstract world shatters (Dog becomes FoodEeater, BallChaser, MansBestFriend)
-12.  Be on the watch for symptoms of bad code :  
-        1\. Rigidity - Code is **hard to change**. Business is scared to ask for things because everything takes so long.  
-        2\. Fragility - When you **touch code in one place it breaks in another**. Business is afraid to ask for things  
-            because the    projects breaks everytime you change it.  
-        3\. Immobility - You **can't reuse your methods and classes** \- changes take long time.  
-        4\. Viscosity - It's hard to do anything because of **design / framework / development** environment  
-        5\. tests **run time / deploy time** \- changes take long time.
-13.  Treat **state** carefully. What is state in programming and why is it important :  
-          \- State is prone (sklon) to bugs.  
-          \- Keep mutable objects small.
-14.  Keep your **coupling low and your cohesion high**
-15.  Try to use **command and query separation**, **tell don't ask** and even the **law of Demeter**
-16.  Don't use **complex patterns and don't over-engineer**  
-      
  
-
-[https://en.wikipedia.org/wiki/James\_Martin\_(author)](https://en.wikipedia.org/wiki/James_Martin_(author))  
-From the 1990s onwards, Martin (1933-2013) lived on his own private island, Agar's Island, in Bermuda. In 2004 Martin donated £60m to help establish The Oxford Martin School.  
-1976\. Principles of Data-Base Management  
-1985\. Diagramming techniques for analysts and programmers. With Carma McClure.  
-
-  
-  
 
 
 -----

@@ -14,7 +14,7 @@
 
 
 
-echo __FILE__.' SAYS : '.'<br />';
+echo __FILE__.' said : '.'<br />';
 
 echo "<h3>include_path=".get_include_path()."</h3>";
 
@@ -208,7 +208,7 @@ $conn  = null; // object variabla db instance
       //$conn=new P DOO CI\PDO($DSN, $USR, $PSW, $pdo_options);
       //$conn=new PDO($DSN, $USR, $PSW, $pdo_options);
       $conn=new PDO($DSN, $USR, $PSW);
-      print(__FILE__.', '.__LINE__.' SAYS: <h3>PHP PDO OCI CONNECTED : 
+      print(__FILE__.', '.__LINE__.' said: <h3>PHP PDO OCI CONNECTED : 
         $conn=new PDO($DSN, $USR, $PSW);
          </h3>');
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -216,7 +216,7 @@ $conn  = null; // object variabla db instance
     } catch(PDOException $e) {
       //msg_conn_failed();
       //die($e->getMessage());
-      print('<br />'.__FILE__.', '.__LINE__.' SAYS: ');
+      print('<br />'.__FILE__.', '.__LINE__.' said: ');
       print('<h3>'.$e->getMessage()).'</h3>';
       goto ocilabel ; //p hpinfol abel
     }
@@ -420,7 +420,7 @@ function oci_conn($connstring, $helptxt)
   if (!$conn) {
       $e = oci_error();
       $e = htmlentities($e['message'], ENT_QUOTES);
-      echo '<br />***** '. __FUNCTION__ .' SAYS: UNSUCCESSFULL oci_ connect ***** '.$e;
+      echo '<br />***** '. __FUNCTION__ .' said: UNSUCCESSFULL oci_ connect ***** '.$e;
       ?>
       <p><b>$connstring is : <?=$connstring?></b>, $USR=<?=$USR?> $PSW=<?=$PSW?>
       </p>
@@ -429,7 +429,7 @@ function oci_conn($connstring, $helptxt)
       return null; //goto oc ilabe l2 ; //p hpinfol abel
   } else { ?>
 
-    <h3><?=__FUNCTION__?> SAYS: psw is CASE SENSITIVE : Successful $conn = oci_pconnect("hr", "HR", $connstring);  : <?=$helptxt?></h3>
+    <h3><?=__FUNCTION__?> said: psw is CASE SENSITIVE : Successful $conn = oci_pconnect("hr", "HR", $connstring);  : <?=$helptxt?></h3>
       <?='<pre>$connstring='. $connstring .'</pre>'?>
 
     <?php

@@ -200,16 +200,16 @@ The application's URL-path translates directly to the controllers (=files) and t
 application/controllers.
 
 `example.com/home/exampleOne` will do what the *exampleOne()* method 
-      in application/Controller/Home_C.php says.
+      in application/Controller/Home_C.php said.
 
-`example.com/home` will do what the *index()* method in application/Controller/Home_C.php says.
+`example.com/home` will do what the *index()* method in application/Controller/Home_C.php said.
 
-`example.com` will do what the *index()* method in application/Controller/Home_C.php says (default fallback).
+`example.com` will do what the *index()* method in application/Controller/Home_C.php said (default fallback).
 
-`example.com/songs` will do what the *index()* method in application/Controller/Song_C.php says.
+`example.com/songs` will do what the *index()* method in application/Controller/Song_C.php said.
 
 `example.com/songs/editsong/17` will do what the *editsong()* method 
-    in application/Controller/Song_C.php says and will pass `17` as a parameter to it.
+    in application/Controller/Song_C.php said and will pass `17` as a parameter to it.
 
 Self-explaining, right ?
 

@@ -9,7 +9,7 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 namespace B12phpfw\module\blog ;
 
 use B12phpfw\core\b12phpfw\Config_allsites     as utl ;
-//use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
+//use B12phpfw\core\b12phpfw\D b_allsites as utldb ;
 //use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 use B12phpfw\dbadapter\user\Tbl_crud           as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
@@ -23,7 +23,7 @@ use B12phpfw\module\post\Posts                 as Dashboard_view; //no more D as
 //extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_ allsites" but :
 //"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites (is not for sake of code reusability and clear code)
 // May be named App, Router_dispatcher... :
-class Home_ctr extends utl //implements Interf_Tbl_crud
+class Home_ctr extends utl //i mplements Interf_Tbl_crud
 {
   // NO ATTRIBUTES - attr. are in parent c l a s s (e s).
   // $pp1 is M O D U L E PROPERTIES PALLETE like in Oracle Forms

@@ -66,7 +66,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     return $cursor ;
   }
 
-  static public function rrnext(object $cursor ): object
+  static public function rrnext(object $cursor, array $other = [] ): object
   {
     $rx = utldb::rrnext($cursor) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);

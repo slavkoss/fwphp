@@ -19,7 +19,14 @@ use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
+/*
+class Repcls {
+  public $db ;
 
+  public function __construct(IDBcls $db)  { $this->db = $db; }
+  public function rr() { $this->db->rr(); }
+}
+*/
 // Gateway class - separate DBI layers
 class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was Home
 {

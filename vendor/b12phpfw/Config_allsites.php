@@ -229,7 +229,7 @@ abstract class Config_allsites //extends Db_ allsites
                   // IMPORTANT FOR FINDING ROUTING LOGICAL ERRORS 
                   // Xdebug shoes only sintactical errors !
                   if ('') {  //if ($module_ arr['dbg']) {
-                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h2>'
                     .'Coding step c s 0 2. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
                   echo '<pre>';
                   //     C O N F I G S :
@@ -239,7 +239,7 @@ abstract class Config_allsites //extends Db_ allsites
                   //
 
                   //       R O U T I N G  see ftr 
-                    echo '<h3>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>'
+                    echo '<h3>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h3>'
                     .'Coding step c s 0 2. R O U T I N G ~~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
                   //
                   echo '<br /><b>$_SERVER[\'REQUEST_URI\']</b>='; print_r($_SERVER['REQUEST_URI']); 
@@ -363,7 +363,7 @@ abstract class Config_allsites //extends Db_ allsites
       //$r->id           = (int)utl::escp($r->id) ;
       //$r->author       = (int)utl::escp($r->author) ;
             if ('') { 
-            echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+            echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h2>' ;
             echo '<pre><b>$r</b>='; var_dump($r); echo '</pre>';
             }
        foreach ((array)$r as $name => &$value) {
@@ -377,7 +377,7 @@ abstract class Config_allsites //extends Db_ allsites
             $value = self::escp($value) ;
       } unset($value); // break the reference with the  l a s t  element
                     if ('') {  //if ($module_ arr['dbg']) {
-                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h2>' ;
                     echo '<pre><b>$r</b>='; print_r($r); echo '</pre>';
                     //exit(0);
                     }
@@ -394,11 +394,11 @@ abstract class Config_allsites //extends Db_ allsites
 
     static public function Redirect_to($New_Location){
                   if ('') {  //if ($module_ arr['dbg']) {
-                  echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'; 
+                  echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' said: '.'</h2>'; 
                   echo '<pre>$_GET='; echo '<b>$_ GET</b>='; print_r($_GET); echo '</pre>'; 
                   }
         if ('') { self::jsmsg( [ //str_replace('\\','/',__FILE__ ) or __METHOD__
-            __METHOD__ .', line '. __LINE__ .' SAYS'=>'where am I'
+            __METHOD__ .', line '. __LINE__ .' said'=>'where am I'
         ] ) ; }
       //server-side redirection and the target="_blank" is client-side directive
       header("Location:".$New_Location); // also 'http://www.example.com'
@@ -432,7 +432,7 @@ abstract class Config_allsites //extends Db_ allsites
       if (!isset($_SESSION["ErrorMessage"])) $_SESSION["ErrorMessage"] = [] ;
       if (!isset($_SESSION["SuccessMessage"])) $_SESSION["SuccessMessage"] = [] ;
                 if ('') { self::jsmsg( [ //str_replace('\\','/',__FILE__ ) or __METHOD__
-                    str_replace('\\','\\\\',__METHOD__) .', line '. __LINE__ .' SAYS sucmsg ' => json_encode($_SESSION["SuccessMessage"])
+                    str_replace('\\','\\\\',__METHOD__) .', line '. __LINE__ .' said sucmsg ' => json_encode($_SESSION["SuccessMessage"])
                 ] ) ; }
       //$Output = '***GREŠKA u '. $caller .'<br>' ; //for testing
       //echo $Output ; 

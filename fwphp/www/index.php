@@ -15,7 +15,7 @@ $shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, r
 
 $pp1 = (object)
 [   'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
-  , 'module_version'=>'8.0.0.0 Mnu' //, 'vendor_namesp_prefix'=>'B12phpfw'
+  , 'module_version'=>'9.0.0.0 Mnu' //, 'vendor_namesp_prefix'=>'B12phpfw'
                              // $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
   // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
   // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).

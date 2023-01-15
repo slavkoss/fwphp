@@ -20,7 +20,7 @@ if(isset($_POST["submit_update"]))
 } //E n d  of Submit Button If-Condition
 //$fle=basename(__FILE__); $lne=__LINE__; $mtd=__FILE__;
                         if ('') {self::jsmsg( [ basename(__FILE__). //__METHOD__ .
-                           ', line '. __LINE__ .' SAYS'=>'s002. BEFORE Rtbl'
+                           ', line '. __LINE__ .' said'=>'s002. BEFORE Rtbl'
                            ,'$pp1->dbi_obj'=>isset($pp1->dbi_obj)?:'NOT SET'
                            ,'$pp1->uriq'=>isset($pp1->uriq)?json_encode($pp1->uriq):'NOT SET'
                            ] ) ; }
@@ -31,7 +31,7 @@ $cursor = utl_adrs::get_cursor( $sellst='*', $qrywhere='id=:id'
 //while ($row_cnt=$this->rrnext($c_rcnt)): {$rcnt=$row_cnt;} endwhile; $rcnt=$rcnt->COUNT_ROWS;
 while ( $rx = utl_adrs::rrnext($cursor) and isset($rx->id) ): {$r = $rx ;} endwhile;
                   if ('1') {  //if ($module_ arr['dbg']) {
-                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+                    echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h2>' ;
                   echo '<pre>';
                   echo '<b>$pp1->uriq</b>='; print_r($pp1->uriq);
                   echo '<b>$pp1->uriq->id</b>='; print_r($pp1->uriq->id);
@@ -39,7 +39,7 @@ while ( $rx = utl_adrs::rrnext($cursor) and isset($rx->id) ): {$r = $rx ;} endwh
                   echo '</pre><br />';
                   }
 if (!$r) { // r o w wasn't found, display error page  $errobj = new Error_C();
-  $this->errmsg( '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>'
+  $this->errmsg( '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h2>'
     . "r o w id=***{$pp1->uriq->id}*** does not exists in table $tbl"
        ."~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   );

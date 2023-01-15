@@ -17,46 +17,46 @@
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 
 declare(strict_types=1);
-
 namespace B12phpfw\dbadapter\adrs ;
+
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
-use B12phpfw\core\b12phpfw\Interf_Tbl_crud  ;
-use B12phpfw\core\b12phpfw\Db_allsites     as utldb ;
-
+//use B12phpfw\core\b12phpfw\Db_allsites_ora as utldb ; // HARD CODED SHARED DBADAPTER
 use B12phpfw\module\adrs\Home_ctr ;
 //use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;
 
-// Gateway class - DB adapter - separate DBI layers
-class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
-{
-  static protected $tbl = "song";
+/*
+class ReportCls {
+    public $db ; // VARIABLE (NOT HARD CODED) SHARED DBADAPTER
 
-  // *********************************************** R functions :
-  static public function get_cursor( //instead rr
-    string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[]): object
-  {
-    $cursor =  utldb::get_cursor("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    return $cursor ;
+    public function __construct(IDBcls $db) { $this->db = $db; }
+    public function rr() { $this->db->rr(); }
+}
+*/
+// Gateway class - DB adapter - separate DBI layers
+class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
+{
+  //Db_allsites_ORA or Db_allsites for MySql or ... :
+  static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
+  
+  static protected $tbl = "song"; // adrs module works with only one DB table
+
+
+  //self is used to access static or class variables or methods
+  //this is used to access non-static or object variables or methods
+  public function __construct(Interf_Tbl_crud $utldb) { 
+    self::$utldb = $utldb;
   }
+
 
   //in shared cls because is not module dependant :
-  //static public function rrnext(object $cursor ): object { return utldb::rrnext($cursor) ; }
   static public function rrnext(object $cursor): object
   { 
-    $rx = utldb::rrnext($cursor) ;
+    $rx = self::$utldb::rrnext($cursor) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
-
-  /*static public function r r(
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
-  { 
-    $cursor =  utldb::r r("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    return $cursor ;
-  } */
 
 
   static public function rrcnt( //string $sellst, 
@@ -65,48 +65,24 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
   { 
     //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
     //            it should only be called on a class using the trait
-    $rcnt = utldb::rrcount($tbl) ;
+    $rcnt = self::$utldb::rrcount($tbl) ;
     return (int)($rcnt) ;
     //$rcnt = Tbl_crud::rrcount($tbl) ;
     //$rcnt = Db_allsites::rrcount($tbl) ;
     //return (int)utl::escp($rcnt) ; //Argument #1 ($string) must be of type string, int given
   }
 
-  /*static public function rrcnt( string $tbl, array $other=[] ): int { 
-    $rcnt = utldb::rrcount($tbl) ;
-    //$rcnt = $this->rrcount($tbl) ; //not in object context
-    return (int)utl::escp($rcnt) ;
-  } */
 
 
   static public function get_all(array $other=[]): object  //returns $cursor
   {
-    $cursor = utldb::get_cursor(
-      "Select * from ".self::$tbl." ORDER BY artist", $binds=[], $other) ;
-    //utldb::get_cursor($sellst='*', $qrywhere= "'1'='1'", $binds=[], $other) ;
-
+    $cursor = self::$utldb::get_cursor(
+        "Select * from ".self::$tbl." ORDER BY artist" //, $qrywhere= "'1'=='1'"
+      , $binds=[], $other) ;
     //$utldb::disconnect(); //problem ON LINUX
     return $cursor ;
   } 
 
-  // pre-query
-  /* static public f unction rr_ all( string $sellst, string $qrywhere="'1'='1'"
-     , array $binds=[], array $other=[]): object  //returns $cursor
-  {
-      // default SQL query
-      $cursor =  utldb::get_cursor(
-       "SELECT $sellst FROM ". self::$tbl
-      ." WHERE $qrywhere ORDER BY title"
-        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-
-    //$utldb::disconnect(); //problem ON LINUX
-    return $cursor ;
-  } */
-
-
-  /* public function rr_last_id(object $dm) {
-    return utl::rr_last_id(self::$tbl) ;
-  } */
 
 
 
@@ -120,7 +96,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  utldb::dd( $pp1, $other ) ;
+    $cursor =  self::$utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
@@ -148,7 +124,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
      object $pp1, array $other=[]): object
   {
                 if ('') {
-                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
                   echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
                   echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
                   echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
@@ -184,9 +160,30 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
      ,['placeh'=>':track',    'valph'=>$_POST['track'],  'tip'=>'str']
      ,['placeh'=>':link',     'valph'=>$_POST['link'],   'tip'=>'str']
     ] ;
-    //$last_id1 = utldb::rr_last_id($tbl) ;
-    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds
-                 , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    //$last_id1 = self::$utldb::rr_last_id($tbl) ;
+
+
+
+
+
+      // =============================================
+      // Assign  $ p p 1 = array of module and above module properties
+      // =============================================
+      $pp1 = (array)$pp1 ;
+      $pp1['cc_params'] = [self::$tbl, $flds, $valsins, $binds] ;
+      $pp1 = (object)$pp1 ;
+                if ('') {
+                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
+                  //echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                  //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
+                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
+                  //exit(0);
+                }
+    $cursor = self::$utldb::cc($pp1, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    //$cursor = self::$utldb::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+
+
     //$last_id2 = utldb::rr_last_id($tbl) ;
 
     //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
@@ -244,7 +241,7 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
        ,['placeh'=>':id',  'valph'=>$id, 'tip'=>'int']
       ] ;
 
-      $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds ); //same for all tbls
+      $cursor = self::$utldb::uu( self::$tbl, $flds, $qrywhere, $binds ); //same for all tbls
 
       //var_dump($cursor);
       if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";
@@ -264,3 +261,57 @@ class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends utldb
 
 
 } // e n d  c l s  T b l_ c r u d
+
+
+
+  // pre-query
+  /* static public f unction rr_ all( string $sellst, string $qrywhere="'1'='1'"
+     , array $binds=[], array $other=[]): object  //returns $cursor
+  {
+      // default SQL query
+      $cursor =  utldb::get_ cursor(
+       "SELECT $sellst FROM ". self::$tbl
+      ." WHERE $qrywhere ORDER BY title"
+        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+    //$utldb::disconnect(); //problem ON LINUX
+    return $cursor ;
+  } */
+
+
+  /* public function rr_last_id(object $dm) {
+    return utl::rr_last_id(self::$tbl) ;
+  } */
+
+
+
+  // *********************************************** R functions :
+  /* static public function get_cursor( //instead rr
+      string $sellst //, string $qrywhere="'1'='1'"
+    , array $binds=[], array $other=[]): object
+  {
+    $cursor =  utldb::get_cursor(
+         "SELECT $sellst FROM ".self::$tbl //." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  } */
+
+
+
+  /*static public function r r(
+    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+  { 
+    $cursor =  utldb::r r("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  } */
+
+
+  /*static public function rrcnt( string $tbl, array $other=[] ): int { 
+    $rcnt = utldb::rrcount($tbl) ;
+    //$rcnt = $this->rrcount($tbl) ; //not in object context
+    return (int)utl::escp($rcnt) ;
+  } */
+
+
+

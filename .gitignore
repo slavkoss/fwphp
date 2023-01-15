@@ -1,10 +1,13 @@
 /.git/
 composer.lock
-/fwphp/z_test/
+/z_img_big_not_git/
+/z_test_not_git/
+/fwphpv09/
+/fwphpv10/
+/vendorV09/
+/vendorV10/
 /fwphp/glomodul/mkd/01/090_private/
-/fwphp/01mater/
 /vendor/RespectValidation/
 /vendor/b12phpfw/Dbconn_allsites_mysql_freehostingeu.php
 /vendor/b12phpfw/Dbconn_allsites_mysql_heliohost.php
 /vendor/b12phpfw/PHPmailer_ini.php
-/vendor/b12phpfw/img/img_big

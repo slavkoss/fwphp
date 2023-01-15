@@ -1,3 +1,5 @@
+-- start J:\awww\www\z_DDL_and_other\01_DDL_oracle_blog.sql
+-- conn hr/hr@ora7 select TABLE_NAME from tabs ; --order by TABLE_NAME
 -- Host: 127.0.0.1
 -- Generation Time: Nov 19 and 16, 2019 at 04:40 PM
 --

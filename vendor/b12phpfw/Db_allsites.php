@@ -9,7 +9,8 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 //trait Db_allsites
     //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
     //            it should only be called on a class using the trait
-abstract class Db_allsites  // may be named AbstractEntity :
+//abstract class Db_allsites  //cannot instantiate abstract class
+class Db_allsites implements Interf_Tbl_crud
 {
     private static $instance = null ; //singleton! or protected static $DBH;
 
@@ -42,7 +43,7 @@ abstract class Db_allsites  // may be named AbstractEntity :
               <li>Cls <?=basename(explode('::', __METHOD__)[0])?> contains methods : <?=__METHOD__?>, closeConnection, getDBH,
                  <b>abstract (!!) CRUD methods :</b> countAll, all, findById, findWhere, findBySql, completeQueryString, save, create, update, delete, checkCasting.
 
-              <li><b>DB Trait seems better ? than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_ allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_ crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in vendor/b12phpfw dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
+              <li><b>DB Trait seems better /(but has bug!?) than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_ allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_ crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in vendor/b12phpfw dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
               </ol>
               <?php
               }
@@ -98,7 +99,7 @@ abstract class Db_allsites  // may be named AbstractEntity :
 
   static public function dd(object $pp1, array $other)             // DELETE TBL ROW
   {
-                    if ('') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ;
+                    if ('') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ;
                     //echo '<pre>$pp1->uriq='; print_r($pp1->uriq) ; echo '</pre>';
                     exit(0) ;
                     }
@@ -113,7 +114,7 @@ abstract class Db_allsites  // may be named AbstractEntity :
 
       $stmt->bindValue(':id',    $id,    PDO::PARAM_INT); //PARAM_STR
       $Executed = $stmt->execute(); //self::e xecute();
-                if ('1') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '$_SESSION["SuccessMessage"]='; echo '<pre>'; print_r($_SESSION["SuccessMessage"]); echo '</pre>'; } 
+                if ('1') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '$_SESSION["SuccessMessage"]='; echo '<pre>'; print_r($_SESSION["SuccessMessage"]); echo '</pre>'; } 
       if ($Executed) {$_SESSION["SuccessMessage"][] ="Row id $id Deleted Successfully ! ";
       }else { $_SESSION["ErrorMessage"][] ="Deleting Went Wrong. Try Again !"; }
 
@@ -125,18 +126,18 @@ abstract class Db_allsites  // may be named AbstractEntity :
   }
 
 
-  static public function rrnext(object $cursor, $other = []) //: object //READ NEXT TBL ROW FROM CURSOR
+  static public function rrnext(object $cursor, array $other = []) : object //R.NXT ROW FROM CURSOR
   {
                 //echo '<pre>$other='; print_r($other); echo '</pre>';
-                if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
+                if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
     $rx = $cursor->fetch(PDO::FETCH_OBJ);
-                if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
+                if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
 
     if (!is_object($rx)) { 
        return ((object)['rexists' => false]); 
     }
     $rx->rexists = true ;
-    switch (self::getdbi()) { case 'oracle' : $rx = utl::rlows($rx) ; break; default: break; } //all row fld names lowercase
+    switch (self::getdbi()) { case 'oci' : $rx = utl::rlows($rx) ; break; default: break; } //all row fld names lowercase
 
     return $rx ;
   }
@@ -169,7 +170,7 @@ abstract class Db_allsites  // may be named AbstractEntity :
 
   static public function get_cursor( $dmlrr, $binds = [], $other = [] ): object // ********* r r (
   {
-                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
+                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
                 echo '<pre>';
                 echo '<br />$caller='; print_r($other) ; ;
                 echo '$dmlrr=' . $dmlrr ;
@@ -185,12 +186,12 @@ abstract class Db_allsites  // may be named AbstractEntity :
       $sql_1st_rblk_arr = explode(',', $sql_partlimit_arr[1]) ;
     }
 
-    if (self::$dbi == 'oracle' and self::$do_pgntion) {
+    if (self::$dbi == 'oci' and self::$do_pgntion) {
         self::$do_pgntion = '';
         $dmlrr = str_replace('LIMIT :first_rinblock, :rblk','', $dmlrr) ;
         switch (self::$dbi)
         {
-          case 'oracle' :
+          case 'oci' :
             $dmlrr = '
               SELECT *
               FROM (SELECT A.*, ROWNUM AS RNUM
@@ -234,10 +235,10 @@ abstract class Db_allsites  // may be named AbstractEntity :
     //e n d             B I N D I N G
 
     execute_sql:
-                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' SAYS :<br />';
+                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' said :<br />';
                 $tmp = self::debugPDO($dmlrr, $binds, $ph_val_arr) ; }
                 //exit() is in d ebugPDO
-                if ('') {echo '<h3>[P D O  DEBUG] '.__METHOD__.' ln='.__LINE__.' SAYS:</h3>';
+                if ('') {echo '<h3>[P D O  DEBUG] '.__METHOD__.' ln='.__LINE__.' said:</h3>';
                   //echo '<br />'.' &nbsp;  &nbsp; $sql_1st_rblk_arr=' . json_encode($sql_1st_rblk_arr) .'<br />'.' &nbsp;  &nbsp; $sql_partlimit_arr=' . json_encode($sql_partlimit_arr)
                 echo //'<br />'.'$o nerow=' . $o nerow
                 '<br />'.'self::$d bi=' . self::$dbi ;
@@ -312,17 +313,20 @@ abstract class Db_allsites  // may be named AbstractEntity :
 
 
   //used for all  tabls !!
-  static public function cc(                                       // CREATE TBL ROW
-    string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] ) 
+  //static public function cc(                                       // CREATE TBL ROW
+  //  string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] )
+  static public function cc(object $pp1, array $other=[]): object
   {
-              //if ('1') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' SAYS :11111'.'</h4>';}
+              //if ('1') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' said :11111'.'</h4>';}
     self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
 
+    list( $tbl, $flds, $valsins, $binds) = $pp1->cc_params ;
     $last_id1 = self::rr_last_id($tbl) ;
-              //if ('') { echo '<h2>'. __METHOD__ .'</h2>, line '. __LINE__ .' SAYS :<br />';} 
+
+              //if ('') { echo '<h2>'. __METHOD__ .'</h2>, line '. __LINE__ .' said :<br />';} 
     $dmlcc = "INSERT INTO $tbl($flds) $valsins"; // *************** c c (
                         if ('') {self::jsmsg( [ //b asename(__FILE__).
-                           __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE d b o b j'
+                           __METHOD__ .', line '. __LINE__ .' said'=>'BEFORE d b o b j'
                            ,'self::$ d b i'=>self::$dbi
                            //,'$caller'=>$caller
                            //, '$dsn'=>$dsn
@@ -357,7 +361,7 @@ abstract class Db_allsites  // may be named AbstractEntity :
 
 
 
-                if ('') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' SAYS :11111'.'</h4>';
+                if ('') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' said :11111'.'</h4>';
                   $tmp = self::debugPDO($dmlcc, $binds, $ph_val_arr) ; 
                   exit() ; //is not in d ebugPDO
                 } 
@@ -369,7 +373,7 @@ abstract class Db_allsites  // may be named AbstractEntity :
     { $_SESSION["SuccessMessage"][] ="Last row id $last_id2 Added Successfully ! ";
     } else { $_SESSION["ErrorMessage"][] ="Adding Went Wrong. Try Again !"; }
 
-    //return $cursor ;
+    return $cursor ;
 
   } //e n d  c c (
 
@@ -408,16 +412,16 @@ abstract class Db_allsites  // may be named AbstractEntity :
 
       }
     } // ----------------------------------
-                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' SAYS :<br />';
+                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' said :<br />';
                 $tmp = self::debugPDO($dmluu, $binds, $ph_val_arr) ; }
                 if ('') {
                   /*
                   self::jsmsg( [ //b asename(__FILE__).' '.
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_ allsites construct '
+                   __METHOD__ .', line '. __LINE__ .' said'=>'s001. AFTER Config_ allsites construct '
                    ,'ses. userid'=>isset($_SESSION["userid"])?$_SESSION["userid"]:'NOT SET'
                    ,'$this->u riq'=>$this->u riq
                    ] ) ; */
-                   echo '<h3>'. __METHOD__ .' '.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                   echo '<h3>'. __METHOD__ .' '.__METHOD__ .', line '. __LINE__ .' said'.'</h3>';
                    echo '<pre>$_GET ='; print_r($_GET); echo '</pre><br />';
                    echo '<pre>$_POST ='; print_r($_POST); echo '</pre><br />';
                   //exit();

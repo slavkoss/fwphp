@@ -17,7 +17,7 @@ $shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, r
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
-  , 'module_version'=>'8.0.0.0 Msg' //, 'vendor_namesp_prefix'=>'B12phpfw'
+  , 'module_version'=>'9.0.0.0 Msg' //, 'vendor_namesp_prefix'=>'B12phpfw'
 
   // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
   // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
@@ -86,7 +86,7 @@ exit(0);
 * 1.module (dir blog) 2.mdlegroup (glomodul), 3.site (fwphp), doc_root (www)
 *       MODULE CODE in execution order, eg Blog IS IN 5 OR 6 CODE LEVELS :
 *  1.LEVEL5 index.php 2.L3 n ew Home_ctr($p p1) (3.L4 Home_mdl if needed) extends 4.
-*  4.L2 Config_ allsites extends 5.L1 Db_allsites, 6.L6: home.php, z inc/h dr.php and ftr
+*  4.L2 Config_ allsites extends 5.L1 D b_allsites, 6.L6: home.php, z inc/h dr.php and ftr
 * see http://localhost:8083/pdogridbig_original/demo/pages/
 *     http://dev1:8083/fwphp/glomodul/z_examples/05_flex01_2col.php
 

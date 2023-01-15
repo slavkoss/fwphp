@@ -6,11 +6,16 @@
 //         list( self::$do_pgntion, self::$dbi, self::$db_hostname
 //             , self::$db_name, self::$db_username, self::$db_userpwd) 
 //         = require __DIR__ . '/Dbconn_ allsites.php'; // not r equire_ once !!
-//return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
+//return [null,'mysql','localhost','z_blogcms','root',''];
 
 //return [ null, 'mysql', 'localhost', 'z_blogcms', 'root', ''] ;
-return [ null, 'oracle', getenv('USERDOMAIN',true)?:getenv('USERDOMAIN').'/XE:pooled;charset=UTF8'
-    , 'hr', 'hr', 'hr'] ;
+return [ //'1' 
+   null
+   , 'oci'
+   //, getenv('USERDOMAIN',true)?:getenv('USERDOMAIN').'/XE:pooled;charset=UTF8'
+   //, getenv('USERDOMAIN').'/XE:pooled;charset=UTF8'
+   , 'dev1:1521/XE:pooled;charset=UTF8'
+   , 'hr', 'hr', 'hr'] ;
 
 /*  //////////// old :
 //                   J:\awww\www\b12phpfw\Dbconn_ allsites_oracle.php
@@ -31,7 +36,7 @@ abstract class Dbconn_allsites
 
     public static function get_or_new_dball($caller)
     {
-      self::$dbi = 'oracle' ;
+      self::$dbi = 'oci' ;
       if(is_null(self::$instance)) {
         $options = [
            PDO::ATTR_PERSISTENT   => true
