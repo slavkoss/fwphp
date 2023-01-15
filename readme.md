@@ -154,10 +154,11 @@ namespaced class $nscls=B12phpfw\core\b12phpfw\Db_allsites_ORA
 2. B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said:               
 SHARED (GLOBAL) CLS TO LOAD $clsname=Interf_Tbl_crud $module_dir=b12phpfw                         
 PHP Interface is a list of methods as a package in oracle plsql. PHP class is like package body in oracle plsql.                  
-Reasons for using Interface:              
-    1. mandatory form of method call, 
-    2.  same module db adapter for any shared db adapter. 
-namespaced class $nscls=B12phpfw\core\b12phpfw\Interf_Tbl_crud             
+Reasons why use Interface:              
+   1. mandatory form of method call,      
+   2.  same module db adapter for any shared db adapter.      
+    
+  namespaced class $nscls=B12phpfw\core\b12phpfw\Interf_Tbl_crud             
 
 3. B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said:                   
 SHARED (GLOBAL) CLS TO LOAD $clsname=Tbl_crud $module_dir=adrs                   
