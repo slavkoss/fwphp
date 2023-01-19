@@ -1,7 +1,12 @@
+### Interface IDBcls for shared db adapters Mysqlcls DBcls1, Oraclecls DBcls2... and module db adapters
+Same module db adapter for any shared db adapter.    
+IDBcls is list of : method1(parameters1), method2(parameters2)....  contains cc, rr, uu, dd methods.      
+IDBcls is abstraction of any DB table CRUD row class.       
 ```php
 <?php
 interface IDBcls {
-  // CRUD read any DB table rows class contains cc, rr, uu, dd methods
+  // IDBcls is list of : method1(parameters1), method2(parameters2)....  contains cc, rr, uu, dd methods
+  // IDBcls is abstraction of any DB table CRUD row class
   public function cc(); // Create any DB table row method
   public function rr(); // Read any DB table row method
   ...uu, dd
@@ -68,38 +73,30 @@ $report_ora->rr();
 
 <br><br>
 
-<h3>SOLID PRINCIPLES</h3>
+### SOLID PRINCIPLES
 is group of 5 programming principles created by Robert C. Martin (uncle Bob) :      
 
-  1. Single-responsibility. **SRP** class should only have one reason to change, ee **class should do only one thing **- every class is owned exactly by one entity - **person who 
+1. Single-responsibility. [**SRP**](https://dev.to/tamerlang/understanding-solid-principles-single-responsibility-principle-523j) class should only have one reason to change, ee **class should do only one thing **- every class is owned exactly by one entity - **person who 
 	manipulates data has his class methods**. It is people who request changes. And you don’t want to 
 	confuse those people, or yourself, by mixing together the code that many 
-	different people care about for different reasons. <br>     
-	<a href="https://dev.to/tamerlang/understanding-solid-principles-single-responsibility-principle-523j">
-	https://dev.to/tamerlang/understanding-solid-principles-single-responsibility-principle-523j</a>
+	different people care about for different reasons. 
 
-  2. **Open-closed**
+2. **Open-closed**
 	Software entities (classes, modules, functions, etc.) should be open for 	extension, but closed for modification - 100% ready to be used by other 	classes - its interface is clearly defined and won’t be changed in the future  - keep the existing code from 	breaking when you implement new features - **do not modify code, but extend it**. Create a subclass and override parts of the original 	class that you want to behave differently or you can extend the 	functionality and add your own methods. You'll achieve your goal but also 	won't break the existing functionality of the original class. If you see a bug then go ahead and fix it; don't create a subclass for it. </li>
 
-  3. **Liskov** substitution - in object-oriented programming, subclasses should be able to substitute 
-	their parent classes without breaking any client functionality. 
+3. [**Liskov substitution**](https://dev.to/tamerlang/understanding-solid-principles-liskov-substitution-principle-46an) 
+   In object-oriented programming, subclasses should be able to substitute their parent classes without breaking any client functionality. 
 	
-     1. **Parameter types** in a method of 
-	a class should match or are more abstract than parameter types in the superclass. Eg feed(Dog d) : we created a subclass that overrode feed(Dog d) so that it can feed any animal (a superclass of dogs): feed(Animal d) - method can feed all animals, so it can still feed any cat passed by the 
-	client.
-	   2. Inverse to the requirements of the parameter type :  **return type** in a method of a subclass should match or be a subtype of the return type in the superclass.
-	   3. ...
-	 <a href="https://dev.to/tamerlang/understanding-solid-principles-liskov-substitution-principle-46an">
-	 https://dev.to/tamerlang/understanding-solid-principles-liskov-substitution-principle-46an</a> </li>
+     1. **Parameter types** in a method of 	a class should match or are more abstract than parameter types in the superclass. Eg feed(Dog d) : we created a subclass that overrode feed(Dog d) so that it can feed any animal (a superclass of dogs): feed(Animal d) - method can feed all animals, so it can still feed any cat passed by the 	client.
+     2. Inverse to the requirements of the parameter type :  **return type** in a method of a subclass should match or be a subtype of the return type in the superclass.
+     ...
 
-  4. **Interface segregation (separation) 
+4. **Interface segregation (separation) 
 	**no client should be forced to depend on methods it does not use. Ee  interface shouldn't force a class to implement methods that it won't be using. Do I have a bunch of one method interfaces? No. SOLID principles shouldn't be followed to the teeth, eg PizzaIface fn orderPizza($qty) class 	PizzaOrder, DrinkIface...
 
 
-  5. **Dependency inversion** 	
-  <a href="https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f">https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f</a>
-	
-	High-level modules should not import anything from low-level modules; they should **both depend on abstractions**. Abstractions should not depend on details.   
+5. [**Solid principles Dependency inversion**](https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f)
+		High-level modules should not import anything from low-level modules; they should **both depend on abstractions**. Abstractions should not depend on details.   
   Details should depend upon abstractions.     
 
   Code that doesn't follow this principle can be **too coupled**, 
@@ -146,8 +143,8 @@ https://github.com/abiodunjames/Awesome-Clean-Code-Resources</a>
 
 4. Give **proper names** and use the scope rule          
 5. Stay away from **comments** and express yourself in code. Some comments are ok :
- 1. When you can't express yourself with code use regular expression eg //extract the text between the two title elements        
- 2. When you want to warn people    
+     1. When you can't express yourself with code use regular expression eg //extract the text between the two title elements        
+     2. When you want to warn people    
 6. Less than three parameters          
 7. **Don't use	boolean or null arguments**        
 8. Beautify predicates when appropriate           
