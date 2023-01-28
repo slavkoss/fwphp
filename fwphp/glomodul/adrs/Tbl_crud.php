@@ -23,7 +23,9 @@ use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
-//use B12phpfw\core\b12phpfw\Db_allsites_ora as utldb ; // HARD CODED SHARED DBADAPTER
+//no more HARD CODED SHARED DBADAPTER, instead see self::$utldb
+//use B12phpfw\core\b12phpfw\Db_allsites_ora as utldb ; 
+
 use B12phpfw\module\adrs\Home_ctr ;
 //use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;
 
@@ -31,8 +33,8 @@ use B12phpfw\module\adrs\Home_ctr ;
 class ReportCls {
     public $db ; // VARIABLE (NOT HARD CODED) SHARED DBADAPTER
 
-    public function __construct(IDBcls $db) { $this->db = $db; }
-    public function rr() { $this->db->rr(); }
+    //public function __construct(IDBcls $db) { $this->db = $db; }
+    //public function rr() { $this->db->rr(); }
 }
 */
 // Gateway class - DB adapter - separate DBI layers
@@ -42,7 +44,6 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
   static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
   
   static protected $tbl = "song"; // adrs module works with only one DB table
-
 
   //self is used to access static or class variables or methods
   //this is used to access non-static or object variables or methods
@@ -64,7 +65,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
     //string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
     //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
-    //            it should only be called on a class using the trait
+    //            it should only be called on a class using the t rait
     $rcnt = self::$utldb::rrcount($tbl) ;
     return (int)($rcnt) ;
     //$rcnt = Tbl_crud::rrcount($tbl) ;
@@ -84,7 +85,19 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
   } 
 
 
-
+  static public function get_cursor(
+      string $sellst
+    , string $qrywhere="'1'='1'"
+    , array $binds=[]
+    , array $other=[]): object
+  {
+    $cursor =  self::$utldb::get_cursor(
+         "SELECT $sellst FROM ". self::$tbl 
+         ." WHERE $qrywhere"
+       , $binds
+       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    return $cursor ;
+  } 
 
 
 
@@ -263,6 +276,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
 } // e n d  c l s  T b l_ c r u d
 
 
+  // *********************************************** R functions :
 
   // pre-query
   /* static public f unction rr_ all( string $sellst, string $qrywhere="'1'='1'"
@@ -285,8 +299,8 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
 
 
 
-  // *********************************************** R functions :
-  /* static public function get_cursor( //instead rr
+  /*
+  static public function get_cursor( //instead rr
       string $sellst //, string $qrywhere="'1'='1'"
     , array $binds=[], array $other=[]): object
   {
@@ -294,7 +308,8 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
          "SELECT $sellst FROM ".self::$tbl //." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
-  } */
+  } 
+  */
 
 
 

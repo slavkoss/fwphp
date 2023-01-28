@@ -153,7 +153,7 @@ class Home extends utl
 
 
     $title = 'MSG HOME';
-    require_once $pp1->shares_path . 'hdr.php';  //require $pp1->shares_path . 'hdr.php';
+    require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . 'hdr.php';
     require_once("navbar.php");
     ?>
 
@@ -228,7 +228,7 @@ class Home extends utl
     </script-->
 
     <?php
-    require_once $pp1->shares_path . 'ftr.php';
+    require_once $pp1->shares_path . '/ftr.php';
 
     return('1') ;
   } //e n d  f n  s h o w

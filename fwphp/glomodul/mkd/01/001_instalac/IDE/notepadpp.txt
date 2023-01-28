@@ -1,0 +1,887 @@
+
+![notepadpp.gif](/inc/notepadpp.gif)  
+download: [http://notepad-plus-plus.org/download/v6.5.2.html](http://notepad-plus-plus.org/download/v6.5.2.html)   v6.5.2, 10.12.2013. (v5.9.2, dec.2012)  
+official site: [http://notepad-plus-plus.org/](http://notepad-plus-plus.org/)     project site: [http://sourceforge.net/projects/notepad-plus/](http://sourceforge.net/projects/notepad-plus/)  
+wiki: [http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Main_Page](http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Main_Page)  
+support: [http://sourceforge.net/projects/notepad-plus/forums](http://sourceforge.net/projects/notepad-plus/forums)[http://sourceforge.net/projects/unxutils](http://sourceforge.net/projects/unxutils)  
+
+**[Session Manager](./pomoc/SessionMgr.html) 0.7.1**, jan. 2013
+
+  
+
+1\. Features (Osobine)
+-----------
+
+**1\. Search menu**
+**Shortcut           Action**
+Ctrl-F             Launch Find Dialog
+Ctrl-H             Launch Find / Replace Dialog
+F3 / Shift-F3      Find Next / Previous    
+Ctrl-Shift-F       Find in Files
+F7                 Switch to Search results window 
+                   (was Activate sub view before v5.2)
+Ctrl-Alt-F3 / Ctrl-Alt-Shift-F3  Find (volatile) Next / Previous  
+Ctrl-F3 / Ctrl-Shift-F3  Select and Find Next / Previous 
+                   (was Find (Volatile) prior to v5.6.5)  
+F4 / Shift-F4      Go to next / previous found     
+Ctrl-Shift-I       Incremental Search  
+Ctrl-n / Ctrl-Shift-n  Jump Down / up (to next text marked using n-th stye. 
+                   n is 1 to 5, or 0 for default Found style.  
+Ctrl-F2            Toggle Bookmark  
+F2 / Shift-F2      Go To Next / Previous Bookmark
+
+**2\. Tips** \- **TextFX plugin**   
+Settings > preferences > General > Document list panel
+View -> Document Map   
+        and Project panel 1,2,3 (  don't have to have file explorer open)
+selecting **block** of code that contains all strings I want to change,   
+\> CTRL+H to bring up find/replace > ticking 'In Selection' 
+[http://www.redspark-designs.com/15-pro-tips-notepad/](http://www.redspark-designs.com/15-pro-tips-notepad/)
+1\. F5 (ALT+RUN) -> select browser  
+2\. Ctrl-G             go to line nr
+3\. add line nums or 1st word alt+C (**Col.Ed.**) \> NumtoIns > Set Initial Num...  
+4\.      del: TextFX > TextFX Tools >line nums or 1st word (zadnju ne brise)  
+5\. Vertical / Horizontal tab view:  
+    \- Right click on file tab and choose "Move to other view"
+    \- to split it vertically or hor. right click dividing line 
+      between the to and choose rotate right or left.
+6\. Auto-close XML/HTML tags  TextFX  \> TextFX Settings
+7\. **Box selection**   alt+left mouse > select column  
+   Edit > Blank Operations > Trim Header and Trailing Space.  
+   Edit > Blank Operations > Remove Unnecessary Blank and EOL  
+   HTML encode   To display code rather than have the browser render it
+8\. Align lines eg PhP Array and want to line up all variables within it 
+   highlight box of code (#7 Tip) > TextFX > TextFX Edit > line up... 
+   You can line up lines using equals, comma or a clipboard character.
+9\. Remove blank lines
+   TextFX > TextFX Edit > Delete Blank Lines
+   then TextFX > TextFX Edit > Delete Surplus Blank Lines
+10\. **Minify** JS and CSS
+Having this feature to clean it up when ready for deployment is amazing:
+\- can do wonders for page loading times
+\- SEO loves it 
+\- visitors trying to work with the code in development mode 
+like looking for a needle in a haystack
+Edit > Blank Operations > Trim Header and Trailing Space.
+Edit > Blank Operations > Remove Unnecessary Blank and EOL.
+
+11\. HTML encode
+display code rather than have ibrowser render it (eg tutorial's for coding). 
+Highlight text you wish to encode > TextFX > TextFX Convert > Encode HTML.
+
+12\. Extended search mode
+to remove them hidden new line and tab characters. 
+CTRL + H > select "Extended Search Mode". 
+In the find box add \\n for new lines then in the replace keep this empty. 
+Hit "Replace all" and Notepad++ will remove them all.
+
+13\. Change case, even "Capitalize On 1st Letter" or "Cap 1st l. of sentence". 
+TextFX > TextFX Characters > select the case in which you want to convert.
+
+14\. Setup HTML tidy
+You have your content done for your HTML body and your next step would 
+to create a HTML file to include this body content. 
+TextFX > TextFX HTML Tidy > Tidy(Most Recent HTMLTIDY.CFG).
+
+15\. Escaping Escape / unEscape string
+    DB files - escape string insert with SQL, or un-escape string from DB.
+    Highlight text > TextFX > TextFX Characters > Escape / unEscape.
+
+Keyboard and mouse shortcuts - can be freely configured using the shortcut mapper, as well as all the  
+commands which were not bound to shortcuts by default. This list does not include standard shortcut
+
+1.  **Pokretanje ibrowsera iz npp, npp-ove varijable:**  
+                 \- $(NPP_DIRECTORY) za portab. firefox exe path  
+                 \- $(FULL\_CURRENT\_PATH) ili $(FILE\_NAME) ili $(CURRENT\_WORD)  
+    Primjeri za HTML: F5 pa :  
+    "$(NPP\_DIRECTORY)\\..\\firefox\\App\\firefox\\firefox.exe" "$(FULL\_CURRENT_PATH)"  
+    ili F6 za nppExec plug-in, pa script name: dev:8083\_apl\_ed :  
+    ...\\firefox.exe "http://dev:8083/$(FILE_NAME)"  
+    ...\\firefox.exe" "http://dev:8083/apl/ed/$(FILE_NAME)"  
+    ...\\firefox.exe "http://localhost/$(FILE_NAME)"  
+    ili:  
+    1\. u npp select npr text: http://dev:80883/apl/ed/t1.php?rbr\_opened\_glo=0  
+    2\. put next command in Run window of Notepad++ (by pressing F5 or ALT+R+R) :  
+             "$(NPP\_DIRECTORY)\\..\\firefox\\App\\firefox\\firefox.exe" "$(CURRENT\_WORD)"
+2.  **Smart highlighting**: highlight all occurrences of the currently selected word.  
+    To enable smart highlighting, see Preferences. To adjust the color used, see Styler Configurator.
+3.  **Matching**: Placing cursor at one brace will search/highlight matching brace (see Styler Configurator).  
+    To move cursor to matching brace select Search->Go to matching brace.  
+    Matching tag: Pref.-> MISC->Higlight matching tab
+4.  **Multi-Editing**  
+    1.  ability to select multiple areas
+    2.  to get typed text mirrored in all areas in the selection
+5.  **Styler configurator**  
+    1.  primarily used to control the appearance of the text in Notepad++
+    2.  to tweak some of the other aspects that have a user configurable color
+6.  **Shortcut Mapper** controls keyboard shortcuts assigned to commands  
+    1.  from menus
+    2.  from Scintilla control  
+        Scintilla shortcuts have a 1:M mapping, meaning: single Scintilla command can be triggered by multiple shortcut combinations. Same shortcut for multiple commands is not allowed, as with menu commands.
+7.  **Vertical / Horizontal tab view**  
+    eg working on HTML file along with its CSS counter-part. Right click on file tab and choose "Move to other view".  
+    To split it vertically or horizontally right click dividing line between the to and choose rotate right or left.
+
+Adding/Removing bookmarks  
+You can toggle a bookmark on a single line by clicking on the bookmark margin in front of the line,  
+or by selecting Search->Toggle Bookmark. The Search->Reverse Bookmarks command toggles  
+bookmarks on each line of the currently opened document.  
+To remove all bookmarks  
+Select Search->Clear all Bookmarks.  
+Navigating with bookmarks:  
+F2 - To Jump with the cursor to the next line containing a bookmark, select Search->Next Bookmark,  
+shift + F2 - to go to the previous bookmarked line select Search->Previous Bookmark.  
+Modifying bookmarked lines:  
+You can perform a single operation on all bookmarked lines.  
+To cut each bookmarked line, select Search->Cut Bookmarked Lines. Every line will be cut  
+from the file and added to the clipboard, so they can all be pasted at once.  
+To copy, select Search->Copy bookmarked Lines instead.  
+To replace each bookmarked line with the current clipboard contents, select Search->Paste to  
+(Replace) bookmarked lines.  
+To remove all bookmarked lines, select Search->Delete bookmarked lines.  
+The Delete option allows you to search for lines first, mark them with a bookmark using search  
+(see Search), then remove all of them based on a certain trait.  
+  
+Sessions  
+are a set of files opened in Notepad++. They store the open files, the active file (and which view, see the  
+section about Multi-View), the current selection and position in the file, the current bookmarks (see  
+Bookmarks) and the current language (see the section about Languages). Using sessions, you can  
+open a set of (related) files with one action.  
+  
+Multiple instances  
+shortcut to Notepad++ that has the -multiInst command line switch 1.  
+View ->Move/Clone Current Document -> Clone some document in a new instance,  
+then open something in new instance and close the initial document if you don't otherwise need it.  
+2.  
+drag the tab of a new document out of Notepad++ to the same effect. 3.  
+Sessions: Settings -> Preferences -> MISC: -> Remember current session for next launch.  
+You also have Save sessions and Load sessions in the File menu.  
+If you define a default extension for session files eg npr, then opening such a file in N++ will  
+load the session.  
+4.  
+To do: add concept of Recent session history 5.  
+Preview  
+NppExport does a great job at exporting to PDF 1.
+
+2\. Edit menu
+-------------
+
+Shortcut Action  
+Ctrl-C Copy  
+Ctrl-Insert Copy  
+Ctrl-Shift-T Copy current line to clipboard  
+Ctrl-X Cut  
+Shift-Delete Cut  
+Ctrl-V Paste  
+Shift-Insert Paste  
+Ctrl-Z Undo  
+Alt-Backspace Undo  
+Ctrl-Y Redo  
+Ctrl-A Select All  
+Alt-Shift-Arrow keys, or Alt +  
+Left mouse click  
+Column Mode Select  
+Ctrl + Left mouse click  
+Start new selected area. Only multiple stream areas ca be selected this  
+way.  
+ALT-C Column Editor  
+Ctrl-D Duplicate Current Line  
+Switching between documents  
+Using tab bar. keyboard or mouse.  
+Ctrl + Tab = next document  
+shift + Ctrl + Tab = previous document.  
+Mouse: right mouse button and scroll wheel scrolling up = previous document, scrolling down the next.  
+The order of the documents is derived from the tab bar. See Tab Bar or Windows Dialog for information  
+on how to change it.  
+Documents will by default be cyclically selected, meaning that if you select the document past the last  
+one,  
+the first will be selected. If two views are visible, the first document of the other view will be selected.  
+Selecting the document previous to the first document will select the last document (if two views are  
+visible  
+that will be the last document of the other view).  
+The document switcher is a small list of currently opened files that is shown (if enabled, see  
+Preferences)  
+when you switch documents, allows you to select what document to activate before actually doing so.  
+The list will remain visible until either you release the modifier key that triggered the list (Ctrl key if using  
+the  
+TAB key or the right mouse button if using the scroll wheel) or one of the documents has been selected  
+by  
+clicking on it with the left mouse button. The highlighted document will then be activated.  
+Please note that if you assign anything else than Ctrl-(Shift-)TAB to switching documents, the  
+document switcher will not work properly when switching using the keyboard. In that case, use the  
+mouse or disable it (v5.4.3).  
+Notepad++ can provide MRU behavior for switching between files. MRU stands for Most Recently  
+Used and means that the first file to be activated, is the last one active before the current document.  
+This will put often used files to the top and less used files to the bottom (If you are familiar with the  
+Windows Task Switcher, the behavior is similar). MRU is only available when the Document Switcher is  
+enabled.
+
+Ctrl-T Switch the current line position with the previous line position  
+Ctrl-Shift-Up Move Current Line, or current selection if a single stream, Up  
+Ctrl-Shift-Down Move Current Line, or current selection if a single stream, Down  
+Ctrl-L Delete Current Line  
+Ctrl-I Split Lines  
+Ctrl-J Join Lines  
+Ctrl-G Launch GoToLine Dialog  
+Ctrl-Q Block comment/uncomment  
+Ctrl-Shift-Q Stream comment  
+Tab (selection of one or more  
+full lines)  
+Insert Tabulation or Space (Indent)  
+Shift-Tab (selection of one or  
+more full lines)  
+Remove Tabulation or Space (outdent)  
+Ctrl-BackSpace Delete to start of word  
+Ctrl-Delete Delete to end of word  
+Ctrl-Shift-BackSpace Delete to start of line  
+Ctrl-Shift-Delete Delete to end of line  
+Ctrl-U Convert to lower case  
+Ctrl-Shift-U Convert to UPPER CASE  
+Ctrl-B Go to matching brace  
+Ctrl-Space Launch CallTip ListBox  
+Ctrl-Shift-Space Launch Function Completion ListBox  
+Ctrl-Enter Launch Word Completion ListBox  
+Ctrl-Alt-R Text Direction RTL  
+Ctrl-Alt-L Text Direction LTR  
+Enter Split line downwards, or create new line  
+Shift-Enter Split line downwards, or create new line  
+Display  
+3\. View menu  
+Shortcut Action  
+Ctrl-(Keypad-/Keypad+)  
+or Ctrl + mouse wheel button (if any) Zoom in (+ or up) and Zoom out (-  
+or down)  
+Ctrl-Keypad/ Restore the original size from zoom  
+F11 Toggle Full Screen Mode  
+F12 Toggle Post-It Mode  
+Ctrl-Alt-F Collapse the Current Level  
+Ctrl-Alt-Shift-F Uncollapse the Current Level  
+Alt-0 Fold All  
+Alt-(1~8) Collapse the Level (1~8)  
+Alt-Shift-0 Unfold All  
+Alt-Shift-(1~8) Uncollapse the Level (1~8)  
+View->PostIt toggle replaces tab bar by an horizontal gap. So,what could happen enabling F11 and  
+F12 ? the tab bar disappears and the text ca be displayed on the full monitor height.  
+Combined with View->Always on Top - to make text as easy and flexibly visible as one could wish.  
+To enable line wrapping, select View->Wrap or press . icon.View->Show Symbol->Show wrap symbol.  
+Display of where a line could wrap because its length exceeds some threshold can be enabled and  
+
+configured in both Preferences and Styler Configurator. When choosing to just have a line break, you  
+can control whether and where a wrap symbol is displayed.  
+To zoom in, ctrl + + or Ctrl + scroll mousewheel or select View->Zoom->Zoom in or press the button.  
+Folding  
+Certain lines of your text can be hidden based on certain traits. Blocks of texts are 'parented' to others  
+and by folding them (also called collapsing) only the first line is visible.  
+You can recognize text that can be folded by looking at the fold margin on the left - shows icons and  
+line to indicate the structure of the text (the appearance of the margin can be changed, see Styler  
+Configurator and Preferences). The current lexer determines the structure (see Languages). Folded text  
+is additionally indicated with a horizontal line where the text is collapsed. Lines on the fold margin  
+indicate that the textlines they run by are foldable. Vertical lines ( ) indicate multiple lines that can be  
+folded together as a group, which is terminated with a small horizontal - or a box.  
+Also, you may decide to hide the margin completely, even when the language of the document allows  
+for folding.  
+There are multiple ways to fold text:  
+The foremost means is by clicking with the left mouse button on a box with a minus sign.  
+The same procedure but with the Ctrl key pressed down will cause the group to collapse, but also  
+any sub groups inside - if you were to unfold just that group, all subgroups would still be folded.  
+Using the menu:  
+View->Fold All will fold every single group in the document, causing the minimal amount of text  
+visible.  
+View->Collapse current level will only collapse the current group (that is, the group that contains  
+the current line, anywhere in the group). This will not collapse any subgroups.  
+View->Collapse level... will collapse the selected level (ranging from 1 to 8). This will collapse all  
+the groups on a particular level, but not any subgroups. You can use this to view your text  
+with a certain 'level of detail'.  
+To unfold folded text, use any of the following measures:  
+Click on the box with the plus sign in the fold margin, this will expand that group.  
+Shift or Ctrl Click on the box with the plus sign. This will expand the group and folded subgroups.  
+Using the menu:  
+View->Unfold All will expand every group in the document - maximum amount of text to be visible.  
+View->Uncollapse current level will expand the current group (group that contains current line).  
+This will not collapse any subgroups.  
+View->Uncollapse level... - make every group of a certain level visible, including parenting group.  
+Also note that if any change occurs in folded text, it will automatically unfold to show the text.  
+Hiding lines  
+Select the lines to hide (all but the very first or last line) and select View->Hide lines. The selected lines  
+will be hidden and in the bookmark margin two icons will appear (> indicating the start and < indicating  
+the end of the hidden section). Clicking on any of these two icons will show the lines again.  
+Multi View  
+You can enable a secondary edit window to be able to view two documents at the same time. If used  
+with the same document, you can quickly compare two documents or make quick changes in two
+
+4\. Run menu  
+Shortcut Action  
+F5 Launch Run Dialog  
+Alt-F1 Get PHP help  
+Alt-F2 Google search  
+places at the same time without having to scroll or keep bookmarks.  
+To use Multi View, first activate the document. Then, you have two options:  
+Select View->Move/Clone current document->Go to another view, this will move the document to the  
+other view, closing it in the first view.  
+Select View->Move/Clone current document->Clone to another view, this will clone the document into  
+the other view, linking the two. Any change in the first document will automatically be forwarded to the  
+second and vice versa. You can also reach these command by right-clicking on the tab of a document  
+and selecting the command from the context menu.  
+Note that these options are also available by dragging a tab into an edit field, with the Ctrl depressed  
+for cloning and not depressed for moving  
+Once you have Multi View enabled, you can control its layout. You can drag the divider around using  
+your mouse, or click on the small arrows on the top and bottom to completely move it to the left or right.  
+Rightclicking on the divider shows a popup menu allowing you to rotate the layout for a horizontal or  
+vertical version.  
+Although you can view two documents at the same time, only one can be active (have the focus). You  
+can determine the active view by the tabbar if you have the topline enabled (see Tab bar). By default,  
+the active view has a darker color of orange than the inactive view. Also, only the active view can have  
+the caret. You can switch the active view by selecting View->Focus on other view. The active view  
+determines what options are available from the menu or toolbar. If the main view has all documents  
+saved, but the secondary view has modified tabs, you can only select the Save option if the secondary  
+view is active.  
+If you have the same document open in two views, they will share some properties, but some of them  
+can be modified independently. These include:  
+\* Folding (but not line hiding).  
+\* Zoom level;  
+\* Scroll position;  
+\* Cursor position;  
+\* RTL modus (see RTL)  
+\* Line wrap modus  
+\* Overtype mode  
+\* Nonprintable characters rendering  
+If you open a new document or a file, it will do so in the currently active view. Additionally, closing the  
+last document of a view will close that view if two views are visible (including moving the last document  
+of one view to the other).  
+To ease document comparison/navigation, you can enable scroll locking in Multi View. When a lock is  
+enabled, scrolling one view will automatically scroll the other. The lock will attempt to keep the current  
+offset. This means if one view is scrolled 5 lines lower than the other, the vertical scroll lock will keep  
+this distance unless this is not possible anymore. Is soon as it is possible it will retain the offset again.  
+To enable horizontal scroll locking, select View->Synchronize Horizontal Scrolling or press the button.  
+To enable vertical scroll locking, select View->Synchronize Vertical Scrolling or press the button.  
+
+Alt-F3 Wikipedia search  
+Alt-F5 Open file (name at cursor)  
+Alt-F6 Open file in another instance (name at cursor)  
+Ctrl-Alt-Shift-R Open in Chrome  
+Ctrl-Alt-Shift-X Open in Firefox  
+Ctrl-Alt-Shift-I Open in IE  
+Ctrl-Alt-Shift-F Open in Safari  
+Ctrl-Alt-Shift-O Send via Outlook  
+How to select text  
+When using the mouse, the most basic way - but there are other - is to drag the mouse from start point  
+to end point. You can also double click a word to select it, or triple click on a line to select it. The same  
+effect is achieved by a simple click on the line number margin. You can extend a selection by shift  
+clicking its new insertion point.  
+When using the keyboard, the expected procedure is to use navigation keys in conjunction with the  
+Shift modifier. These keyboard shortcuts can be changed at any time using the Shortcut Mapper.  
+Stream vs rectangular selection  
+The above procedures are known to define a stream selection, which encompasses a contiguous range  
+of text. Using the SCI_SWAPMAINANCHORCARET Scintilla command from the Shortcut mapper, you  
+can choose whether the caret starts or ends the selection.  
+However, Notepad++ also knows about rectangular selections, which define a rectangle of strips on  
+contiguous lines.  
+To select a rectangle, use the above methods while also holding the Alt modifier key down. For exmple,  
+the basic way with the mouse is to Alt-click the start point and Alt-move the mouse to the end point, and  
+so forth. The Alt- versions of keyboard shortcuts can be changed as well.  
+It is possible to combine a stream selection and arectangular selection, using the keyboard. This is  
+probably less useful, but is not a bug.  
+The Edit -> Line operations -> Move Up/Down current line commands also move the selected area, if it  
+is not rectangular. This ability is lost when several selections are made - see below.  
+Multiple stream selections  
+If a stream area is selected, it is possible to add another, disjoint area by Ctrl-clicking its start point and  
+moving the mouse to the end point. More than one extra selection can be added this way. (Multi-Editing  
+should be enabled in Preferences)  
+However, this ability does not extend to rectangular selections. A rectangular selection may still cling to  
+one of the stream selections though. The SCI_ROTATESELECTION Scintilla command enables to cycle  
+through selections, in the order they were defined.  
+When copying or cutting a multiple selection, the text is recorded in the order the selections appear,  
+regardless of the order in which they were made.
+
+5\. File menu  
+Shortcut Action  
+Ctrl-O Open File  
+Ctrl-N New File  
+Ctrl-S Save File  
+Ctrl-Alt-S Save As  
+Ctrl-Shift-S Save All  
+Ctrl-P Print  
+Alt-F4 Exit  
+Ctrl-Tab  
+Next Document (also shows list of open files). Can be disabled - see  
+Settings/Preferences/Global.  
+Ctrl-Shift-Tab  
+Previous Document (also shows list of open files). Can be disabled -  
+see above.  
+Ctrl-W Close Current Document  
+  
+Macros  
+Notepad++ is capable of recording some of your actions you perform while editing a document, and  
+replaying those later on to avoid having to repeat that sequence of actions. This is called a macro and  
+can save a great deal of time. Macro's can be played once, or multiple times, even as long as is  
+required to run through an entire document. You can save them for later use and assign keystrokes to  
+them for fast access (See Shortcut Mapper). Macro's are sensitive to the current position of the cursor  
+and will (normally speaking) operate relative on it.  
+To record a macro, select Macro->Start Recording or press the button on the toolbar. Notepad++ will  
+now keep track of the changes you make on a document or certain actions you perform.  
+To stop recording, select Macro->Stop Recording or select the button on the toolbar. As an exception  
+to most commands, you can toggle this behavior with a special shortcut combination that is not listed in  
+the menu but solely in the Shortcut mapper (see Settings, Shortcutmapper). By default, this is the  
+combination Ctrl-Shift-R.  
+After the recording is stopped, it will be stored in a temporary buffer. If you haven't performed any  
+actions, this buffer will be cleared. If you start recording another macro without saving your earlier work,  
+it will be lost.  
+To play the macro in the buffer, select Macro->Playback or press the button. This will perform the  
+macro once at the current position.  
+To save the macro in the buffer, select Macro->Save current recorded macro or press the button. A  
+dialog will pop up asking for a name of the macro and the default key combination. These can later be  
+changed (and deleted) using the Shortcutmapper (see Shortcut Mapper). When saved, the macro will  
+be available from the Macro menu or the Macro playlist.  
+To play the current macro in the buffer or any saved macro once or multiple times, select Macro->Run  
+a macro multiple times... or press the button. A dialog will pop up allowing you to select what macro to  
+perform (buffer macro or any saved macro) and how many times. You can also opt to perform the macro  
+until the cursor reaches the end of the current file (starting from its current position). Note that if no  
+macro's are available, this dialog is inaccessible.  
+To edit or delete an existing macro shortcut, you can use the Shortcut mapper, which displays all  
+shortcuts of all kinds, and allows changing or removing a key binding. The interface is also available  
+through the Macro -> Modify shortcut / Delete macro entry on the Macros menu. Note that the contents  
+of a macro definition can be edited only in the shortcuts.xml file.
+
+To run a new command  
+Sselect Run->Run.... A dialog will pop up asking for the path to the program and possible any  
+command line parameters. You can use the browse button to search for your program. The drop down  
+list provides recently run programs. The command line arguments can also be based on the status of  
+the current document, and are always enclosed in $(...), where … can be:  
+FULL\_CURRENT\_PATH  
+the fully qualified path to the current document.  
+CURRENT_DIRECTORY  
+The directory the current document resides in.  
+FILE_NAME  
+The filename of the document, without the directory.  
+NAME_PART  
+The filename without the extension.  
+EXT_PART  
+The extension of the current document.  
+NPP_DIRECTORY  
+The directory that contains the notepad++.exe executable that is currently running.  
+>CURRENT_WORD  
+The currently selected text in the document.  
+CURRENT_LINE  
+The current line number that is selected in the document (0 based index, the first line is 0).  
+CURRENT_COLUMN  
+The current column the cursor resides in (0 based index, the first position on the line is 0).  
+For example  
+"$(NPP\_DIRECTORY)\\notepad++.exe" -multiInst "$(FULL\_CURRENT_PATH)"  
+would start a new instance of Notepad++ opening the current file. Remember to put quotes around  
+paths if it can contain spaces. For the Notepad++ command line options, see Command Line.  
+To run an existing command:  
+Select it from the Run menu below the Run... option. If no commands are saved, the list will be empty.  
+To save the command:  
+Sselect Run->Run..., enter the command and press Save.... A dialog will pop up asking for a name of  
+the command and the default key combination. Once saved, the command will be available from the  
+Run menu.  
+To edit or delete an existing command:  
+The Shortcut Mapper (see Shortcut Mapper) displays all available commands in a uniform way, so you  
+can modify or delete any shortcut you defined, including Run commands. This procedure is also  
+available from Run -> Modify shortcut / Delete command. As the name suggests, this does not extend  
+to editing the command text proper - you need to edit shortcuts.xml to do that.  
+  
+Command Line  
+Notepad++ supports a few command line parameters to control its startup. The following options are  
+supported (they are case sensitive):  
+-nline number
+
+Line number to go to for each file opened.  
+-c  
+Start editing in Column mode.  
+--help  
+Displays this list, i.e. all the command line switches  
+-loadingTime  
+Displays the loading time of all files Notepad++ is started with. The result is displayed in a  
+message box, with a 0.01 second resolution.  
+-multiInst  
+allow Notpead++ to start more than one instance. By default, if Notepad++ is already started files  
+wil lbe opened in that instance, but this option will start a new one.  
+-noPlugin  
+Do not load any plugins. If you suspect a defunct plugin or you just do not wish to load them, add  
+this option.  
+-ro  
+Any file now opened will be opened in Read only mode.  
+-nosession  
+Do not load the previous session if Notepad++ is started. Do not save the session on exit either.  
+-notabbar  
+Hide the Tab Bar, even if the settings say otherwise.  
+-systemtray  
+Start Notepad++ minimised in the system tray, aka notification area  
+-xline number  
+Specify the horizontal position (in pixels) at which Notepad++ main window is to open.  
+-yline number  
+Specify the vertical position (in pixels) at which Notepad++ main window is to open.  
+-llanguage short name  
+Language to set for each file opened. $$$ is a short identifier string, of which the following are  
+allowed:  
+Normal, php, c, cpp, cs, objc, d, java, rc, html, xml, makefile, pascal, batch, ini, nfo, asp, sql, vb,  
+javascript, css, perl, python, lua, tex, cobol, fortran, bash, actionscript, nsis, tcl, lisp, scheme,  
+asm, diff, props, postscript, ruby, smalltalk, vhdl, kix, autoit, Gui4Cli, powershell, caml, ada,  
+verilog, matlab, haskell, inno, cmake, yaml,r, jsp  
+Files  
+Anything else will be interpreted as a filename. Always quote your filename to allow the path to  
+contain spaces, otherwise Notepad++ will split the single path into multiple paths at each space.  
+The order of the options is not important.  
+For compatibility, Notepad++ will first try to identify the entire command line as a filename, even if it is  
+unquoted. It is however not recommended to do this, always quote the filename.  
+Control files  
+The startup behavior of Notepad++ can be adjusted with a few (0 sized) control files. Their absence or  
+presence will control how Notepad++ acts:  
+doLocalConf.xml  
+If present, Notepad++ will use the installation directory for all configurations. If abscent,  
+%APPDATA% is used instead.  
+asNotepad.xml  
+If present, Notepad++ will act as Windows Notepad, meaning it will launch in multiple instances,  
+hides the tab bar and will not load the previous session.
+
+Shell Extension  
+By default the Notepad++ installer comes with a Shell extension. This is not really part of the  
+Notepad++ program but very useful. If you choose to install it, then any file you rightclick on will show  
+an entry named "Edit with Notepad++" with the Notepad++ icon.  
+Please note that to install or remove the extension, it sometimes is required to restart the Explorer  
+process. For this you can reboot, logout and log back in or use the task manager to kill explorer  
+(Windows NT and up) and restart it again. You can do this by hitting Ctrl+Alt+Shift+Del.  
+If the Shell extension is already installed, the Notepad++ installer cannot update or overwrite it, you first  
+have to uninstall it and restart Explorer.  
+If you issue the install command for the dll, which is regsvr32 /i NppShell_01.dll, a dialog box  
+will pop up from which various details of the behaviour of the extension can be tweaked. The trailing  
+number will increase as versions go.
+
+Firefox developer add-ons
+-------------------------
+
+**1\. Firebug**  
+Both designing and development, even has its own Add ons.  
+Open source project, powerful set of tools to debug and inspect any part of a page, to change and add not only new styles but also new structure within the HTML itself and the DOM.  
+Play with styles to suit and see them change in real time.  
+Awesome documentation.
+
+**2\. Colorzilla & Ultimate CSS Gradient Generator (from same company)**  
+Pick a colour using it eye dropper tool that's a bit like Photoshop's.  
+Setting up colours on the go and having visual examples to work with.  
+Ultimate CSS Gradient Generator - to set up a gradient like you would in Photoshop and generates all the CSS styles for all browsers for you to just simply copy and paste.
+
+**3\. SEO Doctor**  
+\- scanning your page and validating its HTML and structure and point you in the right direction of what you need to do.  
+It begins with giving your page a score out of 100% with highlights to areas that could use some improvement in the SEO area.  
+Export data function to get a report for the page - spreadsheet.
+
+**4\. Page Speed**  
+Keep loading times down. Developed by google. Work like SEO doctor  
+\- scans page by refreshing it then giving you an output of what areas need attention to help boost speed of your site.  
+Some cool functions like :  
+\- compressing images  
+\- minimizing your CSS  
+and stores them within a folder on your desktop so you can just upload.  
+Built in explanations. Also you can try it out first with Online version.
+
+**5\. HTML Validator**  
+To be compatible with all browsers to insure page looks right.  
+Scans your page, give you tips on how to fix these errors and make your site pass the standards compliance test.  
+
+  
+n++ Plugins  
+
+-----------------
+
+[http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Plugin_Central](http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Plugin_Central)  
+Download: Notepad++ Plugins project: [http://sourceforge.net/projects/npp-plugins/](http://sourceforge.net/projects/npp-plugins/) or anywhere on inet  
+Plugin **Plugin Manager** works out the installation details and version management for you.
+
+Notepad++ comes bundled with a few plugins (when using the installer, you can choose which ones to add.  
+Plugins are located in Plugins subdir in main installation directory.  
+They are DLL files and removing or adding them is enough.  
+When Notepad++ starts, it looks into its Plugins configuration folder and **loads whatever dll it finds**.  
+Later, you can add plugins using the Settings -> Import -> Import plugins menu.  
+
+If a plugin misbehaves, Notepad++ will go out of its way to prevent the failure from propagating so as to  
+avoid any loss of data. In such a case, you will be presented with information about the plugin reporting  
+a problem. Making this information available on the Plugin Development forum will help removing the  
+cause of the problem as soon as possible.
+
+Facility that provides an IDE like **Dreamweaver, Coda or Aptana Studio** should install many plugins -we can conclude that Notepad++ is not a good choice for developing web sites, at least for people who are learning
+
+**NPP PANELS:**  
+1\. Settings > Pref. > **General** \> Doc.list panel > chk "Show" (lijevo)
+2\. View > Project > Panel 1 (,2,3) - don't need file explorer (lijevo)  
+3\. View > Doc. Map (desno)  
+4\. View > Function list (desno)
+
+1.  **[Session Manager](./pomoc/SessionMgr.html) 0.7.1**,  jan. 2013
+    
+2.  **Compare Plugin**  
+    [http://blogs.bgsu.edu/geeks/files/2010/10/NP.png](http://blogs.bgsu.edu/geeks/files/2010/10/NP.png)   Check two files diffs (saving you tons of money on Advil).
+3.  **Windows Manager**To see a short overview of the documents currently open in Notepad++. Overview is dockable for easy viewing or stashing. So if you are an extreme multitasker, this could be the perfect plugin for you.
+4.  **Multi Clipboard** With up to ten different text buffers.
+5.  **Explorer:** Explorer plugin is a tree file browser. With this plugin we can manage all files on the local site of our website.
+6.  **HTML tag:**  
+    This adds a bunch of really accessible shortcuts for HTML/JavaScript editing. Great to find rogue HTML tags or "entifying" strings.  
+    \- Need to find a matching tag? Just press Ctrl-T.  
+    \- Select all content within a tag? Ctrl-Shift-T  
+    \- Encode characters to entities? Highlight and Ctrl-E.  
+    \- Encode your JS to one line? Highlight and Ctrl-J.
+7.  **CSS-eXplorer:**  
+    CSS-eXplorer is a CSS and HTML plug-in for Notepad++. It allows easy navigation and edit of CSS files with Notepad++.  
+    \- TreeView: Allows easy navigation in CSS file.  
+    \- Validation Service: Check errors in CSS file, and provide detailed report.  
+    \- Web Page Preview: Test your work on CSS file immediately via HTML Web Page Preview Window.  
+    \- CSS Editor: Add new parameters and design options to CSS file quickly and easily (support CSS 2.0 defines).
+8.  **Code-express**  
+    Speeds up writing code in many languages with shortcuts to code templates.  [Video](http://www.youtube.com/watch?v=7xNeUbsScUc)
+9.  **5\. – Zen coding**  
+    Very similar plugin to Code-express.
+10. **NppFTP**  
+    allowing FTP, FTPS, FTPES and SFTP communications.
+11. **FTP Synchronize**  
+    Out of the office? Open PHP files from a server in any location, alter it, save it, and try it immediately on a preferred browser.
+12. **XML Tools**  
+    libXML2 based small set of useful tools for editing XML with Notepad++.  
+    \- XML syntax Check  
+    \- XML Schema (XSD) + DTD Validation  
+    \- XML tag autoclose  
+    \- Pretty print  
+    \- Linearize XML  
+    \- Current XML Path  
+    \- Conversion XML Text  
+    \- Comment / Uncomment  
+    \- XPath expression evaluation  
+    
+13. **Color Picker**Will translate selected color into a hexadecimal.
+14. **DBGP**PHP debugger communicates with Notepad++ to let it know that it will now be a PHP IDE.
+15. **Hex Editor  
+    **One of the most amazing Notepad++ plugins.
+16. **Language Help**  
+    help files for code languages such as CHM, PDF, and HLP. Additionally, display help file as menu options.
+17. **Npp Export Plugin  
+    **To save created source codes in formats such as html and rtf files.  
+    To **copy code to clipboard in either format**. This allows **easy pasting into a preferred word processing program**, so you can get the copied visual effect.
+18. **CharM**Quick and easy access to character map - also handy for creating names.
+19. **CLR Tab to Spaces** managing source code with tabbing -exchanging the tabs with spaces.
+20. **HTML Tag (matching) for Unicode or ANSI**XML and HTML tag matching, as well as HTML decoding and coding of entities.
+21. **Oberon2lexer**  
+    Oberon 2 syntax highlighting feature to the Notepad++ editor. -a huge plus.
+22. **Speech Plugin  
+    **Notepad++ can talk now
+23. **Switcher**Brain-cell saver.Switch between any associated files, which is extremely useful if you have some of your excerpts set up with hot keys.
+24. **Convert EXT**  
+    Replace a typed-character by utilizing another user-defined one, **Convert** text files from one encoding style to another.
+25. **DBGP Plugin** **\- PHP debugger or XDebug**Speaks DBGP protocol. to alter your Notepad++ into a **PHP IDE**.
+26. **GmodLua Syntax Highlighter**Plugin for Gary's mod on Notepad++ is in fact a lua syntax highlighter plugin. This is an awesome demo of how great syntax highlighters are as Notepad++ plugins.
+27. **Log Plugin**  
+    Record the date and time at the end of each file, after the file has been opened.
+28. **Simple Script**to create script from built-in functions. Afterwards, you execute the script in linear.
+29. **XBrackets Lite**Misplaced brackets, or just forgotten ones, allows a feature to auto-complete brackets. It will successfully complete the correct corresponding bracket using an auto-complete script.
+30. **SearchInFiles**
+31. **TopMost**Sit on top of any other item you have open. Utilization of memory between sessions and a toolbar button.
+32. **WebEdit**integration of user configurable coding in template collections, utilizing Notepad++.
+
+Notepad#  
+=============================  
+General plugin (proper new line handling, comments, indenting etc)  
+Implemented so far:  
+\- Proper new line inside CommentDoc/DocBlock for C, C++, Javascript, PHP  
+\- Proper new line for # comment in Ruby  
+\- Indent after opening curly brace for C-like languages, CSS  
+and proper indenting for closing curly brace  
+\- Delete current line keeping the column  
+\- Undo closed tab  
+\- Switching tabs with ALT + LEFT/RIGHT  
+\- Wrap selection with Open/Close tag  
+\- Url encode/decode selection  
+\- Autoclose embeded script tags for ruby and php (<% | <?)  
+\- Column ruler  
+\- Indent after opened tag - XML, HTML and PHP  
+\- Close last open tag  
+\- Autonumbering inside CommentDoc/DocBlock and # comment  
+\- Indent after instruction for Ruby - module|class|def|do|if|else|elsif|private  
+\- Match "end" indentation for Ruby  
+\- Autocomplete CommentDoc/DocBlock keywords  
+\- Peek CSS hex colors  
+\- Scroll past end of file  
+\- Convert leading TABS to Spaces and reverse  
+\- Paste indented  
+\- Double click edit tag  
+Author: jvdanilo  
+Source: https://github.com/jvdanilo/NotepadSharp  
+Homepage: https://github.com/jvdanilo/NotepadSharp
+
+NppExec  
+=============================  
+execute your commands or saved scripts without leaving Notepad++.  
+It makes you triple your productivity!  
+Author: Dovgan Vitaliy  
+Source: http://downloads.sourceforge.net/project/npp-plugins/  
+Latest update: Improved installation - recommended updated  
+(ver. 0.4.2.1)  
+\- fixed: incorrect check of Notepad++ version  
+(ver. 0.4.2)  
+\- fixed: $("var") was processed incorrectly  
+\+ now npe_cmdalias uses run-time $(vars)  
+\+ set &lt;var&gt; ~ strlen &lt;string&gt;  
+\+ set &lt;var&gt; ~ strlenutf8 &lt;string&gt;  
+\+ $(EXITCODE)  
+\+ npp_sendmsgex, \[\] in CScriptEngine::doSendMsg  
+\+ %CHAR% in WarningAnalyzer, thanks to Carlos (cabanela)  
+\+ fparser updated to v4.4.3  
+\+ NppExec Manual updated (one step closer to enlightenment :))
+
+RunMe  
+=============================  
+RunMe allows to execute the currently open file, based  
+on its shell association.  
+Author: Franco Stellari  
+Homepage: http://sites.google.com/site/fstellari/nppplugins  
+Latest update: Fix compatibility with Notepad++ 5.7  
+
+Session manager  
+=============================  
+Provides enhanced session management for Notepad++.  
+Author: Mike Foster  
+Source: http://mfoster.com/npp/download.html  
+Homepage: http://mfoster.com/npp/SessionMgr.html  
+Latest update: v0.6, 21Mar2012  
+\- The bugfix in the previous release has been confirmed.  
+\- In the New Session dialog box, clicking one of the options (when the edit field is empty) will populate the edit field with the selected session name.  
+v0.4.1  
+\- Possible bugfix (strange characters in names): I think I have found and corrected this problem.  
+\- Changed button name from Cancel to Close on the Session Manager dialog.  
+\- If the session directory specified in the Settings dialog does not exist then it is created.  
+
+Snippets  
+=============================  
+add code snippets to curr.doc. by selecting it from list.  
+Author: Frank Fesevur  
+Source: http://code.google.com/p/nppsnippets/  
+Homepage: http://www.fesevur.com/nppsnippets  
+Latest update: - You can now add a new snippet to a library  
+based upon the current selection  
+or based upon the content of the clipboard.  
+Right-click the snippets list to use these items.  
+\- Installation has been improved. A template database is provided  
+and when the plug-in tries to find an existing database  
+and it can't find it, it copies this template database to the  
+AppData plugin-config directory.  
+\- The About dialog now shows the change-log.  
+\- When you upgrade the very first time the change-log  
+for the current version will be shown.  
+\- When you didn't select a specific library for a certain language,  
+the automatic selection of the library is improved.  
+The first language specific library is preferred over the  
+first general library.  
+\- Resized the edit snippet dialog.  
+\- Upgrade to SQLite version 3.7.9  
+\- Moved the download to Google code. This gives me statistics  
+about downloads and an issue tracker. The project's web page  
+stays where it is.
+
+WebEdit  
+=============================  
+another attempt to integrate a user-configurable code template  
+collection into Notepad++. With WebEdit you have the following options:  
+\* create a menu command for pasting some text, possibly surrounding  
+the current selection, if any. Up to 30 such commands can be created  
+and optionally assigned keyboard shortcuts and/or toolbar buttons.  
+\* you can create a set of "tags" or abbreviations. Type one of them,  
+then press Alt+Enter and it will be replaced with the corresponding  
+block of text. The caret will be placed in a predefined position  
+within the new text.  
+You can even have the current clipboard contents pasted as part  
+of the tag replacement operation.
+
+The plugin configuration is stored in the WebEdit.ini file.  
+Use "WebEdit\\Edit Config" command from the "Plugins" menu to open  
+the file in Notepad++ for editing.
+
+All keyboard shortcuts can be assigned/modified using the standard  
+Shortcut Mapper.  
+Author: Alexander Iljin &lt;AlexIljin@users.SourceForge.net&gt;  
+Source: http://downloads.sourceforge.net/project/npp-plugins/WebEdit/WebEdit%202.1/WebEdit.v2.1.zip  
+Latest update: - Added "\\c" escape sequence to paste clipboard contents  
+when replacing a tag.  
+\- Added "\\i" escape sequence to increase indentation level when  
+replacing a tag.  
+\- Removed error message box from the "Edit Config" command.  
+\- Fixed: "  
+" now indents by copying only the leading whitespace of the first line,  
+not the whole part up to the tag.  
+\- Fixed invalid caret placement after replacing a tag when you move  
+the caret with up and down keys (it used to jump to a different  
+column, probably due to a Scintilla bug).  
+
+SnippetPlus  
+=============================  
+.NET 3.5 Required! Code snippet and Surround With plugin for Notepad++.  
+Write snippet name and replace it with real code  
+or select some text and surround it with something like  
+IF,TryCatch,Table,Div or whatever.  
+Will give you hint if you don't remember the snippet name  
+Note that the latest version may be shown, even though you have  
+an older version installed. Reinstall to ensure you have  
+the latest version.  
+Author: Rajesh Kumar  
+Homepage: http://sourceforge.net/projects/snippetplus/  
+Latest update: + Added multiline surroundwith functionality  
+\+ Dockable window now shows both Snippets and SurroundWith  
+at the same time. (users wished it).  
+To save space, Reload button functionality is now moved to context menu.  
+Right click Listbox and click Reload (on both Listboxes)  
+\- Fixed indentation  
+\- Endline character is now based on the Notepad++ mode and not on the OS  
+\- General will always be enabled no matter if set to true or false.  
+\- General will be created on start if does not already exist  
+\- Documentation converted to HTML for better readability (hopefully)  
+\- This version recreated from scratch. Let me know asap if anything working differently.  
+\- Only one DLL is needed from this version.  
+\- From now on my primary email address is: (rajesh dot madhra @ gmail dot com)  
+
+Translate  
+=============================  
+quick translation of selected text to your language of choice.  
+Select the text and press Ctrl+Alt+Z. Supports multiple languages.  
+Must be directly connected to the Internet in order to use.  
+Author: Shalen Mishra  
+Source: http://npptranslate.svn.sourceforge.net/viewvc/npptranslate/  
+Homepage: https://sourceforge.net/projects/npptranslate/  
+Latest update: All dialogues made modal  
+Functionality to copy translated text.
+
+RegEx helper  
+=============================  
+Highlights all matches of a regular expression within a document.  
+Clicking on an individual result shows the matching groups  
+for that result.  
+Author: lbarsanti  
+Source: http://sourceforge.net/projects/nppregexhelper/  
+Homepage: http://sourceforge.net/projects/nppregexhelper/  
+
+Solution tools  
+=============================  
+Configurable priority based fileswitching(most commonly used  
+when switching between .h and .cpp). Configurable what extensions  
+map to which targets and in what order.  
+'goto file' implementation,  
+Ex. stand on a line, press whatever shortcut(or left mouseclick  
+on the line) you have bound to the GOTO command on a line like :  
+#include "somefile.h"  
+or  
+require 'some\_path/to\_a_luafile'  
+Author: incfred  
+Homepage: http://www.incrediblejunior.com/npp_plugins/
+
+  
+Suggestions  
+post suggestions to IdeaTorrent (feature request) - go to Hosted Apps on top of this page, and choose  
+IdeaTorrent. Be sure to be logged in. Posting an idea has three parts:
+
+1.  title, which makes it easy to spot it 1.  
+    
+2.  rationale -short text about what it is you'd like to achieve and N++ currently doesn't do it 2.  
+    
+3.  Your solution to this problem 3.
+
+Vote counting ability and one-to-many idea-solutions mappig at startup, by using -systemtray command line switch  
+Using the minimise button, if you enabled this behaviour from the Preferences dialog.  
+
+If you try to minimise a running instance of Notepad++ to the system tray while one is already there, the  
+new instance will be minimised in the standard way, so that its button remains on the task bar.

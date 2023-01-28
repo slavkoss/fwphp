@@ -1,0 +1,50 @@
+
+
+2. DROP invalidnih sinonima  (izvan spool off):
+=========================================
+
+no rows selected
+
+
+
+3. TRIGGERI DISABLED I ENABLED :
+================================
+
+TRIGGER_NAME                   STATUS
+------------------------------ --------
+SECURE_EMPLOYEES               DISABLED
+EQUIPMENT_TRIG                 ENABLED
+PICTURES_TRIG                  ENABLED
+UPDATE_JOB_HISTORY             ENABLED
+
+4 rows selected.
+
+
+
+4. PROVJERA KOLIKO JOS IMA INVALIDA :
+=====================================
+SVI USERI: select * from all_users order by username
+SVI OBJEKTI USERA: select max(length(rtrim(OWNER||'.'||object_name))) from all_objects
+INVALIDNI OBJEKTI USERA: select DISTINCT status, OBJECT_TYPE, substr(USER||'.'||object_name,1,50) object_name from user_objects where status = 'INVALID'
+
+STATUS  OBJECT_TYPE         OBJECT_NAME
+------- ------------------- --------------------------------------------------
+------- ------------------- --------------------------------------------------
+      0 count                                                                0
+------- ------------------- --------------------------------------------------
+      0                   0                                                  0
+------- ------------------- --------------------------------------------------
+      0                   0                                                  0
+
+no rows selected
+
+5. DROP TRIGGERA KOJI TABLE_OWNER!=OWNER (izvan spool off jer brise sistemske triggere !!):
+=========================================
+
+DROPATI_PA_KREIRATI
+----------------------------------------------------------------------------------------------------------------------------------------------
+drop trigger MDSYS.SDO_ST_SYN_CREATE;                   --jer table_owner=SYS
+drop trigger MDSYS.SDO_DROP_USER;                   --jer table_owner=SYS
+
+2 rows selected.
+

@@ -166,19 +166,22 @@ class Db_allsites_ORA implements Interf_Tbl_crud
     if (!is_object($rx)) { 
        return ((object)['rexists' => false]); 
     }
-    $rx->rexists = true ;
+    //$rx->rexists = true ;
     
+    //php -a  then in PHP CLI : returns "null or diferent" :
+    //php >if ((null ?? '') !== 'COUNT') echo 'null or diferent' ; else echo 'equal' ;
     // rlows has error with oci count :
-    //php -a  : if ((null ?? '') !== 'COUNT') echo 'null or diferent' ; else echo 'equal' ;
+    //$rx = utl::rlows($rx) ;
     if (($other['what'] ?? '') !== 'COUNT') {
-      switch (self::getdbi()) { case 'oci' : $rx = utl::rlows($rx) ; break; default: break; } //all row fld names lowercase
-    }
+      //all row fld names lowercase :
+      $rx = utl::rlows($rx) ;
+               //switch (self::getdbi()) { case 'oci' : $rx = utl::rlows($rx) ; break; default: break; } 
+    } 
 
     return $rx ;
   }
 
   /**
-  * Shows how to use other two  r e a d  methods
   * 
   */
   static public function rrcount($tbl)
@@ -193,18 +196,27 @@ class Db_allsites_ORA implements Interf_Tbl_crud
 
   static public function rr_last_id($tbl) {
     $cursor_maxid = self::get_cursor(
-         "SELECT max(id) MAXID FROM ". $tbl //." WHERE $qrywhere"
+         "SELECT max(ID) MAXID FROM ". strtoupper($tbl) //." WHERE $qrywhere" upper !!
        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
        ) ;
+                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                echo '<pre>';
+                echo '<br />$cursor_maxid='; print_r($cursor_maxid) ; 
+                echo '<br />'.'self::$d b i=' . self::$dbi ;
+                echo '</pre>';
+                }
     //return $cursor ;
     $maxid = self::rrnext( $cursor_maxid
-      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->MAXID ;
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->maxid ; //lower !!
     return $maxid;
 
   }
 
 
-  static public function get_cursor(string $dmlrr, array $binds=[], array $other=[]): object 
+  static public function get_cursor(
+      string $dmlrr
+    , array $binds=[]
+    , array $other=[]): object 
   {     //, string $qrywhere = "'1'=='1'"
                 if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
                 echo '<pre>';

@@ -1,6 +1,12 @@
 <!-- J:\awww\www\fwphp\glomodul\adrs\ftr.php -->
     <div class="footer">
-        This is MINI3 PHP fw on code skeleton B12phpfw. Based on <a href="https://github.com/panique/mini3">MINI3 on GitHub. &copy; Slavko Srakočić, Zagreb, see on GitHub "B12phpfw"</a>.
+
+        <?=$pp1->module_version?> &copy; Slavko Srakočić, Zagreb, see on GitHub  
+        <a href="https://github.com/slavkoss/fwphp">B12phpfw</a>.
+        <br>
+        This is MINI3 PHP fw on code skeleton B12phpfw. Based on GitHub
+        <a href="https://github.com/panique/mini3">MINI3</a>.
+
             <?php
                 if ($pp1->dbg == '1') {echo '<pre>'.__FILE__.' ln='.__LINE__.' said:</pre>';
                 echo '<pre>';

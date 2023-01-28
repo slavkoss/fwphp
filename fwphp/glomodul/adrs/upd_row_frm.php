@@ -25,12 +25,15 @@ if(isset($_POST["submit_update"]))
                            ,'$pp1->uriq'=>isset($pp1->uriq)?json_encode($pp1->uriq):'NOT SET'
                            ] ) ; }
 
-$cursor = utl_adrs::get_cursor( $sellst='*', $qrywhere='id=:id'
+$cursor = utl_adrs::get_cursor(
+    $sellst='*'
+  , $qrywhere='id=:id'
   , $binds = [['placeh'=>':id', 'valph'=>$IdFromURL, 'tip'=>'int']] //str or int or no 'tip'
-  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+);
 //while ($row_cnt=$this->rrnext($c_rcnt)): {$rcnt=$row_cnt;} endwhile; $rcnt=$rcnt->COUNT_ROWS;
 while ( $rx = utl_adrs::rrnext($cursor) and isset($rx->id) ): {$r = $rx ;} endwhile;
-                  if ('1') {  //if ($module_ arr['dbg']) {
+                  if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h2>' ;
                   echo '<pre>';
                   echo '<b>$pp1->uriq</b>='; print_r($pp1->uriq);

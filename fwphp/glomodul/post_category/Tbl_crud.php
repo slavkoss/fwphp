@@ -25,9 +25,19 @@ use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 
 // Gateway class - separate DBI layers
-class Tbl_crud implements Interf_Tbl_crud //Db_post_category extends Db_allsites
+class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends Db_allsites
 {
+
+  //Db_allsites_ORA or Db_allsites for MySql or ... :
+  static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
+
   static protected $tbl = "category";
+
+  //self is used to access static or class variables or methods
+  //this is used to access non-static or object variables or methods
+  public function __construct(Interf_Tbl_crud $utldb) { 
+    self::$utldb = $utldb;
+  }
 
   static public function dd( object $pp1, array $other=[] ): string
   { 

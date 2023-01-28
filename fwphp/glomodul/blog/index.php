@@ -5,21 +5,31 @@
 
 //string before blog, b12phpfw... is not required. See below **HELPNS
 namespace B12phpfw\module\blog ;
+use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 use B12phpfw\core\b12phpfw\Autoload ;
+use B12phpfw\core\b12phpfw\Db_allsites ; //DB MySQL
+use B12phpfw\core\b12phpfw\Config_allsites ;
+use B12phpfw\module\blog\Home_ctr ;
+
+use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud ;
 
 //1. settings - properties - assign global variables to use them in any code part
-$module_path = str_replace('\\','/', __DIR__) .'/' ;
-$site_path   = dirname(dirname($module_path)) .'/' ; //to app dir eg "glomodul" dir and app
+$module_path = str_replace('\\','/', __DIR__) ; // .'/'
+$site_path   = dirname(dirname($module_path)) ; //to app dir eg "glomodul" dir and app
 //to web server doc root or our doc root by ISP :
-$wsroot_path = dirname(dirname(dirname($module_path))) .'/' ;
+$wsroot_path = dirname(dirname(dirname($module_path))) ;
                //or $wsroot_path = str_replace('\\','/', realpath('../../')) .'/' ;
-$shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, reusables
+$shares_path = $wsroot_path.'/vendor/b12phpfw' ; //includes, globals, commons, reusables
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
-[   'dbg'=>'1', 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
-  , 'module_version'=>'9.0.0.0 Msg' //, 'vendor_namesp_prefix'=>'B12phpfw'
-
-  // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
+[ 
+   'module_version'=>'Blog Msg MySQL 10.0.1.0' //, 'vendor_namesp_prefix'=>'B12phpfw'
+  , 'dbg'=>'1'
+    , 'dbicls' => 'Db_allsites' // for MySql DB or ...
+    //, 'dbicls' => 'Db_allsites_ORA' //for Oracle DB or ...
+    , 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+ 
+ // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
   // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
   , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
   , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
@@ -28,12 +38,20 @@ $pp1 = (object) //=like Oracle Forms property palette (module level) but all sit
 ] ;     
           //echo '<pre>$pp1->module_path_arr='; print_r($pp1->module_path_arr) ; echo '</pre>'; 
 //2. global cls loads (includes, bootstrap) classes scripts automatically
-require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
+require($pp1->shares_path .'/Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
               //require('Autoload.php'); //module-local or Composer's autoload cls-es
               //$autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
-//3. process request from ibrowser & send response to ibrowser :
+  //3. SAME MODULE DB ADAPTER FOR ANY shared DB adapter
+  //$pp1->dbicls = Db_allsites_ORA or Db_allsites for MySql :
+  $tmp = 'B12phpfw\\core\\b12phpfw\\'. $pp1->dbicls ;
+  //shared DB adapter :
+  $AllTbl_crud_obj = new $tmp() ; 
+  //module DB adapter IS SAME for Db_allsites_ORA and Db_allsites for MySql !!
+  $Tbl_crud_obj = new Tbl_crud($AllTbl_crud_obj) ; 
+
+//4. process request from ibrowser & send response to ibrowser :
 //   Home_ ctr "inherits" index.php ee DI $p p 1
 $Home_ctr_obj = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
         if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+    <Session activeView="0">
+        <mainView activeIndex="0">
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="3133" startPos="280" endPos="280" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\www\index.php" backupFilePath="" originalFileLastModifTimestamp="-407419036" originalFileLastModifTimestampHigh="31007585" tabColourId="-1" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1126432768" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="57" xOffset="0" scrollWidth="229957" startPos="8696" endPos="8696" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\www\Home_ctr.php" backupFilePath="" originalFileLastModifTimestamp="-1286328773" originalFileLastModifTimestampHigh="30972385" tabColourId="-1" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="-2116409360" mapWrapIndentMode="-1" mapIsWrap="no">
+                <Mark line="54" />
+                <Mark line="202" />
+                <Mark line="242" />
+            </File>
+            <File firstVisibleLine="25" xOffset="0" scrollWidth="229957" startPos="1162" endPos="1170" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\fwphp\www\home.php" backupFilePath="" originalFileLastModifTimestamp="-451944709" originalFileLastModifTimestampHigh="30973791" tabColourId="-1" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1149583360" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="8355" startPos="112" endPos="112" selMode="0" offset="0" wrapCount="1" lang="None (Normal Text)" encoding="-1" userReadOnly="no" filename="J:\awww\www\.gitignore" backupFilePath="" originalFileLastModifTimestamp="-292819669" originalFileLastModifTimestampHigh="31007243" tabColourId="-1" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1150926848" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="7761" startPos="767" endPos="446" selMode="0" offset="0" wrapCount="1" lang="PHP" encoding="-1" userReadOnly="no" filename="J:\awww\www\vendor\b12phpfw\hdr_skeleton.php" backupFilePath="" originalFileLastModifTimestamp="-873952925" originalFileLastModifTimestampHigh="30943006" tabColourId="-1" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="1149583360" mapWrapIndentMode="-1" mapIsWrap="no" />
+        </mainView>
+        <subView activeIndex="0" />
+    </Session>
+</NotepadPlus>

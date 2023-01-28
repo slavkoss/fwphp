@@ -19,17 +19,20 @@ $pp1->stack_trace[]=str_replace('\\','/', __FILE__ ).', lin='.__LINE__ .' ('. __
 
   <b><span id="ajax_pgtitle_box">Adressess (Links) count : </span><?=$rcount?></b>
          <!--input type="submit" name="submit_add_song" value="Add row" /-->
+
     &nbsp;&nbsp;&nbsp;<a href="<?=$pp1->module_url.QS.'i/cc/'?>">Add row</a>
 
-  &nbsp;&nbsp; <div style="display: inline;" >
-    <button id="ajax_rcount_btn" 
-            title="<?='Display rows count via jQuery Ajax in ajax_rcount_box 
-'. $pp1->module_url.QS?>i/ajaxcountr/">
-      Ajax
-    </button>
-    <span id="ajax_rcount_box"></span>
-  </div>
-
+                      <!-- finish this if Ajax is needed : -->
+                      &nbsp;&nbsp; <div style="display: inline;" >
+                        <!--button id="ajax_rcount_btn" 
+                                title="<?='Display rows count via jQuery Ajax in ajax_rcount_box 
+                    '. $pp1->module_url.QS?>i/ajaxcountr/">
+                          Ajax
+                        </button-->
+                        <span id="ajax_rcount_box"></span>
+                      </div>
+  &nbsp; Table below is displayed with <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple-DataTables</a> 
+ 
 
   <!--        main content output : List of songs
     <table class="table table-sm table-striped" id="table">

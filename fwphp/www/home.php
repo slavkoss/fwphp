@@ -96,8 +96,8 @@
 
         <!-- -->
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"><!--div class="col-lg-8 align-self-baseline"-->
-              <a target="_blank" title="Users (=master, same as msgtype), messages (=detail) , replies (=subdetail) or todo/done or...any master-detail. CRUD PDO of MySQL DB tbl rows."
-                 href="?i/msg/" class="text-white font-weight-bold">1. Blog (Msg-s) MySQL DB</a> 
+              <a target="_blank" title="Blog (Msg-s) MySQL PDO : Users (=master, same as msgtype), messages (=detail) , replies (=subdetail) or todo/done or...any master-detail. CRUD PDO of MySQL DB tbl rows."
+                 href="?i/msg/" class="text-white font-weight-bold">1. Msg MySQL</a> 
         </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> 
@@ -132,8 +132,10 @@
       <div class="row row-example">
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-            <a target="_blank" title="" 
-            href="/fwphp/glomodul/adrs/" class="text-white font-weight-bold">7. Songs Mini3 MySQL PDO</a></div>
+            <a target="_blank" title="Songs Mini3 MySQL PDO" href="/fwphp/glomodul/adrs/" class="text-white font-weight-bold">7a. Adrs MySQL</a>
+            <br>
+            <a target="_blank" title="Songs Mini3 Oracle PDO" href="/fwphp/glomodul/adrs/index_oracle.php" class="text-white font-weight-bold">7b. Adrs Oracle</a>
+        </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
             <a target="_blank" title=""
@@ -154,27 +156,32 @@
           <!-- *********************************************
                     Masthead - Links 3. V I E W
           ********************************************* -->
-      <b>III. View - CSS for responsive Web pages.</b>
+      <b>III. View - CSS templates for responsive Web pages.</b>
 
       <div class="row row-example">
 
+
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <a target="_blank" title="Free Bootstrap templates (PHP)" 
+             href="https://startbootstrap.com/?showAngular=false&showVue=false&showPro=false" class="text-white font-weight-bold">
+              11. Free Bootstrap 5
+          </a>
+          <br>I use also Pico css v1.4.4
+        </div>
+
+        <!--div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
           <a target="_blank" title="Pico css help" 
              href="/fwphp/glomodul/z_examples/cssfw/picocss/" class="text-white font-weight-bold">11. Pico css v1.4.4</a>
-        </div>
+        </div-->
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
           <a target="_blank" title="Skeleton help" 
              href="/fwphp/glomodul/z_examples/cssfw/skeleton/" class="text-white font-weight-bold">12. Skeleton V2.0.4 (2014)</a></div>
 
-        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+        <!--div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
           <a target="_blank" title="Bootstrap templates (PHP)" 
-             href="?i/b_tmplts" class="text-white font-weight-bold">13. Bootstrap 5, PHP 8</a> </div>
-
-        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-          <a target="_blank" title="Free Bootstrap templates (PHP)" 
-             href="https://startbootstrap.com/?showAngular=false&showVue=false&showPro=false" class="text-white font-weight-bold">
-              14. Free Bootstrap templates</a> </div>
+             href="?i/b_tmplts" class="text-white font-weight-bold">13. Bootstrap 5, PHP 8</a>
+        </div-->
 
 
       </div><!--e n d  Masthead - Links 3. V I E W -->
@@ -222,6 +229,7 @@
                  alt="/vendor/b12phpfw/img/ic_done_white_32dp.png"
                  title="/vendor/b12phpfw/img/ic_done_white_32dp.png">
             <b>L</b><a class="btn btn-light" href="#explore1">EARN</a> - connect and explore what other people write. 
+            <br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             Hard work on learning is worth nothing if not explained & shared.
 
             <br /><br /><img src="/vendor/b12phpfw/img/ic_done_white_32dp.png"
@@ -271,7 +279,8 @@
 
                 <div class="row gx-4 gx-lg-5">
 
-                    <div class="col-lg-3 col-md-6 text-center">
+                    <!-- text-start text-center text-end -->
+                    <div class="col-lg-3 col-md-6">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">M-V data flow</h3>
@@ -532,7 +541,7 @@
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
               <a target="_blank" href="http://phporacle.eu5.net/">Demo site on Linux (freehostingeu)</a> </div> </div>
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> <div>
-              <a target="_blank" href=" http://phporacle.heliohost.org/">Demo site on Linux (heliohost )</a> </div> </div>
+              <a target="_blank" href=" http://phporacle.heliohost.org/">Demo site on Linux (heliohost time limited)</a> </div> </div>
       </div><!--e n d  Grid Bootstrap -->
 
 

@@ -1,6 +1,5 @@
 <?php
 // J:\awww\www\fwphp\01mater\fw_popel\dbconn_params.php see J:\awww\www\zinc\Dbconn_allsites.php
-// Is required in trait Db_allsites
 //$conn_params = 
 //     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
 //    , self::$db_username, self::$db_userpwd) 

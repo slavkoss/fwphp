@@ -13,12 +13,11 @@ declare(strict_types=1);
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
 
-use B12phpfw\module\blog\Home_ctr ;
-
 use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
+use B12phpfw\module\blog\Home_ctr ;
 /*
 class Repcls {
   public $db ;
@@ -28,10 +27,19 @@ class Repcls {
 }
 */
 // Gateway class - separate DBI layers
-class Tbl_crud implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was Home
+class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was Home
 {
 
+  //Db_allsites_ORA or Db_allsites for MySql or ... :
+  static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
+
   static protected string $tbl = "posts";
+
+  //self is used to access static or class variables or methods
+  //this is used to access non-static or object variables or methods
+  public function __construct(Interf_Tbl_crud $utldb) { 
+    self::$utldb = $utldb;
+  }
 
   static public function dd( object $pp1, array $other=[] ): string
   { 

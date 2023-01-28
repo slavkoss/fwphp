@@ -11,7 +11,7 @@ use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 
 use B12phpfw\core\b12phpfw\Autoload ;
 
-use B12phpfw\core\b12phpfw\Db_allsites_ORA ;
+use B12phpfw\core\b12phpfw\Db_allsites ; //DB MySQL
 use B12phpfw\dbadapter\adrs\Tbl_crud ;
 
 use B12phpfw\core\b12phpfw\Config_allsites ;
@@ -30,14 +30,12 @@ use B12phpfw\module\adrs\Home_ctr ;
 
   $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
   [  
-      'module_version'=>'10.0.0.0 Adrs (Mini3)' //, 'vendor_namesp_prefix'=>'B12phpfw'
+      'module_version'=>'Adrs (Mini3) MySQL ver. 10.0.1.0 Jan.2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
     , 'dbg'=>'1'
-    , 'dbicls' => 'Db_allsites' //Db_allsites_ORA or Db_allsites for MySql or ...
-    //, 'dbicls' => 'Db_allsites_ORA' //Db_allsites_ORA or Db_allsites for MySql or ...
+    , 'dbicls' => 'Db_allsites' // for MySql DB or ...
+    //, 'dbicls' => 'Db_allsites_ORA' //for Oracle DB or ...
     , 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
 
-    , 'wsroot_path' =>$wsroot_path
-    , 'shares_path' =>$shares_path
     , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
     , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
     , 'site_path'   => $site_path    // to fwphp (or any name)

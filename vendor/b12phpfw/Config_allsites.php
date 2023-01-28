@@ -95,6 +95,7 @@ abstract class Config_allsites //extends Db_ allsites
       //   We want $this->u r i q = stdClass Object ( [i] => categories 
       //   or [i] =>any Home_ctr method, than its_first_parameter=>paramvalue... )
 
+      //no error : FILTER_SANITIZE_SPECIAL_CHARS
       //Error on Linux : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
       //Error on win: $REQUEST_URI = filter_input($_SERVER['REQUEST_URI'], FILTER_SANITIZE_STRING);
 
@@ -323,11 +324,19 @@ abstract class Config_allsites //extends Db_ allsites
 
 
       /**
-      *  RENAME  R O W  C O L U M N S  TO LOWERCASE  FOR ORACLE
+      *  RENAME  R O W  C O L U M N S  TO LOWERCASE FOR ORACLE
       */
     static public function rlows(object $r) //all row fld names lowercase
     {
       foreach ((array)$r as $key => $val) {
+                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                echo '<pre>';
+                echo '<br />$r='; print_r($r) ; 
+                echo '<br />$key='; print_r($key) ; 
+                echo '<br />$val='; print_r($val) ; 
+                //echo '<br />'.'self::$d b i=' . self::$dbi ;
+                echo '</pre>';
+                }
         switch (true) {
           case $key == 'DATETIME2' : //datetime is reserved word in Oracle DB
             $rlows['datetime'] = $val ;
@@ -339,6 +348,11 @@ abstract class Config_allsites //extends Db_ allsites
             break;
         }
       }
+                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                echo '<pre>';
+                echo '<br />(object)$rlows='; print_r((object)$rlows) ; 
+                echo '</pre>';
+                }
       return (object)$rlows;
     }
 

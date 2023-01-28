@@ -32,7 +32,7 @@ class Autoload
       $DS = DIRECTORY_SEPARATOR ;
       $nscls_linfmt = str_replace('\\',$DS, $nscls) ; //ON LINUX
       $clsname      = basename($nscls_linfmt) ; //eg Home_ctr, Config_ allsites, Db_allsites
-      $module_dir   = basename(dirname($nscls_linfmt)) ; //eg Home_ctr, Config_ allsites, Db_allsites
+      $module_dir   = basename(dirname($nscls_linfmt)) ; //eg post is unique module name
                           if ('') { echo '<pre>'; 
                           echo __METHOD__ .' ln='.__LINE__.' said: ' ;
                           echo '<br>SHARED (GLOBAL) CLS TO LOAD $clsname=<b>'. $clsname .'</b>'; 
@@ -58,14 +58,12 @@ class Autoload
                   <br>PHP Interface is a list of methods as a <b>package</b> in oracle plsql. PHP class is like <b>package body</b> in oracle plsql. Reasons for using Interface: 1. mandatory form of method call, 2. same module db adapter for any shared db adapter. <?php
                             endif;
                           echo '<br>namespaced class $nscls='; print($nscls) ; 
-                          echo '</pre>'; }
-                          //[dbicls] => Db_allsites_ora
-                          //[wsroot_path] => J:/awww/www/
-                          //[shares_path] => J:/awww/www/vendor/b12phpfw/
-                          //[site_path] => J:/awww/www/fwphp/glomodul/
-                          //[module_path] => J:/awww/www/fwphp/glomodul/adrs/
-      //switch ($module_dir) {  
-      switch (true) { // shared (global) class
+                          echo '</pre>'; 
+                          }
+      switch (true) { 
+      // *********************************
+      // 1. shared clsses scripts
+      // *********************************
       case  substr($clsname,0,11) === 'Db_allsites':
         $clsscript_path=$this->pp1->shares_path .'/'. $this->pp1->dbicls .'.php' ; 
         //goto krajswitch ;
@@ -74,10 +72,21 @@ class Autoload
         $clsscript_path=$this->pp1->shares_path .'/'. $clsname .'.php' ; 
         //goto krajswitch ;
         break;
-      //case  $clsname === 'Tbl_crud': 
-      //  $clsscript_path=$this->pp1->module_path .'/'. $clsname .'.php' ; 
-      //  break;
-      default:  
+      // *********************************************
+      // 2. module clsses scripts (in module dirs)
+      // *********************************************
+      case  $clsname === 'Tbl_crud': //for compound module eg blog may be in different nodules
+        //switch ($module_dir) { // unique module name from namespace
+        switch (basename($this->pp1->module_path)) { //compound module eg blog - no own Tbl_crud !
+        case 'blog': //it's modules (dirs) post, post_comment, category are here :
+          $clsscript_path=$this->pp1->site_path .'/glomodul/'.$module_dir.'/'. $clsname .'.php' ; 
+          break;
+        default: //own Tbl_crud ee in module dir (case 'adrs':)
+          $clsscript_path=$this->pp1->module_path .'/'. $clsname .'.php' ; 
+          break;
+        }
+        break;
+      default: // other clsses in module dir :
         $clsscript_path=$this->pp1->module_path .'/'. $clsname .'.php' ; 
         break;
 
@@ -85,9 +94,11 @@ class Autoload
                   if ('') {
                   echo '<pre>'. __METHOD__ .' ln='.__LINE__.' said:';
                   echo '<br>--------------------------------------------------------------';
+                  echo '<br>$this->pp1->site_path='. $this->pp1->site_path ;
                   echo '<br>$this->pp1->shares_path='. $this->pp1->shares_path ;
                   echo '<br>$this->pp1->module_path='. $this->pp1->module_path ;
                   echo '<br>substr($this->pp1->dbicls,0,11)='. substr($this->pp1->dbicls,0,11) ; 
+                  echo '<br>$nscls='. $nscls ;
                   echo '<br>$nscls_linfmt='. $nscls_linfmt ;
                   echo '<br>$clsname='. $clsname ;
                   echo '<br>$module_dir='. $module_dir ;
@@ -96,7 +107,7 @@ class Autoload
                   if ($clsname === 'utldb'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
                   //if ($clsname === 'Tbl_crud'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
                   echo '</pre>';
-                  }
+                  } //J:\awww\www\fwphp\glomodul\blog\Tbl_crud.php
 
          require_once $clsscript_path ;
 
