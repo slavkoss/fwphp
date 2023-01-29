@@ -126,8 +126,8 @@ class Home_ctr extends Config_allsites
   {
     //        M A I N  S I T E  M N U
     $title = 'MNU';
-    $css1 = $pp1->shares_url .'themes/bootstrap/styles_blog.css';
-    require $pp1->module_path . 'home.php'; //require $pp1->module_path . 'home.php';
+    $css1 = $pp1->shares_url .'/themes/bootstrap/styles_blog.css';
+    require $pp1->module_path . '/home.php'; //require $pp1->module_path . 'home.php';
 
   }
 

@@ -1,5 +1,8 @@
 <?php
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
+// DEFAULT CTR ONLY ONE FOR MODULE-IN-OWN-DIR IS ENOUGH, but may be more.
+// c a l l e r IS ALLWAYS i n d e x . p h p
+
 namespace B12phpfw\module\user ;
 //use PDO;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
@@ -123,7 +126,7 @@ class Home_ctr extends utl
       //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
         //require_once("navbar.php");
         //require $pp1->module_path . 'create.php';
-        cre::frm_process($pp1) ;  //require $pp1->module_path . 'home.php'; //create.php not used
+        User::frm_process($pp1) ;  //require $pp1->module_path . 'home.php'; //create.php not used
       //require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
   }
 

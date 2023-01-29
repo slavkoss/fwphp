@@ -11,6 +11,7 @@ CRUD module example code 7 scripts:
 
 
 
+
 **B12phpfw : Developed** on home PC on (newest) Windows 10 64 bit with XAMPP  (Apache web server, MariaDB).  **Tested** also on Windows Oracle Virtual box Oracle Linux virtual machine  (Apache web server)  and on Linux demo sites. B12phpfw is **result of 20 years learning PHP as hobby** (but I have no production installations). 
 
 ## 1\.1 Demo sites - free hosting with free Mysql,  my blog and more sites
@@ -139,7 +140,7 @@ There is lot to learn about Adrs module. If seems difficult try first [Mini3](ht
 Msg module adds "more modules" functionality which is real life programming not easy but neccessary.
 
 ## Steps of CODE FLOW in adrs module or any other B12phpfw module
-Output from Autoload class after we change if ('') {... to if ('1') {...   displays code flow after Click on "ADDRESSES" button or any other link.         
+Output from Autoload class after we change if ('') {... to if ('1') {...   displays code flow after Click on "ADDRESSES" button or any other link.     
 
  Eg SHARED (GLOBAL) CLS TO LOAD $clsname=Tbl_crud $module_dir=adrs                   
 has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :                
@@ -181,7 +182,7 @@ j:\\awww\\www (master -> origin)
 ### git status
 ### git add .
 or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
-### git commit -am "ver 10.0.1.0 mnu, adrs, msg, mkd. Same module db adapter for any shared db adapter"
+### git commit -am "ver 10.0.2.0 mnu, adrs, msg, mkd. Same module db adapter for any shared db adapter"
 We stored our project files within our system hard drive.      
 If Cmder shows error  "fatal: unable to auto-detect email address" : see above git config...       
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       

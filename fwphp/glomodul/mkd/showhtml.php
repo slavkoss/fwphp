@@ -6,7 +6,7 @@
     * CALLS (extern) Parsedown to display txt from content subfolder
     */
 
-    require $pp1->wsroot_path.'vendor/erusev/parsedown/Parsedown.php';
+    require $pp1->wsroot_path.'/vendor/erusev/parsedown/Parsedown.php';
     $pdown = new \Parsedown; // Parsedown cls has no namespace
 
     //http://sspc2:8083/fwphp/glomodul/mkd/?i/edit/path/J:\awww\www\\readme.md

@@ -1,6 +1,7 @@
 <?php
 /**
 *  J:\awww\www\b12phpfw\Config_ allsites.php
+* Config_ allsites cls is instantiated in protected fn (in child cls Home_ ctr). Home_ ctr calls private fns (in child cls Home_ ctr).
 * cs02. I N C L U D E D  only i n  i n d e x.p h p 
 * Here is :  module attributes and methods, module CRUD is in module dirs 
 */
@@ -292,7 +293,7 @@ abstract class Config_allsites //extends Db_ allsites
         unset($pp1) ; //for easier debugging if next 2 lines are switched
         $pp1 = $this->pp1 ; //fn params are in  p p 1
         $akc = $pp1->uriq->i ;      //fn name (by user entered URL we put in uriq array)
-        $this->call_module_method($akc, $pp1) ; //protected fn (in child cls) calls private fns (in child cls)
+        $this->call_module_method($akc, $pp1) ; //protected fn (in child cls Home_ ctr). Home_ ctr instatiates this cls and calls private fns (in child cls Home_ ctr).
         // OR (fns in child cls must be public, not private to be called from here) :
         //Fatal error: Uncaught Error: Call to private method B12phpfw\Home_ctr::home() from context 'B12phpfw\Config_ allsites' 
         //$this->$akc($pp1) ; 

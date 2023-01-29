@@ -2,6 +2,7 @@
 declare(strict_types=1);
 /**
 * J:\awww\www\fwphp\glomodul\post\Tbl_crud.php
+* Tbl_crud cls is instantiated in index.php after shared_dbadapter_obj which is it's parameter in $pp1
 *     This c l a s s is for one module - does know module's CRUD
 *          DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI
 *         (PRE) CRUD class - DAO (Data Access Object) or data mapper
@@ -10,26 +11,22 @@ declare(strict_types=1);
 * DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
 * MVC is code separation not functionality !
 */
+
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post ;
 
-use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites as utldb ; //(NOT HARD CODED) SHARED DBADAPTER
 
-use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\module\blog\Home_ctr ;
-/*
-class Repcls {
-  public $db ;
 
-  public function __construct(IDBcls $db)  { $this->db = $db; }
-  public function rr() { $this->db->rr(); }
-}
-*/
+
 // Gateway class - separate DBI layers
 class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //was Home
 {
 
+  static protected $pp1 ; 
   //Db_allsites_ORA or Db_allsites for MySql or ... :
   static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
 
@@ -37,14 +34,15 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //w
 
   //self is used to access static or class variables or methods
   //this is used to access non-static or object variables or methods
-  public function __construct(Interf_Tbl_crud $utldb) { 
-    self::$utldb = $utldb;
+  public function __construct(object $pp1) { 
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
   }
 
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  utldb::dd( $pp1, $other ) ;
+    $cursor =  self::$utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
@@ -55,7 +53,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //w
   static public function get_cursor( //instead rr
     string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[]): object
   {
-    $cursor =  utldb::get_cursor("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
+    $cursor =  self::$utldb::get_cursor("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
@@ -63,20 +61,21 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //w
   /* static public function rr(
     string $sellst, string $qrywhere="'1'='1'", array $binds=[], array $other=[] ): object
   { //object $dm
-    $cursor =  utldb::rr("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
+    $cursor =  self::$utldb::rr("SELECT $sellst FROM ".self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   } */
 
-  static public function rrcnt( string $tbl, array $other=[] ): int { 
-    $rcnt = utldb::rrcount($tbl) ;
-    return (int)utl::escp($rcnt) ;
+  static public function rrcnt( object $pp1, string $tbl, array $other=[] ): int { 
+    $rcnt = self::$utldb::rrcount($tbl) ;
+    return (int)$rcnt ;
+    //return (int)utl::escp($rcnt) ;
   } 
-  static public function rrcount( //string $sellst,
-    string $qrywhere='"1"="1"', array $binds=[], array $other=[] ): int
+  static public function rrcount( object $pp1
+     , string $qrywhere='"1"="1"', array $binds=[], array $other=[] ): int
   {
                     //echo '<pre>'.__METHOD__.'SAYS: $other='; print_r($other); echo '</pre>';
-    $cursor_rowcnt_filtered_posts =  utldb::get_cursor(
+    $cursor_rowcnt_filtered_posts =  self::$utldb::get_cursor(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     $rcnt = self::rrnext( $cursor_rowcnt_filtered_posts
@@ -86,11 +85,11 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //w
 
   static public function rr_byid( int $id, array $other=[] ): object
   {
-    $cursor =  utldb::get_cursor("SELECT * FROM ".self::$tbl." WHERE id=:id"
+    $cursor =  self::$utldb::get_cursor("SELECT * FROM ".self::$tbl." WHERE id=:id"
     ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
     ,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
     ) ;
-    $rx = utldb::rrnext($cursor) ;
+    $rx = self::$utldb::rrnext($cursor) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -98,7 +97,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //w
   static public function rrnext(object $cursor, array $other=[]): object
   {
     // not used
-    $rx = utldb::rrnext($cursor) ;
+    $rx = self::$utldb::rrnext($cursor) ;
     return $rx ;
 
   }
@@ -124,12 +123,12 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //w
 
     else{
       //             DEFAULT SQL QUERY :
-      $cursor = utldb::get_cursor( "SELECT $sellst FROM ".self::$tbl." ORDER BY datetime desc"
+      $cursor = self::$utldb::get_cursor( "SELECT $sellst FROM ".self::$tbl." ORDER BY datetime desc"
          , $binds, $other ) ;
       return $cursor ;
     }
 
-    //$utldb::disconnect(); //problem ON LINUX
+    //$self::$utldb::disconnect(); //problem ON LINUX
     //self::$cursor = $cursor ;
     return $cursor ;
 
@@ -193,7 +192,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //w
      ,['placeh'=>':img_desc',     'valph'=>$img_desc, 'tip'=>'str']
     ] ;
 
-    $cursor = utldb::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    $cursor = self::$utldb::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
 
     move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
 
@@ -260,7 +259,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post //extends Db_ allsites //w
         $binds[] = ['placeh'=>':Image', 'valph'=>$Image, 'tip'=>'str'] ;
       }
 
-      $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds );
+      $cursor = self::$utldb::uu( self::$tbl, $flds, $qrywhere, $binds );
 
       // 4. U P L O A D  I M A G E
       move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);

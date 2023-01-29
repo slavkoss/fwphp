@@ -2,6 +2,7 @@
 // J:\awww\www\fwphp\glomodul4\blog\login_frm.php
 //namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL :
 namespace B12phpfw\module\user ;
+
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
                 if ('1') {self::jsmsg( [ //basename(__FILE__).
@@ -50,36 +51,10 @@ else { $username = $_SESSION['username'] ; }
 
 
 $title = 'Log in' ;
-require_once $pp1->shares_path . 'hdr.php';
+require_once $pp1->shares_path . '/hdr.php';
 require_once("navbar.php");
 ?>
-  <!-- NAVBAR -->
-<!--div style="height:10px; background:#27aae1;"></div>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a href="<?=$pp1->filter_page?>1/i/home/" class="navbar-brand">Home</a>
-      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarcollapseCMS">
-      </div>
-    </div>
-</nav>
-<div style="height:10px; background:#27aae1;"></div-->
-<!-- NAVBAR END -->
-
-<!-- HEADER -->
-<!--header class="bg-dark text-white py-3">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-          </div>
-        </div>
-      </div>
-</header-->
-<!-- HEADER END -->
-
+  <!-- NAVBAR end -->
 
 <!-- Main Area Start -->
     <!-- Main -->
@@ -141,4 +116,4 @@ require_once("navbar.php");
 <!-- Main Area End -->
 
 
-<?php  require $pp1->shares_path . 'ftr.php'; ?>
+<?php  require $pp1->shares_path . '/ftr.php'; ?>

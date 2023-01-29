@@ -1,6 +1,7 @@
 <?php
 /**
 *  J:\awww\www\fwphp\glomodul\adrs\Tbl_crud.php
+** Tbl_crud cls is instantiated in index.php after shared_dbadapter_obj which is it's parameter in $pp1
 *        DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI
 *        (PRE) CRUD class - DAO (Data Access Object) or data mapper
 *      This c l a s s is for one module - does know module's CRUD
@@ -19,27 +20,22 @@
 declare(strict_types=1);
 namespace B12phpfw\dbadapter\adrs ;
 
-use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
-
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
+//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 //no more HARD CODED SHARED DBADAPTER, instead see self::$utldb
 //use B12phpfw\core\b12phpfw\Db_allsites_ora as utldb ; 
 
 use B12phpfw\module\adrs\Home_ctr ;
 //use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;
 
-/*
-class ReportCls {
-    public $db ; // VARIABLE (NOT HARD CODED) SHARED DBADAPTER
 
-    //public function __construct(IDBcls $db) { $this->db = $db; }
-    //public function rr() { $this->db->rr(); }
-}
-*/
-// Gateway class - DB adapter - separate DBI layers
+
+// Gateway class - DB adapter - separate two DBI layers
 class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
 {
+
+  static protected $pp1 ; 
   //Db_allsites_ORA or Db_allsites for MySql or ... :
   static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
   
@@ -47,8 +43,11 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
 
   //self is used to access static or class variables or methods
   //this is used to access non-static or object variables or methods
-  public function __construct(Interf_Tbl_crud $utldb) { 
-    self::$utldb = $utldb;
+                  //public function __construct(Interf_Tbl_crud $utldb) { //also works
+                    //self::$utldb = $utldb;
+  public function __construct(object $pp1) { 
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
   }
 
 

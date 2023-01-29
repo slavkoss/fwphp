@@ -5,7 +5,7 @@ namespace B12phpfw\dbadapter\post_comment ;
 
 use B12phpfw\core\b12phpfw\Config_allsites    as utl ;
 use B12phpfw\core\b12phpfw\Db_allsites        as utldb ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_pcomment ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 //use B12phpfw\module\blog\Home_ctr ;
 
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
@@ -47,7 +47,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_pcomment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_pcomment::get_cursor($sellst='*' 
+      $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' 
         , $qrywhere="status='OFF' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
@@ -110,7 +110,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_pcomment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_pcomment::get_cursor($sellst='*' 
+      $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' 
         , $qrywhere="status='ON' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;

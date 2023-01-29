@@ -6,11 +6,11 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 namespace B12phpfw\module\post ;
 
 use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
-use B12phpfw\core\b12phpfw\Db_allsites        as utldb ;
+//use B12phpfw\core\b12phpfw\Db_allsites        as utldb ;
 
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
-use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_pcomment ;
-use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_pcategory ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
+use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_post_category ;
 use B12phpfw\dbadapter\user\Tbl_crud          as Tbl_crud_user ;
 
 use B12phpfw\module\blog\Home_ctr             as Home_ctr;
@@ -19,16 +19,27 @@ use B12phpfw\module\blog\Home_ctr             as Home_ctr;
 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
 
+// view cls :
 class Posts extends utl
 {
+
+  static protected $pp1 ; 
+  //Db_allsites_ORA or Db_allsites for MySql or ... :
+  static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
+
   public function __construct(object $pp1) 
   {
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
   }
 
   static public function show( object $pp1, array $other ): string 
   {
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+
     $title = 'MSG Dashboard';
-    require $pp1->shares_path . 'hdr.php';
+    require $pp1->shares_path . '/hdr.php';
     require_once("navbar.php");  //require_once("navbar_admin.php");
   ?>
 
@@ -45,25 +56,29 @@ class Posts extends utl
 
           <!-- S U M S  &  L I N K S -->
           <a title="Create post" class="contrast" href="<?=$pp1->addnewpost?>">Posts : 
-              <?php echo Tbl_crud_post::rrcount( $qrywhere="'1'='1'"
-                 , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //'posts'
+              <?php echo Tbl_crud_post::rrcnt($pp1, 'posts') ; // rrcount
+                //echo Tbl_crud_post::rr count( $pp1, $qrywhere="'1'='1'"
+                // , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //'posts'
           ?></a>
 
           &nbsp; &nbsp; &nbsp;
           <a title="Create comment" class="contrast" href="<?=$pp1->comments?>">Comments : 
-              <?php echo Tbl_crud_pcomment::rrcount( $qrywhere="'1'='1'"
-                 , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ); //'comments'
+              <?php echo Tbl_crud_post_comment::rrcnt($pp1, 'comments'); //rrcount
+              //echo Tbl_crud_post_comment::rr count( $pp1, $qrywhere="'1'='1'"
+              //   , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ); //'comments'
           ?></a>
 
           &nbsp; &nbsp; &nbsp;
           <a title="Create category" class="contrast" href="<?=$pp1->categories?>">Categories : 
-              <?php echo Tbl_crud_pcategory::rrcount( $qrywhere="'1'='1'"
-                  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ); //'category'
+              <?php echo Tbl_crud_post_category::rrcnt($pp1, 'category') ; // rrcount
+                 //echo Tbl_crud_pcategory::rr count( $pp1, $qrywhere="'1'='1'"
+                 // , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ); //'category'
           ?></a>
           &nbsp; &nbsp; &nbsp
           <a title="Create admin" class="contrast" href="<?=$pp1->admins?>">Admins : 
-              <?php echo Tbl_crud_user::rrcount( $qrywhere="'1'='1'"
-                    , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //'admins'
+              <?php echo Tbl_crud_user::rrcnt($pp1, 'admins') ; // rrcount
+                  //echo Tbl_crud_user::rr count( $pp1, $qrywhere="'1'='1'"
+                  //  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //'admins'
           ?></a>
           <!-- E n d  s u m s -->
 
@@ -81,13 +96,13 @@ class Posts extends utl
             <?php
 
             $SrNo = 0;
-            $dbi = utldb::getdbi() ;
+            $dbi = self::$utldb::getdbi() ;
             switch ($dbi)
             {
               case 'oracle' :
                 //$binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
                 //$binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
-                utldb::setdo_pgntion('1') ;
+                self::$utldb::setdo_pgntion('1') ;
 
                 $cursor_posts = Tbl_crud_post::get_cursor("SELECT * FROM posts ORDER BY datetime desc"
                   , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
@@ -96,12 +111,12 @@ class Posts extends utl
               case 'mysql' :
                 //$binds[]=['placeh'=>':first_rinblock', 'valph'=>0, 'tip'=>'int'];
                 //$binds[]=['placeh'=>':rblk', 'valph'=>6, 'tip'=>'int'];
-                utldb::setdo_pgntion('1') ;
+                self::$utldb::setdo_pgntion('1') ;
 
                 // LIMIT :first_rinblock, :rblk
                 $cursor_posts = Tbl_crud_post::get_cursor($sellst='*'
                    , $qrywhere= "'1'='1' ORDER BY datetime desc"
-                   , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+                   , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
                 ) ;
             }
 
@@ -111,15 +126,15 @@ class Posts extends utl
           { //all row fld names lowercase
               $SrNo++;
 
-              $rcnt_approved = Tbl_crud_pcomment::rrcount( 
-                  $qrywhere="post_id=:id AND status=:status"
+              $rcnt_approved = Tbl_crud_post_comment::rrcount( $pp1
+                , $qrywhere="post_id=:id AND status=:status"
                 , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
                          , ['placeh'=>':status', 'valph'=>'ON', 'tip'=>'str']
                 ]
                 , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-              $rcnt_disapproved = Tbl_crud_pcomment::rrcount( 
-                  $qrywhere="post_id=:id AND status=:status"
+              $rcnt_disapproved = Tbl_crud_post_comment::rrcount( $pp1
+                , $qrywhere="post_id=:id AND status=:status"
                 , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
                          , ['placeh'=>':status', 'valph'=>'OFF', 'tip'=>'str']
                 ]
@@ -208,7 +223,7 @@ or write code to do 1. and 2. (it is easy)"
     //    1. S U B M I T E D  A C T I O N S
     // mostly M O D E L  C O D E (why M-V data flow : if this code is in  c t r  we have fat c t r)
     if(isset($_POST["Submit"])){
-      Tbl_crud_pcomment::cc($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+      Tbl_crud_post_comment::cc($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
       utl::Redirect_to($pp1->read_post."id/{$pp1->uriq->id}"); //$IdFromURL
     } //Ending of Submit Button If-Condition
 
@@ -270,7 +285,7 @@ or write code to do 1. and 2. (it is easy)"
 
     <?php
     $title = 'Full Post Page' ;
-    require_once $pp1->shares_path . 'hdr.php';  //require $pp1->shares_path . 'hdr.php';
+    require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . 'hdr.php';
     require_once("navbar.php");
     ?>
     <!--         2. G U I  to get user action -->
@@ -460,7 +475,7 @@ or write code to do 1. and 2. (it is easy)"
       <h2>Comments</h2>
       <?php
         $qrywhere = "post_id=:IdFromURL" ;
-        $cursor_comments = Tbl_crud_pcomment::get_cursor($sellst='*' // or "SELECT ...
+        $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' // or "SELECT ...
           , $qrywhere="post_id=:IdFromURL ORDER BY datetime desc"
           , $binds=[
              ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
@@ -469,7 +484,7 @@ or write code to do 1. and 2. (it is easy)"
         ) ;
 
 
-    while ( $rcomment = utldb::rrnext( $cursor_comments
+    while ( $rcomment = self::$utldb::rrnext( $cursor_comments
          , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rcomment->rexists ):
     { ?>
       <div>

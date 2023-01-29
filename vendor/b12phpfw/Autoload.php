@@ -1,5 +1,8 @@
 <?php
 // J:\awww\www\vendor\b12phpfw\Autoload.php
+// http://dev1:8083/fwphp/glomodul/blog/index.php?i/posts/ 
+// http://dev1:8083/fwphp/glomodul/blog/index.php?i/read_post/id/54
+// http://dev1:8083/fwphp/glomodul/blog/index.php
 declare(strict_types=1);
 
 namespace B12phpfw\core\b12phpfw ; //Dir name is last in namespace and use 
@@ -31,66 +34,33 @@ class Autoload
       //$nscls is namespaced called cls name eg B12phpfw\module\book\Home_ctr
       $DS = DIRECTORY_SEPARATOR ;
       $nscls_linfmt = str_replace('\\',$DS, $nscls) ; //ON LINUX
-      $clsname      = basename($nscls_linfmt) ; //eg Home_ctr, Config_ allsites, Db_allsites
-      $module_dir   = basename(dirname($nscls_linfmt)) ; //eg post is unique module name
-                          if ('') { echo '<pre>'; 
-                          echo __METHOD__ .' ln='.__LINE__.' said: ' ;
-                          echo '<br>SHARED (GLOBAL) CLS TO LOAD $clsname=<b>'. $clsname .'</b>'; 
-                          echo ' $module_dir='; print($module_dir) ;
-                            if ($clsname==='Home_ctr'): echo '<br><b>Home_ctr extends Config_allsites (alias, nickname is utl)</b>'; endif;
-                            if (substr($clsname,0,11) === 'Db_allsites'): ?>
-                        <br>     instantiated in index.php so :
-                  //3. SAME MODULE DB ADAPTER FOR ANY shared DB adapter
-                  //<b>$pp1->dbicls</b> = Db_allsites_ORA or Db_allsites for MySql :
-                  $tmp = 'B12phpfw\\core\\b12phpfw\\'. $pp1->dbicls ;
-                  //shared DB adapter :
-                  $AllTbl_crud_obj = new $tmp() ; 
-                  //module DB adapter IS SAME for Db_allsites_ORA and Db_allsites for MySql !!
-                  $Tbl_crud_obj = new Tbl_crud(<b>$AllTbl_crud_obj</b>) ; <?php
-                            endif;
-                            if ($clsname === 'Tbl_crud'): ?>
-                  <br>has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :
-                  public function __construct(<b>Interf_Tbl_crud $utldb</b>) { 
-                     self::$utldb = $utldb;
-                  } <?php
-                            endif;
-                            if ($clsname === 'Interf_Tbl_crud'): ?>
-                  <br>PHP Interface is a list of methods as a <b>package</b> in oracle plsql. PHP class is like <b>package body</b> in oracle plsql. Reasons for using Interface: 1. mandatory form of method call, 2. same module db adapter for any shared db adapter. <?php
-                            endif;
-                          echo '<br>namespaced class $nscls='; print($nscls) ; 
-                          echo '</pre>'; 
-                          }
-      switch (true) { 
+      $clsnameNS      = basename($nscls_linfmt) ; //eg Home_ctr, Config_ allsites, Db_allsites
+      $module_dirNS   = basename(dirname($nscls_linfmt)) ; //eg post is unique module name
+
+
+    // ***************** CONVENTIONS FOR CLASS SCRIPTS **************************
+    switch (true) 
+    { 
       // *********************************
       // 1. shared clsses scripts
       // *********************************
-      case  substr($clsname,0,11) === 'Db_allsites':
-        $clsscript_path=$this->pp1->shares_path .'/'. $this->pp1->dbicls .'.php' ; 
-        //goto krajswitch ;
-        break;
-      case  $clsname === 'Interf_Tbl_crud' or $clsname === 'Config_allsites' : 
-        $clsscript_path=$this->pp1->shares_path .'/'. $clsname .'.php' ; 
-        //goto krajswitch ;
-        break;
-      // *********************************************
-      // 2. module clsses scripts (in module dirs)
-      // *********************************************
-      case  $clsname === 'Tbl_crud': //for compound module eg blog may be in different nodules
-        //switch ($module_dir) { // unique module name from namespace
-        switch (basename($this->pp1->module_path)) { //compound module eg blog - no own Tbl_crud !
-        case 'blog': //it's modules (dirs) post, post_comment, category are here :
-          $clsscript_path=$this->pp1->site_path .'/glomodul/'.$module_dir.'/'. $clsname .'.php' ; 
-          break;
-        default: //own Tbl_crud ee in module dir (case 'adrs':)
-          $clsscript_path=$this->pp1->module_path .'/'. $clsname .'.php' ; 
-          break;
-        }
-        break;
-      default: // other clsses in module dir :
-        $clsscript_path=$this->pp1->module_path .'/'. $clsname .'.php' ; 
+      case $module_dirNS === 'b12phpfw':
+                            //case  substr($clsnameNS,0,11) === 'Db_allsites': //also ok
+                            //case $clsnameNS === 'Interf_Tbl_crud' :
+                            //case $clsnameNS === 'Config_allsites' : 
+         $clsscript_path=$this->pp1->shares_path .'/'. $clsnameNS .'.php' ; 
+                       //$clsscript_path=$this->pp1->shares_path .'/'. $this->pp1->dbicls .'.php' ; 
+         //goto krajswitch ;
         break;
 
-      }
+      default:
+         // *********************************************
+         // 2. module clsses scripts (in module dirs)
+         // *********************************************
+         $clsscript_path=$this->pp1->site_path.'/'.$this->pp1->dir_apl.'/'
+             . $module_dirNS .'/'. $clsnameNS .'.php' ; 
+
+    } // end  CONVENTIONS FOR CLASS SCRIPTS *****************
                   if ('') {
                   echo '<pre>'. __METHOD__ .' ln='.__LINE__.' said:';
                   echo '<br>--------------------------------------------------------------';
@@ -100,12 +70,13 @@ class Autoload
                   echo '<br>substr($this->pp1->dbicls,0,11)='. substr($this->pp1->dbicls,0,11) ; 
                   echo '<br>$nscls='. $nscls ;
                   echo '<br>$nscls_linfmt='. $nscls_linfmt ;
-                  echo '<br>$clsname='. $clsname ;
-                  echo '<br>$module_dir='. $module_dir ;
+                  echo '<br>$this->pp1->dir_apl=***'. $this->pp1->dir_apl .'***';
+                  echo '<br>$module_dirNS=***'. $module_dirNS .'***';
+                  echo '<br>$clsnameNS=***'. $clsnameNS .'***';
                   echo '<br>$clsscript_path='. $clsscript_path ;
                   //echo '<br>$Tbl_crud_obj='. $Tbl_crud_obj ;
-                  if ($clsname === 'utldb'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
-                  //if ($clsname === 'Tbl_crud'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
+                  if ($clsnameNS === 'Posts'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
+                  //if ($clsnameNS === 'Tbl_crud'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
                   echo '</pre>';
                   } //J:\awww\www\fwphp\glomodul\blog\Tbl_crud.php
 
@@ -125,6 +96,91 @@ class Autoload
 }
 
 
+
+/*
+                          if ('') { echo '<pre>'; 
+                          echo __METHOD__ .' ln='.__LINE__.' said: ' ;
+                          echo '<br>SHARED (GLOBAL) CLS TO LOAD $clsnameNS=<b>'. $clsnameNS .'</b>'; 
+                          echo ' $module_dirNS='; print($module_dirNS) ;
+                            if ($clsnameNS==='Home_ctr'): echo '<br><b>Home_ctr extends Config_allsites (alias, nickname is utl)</b>'; endif;
+                            if (substr($clsnameNS,0,11) === 'Db_allsites'): ?>
+                        <br>     instantiated in index.php <?php
+                            endif;
+                            if ($clsnameNS === 'Tbl_crud'): ?>
+                  <br>has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :
+                  public function __construct(<b>Interf_Tbl_crud $utldb</b>) { 
+                     self::$utldb = $utldb;
+                  } <?php
+                            endif;
+                            if ($clsnameNS === 'Interf_Tbl_crud'): ?>
+                  <br>PHP Interface is a list of methods as a <b>package</b> in oracle plsql. PHP class is like <b>package body</b> in oracle plsql. Reasons for using Interface: 1. mandatory form of method call, 2. same module db adapter for any shared db adapter. <?php
+                            endif;
+                          echo '<br>namespaced class $nscls='; print($nscls) ; 
+          if ($clsnameNS === 'Posts'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
+                          echo '</pre>'; 
+                          }
+*/
+
+
+
+
+
+      // *********************************
+      // 1. shared clsses scripts
+      // *********************************
+       // $nscls_linfmt=B12phpfw\core\b12phpfw\Interf_Tbl_crud
+       // $nscls=       B12phpfw\core\b12phpfw\Interf_Tbl_crud
+       // $this->pp1->dir_apl=***glomodul***
+       // $module_dirNS=***b12phpfw***
+       // $clsnameNS=***Interf_Tbl_crud***
+
+
+       // $nscls_linfmt=B12phpfw\dbadapter\post\Tbl_crud
+       // $nscls=       B12phpfw\dbadapter\post\Tbl_crud
+       // $this->pp1->dir_apl=***glomodul***
+       // $module_dirNS=***post***
+       // $clsnameNS=***Tbl_crud***
+      //$this->pp1->site_path=J:/awww/www/fwphp
+      //$this->pp1->shares_path=J:/awww/www/vendor/b12phpfw
+      //$this->pp1->module_path=J:/awww/www/fwphp/glomodul/blog
+      //substr($this->pp1->dbicls,0,11)=Db_allsites
+
+       // *********************************************
+       // 2. module clsses scripts (in module dirs)
+       // *********************************************
+       //case  $clsnameNS === 'Tbl_crud': //for compound module eg blog may be in different modules
+       //switch ($module_dirNS) { // unique module name from namespace
+      /* switch (basename($this->pp1->module_path))  // module (dir) name from index.php
+      {
+        //COMPOUND MODULES eg blog - no own Tbl_crud ! : 
+        case 'blog': 
+          //it's modules (dirs) post, post_comment, category are here :
+          switch ($clsnameNS)
+          { 
+            case 'Tbl_crud': // CRUD (model) cls
+            case 'Posts': // view cls
+            case 'User':  // view cls
+              // Tbl_ crud-s clss are in different modules - subdirs from namespaces
+              // below dir glomodul which is our choice (may be apl or ...)
+              $clsscript_path=$this->pp1->site_path.'/glomodul/'.$module_dirNS.'/'.$clsnameNS.'.php';
+              break;
+              // P ost cls (unique name) is in same-named subdir from namespace
+              // below dir glomodul which is our choice (may be apl or ...)
+
+            default: //own Tbl_crud ee in module dir (case 'adrs':)
+              $clsscript_path=$this->pp1->module_path .'/'. $clsnameNS .'.php' ; 
+                break;
+          }
+
+
+        default: //own Tbl_crud ee in module dir (case 'adrs':)
+           $clsscript_path=$this->pp1->module_path .'/'. $clsnameNS .'.php' ; 
+           break;
+      } // end 2. module clsses scripts (in module dirs)
+      */
+
+
+
 //URL example: http://dev1:8083/fwphp/01mater/fw_popel_onb12/index.php?p=b1b2tree&id=1
 //    http://dev1:8083/fwphp/01mater/fw_popel_onb12/B2_cre_upd.php?bookid=1&authorid=1
 
@@ -140,29 +196,3 @@ class Autoload
 
 
 
-      /*case $module_dir === 'b12phpfw': 
-        $clsscript_path=dirname($this->pp1->shares_path).'/'.$module_dir.'/'.$clsname .'.php' ; 
-        echo '<p>'. __METHOD__ .' ln='.__LINE__.' said: SHARED CLS TO LOAD '. '$clsname='. $clsname .'</p>'; 
-        break; */
-      /*case $clsname === 'utldb':
-      //case substr($this->pp1->dbicls,0,11) === 'Db_allsites'
-           //and $clsname !== 'Interf_Tbl_crud' :
-        $clsscript_path=$this->pp1->shares_path .'/'. $this->pp1->dbicls .'.php' ; 
-        break; */
-      /*default: // module cls eg $module_dir=adrs
-        if ($clsname === 'utldb'):
-          echo '<p>'. __METHOD__ .' ln='.__LINE__.' said: SHARED DB CLS TO LOAD, '. '$clsname='. //$clsname .'</p>'; 
-          //$module_dir = 'b12phpfw' ;
-          $clsname = $this->pp1->dbicls ;
-          $clsscript_path=$this->pp1->shares_path .'/'. $this->pp1->dbicls .'.php' ; 
-        elseif (substr($this->pp1->dbicls,0,11) === 'Db_allsites'):
-          echo '<p>'. __METHOD__ .' ln='.__LINE__.' said: SHARED DB CLS TO LOAD, '. '$clsname='. //$clsname .'</p>'; 
-          //$module_dir = 'b12phpfw' ;
-          $clsname = $this->pp1->dbicls ;
-          $clsscript_path=$this->pp1->shares_path .'/'. $this->pp1->dbicls .'.php' ; 
-        else :
-          echo '<p>'. __METHOD__ .' ln='.__LINE__.' said: DEFAULT TO LOAD eg adrs module cls, '. '$clsname='. $clsname .'</p>'; 
-          $clsscript_path=dirname($this->pp1->module_path).'/'.$module_dir.'/'.$clsname .'.php' ; 
-        endif ;
-
-        break; */

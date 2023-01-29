@@ -20,7 +20,10 @@ class Side_area extends utl
     , string $category_from_url, string $search_from_submit, int $pgordno_from_url
     , array $other): string 
   {
-    $cursor_categ = Tbl_crud_category::get_cursor($sellst='*', $qrywhere="'1'='1' ORDER BY title", $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    $cursor_categ = Tbl_crud_category::get_cursor($pp1, $sellst='*'
+       , $qrywhere="'1'='1' ORDER BY title"
+       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+    ) ;
 
     $dbi = utldb::getdbi() ;
     switch ($dbi)

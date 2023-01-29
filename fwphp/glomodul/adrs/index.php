@@ -7,11 +7,9 @@ declare(strict_types=1);
 //string before adrs, b12phpfw... is not required. See below **HELPNS
 namespace B12phpfw\module\adrs ;
 
-use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
-
 use B12phpfw\core\b12phpfw\Autoload ;
-
-use B12phpfw\core\b12phpfw\Db_allsites ; //DB MySQL
+//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites ; //DB MySQL (NOT HARD CODED) SHARED DBADAPTER
 use B12phpfw\dbadapter\adrs\Tbl_crud ;
 
 use B12phpfw\core\b12phpfw\Config_allsites ;
@@ -22,7 +20,7 @@ use B12phpfw\module\adrs\Home_ctr ;
 (function () {
   //1. settings - properties - assign global variables to use them in any code part
   $module_path = str_replace('\\','/', __DIR__) ; // .'/' 
-  $site_path = dirname($module_path) ; //to app dir eg "glomodul" dir and app
+  $site_path = dirname(dirname($module_path)) ; //to app dir eg "glomodul" dir and app
   $wsroot_path = str_replace('\\','/', realpath('../../../'))  ;
   $shares_path = $wsroot_path.'/vendor/b12phpfw' ; //includes, globals, commons, reusables
 
@@ -36,6 +34,7 @@ use B12phpfw\module\adrs\Home_ctr ;
     //, 'dbicls' => 'Db_allsites_ORA' //for Oracle DB or ...
     , 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
 
+    , 'dir_apl'     => 'glomodul'  // application (group of modules) folder name
     , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
     , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
     , 'site_path'   => $site_path    // to fwphp (or any name)
@@ -46,13 +45,13 @@ use B12phpfw\module\adrs\Home_ctr ;
   require($pp1->shares_path .'/Autoload.php'); //or Composer's autoload cls-es
   $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
-  //3. SAME MODULE DB ADAPTER FOR ANY shared DB adapter
+  //3. SAME MODULE DB ADAPTER FOR ANY (NOT HARD CODED) SHARED DBADAPTER
   //$pp1->dbicls = Db_allsites_ORA or Db_allsites for MySql :
-  $tmp = 'B12phpfw\\core\\b12phpfw\\'. $pp1->dbicls ;
-  //shared DB adapter :
-  $AllTbl_crud_obj = new $tmp() ; 
+  $shared_dbadapter = 'B12phpfw\\core\\b12phpfw\\'. $pp1->dbicls ;
+  $pp1->shared_dbadapter_obj = new $shared_dbadapter() ; 
   //module DB adapter IS SAME for Db_allsites_ORA and Db_allsites for MySql !!
-  $Tbl_crud_obj = new Tbl_crud($AllTbl_crud_obj) ; 
+  $module_dbadapter_obj = new Tbl_crud($pp1) ; 
+  //$module_dbadapter_obj = new Tbl_crud($pp1->shared_dbadapter_obj) ; 
 
   //4. process request from ibrowser & send response to ibrowser
   //Home_ ctr "inherits" index.php ee DI $p p 1

@@ -3,14 +3,20 @@
 // http://dev1:8083/fwphp/glomodul/blog/?i/J:|awww|www|fwphp|glomodul|kalendar|inc|kalendar_flex
 //if (!defined('URLMODUL_CSS')) { define('URLMODUL_CSS', $module_relpath.'/css'); }
 //J:\awww\www\fwphp\glomodul\post\read_msg_tbl_kalendar_flex.css
+
+// http://dev1:8083/fwphp/glomodul/blog/index.php?i/read_post/id/54 - error
 namespace B12phpfw ;
+
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
+use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post ;
 use B12phpfw\module\user\Home_ctr ;
 
-switch (utldb::getdbi()) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
-  default: $tmp_datetime = 'datetime' ; break; }
+  //switch (utldb::getdbi()) { case 'oracle' : $tmp_datetime = 'DATETIME2' ; break;
+  //default: 
+  $tmp_datetime = 'datetime' ;
+  //break; }
 
-$css_files = ["/b12phpfw/themes/read_msg_tbl_kalendar_flex.css"];
+$css_files = ["/vendor/b12phpfw/themes/read_msg_tbl_kalendar_flex.css"];
 
 $_from_ymd = date('Y-m-d H:i:s');
 $cal_yyyy_mm  = date('Y-m', strtotime($_from_ymd)); // yyyy-mm  $this->_from_ymd
@@ -40,8 +46,8 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
 
 <body>
 <!-- article class="calendar friday days30"><h1>November 2019</h1 -->
-<div class="calendar tuesday days31"><h1><!-- eg October 2019 -->
-  <?=$cal_yyyy_mm . ' ('. $cal_monthname_yyyy .')'?></h1>
+<div class="calendar tuesday days31"><h3><!-- eg October 2019 -->
+  <?=$cal_yyyy_mm . ' ('. $cal_monthname_yyyy .')'?></h3>
 
   <ul><!--  class="days" -->
     <li>Sunday</li><li>Ponedjeljak</li><li>Tuesday</li><li>Wednesday</li>
@@ -73,12 +79,17 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
 
     //mysql substr begins with 1 (is php +1)
     //$qrywhere = "datetime LIKE :yyyymm and SUBSTRING(datetime,9,2) = :dkal" ;
-    $cursor_filtered_posts = $this->rr("SELECT * FROM posts WHERE $tmp_datetime LIKE :yyyymm and SUBSTR($tmp_datetime,9,2) = :dkal ORDER BY $tmp_datetime desc"
-      , [
+
+    $cursor_filtered_posts = Tbl_crud_post::get_cursor( 
+        $sellst="*"
+      , $qrywhere="$tmp_datetime LIKE :yyyymm and SUBSTR($tmp_datetime,9,2) = :dkal ORDER BY $tmp_datetime desc" 
+      , $binds=
+        [
           ['placeh'=>':yyyymm', 'valph'=>'%'.'2019-10'.'%', 'tip'=>'str']
          ,['placeh'=>':dkal',   'valph'=>$dkal, 'tip'=>'str']
         ]
-    , __FILE__ .' '.', ln '. __LINE__ ) ;
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+    ) ;
 
     //           EMPTY  D A Y SQUARE (NO  P O S T S)
     //if (!($rx = $this->rrnext($cursor_filtered_posts)))

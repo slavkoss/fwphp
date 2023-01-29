@@ -10,7 +10,7 @@ use B12phpfw\core\b12phpfw\Db_allsites     as utldb ;
 use B12phpfw\dbadapter\user\Tbl_crud       as utl_module ;
 
 
-class Cre extends utl
+class User extends utl
 {
   public function __construct(object $pp1) 
   { }
@@ -280,21 +280,6 @@ class Cre extends utl
 */
 
 
-
-
-  //f r m  ***4 BEFORE r_ posted
-         /*B12phpfw\module\user\Cre::frm_process, line 44 SAYS : BEFORE if ($is_submited_frm)
-        *****$is_submited_frm=1*****
-        $_GET=Array ( [i/cc_frm/] => )
-        $_POST=Array ( [username] => d [aname] => dddddddddd [password] => dddd [frm_confirmpassword] => dddd [submit_cc] => 1 )
-        utl_module::$col_names=Array ( [0] => dateTime [1] => username [2] => password [3] => frm_confirmpassword [4] => aname [5] => aheadline [6] => abio )
-        ::$col_bind_types=Array ( [0] => str [1] => str [2] => str [3] => str [4] => str [5] => str [6] => str )
-            ::$col_nam_str=dateTime, username, password, frm_confirmpassword, aname, aheadline, abio
-            ::$ccflds_placeh=:dateTime, :username, :password, :frm_confirmpassword, :aname, :aheadline, :abio
-            ::$uuflds_placeh=dateTime = :dateTime, username = :username, password = :password, frm_confirmpassword = :frm_confirmpassword, aname = :aname, aheadline = :aheadline, abio = :abio
-            ::$binds[0]=Array ( [placeh] => :dateTime [valph] => [tip] => str )
-        $r=stdClass Object ( [dateTime] => [username] => d [password] => dddd [frm_confirmpassword] => dddd [aname] => dddddddddd [aheadline] => [abio] => ) 
-  */
 
 
 

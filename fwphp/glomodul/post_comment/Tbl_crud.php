@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 /**
+* J:\awww\www\fwphp\glomodul\post_comment\Tbl_crud.php
+* Tbl_crud cls is instantiated in index.php after shared_dbadapter_obj which is it's parameter in $pp1
 *     This c l a s s is for one module - does know module's CRUD
 *          DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI
 *         (PRE) CRUD class - DAO (Data Access Object) or data mapper
@@ -13,16 +15,18 @@ declare(strict_types=1);
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\dbadapter\post_comment ;
-use B12phpfw\module\blog\Home_ctr ;
 
-use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Config_allsites as utl ;
+use B12phpfw\module\post_comment\Home_ctr ;
 
-use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
+//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites as utldb ; //(NOT HARD CODED) SHARED DBADAPTER
 
-// Gateway class - separate DBI layers
+// Gateway class - separate two DBI layers
 class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsites
 {
 
+  static protected $pp1 ; 
   //Db_allsites_ORA or Db_allsites for MySql or ... :
   static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
 
@@ -30,24 +34,19 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
 
   //self is used to access static or class variables or methods
   //this is used to access non-static or object variables or methods
-  public function __construct(Interf_Tbl_crud $utldb) { 
-    self::$utldb = $utldb;
+  public function __construct(object $pp1) {
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
   }
 
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  utldb::dd( $pp1, $other ) ;
+    $cursor =  self::$utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
-  /*static public function get_cursor( //instead rr
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[]): object 
-  {
-    $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    return $cursor ;
-  } */
+
   static public function get_cursor(
       string $sellst
     , string $qrywhere="'1'='1'"
@@ -64,34 +63,69 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
 
 
 
+    //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
+    //            it should only be called on a class using the t rait
+  static public function rrcnt( object $pp1, string $tbl, array $other=[] ): int { 
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+
+    $rcnt = self::$utldb::rrcount($tbl) ;
+    return (int)$rcnt ;
+    //return (int)utl::escp($rcnt) ;
+  } 
+
+  static public function rrcount( object $pp1
+     , string $qrywhere='', array $binds=[], array $other=[] ): int
+  {
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+ 
+               if ('') {
+                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
+                             //echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                             //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                  echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
+                  //echo '<pre>self::$pp1='; print_r(self::$pp1); echo '</pre>';
+                  //echo '<pre>self::$utldb='; print_r(self::$utldb); echo '</pre>';
+                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
+                  //exit(0);
+                }
+
+    $cursor_rowcnt_post_comments =  self::$utldb::get_cursor(
+        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl 
+       ." WHERE $qrywhere"
+       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
+    ) ;
+    $rcnt = self::rrnext( $cursor_rowcnt_post_comments
+     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
+
+    //return (int)utl::escp($rcnt) ;
+    return (int)$rcnt ;
+  } 
+            // CODE FLOW :
+            #Fatal error: Uncaught Error: Class name must be a valid object or a string in J:\awww\www\fwphp\glomodul\post_comment\Tbl_crud.php:72 Stack trace: 
+            #0 J:\awww\www\fwphp\glomodul\blog\Home.php(356): 
+               //$rcnt_post_comments = Tbl_crud_post_comment::rrcount( B12phpfw\dbadapter\post_comment\Tbl_crud::rrcount('post_id=:id AND...', Array, Array) 
+            #1 J:\awww\www\fwphp\glomodul\blog\Home.php(202): B12phpfw\module\blog\Home::show_post_meta(Object(stdClass), Object(stdClass), 1, 1) 
+            #2 J:\awww\www\fwphp\glomodul\blog\Home_ctr.php(225): B12phpfw\module\blog\Home::show(Object(stdClass), Array) 
+            #3 J:\awww\www\fwphp\glomodul\blog\Home_ctr.php(127): B12phpfw\module\blog\Home_ctr->home(Object(stdClass)) 
+            #4 J:\awww\www\vendor\b12phpfw\Config_allsites.php(296): B12phpfw\module\blog\Home_ctr->call_module_method('home', Object(stdClass)) 
+            #5 J:\awww\www\fwphp\glomodul\blog\Home_ctr.php(106): B12phpfw\core\b12phpfw\Config_allsites->__construct(Object(stdClass), Array) 
+            #6 J:\awww\www\fwphp\glomodul\blog\index.php(56): B12phpfw\module\blog\Home_ctr->__construct(Object(stdClass)) 
+            #7 {main} thrown in J:\awww\www\fwphp\glomodul\post_comment\Tbl_crud.php on line 72
+
   static public function rr(
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  self::$utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
-
-  static public function rrcnt( string $tbl, array $other=[] ): int { 
-    $rcnt = utldb::rrcount($tbl) ;
-    return (int)utl::escp($rcnt) ;
-  } 
-  static public function rrcount( //string $sellst, 
-    string $qrywhere='', array $binds=[], array $other=[] ): int
-  { 
-    $cursor_rowcnt_post_comments =  utldb::get_cursor(
-        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    $rcnt = self::rrnext( $cursor_rowcnt_post_comments
-     , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
-    return (int)$rcnt ;
-  } 
 
 
   //in shared cls because is not module dependant :
   static public function rrnext(object $cursor, array $other = []): object
   { 
-    $rx = utldb::rrnext($cursor) ;
+    $rx = self::$utldb::rrnext($cursor) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -134,11 +168,11 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
                       echo '<br />:post_id='; print_r($post_id) ;
                     exit(0) ;
                     echo '</pre>'; }
-    $cursor = utldb::get_cursor($dml
+    $cursor = self::$utldb::get_cursor($dml
       , $binds=[ ['placeh'=>':post_id', 'valph'=>$post_id, 'tip'=>'int'] ]
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
-    while ($row = utldb::rrnext($cursor)): {$rcnt = $row ;} endwhile;
+    while ($row = self::$utldb::rrnext($cursor)): {$rcnt = $row ;} endwhile;
     $row_count = $rcnt->COUNT_ROWS ;
 
     //$dm::disconnect(); //problem ON LINUX
@@ -192,7 +226,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
      ,['placeh'=>':id',       'valph'=>$id, 'tip'=>'int']
     ] ;
 
-    $cursor = utldb::cc( self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__] );
+    $cursor = self::$utldb::cc( self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__] );
 
     //var_dump($c ursor_cc_comments);
     //if($cursor){ $_SESSION["MsgSuccess"]="Comment added Successfully";
@@ -237,7 +271,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
        ,['placeh'=>':id',     'valph'=>$id, 'tip'=>'int']
       ] ;
 
-      $cursor = utldb::uu( self::$tbl, $flds, $qrywhere, $binds );
+      $cursor = self::$utldb::uu( self::$tbl, $flds, $qrywhere, $binds );
 
       if ($cursor) {
         if ($stat == 'ON') {$_SESSION["MsgSuccess"]="Comment $id approved ! " ;

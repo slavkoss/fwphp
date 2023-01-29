@@ -1,5 +1,6 @@
 <?php
-// J:\awww\www\fwphp\glomodul\blog\Home.php  
+// J:\awww\www\fwphp\glomodul\blog\Home.php 
+// caled from Home_ ctr so : Home::displ($pp1) ; 
 //https://startbootstrap.com/template/blog-post  https://startbootstrap.com/previews/blog-post
 //https://getbootstrap.com/docs/5.1/components/collapse/
 
@@ -7,21 +8,29 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 
 namespace B12phpfw\module\blog ;
 
+//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites as utldb ; //(NOT HARD CODED) SHARED DBADAPTER
+
 use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
-use B12phpfw\core\b12phpfw\Db_allsites        as utldb ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 
 use B12phpfw\module\blog\Side_area            as Side_view;
 
 class Home extends utl
 {
-  public function __construct(object $pp1) 
-  {
+  //Db_allsites_ORA or Db_allsites for MySql or ... :
+  static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
+
+  //self is used to access static or class variables or methods
+  //this is used to access non-static or object variables or methods
+  public function __construct(object $pp1) { //, Interf_Tbl_crud $utldb
   }
 
   static public function show( object $pp1, array $other ): string 
   {
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+    
     if (isset($pp1->category_from_url)) $category_from_url  = $pp1->category_from_url ;
     else $category_from_url  = '' ;
                   if ('') //if ($autoload_arr['dbg']) 
@@ -104,7 +113,7 @@ class Home extends utl
                       echo '</pre>';
                       exit(0) ;
                     }
-    $rcnt_filtered_posts = Tbl_crud_post::rrcount( $qrywhere, $binds, $other=
+    $rcnt_filtered_posts = Tbl_crud_post::rrcount( $pp1, $qrywhere, $binds, $other=
        ['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
     $pgn_links = self::get_pgnnav($pp1->uriq, $rcnt_filtered_posts, '/i/home/', $pp1->rblk);
@@ -114,7 +123,7 @@ class Home extends utl
     $last_rinblock    = (int)$pgn_links['last_rinblock'];
 
     if( $pgordno_from_url ) {
-      $dbi = utldb::getdbi() ;
+      /*$dbi = self::$utldb::getdbi() ;
       switch ($dbi)
       {
         case 'oracle' : 
@@ -122,31 +131,34 @@ class Home extends utl
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>$row_ordno, 'tip'=>'int'];
           $binds[]=['placeh'=>':last_rinblock',  'valph'=>$last_rinblock, 'tip'=>'int'];
         break;
-        case 'mysql' : 
+        case 'mysql' : */
           $qrywhere .= " ORDER BY datetime desc LIMIT :first_rinblock, :rblk" ;
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>$row_ordno, 'tip'=>'int'];
           $binds[]=['placeh'=>':rblk', 'valph'=>$pp1->rblk, 'tip'=>'int'];
-        break;
+        /*break;
         default: 
           echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
                     .'D B I '. $dbi .' does not exist' . '</h3>';
           break;
         //default: utl::Redirect_to($pp1->filter_page) ; break;
-      }
+      } */
       
     }
                   if ('') //if ($autoload_arr['dbg']) 
                   { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
-                      echo 'ses fltr pg ='; print_r($_SESSION['filter_posts']) ;
-                      echo 'For pagination (not for c o u n t !!) $qrywhere='; print_r($qrywhere) ;
-                      echo '<br />$binds='; print_r($binds) ;
-                    //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
+                      //shared_dbadapter_obj = B12phpfw\core\b12phpfw\Db_allsites Object
+                      echo '$pp1 ='; print_r($pp1) ; 
+                      echo 'self::$utldb ='; print_r(self::$utldb) ; 
+                      //echo 'ses filter_ posts ='; print_r($_SESSION['filter_posts']) ;
+                      //echo 'For pagination (not for c o u n t !!) $qrywhere='; print_r($qrywhere) ;
+                      //echo '<br />$binds='; print_r($binds) ;
+                          ////echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     echo '</pre>'; }
 
-    utldb::setdo_pgntion('1') ; 
+    self::$utldb::setdo_pgntion('1') ; 
     $cursor_posts = Tbl_crud_post::get_cursor( $sellst='*', $qrywhere, $binds
-      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );  // , $qrywhere
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
 
 
@@ -336,12 +348,14 @@ class Home extends utl
 
 
           <?php
-          $rcnt_post_comments = Tbl_crud_post_comment::rrcount( 
-              $qrywhere="post_id=:id AND status=:status"
-            , $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
+          $qrywhere="post_id=:id AND status=:status" ;
+          $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
                      , ['placeh'=>':status', 'valph'=>'ON', 'tip'=>'str']
-            ]
-            , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+          ] ;
+          $rcnt_post_comments = Tbl_crud_post_comment::rrcount( $pp1, $qrywhere, $binds
+             , $other = ['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+
           ?>
           <!-- Post categories or...-->
           &nbsp;
@@ -355,7 +369,7 @@ class Home extends utl
     <?php
     return('1') ;
   } //e n d  f n  show_ post_ meta
-
+  
 
   static private function show_post_img(object $pp1, object $rx): string
   { ?>

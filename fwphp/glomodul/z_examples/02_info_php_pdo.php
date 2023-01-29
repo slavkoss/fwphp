@@ -2,17 +2,6 @@
 // J:\awww\www\fwphp\glomodul\help_sw\test\01info\00info_php_pdo.php
 //require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 
-//use P DOO CI\PDO; // later is PDO MySQL !!!
-//use B12phpfw\db\_4DbConnGlbl;
-//$db = _4DbConnGlbl::get_or_new_dball();
-//$this->db = _4DbConnGlbl::get_or_new_dball();
-
-//J:/wlaragon64/www/dev1/vendor/autoload.php
-    //NOT J:/wlaragon64/www/vendor/autoload.php
-    // Laragon vhost: {name}.dev -> I made dev1
-    //DocumentRootList=J:\wlaragon64\www||J:\wlaragon64\www\dev1
-
-
 
 echo __FILE__.' said : '.'<br />';
 

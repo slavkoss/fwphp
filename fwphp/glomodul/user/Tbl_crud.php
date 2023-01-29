@@ -22,13 +22,25 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\dbadapter\user\Tbl_crud       as utl_module ;
 
 use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
-use B12phpfw\core\b12phpfw\Db_allsites     as utldb ;
+//use B12phpfw\core\b12phpfw\Db_allsites     as utldb ; //(NOT HARD CODED) SHARED DBADAPTER
 //use Model\UserInterface, //    Model\User ; //entity
 
 // Gateway class - separate DBI layers
-class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implements User_db_intf
+class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper implements User_db_intf
 {
+  static protected $pp1 ;
+  //Db_allsites_ORA or Db_allsites for MySql or ... :
+  static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
+
   static protected $tbl = 'admins';
+
+  //self is used to access static or class variables or methods
+  //this is used to access non-static or object variables or methods
+  public function __construct(object $pp1) { 
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+  }
+
                          //static public function col_ names() : array { ... or :
 
   //static public    $row = []; //eg utl::escp($_POST["title"]) to $title, $author...
@@ -49,7 +61,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   static public function dd( object $pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
-    $cursor =  utldb::dd( $pp1, $other ) ;
+    $cursor =  self::$utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
@@ -61,25 +73,29 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   static public function get_cursor( // returns  cursor, not rr_byid !
     string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  self::$utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
 
   static public function rrnext(object $cursor, array $other = [] ): object
   {
-    $rx = utldb::rrnext($cursor) ;
+    $rx = self::$utldb::rrnext($cursor) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
-  static public function rrcnt( string $tbl, array $other=[] ): int { 
-    $rcnt = utldb::rrcount($tbl) ;
-    return (int)utl::escp($rcnt) ;
+  static public function rrcnt( object $pp1, string $tbl, array $other=[] ): int { 
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+
+    $rcnt = self::$utldb::rrcount($tbl) ;
+    return (int)$rcnt ;
+    //return (int)utl::escp($rcnt) ;
   } 
   static public function rrcount( //string $sellst, 
     string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
-    $cursor_rowcnt_admins =  utldb::get_cursor(
+    $cursor_rowcnt_admins =  self::$utldb::get_cursor(
         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds
        , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
@@ -91,12 +107,12 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
 
   static public function rr_byid( int $id, array $other=[] ): object
   {
-    $cursor_admin_byid =  utldb::get_cursor("SELECT * FROM ".self::$tbl." WHERE id=:id"
+    $cursor_admin_byid =  self::$utldb::get_cursor("SELECT * FROM ".self::$tbl." WHERE id=:id"
     ,$binds=[ ['placeh'=>':id', 'valph'=>$id, 'tip'=>'int'] ]
     //,$other=['caller2' => __FILE__ .' '.', ln '. __LINE__ , 'caller1' => $other['caller'] ]
     ,$other[]=['caller2' => __FILE__ .' '.', ln '. __LINE__ ]
     ) ;
-    $rx = utldb::rrnext( $cursor_admin_byid ) ;
+    $rx = self::$utldb::rrnext( $cursor_admin_byid ) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -104,11 +120,11 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
   {
     //$rx = (object)[];
     //$cursor_usr =  self::get_cursor($sells="*", $qrywhere='username = :username'
-    $cursor_usr = utldb::get_cursor("SELECT * FROM ".self::$tbl." WHERE username = :username"
+    $cursor_usr = self::$utldb::get_cursor("SELECT * FROM ".self::$tbl." WHERE username = :username"
         , $binds=[ ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str'] ]
         , $other[]=['caller3' => __FILE__ .' '.', ln '. __LINE__ ]
     ) ;
-    $rx = utldb::rrnext( $cursor_usr ) ;
+    $rx = self::$utldb::rrnext( $cursor_usr ) ;
     if (is_object($rx)) return $rx ; else return ((object)$rx);
   }
 
@@ -121,16 +137,16 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     {
       //WHERE FILTEREDFLD_HERE = :filterfldval ORDER BY datetime desc"
       //eg [ ['placeh'=>':category_from_url', 'valph'=>$filterfldval, 'tip'=>'str'] ]
-      $cursor = utldb::get_cursor("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+      $cursor = self::$utldb::get_cursor("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
         , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
     }
     else{
       // default SQL query
-      $cursor =  utldb::get_cursor("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
+      $cursor =  self::$utldb::get_cursor("SELECT $sellst FROM ".self::$tbl." WHERE $qrywhere"
          , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     }
 
-    //$utldb::disconnect(); //problem ON LINUX
+    //$self::$utldb::disconnect(); //problem ON LINUX
     return $cursor ;
   }
 
@@ -148,7 +164,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           ]
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
-   $row = ''; while ( $r = utldb::rrnext($cursor_admin_byname) and isset($r->id) ):
+   $row = ''; while ( $r = self::$utldb::rrnext($cursor_admin_byname) and isset($r->id) ):
     {$row = $r ;} endwhile;
                   //echo '<pre>'. __METHOD__ .' SAYS : $row='; print_r($row); echo '</pre>';
     if (isset($r->username) and $r->username == $username) {return true;}
@@ -161,7 +177,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     if (isset($_SESSION["userid"])) { return true;
     }  else {
       $_ SESSION["ErrorMessage"] ="You are not logged in, log in is required  f o r  action you want !";
-      //utl::Redirect_to(utl::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
+      //utl::R edirect_to(utl::pp1->l oginfrm); //ee to 'index.php?i=../user/login.php'
     }
   } */
 
@@ -176,6 +192,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     if (isset($_SESSION['cncts']->username)) $_SESSION['cncts']->username = null ;
     //
     session_destroy() ;
+                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
     // '/' is  U R L query pieces delimiter, '|' is parts of pieces delimiter
     utl::Redirect_to(QS.str_replace('|','/',$pp1->logout)) ;
   }
@@ -189,7 +206,12 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
                                ,'aaa'=>'bbb'
                             ] ) ;
                             endif ;
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+
+                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
     if (isset($_SESSION["userid"]) and $_SESSION["userid"]):
+                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
       utl::Redirect_to($goscript) ; //eg $pp1-> dashboard
     endif ;
                   if ('') {  //if ($module_ arr->dbg) {
@@ -248,7 +270,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       // **********************************************************
       // 2. Read  u s r
       // **********************************************************
-      $cursor_usr = utldb::get_cursor(
+      $cursor_usr = self::$utldb::get_cursor(
           "SELECT * FROM admins WHERE username=:username AND password=:password"
         , $binds=[
             ['placeh'=>':username', 'valph'=>$username, 'tip'=>'str']
@@ -256,7 +278,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           ]
         , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
       ) ;
-      $rx = utldb::rrnext($cursor_usr);
+      $rx = self::$utldb::rrnext($cursor_usr);
       //all row fld names lowercase
                     if ('') {  //if ($module_ arr['dbg']) {
                       echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
@@ -277,7 +299,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
       switch (true)
       {
         //case isset($_SESSION["userid"]) and $_SESSION["userid"] :
-        //  utl::Redirect_to($goscript) ; //$pp1-> dashboard
+        //  utl::R edirect_to($goscript) ; //$pp1-> dashboard
         //  break ;
         case $rx :
           $_SESSION["userid"]     =$rx->id;
@@ -285,10 +307,12 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
           $_SESSION["adminname"]  =$rx->aname;
           $_SESSION["SuccessMessage"][] = "Wellcome ".$_SESSION["adminname"]."!";
 
+                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ; 
           utl::Redirect_to($goscript); //$pp1-> dashboard
           break;
         default:
           $_SESSION["username"]     = $username;
+                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ; 
           utl::Redirect_to($pp1->loginfrm);
           break;
       }
@@ -329,7 +353,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     // 1. S U B M I T E D  F L D V A L S - P R E  I N S E R T
     //    obj. for view fields 
     $r = (object)$_POST ;
-                            /*$r = utldb::pre_cc_uu(
+                            /*$r = self::$utldb::pre_cc_uu(
                                  self::$col_names, self::$col_nam_str
                                , self::$ccflds_placeh, self::$uuflds_placeh
                                , self::$binds, self::$col_bind_types
@@ -387,20 +411,21 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     //}
     
     if(count($err) > 0) { //if ($err > '') {
-      $_SESSION["ErrorMessage"] = $err ; 
+      $_SESSION["ErrorMessage"] = $err ;
+                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
       utl::Redirect_to($pp1->cc_frm); goto fnerr ; // Add row
       exit(0) ;
     } 
 
     // 3. I N S E R T  D B T B L  R O W - O N  I N S E R T
-    //$last_id1 = utldb::rr_last_id($tbl) ;
+    //$last_id1 = self::$utldb::rr_last_id($tbl) ;
 
      self::$col_nam_str = str_replace(', frm_confirmpassword','', self::$col_nam_str)  ;
      self::$ccflds_placeh = str_replace(', :frm_confirmpassword','', self::$ccflds_placeh) ;
      self::$binds[3]['tip'] = 'frm_' ;
 
     //Same for all tbls, does : $dmlcc = "INSERT INTO $tbl($col_nam_str) $valsins";
-    $cursor = utldb::cc(self::$tbl, self::$col_nam_str, 'VALUES('. self::$ccflds_placeh .')'
+    $cursor = self::$utldb::cc(self::$tbl, self::$col_nam_str, 'VALUES('. self::$ccflds_placeh .')'
        , self::$binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
         //$dmlxx_binded =INSERT INTO admins(dateTime, username, password, aname, aheadline, abio) 
                                  //VALUES('', 'd', 'dddd', 'dddddddddd', '', '')
@@ -411,7 +436,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     //move_uploaded_file($_FILES["Image"]["tmp_name"], $Target);
 
     // g e t  i d  - see D b _ a l l s i t e s  rr_ last_ id($tbl)
-      //utl::Redirect_to($pp1->cc_frm); 
+      //utl::R edirect_to($pp1->cc_frm); 
       return($r); //here it is $_ POST  r_ posted !!   //return($r);
       fnerr:
       return((object)[]);
@@ -449,6 +474,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
     }
     if (count($err) > 0) {
       $_SESSION["ErrorMessage"] = $err ;
+                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
       utl::Redirect_to($pp1->upd_user_loggedin);
       goto fnerr ; //exit(0) ;
     }
@@ -468,7 +494,7 @@ class Tbl_crud implements Interf_Tbl_crud //extends AbstractDataMapper implement
         $binds[] = ['placeh'=>':Image', 'valph'=>$Image, 'tip'=>'str'] ;
       }
 
-      $cursor = utldb::uu(self::$tbl, $flds, $qrywhere, $binds
+      $cursor = self::$utldb::uu(self::$tbl, $flds, $qrywhere, $binds
         //, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]
       );
 
@@ -542,7 +568,7 @@ M parts : business logic, CRUD db operations, data mapper pattern and services, 
 *
 *    or User_db.php, or UserMapper.php :
 *       namespace ModelMapper;  use Model\UserInterface, Model\User;
-*       Class User_db extends AbstractDataMapper implements User_db_intf
+*       Class U ser_ db extends AbstractDataMapper implements User_db_intf
 * called from view CRUD scripts c reate.php, r ead.php...
 *    when usr clicks link/button or any (CRUD) URL is entered in ibrowser
 * calls Db_ allsites method c c() (=on-insert tbl-row), rr()...

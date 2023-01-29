@@ -9,7 +9,7 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 namespace B12phpfw\module\blog ;
 
 use B12phpfw\core\b12phpfw\Config_allsites     as utl ;
-//use B12phpfw\core\b12phpfw\D b_allsites as utldb ;
+//use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
 //use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
 use B12phpfw\dbadapter\user\Tbl_crud           as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
@@ -28,9 +28,13 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
   // NO ATTRIBUTES - attr. are in parent c l a s s (e s).
   // $pp1 is M O D U L E PROPERTIES PALLETE like in Oracle Forms
 
+    //Db_allsites_ORA or Db_allsites for MySql or ... :
+    //static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
+    
   // *************** FUNCTION 2. S H A R E S  ***************
   public function __construct(object $pp1)
   {
+
       $pp1->rblk = 10;
       $pp1->Home_ctr_obj = $this ;
                         if ('') { self::jsmsg( [ //b asename(__FILE__).
@@ -45,11 +49,11 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
     *  ------------------------------------------------------------------------------
     */
     $pp1_module = [ 'LINK_ALIASES' => '<b style="color: blue">$ p p 1->LINK_ALIAS => HOME METHOD TO CALL
-      ~~~~~ in view script eg href="&lt;?=$pp1->login?&gt;" calls login method in Home_ctr so : 
-      QS."i/login/"~~~~~</b> where QS is question mark ("?")'
-      // LINKALIAS          URLqrystring                CALLED METHOD
-      // IN VIEW SCRIPT     IN Home_ ctr                   IN Home_ ctr
-      //, 'ldd_category'    => QS.'i/del_category/id/'     del_category, l in ldd means link
+      ~~~~~ eg1: in view script href="&lt;?=$pp1->home_blog?&gt;" calls home method in Home_ctr so : 
+      QS."i/home_blog/"~~~~~</b> where QS is question mark ("?") = urlQuerySeprator'
+      // LINKALIAS          URLqrystring                     CALLED METHOD
+      // IN VIEW SCRIPT     IN Home_ ctr                     IN Home_ ctr
+      //eg2: , 'ldd_category'    => QS.'i/del_category/id/'  del_category, l in ldd means link
       //      (method parameter /idvalue we assign in view script after ldd_category)
     ,'home_blog'        => QS.'i/home/'
     ,'sitehome'         => QS.'i/sitehome/' //$pp1->s itehome
@@ -93,28 +97,31 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
     // V I E W S :
     ,'kalendar'        => QS.'i/kalendar/'
     ,'about_us'        => QS.'i/about/'
-    ,'contact_us'      => QS.'i/contact/'
+    ,'contact_us'      => QS.'i/contact/'                    //contact
     ,'features'        => QS.'i/features/'
     //e n d  R O U T I N G  T A B L E
         ] ;
 
-    parent::__construct($pp1, $pp1_module);
+    //instatiate Config_ allsites = parent of this Home_ctr cls
+    parent::__construct($pp1, $pp1_module); 
 
 
   } // e n d  f n  __ c o n s t r u c t
 
 
-          //******************************************
-          //       DISPATCH  M E T H O D S
-          // they call other methods or include script
-          // CALLED FROM Config_ allsites __c onstruct
-          // so: $this->callf($akc, $pp1) ;
-          //******************************************
+           /** 
+          ****************************************
+          *       DISPATCH  M E T H O D S
+          * they call other methods or include script
+          * *****************************************
+          */
                 //$accessor = "get" . ucfirst(strtolower($akc));
   protected function call_module_method( // also other module method !!
     string $akc, object $pp1)  //fnname, params
   {
-    //this fn calls method $ a k c in Home_ ctr which has parameters in  $ p p 1
+          // CALLED FROM Config_ allsites __c onstruct
+          // so: $this->call_module_method($akc, $pp1) ; 
+    //this fn calls method $ a k c in zhis Home_ ctr which has parameters in  $ p p 1
     //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
     if ( is_callable(array($this, $akc)) ) { // and method_exists($this, $akc)
       return $this->$akc($pp1) ;
@@ -179,8 +186,8 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
   {
       // h d r  is  in  p a g e  which  i n c l u d e s  t h i s  p a g e
       $title = 'MSG ERRPAGE';
-      require $pp1->shares_path . 'error.php';
-      require $pp1->shares_path . 'ftr.php';
+      require $pp1->shares_path . '/error.php';
+      require $pp1->shares_path . '/ftr.php';
   }
 
 
@@ -221,10 +228,10 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
 
   private function kalendar(object $pp1) //private
   {
-    require $pp1->shares_path . 'hdr.php';
-    //require $pp1->module_path . '../post/read_msg_tbl_kalendar_flex.php';
+    require $pp1->shares_path . '/hdr.php';
+    //require $pp1->module_path . '/../post/read_msg_tbl_kalendar_flex.php';
     require dirname($pp1->module_path) .'/post/read_msg_tbl_kalendar_flex.php';
-    require $pp1->shares_path . 'ftr.php';
+    require $pp1->shares_path . '/ftr.php';
   }
 
 
@@ -235,24 +242,24 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
 
   private function contact(object $pp1)
   {
-      require $pp1->shares_path . 'hdr.php';
-      require $pp1->module_path . 'v_contact_us.php';
-      require $pp1->shares_path . 'ftr.php';
+      require $pp1->shares_path . '/hdr.php';
+      require $pp1->module_path . '/v_contact_us.php';
+      require $pp1->shares_path . '/ftr.php';
   }
 
   private function about(object $pp1)
   {
     //$param1 = ... ;
-    require $pp1->shares_path . 'hdr.php';
-    require $pp1->module_path . 'v_about_us.php';
-    require $pp1->shares_path . 'ftr.php';
+    require $pp1->shares_path . '/hdr.php';
+    require $pp1->module_path . '/v_about_us.php';
+    require $pp1->shares_path . '/ftr.php';
   }
 
   private function features(object $pp1)
   {
-    require $pp1->shares_path . 'hdr.php';
-    require $pp1->module_path . 'v_features.php';
-    require $pp1->shares_path . 'ftr.php';
+    require $pp1->shares_path . '/hdr.php';
+    require $pp1->module_path . '/v_features.php';
+    require $pp1->shares_path . '/ftr.php';
   }
 
 
@@ -267,9 +274,9 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
     utl::Login_Confirm_SesUsrId(); 
     $title = 'Admin Page' ;
     // http skip is ok for other module :
-    utl::Redirect_to( $pp1->site_url .'user/' ) ; // http://dev1:8083/fwphp/glomodul/user/
+    utl::Redirect_to( $pp1->site_url .'/user/' ) ; // http://dev1:8083/fwphp/glomodul/user/
 
-    require $pp1->shares_path . 'ftr.php';
+    require $pp1->shares_path . '/ftr.php';
   }
 
   //  user profile
@@ -284,10 +291,10 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
     $title = 'Profile' ;
     //$css1 = 'styles.css' ;
 
-    //require $pp1->shares_path . 'hdr.php';
+    //require $pp1->shares_path . '/hdr.php';
     //require_once("navbar.php");
     require dirname($pp1->module_path) . '/user/read.php'; //was read_user.php
-    //require $pp1->shares_path . 'ftr.php';
+    //require $pp1->shares_path . '/ftr.php';
   }
 
 
@@ -299,9 +306,9 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>''
                    ,'aaa'=>'bbb'
                 ] ) ; }
-      require $pp1->shares_path . 'hdr.php';
-      require $pp1->module_path . '../user/login_frm.php';  
-      require $pp1->shares_path . 'ftr.php';
+      require $pp1->shares_path . '/hdr.php';
+      require $pp1->module_path . '/../user/login_frm.php';  
+      require $pp1->shares_path . '/ftr.php';
   }
 
   private function login(object $pp1) {
@@ -316,8 +323,8 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
 
       $title = 'MSG u s r u p d ';
 
-      require $pp1->module_path . '../user/upd_user_loggedin_frm.php';  
-      //require $pp1->shares_path . 'ftr.php';
+      require $pp1->module_path . '/../user/upd_user_loggedin_frm.php';  
+      //require $pp1->shares_path . '/ftr.php';
   }
 
 
@@ -341,7 +348,7 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
     // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/  
     // http://dev1:8083/fwphp/glomodul/blog/index.php?i/addnewpost/
     utl::Login_Confirm_SesUsrId();
-    require $pp1->module_path . '../post/cre_post_frm.php';  
+    require $pp1->module_path . '/../post/cre_post_frm.php';  
   }
 
 
@@ -408,13 +415,13 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
     else $pgordno_from_url = '' ; 
     */
 
-    //require_once $pp1->shares_path . 'hdr.php';
+    //require_once $pp1->shares_path . '/hdr.php';
 
     //  require_once("navbar.php");
-    //  require $pp1->module_path . '../post/read_post.php';  
+    //  require $pp1->module_path . '/../post/read_post.php';  
     Dashboard_view::read_post($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
 
-    //require_once $pp1->shares_path . 'ftr.php';
+    //require_once $pp1->shares_path . '/ftr.php';
   }
 
   //        e d i t  p o s t 
@@ -427,11 +434,11 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
 
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
-    //require $pp1->shares_path . 'hdr.php';
+    //require $pp1->shares_path . '/hdr.php';
     //require_once("navbar.php");
     */
-    require $pp1->module_path . '../post/upd_post_frm.php';
-    //require $pp1->shares_path . 'ftr.php';
+    require $pp1->module_path . '/../post/upd_post_frm.php';
+    //require $pp1->shares_path . '/ftr.php';
   }
 
   //        e d i t  p o s t  m a r k d o w n

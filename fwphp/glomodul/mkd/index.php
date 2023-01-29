@@ -11,17 +11,16 @@ use B12phpfw\core\b12phpfw\Autoload ; //was B12phpfw\core\z inc\Autoload
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_path = str_replace('\\','/', __DIR__) .'/' ;
-$site_path   = dirname($module_path) .'/' ; //to app dir eg "glomodul" dir and app
+$site_path   = dirname(dirname($module_path)) ; // .'/'  to app dir eg "glomodul" dir and app
 //to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
-$wsroot_path = dirname(dirname(dirname($module_path))) .'/' ;
+$wsroot_path = dirname(dirname(dirname($module_path)))  ;
                //or $wsroot_path = str_replace('\\','/', realpath('../../')) .'/' ;
-$shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, reusables
+$shares_path = $wsroot_path.'/vendor/b12phpfw' ; //includes, globals, commons, reusables
 
 $pp1 = (object)
 [   'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
                              // or $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
-  // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
-  // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
+  , 'dir_apl'     => 'glomodul'  // application (group of modules) folder name
   , 'wsroot_path' => $wsroot_path  // to awww/www (or any names)
   , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
   , 'site_path'   => $site_path    // to fwphp (or any names)
@@ -32,7 +31,7 @@ $pp1 = (object)
 ] ;
 
 //2. global cls loads classes scripts automatically
-require($pp1->shares_path.'Autoload.php');
+require($pp1->shares_path.'/Autoload.php');
 new Autoload($pp1);
 
 

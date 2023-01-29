@@ -45,7 +45,7 @@
       } ?>
 
 
-<?php include $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php'; ?>
+<?php include $pp1->wsroot_path . '/vendor/b12phpfw/ftr.php'; ?>
 
 
   </article><!-- e n d  m a i n . a r t i c l e -->

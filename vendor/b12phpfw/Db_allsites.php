@@ -385,7 +385,7 @@ class Db_allsites implements Interf_Tbl_crud
   //used f or all  t a b l e s !!
   static public function uu( $tbl, $flds, $where, $binds = [] )    // UPDATE TBL ROW
   {
-    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__); // u u(...
+    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
 
     $dmluu = "UPDATE $tbl $flds $where"; // *************** u u (
 
