@@ -140,18 +140,11 @@ There is lot to learn about Adrs module. If seems difficult try first [Mini3](ht
 Msg module adds "more modules" functionality which is real life programming not easy but neccessary.
 
 ## Steps of CODE FLOW in adrs module or any other B12phpfw module
-Output from Autoload class after we change if ('') {... to if ('1') {...   displays code flow after Click on "ADDRESSES" button or any other link.     
-
- Eg SHARED (GLOBAL) CLS TO LOAD $clsname=Tbl_crud $module_dir=adrs                   
-has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :                
-                  public function __construct(Interf_Tbl_crud $utldb) {                
-                     self::$utldb = $utldb;              
-                  }          
-namespaced class $nscls=B12phpfw\dbadapter\adrs\Tbl_crud  
+Output from Autoload class after we change if ('') {... to if ('1') {...   displays code flow after Click on "ADDRESSES" button or any other link.                 
 
 See clean_architecture.md where is code levels image from https://github.com/nazonohito51/clean-architecture-sample  .         
 
-Try edit md file so : http://dev1:8083/fwphp/glomodul/mkd/?i/showhtml/path/J:\awww\www\clean_architecture.md
+Try edit md file  : http://dev1:8083/fwphp/glomodul/mkd/?i/showhtml/path/J:\awww\www\clean_architecture.md
 
              
 

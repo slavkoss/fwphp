@@ -35,6 +35,60 @@
         <style>
         
    
+        /*width: 100%; */
+        table {
+            width: 85%;
+            border-collapse: collapse;
+            border-style: solid;
+            border-width: 1px;
+            /* align:center; */  
+            margin-bottom: 2px;
+        }
+           
+        
+        tr {
+            border-collapse: collapse;
+            border-style: solid;
+            border-width: 1px;
+            /* align:center; */
+        }
+        
+   
+                
+        td {
+            border-collapse: collapse;
+            border-style: solid;
+            border-width: 1px;
+            /*valign:top;*/
+            padding:2px;
+        }
+        
+   
+        
+        .auto-style1 {
+                            color: #008080;
+        }
+        .auto-style2 {
+                            background-color: #FFFF00;
+        }
+        .auto-style3 {
+                            color: #008080;
+                            background-color: #FFFF00;
+        }
+        
+   
+        
+        .auto-style4 {
+                    border: 1px solid #c0c0c0;
+}
+        
+   
+        
+        .auto-style5 {
+                    font-weight: normal;
+}
+        
+   
         
         </style>
 
@@ -46,7 +100,7 @@
   <body id="page-top">
 
 
-        <!-- Top Navigation: About, Services, Portfolio, Contact-->
+        <!-- pgpart01  Top Navigation: About, Services, Portfolio, Contact-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#page-top">Top</a>
@@ -68,7 +122,7 @@
 
         <!-- Masthead - Links -->
 <header class="masthead">
-<section class="page-section bg-primary" id="about" style='background-image: url("/vendor/b12phpfw/img/header_night.jpg"); background-repeat: no-repeat; background-size: cover;'>
+<section class="page-section bg-primary" id="links" style='background-image: url("/vendor/b12phpfw/img/header_night.jpg"); background-repeat: no-repeat; background-size: cover;'>
   <div class="container px-4 px-lg-5 h-100">
     <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-8 align-self-end">
@@ -80,7 +134,7 @@
 
 
           <!-- *********************************************
-                 Masthead - Links  1. U t i l s
+          pgpart02  Masthead - Links  1. U t i l s
           ********************************************* -->
       <!--
          LINK ALIAS               LINK RELATIVE TO SITE ROOT
@@ -214,7 +268,7 @@
 
 
           <!-- *********************************************
-                    A B O U T  LCS - Build social profiles
+          pgpart03  A B O U T  LCS - Build social profiles
           *********************************************
           class="btn btn-light btn-xl"
           -->
@@ -255,7 +309,7 @@
 
 
 
-            </p>
+            
 
 
                         </div>
@@ -266,59 +320,278 @@
 
 
           <!-- *********************************************
-          1. Learn - Explore, Connect - LCS - Build social profiles (services)
+          pgpart04  1. Learn - Explore, Connect - LCS - Build social profiles (services)
           ********************************************* -->
+  <section class="page-section" id="explore1">
 
-<section class="page-section" id="explore1">
-
-  <div class="container px-4 px-lg-5">
-                <h2 class="text-center mt-0">1. Learn - Explore, Connect</h2>
+    <div class="container px-4 px-lg-5">
+        <h2 class="text-center mt-0">1. Learn - Explore, Connect
+          <img class="phone" src="/vendor/b12phpfw/img/win_php_mysql_apache.png">
+          <img class="phone" src="/vendor/b12phpfw/img/linux.jpg">
+        </h2>
                 <hr class="divider" />
           <p>See and explore what other people write. 
              Hard work on learning is worth nothing if not explained & shared.</p>
+                        <p>&nbsp;</p>
 
 
-                <div class="row gx-4 gx-lg-5">
 
-                    <!-- text-start text-center text-end -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="mt-5">
-                            <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">M-V data flow</h3>
-                            <p class="text-muted mb-0">
-                               <img class="phone" src="/vendor/b12phpfw/img/mvc_M_V_data_flow.jpg">
-                            </p>
-                            <p class="text-muted mb-0">
+             <table>
+                
+                <tr>
+
+                <td style="height: 195px"><img alt="mvc_M_V_data_flow_MVC_3tier_DAO_1req_response"  longdesc="mvc_M_V_data_flow_MVC_3tier_DAO_1req_response" 
+                     src="../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_1req_response.jpg" ></td>
+                <td style="height: 195px">
+                <img alt="mvc_M_V_data_flow_MVC_3tier_DAO_2C_V"  longdesc="mvc_M_V_data_flow_MVC_3tier_DAO_2C_V" 
+                    src="../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_2C_V.jpg" 
+                    ></td>
+                <td style="height: 195px; width: 199px;"><img alt="mvc_M_V_data_flow_MVC_3tier_DAO_3Mbusiness"  longdesc="mvc_M_V_data_flow_MVC_3tier_DAO_3Mbusiness"
+                    src="../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_3Mbusiness.jpg" ></td>
+                <td style="height: 195px"><img alt="mvc_M_V_data_flow_MVC_3tier_DAO_4Mdata"  longdesc="mvc_M_V_data_flow_MVC_3tier_DAO_4Mdata"
+                    src="../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_4Mdata.jpg" ></td>
+                <td style="height: 195px"><img alt="mvc_M_V_data_flow_MVC_3tier_DAO_5Mdb"  longdesc="mvc_M_V_data_flow_MVC_3tier_DAO_5Mdb"
+                   src="../../vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_5Mdb.jpg" 
+                   ></td>
+
+                <td style="height: 195px">01_DDL_mysql_blog.sql<br>
+                  01_DDL_oracle_blog.sql<br>
+                  01_DDL_moj_adrs_MINI3_mysql.sql</td>
+
+                </tr>
+                <tr>
+                  <td style="height: 40px">
+                  Step 
+                  1.
+                  Request 
+                  is 
+                  URL 
+                  adress 
+                  entered 
+                  by 
+                  user.<br>
+                  Response 
+                  is 
+                  HTML 
+                  from 
+                  Home 
+                  view.</td>
+                  <td style="height: 40px">
+                  Step 
+                  2.<strong><span class="auto-style3">
+                  Config_allsites
+                  </span></strong>
+                  (<strong>utl</strong>, 
+                  utilities)<strong><span class="auto-style3"> </span> </strong>
+                  is 
+                  reusable 
+                  (<span lang="hr">includ-able</span>).<br>
+                  <strong><span class="auto-style3">
+                  <br>
+                  Home_ctr</span> </strong>class<strong> 
+                  extends 
+                  utl </strong>
+                  is 
+                  &quot;ctrl+c,v 
+                  reusable&quot;<strong><br>
+                  <br>
+                  <span class="auto-style3">Home</span> </strong>
+                  is<strong> 
+                  view </strong>
+                  class, 
+                  is 
+                  &quot;ctrl+c,v 
+                  reusable&quot;.</td>
+                  <td style="width: 199px">
+                  Step 
+                  3.1
+                  <strong style="color: #008080">
+                  <span class="auto-style2">Tbl_crud</span> </strong> 
+                  is 
+                  module
+                  <strong>
+                  DB</strong>
+                  <strong>
+                  adapter</strong> class, 
+                  &quot;ctrl+c,v 
+                  reusable 
+                  DAO&quot;.<br>
+                  <br>
+                  This 
+                  code 
+                  layer 
+                  is
+                  <br>
+                  <strong>Middle 
+                  tier</strong> 
+                  - 
+                  business 
+                  <br>
+                  logic 
+                  &amp; 
+                  objects. </td>
+                  <td style="height: 40px">
+                  Step 
+                  3.2
+                  <strong>
+                  <span class="auto-style3">Db_allsites</span> 
+                  DB</strong>
+                  <strong>
+                  adapter</strong> class 
+                  is<strong> </strong>
+                  shared, 
+                  global
+                  <span lang="hr">
+                  on 
+                  site 
+                  level</span>, 
+                  common,
+                  <span lang="hr">
+                  reusable 
+                  (includ-able) 
+                  Data 
+                  Acess 
+                  Object</span>.
+                  <span lang="hr">
+                  <strong>
+                  Implements</strong>
+                  </span>
+                  <br>
+                  <span class="auto-style1">
+                  <strong>
+                  <span class="auto-style2">
+                  Interf_Tbl_crud</span></strong></span>&nbsp;reusable&nbsp; 
+                  (<span lang="hr">includ-able</span>) 
+                  DAO. </td>
+                  <td style="height: 40px" colspan="2">
+                  <strong>
+                  How 
+                  works 
+                  R(ead) 
+                  of 
+                  cRud 
+                  :<br>
+                  Router</strong> 
+                  in 
+                  Config_allsites&nbsp; 
+                  called 
+                  from 
+                  Home_ctr 
+                  returns 
+                  user's 
+                  commands 
+                  (interactivity) 
+                  decoded 
+                  from 
+                  URL 
+                  request to 
+                  Home_ctr 
+                  which
+                  <strong>
+                  dispatches</strong> 
+                  request 
+                  (URL 
+                  parameters) 
+                  to 
+                  own 
+                  methods.<br>
+                  <br>
+                  Home_ctr's 
+                  method 
+                  call 
+                  Home's 
+                  method 
+                  which 
+                  reads 
+                  table 
+                  rows 
+                  using 
+                  DAO's 
+                  (three 
+                  classes 
+                  in 
+                  Step&nbsp; 
+                  3.) 
+                  and 
+                  display 
+                  them 
+                  - 
+                  response 
+                  is 
+                  HTML 
+                  from 
+                  Home 
+                  view.</td>
+                </tr>
+            </table>
+
+
+
+                        <h4>Image 1. M-V data flow in CRUD module <span lang="hr">and B12phpfw classes (column display)</span></h4>
+                        <p><span lang="hr" style="margin-left: 40px"><span class="auto-style5">Data flow<strong> </strong>determines the <strong>structure (skeleton)</strong> of the program code.</span></span></p>
+            <table class="auto-style4" style="width: 100%">
+                  <tr>
+                    <td><img alt="Clean_Architecture_small.jpg" height="284" longdesc="Clean_Architecture_small.jpg" src="../../vendor/b12phpfw/img/Clean_Architecture_small.jpg" width="386"></td>
+                    <td>
+                    <h4>Image 2. Circular display of important functionalities (not of data flow) <span lang="hr">and B12phpfw classes</span></h4>
+                    <p>See&nbsp; <a href="https://github.com/nazonohito51/clean-architecture-sample" target="_blank">https://github.com/nazonohito51/clean-architecture-sample</a>&nbsp; - good picture, but for me to compicated code.</p>
+                    </td>
+                  </tr>
+            </table>
+                        <br>
+                        <strong>Adapters</strong> <strong>are implementations</strong> - classes or methods which depend on interfaces, not on each other (ee do not depend on other classes).<br>
+                        <strong>Interfaces are <span lang="hr">abstractions</span>,</strong> functionalities, features, ports. Interfaces<strong> </strong>in PHP are like <strong>UML diagrams</strong> or <strong>Oracle PL/SQL packages</strong> : lists of atributes and methods.<br>
+                        The <strong>Data Access Object (or DAO) pattern</strong>: separates a data resource's client interface from its data access mechanisms. adapts a specific data resource's access API to a generic client interface.<br>
+                        <div class="row gx-4 gx-lg-5">
+
+
+
+
+
+        <div class="col-lg-3 col-md-6">
+            <div class="mt-5">
+                  
+              <p class="text-muted mb-0">
+                 <img class="phone" src="../../vendor/b12phpfw/img/mvc_M_V_data_flow.jpg" height="241" width="228">
+              </p>
+                     <h4>Image 3. Principle of M-V data flow in CRUD module</h4>
+              <p class="text-muted mb-0">
           <b>1. SEES</b> in picture means :  C assigns variables from user request in URL
           (from URL query) telling V what user wants and calls V method or includes V (not showed in picture). 
           <br><b>2. UPDATES</b> in picture means : V pulls data from M according C variables assigned in 1. 
-                            </p>
-                        </div>
-                    </div>
+             </p>
+          </div>
+      </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="mt-5">
-                            <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
-                            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                            <p class="text-muted mb-0">
-          3. MANIPULATES</b> means : V (user request) may call C method for some state 
+
+
+      <div class="col-lg-3 col-md-6">
+         <div class="mt-5">
+           <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
+
+             <p class="text-muted mb-0">
+          3. <strong>MANIPULATES</b></strong> means : 
+          <br>V (user request) may call C method for some state 
           changes ordered in URL by user (<b>USES</b> in picture).
           <br>Eg : table row update "Approve 
           user comment" in msg module. User`s events are so handled in Controller class.
-                            </p>
-                        </div>
-                    </div>
+             </p>
+
+           <p class="text-muted mb-0">
+           View gets (singleton) or instantiates model object and pulls data from M. If we have user`s interactions (events) eg filter displayed rows (pagination is sort of filtering), than 
+           <strong>M-V data flow is only possible solution</strong>.
+            </p>
+
+         </div>
+      </div>
+
+
 
                     <div class="col-lg-3 col-md-6">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
                             
-                           <p class="text-muted mb-0">
-                           View gets (singleton) or instantiates model object and pulls data from M. If we have user`s interactions (events) eg filter displayed rows (pagination is sort of filtering), than M-V data flow is only possible solution.
-                            </p>
-                          
-                            
-                            <br><h3 class="h4 mb-2"><b>M-C-V data flow</b></h3>
+                            <h3 class="h4 mb-2"><b>M-C-V data flow</b></h3>
                             <p class="text-muted mb-0">
           Controller instantiates M and pushes M data to V.
           I do not see advantages compared to M-V data flow. Disadvantage are : for pagination M-V data flow
@@ -335,11 +608,11 @@
                             <p class="text-muted mb-0">
               <!--div id="explore1"><a href="#lcs">TOP</a-->
               <!--  -->
-              Is it really open source if it's not made with love?&nbsp;
-                  <br><a style="display: inline;"
+              Is it really open source if it's not made with love?&nbsp;</p>
+                                            <p class="text-muted mb-0">
+              &nbsp;<a style="display: inline;"
                      href="http://dev1:8083/fwphp/glomodul/z_examples/php_patterns/singleton.php" 
-                     class="dropdown-item" target="_blank">
-                 <img src="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" alt="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" title="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png">Singleton</a>
+                     class="dropdown-item" target="_blank"><img src="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" alt="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" title="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png">Singleton</a>
 
                   <br><a style="display: inline;"
                      href="http://dev1:8083/fwphp/glomodul/z_examples/php_patterns/p08_singleton.php" 
@@ -351,6 +624,8 @@
                      class="dropdown-item" target="_blank">
                  <img src="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" alt="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" title="http://dev1:8083/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png">Oraedoop</a>
                                   </p>
+                                            <p class="text-muted mb-0">
+                                            &nbsp;</p>
 
                   <!--
                      http://localhost:8083/adminer/adminer/?oracle 
@@ -359,32 +634,51 @@
                   -->
                   <a style="display: inline;"
                      href="/fwphp/glomodul/lsweb/Lsweb.php/?cmd=J:/awww/www/fwphp/glomodul/z_examples/" 
-                     class="dropdown-item" target="_blank">
-                 <img src="/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" alt="/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" title="/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png"> ALL HELP SW</a>  &nbsp;  
+                     class="dropdown-item" target="_blank">&nbsp; &nbsp; &nbsp; &nbsp;  
+                 
+                 
+           <img src="/vendor/b12phpfw/img/ic_supervisor_account_black_24dp.png" 
+               alt="ic_supervisor_account_black_24dp.png"
+               title="ic_supervisor_account_black_24dp.png"> ALL HELP SW
+               </a>  &nbsp;  
 
 
 
-                        </div>
-                    </div>
-
-                </div><!-- E N D   r o w -->
-
-
-
-
-
-
+      <br><br>
       <div class="row row-example">
             <!--  -->
             <div>
-              <img src="/vendor/b12phpfw/img/ic_done_black_32dp.png" alt="/vendor/b12phpfw/img/ic_done_black_32dp.png" title="/vendor/b12phpfw/img/ic_done_black_32dp.png">aaaaaaaa aaaaaaa
+
+
+              <img src="/vendor/b12phpfw/img/ic_done_black_32dp.png" alt="/vendor/b12phpfw/img/ic_done_black_32dp.png" 
+                 title="/vendor/b12phpfw/img/ic_done_black_32dp.png">aaaaaaaa aaaaaaa
+              
+
               <br>
-              <img src="/vendor/b12phpfw/img/ic_done_black_32dp.png" alt="/vendor/b12phpfw/img/ic_done_black_32dp.png" title="/vendor/b12phpfw/img/ic_done_black_32dp.png"> bbbbbbbbbbb bbbbbbbb
+              <img src="/vendor/b12phpfw/img/ic_done_black_32dp.png" alt="/vendor/b12phpfw/img/ic_done_black_32dp.png" 
+                   title="/vendor/b12phpfw/img/ic_done_black_32dp.png"> bbbbbbbbbbb bbbbbbbb
             </div>
+
+
 
           <br><br><p><a class="btn btn-light btn-xl" href="#">More</a></p>
 
       </div><!-- E N D   r o w -->
+
+
+
+
+           </div><!-- e n d  c o l -->
+      </div>
+
+    </div><!-- E N D   r o w -->
+
+
+
+
+
+
+
 
             <!--
 
@@ -405,10 +699,8 @@
 
 
 
-
-
           <!-- *********************************************
-          2. Explain - Create  (Portfolio)
+          pgpart05  2. Explain - Create  (Portfolio)
           ********************************************* 
           href="assets/img/portfolio/fullsize/3.jpg"
           src="assets/img/portfolio/thumbnails/3.jpg" 
@@ -513,7 +805,7 @@
 
 
           <!-- *********************************************
-          3. Share  (Call to action)
+          pgpart06  3. Share  (Call to action)
           ********************************************* -->
           <!-- -->
         <section class="page-section bg-dark text-white" id="share3">
@@ -589,7 +881,7 @@
 
 
 
-        <!-- Contact-->
+        <!-- pgpart07 Contact-->
         <section class="page-section" id="contact">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -675,7 +967,7 @@
         <footer class="bg-light py-5">
           <div class="container px-4 px-lg-5">
             <div class="small text-center text-muted">
-              Copyright &copy; 2022 - phporacle, Slavko Srakočić, Zagreb.
+              Copyright &copy; 2022 - phporacle, Slavko SrakoÄŤiÄ‡, Zagreb.
 
               <small>
                 PHP <?=phpversion()?>. Created with PHP 8.1.5, Bootstrap 5.1.3. Start Bootstrap - Creative v7.0.6 (tested also Pico css v1.4.4 or Skeleton V2.0.4 2014 year).
@@ -711,6 +1003,6 @@
         -->
         <script src="/vendor/b12phpfw/themes/bootstrap/js/sb-forms-0.4.1.js"></script>
 <!-- End Document
-  末末末末末末末末末末末末末末末末末末末末末末末末末 -->
+  ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś«ćś« -->
     </body>
 </html>

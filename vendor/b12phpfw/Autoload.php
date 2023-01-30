@@ -96,35 +96,6 @@ class Autoload
 }
 
 
-
-/*
-                          if ('') { echo '<pre>'; 
-                          echo __METHOD__ .' ln='.__LINE__.' said: ' ;
-                          echo '<br>SHARED (GLOBAL) CLS TO LOAD $clsnameNS=<b>'. $clsnameNS .'</b>'; 
-                          echo ' $module_dirNS='; print($module_dirNS) ;
-                            if ($clsnameNS==='Home_ctr'): echo '<br><b>Home_ctr extends Config_allsites (alias, nickname is utl)</b>'; endif;
-                            if (substr($clsnameNS,0,11) === 'Db_allsites'): ?>
-                        <br>     instantiated in index.php <?php
-                            endif;
-                            if ($clsnameNS === 'Tbl_crud'): ?>
-                  <br>has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :
-                  public function __construct(<b>Interf_Tbl_crud $utldb</b>) { 
-                     self::$utldb = $utldb;
-                  } <?php
-                            endif;
-                            if ($clsnameNS === 'Interf_Tbl_crud'): ?>
-                  <br>PHP Interface is a list of methods as a <b>package</b> in oracle plsql. PHP class is like <b>package body</b> in oracle plsql. Reasons for using Interface: 1. mandatory form of method call, 2. same module db adapter for any shared db adapter. <?php
-                            endif;
-                          echo '<br>namespaced class $nscls='; print($nscls) ; 
-          if ($clsnameNS === 'Posts'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
-                          echo '</pre>'; 
-                          }
-*/
-
-
-
-
-
       // *********************************
       // 1. shared clsses scripts
       // *********************************
@@ -178,6 +149,38 @@ class Autoload
            break;
       } // end 2. module clsses scripts (in module dirs)
       */
+
+
+
+
+
+/*
+                          if ('') { echo '<pre>'; 
+                          echo __METHOD__ .' ln='.__LINE__.' said: ' ;
+                          echo '<br>SHARED (GLOBAL) CLS TO LOAD $clsnameNS=<b>'. $clsnameNS .'</b>'; 
+                          echo ' $module_dirNS='; print($module_dirNS) ;
+                            if ($clsnameNS==='Home_ctr'): echo '<br><b>Home_ctr extends Config_allsites (alias, nickname is utl)</b>'; endif;
+                            if (substr($clsnameNS,0,11) === 'Db_allsites'): ?>
+                        <br>     instantiated in index.php <?php
+                            endif;
+                            if ($clsnameNS === 'Tbl_crud'): ?>
+                  <br>has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :
+                  public function __construct(<b>Interf_Tbl_crud $utldb</b>) { 
+                     self::$utldb = $utldb;
+                  } <?php
+                            endif;
+                            if ($clsnameNS === 'Interf_Tbl_crud'): ?>
+                  <br>PHP Interface is a list of methods as a <b>package</b> in oracle plsql. PHP class is like <b>package body</b> in oracle plsql. Reasons for using Interface: 1. mandatory form of method call, 2. same module db adapter for any shared db adapter. <?php
+                            endif;
+                          echo '<br>namespaced class $nscls='; print($nscls) ; 
+          if ($clsnameNS === 'Posts'): echo '<br>stack_trace:<br>'; print_r($this->pp1->stack_trace) ; endif ;
+                          echo '</pre>'; 
+                          }
+*/
+
+
+
+
 
 
 
