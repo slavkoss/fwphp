@@ -40,7 +40,7 @@ class Posts extends utl
 
     $title = 'MSG Dashboard';
     require $pp1->shares_path . '/hdr.php';
-    require_once("navbar.php");  //require_once("navbar_admin.php");
+    require("navbar.php");  //require_once("navbar_admin.php");
   ?>
 
   <!-- HEADER -->
@@ -55,11 +55,11 @@ class Posts extends utl
          <h4>Posts table (dashboard), order by recent</h4>
 
           <!-- S U M S  &  L I N K S -->
-          <a title="Create post" class="contrast" href="<?=$pp1->addnewpost?>">Posts : 
+          <a title="Create post" class="contrast" href="<?=$pp1->addnewpost?>">Add (Posts : 
               <?php echo Tbl_crud_post::rrcnt($pp1, 'posts') ; // rrcount
                 //echo Tbl_crud_post::rr count( $pp1, $qrywhere="'1'='1'"
                 // , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //'posts'
-          ?></a>
+          ?>)</a>
 
           &nbsp; &nbsp; &nbsp;
           <a title="Create comment" class="contrast" href="<?=$pp1->comments?>">Comments : 
@@ -104,7 +104,8 @@ class Posts extends utl
                 //$binds[]=['placeh'=>':last_rinblock',  'valph'=>4, 'tip'=>'int'];
                 self::$utldb::setdo_pgntion('1') ;
 
-                $cursor_posts = Tbl_crud_post::get_cursor("SELECT * FROM posts ORDER BY datetime desc"
+                $cursor_posts = Tbl_crud_post::get_cursor( $pp1
+                  , "SELECT * FROM posts ORDER BY datetime desc"
                   , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
               break;
 
@@ -114,7 +115,8 @@ class Posts extends utl
                 self::$utldb::setdo_pgntion('1') ;
 
                 // LIMIT :first_rinblock, :rblk
-                $cursor_posts = Tbl_crud_post::get_cursor($sellst='*'
+                $cursor_posts = Tbl_crud_post::get_cursor($pp1
+                   , $dmlrr='*'
                    , $qrywhere= "'1'='1' ORDER BY datetime desc"
                    , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
                 ) ;
@@ -190,7 +192,7 @@ or write code to do 1. and 2. (it is easy)"
 
 
    <?php 
-   require $pp1->shares_path . 'ftr.php';
+   require $pp1->shares_path . '/ftr.php';
 
     return('1') ;
   } //e n d  f n  s h o w
@@ -204,6 +206,8 @@ or write code to do 1. and 2. (it is easy)"
 
   static public function read_post( object $pp1, array $other ): string 
   {
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
 
     $uriq = $pp1->uriq ;
     $IdFromURL = (int)$uriq->id ; 
@@ -247,7 +251,8 @@ or write code to do 1. and 2. (it is easy)"
           if(isset($_POST["SearchButton"]))
           {
             $Search = $_POST["Search"];
-            $cursor_posts = Tbl_crud_post::get_cursor($sellst='*', $qrywhere="
+            $cursor_posts = Tbl_crud_post::get_cursor( $pp1
+              , $dmlrr='*', $qrywhere="
                   title LIKE :search1
                   OR category LIKE :search2
                   OR datetime LIKE :search3
@@ -272,7 +277,8 @@ or write code to do 1. and 2. (it is easy)"
               utl::Redirect_to($pp1->filter_page."1/i/home/");
             }
 
-            $cursor_posts = Tbl_crud_post::get_cursor($sellst='*', $qrywhere= "id=:IdFromURL"
+            $cursor_posts = Tbl_crud_post::get_cursor( $pp1
+              , $dmlrr='*', $qrywhere= "id=:IdFromURL"
               , $binds=[
                  ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
                 ]
@@ -285,7 +291,7 @@ or write code to do 1. and 2. (it is easy)"
 
     <?php
     $title = 'Full Post Page' ;
-    require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . 'hdr.php';
+    require_once $pp1->shares_path . '/hdr.php';  //require
     require_once("navbar.php");
     ?>
     <!--         2. G U I  to get user action -->
@@ -475,7 +481,8 @@ or write code to do 1. and 2. (it is easy)"
       <h2>Comments</h2>
       <?php
         $qrywhere = "post_id=:IdFromURL" ;
-        $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' // or "SELECT ...
+        $cursor_comments = Tbl_crud_post_comment::get_cursor( $pp1
+          , $dmlrr='*' // or "SELECT ...
           , $qrywhere="post_id=:IdFromURL ORDER BY datetime desc"
           , $binds=[
              ['placeh'=>':IdFromURL', 'valph'=>$IdFromURL, 'tip'=>'int']
@@ -537,7 +544,7 @@ or write code to do 1. and 2. (it is easy)"
 
 
      <?php 
-     require $pp1->shares_path . 'ftr.php';
+     require $pp1->shares_path . '/ftr.php';
 
       return('1') ;
   } //e n d  f n  r e  a d _ p o s t

@@ -2,7 +2,7 @@
 //     J:\awww\www\fwphp\glomodul\user\Home.php
 // was J:\awww\www\fwphp\glomodul4\user\admins.php
 declare(strict_types=1);
-                       //require_once($pp1->module_path .'admins.php');
+                       //require($pp1->module_path .'/admins.php');
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
@@ -82,8 +82,8 @@ class User extends utl
      object $pp1, object $r): string  //, object $c_admins
   { 
     //Warning: Cannot modify header information :
-    require $pp1->shares_path . 'hdr.php';
-    require_once("navbar.php");
+    require $pp1->shares_path . '/hdr.php';
+    require("navbar.php");
 
     //        2. G U I  to get user action
     ?>
@@ -94,7 +94,7 @@ class User extends utl
 
 
         <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
-                <?php if ('1') {echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                <?php if ('') {echo '<h3>'. __METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
                   //echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
                   //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
                   //echo '<pre>$is_submited_frm='; print_r($is_submited_frm); echo '</pre>';
@@ -170,7 +170,7 @@ class User extends utl
 
 
     <?php
-    require $pp1->shares_path . 'ftr.php'; 
+    require $pp1->shares_path . '/ftr.php'; 
 
     return '1' ;
   } //e n d  f n  d i s p l

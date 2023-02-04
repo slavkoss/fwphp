@@ -8,7 +8,7 @@ declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 
 namespace B12phpfw\module\blog ;
 
-//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites_Intf ;
 //use B12phpfw\core\b12phpfw\Db_allsites as utldb ; //(NOT HARD CODED) SHARED DBADAPTER
 
 use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
@@ -24,7 +24,7 @@ class Home extends utl
 
   //self is used to access static or class variables or methods
   //this is used to access non-static or object variables or methods
-  public function __construct(object $pp1) { //, Interf_Tbl_crud $utldb
+  public function __construct(object $pp1) { //, Db_allsites_Intf $utldb
   }
 
   static public function show( object $pp1, array $other ): string 
@@ -157,15 +157,14 @@ class Home extends utl
                     echo '</pre>'; }
 
     self::$utldb::setdo_pgntion('1') ; 
-    $cursor_posts = Tbl_crud_post::get_cursor( $sellst='*', $qrywhere, $binds
+    $cursor_posts = Tbl_crud_post::get_cursor( $pp1 // new in ver. 10.0.3.0
+      , $dmlrr='*'
+      , $qrywhere //="'1'='1'"
+      , $binds //=[]
       , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
-
-
-
-
     $title = 'MSG HOME';
-    require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . 'hdr.php';
+    require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . '/hdr.php';
     require_once("navbar.php");
     ?>
 

@@ -2,7 +2,7 @@
 //     J:\awww\www\fwphp\glomodul\user\Home.php
 // was J:\awww\www\fwphp\glomodul4\user\admins.php    background:#efefef
 declare(strict_types=1);
-                       //require_once($pp1->module_path .'admins.php');
+                       //require_once($pp1->module_path .'/admins.php');
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 namespace B12phpfw\module\user ;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
@@ -28,7 +28,7 @@ class Home extends utl
 
 
     $title = 'USER CRud';
-    require $pp1->shares_path . 'hdr.php';
+    require $pp1->shares_path . '/hdr.php';
     require_once("navbar.php");
     ?>
 
@@ -114,7 +114,7 @@ class Home extends utl
 
 
     <?php
-    require $pp1->shares_path . 'ftr.php'; 
+    require $pp1->shares_path . '/ftr.php'; 
 
     return('1') ;
 

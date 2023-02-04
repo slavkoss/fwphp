@@ -1,4 +1,4 @@
-<!-- J:\awww\www\fwphp\glomodul\adrs\example_one.php -->
+<!-- J:\awww\www\fwphp\glomodul\adrs\example_one.php-->
 <div class="container">
     This page EXAMPLE1 URL (web adress - web name) is :
     <h3><?=$pp1->module_url?>?i/ex1/</h3>

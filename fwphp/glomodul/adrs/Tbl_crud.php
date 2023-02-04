@@ -22,17 +22,13 @@ namespace B12phpfw\dbadapter\adrs ;
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
-//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
-//no more HARD CODED SHARED DBADAPTER, instead see self::$utldb
-//use B12phpfw\core\b12phpfw\Db_allsites_ora as utldb ; 
 
 use B12phpfw\module\adrs\Home_ctr ;
-//use B12phpfw\dbadapter\adrs\Tbl_crud   as utl_adrs ;
 
 
 
 // Gateway class - DB adapter - separate two DBI layers
-class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
+class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
 {
 
   static protected $pp1 ; 
@@ -43,7 +39,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
 
   //self is used to access static or class variables or methods
   //this is used to access non-static or object variables or methods
-                  //public function __construct(Interf_Tbl_crud $utldb) { //also works
+                  //public function __construct(Db_allsites_Intf $utldb) { //also works
                     //self::$utldb = $utldb;
   public function __construct(object $pp1) { 
     self::$pp1 = $pp1 ;
@@ -59,7 +55,16 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
   }
 
 
-  static public function rrcnt( //string $sellst, 
+  /* static public function rrcnt( object $pp1, string $tbl, array $other=[] ): int { 
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+
+    $rcnt = self::$utldb::rrcount($tbl) ;
+    return (int)$rcnt ;
+    //return (int)utl::escp($rcnt) ;
+  } */
+
+   static public function rrcnt( //string $sellst, 
     string $tbl, array $other=[]  ): int
     //string $qrywhere='', array $binds=[], array $other=[] ): int
   { 
@@ -71,6 +76,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
     //$rcnt = Db_allsites::rrcount($tbl) ;
     //return (int)utl::escp($rcnt) ; //Argument #1 ($string) must be of type string, int given
   }
+  
 
 
 
@@ -133,8 +139,12 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
   * returns id or 'err_c c' 
   */
   static public function cc( // *************** c c (
-     object $pp1, array $other=[]): object
+       object $pp1
+     , array $other=[]): object
   {
+     self::$pp1 = $pp1 ;
+     if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+
                 if ('') {
                   echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
                   echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
@@ -146,8 +156,8 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
 
     // 1. S U B M I T E D  F L D V A L S
       $submitted_cc = self::get_submitted_cc() ;
-      list( $artist, $track, $link) = $submitted_cc ;
       $_SESSION["submitted_cc"] = $submitted_cc ;
+      list( $artist, $track, $link) = $submitted_cc ;
 
     // 2. C C  V A L I D A T I O N
     $err = '' ;
@@ -181,9 +191,9 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
       // =============================================
       // Assign  $ p p 1 = array of module and above module properties
       // =============================================
-      $pp1 = (array)$pp1 ;
-      $pp1['cc_params'] = [self::$tbl, $flds, $valsins, $binds] ;
-      $pp1 = (object)$pp1 ;
+      //$pp1 = (array)$pp1 ;
+      //$pp1['cc_params'] = [self::$tbl, $flds, $valsins, $binds] ;
+      //$pp1 = (object)$pp1 ;
                 if ('') {
                   echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
                   //echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
@@ -192,7 +202,9 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_category extends u tldb
                              //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
                   //exit(0);
                 }
-    $cursor = self::$utldb::cc($pp1, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
+    $cursor = self::$utldb::cc(
+         $cc_params = [self::$tbl, $flds, $valsins, $binds]
+       , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
     //$cursor = self::$utldb::cc(self::$tbl, $flds, $valsins, $binds, $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
 
 

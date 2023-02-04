@@ -10,7 +10,7 @@ use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ;  //Tbl_ crud_ adrs is model (
 
 $tbl='song';
 
-$rcount = utl_adrs::rrcnt($tbl) ;
+$rcount = utl_adrs::rrcnt($tbl, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ;
 $cursor = utl_adrs::get_all($other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
 
 $pp1->stack_trace[]=str_replace('\\','/', __FILE__ ).', lin='.__LINE__ .' ('. __METHOD__ .')';

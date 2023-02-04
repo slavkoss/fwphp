@@ -20,6 +20,12 @@ switch (true) {
 <footer class="container">
 
     <div>
+            <?php
+            //setlocale(LC_TIME, "en_US");
+            //echo strftime('%F', time());
+            echo date('Y-m-d', time());
+            if ($pp1->dbg)
+            ?>
       <a href="#!">Privacy</a> &middot; <a href="#!">Terms</a> &middot; <a href="#!">Contact</a>
     </div><!-- e n d -->
   <small>
@@ -93,8 +99,8 @@ style="color: yellow;"   class="card" class="content
 
 style="display:none;"
 -->
+
 <?php
-if ($pp1->dbg)
 { ?>
   
   <div style="padding:2%; margin:2%;">

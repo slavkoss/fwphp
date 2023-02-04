@@ -10,7 +10,7 @@ declare(strict_types=1);
 */
 
 // m o d u l e is processing (behavior) - optional as B12phpfw - named as we wish,
-//         only b12phpfw is required - see $shares_ path
+//         only b12phpfw is r equired - see $shares_ path
 // u s e r is cls dir (POSITIONAL part of NameSpace, CAREFULLY !)
 namespace B12phpfw\module\user ;
 
@@ -39,26 +39,23 @@ $shares_path = $wsroot_path.'/vendor/b12phpfw' ; //includes, globals, commons, r
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level and dynamic
 [   
-    'module_version'=>'usr, MySQL ver. 10.0.1.0 Jan.2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
+    'module_version'=>'usr, MySQL ver. 10.0.3.0 Feb.2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
   , 'dbg'=>'1'
     , 'dbicls' => 'Db_allsites' // for MySql DB or ...
     //, 'dbicls' => 'Db_allsites_ORA' //for Oracle DB or ...
   , 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
 
-  // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
-  // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
+  , 'dir_apl'     => 'glomodul'  // application (group of modules) folder name
   , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
-  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
+  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is r equired dir name
   , 'site_path'   => $site_path    // to fwphp (or any name)
   , 'module_path' => $module_path  // to fwphp/glomodul/blog (or any names)
 ] ;     
           //echo '<pre>$pp1->module_path_arr='; print_r($pp1->module_path_arr) ; echo '</pre>'; 
 
 //2. global cls Autoload loads (includes, bootstrap) classes scripts automatically
-require($pp1->shares_path .'Autoload.php'); //or Composer's autoload cls-es
+require($pp1->shares_path .'/Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
-              //require('Autoload.php'); //module-local or Composer's autoload cls-es
-              //$autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
   //3. SAME MODULE DB ADAPTER FOR ANY (NOT HARD CODED) SHARED DBADAPTER
   //$pp1->dbicls = Db_allsites_ORA or Db_allsites for MySql :

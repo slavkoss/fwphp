@@ -5,7 +5,7 @@ namespace B12phpfw\core\b12phpfw ; //was B12phpfw\core\zinc ;
 
 use \PDO as PDO ;
 
-use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+use B12phpfw\core\b12phpfw\Db_allsites_Intf ;
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 
@@ -13,8 +13,8 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 //trait Db_allsites
     //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
     //            it should only be called on a class using the trait
-//abstract class Db_allsites_ORA implements Interf_Tbl_crud //cannot instantiate abstract class
-class Db_allsites_ORA implements Interf_Tbl_crud
+//abstract class Db_allsites_ORA implements Db_allsites_Intf //cannot instantiate abstract class
+class Db_allsites_ORA implements Db_allsites_Intf
 {
     private static $instance = null ; //singleton! or protected static $DBH;
 
@@ -38,18 +38,8 @@ class Db_allsites_ORA implements Interf_Tbl_crud
     list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
     , self::$db_username, self::$db_userpwd)
     = $db_params ; //= require __DIR__ . '/Dbconn_allsites_oracle.php'; // not r equire_ once !!
-                        /*
-                        getenv('USERDOMAIN',true)=SSPC1  
-                        $db_params=Array (
-                            [0] =>                    //do_pgntion
-                            [1] => oci                //dbi
-                            [2] => dev1:1521/XE:pooled;charset=UTF8  //db_hostname
-                                     // not working: [2] => SSPC1/XE:pooled;charset=UTF8
-                            [3] => hr  //db_name
-                            [4] => hr  //db_username
-                            [5] => hr  //db_userpwd
-                        ) 
-                        */
+                        
+                        //getenv('USERDOMAIN',true)=SSPC1  
     // oracle :
     self::$dsn = self::$dbi.':dbname='.self::$db_hostname ;
     // mysql :
@@ -134,7 +124,7 @@ class Db_allsites_ORA implements Interf_Tbl_crud
     $id  = $pp1->uriq->id ;
     if(NULL !== $id)
     {
-      self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__); //d d(...
+      self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ ); //d d(...
       $dmldd = "DELETE FROM $tbl WHERE id=:id"; // *************** d d (
 
       $stmt = self::$dbobj->prepare($dmldd); 
@@ -152,83 +142,24 @@ class Db_allsites_ORA implements Interf_Tbl_crud
     }
   }
 
-  //Fatal error02: Declaration of B12phpfw\core\b12phpfw\
-  //Db_allsites_ora::rrnext(object $cursor, $other = []) 
-  //must be compatible with B12phpfw\core\b12phpfw\
-  //Interf_Tbl_crud::rrnext(object $cursor): object in J:\awww\www\vendor\b12phpfw\Db_allsites_ORA.php on line 130
-  static public function rrnext(object $cursor, array $other = []) : object //R.NXT ROW FROM CURSOR
+
+
+
+
+  // mysql :
+  static public function get_cursor( //object $pp1
+     $dmlrr, $binds = [], $other = [] ): object // ********* r r (
   {
-                //echo '<pre>$other='; print_r($other); echo '</pre>';
-                if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
-    $rx = $cursor->fetch(PDO::FETCH_OBJ);
-                if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
+                      if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                      echo '<pre>';
+                      echo '<br />$caller='; print_r($other) ; ;
+                      echo '$dmlrr=' . $dmlrr ;
+                      echo '<br />$binds='; print_r($binds) ;
+                      echo '</pre>';
+                      }
+    self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ ) ;
 
-    if (!is_object($rx)) { 
-       return ((object)['rexists' => false]); 
-    }
-    //$rx->rexists = true ;
-    
-    //php -a  then in PHP CLI : returns "null or diferent" :
-    //php >if ((null ?? '') !== 'COUNT') echo 'null or diferent' ; else echo 'equal' ;
-    // rlows has error with oci count :
-    //$rx = utl::rlows($rx) ;
-    if (($other['what'] ?? '') !== 'COUNT') {
-      //all row fld names lowercase :
-      $rx = utl::rlows($rx) ;
-               //switch (self::getdbi()) { case 'oci' : $rx = utl::rlows($rx) ; break; default: break; } 
-    } 
-
-    return $rx ;
-  }
-
-  /**
-  * 
-  */
-  static public function rrcount($tbl)
-  { 
-    $cursor_rowcnt = self::get_cursor("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
-    $COUNT_ROWS = self::rrnext( $cursor_rowcnt
-      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ , 'what' => 'COUNT'] )->COUNT_ROWS ;
-    //self::disconnect();
-    return $COUNT_ROWS ; //return $rx->COUNT_ROWS ;
-  }
-
-
-  static public function rr_last_id($tbl) {
-    $cursor_maxid = self::get_cursor(
-         "SELECT max(ID) MAXID FROM ". strtoupper($tbl) //." WHERE $qrywhere" upper !!
-       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
-       ) ;
-                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
-                echo '<pre>';
-                echo '<br />$cursor_maxid='; print_r($cursor_maxid) ; 
-                echo '<br />'.'self::$d b i=' . self::$dbi ;
-                echo '</pre>';
-                }
-    //return $cursor ;
-    $maxid = self::rrnext( $cursor_maxid
-      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->maxid ; //lower !!
-    return $maxid;
-
-  }
-
-
-  static public function get_cursor(
-      string $dmlrr
-    , array $binds=[]
-    , array $other=[]): object 
-  {     //, string $qrywhere = "'1'=='1'"
-                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
-                echo '<pre>';
-                echo '<br />$caller='; print_r($other) ; 
-                echo '$dmlrr=' . $dmlrr ;
-                echo '<br />$binds='; print_r($binds) ;
-                echo '<br />'.'self::$d b i=' . self::$dbi ;
-                echo '</pre>';
-                }
-    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
-                            // se below unnecessary, solved with a paginator :
-    $cursor = self::$dbobj->prepare($dmlrr); 
+    $cursor = self::$dbobj->prepare($dmlrr); //not $this->stmt =...
 
     //      B I N D I N G  VALUES TO SQL PARAMETERS 
     $ph_val_arr = [] ;
@@ -251,64 +182,100 @@ class Db_allsites_ORA implements Interf_Tbl_crud
           }
 
       }
-    } // ----------------------------------
-    //e n d             B I N D I N G
+    } //e n d             B I N D I N G
 
     execute_sql:
                 if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' said :<br />';
                 $tmp = self::debugPDO($dmlrr, $binds, $ph_val_arr) ; }
                 //exit() is in d ebugPDO
-
+                if ('') {echo '<h3>[P D O  DEBUG] '.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                  //echo '<br />'.' &nbsp;  &nbsp; $sql_1st_rblk_arr=' . json_encode($sql_1st_rblk_arr) .'<br />'.' &nbsp;  &nbsp; $sql_partlimit_arr=' . json_encode($sql_partlimit_arr)
+                echo //'<br />'.'$o nerow=' . $o nerow
+                '<br />'.'self::$d bi=' . self::$dbi ;
+                  //echo '<br />$sql_1st_rblk_arr='; print_r($sql_1st_rblk_arr) ;
+                  //echo '<br />$sql_partlimit_arr='; print_r($sql_partlimit_arr) ;
+                echo '</pre>';
+                //exit(); //somethimes we need break execution
+                }
+    //$Executedsql =
     $cursor->execute();
+
     return $cursor ;
 
   } //e n d  get_ cursor
-/*Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1008 OCIStmtExecute: ORA-01008: not all variables bound
- (ext\pdo_oci\oci_statement.c:155) in J:\awww\www\vendor\b12phpfw\Db_allsites_ORA.php:269
-Stack trace:
-#0 J:\awww\www\vendor\b12phpfw\Db_allsites_ORA.php(269): PDOStatement->execute()
-#1 J:\awww\www\vendor\b12phpfw\Db_allsites_ORA.php(174): B12phpfw\core\b12phpfw\Db_allsites_ora::get_cursor('\r\n             ...')
-#2 J:\awww\www\fwphp\glomodul\adrs\Tbl_crud.php(65): B12phpfw\core\b12phpfw\Db_allsites_ora::rrcount('song')
-#3 J:\awww\www\fwphp\glomodul\adrs\read_tbl.php(13): B12phpfw\dbadapter\adrs\Tbl_crud::rrcnt('song')
-#4 J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php(103): require('J:\\awww\\www\\fwp...')
-#5 J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php(42): B12phpfw\module\adrs\Home_ctr->rt(Object(stdClass))
-#6 J:\awww\www\vendor\b12phpfw\Config_allsites.php(294): B12phpfw\module\adrs\Home_ctr->call_module_method('rt', Object(stdClass))
-#7 J:\awww\www\fwphp\glomodul\adrs\Home_ctr.php(31): B12phpfw\core\b12phpfw\Config_allsites->__construct(Object(stdClass), Array)
-#8 J:\awww\www\fwphp\glomodul\adrs\index.php(40): B12phpfw\module\adrs\Home_ctr->__construct(Object(stdClass))
-#9 {main}
-  thrown in J:\awww\www\vendor\b12phpfw\Db_allsites_ORA.php on line 269 ($cursor->execute();)
-*/
+  
 
-                /* // unnecessary, solved with a paginator :
-                $sql_partlimit_arr = explode('LIMIT', $dmlrr) ;
-                $sql_1st_rblk_arr = [] ; // non paginated (limited) SQL
-                if (isset($sql_partlimit_arr[1])) {
-                  $sql_1st_rblk_arr = explode(',', $sql_partlimit_arr[1]) ;
-                } */
 
-                  /* // unnecessary, solved with a paginator :
-                if (self::$dbi == 'oci' and self::$do_pgntion) {
-                    self::$do_pgntion = '';
-                    //$dmlrr = str_replace('LIMIT :first_rinblock, :rblk','', $dmlrr) ;
-                    switch (self::$dbi)
-                    {
-                      case 'oci' :
-                        $dmlrr = '
-                          SELECT *
-                          FROM (SELECT A.*, ROWNUM AS RNUM
-                                  FROM (' . $dmlrr . ') A
-                                  WHERE ROWNUM <= :last_rinblock
-                          )
-                          WHERE RNUM >= :first_rinblock
-                              ';
-                        break;
-                        //$first_rinblock = $firstrow, -1 ;
-                        //$l ast_rinblock  = $firstrow + $numrows - 1 ;
-                      default:
-                        break;
-                    }
+    
+    //php -a  then in PHP CLI : returns "null or diferent" :
+    //php >if ((null ?? '') !== 'COUNT') echo 'null or diferent' ; else echo 'equal' ;
+
+  static public function rrnext(object $cursor, array $other = []) : object
+  {
+     //R.NXT ROW FROM CURSOR
+                //echo '<pre>$other='; print_r($other); echo '</pre>';
+                if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
+    $rx = $cursor->fetch(PDO::FETCH_OBJ);
+                if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
+
+    if (!is_object($rx)) { 
+       return ((object)['rexists' => false]); 
+    }
+    $rx->rexists = true ;
+    switch (self::getdbi()) { case 'oci' : $rx = utl::rlows($rx) ; break; default: break; } //all row fld names lowercase
+
+    return $rx ;
+  }
+
+
+  /**
+  * 
+  */
+  static public function rrcount(string $tbl, array $other=[]): int
+  { 
+    $cursor_rowcnt = self::get_cursor(
+       "SELECT COUNT(*) COUNT_ROWS FROM $tbl"
+       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+    //while ($row = self::r rnext($cursor_rowcnt)): {$rx = $row ;} endwhile; //c_, R_, U_, D_
+    $count_rows_row = self::rrnext( $cursor_rowcnt
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' said :<br />';
+                  echo '<br />$count_rows_row=<pre>'; print_r($count_rows_row) ;
+                echo '</pre>';
+                //exit(); //somethimes we need break execution
                 }
-                */
+    $count_rows = (int)$count_rows_row->count_rows ; // mysql : ->COUNT_ROWS !!!
+    //self::disconnect();
+    return $count_rows ; //return $rx->COUNT_ROWS ;
+  }
+
+
+
+  //static public function rr_last_id($tbl) 
+  static public function rr_last_id(string $tbl, array $other=[]): int
+  {
+    $cursor_maxid = self::get_cursor(
+         "SELECT max(ID) MAXID FROM ". strtoupper($tbl) //." WHERE $qrywhere" upper !!
+       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+       ) ;
+    //return $cursor ;
+    $maxid_row = self::rrnext( $cursor_maxid
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //maxid is lower !!
+                        if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                        echo '<pre>';
+                        echo '<br />'.'self::$d b i=' . self::$dbi ;
+                        echo '<br />$cursor_maxid='; print_r($cursor_maxid) ; 
+                        echo '<br />$maxid_row='; print_r($maxid_row) ; 
+                        echo '</pre>';
+                        }
+    $maxid = (int)$maxid_row->maxid ; //maxid is lower !!
+    return $maxid;
+
+  }
+
+
+
 
 
 
@@ -320,9 +287,12 @@ Stack trace:
      * 2. for cc : $ccflds_ placeh, for uu : $uuflds_ placeh
      */
   static public function pre_cc_uu(
-       array $col_names, string &$col_nam_str
-     , string &$ccflds_placeh, string &$uuflds_placeh
-     , array &$binds, array $col_bind_types
+        array $col_names
+      , string &$col_nam_str
+      , string &$ccflds_placeh
+      , string &$uuflds_placeh
+      , array &$binds
+      , array $col_bind_types
   ): object //void 
   { 
     $row = [];
@@ -351,27 +321,23 @@ Stack trace:
     return((object)$row) ;
   } //e n d  f n  D O
   
-    /**
-     * OBJECT RELATIONAL MAPPING (ORM) is the technique of accessing a relational DB 
-     * using an object-oriented programming LANGUAGE. 
-     * ORM is a way to manage DB data by "mapping" DB tables rows to classes and c. instances.
-     * ACTIVE RECORD (AR) is one of such ORMs.
-     *
-     * The big difference between AR style and the DATA MAPPER (DM) style is :
-     * DM completely separates your domain (bussiness logic) 
-     * from persistence layer (data source eg DB, csv...). 
-     *
-     * The big benefit of DM pattern is, your domain objects (DO) code don't need to know anything
-     * about how DO are stored in data source.
-     */
 
-  static public function cc(object $pp1, array $other=[]): object
+
+
+
+
+
+  //static public function cc(object $pp1, array $other=[]): object
+  static public function cc(                                       // CREATE TBL ROW
+      array $cc_params //string $tbl, string $flds, string $valsins, array $binds=[]
+    , array $other=[]): object
   {
               //if ('1') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' said :11111'.'</h4>';}
-    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
+    self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ );
 
-    list( $tbl, $flds, $valsins, $binds) = $pp1->cc_params ;
+    list( $tbl, $flds, $valsins, $binds) = $cc_params ; //$pp1->cc_params
     $last_id1 = self::rr_last_id($tbl) ;
+
               //if ('') { echo '<h2>'. __METHOD__ .'</h2>, line '. __LINE__ .' said :<br />';} 
     $dmlcc = "INSERT INTO $tbl($flds) $valsins"; // *************** c c (
                         if ('') {self::jsmsg( [ //b asename(__FILE__).
@@ -434,7 +400,7 @@ Stack trace:
   //used f or all  t a b l e s !!
   static public function uu( $tbl, $flds, $where, $binds = [] )    // UPDATE TBL ROW
   {
-    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__); // u u(...
+    self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ ); // u u(...
 
     $dmluu = "UPDATE $tbl $flds $where"; // *************** u u (
 
@@ -534,6 +500,58 @@ Stack trace:
 
 
 } // e n d  c l s  D b_ allsites_ ora
+
+
+
+
+                          // UNNECESSARY, SOLVED WITH A PAGINATOR :
+                          //$sql_partlimit_arr = explode('LIMIT', $dmlrr) ;
+                          //$sql_1st_rblk_arr = [] ; // non paginated (limited) SQL
+                          //if (isset($sql_partlimit_arr[1])) {
+                          //  $sql_1st_rblk_arr = explode(',', $sql_partlimit_arr[1]) ;
+                          //}
+
+                  /* // UNNECESSARY, SOLVED WITH A PAGINATOR :
+                if (self::$dbi == 'oci' and self::$do_pgntion) {
+                    self::$do_pgntion = '';
+                    //$dmlrr = str_replace('LIMIT :first_rinblock, :rblk','', $dmlrr) ;
+                    switch (self::$dbi)
+                    {
+                      case 'oci' :
+                        $dmlrr = '
+                          SELECT *
+                          FROM (SELECT A.*, ROWNUM AS RNUM
+                                  FROM (' . $dmlrr . ') A
+                                  WHERE ROWNUM <= :last_rinblock
+                          )
+                          WHERE RNUM >= :first_rinblock
+                              ';
+                        break;
+                        //$first_rinblock = $firstrow, -1 ;
+                        //$l ast_rinblock  = $firstrow + $numrows - 1 ;
+                      default:
+                        break;
+                    }
+                }
+                */
+
+
+
+    /**
+     * OBJECT RELATIONAL MAPPING (ORM) is the technique of accessing a relational DB 
+     * using an object-oriented programming LANGUAGE. 
+     * ORM is a way to manage DB data by "mapping" DB tables rows to classes and c. instances.
+     * ACTIVE RECORD (AR) is one of such ORMs.
+     *
+     * The big difference between AR style and the DATA MAPPER (DM) style is :
+     * DM completely separates your domain (bussiness logic) 
+     * from persistence layer (data source eg DB, csv...). 
+     *
+     * The big benefit of DM pattern is, your domain objects (DO) code don't need to know anything
+     * about how DO are stored in data source.
+     */
+
+
 
 /* 
 3rd - HIGHER LAYER adapter that convert data from format most convenient for 

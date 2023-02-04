@@ -16,8 +16,11 @@ if(isset($_POST["Submit"]))
 
 //               2. R E A D  D B T B L R O W S
 // returns object :
-$cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'"
-  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
+$cursor_LOVcategory = Tbl_crud_category::rr_all( $pp1
+  , $dmlrr='*'
+  , $qrywhere="'1'='1'"
+  , $binds=[]
+  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
 
 
 
@@ -30,7 +33,7 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
 
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
-    require_once $pp1->shares_path . 'hdr.php';
+    require_once $pp1->shares_path . '/hdr.php';
     require_once("navbar.php");
 
 ?>
@@ -175,4 +178,4 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'
 
 -->
 
-<?php require $pp1->shares_path . 'ftr.php'; ?>
+<?php require $pp1->shares_path . '/ftr.php'; ?>

@@ -1,18 +1,17 @@
 <?php
-//J:\awww\www\fwphp\glomodul\blog\index.php, J:\awww\www=WEBSERVER_DOC_ROOT_DIR=../../../
+//J:\awww\www\fwphp\glomodul\post_category\index.php, J:\awww\www=WEBSERVER_DOC_ROOT_DIR=../../../
 //http://dev1:8083/fwphp/glomodul/blog/  http://dev1:8083/fwphp/glomodul/blog/?i/home/p/1/ 
 //where : ?=QS, p=page=1, i=call Home_ctr method 'home()' to include (or call, or URL to).
 
 //string before blog, b12phpfw... is not required. See below **HELPNS
-namespace B12phpfw\module\blog ;
+namespace B12phpfw\module\post_category ;
 
 use B12phpfw\core\b12phpfw\Autoload ;
-//use B12phpfw\core\b12phpfw\Db_allsites_Intf ;
-//use B12phpfw\core\b12phpfw\Db_allsites ; //DB MySQL
-use B12phpfw\core\b12phpfw\Config_allsites ;
-use B12phpfw\module\blog\Home_ctr ;
 
-use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud ;
+use B12phpfw\core\b12phpfw\Config_allsites ;
+use B12phpfw\module\post_category\Home_ctr ;
+
+use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_category ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_path = str_replace('\\','/', __DIR__) ; // .'/'
@@ -24,7 +23,7 @@ $shares_path = $wsroot_path.'/vendor/b12phpfw' ; //includes, globals, commons, r
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [ 
-   'module_version'=>'Blog Msg MySQL 10.0.3.0 Feb. 2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
+   'module_version'=>'Post category MySQL 10.0.3.0 Feb. 2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
   , 'dbg'=>'1'
     , 'dbicls' => 'Db_allsites' // for MySql DB or ...
     //, 'dbicls' => 'Db_allsites_ORA' //for Oracle DB or ...
@@ -48,7 +47,7 @@ $autoloader = new Autoload($pp1); //eliminates need to include class scripts
   $shared_dbadapter = 'B12phpfw\\core\\b12phpfw\\'. $pp1->dbicls ;
   $pp1->shared_dbadapter_obj = new $shared_dbadapter() ; 
   //module DB adapter IS SAME for Db_allsites_ORA and Db_allsites for MySql !!
-  $module_dbadapter_obj = new Tbl_crud($pp1) ; 
+  $module_dbadapter_obj = new Tbl_crud_category($pp1) ; 
 
 //4. process request from ibrowser & send response to ibrowser :
 //   Home_ ctr "inherits" index.php ee DI $p p 1

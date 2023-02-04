@@ -1,4 +1,4 @@
-<!-- J:\awww\www\fwphp\glomodul\adrs\ftr.php -->
+<!-- J:\awww\www\fwphp\glomodul\adrs\ftr.php-->
     <div class="footer">
 
         <?=$pp1->module_version?> &copy; Slavko Srakočić, Zagreb, see on GitHub  

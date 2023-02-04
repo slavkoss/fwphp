@@ -1,4 +1,4 @@
-<!-- J:\awww\www\fwphp\glomodul\adrs\error.php -->
+<!-- J:\awww\www\fwphp\glomodul\adrs\error.php-->
 <div class="container">
   <p>
     <?php

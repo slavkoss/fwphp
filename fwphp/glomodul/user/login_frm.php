@@ -51,8 +51,8 @@ else { $username = $_SESSION['username'] ; }
 
 
 $title = 'Log in' ;
-require_once $pp1->shares_path . '/hdr.php';
-require_once("navbar.php");
+require $pp1->shares_path . '/hdr.php';
+require("navbar.php");
 ?>
   <!-- NAVBAR end -->
 

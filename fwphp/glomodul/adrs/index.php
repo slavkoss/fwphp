@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace B12phpfw\module\adrs ;
 
 use B12phpfw\core\b12phpfw\Autoload ;
-//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites_Intf ;
 //use B12phpfw\core\b12phpfw\Db_allsites ; //DB MySQL (NOT HARD CODED) SHARED DBADAPTER
 use B12phpfw\dbadapter\adrs\Tbl_crud ;
 
@@ -28,7 +28,7 @@ use B12phpfw\module\adrs\Home_ctr ;
 
   $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
   [  
-      'module_version'=>'Adrs (Mini3) MySQL ver. 10.0.1.0 Jan.2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
+      'module_version'=>'Adrs (Mini3) MySQL ver. 10.0.3.0 Feb.2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
     , 'dbg'=>'1'
     , 'dbicls' => 'Db_allsites' // for MySql DB or ...
     //, 'dbicls' => 'Db_allsites_ORA' //for Oracle DB or ...

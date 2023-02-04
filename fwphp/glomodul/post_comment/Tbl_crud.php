@@ -19,11 +19,11 @@ namespace B12phpfw\dbadapter\post_comment ;
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\module\post_comment\Home_ctr ;
 
-//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites_Intf ;
 //use B12phpfw\core\b12phpfw\Db_allsites as utldb ; //(NOT HARD CODED) SHARED DBADAPTER
 
 // Gateway class - separate two DBI layers
-class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsites
+class Tbl_crud //implements Db_allsites_Intf //Db_post_comment //extends Db_allsites
 {
 
   static protected $pp1 ; 
@@ -47,15 +47,17 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
   }
 
 
-  static public function get_cursor(
-      string $sellst
+  static public function get_cursor( object $pp1
+    , string $dmlrr
     , string $qrywhere="'1'='1'"
     , array $binds=[]
     , array $other=[]): object
   {
-    $cursor =  self::$utldb::get_cursor(
-         "SELECT $sellst FROM ". self::$tbl 
-         ." WHERE $qrywhere"
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
+
+    $cursor =  self::$utldb::get_cursor( //$pp1
+          "SELECT $dmlrr FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds
        , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
@@ -90,9 +92,8 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
                   //exit(0);
                 }
 
-    $cursor_rowcnt_post_comments =  self::$utldb::get_cursor(
-        "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl 
-       ." WHERE $qrywhere"
+    $cursor_rowcnt_post_comments =  self::$utldb::get_cursor( //$pp1
+         "SELECT COUNT(*) COUNT_ROWS FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]
     ) ;
     $rcnt = self::rrnext( $cursor_rowcnt_post_comments
@@ -114,9 +115,10 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
             #7 {main} thrown in J:\awww\www\fwphp\glomodul\post_comment\Tbl_crud.php on line 72
 
   static public function rr(
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
+    string $dmlrr, string $qrywhere='', array $binds=[], array $other=[] ): object
   { 
-    $cursor =  self::$utldb::get_cursor("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
+    $cursor =  self::$utldb::get_cursor( //$pp1
+         "SELECT $dmlrr FROM ". self::$tbl ." WHERE $qrywhere"
        , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
     return $cursor ;
   }
@@ -133,7 +135,7 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
   // pre-query
   //static public f unction rr_ all($dm, $category_from_url): object  //returns $cursor
   static public function rr_all(
-    string $sellst, string $qrywhere="'1'='1'", array $binds=[]
+    string $dmlrr, string $qrywhere="'1'='1'", array $binds=[]
        , array $other=[]): object  //returns $cursor
   {
     //////// open cursor (execute-query loop is in view script)
@@ -155,29 +157,6 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
   }
 
 
-
-  /*static public function rr_count_aproved($post_id, $on_off): int
-  {
-    if ($on_off == 'ON')      {$where = "post_id=:post_id AND status='$on_off'" ;}
-    elseif ($on_off == 'OFF') {$where = "post_id=:post_id AND (status='$on_off' or status < '0')" ;}
-    $dml = "SELECT count(*) COUNT_ROWS FROM comments WHERE $where" ;
-                  if ('') //if ($autoload_arr['dbg']) 
-                  { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
-                    echo '<pre>' ; 
-                      echo '<br />$dml='; print_r($dml) ;
-                      echo '<br />:post_id='; print_r($post_id) ;
-                    exit(0) ;
-                    echo '</pre>'; }
-    $cursor = self::$utldb::get_cursor($dml
-      , $binds=[ ['placeh'=>':post_id', 'valph'=>$post_id, 'tip'=>'int'] ]
-      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
-
-    while ($row = self::$utldb::rrnext($cursor)): {$rcnt = $row ;} endwhile;
-    $row_count = $rcnt->COUNT_ROWS ;
-
-    //$dm::disconnect(); //problem ON LINUX
-    return (int)$row_count ; 
-  } */
 
 
 
@@ -215,7 +194,10 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
 
     // 3. C R E A T E  D B T B L R O W - O N  I N S E R T
     // Query to insert comment in DB When everything is fine
-    $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+    //$CurrentTime = time(); 
+                      //$DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+    //setlocale(LC_TIME, "en_US");
+    $datetime = date('Y-m-d H:i:s', time());
     $flds     = "datetime,name,email,comment,approvedby,status,post_id" ;
     $valsins  = "VALUES(:dateTime,:name,:email,:comment,'Pending','OFF',:id)" ;
     $binds = [
@@ -247,6 +229,8 @@ class Tbl_crud //implements Interf_Tbl_crud //Db_post_comment //extends Db_allsi
   //         u p d  c o m m e n t _ s t a t
   static public function upd_comment_stat(object $pp1, array $other=[]): string
   {
+    self::$pp1 = $pp1 ;
+    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
     //copy of an already created object can be made by cloning it.
     $uriq = $pp1->uriq ;
                               if ('') { echo '<br /><h3>'.__METHOD__ .', line '. __LINE__ .' SAYS:</h3>'

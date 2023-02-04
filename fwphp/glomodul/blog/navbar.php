@@ -23,7 +23,7 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ; // init, setings, utilities
           <?php if(!empty($_SESSION['username'])){ ?>
              &nbsp; &nbsp; &nbsp; 
              <li><a title="Posts & other tables with CRUD functionality" class="contrast" 
-                                               href="<?=$pp1->posts?>">Dashboard</a></li>
+                    href="<?=$pp1->posts?>">Dashboard</a></li>
              <li><a class="contrast" href="<?=$pp1->logout?>">Logout</a></li>
           <?php }else{  ?>
              <li><a class="contrast" href="<?=$pp1->loginfrm?>">Login</a></li>

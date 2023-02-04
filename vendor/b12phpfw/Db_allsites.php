@@ -10,7 +10,7 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ;
     //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
     //            it should only be called on a class using the trait
 //abstract class Db_allsites  //cannot instantiate abstract class
-class Db_allsites implements Interf_Tbl_crud
+class Db_allsites implements Db_allsites_Intf
 {
     private static $instance = null ; //singleton! or protected static $DBH;
 
@@ -28,22 +28,26 @@ class Db_allsites implements Interf_Tbl_crud
 
   static public function get_or_new_dball(string $called_from ='**UNKNOWN CALLER**')
   {
-    list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
-    , self::$db_username, self::$db_userpwd) 
-    = require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
+    require __DIR__ . '/Dbconn_allsites.php';
+              //list( self::$do_pgntion, self::$dbi, self::$db_hostname, self::$db_name
+              //, self::$db_username, self::$db_userpwd) 
+              //= require __DIR__ . '/Dbconn_allsites.php'; // not r equire_ once !!
 
-            //      mysql:host=localhost;dbname=test;port=3306;charset=utf8mb4
-            //driver^    ^ colon         ^param=value pair    ^semicolon 
+              //      mysql:host=localhost;dbname=test;port=3306;charset=utf8mb4
+              //driver^    ^ colon         ^param=value pair    ^semicolon 
     self::$dsn = self::$dbi.':host='.self::$db_hostname.';dbname='.self::$db_name.';' ;
 
-              if ('0') { ?>
-              <span style="font-size:1.2em; color:green;"><b>~~~~~Step 02.4 ROOT<?=str_replace(ROOT,'',__FILE__)?></span></b>, lin=<?=__LINE__?>, param. string $called_from = <?=$called_from?>, returns self::$instance;
-
+              if ('') { ?>
+              <span style="font-size:1.2em; color:green;"><b>~~~~~ </span></b>, lin=<?=__LINE__?>, param. string $called_from = <?=$called_from?>
+              <br>Cls <?=basename(explode('::', __METHOD__)[0])?> method : <?=__METHOD__?>
+              , returns <b><span style="background:yellow;">self::$instance;</b></span>
               <ol>
-              <li>Cls <?=basename(explode('::', __METHOD__)[0])?> contains methods : <?=__METHOD__?>, closeConnection, getDBH,
-                 <b>abstract (!!) CRUD methods :</b> countAll, all, findById, findWhere, findBySql, completeQueryString, save, create, update, delete, checkCasting.
-
-              <li><b>DB Trait seems better /(but has bug!?) than abstract cls-es inheritance</b> in B12phpfw because Home_ctr may inherit Config_ allsites which NOT extends Db_ allsites, so Home_ctr may work with any DB trait. Solution without DB traits in B12phpfw also works, is simpler (better ?). <b><span style="background:yellow;">B12phpfw has DB adapter for each table CRUD</b></span> eg J:\awww\www\fwphp\glomodul\user\Tbl_ crud.php. B12phpfw "user" dir contains non shareable module (page) code for users table (CRUD code...) (shares are in vendor/b12phpfw dir). Compound modules like Msg - blog in index.php have folders list of all master and detail tables needed.
+              <li>$_SERVER['HTTP_HOST']=<?=$_SERVER['HTTP_HOST']?>
+              <li>self::$dbi=<?=self::$dbi?>
+              <li>self::$db_hostname=<?=self::$db_hostname?>
+              <li>self::$db_name=<?=self::$db_name?>
+              <li>self::$db_username=<?=self::$db_username?>
+              <li>self::$db_userpwd=<?=self::$db_userpwd?>
               </ol>
               <?php
               }
@@ -72,7 +76,7 @@ class Db_allsites implements Interf_Tbl_crud
       die( 'Database Error: ' . $e->getMessage() );
     }
     # Method End
-  }
+  } //e n d  get_ or_ new_ dball
 
 
   static public function closeDBConn()
@@ -107,14 +111,14 @@ class Db_allsites implements Interf_Tbl_crud
     $id  = $pp1->uriq->id ;
     if(NULL !== $id)
     {
-      self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__); //d d(...
+      self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ ); //d d(...
       $dmldd = "DELETE FROM $tbl WHERE id=:id"; // *************** d d (
 
       $stmt = self::$dbobj->prepare($dmldd); 
 
       $stmt->bindValue(':id',    $id,    PDO::PARAM_INT); //PARAM_STR
       $Executed = $stmt->execute(); //self::e xecute();
-                if ('1') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '$_SESSION["SuccessMessage"]='; echo '<pre>'; print_r($_SESSION["SuccessMessage"]); echo '</pre>'; } 
+                if ('') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '$_SESSION["SuccessMessage"]='; echo '<pre>'; print_r($_SESSION["SuccessMessage"]); echo '</pre>'; } 
       if ($Executed) {$_SESSION["SuccessMessage"][] ="Row id $id Deleted Successfully ! ";
       }else { $_SESSION["ErrorMessage"][] ="Deleting Went Wrong. Try Again !"; }
 
@@ -126,88 +130,28 @@ class Db_allsites implements Interf_Tbl_crud
   }
 
 
-  static public function rrnext(object $cursor, array $other = []) : object //R.NXT ROW FROM CURSOR
+
+
+
+
+
+  static public function get_cursor( //object $pp1
+     $dmlrr, $binds = [], $other = [] ): object // ********* r r (
   {
-                //echo '<pre>$other='; print_r($other); echo '</pre>';
-                if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
-    $rx = $cursor->fetch(PDO::FETCH_OBJ);
-                if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
-
-    if (!is_object($rx)) { 
-       return ((object)['rexists' => false]); 
-    }
-    $rx->rexists = true ;
-    switch (self::getdbi()) { case 'oci' : $rx = utl::rlows($rx) ; break; default: break; } //all row fld names lowercase
-
-    return $rx ;
-  }
-
-  /**
-  * Shows how to use other two  r e a d  methods
-  * 
-  */
-  static public function rrcount($tbl)
-  { 
-    $cursor_rowcnt = self::get_cursor("SELECT COUNT(*) COUNT_ROWS FROM $tbl") ;
-    //while ($row = self::r rnext($cursor_rowcnt)): {$rx = $row ;} endwhile; //c_, R_, U_, D_
-    $COUNT_ROWS = self::rrnext( $cursor_rowcnt
-      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->COUNT_ROWS ;
-    //self::disconnect();
-    return $COUNT_ROWS ; //return $rx->COUNT_ROWS ;
-  }
-
-
-  static public function rr_last_id($tbl) {
-    $cursor_maxid = self::get_cursor("SELECT max(id) MAXID FROM ". $tbl //." WHERE $qrywhere"
-       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    //return $cursor ;
-    $maxid = self::rrnext( $cursor_maxid
-      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->MAXID ;
-    return $maxid;
-
-  }
-
-
-  static public function get_cursor( $dmlrr, $binds = [], $other = [] ): object // ********* r r (
-  {
-                if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
-                echo '<pre>';
-                echo '<br />$caller='; print_r($other) ; ;
-                echo '$dmlrr=' . $dmlrr ;
-                echo '<br />$binds='; print_r($binds) ;
-                echo '</pre>';
-                }
-    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
-                    //if ($where == "SQLin_flds") {$dmlrr = $flds;}
-                    //else {$dmlrr = "SELECT $flds FROM $tbl WHERE $where";}
-    $sql_partlimit_arr = explode('LIMIT', $dmlrr) ;
-    $sql_1st_rblk_arr = [] ; // non paginated (limited) SQL
-    if (isset($sql_partlimit_arr[1])) {
-      $sql_1st_rblk_arr = explode(',', $sql_partlimit_arr[1]) ;
-    }
-
-    if (self::$dbi == 'oci' and self::$do_pgntion) {
-        self::$do_pgntion = '';
-        $dmlrr = str_replace('LIMIT :first_rinblock, :rblk','', $dmlrr) ;
-        switch (self::$dbi)
-        {
-          case 'oci' :
-            $dmlrr = '
-              SELECT *
-              FROM (SELECT A.*, ROWNUM AS RNUM
-                      FROM (' . $dmlrr . ') A
-                      WHERE ROWNUM <= :last_rinblock
-              )
-              WHERE RNUM >= :first_rinblock
-                  ';
-            break;
-            //$first_rinblock = $firstrow, -1 ;
-            //$l ast_rinblock  = $firstrow + $numrows - 1 ;
-          default:
-            break;
-        }
-    }
-
+                      if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                      echo '<pre>';
+                      echo '<br />$caller='; print_r($other) ; ;
+                      echo '$dmlrr=' . $dmlrr ;
+                      echo '<br />$binds='; print_r($binds) ;
+                      echo '</pre>';
+                      }
+    self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ ) ;
+                          // UNNECESSARY, SOLVED WITH A PAGINATOR :
+                          //$sql_partlimit_arr = explode('LIMIT', $dmlrr) ;
+                          //$sql_1st_rblk_arr = [] ; // non paginated (limited) SQL
+                          //if (isset($sql_partlimit_arr[1])) {
+                          //  $sql_1st_rblk_arr = explode(',', $sql_partlimit_arr[1]) ;
+                          //}
     $cursor = self::$dbobj->prepare($dmlrr); //not $this->stmt =...
 
     //      B I N D I N G  VALUES TO SQL PARAMETERS 
@@ -231,8 +175,7 @@ class Db_allsites implements Interf_Tbl_crud
           }
 
       }
-    } // ----------------------------------
-    //e n d             B I N D I N G
+    } //e n d             B I N D I N G
 
     execute_sql:
                 if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' said :<br />';
@@ -242,8 +185,8 @@ class Db_allsites implements Interf_Tbl_crud
                   //echo '<br />'.' &nbsp;  &nbsp; $sql_1st_rblk_arr=' . json_encode($sql_1st_rblk_arr) .'<br />'.' &nbsp;  &nbsp; $sql_partlimit_arr=' . json_encode($sql_partlimit_arr)
                 echo //'<br />'.'$o nerow=' . $o nerow
                 '<br />'.'self::$d bi=' . self::$dbi ;
-                  echo '<br />$sql_1st_rblk_arr='; print_r($sql_1st_rblk_arr) ;
-                  echo '<br />$sql_partlimit_arr='; print_r($sql_partlimit_arr) ;
+                  //echo '<br />$sql_1st_rblk_arr='; print_r($sql_1st_rblk_arr) ;
+                  //echo '<br />$sql_partlimit_arr='; print_r($sql_partlimit_arr) ;
                 echo '</pre>';
                 //exit(); //somethimes we need break execution
                 }
@@ -253,6 +196,85 @@ class Db_allsites implements Interf_Tbl_crud
     return $cursor ;
 
   } //e n d  get_ cursor
+
+
+
+  static public function rrnext(object $cursor, array $other = []) : object
+  {
+     //R.NXT ROW FROM CURSOR
+                //echo '<pre>$other='; print_r($other); echo '</pre>';
+                if ('') { if (!is_object($cursor)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$cursor</b>='; echo '<pre>'; print_r((object)$cursor); echo '</pre>'; } }
+    $rx = $cursor->fetch(PDO::FETCH_OBJ);
+                if ('') { if (!is_object($rx)) { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '<b>(object)$rx</b>='; echo '<pre>'; print_r((object)$rx); echo '</pre>'; } }
+
+    if (!is_object($rx)) { 
+       return ((object)['rexists' => false]); 
+    }
+    $rx->rexists = true ;
+    switch (self::getdbi()) { case 'oci' : $rx = utl::rlows($rx) ; break; default: break; } //all row fld names lowercase
+
+    return $rx ;
+  }
+
+  /**
+  * Shows how to use other two  r e a d  methods
+  * 
+  */
+  static public function rrcount(string $tbl, array $other=[]): int
+  { 
+    $cursor_rowcnt = self::get_cursor(
+       "SELECT COUNT(*) COUNT_ROWS FROM $tbl"
+       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+
+    //while ($row = self::r rnext($cursor_rowcnt)): {$rx = $row ;} endwhile; //c_, R_, U_, D_
+    $count_rows_row = self::rrnext( $cursor_rowcnt
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+                if ('') { echo '<b>'. __METHOD__ .'</b>, line '. __LINE__ .' said :<br />';
+                  echo '<br />$count_rows_row=<pre>'; print_r($count_rows_row) ;
+                echo '</pre>';
+                //exit(); //somethimes we need break execution
+                }
+    $count_rows = (int)$count_rows_row->COUNT_ROWS ;  // oracle : ->count_rows !!!
+    //self::disconnect();
+    return $count_rows ; //return $rx->COUNT_ROWS ;
+  }
+
+
+
+  static public function rr_last_id(string $tbl, array $other=[]): int
+  {
+    $cursor_maxid = self::get_cursor(
+         "SELECT max(ID) MAXID FROM ". strtoupper($tbl) //." WHERE $qrywhere" upper !!
+       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
+       ) ;
+    //return $cursor ;
+    $maxid_row = self::rrnext( $cursor_maxid
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ; //maxid is lower !!
+                        if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                        echo '<pre>';
+                        echo '<br />'.'self::$d b i=' . self::$dbi ;
+                        echo '<br />$cursor_maxid='; print_r($cursor_maxid) ; 
+                        echo '<br />$maxid_row='; print_r($maxid_row) ; 
+                        echo '</pre>';
+                        }
+    $maxid = (int)$maxid_row->MAXID ; // oracle : maxid is lower !!   mysql : upper !!!
+    return $maxid;
+
+  }
+  /*static public function rr_last_id(string $tbl, array $other=[]): int
+  {
+    $cursor_maxid = self::get_cursor(
+         "SELECT max(id) MAXID FROM $tbl" //." WHERE $qrywhere"
+       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+    //return $cursor ;
+    $maxid = self::rrnext( $cursor_maxid
+      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] )->MAXID ; // oracle : ->maxid !!!
+    return $maxid ;
+
+  } */
+
+
+
 
 
 
@@ -297,30 +319,19 @@ class Db_allsites implements Interf_Tbl_crud
     return((object)$row) ;
   } //e n d  f n  D O
   
-    /**
-     * OBJECT RELATIONAL MAPPING (ORM) is the technique of accessing a relational DB 
-     * using an object-oriented programming LANGUAGE. 
-     * ORM is a way to manage DB data by "mapping" DB tables rows to classes and c. instances.
-     * ACTIVE RECORD (AR) is one of such ORMs.
-     *
-     * The big difference between AR style and the DATA MAPPER (DM) style is :
-     * DM completely separates your domain (bussiness logic) 
-     * from persistence layer (data source eg DB, csv...). 
-     *
-     * The big benefit of DM pattern is, your domain objects (DO) code don't need to know anything
-     * about how DO are stored in data source.
-     */
 
 
   //used for all  tabls !!
-  //static public function cc(                                       // CREATE TBL ROW
-  //  string $tbl, string $flds, string $valsins, array $binds = [], array $other = [] )
-  static public function cc(object $pp1, array $other=[]): object
+  //static public function c c( //object $pp1
+     //array $other=[]): object
+  static public function cc(                                       // CREATE TBL ROW
+      array $cc_params //string $tbl, string $flds, string $valsins, array $binds=[]
+    , array $other=[]): object
   {
               //if ('1') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' said :11111'.'</h4>';}
-    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
+    self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ );
 
-    list( $tbl, $flds, $valsins, $binds) = $pp1->cc_params ;
+    list( $tbl, $flds, $valsins, $binds) = $cc_params ; //$pp1->cc_params
     $last_id1 = self::rr_last_id($tbl) ;
 
               //if ('') { echo '<h2>'. __METHOD__ .'</h2>, line '. __LINE__ .' said :<br />';} 
@@ -385,7 +396,7 @@ class Db_allsites implements Interf_Tbl_crud
   //used f or all  t a b l e s !!
   static public function uu( $tbl, $flds, $where, $binds = [] )    // UPDATE TBL ROW
   {
-    self::$dbobj=self::get_or_new_dball(__METHOD__,__LINE__,__METHOD__);
+    self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ );
 
     $dmluu = "UPDATE $tbl $flds $where"; // *************** u u (
 
@@ -485,6 +496,23 @@ class Db_allsites implements Interf_Tbl_crud
 
 
 } // e n d  c l s  D b_ allsites
+
+
+    /**
+     * OBJECT RELATIONAL MAPPING (ORM) is the technique of accessing a relational DB 
+     * using an object-oriented programming LANGUAGE. 
+     * ORM is a way to manage DB data by "mapping" DB tables rows to classes and c. instances.
+     * ACTIVE RECORD (AR) is one of such ORMs.
+     *
+     * The big difference between AR style and the DATA MAPPER (DM) style is :
+     * DM completely separates your domain (bussiness logic) 
+     * from persistence layer (data source eg DB, csv...). 
+     *
+     * The big benefit of DM pattern is, your domain objects (DO) code don't need to know anything
+     * about how DO are stored in data source.
+     */
+
+
 
 /* // ***1 :
  * https://www.php.net/manual/en/pdo.connections.php

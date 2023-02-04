@@ -20,7 +20,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 
 //               3. G U I  (FRM) to get user action
     $title = 'Comments';
-    require_once $pp1->shares_path . 'hdr.php';  //require $pp1->shares_path . 'hdr.php';
+    require_once $pp1->shares_path . '/hdr.php';  //require
     require_once("navbar.php");
 ?>
     <!-- HEADER -->
@@ -47,7 +47,8 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' 
+      $cursor_comments = Tbl_crud_post_comment::get_cursor( $pp1
+        , $dmlrr='*' 
         , $qrywhere="status='OFF' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
@@ -110,7 +111,8 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
           </tr>
         </thead>
       <?php
-      $cursor_comments = Tbl_crud_post_comment::get_cursor($sellst='*' 
+      $cursor_comments = Tbl_crud_post_comment::get_cursor( $pp1
+        , $dmlrr='*' 
         , $qrywhere="status='ON' or status < '0' ORDER BY datetime desc"
         , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] 
       ) ;
@@ -161,7 +163,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 </main><!-- Main Area End -->
 
 
-<?php require $pp1->shares_path . 'ftr.php'; ?>
+<?php require $pp1->shares_path . '/ftr.php'; ?>
 
 
 <!--

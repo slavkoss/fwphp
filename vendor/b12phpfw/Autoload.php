@@ -46,7 +46,7 @@ class Autoload
       // *********************************
       case $module_dirNS === 'b12phpfw':
                             //case  substr($clsnameNS,0,11) === 'Db_allsites': //also ok
-                            //case $clsnameNS === 'Interf_Tbl_crud' :
+                            //case $clsnameNS === 'Db_allsites_Intf' :
                             //case $clsnameNS === 'Config_allsites' : 
          $clsscript_path=$this->pp1->shares_path .'/'. $clsnameNS .'.php' ; 
                        //$clsscript_path=$this->pp1->shares_path .'/'. $this->pp1->dbicls .'.php' ; 
@@ -99,11 +99,11 @@ class Autoload
       // *********************************
       // 1. shared clsses scripts
       // *********************************
-       // $nscls_linfmt=B12phpfw\core\b12phpfw\Interf_Tbl_crud
-       // $nscls=       B12phpfw\core\b12phpfw\Interf_Tbl_crud
+       // $nscls_linfmt=B12phpfw\core\b12phpfw\Db_allsites_Intf
+       // $nscls=       B12phpfw\core\b12phpfw\Db_allsites_Intf
        // $this->pp1->dir_apl=***glomodul***
        // $module_dirNS=***b12phpfw***
-       // $clsnameNS=***Interf_Tbl_crud***
+       // $clsnameNS=***Db_allsites_Intf***
 
 
        // $nscls_linfmt=B12phpfw\dbadapter\post\Tbl_crud
@@ -165,11 +165,11 @@ class Autoload
                             endif;
                             if ($clsnameNS === 'Tbl_crud'): ?>
                   <br>has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :
-                  public function __construct(<b>Interf_Tbl_crud $utldb</b>) { 
+                  public function __construct(<b>Db_allsites_Intf $utldb</b>) { 
                      self::$utldb = $utldb;
                   } <?php
                             endif;
-                            if ($clsnameNS === 'Interf_Tbl_crud'): ?>
+                            if ($clsnameNS === 'Db_allsites_Intf'): ?>
                   <br>PHP Interface is a list of methods as a <b>package</b> in oracle plsql. PHP class is like <b>package body</b> in oracle plsql. Reasons for using Interface: 1. mandatory form of method call, 2. same module db adapter for any shared db adapter. <?php
                             endif;
                           echo '<br>namespaced class $nscls='; print($nscls) ; 

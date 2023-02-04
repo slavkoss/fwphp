@@ -26,15 +26,19 @@ if(isset($_POST["Submit"]))
                     } else: {
                       echo '<b>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: </b>'.$SrNo .'  CATEGORIES, <pre>$rr='; print_r($rr); echo '</pre>';
                     } endif ; */
-$cursor_LOVcategory = Tbl_crud_category::rr_all( $sellst='*', $qrywhere="'1'='1'"
-  , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
+
+$cursor_LOVcategory = Tbl_crud_category::rr_all( $pp1
+  , $dmlrr='*'
+  , $qrywhere="'1'='1'"
+  , $binds=[]
+  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__] ); 
               //echo '<pre>$cursor_LOVcategory='; print_r($cursor_LOVcategory); echo '</pre>';
 //$LOVcategory_nrrows = $SrNo ;
 $rcnt_LOVcategory = utldb::rrcount('category') ;
 
 
     $title = 'Add post';
-    require_once $pp1->shares_path . 'hdr.php';  //require $pp1->shares_path . 'hdr.php';
+    require_once $pp1->shares_path . '/hdr.php';  //require
     require_once("navbar.php");
 
 //        2. G U I  to get user action
@@ -139,4 +143,4 @@ $rcnt_LOVcategory = utldb::rrcount('category') ;
 <!-- End Main Area -->
 
 
-<?php require $pp1->shares_path . 'ftr.php'; ?>
+<?php require $pp1->shares_path . '/ftr.php'; ?>

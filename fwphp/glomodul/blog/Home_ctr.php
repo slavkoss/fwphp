@@ -10,7 +10,7 @@ namespace B12phpfw\module\blog ;
 
 use B12phpfw\core\b12phpfw\Config_allsites     as utl ;
 //use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
-//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites_Intf ;
 use B12phpfw\dbadapter\user\Tbl_crud           as Tbl_crud_admin;  //to Login_ Confirm_ SesUsrId
 use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
 use B12phpfw\dbadapter\post\Tbl_crud           as Tbl_crud_post ;
@@ -23,7 +23,7 @@ use B12phpfw\module\post\Posts                 as Dashboard_view; //no more D as
 //extends  = ISA relation type ("Is A something") = not "Home_ ctr is contained in Config_ allsites" but :
 //"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites (is not for sake of code reusability and clear code)
 // May be named App, Router_dispatcher... :
-class Home_ctr extends utl //i mplements Interf_Tbl_crud
+class Home_ctr extends utl //i mplements Db_allsites_Intf
 {
   // NO ATTRIBUTES - attr. are in parent c l a s s (e s).
   // $pp1 is M O D U L E PROPERTIES PALLETE like in Oracle Forms
@@ -56,6 +56,7 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
       //eg2: , 'ldd_category'    => QS.'i/del_category/id/'  del_category, l in ldd means link
       //      (method parameter /idvalue we assign in view script after ldd_category)
     ,'home_blog'        => QS.'i/home/'
+    ,'home'             => QS.'i/home/'
     ,'sitehome'         => QS.'i/sitehome/' //$pp1->s itehome
     //
     ,'ldd_category'     => QS.'i/del_category/id/'
@@ -69,7 +70,7 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
 
     //
     // T A B L E S  (M O D E L S)
-    ,'admins'          => QS.'i/admins/' // same is 'home_usr' - posts with summary 
+    ,'admins'          => QS.'i/admins/' // 
     //
     ,'loginfrm'        => QS.'i/loginfrm/'
     ,'login'           => QS.'i/login/'
@@ -83,7 +84,7 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
 
     ,'categories'      => QS.'i/categories/'
 
-    ,'posts'           => QS.'i/posts/' // - was dashboard
+    ,'posts'           => QS.'i/posts/' // - dashboard
        ,'filter_postcateg' => QS.'i/filter_postcateg/c/'
        ,'addnewpost'      => QS.'i/addnewpost/'
        ,'read_post'       => QS.'i/read_post/'
@@ -274,7 +275,8 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
     utl::Login_Confirm_SesUsrId(); 
     $title = 'Admin Page' ;
     // http skip is ok for other module :
-    utl::Redirect_to( $pp1->site_url .'/user/' ) ; // http://dev1:8083/fwphp/glomodul/user/
+    utl::Redirect_to( $pp1->site_url .'/'. $pp1->dir_apl .'/user/' ) ;
+               // http://dev1:8083/fwphp/glomodul/user/
 
     require $pp1->shares_path . '/ftr.php';
   }
@@ -285,7 +287,7 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
     $uriq = $pp1->uriq ;
     $usrname_requested = 'xxxxxxxx' ; //$uriq->username ;
 
-    //require $pp1->wsroot_path .'vendor/erusev/parsedown/Parsedown.php' ;
+    //require $pp1->wsroot_path .'/vendor/erusev/parsedown/Parsedown.php' ;
     //$Parsedown = new \Parsedown();
 
     $title = 'Profile' ;
@@ -335,7 +337,7 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
   private function categories(object $pp1) //private
   {
     utl::Login_Confirm_SesUsrId();
-    require $pp1->module_path . '../post_category/categories.php';  
+    require $pp1->module_path . '/../post_category/categories.php';  
   }
 
 
@@ -352,7 +354,7 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
   }
 
 
-  //        p o s t s  v i e w  t b l
+  //     Dashboard - p o s t s  v i e w  t b l
   private function posts(object $pp1) //private
   {
     utl::Login_Confirm_SesUsrId();
@@ -470,12 +472,12 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
 
   public function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
   {
-    $fle_to_displ_path = "{$pp1->module_path}msgmkd/$fle_to_displ_name" ;
-    $helptxt_path = "{$pp1->module_path}msgmkd/000_markdown_posts_help.txt" ;
+    $fle_to_displ_path = "{$pp1->module_path}/msgmkd/$fle_to_displ_name" ;
+    $helptxt_path = "{$pp1->module_path}/msgmkd/000_markdown_posts_help.txt" ;
                     //require $mkdflename ; //e r r o r with  ``` or with...who knows
 
     //WORKING ON WINDOWS, WORKING ON LINUX :
-    require_once $pp1->wsroot_path . 'vendor/erusev/parsedown/Parsedown.php';
+    require_once $pp1->wsroot_path . '/vendor/erusev/parsedown/Parsedown.php';
        //require_once '/vendor/erusev/parsedown/parsedown.php';
        //require_once '/phporacle.eu5.net/vendor/erusev/parsedown/parsedown.php';
 
@@ -527,7 +529,7 @@ class Home_ctr extends utl //i mplements Interf_Tbl_crud
   private function comments(object $pp1) //private
   {
     utl::Login_Confirm_SesUsrId();
-    require $pp1->module_path . '../post_comment/comments.php';  
+    require $pp1->module_path . '/../post_comment/comments.php';  
   }
 
   //         u p d  c o m m e n t _ s t a t

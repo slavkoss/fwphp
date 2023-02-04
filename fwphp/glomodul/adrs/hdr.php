@@ -1,4 +1,4 @@
-<!-- J:\awww\www\fwphp\glomodul\adrs\hdr.php -->
+<!-- J:\awww\www\fwphp\glomodul\adrs\hdr.php-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,14 +49,14 @@
         namespaced class $nscls=B12phpfw\core\b12phpfw\Db_allsites_ORA
 
         B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said: 
-        SHARED (GLOBAL) CLS TO LOAD $clsname=Interf_Tbl_crud $module_dir=b12phpfw                  
+        SHARED (GLOBAL) CLS TO LOAD $clsname=Db_allsites_Intf $module_dir=b12phpfw                  
         PHP Interface is a list of methods as a package in oracle plsql. PHP class is like package body in oracle plsql. Reasons for using Interface: 1. mandatory form of method call, 2. same module db adapter for any shared db adapter. 
-        namespaced class $nscls=B12phpfw\core\b12phpfw\Interf_Tbl_crud
+        namespaced class $nscls=B12phpfw\core\b12phpfw\Db_allsites_Intf
 
         B12phpfw\core\b12phpfw\Autoload::autoloader ln=37 said: 
         SHARED (GLOBAL) CLS TO LOAD $clsname=Tbl_crud $module_dir=adrs                  
         has constructor to achieve SAME MODULE DB ADAPTER FOR ANY shared DB adapter :
-                          public function __construct(Interf_Tbl_crud $utldb) { 
+                          public function __construct(Db_allsites_Intf $utldb) { 
                              self::$utldb = $utldb;
                           } 
         namespaced class $nscls=B12phpfw\dbadapter\adrs\Tbl_crud

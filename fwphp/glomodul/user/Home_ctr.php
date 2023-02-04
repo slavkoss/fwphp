@@ -123,11 +123,11 @@ class Home_ctr extends utl
   {
     //         i n s  f o r m is in home.php before tbl display
       $title = 'USER Crud';
-      //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
+      //require $pp1->wsroot_path . '/vendor/b12phpfw/hdr.php';
         //require_once("navbar.php");
         //require $pp1->module_path . 'create.php';
-        User::frm_process($pp1) ;  //require $pp1->module_path . 'home.php'; //create.php not used
-      //require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+        User::frm_process($pp1) ;  //require $pp1->module_path . '/home.php'; //create.php not used
+      //require $pp1->wsroot_path . '/vendor/b12phpfw/ftr.php';
   }
 
 
@@ -151,9 +151,9 @@ class Home_ctr extends utl
     //r o w  r e a d
       $title = 'USER PROFILE (cRud)';
       $css1 = 'NO';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
-        require $pp1->module_path . 'read.php';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+      require $pp1->wsroot_path . '/vendor/b12phpfw/hdr.php';
+        require $pp1->module_path . '/read.php';
+      require $pp1->wsroot_path . '/vendor/b12phpfw/ftr.php';
   }
 
 
@@ -169,7 +169,7 @@ class Home_ctr extends utl
 
   private function loginfrm(object $pp1) //private
   {
-      require $pp1->module_path . 'login_frm.php';  
+      require $pp1->module_path . '/login_frm.php';  
   }
 
   private function login(object $pp1) //private
@@ -191,20 +191,20 @@ class Home_ctr extends utl
     // http://dev1:8083/fwphp/glomodul/user/?i/upd_user_loggedin/id/75
       $title = 'USER UPDATE';
       utl::Login_Confirm_SesUsrId(); //$this
-                //require $pp1->wsroot_path . 'vendor/b12phpfw/hdr.php';
+                //require $pp1->wsroot_path . '/vendor/b12phpfw/hdr.php';
                 //require_once("navbar.php");
-        require $pp1->module_path . 'upd_user_loggedin_frm.php';  
-      //require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+        require $pp1->module_path . '/upd_user_loggedin_frm.php';  
+      //require $pp1->wsroot_path . '/vendor/b12phpfw/ftr.php';
   }
 
   /* //public f unction ed_usr(object $pp1)
   {
     //LOGGED IN USR UPDATES SOME OTHER USER DATA - NO NEED :
       $title = 'USER UPDATE';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/h dr.php';
+      require $pp1->wsroot_path . '/vendor/b12phpfw/h dr.php';
         //require_once("navbar.php");
-        require $pp1->module_path . 'update.php';
-      require $pp1->wsroot_path . 'vendor/b12phpfw/ftr.php';
+        require $pp1->module_path . '/update.php';
+      require $pp1->wsroot_path . '/vendor/b12phpfw/ftr.php';
   } */
 
   public function d(object $pp1)

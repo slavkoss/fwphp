@@ -16,7 +16,7 @@ use B12phpfw\dbadapter\user\Tbl_crud   as utl_module ;
 use Parsedown ; //in global namespace (version 1.7.4 stil has no namespace)
 
 //require 'J:\\awww\\www\\vendor\\erusev\\parsedown\\Parsedown.php' ;
-require $pp1->wsroot_path . 'vendor/erusev/parsedown/Parsedown.php' ;
+require $pp1->wsroot_path . '/vendor/erusev/parsedown/Parsedown.php' ;
 $Parsedown = new Parsedown(); //OR NO use : \Parsedown() where "\" means global namespace
           //echo $Parsedown->text('Hello _Parsedown_!'); # prints: <p>Hello <em>Parsedown</em>!</p>
           ///////// You can also parse inline markdown only:

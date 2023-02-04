@@ -4,7 +4,7 @@
 //if (!defined('URLMODUL_CSS')) { define('URLMODUL_CSS', $module_relpath.'/css'); }
 //J:\awww\www\fwphp\glomodul\post\read_msg_tbl_kalendar_flex.css
 
-// http://dev1:8083/fwphp/glomodul/blog/index.php?i/read_post/id/54 - error
+// http://dev1:8083/fwphp/glomodul/blog/index.php?i/read_ post/id/54 - error
 namespace B12phpfw ;
 
 use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
@@ -80,8 +80,8 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
     //mysql substr begins with 1 (is php +1)
     //$qrywhere = "datetime LIKE :yyyymm and SUBSTRING(datetime,9,2) = :dkal" ;
 
-    $cursor_filtered_posts = Tbl_crud_post::get_cursor( 
-        $sellst="*"
+    $cursor_filtered_posts = Tbl_crud_post::get_cursor( $pp1
+      , $dmlrr="*"
       , $qrywhere="$tmp_datetime LIKE :yyyymm and SUBSTR($tmp_datetime,9,2) = :dkal ORDER BY $tmp_datetime desc" 
       , $binds=
         [

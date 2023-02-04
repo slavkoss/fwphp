@@ -7,7 +7,7 @@ declare(strict_types=1);
 //string before adrs, b12phpfw... is not required. See below **HELPNS
 namespace B12phpfw\module\adrs ;
 
-//use B12phpfw\core\b12phpfw\Interf_Tbl_crud ;
+//use B12phpfw\core\b12phpfw\Db_allsites_Intf ;
 
 use B12phpfw\core\b12phpfw\Autoload ;
 

@@ -8,17 +8,20 @@ namespace B12phpfw\module\adrs ;
 use B12phpfw\core\b12phpfw\Db_allsites   as utldb ;
 use B12phpfw\dbadapter\adrs\Tbl_crud as utl_adrs ;
 
-if (isset ($_SESSION["submitted_cc"])) {
-  list( $artist, $track, $link) = $_SESSION["submitted_cc"] ;
-  unset ($_SESSION["submitted_cc"]) ;
-} else { list( $artist, $track, $link) = ['','',''] ; }
-
-
 //    1. S U B M I T E D  A C T I O N S
 if(isset($_POST["submit_add_song"])){
   // returns string
   utl_adrs::cc( $pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]) ; 
 } //E n d  of Submit Button If-Condition
+
+//   2. VALUES FOR  F O R M  F I E L D S
+list( $artist, $track, $link) = ['','',''] ; 
+/*
+if (isset ($_SESSION["submitted_cc"])) {
+  list( $artist, $track, $link) = $_SESSION["submitted_cc"] ; // for form  u p d
+  unset ($_SESSION["submitted_cc"]) ;
+} else { list( $artist, $track, $link) = ['','',''] ; } // for form  c r e
+*/
 
 ?>
 

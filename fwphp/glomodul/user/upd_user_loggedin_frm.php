@@ -27,8 +27,8 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
     $rr = utl_module::rr_byid( $AdminId, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
 
 
-      require $pp1->shares_path . 'hdr.php';
-      require_once("navbar.php");
+      require $pp1->shares_path . '/hdr.php';
+      require("navbar.php");
 ?>
 <!-- HEADER -->
 <header class="bg-dark text-white py-3">
@@ -146,4 +146,4 @@ if(isset($_POST["Submit"])) // or if ( !empty($_POST) )
 </section><!-- End Main Area -->
 
 <?php
-require $pp1->shares_path . 'ftr.php';
+require $pp1->shares_path . '/ftr.php';

@@ -218,11 +218,18 @@
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
           <a target="_blank" title="Free Bootstrap templates (PHP)" 
-             href="https://startbootstrap.com/?showAngular=false&showVue=false&showPro=false" class="text-white font-weight-bold">
+             href="https://startbootstrap.com/?showAngular=false&showVue=false&showPro=false"
+             class="text-white font-weight-bold">
               11. Free Bootstrap 5
           </a>
-          <br>I use also Pico css v1.4.4
+          <br>I use also 
+          <a target="_blank" title="Free Pico css" 
+             href="https://picocss.com/#examples" class="text-white font-weight-bold">
+          Pico css v1.4.4 
+          </a>
         </div>
+
+
 
         <!--div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
           <a target="_blank" title="Pico css help" 
@@ -327,6 +334,7 @@
     <div class="container px-4 px-lg-5">
         <h2 class="text-center mt-0">1. Learn - Explore, Connect
           <img class="phone" src="/vendor/b12phpfw/img/win_php_mysql_apache.png">
+          <img class="phone" src="/vendor/b12phpfw/img/oracle_logo.jpg">
           <img class="phone" src="/vendor/b12phpfw/img/linux.jpg">
         </h2>
                 <hr class="divider" />
@@ -460,7 +468,7 @@
                   <span class="auto-style1">
                   <strong>
                   <span class="auto-style2">
-                  Interf_Tbl_crud</span></strong></span>&nbsp;reusable&nbsp; 
+                  Db_allsites_Intf</span></strong></span>&nbsp;reusable&nbsp; 
                   (<span lang="hr">includ-able</span>) 
                   DAO. </td>
                   <td style="height: 40px" colspan="2">
@@ -531,10 +539,25 @@
                         <p><span lang="hr" style="margin-left: 40px"><span class="auto-style5">Data flow<strong> </strong>determines the <strong>structure (skeleton)</strong> of the program code.</span></span></p>
             <table class="auto-style4" style="width: 100%">
                   <tr>
-                    <td><img alt="Clean_Architecture_small.jpg" height="284" longdesc="Clean_Architecture_small.jpg" src="../../vendor/b12phpfw/img/Clean_Architecture_small.jpg" width="386"></td>
+                    <!-- height="284" width="386" -->
+                    <td><img alt="Clean_Architecture_small.jpg" 
+                       longdesc="Clean_Architecture_small.jpg" src="../../vendor/b12phpfw/img/Clean_Architecture_small.jpg" ></td>
                     <td>
-                    <h4>Image 2. Circular display of important functionalities (not of data flow) <span lang="hr">and B12phpfw classes</span></h4>
-                    <p>See&nbsp; <a href="https://github.com/nazonohito51/clean-architecture-sample" target="_blank">https://github.com/nazonohito51/clean-architecture-sample</a>&nbsp; - good picture, but for me to compicated code.</p>
+                    <h4>Image 2. Circular display of important functionalities, data and control flow and B12phpfw classes</h4>
+                    
+                    <p>
+                    Tbl_crud and Db_allsites classes have same named CRUD methods cc, rr, uu, dd. Tbl_crud contains also business methods (largest and most complicated code) which call CRUD methods.
+                    </p>
+                    
+                    <p>
+                    Tbl_crud and Db_allsites classes are independent thanks to Db_allsites_Intf list of atributes and methods. Persistant storage object variable is parameter (dependency injected property palete object $pp1) of Db_allsites CRUD methods.
+                    
+                    This means that cc, rr, uu, dd CRUD calls in Tbl_crud may access any persistant storage - MySQL, Oracle, OS texts...
+                    </p>
+
+                    <p>See&nbsp; <a href="https://github.com/nazonohito51/clean-architecture-sample" target="_blank">https://github.com/nazonohito51/clean-architecture-sample</a>&nbsp; - good picture, but for me to complicated code.
+                    </p>
+                    
                     </td>
                   </tr>
             </table>
@@ -967,10 +990,10 @@
         <footer class="bg-light py-5">
           <div class="container px-4 px-lg-5">
             <div class="small text-center text-muted">
-              Copyright &copy; 2022 - phporacle, Slavko SrakoÄŤiÄ‡, Zagreb.
+              Copyright &copy; 2023 - phporacle, Slavko Srakočić, Zagreb.
 
               <small>
-                PHP <?=phpversion()?>. Created with PHP 8.1.5, Bootstrap 5.1.3. Start Bootstrap - Creative v7.0.6 (tested also Pico css v1.4.4 or Skeleton V2.0.4 2014 year).
+                PHP <?=phpversion()?>. Created with PHP 8.1.5, Bootstrap 5.1.3. Start Bootstrap - Creative v7.0.6, <a href="Pico_css_v1.4.4.html">Pico css v1.4.4</a> or Skeleton V2.0.4 2014 year).
                 This is typical static web page with dynamic (PHP) links.
                 
                 <br>Start Bootstrap can help you build better websites using the Bootstrap framework! Download a theme (like this one called "<a href="https://startbootstrap.com/theme/creative/">Creative</a>") and start customizing, no strings attached!

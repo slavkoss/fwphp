@@ -1,4 +1,4 @@
-<!-- J:\awww\www\fwphp\glomodul\adrs\example_two.php -->
+<!-- J:\awww\www\fwphp\glomodul\adrs\example_two.php-->
 <div class="container">
     This page EXAMPLE2 RECIVES TWO PARAMETERS p1='param1' and p2='param2'.<br>
     This page is  i n c l u d e d  with Home cls ex2 method.<br>
