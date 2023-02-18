@@ -1,4 +1,0 @@
-2023-01-30: Started!
-2023-01-30: Logger has a single instance.
-2023-01-30: Config singleton also works fine.
-2023-01-30: Finished!
