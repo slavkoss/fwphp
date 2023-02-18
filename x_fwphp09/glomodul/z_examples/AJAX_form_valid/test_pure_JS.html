@@ -1,0 +1,33 @@
+<!-- http://dev1:8083/fwphp/glomodul4/help_sw/test/AJAX/01_cars_diaz/test/ -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Document</title>
+</head>
+<body>
+  <script>
+    function init() {
+       var v_req_obj = new XMLHttpRequest();
+       //1. how send req to server, server script for responseText, refresh page (sinchrones request)
+       v_req_obj.open("POST", "test_pure_JS.php", true);
+       //not for GET request :
+       v_req_obj.setRequestHeader("Content-type" ,"application/x-www-form-urlencoded");
+
+       v_req_obj.onreadystatechange = function() {
+          // SERVER RESPONSES TO XMLHttpRequest :
+          // 0=request not initialized, 1=server conn established, 3=request received
+          // 4=request finished and response is ready
+          // 200=ok, 404=page not found
+          if(v_req_obj.readyState == 4 && v_req_obj.status == 200 )
+             //2. what to do with  r e s p o n s e :
+              document.getElementById("container").innerHTML = v_req_obj.responseText;
+          }
+
+          //3. s e n d  r e q u e s t  defined in v_req_obj.open : req. is 2 post variables
+          v_req_obj.send("username=Edwin&password=Secret");
+    }
+  </script>
+
+  <button onclick="init()">Send usr and psw post variables to php script by XMLHttpRequest JS object</button>
+  <div id="container"></div>
+</body>
+</html>

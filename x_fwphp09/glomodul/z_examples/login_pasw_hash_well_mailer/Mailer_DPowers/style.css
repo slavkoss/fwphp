@@ -1,0 +1,117 @@
+body {
+    font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+    background: #495B95;
+    margin: 0;
+}
+body, select, input, textarea {
+    color: #333;
+}
+.wrapper {
+    width: 800px;
+    background: #FFF;
+    margin: 0 auto;
+}
+header {
+    background: #000;
+    color: #FFF;
+}
+h1 {
+    margin: 0;
+    padding: 0.5em 0;
+    text-align: center;
+}
+header p {
+    padding: 0 100px 1em;
+    margin: 0;
+}
+main {
+    margin: 30px 60px;
+}
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+main p {
+    font-size: .9em;
+    margin-bottom: 10px;
+}
+#registrationform ul {
+    list-style-type: none;
+    margin-top: 0.5em;
+}
+#registrationform ul ul {
+    padding-left: 0;
+}
+#registrationform li {
+    margin-bottom: 0.5em;
+}
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+legend {
+    font-weight: bold;
+}
+label {
+    display: inline-block;
+    width: 130px;
+    vertical-align: top;
+}
+.required, .warning {
+    color: #F00;
+    font-weight: bold;
+}
+span.warning {
+    font-size: 0.9em;
+}
+input[type=text], input[type=email] {
+    width: 200px;
+}
+.singleline label {
+    width: auto;
+}
+.grouphead {
+    font-size: 1em;
+}
+input[type=radio], input[type=checkbox] {
+    margin-left: 136px;
+}
+#accept_terms {
+    margin-left: 0;
+}
+input[type=submit] {
+    display: block;
+    margin: 0 auto;
+    padding: 0.2em 1em;
+    border: none;
+    font-size: 2em;
+    background-color: #495B95;
+    color: #FFF;
+}
+footer {
+    background: #333333;
+    width: 100%;
+    height: 4em;
+    color: #FFF;
+}
+footer ul {
+    padding: 1em 0 1em 60px;
+}
+footer li {
+    display: block;
+    list-style: none;
+}
+footer a {
+    display: block;
+    float: left;
+    text-decoration: none;
+    font-size: .9em;
+    color: #FFF;
+    padding: 0 10px;
+    border-right: 1px solid #ddd;
+}
+footer li:last-child a {
+    border-right: none;
+}
+

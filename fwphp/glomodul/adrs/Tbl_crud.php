@@ -2,13 +2,13 @@
 /**
 *  J:\awww\www\fwphp\glomodul\adrs\Tbl_crud.php
 ** Tbl_crud cls is instantiated in index.php after shared_dbadapter_obj which is it's parameter in $pp1
-*        DB (PERSISTENT STORAGE) ADAPTER C L A S S - PDO DBI
+*        DB (PERSISTENT STORAGE) ADAPTER C L A S S, PDO DBI is in Db_ allsites clses
 *        (PRE) CRUD class - DAO (Data Access Object) or data mapper
-*      This c l a s s is for one module - does know module's CRUD
+*      This c l a s s is for one module - does know module's CRUD and BUSINESS LOGIC
 * Other such scripts should be (may be not ?) for csv persistent storage, web services...
 *
 * DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
-* MVC is code separation not functionality !
+* MVC is code separation not f unctionality !
 */
 
 /**
@@ -28,17 +28,18 @@ use B12phpfw\module\adrs\Home_ctr ;
 
 
 // Gateway class - DB adapter - separate two DBI layers
-class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
+class Tbl_crud 
+// implements Db_allsites_Intf - no because here are business methods which can not be standardized !!
 {
 
   static protected $pp1 ; 
-  //Db_allsites_ORA or Db_allsites for MySql or ... :
+  //Db_allsites_ORA or Db_ allsites for MySql or ... :
   static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
   
   static protected $tbl = "song"; // adrs module works with only one DB table
 
-  //self is used to access static or class variables or methods
-  //this is used to access non-static or object variables or methods
+  //self is used to access static class variables or methods which are not instatiated (not in memory)
+  //this is used to access non-static or object variables or methods (which are in memory)
                   //public function __construct(Db_allsites_Intf $utldb) { //also works
                     //self::$utldb = $utldb;
   public function __construct(object $pp1) { 
@@ -55,25 +56,14 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
   }
 
 
-  /* static public function rrcnt( object $pp1, string $tbl, array $other=[] ): int { 
-    self::$pp1 = $pp1 ;
-    if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
-
-    $rcnt = self::$utldb::rrcount($tbl) ;
-    return (int)$rcnt ;
-    //return (int)utl::escp($rcnt) ;
-  } */
-
-   static public function rrcnt( //string $sellst, 
-    string $tbl, array $other=[]  ): int
-    //string $qrywhere='', array $binds=[], array $other=[] ): int
+  static public function rrcnt( //object $pp1 string $sellst(atement) 
+       string $tbl, array $other=[]  ): int
   { 
-    //Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
-    //            it should only be called on a class using the t rait
+    //Why not t rait : it does not like static methods :
+    // Deprecated (Zastarjelo) : Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount
+    // is deprecated, it should only be called on a CLASS USING THE T RAIT
     $rcnt = self::$utldb::rrcount($tbl) ;
     return (int)($rcnt) ;
-    //$rcnt = Tbl_crud::rrcount($tbl) ;
-    //$rcnt = Db_allsites::rrcount($tbl) ;
     //return (int)utl::escp($rcnt) ; //Argument #1 ($string) must be of type string, int given
   }
   
@@ -107,18 +97,22 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
 
 
   // *******************************************
-  //                   C R E A T E,  D,  U
+  //     CrUD :   C (reate),  U(pd),  D(el)
   // *******************************************
 
   //dd is jsmsgyn dialog in util.js + dd() in Home_ctr dd() method which calls this method
-  static public function dd( object $pp1, array $other=[] ): string
+  static public function dd( object &$pp1, array $other=[] ): string
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
+    $pp1->urlqry_parts['tbl'] = self::$tbl ;
+
     $cursor =  self::$utldb::dd( $pp1, $other ) ;
     return '' ;
   }
 
 
+
+  // *********************************************** C c functions :
 
   static public function get_submitted_cc(): array //return '1'
   {
@@ -128,48 +122,39 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
     return $submitted ;
   }
 
-  // *********************************************** C functions :
-  /*
-  * O N - I N S E R T  (P R E - I N S E R T)
-  * 
-  * called from submit code in view script cre_ row_ frm.php
-  *     not via H o m e _ c t r  (also possible if you wish) !
-  *
-  * public f unction cc
-  * returns id or 'err_c c' 
-  */
-  static public function cc( // *************** c c (
-       object $pp1
-     , array $other=[]): object
+
+  static public function cc( object $pp1, array $other=[]): object
   {
+    $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
+                if ('' and isset($_POST["submit_add"])) {
+                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
+                  //echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
+                  //echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
+                  exit(0);
+                }
      self::$pp1 = $pp1 ;
      if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
 
-                if ('') {
-                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
-                  echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
-                  echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
-                  echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
-                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
-                  //exit(0);
-                }
-
-    // 1. S U B M I T E D  F L D V A L S
+    
+    // 1. S U B M I T E D  F L D V A L S - P R E  and  O N  I N S E R T
       $submitted_cc = self::get_submitted_cc() ;
-      $_SESSION["submitted_cc"] = $submitted_cc ;
+      //$_SESSION["submitted_cc"] = $submitted_cc ;
       list( $artist, $track, $link) = $submitted_cc ;
 
     // 2. C C  V A L I D A T I O N
     $err = '' ;
     switch (true) {
-      case (empty($link)): //||empty($Name)||empty($password)||empty($Confirmpassword))
-        $err = "Link field must be filled out"; break ;
+      //||empty($Name)||empty($password)||empty($Confirmpassword))
+      case (empty($link)): $err = "Link field must be filled out"; break ;
       //default: break;
     }
     
-    if ($err > '') { $_SESSION["ErrorMessage"]= $err ;
-      utl::Redirect_to($pp1->module_url.QS.'i/cc/'); goto fnerr ; // Add row
-      //better Redirect_to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
+    if ($err > '') { $_SESSION["MsgErr"]= $err ;
+      utl::Redirect_to($pp1->module_url.QS.'i/cc/'); 
+      goto fnerr ; // Add row
+      //better Redirect_ to($pp1->cre_row_frm) ? - more writing, cc fn in module ctr not visible
       //exit(0) ;
     }
 
@@ -184,24 +169,20 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
     ] ;
     //$last_id1 = self::$utldb::rr_last_id($tbl) ;
 
-
-
-
-
       // =============================================
-      // Assign  $ p p 1 = array of module and above module properties
+      // Assign cc_ params
       // =============================================
-      //$pp1 = (array)$pp1 ;
-      //$pp1['cc_params'] = [self::$tbl, $flds, $valsins, $binds] ;
-      //$pp1 = (object)$pp1 ;
-                if ('') {
-                  echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
-                  //echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
-                  //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
-                  echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
-                             //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
-                  //exit(0);
-                }
+                              //$pp1 = (array)$pp1 ;
+                              //$pp1['cc_params'] = [self::$tbl, $flds, $valsins, $binds] ;
+                              //$pp1 = (object)$pp1 ;
+                        if ('') {
+                          echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said'.'</h3>';
+                          //echo '<pre>$_GET='; print_r($_GET); echo '</pre>';
+                          //echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                          echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
+                                     //for deleting: $this->uriq=stdClass Object([i]=>dd [id]=>79)
+                          //exit(0);
+                        }
     $cursor = self::$utldb::cc(
          $cc_params = [self::$tbl, $flds, $valsins, $binds]
        , $other=['caller'=>__FILE__.' '.',ln '.__LINE__]);
@@ -211,15 +192,19 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
     //$last_id2 = utldb::rr_last_id($tbl) ;
 
     //if($cursor){$_SESSION["SuccessMessage"]="Admin with the name of ".$Name." added Successfully";
-    //}else { $_SESSION["ErrorMessage"]= "Something went wrong (cre admin). Try Again !"; }
+    //}else { $_SESSION["MsgErr"]= "Something went wrong (cre admin). Try Again !"; }
 
-      utl::Redirect_to($pp1->module_url.QS.'i/cc/');
+      //utl::Redirect_to($pp1->module_url.QS.'i/cc/');
+      //goto f nerr ;
+
       return((object)['1']);
       fnerr:
       return((object)['0']);
   }
 
 
+
+  // *********************************************** u u  functions :
 
   static public function get_submitted_uu(): array //return '1'
   {
@@ -246,9 +231,9 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
       //default: break;
     }
     if ($valid === '1') {} else {
-      $_SESSION["ErrorMessage"]= $valid ;
+      $_SESSION["MsgErr"]= $valid ;
       //utl::Redirect_to($pp1->posts);
-      utl::Redirect_to($pp1->module_url.QS.'i/rt/');
+      utl::Redirect_to($pp1->module_url.QS.'i/rrt/');
       goto fnerr ; //exit(0) ;
     }
 
@@ -269,7 +254,7 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
 
       //var_dump($cursor);
       if($cursor){ $_SESSION["SuccessMessage"]="Post Updated Successfully";
-      }else { $_SESSION["ErrorMessage"]= "Post Update went wrong. Try Again !"; }
+      }else { $_SESSION["MsgErr"]= "Post Update went wrong. Try Again !"; }
 
       return('1');
       fnerr:
@@ -285,59 +270,4 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post_category extends u tldb
 
 
 } // e n d  c l s  T b l_ c r u d
-
-
-  // *********************************************** R functions :
-
-  // pre-query
-  /* static public f unction rr_ all( string $sellst, string $qrywhere="'1'='1'"
-     , array $binds=[], array $other=[]): object  //returns $cursor
-  {
-      // default SQL query
-      $cursor =  utldb::get_ cursor(
-       "SELECT $sellst FROM ". self::$tbl
-      ." WHERE $qrywhere ORDER BY title"
-        , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-
-    //$utldb::disconnect(); //problem ON LINUX
-    return $cursor ;
-  } */
-
-
-  /* public function rr_last_id(object $dm) {
-    return utl::rr_last_id(self::$tbl) ;
-  } */
-
-
-
-  /*
-  static public function get_cursor( //instead rr
-      string $sellst //, string $qrywhere="'1'='1'"
-    , array $binds=[], array $other=[]): object
-  {
-    $cursor =  utldb::get_cursor(
-         "SELECT $sellst FROM ".self::$tbl //." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    return $cursor ;
-  } 
-  */
-
-
-
-  /*static public function r r(
-    string $sellst, string $qrywhere='', array $binds=[], array $other=[] ): object
-  { 
-    $cursor =  utldb::r r("SELECT $sellst FROM ". self::$tbl ." WHERE $qrywhere"
-       , $binds, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-    return $cursor ;
-  } */
-
-
-  /*static public function rrcnt( string $tbl, array $other=[] ): int { 
-    $rcnt = utldb::rrcount($tbl) ;
-    //$rcnt = $this->rrcount($tbl) ; //not in object context
-    return (int)utl::escp($rcnt) ;
-  } */
-
-
 

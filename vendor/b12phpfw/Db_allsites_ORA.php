@@ -133,7 +133,7 @@ class Db_allsites_ORA implements Db_allsites_Intf
       $Executed = $stmt->execute(); //self::e xecute();
                 if ('1') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '$_SESSION["SuccessMessage"]='; echo '<pre>'; print_r($_SESSION["SuccessMessage"]); echo '</pre>'; } 
       if ($Executed) {$_SESSION["SuccessMessage"][] ="Row id $id Deleted Successfully ! ";
-      }else { $_SESSION["ErrorMessage"][] ="Deleting Went Wrong. Try Again !"; }
+      }else { $_SESSION["MsgErr"][] ="Deleting Went Wrong. Try Again !"; }
 
       if (isset($pp1->uriq->r)) { 
         self::Redirect_to(QS.'i/'. $pp1->uriq->r) ; 
@@ -286,6 +286,7 @@ class Db_allsites_ORA implements Db_allsites_Intf
      * 1. id is not here (cc does not need it)
      * 2. for cc : $ccflds_ placeh, for uu : $uuflds_ placeh
      */
+  /*
   static public function pre_cc_uu(
         array $col_names
       , string &$col_nam_str
@@ -320,7 +321,7 @@ class Db_allsites_ORA implements Db_allsites_Intf
                  //echo '<pre>$row='; print_r($row) ; echo '</pre>';
     return((object)$row) ;
   } //e n d  f n  D O
-  
+  */
 
 
 
@@ -386,7 +387,7 @@ class Db_allsites_ORA implements Db_allsites_Intf
 
     if ($last_id2 > $last_id1) // if ($Executed) 
     { $_SESSION["SuccessMessage"][] ="Last row id $last_id2 Added Successfully ! ";
-    } else { $_SESSION["ErrorMessage"][] ="Adding Went Wrong. Try Again !"; }
+    } else { $_SESSION["MsgErr"][] ="Adding Went Wrong. Try Again !"; }
 
     return $cursor ;
 

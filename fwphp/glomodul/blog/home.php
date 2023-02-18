@@ -24,29 +24,34 @@ class Home extends utl
 
   //self is used to access static or class variables or methods
   //this is used to access non-static or object variables or methods
-  public function __construct(object $pp1) { //, Db_allsites_Intf $utldb
+  public function __construct(object &$pp1) { //, Db_allsites_Intf $utldb
+    $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
   }
 
-  static public function show( object $pp1, array $other ): string 
+  static public function show( object &$pp1, array $other ): string 
   {
+    $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
+
     if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
     
     if (isset($pp1->category_from_url)) $category_from_url  = $pp1->category_from_url ;
     else $category_from_url  = '' ;
                   if ('') //if ($autoload_arr['dbg']) 
-                  { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                  { echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
                       //echo '<br />$ u r i q='; print_r($pp1->uriq) ;
-                      echo '<br />$_POST='; print_r($_POST) ;
+                      //echo '<br />$_POST='; print_r($_POST) ;
+                      echo '<br />$pp1='; print_r($pp1) ;
                       //echo 'ses fltr pg ='; print_r($_SESSION['filter_posts']) ;
                       //echo 'For pagination (not for c o u n t !!) $qrywhere='; print_r($qrywhere) ;
                       //echo '<br />$binds='; print_r($binds) ;
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     //exit(0) ;
                     echo '</pre>'; }
-
-    if (isset($pp1->uriq->p) and null !== $pp1->uriq->p) {
-      $_SESSION['filter_posts']['pgordno_from_url']  = (int)$pp1->uriq->p ;
+    //P A G I N A T O R  step 2. is click page in navbar, read page  (step 1. Create navigation bar)
+    //if (isset($pp1->uriq->p) and null !== $pp1->uriq->p) {
+    if (isset($pp1->urlqry_parts[3]) and null !== $pp1->urlqry_parts[3]) {
+      $_SESSION['filter_posts']['pgordno_from_url']  = (int)$pp1->urlqry_parts[3] ;
     } else {
       if (!isset($_SESSION['filter_posts']['pgordno_from_url'])) {
         $_SESSION['filter_posts']['pgordno_from_url']  = 1 ;
@@ -103,8 +108,8 @@ class Home extends utl
       $binds[]  =['placeh'=>':category_from_url', 'valph'=>$category_from_url, 'tip'=>'str'];
     }
 
-                    if ('') //if ($autoload_arr['dbg']) 
-                    { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                    if ('') 
+                    { echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                       echo '<pre>' ; 
                         echo 'ses fltr pg ='; print_r($_SESSION['filter_posts']) ;
                         echo 'For c o u n t !! $qrywhere='; print_r($qrywhere) ;
@@ -114,42 +119,39 @@ class Home extends utl
                       exit(0) ;
                     }
     $rcnt_filtered_posts = Tbl_crud_post::rrcount( $pp1, $qrywhere, $binds, $other=
-       ['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
+       ['caller' => __METHOD__ .' '.', ln '. __LINE__ ] ) ;
 
-    $pgn_links = self::get_pgnnav($pp1->uriq, $rcnt_filtered_posts, '/i/home/', $pp1->rblk);
+
+
+    //P A G I N A T O R  step 1. Create navigation bar (step 2. is click page in navbar, read page)
+    $pgn_links = self::get_pgnnav($pp1->urlqry_parts, $rcnt_filtered_posts, 'i/home/', $pp1->rblk);
+                    if ('') //if ($autoload_arr['dbg']) 
+                    { echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                      echo '<pre>' ; 
+                        echo '$pgn_links ='; print_r($pgn_links) ;
+                      echo '</pre>';
+                      exit(0) ;
+                    }
     $pgnnavbar        = $pgn_links['navbar'];
     $pgordno_from_url = (int)$pgn_links['pgordno_from_url'];
     $first_rinblock   = (int)$pgn_links['first_rinblock'];
     $last_rinblock    = (int)$pgn_links['last_rinblock'];
 
     if( $pgordno_from_url ) {
-      /*$dbi = self::$utldb::getdbi() ;
-      switch ($dbi)
-      {
-        case 'oracle' : 
-          $qrywhere .= " ORDER BY datetime desc" ; //LIMIT :first_rinblock, :last_rinblock
-          $binds[]=['placeh'=>':first_rinblock', 'valph'=>$row_ordno, 'tip'=>'int'];
-          $binds[]=['placeh'=>':last_rinblock',  'valph'=>$last_rinblock, 'tip'=>'int'];
-        break;
-        case 'mysql' : */
           $qrywhere .= " ORDER BY datetime desc LIMIT :first_rinblock, :rblk" ;
           $binds[]=['placeh'=>':first_rinblock', 'valph'=>$row_ordno, 'tip'=>'int'];
           $binds[]=['placeh'=>':rblk', 'valph'=>$pp1->rblk, 'tip'=>'int'];
-        /*break;
-        default: 
-          echo '<h3>'.__FILE__ .', line '. __LINE__ .' SAYS: '
-                    .'D B I '. $dbi .' does not exist' . '</h3>';
-          break;
-        //default: utl::Redirect_to($pp1->filter_page) ; break;
-      } */
+
       
     }
+
                   if ('') //if ($autoload_arr['dbg']) 
-                  { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                  { echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                     echo '<pre>' ; 
                       //shared_dbadapter_obj = B12phpfw\core\b12phpfw\Db_allsites Object
                       echo '$pp1 ='; print_r($pp1) ; 
                       echo 'self::$utldb ='; print_r(self::$utldb) ; 
+                      echo '$pgn_links ='; print_r($pgn_links) ; 
                       //echo 'ses filter_ posts ='; print_r($_SESSION['filter_posts']) ;
                       //echo 'For pagination (not for c o u n t !!) $qrywhere='; print_r($qrywhere) ;
                       //echo '<br />$binds='; print_r($binds) ;
@@ -161,7 +163,7 @@ class Home extends utl
       , $dmlrr='*'
       , $qrywhere //="'1'='1'"
       , $binds //=[]
-      , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+      , $other=['caller' => __METHOD__ .' '.', ln '. __LINE__ ] );
 
     $title = 'MSG HOME';
     require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . '/hdr.php';
@@ -176,17 +178,20 @@ class Home extends utl
 
         <section>
           <!-- Left pge content-->
+
           <?php
           self::show_pge_hdr( $pp1, $pgn_links ) ;
                               //, $category_from_url, $search_from_submit, $pgordno_from_url
 
+
+
           $ordno = 0 ;
-          while ( $rx = Tbl_crud_post::rrnext( $cursor_posts // u tldb::r rnext
-             , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
-          {
+  while ( $rx = Tbl_crud_post::rrnext( $cursor_posts // u tldb::r rnext
+             , $other=['caller' => __METHOD__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ): 
+  {
             ++$ordno ;
                           if ('') //if ($autoload_arr['dbg']) 
-                          { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                          { echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
                             echo '<pre>' ; 
                               echo '$rx='; print_r($rx) ;
                             //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
@@ -194,20 +199,168 @@ class Home extends utl
                           }
             ?>
 
-                  <!-- P o s t  c o n t e n t    class="text-muted fst-italic mb-2"-->
-            <div>
+
+
+
+
+    <!-- P o s t  c o n t e n t    class="text-muted fst-italic mb-2"-->
               <?php
-              self::show_post_ttle($pp1, $rx, $first_rinblock, $ordno) ;
+              /*self::show_post_ttle($pp1, $rx, $first_rinblock, $ordno) ;
               self::show_post_meta($pp1, $rx, $first_rinblock, $ordno) ;
               self::show_post_summary($pp1, $rx) ;
-              self::show_post_img($pp1, $rx) ;
+              self::show_post_img($pp1, $rx) ; */
               ?>
-            </div> <!-- e n d  P o s t  c o n t e n t -->
+    <div style="border: 1px solid rgb(51, 51, 51); padding: 12px 12px 0px; margin: 40px 0px 20px;">
+       <!-- ======================================
+       1. P o s t  t i t l e 
+       =========================================== -->
+       <h5 style="margin: 0px;  color: rgb(40, 109, 193);  background: lightgray; width: 100%; ">
+           <?=self::escp($rx->title)?></h5>
+
+
+        <?php
+        //<!-- ======================================
+        //<!-- 2. P o s t  m e t a  c o n t e n t-->
+        // =========================================== -->
+
+        echo //'<br><br><br>'. 
+          str_replace('!', "&nbsp;", 
+          //str_pad( 
+             (string) ($first_rinblock + $ordno - 1)
+          //   , 6, '!', STR_PAD_LEFT
+          //) 
+        ) .'. ' ;
+        ?>
+          &nbsp; 
+          <!-- eg: Posted on January 1, 2021 by Start Bootstrap -->
+        <a href="<?=$pp1->filter_postcateg?><?=self::escp($rx->category)?>/p/1">
+           <?=self::escp($rx->category)?> </a>
+
+        Written by 
+                <a href="<?=$pp1->read_user?>username/<?=self::escp($rx->author)?>">
+                   <?=self::escp($rx->author)?></a>
+
+
+        On <a href="<?=$pp1->kalendar?>mm/<?=self::escp(substr($rx->datetime,0,7))?>"
+               title="Show all posts in post month"><?=self::escp($rx->datetime)?></a>
+
+
+              <?php
+              $qrywhere="post_id=:id AND status=:status" ;
+              $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
+                         , ['placeh'=>':status', 'valph'=>'ON', 'tip'=>'str']
+              ] ;
+              $rcnt_post_comments = Tbl_crud_post_comment::rrcount( $pp1, $qrywhere, $binds
+                 , $other = ['caller' => __METHOD__ .' '.', ln '. __LINE__ ] ) ;
+
+
+              ?>
+              <!-- Post categories or...-->
+              &nbsp;
+              <!--a class="badge bg-secondary text-decoration-none link-light" href="#!"-->
+                <span> <!-- style="float:right;" class="badge badge-dark text-light" -->
+                 Comments: <?=$rcnt_post_comments?>
+                </span>
+
+             &nbsp; <a href="<?=$pp1->read_post?>id/<?=$rx->id?>" >More</a>
+             <!-- e n d  2. P o s t  m e t a  c o n t e n t-->
+
+           <!-- ======================================
+           3. P o s t  s u m m a r y
+           =========================================== -->
+        <div>
+          <?php
+          if ($rx->summary and $rx->summary > '') {
+            //echo '<h5>Article summary</h5>' ; // SUMMARY : 
+            echo '<b>'. str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
+                  nl2br(self::escp($rx->summary))
+               )) .'</b>';
+          } else {
+
+          }
+          ?>
+        </div>
+        <!-- e n d  3. a r t i c l e  s u m m a r y 
+
+
+           <!-- ======================================
+           4. P o s t  i m a g e
+           =========================================== -->
+          <div id="clpsedTxt">
+          <div>
+            <br>
             <?php
-          } endwhile;
+            //J://awww//www//fwphp//glomodul//blog//Uploads//mvc_M_V_data_flow.jpg
+            //src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
+            $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp(
+               (null == $rx->image ? 'NON EXISTENT' : $rx->image)
+            ));
+            //$tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
+            $tmp_imgurlrel = '/vendor/b12phpfw/img/'.self::escp($rx->image) ;
+            //if (file_exists($tmp_imgpath)) 
+            { ?>
+              <figure class="mb-4">
+                <img src="<?=$tmp_imgurlrel?>" class="img-fluid card-img-top"
+                     title = "<?='$rx->image='. $rx->image .', $tmp_imgpath='
+                               .$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
+                     style="max-height:450px;" 
+                   alt="<?=$tmp_imgurlrel?>" />
+              </figure>
+              <?php
+            } 
+
+            $tmp_imgpath = str_replace('/',DS, $pp1->shares_path
+                 . 'img'.DS.'img_big'.DS.self::escp(
+                 (null == $rx->image ? 'NON EXISTENT' : $rx->image)
+            ) ) ;
+            $tmp_imgurlrel = '/vendor/b12phpfw/img/img_big/'.self::escp($rx->image) ;
+                          if ('') {self::jsmsg( [ //b asename(__METHOD__).
+                             __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
+                             ,'$tmp_imgurlrel'=>$tmp_imgurlrel
+                             ] ) ; }
+            if ($rx->image and file_exists($tmp_imgpath)) { ?>
+                <img src="<?=$tmp_imgurlrel?>"
+                     title = "<?='$rx->image='. $rx->image 
+                     .', $tmp_imgpath='.$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
+                     style="width:100%;" 
+                /><?php
+
+
+            } //<!-- e n d  3. a r t i c l e  i m a g e -->
+
+
+            //<!-- 4. i m a g e  d e s c r i p t i on -->
+            $tmptxt = self::escp($rx->img_desc) ; 
+            //if ($rx->image and file_exists($tmp_imgpath)) 
+            if ($tmptxt > '') 
+            { 
+              //$lnklabel = substr(strstr(self::escp($rx->img_desc), '{{lnktxt}}'), 10,9) ;
+                 ?>
+              <div class="card-body">
+                         <h5>Image description</h5>
+                <p><?php
+                 echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
+                 //str_replace('{{href}}','<a href="', str_replace('{{/href}}','">'.$lnklabel.'</a>',
+                        nl2br($tmptxt)
+                 ));
+                       //echo '<br />('.__DIR__ .DS.'Uploads'.DS.$rx->image.')' ; ?>
+              </p>
+            </div><!-- e n d  4. i m a g e  d e s c r i p t i on -->
+              <?php
+            } ?>
+
+
+
+           </div><!-- ***** e n d Content for collapse component ********** -->
+         </div> <!-- e n d  c o l l a p s e -->
+
+
+    </div> <!-- e n d  P o s t  c o n t e n t -->
+            <?php
+  } endwhile;
 
           echo $pgn_links['navbar'] ;
-          echo '<br><small class="text-muted">'. __FILE__ .'</small>' ;
+          echo '<br><small class="text-muted">'. __METHOD__ .'</small>' ;
           ?>
           <br>
 
@@ -226,7 +379,7 @@ class Home extends utl
             <?php
                Side_view::show(  $pp1  //, $fltr_sort
                   , $category_from_url, $search_from_submit, $pgordno_from_url
-                  , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+                  , $other=['caller' => __METHOD__ .' '.', ln '. __LINE__ ]);
             ?>
         </aside>
 
@@ -234,7 +387,7 @@ class Home extends utl
     </main><!-- Main -->
 
 
-    <!--no more : ftr.php script src="<=$pp1->wsroot_url?>zinc/exp_collapse.js" 
+    <!--no m ore : ftr.php script src="<=$pp1->wsroot_url?>zinc/exp_collapse.js" 
             language='JScript' type='text/javascript'>
     </script-->
 
@@ -272,7 +425,7 @@ class Home extends utl
     <div>
       <?php
        //echo utl::M sgErr();  echo utl::M sgSuccess();
-       echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
+       echo utl::msg_err_succ(__METHOD__ .' '.', ln '. __LINE__);
        ?>
 
       <!-- 1. p a g e  s u m m a r y -->
@@ -287,199 +440,6 @@ class Home extends utl
     return('1') ;
   } //e n d  f n  show_ pge_ hdr
 
-
-
-
-
-
-
-  static private function show_post_ttle(
-     object $pp1, object $rx, int $first_rinblock, int $ordno
-  ): string
-  { ?>
-    <br><br><br>
-        <!-- Post title-->
-        <!-- *********exp_collapse Open/close summary, img...********** 
-        <button type="button" class="collapsible">
-        <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
-        -->
-            <!-- 1. a r t i c l e  O S  f i l e  n a m e Read OS txt article &rang;&rang;
-                h3 class="xxcard-title"
-            -->
-            <hr>
-            <h3 style="color:lightblue;">
-                <?php echo '' //. ($category_from_url?$ordno.'. ':'')
-                   . self::escp($rx->title) . ''; ?>
-            </h3>
-            <!-- e n d  1. a r t i c l e  O S  f i l e  n a m e -->
-        <!-- </button> -->
-    <?php
-    return('1') ;
-  } //e n d  f n  xxx
-  
-
-  static private function show_post_meta(
-     object $pp1, object $rx, int $first_rinblock, int $ordno
-  ): string
-  { 
-    //<!-- 2. P o s t  m e t a  c o n t e n t-->
-
-    echo //'<br><br><br>'. 
-      str_replace('!', "&nbsp;", 
-      //str_pad( 
-         (string) ($first_rinblock + $ordno - 1)
-      //   , 6, '!', STR_PAD_LEFT
-      //) 
-    ) .'. ' ;
-    ?>
-      &nbsp; 
-      <!-- eg: Posted on January 1, 2021 by Start Bootstrap -->
-    <a href="<?=$pp1->filter_postcateg?><?=self::escp($rx->category)?>/p/1">
-       <?=self::escp($rx->category)?> </a>
-
-    Written by 
-            <a href="<?=$pp1->read_user?>username/<?=self::escp($rx->author)?>">
-               <?=self::escp($rx->author)?></a>
-
-
-    On <a href="<?=$pp1->kalendar?>mm/<?=self::escp(substr($rx->datetime,0,7))?>"
-           title="Show all posts in post month"><?=self::escp($rx->datetime)?></a>
-
-
-          <?php
-          $qrywhere="post_id=:id AND status=:status" ;
-          $binds=[ ['placeh'=>':id',     'valph'=>$rx->id, 'tip'=>'int']
-                     , ['placeh'=>':status', 'valph'=>'ON', 'tip'=>'str']
-          ] ;
-          $rcnt_post_comments = Tbl_crud_post_comment::rrcount( $pp1, $qrywhere, $binds
-             , $other = ['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
-
-
-          ?>
-          <!-- Post categories or...-->
-          &nbsp;
-          <!--a class="badge bg-secondary text-decoration-none link-light" href="#!"-->
-            <span> <!-- style="float:right;" class="badge badge-dark text-light" -->
-             Comments: <?=$rcnt_post_comments?>
-            </span>
-
-         &nbsp; <a href="<?=$pp1->read_post?>id/<?=$rx->id?>" >More</a>
-         <!-- e n d  2. P o s t  m e t a  c o n t e n t-->
-    <?php
-    return('1') ;
-  } //e n d  f n  show_ post_ meta
-  
-
-  static private function show_post_img(object $pp1, object $rx): string
-  { ?>
-    <!-- ********* c o l l a p s e  (Open/close txt) ********** 
-      <a class="btn btn-primary" 
-    &nbsp; <a class="badge bg-secondary text-decoration-none link-light" 
-    -->
-
-
-    <div id="clpsedTxt">
-      <div>
-        <!-- 3. a r t i c l e  i m a g e -->
-        <?php
-        //J://awww//www//fwphp//glomodul//blog//Uploads//mvc_M_V_data_flow.jpg
-        //src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
-        $tmp_imgpath = str_replace('/',DS, __DIR__ .DS.'Uploads'.DS.self::escp(
-           (null == $rx->image ? 'NON EXISTENT' : $rx->image)
-        ));
-        //$tmp_imgurlrel = 'Uploads/'.self::escp($rx->image) ;
-        $tmp_imgurlrel = '/vendor/b12phpfw/img/'.self::escp($rx->image) ;
-        //if (file_exists($tmp_imgpath)) 
-        { ?>
-          <figure class="mb-4">
-            <img src="<?=$tmp_imgurlrel?>" class="img-fluid card-img-top"
-                 title = "<?='$rx->image='. $rx->image .', $tmp_imgpath='
-                           .$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
-                 style="max-height:450px;" 
-               alt="<?=$tmp_imgurlrel?>" />
-          </figure>
-          <?php
-        } 
-
-        $tmp_imgpath = str_replace('/',DS, $pp1->shares_path
-             . 'img'.DS.'img_big'.DS.self::escp(
-             (null == $rx->image ? 'NON EXISTENT' : $rx->image)
-        ) ) ;
-        $tmp_imgurlrel = '/vendor/b12phpfw/img/img_big/'.self::escp($rx->image) ;
-                      if ('') {self::jsmsg( [ //b asename(__FILE__).
-                         __METHOD__ .', line '. __LINE__ .' SAYS'=>'BEFORE img '
-                         ,'$tmp_imgurlrel'=>$tmp_imgurlrel
-                         ] ) ; }
-        if ($rx->image and file_exists($tmp_imgpath)) { ?>
-            <img src="<?=$tmp_imgurlrel?>"
-                 title = "<?='$rx->image='. $rx->image 
-                 .', $tmp_imgpath='.$tmp_imgpath .', $tmp_imgurlrel='. $tmp_imgurlrel?>"
-                 style="width:100%;" 
-            /><?php
-
-
-        } //<!-- e n d  3. a r t i c l e  i m a g e -->
-
-
-        //<!-- 4. i m a g e  d e s c r i p t i on -->
-        $tmptxt = self::escp($rx->img_desc) ; 
-        //if ($rx->image and file_exists($tmp_imgpath)) 
-        if ($tmptxt > '') 
-        { 
-          //$lnklabel = substr(strstr(self::escp($rx->img_desc), '{{lnktxt}}'), 10,9) ;
-             ?>
-          <div class="card-body">
-                     <h5>Image description</h5>
-            <p><?php
-             echo str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
-             //str_replace('{{href}}','<a href="', str_replace('{{/href}}','">'.$lnklabel.'</a>',
-                    nl2br($tmptxt)
-             ));
-                   //echo '<br />('.__DIR__ .DS.'Uploads'.DS.$rx->image.')' ; ?>
-          </p>
-        </div><!-- e n d  4. i m a g e  d e s c r i p t i on -->
-          <?php
-        } ?>
-
-
-
-      </div><!-- ***** e n d Content for collapse component ********** -->
-    </div> <!-- e n d  c o l l a p s e -->
-
-
-    <?php
-    return('1') ;
-  } //e n d  f n  show_ post_ img
-
-
-
-  static private function show_post_summary(object $pp1, object $rx): string
-  { ?>
-    <div>
-    <!-- 5. a r t i c l e  s u m m a r y
-    <section class="mb-5">  <div class="card-body">
-    -->
-
-
-      <?php
-      if ($rx->summary and $rx->summary > '') {
-        //echo '<h5>Article summary</h5>' ;
-        echo '<b>'. str_replace('{{b}}','<b>', str_replace('{{/b}}','</b>', 
-              nl2br(self::escp($rx->summary))
-           )) .'</b>';
-      } else {
-
-      }
-      ?>
-
-
-    </div>
-    <!-- e n d  5. a r t i c l e  s u m m a r y 
-    </section>
-    -->
-    <?php
-    return('1') ;
-  } //e n d  f n  show_ post_ summary
 
 
 

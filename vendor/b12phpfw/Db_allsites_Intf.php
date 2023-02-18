@@ -41,7 +41,7 @@ interface Db_allsites_Intf  //like Oracle package = list of mandatory methods
       array $cc_params //
     , array $other=[]): object ;
   //static public function cc(object $pp1, array $other=[]): object ; //was string
-
+   /*
    static public function pre_cc_uu(
         array $col_names
       , string &$col_nam_str
@@ -50,7 +50,7 @@ interface Db_allsites_Intf  //like Oracle package = list of mandatory methods
       , array &$binds
       , array $col_bind_types
    ): object ;
-
+   */
 
 
    static public function uu( $tbl, $flds, $where, $binds = [] ) ;

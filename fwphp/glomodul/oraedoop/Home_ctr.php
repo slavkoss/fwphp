@@ -9,30 +9,33 @@ use B12phpfw\core\b12phpfw\Config_allsites ;
 class Home_ctr extends Config_allsites //Home_mdl
 {
   // $saltLength=NULL
-  public function __construct(object $pp1)
+  public function __construct(object &$pp1)
   {
-    //parent::__construct($pp1);
-    $this->set_default_cls_states_atr($this->pp1);
+    parent::__construct($pp1);
+
+    if (!defined('QS')) define('QS', '?');
+
+    $this->set_default_cls_states_atr($pp1);
 
     // R O U T I N G  T A B L E  (ok for modules in own dir) 
     //We have one tbl 
 
-    //$this->pp1->autoloads       = $autoloads ; 
-    //$this->pp1->act_record      = false ; 
+    //$pp1->autoloads       = $autoloads ; 
+    //$pp1->act_record      = false ; 
           //Format version string $version = trim(substr('$Revision: 1.20 $', 10, -1));
-    $this->pp1->home           = QS.'i/home/' ;
-    $this->pp1->login          = QS.'i/login/' ;
-    //$this->pp1->tbl             = QS.'i/read_tbl/' ; //.'i/login/' 
-    $this->pp1->logout          = QS.'i/logout_me/' ; 
+    $pp1->home           = QS.'i/home/' ;
+    $pp1->login          = QS.'i/login/' ;
+    //$pp1->tbl             = QS.'i/read_tbl/' ; //.'i/login/' 
+    $pp1->logout          = QS.'i/logout_me/' ; 
     //
-    $this->pp1->filter_page     = QS.'i/home/p/' ; // i/home/
+    $pp1->filter_page     = QS.'i/home/p/' ; // i/home/
 
     //e n d  R O U T I N G  T A B L E
                         if ('') {
                           //echo ( json_encode($_SESSION, JSON_PRETTY_PRINT) ) ;
                           self::jsmsg( [ //basename(__FILE__).
                            __METHOD__ .', line '. __LINE__ .' SAYS'=>'s002. '
-                           ,'$this->pp1->dbi_obj'=>isset($this->pp1->dbi_obj)?$this->pp1->dbi_obj:'NOT SET'
+                           ,'$pp1->dbi_obj'=>isset($pp1->dbi_obj)?$pp1->dbi_obj:'NOT SET'
                            //,'self::$dbi_obj'=>isset(self::$dbi_obj)?self::$dbi_obj:'NOT SET'
                            ,'$_SESSION'=>isset($_SESSION)?$_SESSION:'NOT SET'
                            ] ) ; }
@@ -40,9 +43,7 @@ class Home_ctr extends Config_allsites //Home_mdl
     *   4. MODULE C O N T R O L L E R and DISPATCHER 
     *     (includes, calls, http jumps only to other module)
     ***************************************************** */
-    //i = ctrakcmethod of this cls  (H o m e) which includes view script or calls method (does tblrowCRUD...)
-    $akc = $this->uriq->i ; //home: uriq = url query string
-    $this->$akc() ; //include(str_replace('|','/', $this->uriq->i.'.php'));
+
 
 
   } // e n d  f n  __ c o n s t r u c t
@@ -57,7 +58,7 @@ class Home_ctr extends Config_allsites //Home_mdl
   // 24. fns 300 lines
   //******************************************
 
-  private function home()
+  protected  function home()
   {
     if ( isset($_POST['blk_rowsnum']) and (int)$_POST['blk_rowsnum'] > -1 )
     { $_SESSION['states']->blk_rowsnum = $_POST['blk_rowsnum'] ; }
@@ -76,9 +77,9 @@ class Home_ctr extends Config_allsites //Home_mdl
     { 
       // PAGE 1 : 26.  l o g i n . f o r m  - p rijava na bazu
       require 'hdr.php';
-                 //require $this->pp1->wsroot_path . 'zinc/hdr.php';
+                 //require $pp1->wsroot_path . 'zinc/hdr.php';
       include 'login_frm.php';
-                      //require $this->pp1->module_path . 'oraedoop.php';
+                      //require $pp1->module_path . 'oraedoop.php';
       require 'ftr.php';
     
     } else {
@@ -91,24 +92,24 @@ class Home_ctr extends Config_allsites //Home_mdl
   }
 
   //        u s e r  r e a d
-    private function login()
+    protected  function login()
     {
       $this->set_this2ses(); //atr.klase u sesvar - npr kada postedvar promjeni sesvar
       $this->set_ses2this(); //sesvar -> atr.klase
-      $this->Redirect_to($this->pp1->home.'p/1/') ;
-      //works : $this->Redirect_to($this->pp1->module_url.QS.'i/home/') ;
-      //$this->Redirect_to($this->pp1->module_url.QS.'i/rt/') ; // to  t b l
+      $this->Redirect_to($pp1->home.'p/1/') ;
+      //works : $this->Redirect_to($pp1->module_url.QS.'i/home/') ;
+      //$this->Redirect_to($pp1->module_url.QS.'i/rt/') ; // to  t b l
       //if (isset($this->uriq->r)) { $this->Redirect_to(QS.'i/'.$this->uriq->r) ; }
     }
 
-  private function logout_me(&$pp1) //pof_ d isconnect()
+  protected  function logout_me(&$pp1) //pof_ d isconnect()
   { 
      //global $conn; if ($conn) ocilogoff($conn);  //oci_close()
     //$this->logout() ;
     $this->clearses($pp1) ;
     $this->set_this2ses() ;
     $this->set_ses2this() ;
-    $this->Redirect_to($this->pp1->home) ;
+    $this->Redirect_to($pp1->home) ;
   }
 
 
@@ -117,28 +118,36 @@ class Home_ctr extends Config_allsites //Home_mdl
 
 
     public function set_default_cls_states_atr(&$pp1) {
+                if ('') { 
+                   echo '<h3>'.__METHOD__ .', line '. __LINE__ .' SAYS'.'</h3>';
+                   //echo '<pre>$_GET='; print_r($_GET); echo '</pre><br />'; // [d/39] => 
+                   //echo '<pre>$_POST='; print_r($_POST); echo '</pre><br />'; // [d/39] => 
+                   echo '<pre>$pp1='; print_r($pp1); echo '</pre><br />';
+                   // $this->uriq=stdClass Object( [d] => 39 )
+                }
         //public $aplpath     = null; public $aplurl      = null;
-        $this->pp1->states->debug   = false;
-        $this->pp1->cncts->username = null ;
-        $this->pp1->cncts->password = null ;
-        $this->pp1->cncts->service  = null ;
+        //$pp1->states_debug   = false;
+        $pp1->states_debug   = false;
+        $pp1->cncts_username = null ;
+        $pp1->cncts_password = null ;
+        $pp1->cncts_service  = null ;
         //
-        $this->pp1->states->entrymode        = 'popups';
-        $this->pp1->states->act_record       = false;
-        $this->pp1->states->blk_startrow     = 1 ;
-        $this->pp1->states->blk_rowsnum      = 10;
+        $pp1->states_entrymode        = 'popups';
+        $pp1->states_act_record       = false;
+        $pp1->states_blk_startrow     = 1 ;
+        $pp1->states_blk_rowsnum      = 10;
         //
-        $this->pp1->states->table            = '';
-        $this->pp1->states->select           = '*';
-        $this->pp1->states->where            = '';
-        $this->pp1->states->set              = 1;
+        $pp1->states_table            = '';
+        $pp1->states_select           = '*';
+        $pp1->states_where            = '';
+        $pp1->states_set              = 1;
         //
-        $this->pp1->states->exportformat     = 'xml';
-        $this->pp1->states->csrftoken        = null ;
-        $this->pp1->states->sql              = '';
-        $this->pp1->states->history          = []; //remembered dml statesments
-        $this->pp1->states->cache            = []; //remembered dml statesments
-        $this->pp1->states->blk_rowsnums     = [10,25,50,100,1000,10000] ;
+        $pp1->states_exportformat     = 'xml';
+        $pp1->states_csrftoken        = null ;
+        $pp1->states_sql              = '';
+        $pp1->states_history          = []; //remembered dml statesments
+        $pp1->states_cache            = []; //remembered dml statesments
+        $pp1->states_blk_rowsnums     = [10,25,50,100,1000,10000] ;
         //
     }
 
@@ -158,18 +167,18 @@ class Home_ctr extends Config_allsites //Home_mdl
     public function clearses(&$pp1) {
       //3. CLEAR SESSION VALUES
       // Logout current D B  u s e r
-        $blk_startrow = $this->pp1->states->blk_startrow ;
-        $blk_rowsnum  = $this->pp1->states->blk_rowsnum ;
+        $blk_startrow = $pp1->states_blk_startrow ;
+        $blk_rowsnum  = $pp1->states_blk_rowsnum ;
 
         $this->set_default_cls_states_atr($pp1) ;
 
-        $this->pp1->states->blk_startrow = $blk_startrow ;
-        $this->pp1->states->blk_rowsnum  = $blk_rowsnum ;
+        $pp1->states_blk_startrow = $blk_startrow ;
+        $pp1->states_blk_rowsnum  = $blk_rowsnum ;
 
 
         $_SESSION = [] ;
-        $_SESSION['cncts']  = $this->pp1->cncts ;
-        $_SESSION['states'] = $this->pp1->states ;
+        $_SESSION['cncts']  = $pp1->cncts ;
+        $_SESSION['states'] = $pp1->states ;
     } // end clear ses
 
   public function set_this2ses() 
@@ -177,8 +186,8 @@ class Home_ctr extends Config_allsites //Home_mdl
     //    ~~~~~~~ 1. STORE SESSION VALUES ~~~~~~~
         //$_SESSION['states']->aplurl'] = $this->aplurl; //$_SESSION['states']->aplpath'] = $this->aplpath;
         // m o d u l e  s t a t e s :
-        $_SESSION['cncts']          = $this->pp1->cncts;
-        $_SESSION['states']         = $this->pp1->states;
+        $_SESSION['cncts']          = $pp1->cncts;
+        $_SESSION['states']         = $pp1->states;
         //
     // 6. data for LOVs of page parameters:
     //if (! isset($_SESSION['states']->exportformat' ])) $_SESSION['states']->exportformat' ] = 'xml';
@@ -214,8 +223,8 @@ class Home_ctr extends Config_allsites //Home_mdl
   public function set_ses2this() 
   {
     //2. FETCH SESSION VALUES
-    if (isset($_SESSION['cncts'])) {$this->pp1->cncts = $_SESSION['cncts'];}
-    if (isset($_SESSION['states'])) {$this->pp1->cncts = $_SESSION['states'];}
+    if (isset($_SESSION['cncts'])) {$pp1->cncts = $_SESSION['cncts'];}
+    if (isset($_SESSION['states'])) {$pp1->cncts = $_SESSION['states'];}
           //$this->aplurl = isset($_SESSION['states']->aplurl']) ? $_SESSION['states']->aplurl'] : null;
           //$this->aplpath = isset($_SESSION['states']->aplpath']) ? $_SESSION['states']->aplpath'] : null;
   } // end get ses
@@ -240,7 +249,7 @@ class Home_ctr extends Config_allsites //Home_mdl
     if (! isset($_SESSION['states']->set'     ])) $_SESSION['states']->set'     ] = 1;
     // default pg=10 rows :
     if (! isset($_SESSION['states']->blk_rowsnum' ])) 
-    {$_SESSION['states']->blk_rowsnum' ] = $this->pp1->states->blk_rowsnums[ 0 ];}
+    {$_SESSION['states']->blk_rowsnum' ] = $pp1->states_blk_rowsnums[ 0 ];}
 
     if (isset($_REQUEST[ 'select' ]))
        $_SESSION['states']->select' ] = trim($_REQUEST[ 'select' ]);
@@ -268,9 +277,9 @@ class Home_ctr extends Config_allsites //Home_mdl
       /*case isset($this->uriq->c) : //and $this->uriq->c == 'home' and count( (array)$this->uriq )  == 1
         //       CALL CLSAKCMETHOD  $A K C  IN CLS  $C T R :
         //http://dev1:8083/fwphp/glomodul/adrs?c/tbl/m/l/ - see top toolbar href
-        $nsctr = $this->pp1->vendor_namesp_prefix . '\\' . ucfirst($this->uriq->c) . '_ctr' ;
+        $nsctr = $pp1->vendor_namesp_prefix . '\\' . ucfirst($this->uriq->c) . '_ctr' ;
         $akc = $this->uriq->m ;
-        $obj = n ew $nsctr($this, $this->pp1) ; //$this is $db in index.php !!
+        $obj = n ew $nsctr($this, $pp1) ; //$this is $db in index.php !!
         $obj->$akc() ; 
         break;
                 //c a l l  (ONLY db object`s)  m e t h o d :

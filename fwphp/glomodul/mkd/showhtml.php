@@ -66,7 +66,7 @@
 
     //echo $pdown->text($top_toolbar);
 
-    //Warning: file_get_contents(?home/md2htm/J:): failed to open stream
+    // err : file_get_contents(J:/awww/www/fwphp/glomodul/mkd\j:\awww\www\readme.md
     $mkdowntxt = file_get_contents($fle_to_displ_path) ;
     $htmltxt = $pdown->text($mkdowntxt) ;
     echo $pdown->text($htmltxt) ;

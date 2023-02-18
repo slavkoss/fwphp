@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <title>1005 Simple Ajax Example</title>
+
+  <link rel="stylesheet" type="text/css" href="css/basic_2.css" />
+
+  <script>
+
+  var XMLHttpRequestObject = false;
+
+  if (window.XMLHttpRequest) {
+    XMLHttpRequestObject = new XMLHttpRequest();
+  } else if (window.ActiveXObject) {
+    XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  function callPHPAjax(data)
+  {
+    if(XMLHttpRequestObject) {
+
+      XMLHttpRequestObject.open("POST", "1005_Ajax_Example_ajax.php");
+
+      XMLHttpRequestObject.setRequestHeader('Content-Type',
+        'application/x-www-form-urlencoded');
+
+      XMLHttpRequestObject.onreadystatechange = function()
+      {
+        if (XMLHttpRequestObject.readyState == 4 &&
+          XMLHttpRequestObject.status == 200) {
+
+            var returnedData = XMLHttpRequestObject.responseText;
+
+            var messageDiv = document.getElementById('messagediv');
+            messageDiv.innerHTML = returnedData;
+
+        }
+      }
+
+    //var data = " string passed from JavaScript";
+
+      //XMLHttpRequestObject.send(data);
+      XMLHttpRequestObject.send("data=" + data);
+    }
+
+    return false;
+
+  }
+
+  </script>
+
+</head>
+
+<body>
+<h1>Simple Ajax Example</h1>
+
+  <script>
+    //var data_str = " string passed from JavaScript";
+    //<input type="button" value="JS call PHP to show string passed from JS" onclick="callPHPAjax(data_str);" />
+    var data_json = {"name":"John","age":30,"city":"New York"}
+  </script>
+<form method='post'>
+  <input type="button" value="JS call PHP to show json array passed from JS" onclick="callPHPAjax(data_json);" />
+</form>
+
+<div id="messagediv">
+</div>
+
+
+</body>
+</html>

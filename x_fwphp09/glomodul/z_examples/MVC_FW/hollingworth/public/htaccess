@@ -1,0 +1,28 @@
+# J:\awww\www\fwphp\z_not_ongithub\MVC_FW\hollingworth\public\htaccess
+# see L:\5zabava\5dok\z_dok_moj\1_doc1\z_doc_test_t1\wap_doc\php\14_Darie_e-commerce_Apress2008\Chapter 22\Code\authorize.net\.htaccess
+# Enable rewrite engine and route requests to framework
+#
+#U POJEDINE MAPE SAMO OVE 2 NAREDBE:
+#Order Allow,Deny
+#Deny from all
+#
+<IfModule mod_rewrite.c>
+  # Disabling MultiViews prevents unwanted negotiation, e.g. "/app" should not resolve
+  # to the front controller "/app.php" but be rewritten to "/app.php/app".
+  Options -Multiviews
+
+  RewriteEngine On
+  # Some servers require you to specify the `RewriteBase` directive
+  # In such cases, it should be the path (relative to the document root)
+  # containing this .htaccess file
+  RewriteBase /fwphp/z_not_ongithub/MVC_FW/hollingworth/public
+  # use / if the application is in the root :
+  #RewriteBase /
+
+  #RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # Remove the question mark from the request but maintain the query string
+  RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+  #RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
+</IfModule>

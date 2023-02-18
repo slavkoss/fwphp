@@ -1,0 +1,275 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+body{
+    
+    color: #111;
+    background: #f7f7f7;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+
+/*CSS code for index.php, signup.php, admin.php*/
+
+.form-control {
+    min-height: 41px;
+    box-shadow: none !important;
+}
+.form-control:focus {
+    border-color: #aaa;
+}
+.form-control, .btn {        
+    border-radius: 3px;
+}
+.form {
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.form h4 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.form form {
+    border-radius: 3px;
+    margin-bottom: 15px;
+    background: #fff;
+    box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+
+.form .form-group {
+    margin-bottom: 20px;
+    padding: 0 15px;
+    color: #222;
+}
+
+.form label {
+    font-weight: normal;
+    font-size: 13px;
+    padding-left: 5px;
+    vertical-align: middle;
+}
+
+
+.form .btn {        
+    font-size: 16px;
+    font-weight: bold;
+/*    background: #090077;*/
+    border: none;
+    margin-top: 20px;
+    min-width: 140px;
+}
+
+.form .btn:hover, .form .btn:focus {
+    background: #444;
+    outline: none !important;
+}
+
+.form a {
+    text-decoration: underline;
+}
+
+.form a:hover {
+    text-decoration: none;
+}
+.form form a {
+    color: #5cd3b4;
+    text-decoration: none;
+}	
+.form form a:hover {
+    text-decoration: underline;
+}
+
+.formerror {
+    text-align: center;
+    color: red;
+}
+
+.form .heading {
+    margin: 0 auto 30px;
+    text-align: center;
+    
+ 
+}
+
+.form .heading i {
+    font-size: 62px;
+}
+
+.form .top{
+    
+    margin-top: 25px;
+}
+
+.form .new{
+    font-family: Helvetica;
+    font-size: 22px;
+    margin: 20px auto;
+    font-weight: 700;
+    color: darkolivegreen;
+    text-align: center;}
+
+.bottom-text{
+    text-align: center;
+    font-size: 90%;
+    margin: 50px;
+}
+
+/* CSS for read.php */
+
+.read-card{
+    margin: 20px auto;
+}
+
+.post-time{
+    
+    font-size: 90%;
+    color: dimgrey;
+    margin-bottom: 10px;
+    
+}
+
+.new-post{
+    
+    height: 20px;
+    width: 40px;
+    border-radius: 15px;
+    color: white;
+    background-color: red;
+    text-align: center;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+    padding: 3px;
+
+}
+
+#postlogout{
+    text-align: center;  
+    font-size: 90%;
+    margin-bottom: 20px;
+}
+
+#postlogout a{
+    color: #111;
+    text-decoration: none;
+}
+
+/*Logout Page*/
+
+.logoutsuccess{
+    color: dimgrey;
+    text-align: center;
+    font-size: 95%;
+}
+
+
+/* CSS code for message page */
+
+#container{
+	background:#222;
+	margin: 50px auto;
+	overflow:auto;
+	width:90%;
+	min-height:630px;
+    border-radius: 5px;
+}
+
+#container h1{
+    font-size: 25px;
+    padding: 18px 0 0 5%;
+    margin: 0;
+    color: #fff;
+    font-weight: bold;
+}
+
+#inputtitle{
+	width:90%;
+	min-height:50px;
+	margin:auto;
+	padding:0;
+}
+
+#txttitle{
+    width: 100%;
+    font-size: 20px;
+    margin: 20px 0 5px 0;
+    height: 40px;
+}
+
+#message{
+	width:90%;
+	background:#f4f4f4;
+	height:450px;
+	margin:20px auto;
+	overflow:auto;
+}
+
+#submit-section{
+    width: 90%;
+    min-height: 50px;
+    margin: 12px auto;
+    padding: 0;
+}
+
+#postsubmit {
+
+    height: 40px;
+    width: 100px;
+    padding: 3px;
+    float: right;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#postoptions {
+
+    display: inline;
+    height: 40px;
+    margin: 0 15px 0 0;
+    width: 150px;
+    float: right;
+    font-size: 15px;
+    font-weight: 600;
+
+}
+
+.error{
+	color:white;
+    text-align: center;
+}
+
+/*Media Breakpoints*/
+
+@media only screen and (max-width: 600px) {
+
+    .form {width: 90%;}
+    .read-card {width: 90%;}
+
+}
+
+@media only screen and (min-width: 600px) {
+
+    .form {width: 500px;}
+    .read-card {width: 80%;}
+    #container{width:90%;}
+}
+
+@media only screen and (min-width: 600px) {
+
+    .form {width: 500px;}
+    .read-card {width: 80%;}
+}
+
+@media only screen and (min-width: 992px) {
+
+    #container{width:890px;}
+
+}

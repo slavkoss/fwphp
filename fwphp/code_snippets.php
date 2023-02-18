@@ -1,3 +1,34 @@
+
+    <div>
+      <strong style="font-weight: 700;">Season 3, 
+        <a href="https://www.gateworld.net/atlantis/s3/mckay-and-mrs-miller/" 
+           style="color: rgb(40, 109, 193); xfont-weight: 700;">Episode 8</a>
+      </strong>
+      
+      <span style="font-weight: bold;">&nbsp; FAN RATING: 9.07</span>
+
+      &nbsp; <a href="https://www.gateworld.net/atlantis/s3/mckay-and-mrs-miller/" 
+         style="color: rgb(40, 109, 193); font-weight: 700;">Guide</a>  |<span>&nbsp;</span>
+         
+         <a href="https://forum.gateworld.net/threads/34920-McKay-and-Mrs-Miller-(308)" rel="noopener noreferrer" 
+            style="color: rgb(40, 109, 193); font-weight: 700;" target="_blank">Discuss</a>
+    </div>
+    
+    <p>The show's
+    <a href="https://www.gateworld.net/wiki/Jeannie_Miller" 
+       style="color: rgb(40, 109, 193); font-weight: 700;">Jeannie</a>.
+    Written by 
+    (<a href="https://www.gateworld.net/wiki/Samantha_Carter" style="color: rgb(40, 109, 193);  transition: color 0.3s ease 0s; font-weight: 700;">"Samantha Carter"</a>) puts in 
+    </p>
+    
+    <p>This is also .</p>
+    
+    <p><i>Did You Know?</i> The episode 
+    <a href="https://www.gateworld.net/wiki/Kaleb_Miller" style="color: rgb(40, 109, 193); font-weight: 700;">Kaleb</a> is also ...
+    </p>
+    
+</div>
+
 <?php
 //https://www.w3schools.com/html/html_tables.asp
 // var_dump(getenv('PHP_ENV'), $_SERVER, $_REQUEST);

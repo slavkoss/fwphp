@@ -1,0 +1,578 @@
+4\. Multiple files upload OOP, namespaces & How to recognize mobile device – OOP, SPA, MVC domain style, PHP outside web doc root
+=================================================================================================================================
+
+**[HOME](http://phporacle.altervista.org/php-oracle-main-menu/ "Main menu")**
+
+Two scripts for multiple files upload – OOP, namespaces (see also article 10)
+-----------------------------------------------------------------------------
+
+<?php
+// **1\. J:\\zwamp64\\vdrive\\web\\papl1\\upload\\index.php**
+use Classes\\File\\Upload; // = dir/subdir/classname 
+                         // = namespace\_name/clsname
+
+// set the maximum upload size in bytes
+$max = 10000 \*      // 6 GB
+        600 \* 1024; // 600 KB
+if (isset($\_POST\['upload'\])) {
+    // path to the upload folder : 
+    //work: $destination = 'C:/upload\_test/'; //or  \_\_DIR\_\_;
+    $destination = DROOTPATH.DS.'FILE\_TRANSFER'.DS; 
+              // CONVENTION: below web doc.root
+    require\_once \_\_DIR\_\_.'/Classes/File/Upload.php'; // clsscript
+    // -----------------------
+    
+    
+    try {
+        $loader = new Upload($destination);
+        $loader->setMaxSize($max);
+        $loader->allowAllTypes();
+        $loader->upload();
+        $result = $loader->getMessages();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
+?>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Multiple Upload</title>
+</head>
+
+<body>
+<?php
+if (isset($result)) {
+    echo '<ul>';
+    foreach ($result as $message) {
+        echo "<li>$message</li>";
+    }
+    echo '</ul>';
+}
+?>
+<form action="" method="post" enctype="multipart/form-data">
+  <p>
+    <label for="image">Upload files (multiple selections permitted):
+    </label>
+    <input type="file" name="image\[\]" id="imageid" multiple>
+  </p>
+  <p>
+    <input type="submit" name="upload" id="uploadid" value="Upload">
+  </p>
+</form>
+
+
+<h3>Upload info ($\_FILES)</h3>
+<pre>
+<?php if (isset($\_POST\['upload'\])) 
+{
+  print\_r($\_FILES);
+?>
+Error levels in $\_FILES array $err = $\_FILES\['file'\]\['error'\];
+Error level Meaning
+0 Upload successful $err = UPLOAD\_ERR\_OK
+1 File exceeds maximum upload size specified in php.ini (default 2 MB)
+  UPLOAD\_ERR\_INI\_SIZE
+  upload\_max\_filesize in php.ini eg 6400M (=6,4 GB)
+  post\_max\_size = 64000M
+  file\_uploads = On  (see Local value in phpinfo -> Core section)
+  upload\_tmp\_dir = "j:/wamp/tmp"  or whatever, default C:\\Windows\\Temp
+  max\_file\_uploads = 20  for single request
+  max\_execution\_time  60 sekundi<br />
+  max\_input\_time  60 sek. (parse $\_POST, $\_GET, $\_FILE arrays)
+2 File exceeds size specified by MAX\_FILE\_SIZE in HTML form eg 6400M
+  UPLOAD\_ERR\_FORM\_SIZE
+3 File only partially uploaded UPLOAD\_ERR\_PARTIAL
+4 Form submitted with no file specified UPLOAD\_ERR\_NO\_FILE
+Error level 5 is currently not defined.
+6 No temporary folder UPLOAD\_ERR\_NO\_TMP\_DIR (no destination\_path)
+7 Cannot write file to disk UPLOAD\_ERR\_CANT\_WRITE (chmod 777)
+8 Upload stopped by an unspecified PHP extension UPLOAD\_ERR\_EXTENSION
+<?php } ?>
+</pre>
+
+
+<h3>$\_POST parameters of this page</h3>
+
+<table>
+    <tr>
+        <th>Parameter name</th>
+        <th>Value</th>
+    </tr>
+    <?php 
+     $count = 0; foreach ($\_POST as $name => $value) { $count++ ?>
+      <tr class="<?php echo $count % 2 == 0 ? 'alt' : ''; ?>">
+        <td><?php echo htmlentities(stripslashes($name)) ?></td>
+        <td><?php echo nl2br(htmlentities(stripslashes($value))) ?></td>
+      </tr>
+    <?php } 
+echo '</table>';
+?>
+
+</body>
+</html>
+
+<?php
+// **2\. J:\\zwamp64\\vdrive\\web\\papl1\\upload\\Classes\\File\\Upload.php**
+namespace Classes\\File; // dir/subdir
+class Upload {
+
+    protected $uploaded = \[\];
+    protected $destination;
+    protected $max = 51200;
+    protected $messages = \[\];
+    protected $permitted = \[
+        'image/gif',
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png'
+    \];
+    protected $typeCheckingOn = true;
+    protected $notTrusted = \['bin', 'cgi', 'exe', 'js', 'pl', 'php'
+           , 'py', 'sh'\];
+    protected $suffix = '.upload';
+    protected $newName;
+    protected $renameDuplicates;
+
+
+    public function \_\_construct($path) {
+        if (!is\_dir($path) || !is\_writable($path)) {
+            throw new \\Exception("$path must be a valid
+                 , writable directory.");
+        }
+        $this->destination = $path;
+    }
+
+    public function upload($renameDuplicates = true) {
+        $this->renameDuplicates = $renameDuplicates;
+        $uploaded = current($\_FILES);
+        if (is\_array($uploaded\['name'\])) {
+            // deal with multiple uploads
+            foreach ($uploaded\['name'\] as $key => $value) {
+                $currentFile\['name'\] = $uploaded\['name'\]\[$key\];
+                $currentFile\['type'\] = $uploaded\['type'\]\[$key\];
+                $currentFile\['tmp\_name'\] = $uploaded\['tmp\_name'\]\[$key\];
+                $currentFile\['error'\] = $uploaded\['error'\]\[$key\];
+                $currentFile\['size'\] = $uploaded\['size'\]\[$key\];
+                if ($this->checkFile($currentFile)) {
+                    $this->moveFile($currentFile);
+                }
+            }
+        } else {
+            if ($this->checkFile($uploaded)) {
+                $this->moveFile($uploaded);
+            }
+        }
+    }
+
+    public function getMessages() {
+        return $this->messages;
+    }
+
+    public function getMaxSize() {
+        return number\_format($this->max/1024, 1) . ' KB';
+    }
+
+    public function setMaxSize($num) {
+        if (is\_numeric($num) && $num > 0) {
+            $this->max = (int) $num;
+        }
+    }
+
+    public function allowAllTypes($suffix = true) {
+        $this->typeCheckingOn = false;
+        if (!$suffix) {
+            $this->suffix = '';  // empty string
+        }
+    }
+
+    protected function checkFile($file) {
+        $accept = true;
+        if ($file\['error'\] != 0) {
+            $this->getErrorMessage($file);
+            // stop checking if no file submitted
+            if ($file\['error'\] == 4) {
+                return false;
+            } else {
+                $accept = false;
+            }
+        }
+        if (!$this->checkSize($file)) {
+            $accept = false;
+        }
+        if ($this->typeCheckingOn) {
+            if (!$this->checkType($file)) {
+                $accept = false;
+            }
+        }
+        if ($accept) {
+            $this->checkName($file);
+        }
+        return $accept;
+    }
+
+    protected function getErrorMessage($file) {
+        switch($file\['error'\]) {
+            case 1:
+            case 2:
+                $this->messages\[\] = $file\['name'\] . ' is too big: (max: ' .
+                    $this->getMaxSize() . ').';
+                break;
+            case 3:
+                $this->messages\[\] = $file\['name'\] 
+                     . ' was only partially uploaded.';
+                break;
+            case 4:
+                $this->messages\[\] = 'No file submitted.';
+                break;
+            default:
+                $this->messages\[\] = 
+                   'Sorry, there was a problem uploading ' 
+                   . $file\['name'\];
+                break;
+        }
+    }
+
+    protected function checkSize($file) {
+        if ($file\['error'\] == 1 || $file\['error'\] == 2) {
+            return false;
+        } elseif ($file\['size'\] == 0) {
+            $this->messages\[\] = $file\['name'\] . ' is an empty file.';
+            return false;
+        } elseif ($file\['size'\] > $this->max) {
+            $this->messages\[\] = $file\['name'\] 
+                     . ' exceeds the maximum size
+                for a file (' . $this->getMaxSize() . ').';
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    protected function checkType($file) {
+        if (in\_array($file\['type'\], $this->permitted)) {
+            return true;
+        } else {
+            if (!empty($file\['type'\])) {
+                $this->messages\[\] = $file\['name'\] 
+                    . ' is not permitted type of file.';
+            }
+            return false;
+        }
+    }
+
+    protected function checkName($file) {
+        $this->newName = null;
+        $nospaces = str\_replace(' ', '\_', $file\['name'\]);
+        if ($nospaces != $file\['name'\]) {
+            $this->newName = $nospaces;
+        }
+        $extension = pathinfo($nospaces, PATHINFO\_EXTENSION);
+        if (!$this->typeCheckingOn && !empty($this->suffix)) {
+            if (in\_array($extension
+                  , $this->notTrusted) || empty($extension)) {
+                $this->newName = $nospaces . $this->suffix;
+            }
+        }
+        if ($this->renameDuplicates) {
+            $name = isset($this->newName) 
+                       ? $this->newName : $file\['name'\];
+            $existing = scandir($this->destination);
+            if (in\_array($name, $existing)) {
+                // rename file
+                $basename = pathinfo($name, PATHINFO\_FILENAME);
+                $extension = pathinfo($name, PATHINFO\_EXTENSION);
+                $i = 1;
+                do {
+                    $this->newName = $basename . '\_' . $i++;
+                    if (!empty($extension)) {
+                        $this->newName .= ".$extension";
+                    }
+                } while (in\_array($this->newName, $existing));
+            }
+        }
+    }
+
+    protected function moveFile($file) {
+        $filename = isset($this->newName) 
+                ? $this->newName : $file\['name'\];
+        $success = move\_uploaded\_file($file\['tmp\_name'\]
+              , $this->destination . $filename);
+        if ($success) {
+            $result = $file\['name'\] . ' was uploaded successfully to '
+              . 'server directory : <br />'. $this->destination ;
+            if (!is\_null($this->newName)) {
+                $result .= ', and was renamed ' . $this->newName;
+            }
+            $this->messages\[\] = $result;
+        } else {
+            $this->messages\[\] = 'Could not upload ' . $file\['name'\];
+        }
+    }
+}
+
+How to recognize mobile device – non OOP code
+---------------------------------------------
+
+Excellent code to learn object oriented programming, model-view-controller code separation (structured programming), single page application (require scripts, not URL them), most code outside Apache doc root.
+
+`function findDevice() {  
+    $userAgent=strtolower($_SERVER['HTTP_USER_AGENT']);  
+$device=array('iphone','ipad','android','silk','blackberry', 'touch');  
+$deviceLength=count($device);  
+  
+for($ii=0;$ii < $deviceLength;$ii ++) {  
+if(strstr($userAgent, $device[$ii])) {  
+return $device[$ii];  
+} else return 'desktop/laptop';  
+}  
+}`
+
+OOP, SPA, MVC domain style, PHP outside web doc root
+----------------------------------------------------
+
+Display ibrowser properties (view class methode):
+
+1.  Device =**desktop/laptop**
+2.  Browser = firefox
+3.  userAgent = mozilla/5.0 (windows nt 6.3; win64; x64; rv:25.3) gecko/20150323 firefox/31.9 palemoon/25.3.1
+
+Or display one property – returned from getter: Device = desktop/laptop
+
+About OOP programs
+------------------
+
+1.  **CODE INSIDE APACHE DOC ROOT (this page script)**:[ kod](http://dev:8083/inc/utl/showsource.php%20%20%20%20%20%20?file=J:\dev_web\htdocs\inc\utl\get_ibrowser_device.php      &line=1&prev=10000&next=10000)[ edit](http://dev:8083/inc/utl/edservertxt.php%20%20%20%20%20%20?file=J:\dev_web\htdocs\inc\utl\get_ibrowser_device.php)[ phpinfo  
+    ](http://dev:8083/phpinfo_inc.php)**INCLUDED CODE FROM OUTSIDE APACHE DOC ROOT**:
+2.  code behind this page script (model .pcls) :[ kod](http://dev:8083/inc/utl/showsource.php%20%20%20%20%20%20?file=J:\dev_web\inc\utl\get_ibrowser_device.pcls      &line=1&prev=10000&next=10000)[ edit](http://dev:8083/inc/utl/edservertxt.php%20%20%20%20%20%20?file=J:\dev_web\inc\utl\get_ibrowser_device.pcls)[ phpinfo](http://dev:8083/phpinfo_inc.php)
+3.  code config – set up :[ kod](http://dev:8083/inc/utl/showsource.php%20%20%20%20%20%20?file=J:\dev_web\inc\confglob.php      &line=1&prev=10000&next=10000)[ edit](http://dev:8083/inc/utl/edservertxt.php%20%20%20%20%20%20?file=J:\dev_web\inc\confglob.php)[ phpinfo](http://dev:8083/phpinfo_inc.php)
+4.  code helper (util) :[ kod](http://dev:8083/inc/utl/showsource.php%20%20%20%20%20%20?file=J:\dev_web\inc\utl\kod_edit_run.php      &line=1&prev=10000&next=10000)[ edit](http://dev:8083/inc/utl/edservertxt.php%20%20%20%20%20%20?file=J:\dev_web\inc\utl\kod_edit_run.php)[ phpinfo](http://dev:8083/phpinfo_inc.php)
+5.  /\*\*
+    \* This page URL $idxurl = 
+    \*    [http://dev:8083/inc/utl/get\_ibrowser\_device.php](http://dev:8083/inc/utl/get_ibrowser_device.php)
+    \*   displays o u t p u t  o f  server script 
+    \*          $idx.DS.$idxscript =
+    \*   J:\\dev\_web\\htdocs\\inc\\utl\\get\_ibrowser\_device.php, 
+    \*           which contains :
+    \*      MODEL\_fn\_call from public fn \_\_ c o n s t r u c t ( )
+    \*      protected\_VIEW\_fn\_call from public fn
+    \*      CONTROLLER\_code before c l a s s  C l i e n t
+    \*
+    \* server script i n c l u d e s scripts which are outside Apache doc root :
+    \*   1. config $confglob                : require\_once('J:\\dev\_web\\inc\\confglob.php');
+    \*   2. helper (util) $edrun            : require\_once('J:\\dev\_web\\inc\\utl\\kod\_edit\_run.php');
+    \*   3. code behind (class) $codebehind : require\_once('J:\\dev\_web\\inc\\utl\\get\_ibrowser\_device.pcls');
+    \*
+    \* $confglob contains  P H P  s e t  u p :
+    \*    ini\_set('display\_errors','2');
+    \*    ERROR\_REPORTING(E\_ALL);
+    \*\*/
+    
+
+**SCRIPTS:**
+
+1.  **J:\\dev\_web\\htdocs\\inc\\utl\\get\_ibrowser\_device.php  
+    **`// 1. a d r e s s e s :  
+    if (!defined('DS')) define('DS',DIRECTORY_SEPARATOR);  
+    if (!defined('CONFGLOB_DIR')) define('CONFGLOB_DIR',  
+    realpath($_SERVER['DOCUMENT_ROOT'].'/../inc'));`$apl = dirname(dirname(\_\_DIR\_\_)).DS.’htdocs’; // \*\*\* !!! \*\*\* ONLY YOU TO SET UP, used for link  
+    $idx = \_\_DIR\_\_ ; $idxscript = basename(\_\_FILE\_\_) ;// 2. i n c l u d e s :  
+    $confglob   = CONFGLOB\_DIR.DS.’confglob.php’;  
+    $edrun      = CONFGLOB\_DIR.DS.’utl’.DS.’kod\_edit\_run.php’;  
+    $codebehind = CONFGLOB\_DIR.DS.’utl’.DS.’get\_ibrowser\_device.pcls’;  
+    require\_once($confglob);   // c o n f i g  
+    require\_once($edrun);      // h e l p e r  
+    require\_once($codebehind); // m o d e l// 3. c o n t r o l l e r :  
+    $trigger = new Client(); // trigger becouse can direct output view// \*\*\*\*\*\*\*\*\*\*\*\*\*\* e n d  c o n t r o l l e r  p r o g r a m// v i e w :  
+    ?>  
+    <!DOCTYPE html>  
+    <html lang=”hr”>  
+    <head>  
+    <title>Is mobile</title>  
+    <meta content=”text/html; charset=utf-8″; http-equiv=”content-type”>  
+    <!–base href=’/’–>  
+    <link rel=’stylesheet’ href=’lib/bootstrap/dist/css/bootstrap.min.css’ />  
+    <link rel=’stylesheet’ href=’src/bootstrap.min.css’ />  
+    </head>  
+    <body><h2>How to recognize mobile device – non OOP code</h2>  
+    <p><code><code><span style=”color:#000000; “><span style=”color:#007700; “>function </span><span style=”color:#0000BB; “>findDevice</span><span style=”color:#007700; “>() {<br>  
+    </span></span><code><span style=”color:#000000; “><span style=”color:#007700; “>    $</span><span style=”color:#0000BB; “>userAgent</span><span style=”color:#007700; “>=</span><span style=”color:#0000BB; “>strtolower</span><span style=”color:#007700; “>(</span><span style=”color:#0000BB; “>$\_SERVER</span><span style=”color:#007700; “>\[</span><span style=”color:#DD0000; “>’HTTP\_USER\_AGENT'</span><span style=”color:#007700; “>\]);<br>  
+    </span><span style=”color:#FF8000; “>  
+    </span><span style=”color:#007700; “>$</span><span style=”color:#0000BB; “>device</span><span style=”color:#007700; “>=array(</span><span style=”color:#DD0000; “>’iphone'</span><span style=”color:#007700; “>,</span><span style=”color:#DD0000; “>’ipad'</span><span style=”color:#007700; “>,</span><span style=”color:#DD0000; “>’android'</span><span style=”color:#007700; “>,</span><span style=”color:#DD0000; “>’silk'</span><span style=”color:#007700; “>,</span><span style=”color:#DD0000; “>’blackberry'</span><span style=”color:#007700; “>, </span><span style=”color:#DD0000; “>’touch'</span><span style=”color:#007700; “>);<br>$</span><span style=”color:#0000BB; “>deviceLength</span><span style=”color:#007700; “>=</span><span style=”color:#0000BB; “>count</span><span style=”color:#007700; “>($</span><span style=”color:#0000BB; “>device</span><span style=”color:#007700; “>);<br>  
+    </span></span></code><span style=”color:#000000; “><span style=”color:#007700; “><br>  
+    for(</span><span style=”color:#0000BB; “>$ii</span><span style=”color:#007700; “>=</span><span style=”color:#0000BB; “>0</span><span style=”color:#007700; “>;</span><span style=”color:#0000BB; “>$ii </span><span style=”color:#007700; “>&lt; $</span><span style=”color:#0000BB; “>deviceLength</span><span style=”color:#007700; “>;</span><span style=”color:#0000BB; “>$ii </span><span style=”color:#007700; “>++) {<br>  
+    if(</span><span style=”color:#0000BB; “>strstr</span><span style=”color:#007700; “>($</span><span style=”color:#0000BB; “>userAgent</span><span style=”color:#007700; “>, $</span><span style=”color:#0000BB; “>device</span><span style=”color:#007700; “>\[</span><span style=”color:#0000BB; “>$ii</span><span style=”color:#007700; “>\])) {<br>  
+    </span><span style=”color:#FF8000; “>        </span><span style=”color:#007700; “>return $</span><span style=”color:#0000BB; “>device</span><span style=”color:#007700; “>\[</span><span style=”color:#0000BB; “>$ii</span><span style=”color:#007700; “>\];<br>  
+    } else return </span><span style=”color:#DD0000; “>’desktop/laptop'</span><span style=”color:#007700; “>;<br>  
+    }<br>  
+    }</span></span></code></code></p>  
+    <h2>OOP, SPA, MVC domain style, PHP outside web doc root</h2>  
+    <p>Display ibrowser properties (view class methode):<br />  
+    <?php $trigger -> out\_vew\_ibrowse\_params() ; ?>  
+    </p>
+    
+    <p>Or display one property – returned from getter: Device =  
+    <?php echo $trigger->get\_device(); ?> </p>
+    
+    <h2>About OOP programs</h2>  
+    <ol>  
+    <li>CODE INSIDE APACHE DOC ROOT (this page script) :  
+    <?php kod\_edit\_run(  
+    $idx       // script\_dir  
+    , $idxscript // script  
+    , MDURL); ?>  
+    <br>  
+    <br>  
+    INCLUDED CODE FROM OUTSIDE APACHE DOC ROOT : <br>  
+    <li>code behind this page script (model .pcls) :  
+    <?php kod\_edit\_run(  
+    dirname($codebehind)  // script\_dir  
+    , basename($codebehind) // script  
+    , MDURL); ?>  
+    <li> code config – set up :  
+    <?php kod\_edit\_run(  
+    dirname($confglob)  // script\_dir  
+    , basename($confglob) // script  
+    , MDURL); ?>  
+    <li>code helper (util) :  
+    <?php kod\_edit\_run(  
+    dirname($edrun)  // script\_dir  
+    , basename($edrun) // script  
+    , MDURL); ?>  
+    <li> <pre>/\*\*  
+    \* This page URL $idxurl = <a href=”<?php echo $idxurl; ?>”><?php echo $idxurl; ?><a>  
+    \*   displays o u t p u t  o f  server script $idx.DS.$idxscript =  
+    \*   <?php echo $idx.DS.$idxscript; ?>, which contains :  
+    \*      MODEL\_fn\_call from public fn \_\_ c o n s t r u c t ( )  
+    \*      protected\_VIEW\_fn\_call from public fn  
+    \*      CONTROLLER\_code before c l a s s  C l i e n t  
+    \*  
+    \* server script i n c l u d e s scripts which are outside Apache doc root :  
+    \*   1. config $confglob                : require\_once(‘<?php echo $confglob; ?>’);  
+    \*   2. helper (util) $edrun            : require\_once(‘<?php echo $edrun; ?>’);  
+    \*   3. code behind (class) $codebehind : require\_once(‘<?php echo $codebehind; ?>’);  
+    \*  
+    \* $confglob contains  P H P  s e t  u p :  
+    \*    ini\_set(‘display\_errors’,’2′);  
+    \*    ERROR\_REPORTING(E\_ALL);  
+    \*\*/ </pre>  
+    </ol>
+    
+    <?php  
+    class Client  
+    {  
+    private $IbrowserProp;
+    
+    // M O D E L :  
+    public function \_\_construct()   {  
+    $this->IbrowserProp = new getIbrowserProp();  
+    } // e n d  p u b l i c  f n  \_ \_c o n s t r u c t ( )
+    
+    public function get\_device() {  
+    return  $this->IbrowserProp->findDevice() ;  
+    } // e n d
+    
+    // V I E W :  
+    public function out\_vew\_ibrowse\_params() {  
+    $this->vew\_ibrowse\_params();  
+    } // e n d  
+    protected function vew\_ibrowse\_params()  // public private protected  
+    {  
+    echo ‘<ol>’;  
+    echo ‘<li>Device = ‘    . $this->IbrowserProp->findDevice() . ‘<br/>’;  
+    echo ‘<li>Browser = ‘   . $this->IbrowserProp->findBrowser() . ‘<br/>’;  
+    echo ‘<li>userAgent = ‘ . $this->IbrowserProp->getUserAgent() . ‘<br/>’;  
+    echo ‘</ol>’;  
+    } // e n d  p u b l i c  f n  \_ \_c o n s t r u c t ( )
+    
+    } // e n d  c l a s s  C l i e n t
+    
+    ?>  
+    </body>  
+    </html>
+    
+2.  **J:\\dev\_web\\inc\\utl\\get\_ibrowser\_device.pcls  
+    `<?php  
+    ini_set("display_errors","2");  
+    ERROR_REPORTING(E_ALL);  
+    //User agent as property of object  
+    class getIbrowserProp  
+    {  
+    private $userAgent;  
+    private $device;  
+    private $browser;  
+    private $deviceLength;  
+    private $browserLength;`**public function \_\_construct()  
+    {  
+    $this->userAgent=strtolower($\_SERVER\[‘HTTP\_USER\_AGENT’\]);  
+    //$this->userAgent=strtolower($this->userAgent);$this->device=array(‘iphone’,’ipad’,’android’,’silk’,’blackberry’, ‘touch’);  
+    $this->browser= array(‘firefox’,’chrome’,’opera’,’msie’,’safari’,’blackberry’,’trident’);  
+    $this->deviceLength=count($this->device);  
+    $this->browserLength=count($this->browser);  
+    }  
+    public function findDevice()  
+    {  
+    for($ii=0;$ii < $this->deviceLength;$ii ++)  
+    {  
+    if(strstr($this->userAgent,$this->device\[$ii\]))  
+    {  
+    //$device = $this->device\[$ii\];  
+    //if (is\_null($device)) $device = ‘desktop/laptop’;  
+    //return $device;  
+    return $this->device\[$ii\];  
+    } else return ‘desktop/laptop’;  
+    }  
+    }//public function get\_device() {  
+    //    return $this->vew\_ibrowse\_params();  
+    //} // e n dpublic function findBrowser()  
+    {  
+    for($ii=0;$ii < $this->browserLength;$ii ++)  
+    {  
+    if(strstr($this->userAgent,$this->browser\[$ii\]))  
+    {  
+    return $this->browser\[$ii\];  
+    }  
+    }  
+    }  
+    public function getUserAgent()  
+    {  
+    return($this->userAgent);  
+    }  
+    }?>
+3.  **J:\\dev\_web\\inc\\confglob.php  
+    `<?php  
+    // J:\dev_web\inc\confglob.php - NOT WEB ACCESSIBLE  
+    //    - SAME LEVEL AS APACHE DOC ROOT  
+    ini_set("display_errors","2");  
+    ERROR_REPORTING(E_ALL);`**$md=realpath($\_SERVER\[‘DOCUMENT\_ROOT’\]);// 1. rel.adresses are ok for both  p a t h s  &   u r l s :  
+    $idxrel = str\_replace($md,”, $idx); // str\_replace(DS,’/’,  
+    $aplrel = str\_replace($md,”, $apl); // str\_replace(DS,’/’,// 2. u r l s  – s u b a p l,  a p l,  m d (main doc.root = Apache doc.root):  
+    $mdurl =’http://’.$\_SERVER\[“SERVER\_NAME”\].’:’.$\_SERVER\[“SERVER\_PORT”\];  
+    if (!defined(‘MDURL’)) define(‘MDURL’, $mdurl);  
+    $idxurl = $mdurl.str\_replace(DS,’/’,$idxrel).’/’.$idxscript;  
+    $aplurl = $mdurl.’/’.substr(str\_replace(DS,’/’,$aplrel),1);  
+    $imgurl = $mdurl.’/inc/img’;
+4.  **J:\\dev\_web\\inc\\utl\\kod\_edit\_run.php`  
+    <?php  
+    function kod_edit_run($script_dir_path, $script_name, $web_docroot_url)  
+    {  
+    $ds = DIRECTORY_SEPARATOR;  
+    echo <<< EOKOD  
+    <a href="$web_docroot_url/inc/utl/showsource.php  
+    ?file=$script_dir_path$ds$script_name  
+    &line=1&prev=10000&next=10000  
+    "  target="_blank">&nbsp;kod</a>`**<a href=”$web\_docroot\_url/inc/utl/edservertxt.php  
+    ?file=$script\_dir\_path$ds$script\_name  
+    ” target=”\_blank”>&nbsp;edit</a><a href=”$web\_docroot\_url/phpinfo\_inc.php  
+    ” target=”\_blank”>&nbsp;phpinfo</a>  
+    EOKOD;  
+    /\* call it so:  
+    kod\_edit\_run(  
+    $idx       // script\_dir\_path  
+    , $idxscript // script\_name  
+    , MDURL);    // web\_docroot\_url = (Apache) web server URL  
+    \*/  
+    }
+
+ kod[ edit]($web_docroot_url/inc/utl/edservertxt.php)[ phpinfo]($web_docroot_url/phpinfo_inc.php) EOKOD; /\* call it so: kod\_edit\_run( $idx // script\_dir\_path , $idxscript // script\_name , MDURL); // web\_docroot\_url = (Apache) web server URL \*/ }

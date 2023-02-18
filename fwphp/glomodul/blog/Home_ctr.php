@@ -109,38 +109,46 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
   } // e n d  f n  __ c o n s t r u c t
 
+    // Dispatching ;
+    protected function dispatcher(object &$pp1) { //static
+            // CALLED FROM Config_ allsites __c onstruct
+            // so: return static::$dispatcher($pp1); // Here comes Late Static Bindings
+      //this fn calls method in this Home_ ctr which has parameters in  $ p p 1
+      // here can be added in $pp1 module dependent parameters
+      //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
+      
+      // http://dev1:8083/fwphp/glomodul/adrs/?i/home
 
-           /** 
-          ****************************************
-          *       DISPATCH  M E T H O D S
-          * they call other methods or include script
-          * *****************************************
-          */
-                //$accessor = "get" . ucfirst(strtolower($akc));
-  protected function call_module_method( // also other module method !!
-    string $akc, object $pp1)  //fnname, params
-  {
-          // CALLED FROM Config_ allsites __c onstruct
-          // so: $this->call_module_method($akc, $pp1) ; 
-    //this fn calls method $ a k c in zhis Home_ ctr which has parameters in  $ p p 1
-    //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
-    if ( is_callable(array($this, $akc)) ) { // and method_exists($this, $akc)
-      return $this->$akc($pp1) ;
-    } else {
-      echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
-      echo 'Home_ ctr method "<b>'. $akc .'</b>" is not callable.' ;
-      echo ' See how is created method name in Config_ allsites code snippet c s 0 2. R O U T I N G."' ;
-      return '0' ;
+     $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
+     $akc = $pp1->urlqry_parts[1]??'home' ; 
+                  if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' said: '.'</h2>' ;
+                  echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
+                  echo '<pre>'; echo '<b>$akc</b>=urlqry_parts[1] or home ='; print_r($akc);
+                  echo '</pre>'; }
+      if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
+        $this->$akc($pp1) ; //self::$akc($pp1) ;
+        //echo '<h2>'.__METHOD__ .'(object $pp1) '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+      } else {
+        echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+        echo 'Home_ ctr method $pp1->urlqry_parts[1]=<b>'. $akc .'</b> is not callable.' ;
+        echo '<pre>$pp1->urlqry_parts=' ; print_r($pp1->urlqry_parts);  echo '</pre>' ;
+        echo ' To see why replace if (\'\') with if (\'1\') in '. __METHOD__  ; //how is created method name in
+        return '0' ;
+      }
     }
 
-  }
 
+  private function home(object $pp1) //DI prop.palette   
+  {
+      Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+  }
 
 
   private function del_category(object $pp1)
   {
     // D e l  &  R e d i r e c t  to  r e f r e s h  t b l  v i e w :
-    $tbl = $pp1->uriq->t = 'category' ; 
+    $tbl = $pp1->urlqry_parts[3] = 'category' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_category::dd($pp1, $other); //used for all  t a b l e s !! 
@@ -151,7 +159,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   private function del_admins(object $pp1)
   {
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
-    $tbl = $pp1->uriq->t = 'admins' ; 
+    $tbl = $pp1->urlqry_parts[3] = 'admins' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_admin::dd($pp1, $other); //used for all  t a b l e s !! 
@@ -162,7 +170,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   private function del_posts(object $pp1)
   {
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
-    $tbl = $pp1->uriq->t = 'posts' ; 
+    $tbl = $pp1->urlqry_parts[3] = 'posts' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_post::dd($pp1, $other); //used for all  t a b l e s !! 
@@ -173,7 +181,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   private function del_comments(object $pp1)
   {
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
-    $tbl = $pp1->uriq->t = 'comments' ; 
+    $tbl = $pp1->urlqry_parts[3] = 'comments' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_post_comment::dd($pp1, $other); //used for all  t a b l e s !! 
@@ -221,10 +229,6 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
     $this->Redirect_to('/'); // utl::Redirect_to($pp1->c omments);
   }
 
-  private function home(object $pp1) //DI page prop.palette   
-  {
-      Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
-  }
 
 
   private function kalendar(object $pp1) //private
@@ -285,7 +289,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   private function read_user(object $pp1) //private
   {
     $uriq = $pp1->uriq ;
-    $usrname_requested = 'xxxxxxxx' ; //$uriq->username ;
+    $usrname_requested = 'xxxxxxxx' ; //$u riq->username ;
 
     //require $pp1->wsroot_path .'/vendor/erusev/parsedown/Parsedown.php' ;
     //$Parsedown = new \Parsedown();
@@ -587,7 +591,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
     /*
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
-    $tbl = $pp1->uriq->t ;
+    $tbl = $pp1->urlqry_parts[3] ;
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
     switch ($tbl)
     {

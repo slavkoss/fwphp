@@ -20,10 +20,10 @@ $shares_url = $pp1->shares_url ;
   if ('1'): { // '' for testing to see own  d e b u g  m s g s
 
     //$css = $shares_url .'themes/bootstrap/css/styles.css' ;
-    $css = $shares_url .'themes/picocss/pico.min.css' ;
+    $css = $shares_url .'/themes/picocss/pico.min.css' ;
     echo '<link rel="stylesheet" href="'.$css.'">';
 
-    $css1 = $shares_url .'themes/picocss/index_Company.css' ;
+    $css1 = $shares_url .'/themes/picocss/index_Company.css' ;
     echo '<link rel="stylesheet" href="'.$css1.'">';
 
     //$cssexpc = $shares_url .'themes/bootstrap/css/exp_collapse.css' ;

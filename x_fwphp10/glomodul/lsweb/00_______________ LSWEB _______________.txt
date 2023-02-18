@@ -1,0 +1,49 @@
+<?php
+// J:\awww\www\fwphp\glomodul\lsweb\00_______________ LSWEB _______________.txt
+    /**  
+    *       C O N T R O L L E R  code  
+    * see J:\awww\www\fwphp\www4\glomodul\mkd\00_______________ MKD4 _______________.txt  
+    * protected function index(array &$urlqry_arr=[])
+    */  
+    
+
+    /**  
+    *       M O D E L  code  
+    *  
+    *   //J:\awww\www\fwphp\glomodul\mkd\_CtrP.php  
+    *   //CALLED FROM FW CORE clas _C trMain run() m e t h o d  
+    *  
+    *           __construct(object &$conf) :  
+    *   //parent::__construct(); //already instantiated in index.php  
+    *   //             instantiate model  
+    *   if ($conf) $this->conf = $conf ; //Dependency Injection  
+    *   //J:\awww\www\fwphp\glomodul\mkd\_MdlMkd.php :  
+    *   $this->mkdMdl = new _MdlMkd(__DIR__) ; // mkd module's dir  
+    *  
+    *   class _MdlMkd extends _CtrMain  
+    *   public function __construct($dir)  
+    */  
+    
+    
+    /**  
+    *           V I E W  code  
+    *  
+    *   //J:\awww\www\fwphp\glomodul\mkd\_CtrP.php  
+    *   //CALLED FROM FW CORE clas _C trMain run() m e t h o d  
+    *  
+    *   //protected function index(array &$urlqry_arr=[])  
+    *       // require_once 'pg_content.php';  
+    */  
+    
+    
+    
+// unfinished
+//    URL call this script (not include) (QS unknown...) or better
+//    this should be class like lsweb and page classes in www4
+
+//$URL_TESTBELOWWS=$this->rps['UPTO_WSROOT'].$this->rps['PATHTESTBELOWWS'] ; //relative url
+                          //also works '/'.$this->rps['PATHTESTBELOWWS']
+//
+
+
+

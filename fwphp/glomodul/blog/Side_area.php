@@ -98,17 +98,7 @@ class Side_area extends utl
         
         if (!$category_from_url and !$search_from_submit) { $fltr_sort .= ' - all articles' ; }
         ?>
-        <!-- 1. Search widget-->
-            <!-- 
-               http://dev1:8083/fwphp/glomodul/blog/?Search=Nobody+made&SearchButton=  = method="get"
-               http://dev1:8083/fwphp/glomodul/blog/?p/1  = method="post", but :
-               $_POST=Array (
-                  [Search] => Nobody made
-                  [SearchButton] => 
-               )
-               $pp1->filter_page  1/i/home/     $pp1->search_from_submit
-               input  S e a r c h  is not "required"
-            -->
+
     <div>
       <div>
         <p style="color:lightblue;"><?=$fltr_sort .' order by recent'?></p>

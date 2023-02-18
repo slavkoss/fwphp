@@ -10,32 +10,43 @@ namespace B12phpfw\flatFilesEd\mkd ;
 use B12phpfw\core\b12phpfw\Autoload ; //was B12phpfw\core\z inc\Autoload
 
 //1. settings - properties - assign global variables to use them in any code part
-$module_path = str_replace('\\','/', __DIR__) .'/' ;
-$site_path   = dirname(dirname($module_path)) ; // .'/'  to app dir eg "glomodul" dir and app
-//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
-$wsroot_path = dirname(dirname(dirname($module_path)))  ;
-               //or $wsroot_path = str_replace('\\','/', realpath('../../')) .'/' ;
-$shares_path = $wsroot_path.'/vendor/b12phpfw' ; //includes, globals, commons, reusables
+$module_path = str_replace('\\','/', __DIR__) ; // .'/'
+//$dbicls = 'Db_allsites' ; //$dbicls = 'Db_allsites_ORA' ;
+if (!defined('QS')) define('QS', '?');
 
-$pp1 = (object)
-[   'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
-                             // or $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
-  , 'dir_apl'     => 'glomodul'  // application (group of modules) folder name
-  , 'wsroot_path' => $wsroot_path  // to awww/www (or any names)
-  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
-  , 'site_path'   => $site_path    // to fwphp (or any names)
-  , 'module_path' => $module_path  // to fwphp/www (or any names)
+$pp1 = (object) [
+    'pp1_group01' => '~~~~~ MODULE ELEMENTS IN PROPERTY PALLETE $pp1 : ~~~~~' 
+  , 'module_version'=>'ver. 11.0.0.0 Mnu' 
+  , 'dbg'=>'1'
+  //, 'dbicls' => $dbicls // for MySql DB or ...
+  , 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
+                             // $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+  , 'pp1_group02P' => '~~~~~ ADRESSES : PATHS ~~~~~' 
+  , 'module_path' => $module_path 
   //
-  , 'glomodul_path' => $site_path .'glomodul/'
-  , 'examples_path' => $site_path .'glomodul/z_examples/'
+      //HOME METHOD TO CALL  LINK ALIAS 
+      ,'app_glomodul_dir_path' => str_replace('\\','/', dirname(__DIR__) ) .'/glomodul'
+      //ALL VIEWS LINKS OF MODULE SHOULD BE HERE (view script knows last part) :
+      //$pp1->urlqrystringpart1_name => part1 of urlqrystring (last part is in view script!)
+      ,'home_mnu'   => QS.'i/home/'
+      //link $pp1->ldd.$id in view script admins.php calls del_row_do method here :
+      ,'sitehome'   => QS.'i/sitehome/' //$pp1->sitehome
+      // -------------------------
+      ,'edit'      => QS.'i/edit/path/'
+      ,'showhtml'  => QS.'i/showhtml/path/'
+
 ] ;
 
-//2. global cls loads classes scripts automatically
-require($pp1->shares_path.'/Autoload.php');
-new Autoload($pp1);
+  //2. global cls loads (includes, bootstrap) classes scripts automatically
+  //not  Composer's autoload cls-es :
+  require(dirname(dirname(dirname($module_path)))  .'/vendor/b12phpfw/bootstrap.php'); 
+  require($pp1->shares_path .'/Autoload.php');
+  $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 
+  //3. SAME MODULE DB ADAPTER FOR ANY (NOT HARD CODED) SHARED DBADAPTER
+  //   no CRUD in this mkd module
 
-//3. process request from ibrowser & send response to ibrowser :
+//4. process request from ibrowser & send response to ibrowser :
 //Home_ ctr "inherits" index.php ee inherits $p p 1
 $module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
         if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 

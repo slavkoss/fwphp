@@ -1,0 +1,20 @@
+[09-Feb-2016 06:56:12 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('favicon.ico')
+#1 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Router.php' on line 130
+[09-Feb-2016 06:56:42 Europe/Berlin] Uncaught exception: 'Twig_Error_Syntax' with message 'A template that extends another one cannot have a body in "Home/index.html" at line 2.'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/vendor/Twig/lib/Twig/Parser.php(387): Twig_Parser->filterBodyNodes(Object(Twig_Node_Text))
+#1 /home/noddy/projects/phpmvc/7-080/vendor/Twig/lib/Twig/Parser.php(97): Twig_Parser->filterBodyNodes(Object(Twig_Node))
+#2 /home/noddy/projects/phpmvc/7-080/vendor/Twig/lib/Twig/Environment.php(615): Twig_Parser->parse(Object(Twig_TokenStream))
+#3 /home/noddy/projects/phpmvc/7-080/vendor/Twig/lib/Twig/Environment.php(667): Twig_Environment->parse(Object(Twig_TokenStream))
+#4 /home/noddy/projects/phpmvc/7-080/vendor/Twig/lib/Twig/Environment.php(396): Twig_Environment->compileSource('{% extends "bas...', 'Home/index.html')
+#5 /home/noddy/projects/phpmvc/7-080/vendor/Twig/lib/Twig/Environment.php(347): Twig_Environment->loadTemplate('Home/index.html')
+#6 /home/noddy/projects/phpmvc/7-080/Core/View.php(51): Twig_Environment->render('Home/index.html', Array)
+#7 /home/noddy/projects/phpmvc/7-080/App/Controllers/Home.php(52): Core\View::renderTemplate('Home/index.html', Array)
+#8 [internal function]: App\Controllers\Home->indexAction()
+#9 /home/noddy/projects/phpmvc/7-080/Core/Controller.php(48): call_user_func_array(Array, Array)
+#10 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): Core\Controller->__call('index', Array)
+#11 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): App\Controllers\Home->index()
+#12 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('')
+#13 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/vendor/Twig/lib/Twig/Parser.php' on line 374

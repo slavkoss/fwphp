@@ -1,0 +1,1301 @@
+2a. Oracle 11g PL/SQL Tutorial
+==============================
+
+**[HOME – download 1\_pl\_sql.zip](http://phporacle.altervista.org/php-oracle-main-menu/ "Main menu")**
+
+Oracle 11g PL/SQL Tutorial about testing developing DB procedures
+=================================================================
+
+1.  Three [loops](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#loopbranch)  and three branches
+2.  [Function](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#fn), procedure, package, array object
+3.  [Number](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#num), string, date, boolean
+4.  [DDL](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#ddl)
+5.  [CRUD](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#crud)
+
+1\. Three  loops  and three branches
+====================================
+
+/\*
+start ...path...**02\_02Hello\_var\_loop\_if\_exception\_date.sql**
+
+**O U T P U T** :
+
+~~~~~~~~ **Three  L O O P S** ~~~~~~~~
+--- _loop1. LOOP,EXIT WHEN v\_cntr>=2 (v\_cntr=0,1)_
+Hello 28.05.2017
+Hello 28.05.2017
+---
+--- _loop2. FOR v\_cntr IN 1..2 LOOP - IF v\_cntr = 2 THEN_ 
+ _RAISE\_APPLICATION\_ERROR(-20001, v\_errmsg);_
+- EXCEPTION - WHEN others THEN - IF sqlcode = -20001...
+Hello
+Hello , \*\*\*v\_cntr=2 custom EXCEPTION **!!!at!!!** IF v\_cntr=2 <-- !!
+---
+--- _loop2a. FOR ii IN REVERSE 3..9 LOOP, mod(ii,3) != 0_
+ii=9
+ii=6
+ii=3
+---
+--- _loop3. From WHILE v\_cntr < 2 LOOP_
+Hello
+Hello
+---
+---
+~~~~~~~~ **Three  B R A N C H E S** ~~~~~~~~
+--- _branch1. IF - ELSIF - ELSE - ENDIF_
+x message
+---
+--- _branch2. searched CASE - WHEN - ELSE - END CASE_
+aaa
+---
+--- _branch3. simple "CASE x" - WHEN - ELSE - END CASE_ (as PHP switch - case - default)
+I don't know what v\_msg is
+\*/
+
+
+
+set linesize 200
+set serveroutput oFF
+set serveroutput on size 1000000
+
+------------
+
+DECLARE
+  v\_cntr NUMBER := 0;
+  v\_system\_date CONSTANT DATE := sysdate;
+  v\_errmsg VARCHAR2(255);
+  v\_msg VARCHAR2(255) := 'Hello ';
+  
+  BEGIN
+    msg('---');
+    msg('~~~~~~~~ **Three  L O O P S** ~~~~~~~~'); 
+    msg('--- **_loop1. LOOP,EXIT WHEN v\_cntr>=2 (v\_cntr=0,1)_**');
+  LOOP
+    EXIT WHEN v\_cntr >= 2; -- 2 loops : v\_cntr = 0, 1
+    v\_cntr := v\_cntr + 1;
+      
+    msg(v\_msg || to\_char(v\_system\_date, 'DD.MM.YYYY'));
+  END LOOP;
+
+
+  BEGIN
+    msg('---');
+    msg('--- **_loop2. FOR v\_cntr IN 1..2 LOOP - IF v\_cntr = 2_ 
+** _**THEN RAISE\_APPLICATION\_ERROR(-20001, v\_errmsg);**');_
+    msg('      - EXCEPTION - WHEN others THEN - IF sqlcode = -20001...');
+    
+    FOR v\_cntr IN 1..2 LOOP
+     IF v\_cntr = 2 THEN
+       v\_errmsg:=v\_msg || ', \*\*\*v\_cntr=2 custom EXCEPTION !!!at!!! IF v\_cntr=2 <----------- !!!!!!!!';
+       RAISE\_APPLICATION\_ERROR(-20001, v\_errmsg);
+     END IF;
+     msg(v\_msg);
+    END LOOP;
+    
+  EXCEPTION
+  WHEN no\_data\_found THEN  msg(
+    'no\_data\_found EXCEPTION --- 2 From FOR v\_cntr IN 1..2 LOOP');
+  WHEN others THEN
+    IF sqlcode = -20001 THEN msg(v\_errmsg);
+    ELSE RAISE; -- go to end script err handler
+    END IF;
+  END;
+                --O U T P U T S :
+                --Hello
+                --Hello , \*\*\*v\_cntr=2 custom EXCEPTION !!!at!!! IF v\_cntr=2 
+  msg('---');
+  msg('--- **_loop2a. FOR ii IN REVERSE 3..9 LOOP,_ 
+ _mod(ii,3) != 0');_**
+  DECLARE
+    v\_increment NUMBER := 3;
+  BEGIN
+    FOR ii IN REVERSE 3..9 LOOP
+      IF mod(ii,v\_increment) != 0 THEN CONTINUE; END IF;
+      msg('ii=' || ii);
+    END LOOP;
+  END;
+
+      
+      
+  msg('---');
+  msg('--- **_loop3. From WHILE v\_cntr < 2 LOOP_**');
+  v\_cntr := 0 ;
+  WHILE v\_cntr < 2 LOOP
+   v\_cntr := v\_cntr + 1;
+   msg(v\_msg);
+  END LOOP;
+
+
+  
+  
+  msg('---'); msg('---');
+  msg('~~~~~~~~ **Three  B R A N C H E S** ~~~~~~~~');
+  msg('--- **_branch1. IF - ELSIF - ELSE - ENDIF_**');
+  v\_msg := 'x message';
+  IF v\_msg LIKE 'x%' THEN msg(v\_msg);
+  ELSIF v\_msg = 'aaa' THEN msg(v\_msg);
+  ELSE msg('I don''t know what v\_msg is');
+  END IF;
+  
+  msg('---');
+  msg('--- **_branch2. searched CASE - WHEN - ELSE - END CASE_**');
+  v\_msg := 'aaa';
+  CASE 
+  WHEN v\_msg LIKE 'x%' THEN msg(v\_msg);
+  WHEN v\_msg = 'aaa' THEN msg(v\_msg);
+  ELSE msg('I don''t know what v\_msg is');
+  END CASE;
+  
+  msg('---');
+  msg('--- **_branch3. simple "CASE x" - WHEN - ELSE - END CASE_ 
+ _(as PHP switch - case - default)_**');
+  v\_msg := 'x';
+  CASE v\_msg -- same as PHP switch - case - default
+  WHEN 'aaa' THEN msg(v\_msg);
+  ELSE msg('I don''t know what v\_msg is');
+  END CASE;
+  
+
+END;
+/
+set serveroutput oFF
+
+[go top](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#top)
+
+2\. Function, procedure, package, array object
+==============================================
+
+/\*
+start ...path...\\02\_03fn\_proc\_pck\_assoc\_arr\_object.sql
+
+**O U T P U T** :
+
+--- 1. fn return\_1 SAYS: 1
+
+DML A S S O C I A T I V E  A R R A Y
+--- 2. anonymus pl/sql block SAYS: DML associative\_array v\_array(2)=Hello Again!
+--------2.1 robust loop through array
+Hello World!
+Hello Again!
+--------2.2 simple loop through array
+Hello World!
+Hello Again!
+
+--------2.3 robust loop through array
+Doe
+King
+
+--------2.4 robust loop through array with delete
+Hello World! Date and time: Sunday    on 28 May, 2017 @ 08:12:34
+
+--- 3.1 anonymus pl/sql block SAYS: DDL object\_o\_person v\_person.lname=Doe2
+
+--- 3.2 anonymus pl/sql block SAYS: DDL object\_o\_person v\_person(1).lname=Doe3
+
+--- 4. my\_package.crerow\_t;  and read it
+This is a message
+
+--- 5. print business days
+Tuesday 4 of July, 2017
+Monday 25 of December, 2017
+\*/
+
+set linesize 200
+set serveroutput OFF
+set serveroutput on size 1000000
+------------
+
+-- c a l l  f u n c t i o n :
+--BEGIN msg('---aaaaa'); END;
+BEGIN msg('--- 1. fn return\_1 SAYS: '||return\_1); END;
+/
+-- c a l l  p r o c e d u r e :
+--BEGIN insert\_a\_rec(...); END;
+
+
+-- DML associative\_array
+DECLARE
+  TYPE t\_array IS TABLE OF VARCHAR2(30) INDEX BY BINARY\_INTEGER;
+  v\_array t\_array;
+  v\_index BINARY\_INTEGER;    
+BEGIN
+  v\_array(1) := 'Hello World!';
+  v\_array(2) := 'Hello Again!';
+  msg('DML A S S O C I A T I V E  A R R A Y');
+  msg('--- 2. anonymus pl/sql block SAYS: DML associative\_array v\_array(2)='||v\_array(2));
+  
+  
+  msg('--------2.1 robust loop through array');
+  v\_index := v\_array.FIRST;
+  LOOP
+    EXIT WHEN v\_index IS NULL;
+    msg( v\_array( v\_index ) );
+    v\_index := v\_array.NEXT(v\_index);
+  END LOOP;
+  
+  
+  msg('--------2.2 simple loop through array');
+  FOR ii IN v\_array.FIRST..v\_array.lAST 
+  LOOP
+    msg( v\_array(ii) );
+  END LOOP;
+  
+END;
+/
+
+DECLARE
+  TYPE t\_varchar2 IS TABLE OF VARCHAR2(100)
+    INDEX BY BINARY\_INTEGER;
+    
+  TYPE t\_number IS TABLE OF NUMBER
+    INDEX BY BINARY\_INTEGER;
+   
+  v\_first\_name t\_varchar2;
+  v\_last\_name  t\_varchar2;
+  v\_salary     t\_number;
+  
+  v\_index BINARY\_INTEGER;    
+BEGIN
+
+  SELECT first\_name, last\_name, salary 
+    BULK COLLECT INTO v\_first\_name, v\_last\_name, v\_salary
+    FROM employees where rownum < 3;
+    
+    
+  msg('--------2.3 robust loop through array');
+  v\_index := v\_last\_name.FIRST;
+  LOOP
+    EXIT WHEN v\_index IS NULL;
+    msg( v\_last\_name( v\_index ) );
+    v\_index := v\_last\_name.NEXT(v\_index);
+  END LOOP;
+  
+  
+END;
+/
+
+DECLARE
+  TYPE t\_array IS TABLE OF VARCHAR2(30);
+  v\_array t\_array;    
+  v\_index BINARY\_INTEGER;
+  v\_date DATE := SYSDATE;
+BEGIN
+  msg('--------2.4 robust loop through array with delete');
+  v\_array := t\_array();
+  v\_array.extend; v\_array(1) := 'Hello World!';
+  v\_array.extend; v\_array(2) := 'Hello Again!';
+  
+  v\_array.DELETE(2);
+  v\_index := v\_array.FIRST;
+  LOOP
+    EXIT WHEN v\_index IS NULL;
+    --msg( v\_array( v\_index ) );
+    msg(
+      v\_array( v\_index ) ||
+      ' Date and time: ' ||
+      to\_char(v\_date, 'Day') || ' on ' ||
+      to\_char(v\_date, 'FMDD Month, YYYY') ||
+      ' @ ' ||
+      to\_char(v\_date, 'HH24:MI:SS')
+    );
+    v\_index := v\_array.NEXT(v\_index);
+  END LOOP;  
+END;
+/
+
+
+
+--------
+DECLARE
+  v\_person o\_person;    
+BEGIN 
+  v\_person := o\_person('John', 'Doe', 21);
+  v\_person := o\_person('John2', 'Doe2', 22);
+  
+  msg('--- 3.1 anonymus pl/sql block SAYS: DDL object\_o\_person v\_person.lname='||v\_person.lname);
+END;
+/
+
+
+DECLARE
+  v\_person o\_person\_collec := o\_person\_collec();    -- table
+BEGIN
+  v\_person.extend;
+  --row is TYPE OBJECT :
+  v\_person(1) := o\_person('John3', 'Doe3', 23); 
+ 
+  msg('--- 3.2 anonymus pl/sql block SAYS: DDL object\_o\_person v\_person(1).lname='||v\_person(1).lname);
+ 
+END;
+/
+
+
+
+BEGIN
+  msg('--- 4. my\_package.crerow\_t;  and read it');
+  --in sql+ : exec my\_package.delrow\_t('xx')
+  my\_package.crerow\_t;
+  for rx in (select \* from t where country\_id = 'xx') loop
+    msg( rx.country\_name );
+  end loop;
+END;
+/
+
+
+begin
+  msg('--- 5. print business days ');
+  print\_business\_days(
+     to\_date('31-DEC-2016', 'DD-MON-YYYY'),
+     to\_date('31-DEC-2017', 'DD-MON-YYYY')
+  );
+end;
+/
+
+set serveroutput oFF
+
+[go top](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#top)
+
+3\. Number, string, date, boolean
+=================================
+
+\-- ...path...03\_01num\_string\_date\_boolean.sql
+-- 1. Valid numbers
+DECLARE
+  vNum NUMBER;
+BEGIN
+  vNum := 100;
+  vNum := 98989898989898;
+  vNum := 0.00000000000000001;
+  vNum := 10928383.9028282772722626262;
+END;
+/
+
+-- 2. CHAR versus VARCHAR2
+DECLARE
+  vc2\_Name  VARCHAR2(10) := 'Lewis';
+  char\_Name CHAR(10)   := 'Lewis';
+BEGIN
+  IF vc2\_Name = char\_Name THEN
+    dbms\_output.put\_line('VARCHAR2, CHAR Variables Match');
+  ELSE dbms\_output.put\_line(
+     'VARCHAR2, CHAR Variables Do Not Match');
+  END IF;  
+END;
+/
+
+
+-- 3. String to number conversion
+DECLARE
+  v\_string\_var VARCHAR2(10) := '15';
+  v\_number\_var NUMBER;
+BEGIN
+   v\_number\_var := TO\_NUMBER(v\_string\_var);
+END;
+
+-- 4. Date conversion
+DECLARE
+  v\_string VARCHAR2(30) := '10/30/1998 12:34:03 PM';
+  v\_date DATE;
+BEGIN
+  v\_date := to\_date(v\_string, 'MM/DD/YYYY HH:MI:SS AM');
+  v\_date := to\_date(v\_string, 'DD.MM.YYYY HH24:MI:SS');
+END;
+/
+
+-- 5. Timestamp conversion
+DECLARE
+  v\_string VARCHAR2(30) := '10/30/1998 12:34:03.987654 PM';
+  v\_date timestamp;
+BEGIN
+  v\_date := to\_timestamp(v\_string, 'MM/DD/YYYY HH:MI:SS.FF AM');
+END;
+
+
+-- 6. Date to char conversion
+DECLARE
+  v\_string VARCHAR2(30) := '10/30/1998 12:34:03 PM';
+  v\_date DATE;
+BEGIN
+  v\_date := to\_date(v\_string, 'MM/DD/YYYY HH:MI:SS AM');
+  dbms\_output.put\_line(  to\_char(v\_date, 'FMDD Month, YYYY') );
+END;
+
+
+-- 7.1 BOOLEAN good example of direct usage
+DECLARE
+  v\_var1 NUMBER := 0;
+  v\_var2 NUMBER := 1;
+BEGIN
+  IF v\_var1 = v\_var2 THEN NULL; END IF;
+END;
+
+-- 7.2 BOOLEAN good example for variable reuse
+DECLARE
+  v\_boolean BOOLEAN;
+  v\_var1 NUMBER := 0;
+  v\_var2 NUMBER := 1;
+BEGIN
+  v\_boolean := v\_var1 = v\_var2;
+  IF v\_boolean THEN NULL; END IF;
+END;
+
+
+
+
+
+-- 7.3 BOOLEAN Poor Example
+DECLARE
+  v\_boolean BOOLEAN;
+  v\_var1 NUMBER := 0;
+  v\_var2 NUMBER := 1;
+BEGIN
+  IF v\_var1 = v\_var2 THEN v\_boolean := TRUE;
+  ELSE v\_boolean := FALSE;
+  END IF;
+  
+  IF v\_boolean THEN NULL; END IF;
+END;
+/
+
+[go top](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#top)
+
+4\. DDL
+=======
+
+/\*
+HR@ora7 27.05.2017 21:21:16> start ...path...\\01\_02DDL.sql
+O U T P U T :
+~~~~~ 1. c r e  LOG\_ TABLE ~~~~~
+~~~~~ 2. c r e  tbl t2 ~~~~~
+~~~~~ 3. c r e  tbl emp\_names\_nds ~~~~~
+
+~~~~~ 1. c r e  p r o c e d u r e  m s g ~~~~~
+~~~~~ 2. c r e  p r o c e d u r e  l o g i t ~~~~~
+~~~~~ 3. c r e  p r o c PRINT\_ BUSINESS\_ DAYS ~~~~~
+~~~~~ 4. cre fn return\_1 ~~~~~
+~~~~~ 5. cre R O W TYPE o\_ person AS OBJECT ~~~~~
+~~~~~ 6. cre T B L TYPE o\_ person\_ collec AS TABLE OF ~~
+~~~~~ 6.1 cre pck my\_ package ~~~~~
+~~~~~ 6.2 cre pck body my\_ package ~~~~~
+~~~~~ 7.1 cre pck t2\_ dyn\_ api ~~~~~
+~~~~~ 7.2 cre pck body t2\_ dyn\_ api ~~~~~
+\*/
+drop TABLE LOG\_TABLE;
+prompt ~~~~~ 1. c r e  LOG\_ TABLE ~~~~~
+CREATE TABLE LOG\_TABLE
+  (
+    DATUM DATE,
+    MESSAGE VARCHAR2(255 BYTE)
+ ) ;
+--insert into log\_table (date\_and\_time, message) 
+--    VALUES (sysdate, 'Hello World!');
+prompt ~~~~~ 2. c r e  tbl t2 ~~~~~
+drop TABLE t2 ;
+BEGIN
+  EXECUTE IMMEDIATE 
+  'CREATE TABLE t2 (
+       col1 VARCHAR2(25)
+     , col2 VARCHAR2(25)
+     , col3 VARCHAR2(25)
+  )';
+END;
+/
+
+prompt ~~~~~ 3. c r e  tbl emp\_names\_nds ~~~~~
+drop TABLE emp\_names\_nds;
+CREATE TABLE emp\_names\_nds (
+  last\_name VARCHAR2(25), first\_name VARCHAR2(20) );
+  
+
+
+
+
+prompt ~~~~~ 1. c r e  p r o c e d u r e  m s g ~~~~~
+CREATE OR REPLACE PROCEDURE msg(
+   p\_msg IN VARCHAR2 DEFAULT 'NO MESSAGE')
+AS
+BEGIN
+   dbms\_output.put\_line(p\_msg);
+END;
+/
+--show error
+
+
+
+prompt ~~~~~ 2. c r e  p r o c e d u r e  l o g i t ~~~~~
+create or replace PROCEDURE logit(
+  v\_message IN VARCHAR2 DEFAULT 'Hello World!',
+  v\_output\_target IN VARCHAR2 DEFAULT 'T')
+AS
+  -- v\_output target may be T for table or
+  --    D for dbms\_output
+  PRAGMA AUTONOMOUS\_TRANSACTION;
+  v\_date DATE := SYSDATE;
+
+  PROCEDURE do\_output(
+    v\_message IN VARCHAR2,
+    v\_date IN DATE )
+  AS
+  BEGIN
+
+    DBMS\_OUTPUT.put\_line(
+        v\_message ||
+        ' On date ' ||
+        to\_char(v\_date, 'Day') || ' on ' ||
+        to\_char(v\_date, 'FMDD Month, YYYY') ||
+        ' @ ' ||
+        to\_char(v\_date, 'HH24:MI:SS')
+        ); 
+  END;    
+
+  PROCEDURE do\_insert(
+    v\_message IN VARCHAR2,
+    v\_date IN DATE )
+  AS
+  BEGIN
+    insert into log\_table
+      (datum, message)
+      VALUES (v\_date, v\_message);
+  END;
+-------------
+BEGIN
+  CASE
+  WHEN v\_output\_target = 'T'
+  THEN
+    do\_insert(v\_message, v\_date);
+  WHEN v\_output\_target = 'D'
+  THEN
+    do\_output(v\_message, v\_date);
+  WHEN v\_output\_target = 'TD'
+    OR v\_output\_target = 'DT'
+  THEN
+    do\_insert(v\_message, v\_date);
+    do\_output(v\_message, v\_date);
+  ELSE
+
+    logit('ERROR v\_output\_target: ' ||
+          v\_output\_target ||
+          ' not found.', 'T' );
+
+  END CASE;
+
+  COMMIT;
+
+END logit;
+/
+
+
+
+prompt ~~~~~ 3. c r e  p r o c PRINT\_ BUSINESS\_ DAYS ~~~~~
+create or replace PROCEDURE PRINT\_BUSINESS\_DAYS
+  (
+      P\_START\_DATE IN DATE 
+    , P\_END\_DATE IN DATE 
+  )
+AS
+  TYPE t\_holidays IS TABLE OF VARCHAR2(100)
+    INDEX BY VARCHAR2(30);
+  v\_dates t\_holidays;
+  v\_loop\_increment NUMBER := 0;
+BEGIN
+  v\_dates('01-JAN') := 'Mew Years';
+  v\_dates('04-JUL') := 'Independence Day';
+  v\_dates('25-DEC') := 'Christmas Day';
+
+  LOOP
+    EXIT WHEN p\_start\_date + v\_loop\_increment > p\_end\_date;
+
+    /\*
+    IF to\_number(to\_char(p\_start\_date 
+          + v\_loop\_increment, 'd'))
+      IN (2,3,4,5,6)
+    THEN 
+      dbms\_output.put\_line(to\_char(p\_start\_date 
+        + v\_loop\_increment, 'FMDay DD "of" Month, YYYY'));
+    END IF;
+    \*/    
+    
+    -- or :
+    IF v\_dates.EXISTS(
+      to\_char(p\_start\_date + v\_loop\_increment, 'DD-MON'))
+    THEN
+    
+      IF to\_number(to\_char(p\_start\_date 
+          + v\_loop\_increment, 'd'))
+        IN (2,3,4,5,6)
+      THEN 
+        dbms\_output.put\_line(to\_char(p\_start\_date 
+          + v\_loop\_increment, 'FMDay DD "of" Month, YYYY')); 
+      END IF;
+
+    END IF;
+
+    v\_loop\_increment := v\_loop\_increment + 1;
+
+  END LOOP;
+
+END PRINT\_BUSINESS\_DAYS;
+/
+
+
+
+
+
+
+
+
+
+prompt ~~~~~ 4. cre fn return\_1 ~~~~~
+CREATE OR REPLACE FUNCTION return\_1
+RETURN NUMBER
+AS
+BEGIN
+  RETURN 1;
+END;
+/
+--show error
+
+prompt ~~~~~ 5. cre R O W TYPE o\_ person AS OBJECT ~~~~~
+drop TYPE o\_person\_collec ;
+CREATE OR REPLACE TYPE o\_person AS OBJECT (
+    fname VARCHAR2(30),
+    lname VARCHAR2(30),
+    age NUMBER 
+);
+/
+--show error
+
+
+prompt ~~~~~ 6. cre T B L TYPE o\_ person\_ collec AS TABLE OF ~~
+CREATE OR REPLACE TYPE o\_person\_collec --table 
+  AS TABLE OF o\_person; --row is TYPE OBJECT 
+/
+--show error
+
+
+
+prompt ~~~~~ 6.1 cre pck my\_ package ~~~~~
+CREATE OR REPLACE PACKAGE my\_package
+AS
+  FUNCTION return\_1 RETURN NUMBER;
+  PROCEDURE crerow\_t;
+  PROCEDURE delrow\_t(p\_id in varchar2);
+END;
+/
+prompt ~~~~~ 6.2 cre pck body my\_ package ~~~~~
+CREATE OR REPLACE PACKAGE BODY my\_package
+AS
+  FUNCTION return\_1 RETURN NUMBER AS
+  BEGIN
+    RETURN 1;
+  END;
+
+  PROCEDURE crerow\_t AS
+  BEGIN
+    INSERT INTO t (country\_id, country\_name)
+      VALUES ('xx', 'This is a message');
+  END;
+  
+  PROCEDURE delrow\_t(p\_id in varchar2) AS
+  BEGIN
+    delete t where country\_id = p\_id; --'xx'
+  END;
+
+END;  
+/
+
+
+
+prompt ~~~~~ 7.1 cre pck t2\_ dyn\_ api ~~~~~
+create or replace PACKAGE t2\_dyn\_api IS
+ PROCEDURE insert\_row(
+    p\_col1 IN t2.col1%TYPE,
+    p\_col2 IN t2.col2%TYPE,
+    p\_col3 IN t2.col3%TYPE
+  );
+  
+ PROCEDURE update\_row(
+    p\_col1 IN t2.col1%TYPE,
+    p\_col2 IN t2.col2%TYPE,
+    p\_col3 IN t2.col3%TYPE
+  );
+  
+ PROCEDURE delete\_row(
+    p\_col1 IN t2.col1%TYPE,
+    p\_col2 IN t2.col2%TYPE,
+    p\_col3 IN t2.col3%TYPE
+  );  
+END;
+/
+
+prompt ~~~~~ 7.2 cre pck body t2\_ dyn\_ api ~~~~~
+create or replace PACKAGE BODY t2\_dyn\_api IS
+  PROCEDURE insert\_row(
+    p\_col1 IN t2.col1%TYPE,
+    p\_col2 IN t2.col2%TYPE,
+    p\_col3 IN t2.col3%TYPE
+  ) 
+  AS 
+
+    v\_dml\_string CLOB;
+  
+    -- DBMS\_SQL variables
+    v\_cursor\_id NUMBER;
+    v\_rows\_fetched NUMBER;
+  
+  BEGIN
+
+    v\_cursor\_id := DBMS\_SQL.open\_cursor;
+    
+    v\_dml\_string := 'INSERT INTO t2 (col1, col2, col3) ';
+    v\_dml\_string := v\_dml\_string || 'VALUES (:col1
+         , :col2, :col3) ';
+  
+    -- Display the string
+    logit( v\_dml\_string, 'D');
+ 
+    DBMS\_SQL.PARSE(v\_cursor\_id, v\_dml\_string
+       , DBMS\_SQL.NATIVE);
+
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col1', p\_col1);
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col2', p\_col2);
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col3', p\_col3);
+  
+    v\_rows\_fetched := DBMS\_SQL.EXECUTE(v\_cursor\_id);
+    DBMS\_SQL.CLOSE\_CURSOR(v\_cursor\_id);
+    
+    COMMIT;
+
+    logit( 'Rows Fetched: ' || to\_char(v\_rows\_fetched), 'D');
+
+  END;
+  
+   
+  PROCEDURE update\_row(
+    p\_col1 IN t2.col1%TYPE,
+    p\_col2 IN t2.col2%TYPE,
+    p\_col3 IN t2.col3%TYPE
+  ) 
+  AS 
+
+    v\_dml\_string CLOB;
+  
+    -- DBMS\_SQL variables
+    v\_cursor\_id NUMBER;
+    v\_rows\_fetched NUMBER;
+  
+  BEGIN
+
+    v\_cursor\_id := DBMS\_SQL.open\_cursor;
+    
+    v\_dml\_string := 'UPDATE t2 ';
+    v\_dml\_string := v\_dml\_string || 
+               'SET col1 = :col1, 
+                    col2 = :col2,
+                    col3 = :col3 ';
+  
+    -- Display the string
+    logit( v\_dml\_string, 'D');
+ 
+    DBMS\_SQL.PARSE(v\_cursor\_id, v\_dml\_string
+       , DBMS\_SQL.NATIVE);
+
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col1', p\_col1);
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col2', p\_col2);
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col3', p\_col3);
+  
+    v\_rows\_fetched := DBMS\_SQL.EXECUTE(v\_cursor\_id);
+    DBMS\_SQL.CLOSE\_CURSOR(v\_cursor\_id);
+    
+    COMMIT;
+
+    logit( 'Rows Fetched: ' || to\_char(v\_rows\_fetched), 'D');
+
+  END;  
+  PROCEDURE delete\_row(
+    p\_col1 IN t2.col1%TYPE,
+    p\_col2 IN t2.col2%TYPE,
+    p\_col3 IN t2.col3%TYPE
+  ) 
+  AS 
+
+    v\_dml\_string CLOB;
+  
+    -- DBMS\_SQL variables
+    v\_cursor\_id NUMBER;
+    v\_rows\_fetched NUMBER;
+  
+  BEGIN
+
+    v\_cursor\_id := DBMS\_SQL.open\_cursor;
+    
+    v\_dml\_string := 'DELETE FROM t2 ';
+    v\_dml\_string := v\_dml\_string || 
+               'WHERE col1 = :col1 AND 
+                      col2 = :col2 AND
+                      col3 = :col3 ';
+  
+    -- Display the string
+    logit( v\_dml\_string, 'D');
+ 
+    DBMS\_SQL.PARSE(v\_cursor\_id, v\_dml\_string
+       , DBMS\_SQL.NATIVE);
+
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col1', p\_col1);
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col2', p\_col2);
+    DBMS\_SQL.bind\_variable( v\_cursor\_id, 'col3', p\_col3);
+  
+    v\_rows\_fetched := DBMS\_SQL.EXECUTE(v\_cursor\_id);
+    DBMS\_SQL.CLOSE\_CURSOR(v\_cursor\_id);
+    
+    COMMIT;
+
+    logit( 'Rows Fetched: ' || to\_char(v\_rows\_fetched), 'D');
+
+  END; 
+
+END t2\_dyn\_api;
+/
+
+
+/\*
+-- ORA-01031: insufficient privileges
+CREATE OR REPLACE PROCEDURE CREATE\_TABLE 
+(
+  P\_TABLE\_NAME IN VARCHAR2  
+, P\_COLUMNS IN DBMS\_SQL.varchar2a  
+) AS 
+  v\_ddl\_string CLOB;
+  v\_index PLS\_INTEGER;
+  -- DBMS\_SQL variables
+  v\_cursor\_id NUMBER;
+  v\_rows\_fetched NUMBER;
+BEGIN
+  IF p\_table\_name IS NULL OR p\_columns.COUNT = 0
+  THEN RETURN; END IF;
+  
+  v\_ddl\_string := 'CREATE TABLE ';
+  v\_ddl\_string := v\_ddl\_string || p\_table\_name || '( '; 
+  v\_index := p\_columns.FIRST;
+  
+  LOOP
+    EXIT WHEN v\_index IS NULL;
+    IF v\_index != p\_columns.FIRST
+    THEN
+      v\_ddl\_string := v\_ddl\_string || ', ';
+    END IF;
+    
+    v\_ddl\_string := v\_ddl\_string || p\_columns(v\_index);
+    v\_index := P\_columns.NEXT(v\_index);
+  END LOOP;
+  
+  v\_ddl\_string := v\_ddl\_string || ')';
+  -- Display the string
+  logit( v\_ddl\_string, 'D');
+  
+  -- Create the table
+  v\_cursor\_id := DBMS\_SQL.open\_cursor;
+  DBMS\_SQL.PARSE(v\_cursor\_id, v\_ddl\_string, DBMS\_SQL.NATIVE);
+  v\_rows\_fetched := DBMS\_SQL.EXECUTE(v\_cursor\_id);
+  DBMS\_SQL.CLOSE\_CURSOR(v\_cursor\_id);
+
+END CREATE\_TABLE;
+/
+
+DECLARE
+  v\_table\_name VARCHAR2(30) := 't3';
+  v\_columns DBMS\_SQL.varchar2a;
+BEGIN
+  v\_columns(1)  := 'COL1 VARCHAR2(10)';
+  v\_columns(5)  := 'COL2 VARCHAR2(2)';
+  v\_columns(10) := 'COL3 NUMBER';
+  -- ORA-01031: insufficient privileges
+  CREATE\_TABLE(v\_table\_name, v\_columns); 
+END;
+/
+\*/
+
+[go top](http://phporacle.altervista.org/2a-oracle-11g-plsql-tutorial/#top)
+
+5\. CRUD
+========
+
+/\*
+start ...path...\\02\_01CRUd\_rowtype.sql
+
+O U T P U T :
+--- 1. CRUD R employee\_id= 115
+r\_person.salary=3246,86
+--- 2. CRUD U employee\_id =115
+r\_person.salary\*,95=3084,52
+r\_person.LAST\_NAME=Khoo
+--- 3. CRUD D (if exists) employee\_id=999
+--- 4. CRUD C employee\_id=999
+r\_person.salary=3084,52
+r\_person.LAST\_NAME=Doe
+\*/
+set linesize 200
+set serveroutput oFF
+set serveroutput on size 1000000
+------------
+/\*
+-- rowtype cursor
+DECLARE
+  CURSOR c1 IS
+    SELECT first\_name, last\_name, salary
+    FROM employees;
+  r\_person c1%ROWTYPE;    
+BEGIN
+ r\_person.first\_name := 'John';
+ r\_person.last\_name  := 'Doe';
+ r\_person.salary     := 2200.00; 
+END;
+
+-- rowtype record
+DECLARE
+  r\_person employees%ROWTYPE;    
+BEGIN
+ r\_person.first\_name := 'John';
+ r\_person.last\_name  := 'Doe';
+ r\_person.salary     := 2200.00; 
+END;
+\*/
+
+BEGIN
+  EXECUTE IMMEDIATE 'BEGIN logit(:mybindvar, :displaymode);
+    END;' USING 'This is my dynamic message.', 'D';
+END;
+
+
+delete t2;
+BEGIN
+  execute immediate 'insert into t2 (col1, col2) 
+    values (:col1val, :col2val)' using 'A', 'B';
+  logit('Created Rows: ' || SQL%ROWCOUNT, 'D' );
+  
+  execute immediate 'update t2 set col1 = :newcol1
+    where col2 = :oldcol2' using 'C', 'B';
+  logit('Updated Rows: ' || SQL%ROWCOUNT, 'D' );
+  
+  execute immediate 
+  'delete from  t2 where col2 = :oldcol2' using 'B';  
+  logit('Deleted Rows: ' || SQL%ROWCOUNT, 'D' );
+END;
+select \* from emp\_names\_nds;
+
+delete t2;
+BEGIN
+  t2\_dyn\_api.insert\_row('A', 'B', 1);
+  t2\_dyn\_api.insert\_row('D', 'E', 2);
+  t2\_dyn\_api.insert\_row('G', 'H', 3);
+END;
+
+select \* from t2;
+BEGIN t2\_dyn\_api.update\_row('X', 'B', 1); END;
+
+select \* from t2;
+BEGIN t2\_dyn\_api.delete\_row('X', 'B', 1); END;
+
+select \* from t2;
+
+
+
+
+DECLARE v\_output VARCHAR2(1);
+BEGIN
+  execute immediate 'insert into t2 (col1, col2) 
+    values (:col1val, :col2val) RETURNING col1 INTO :colret'
+  using 'A', 'B', OUT v\_output;
+  logit('v\_output: ' || v\_output, 'D' );   
+END;
+
+
+DECLARE
+  v\_output VARCHAR2(1);
+BEGIN
+  execute immediate 
+      'insert into t2 (col1, col2) 
+         values (:col1val, :col2val)
+         RETURNING col1 INTO :colret'
+    using 'A', 'B'
+    RETURNING INTO v\_output;
+  
+  logit('v\_output: ' || v\_output, 'D' );
+    
+END;
+
+
+DECLARE
+  v\_dml\_sel VARCHAR2(8000) := '
+    SELECT last\_name, first\_name FROM employees
+    WHERE rownum < :rowsproc';
+  TYPE r\_emp IS RECORD (
+    last\_name VARCHAR2(25),
+    first\_name VARCHAR2(20) );
+  TYPE v\_emp\_tbltyp IS TABLE OF r\_emp;
+  v\_emp\_tbl v\_emp\_tbltyp;
+BEGIN
+  EXECUTE IMMEDIATE v\_dml\_sel BULK COLLECT INTO v\_emp\_tbl
+  USING 10;
+
+  FORALL ii IN v\_emp\_tbl.FIRST..v\_emp\_tbl.LAST
+    EXECUTE IMMEDIATE 'INSERT INTO emp\_names\_nds (last\_name, first\_name) VALUES (:lastname, :firstname)'
+    USING v\_emp\_tbl(ii).last\_name, v\_emp\_tbl(ii).first\_name;
+END;
+
+select \* from emp\_names\_nds;
+--delete emp\_names\_nds; -- 99 deleted
+
+
+
+-- measure bind performance
+declare
+  v\_char\_null varchar2(10);
+  v\_num\_null number;
+  v\_not\_null number := 0;
+  v\_value number;
+  v\_loop\_cnt PLS\_INTEGER := 10000;
+  v\_start\_time timestamp(9);
+  v\_end\_time timestamp(9);
+  
+  v\_rand number := abs(dbms\_random.random);
+
+  v\_sql\_stmt VARCHAR2(1000);  
+begin
+
+  v\_loop\_cnt := v\_loop\_cnt + v\_rand;
+
+  dbms\_output.put\_line('Random: ' || to\_char(v\_rand) );
+  
+  v\_start\_time := systimestamp;
+
+  FOR i IN v\_rand..v\_loop\_cnt
+  LOOP
+    v\_sql\_stmt := 'SELECT NVL(to\_number(''''), to\_number(''' || i || ''')) FROM DUAL';
+    EXECUTE IMMEDIATE v\_sql\_stmt INTO v\_value;
+  END LOOP;  
+              
+  v\_end\_time := systimestamp;
+              
+  dbms\_output.put\_line( 'No Binds, Conversion         ' ||  
+              to\_char(v\_end\_time - v\_start\_time) );
+
+  v\_start\_time := systimestamp;
+
+  FOR i IN v\_rand..v\_loop\_cnt
+  LOOP
+    v\_sql\_stmt := 'SELECT NVL(null, ' || i || ') FROM DUAL';
+    EXECUTE IMMEDIATE v\_sql\_stmt  INTO v\_value;
+  END LOOP;  
+              
+  v\_end\_time := systimestamp;
+              
+  dbms\_output.put\_line( 'No Binds, No Conversion      ' ||  
+              to\_char(v\_end\_time - v\_start\_time) );
+
+  v\_start\_time := systimestamp;
+
+  v\_sql\_stmt := 'SELECT NVL(:v\_num\_null, :v\_not\_null) FROM DUAL' ;
+      
+  FOR i IN v\_rand..v\_loop\_cnt
+  LOOP
+    v\_not\_null := i;
+    EXECUTE IMMEDIATE v\_sql\_stmt  INTO v\_value USING IN v\_num\_null, IN v\_not\_null;
+  END LOOP;  
+              
+  v\_end\_time := systimestamp;
+              
+  dbms\_output.put\_line( 'Binds, No Conversion         ' ||  
+              to\_char(v\_end\_time - v\_start\_time) );
+
+  v\_start\_time := systimestamp;
+
+  FOR i IN v\_rand..v\_loop\_cnt
+  LOOP
+    v\_not\_null := i;
+    SELECT NVL(v\_num\_null, v\_not\_null) INTO v\_value FROM DUAL;
+  END LOOP;  
+              
+  v\_end\_time := systimestamp;
+              
+  dbms\_output.put\_line( 'Not Dynamic                  ' ||  
+              to\_char(v\_end\_time - v\_start\_time) );
+
+end;
+
+
+
+
+
+
+DECLARE
+  cursor c\_person(c\_id in number) is
+    SELECT \* FROM employees WHERE employee\_id = c\_id;
+  r\_person employees%ROWTYPE;    
+  v\_koef NUMBER;    
+  v\_upd\_employee\_id NUMBER;    
+  v\_cre\_employee\_id NUMBER;    
+BEGIN
+  v\_koef  := 0.95;
+  v\_upd\_employee\_id := 115;
+  v\_cre\_employee\_id := 999;
+  -- 1. r e a d
+  for rx in c\_person(v\_upd\_employee\_id) loop
+    r\_person := rx ;
+  end loop ;
+                dbms\_output.put\_line(
+                 '--- 1. CRUD R employee\_id= '
+                 ||v\_upd\_employee\_id||chr(10)
+                 ||'r\_person.salary='||r\_person.salary);
+  
+  -- 2. u p d a t e
+  r\_person.salary := r\_person.salary \* v\_koef ;
+  UPDATE employees SET salary = r\_person.salary 
+  WHERE employee\_id = r\_person.employee\_id;
+              for rx in c\_person(v\_upd\_employee\_id) loop
+                r\_person := rx ;
+              end loop ;
+              dbms\_output.put\_line(
+                '--- 2. CRUD U employee\_id ='
+              ||v\_upd\_employee\_id||chr(10)
+              ||'r\_person.salary\*'||v\_koef||'='
+              ||r\_person.salary
+              ||chr(10)
+              ||'r\_person.LAST\_NAME='||r\_person.LAST\_NAME
+              );
+
+  -- 3. d e l e t e
+  BEGIN DELETE employees WHERE employee\_id = v\_cre\_employee\_id;
+  EXCEPTION WHEN others THEN null; END;
+               dbms\_output.put\_line(
+ '--- 3. CRUD D (if exists) employee\_id='||v\_cre\_employee\_id);
+
+  -- 4. c r e a t e
+  r\_person.employee\_id := v\_cre\_employee\_id;
+  r\_person.last\_name   := 'Doe';
+  r\_person.first\_name  := 'John';
+  r\_person.email       := 'doe@aaa.aa';
+  INSERT INTO employees VALUES r\_person;
+              for rx in c\_person(v\_cre\_employee\_id) loop
+                r\_person := rx ;
+              end loop ;
+               dbms\_output.put\_line(
+               '--- 4. CRUD C employee\_id='||v\_cre\_employee\_id
+               ||chr(10)
+              ||'r\_person.salary='||r\_person.salary||chr(10)
+              ||'r\_person.LAST\_NAME='||r\_person.LAST\_NAME
+               );
+
+  BEGIN
+    --logit;
+    BEGIN
+      logit('Inserted new employee\_id='||v\_cre\_employee\_id);
+      DECLARE
+        v\_a\_different\_msg VARCHAR2(100);
+      BEGIN
+        rollback; -- Notice rollback
+        v\_a\_different\_msg := 'Inserted new employee\_id='||v\_cre\_employee\_id;
+        logit( v\_a\_different\_msg );
+      END;
+    END;
+  END;
+
+  --------------- 
+END;
+/
+
+
+DECLARE
+  v\_dml\_sel VARCHAR2(8000) := 
+    'SELECT \* FROM employees WHERE rownum < :rnum1';
+  TYPE v\_emp\_tbltyp IS TABLE OF employees%ROWTYPE;
+  v\_emp\_tbl v\_emp\_tbltyp;
+BEGIN
+  EXECUTE IMMEDIATE 
+    v\_dml\_sel BULK COLLECT INTO v\_emp\_tbl USING 3; --rnum1
+  FOR ii IN 1..v\_emp\_tbl.LAST
+  LOOP msg('On Loop: '||ii||', '||v\_emp\_tbl(ii).last\_name);
+  END LOOP;     
+END;
+
+
+DECLARE
+  v\_dml\_sel VARCHAR2(8000) := 
+  'SELECT first\_name, last\_name, email, phone\_number, hire\_date
+   FROM employees WHERE employee\_id = :p\_employee\_id';
+  r\_emp employees%ROWTYPE;
+BEGIN
+  r\_emp.employee\_id := 101;
+  execute immediate v\_dml\_sel 
+     into r\_emp.last\_name,
+          r\_emp.first\_name,
+          r\_emp.email,
+          r\_emp.phone\_number,
+          r\_emp.hire\_date
+     using r\_emp.employee\_id;
+    logit(r\_emp.last\_name||', email='||r\_emp.email, 'D');
+END;
+
+
+DECLARE
+  v\_dml\_sel VARCHAR2(8000) := 
+  'SELECT first\_name, last\_name, email, phone\_number, hire\_date
+   FROM employees WHERE employee\_id = :p\_employee\_id';
+  --r\_emp\_refcurs\_id NUMBER;
+  r\_emp\_refcurs sys\_refcursor;
+  r\_emp employees%ROWTYPE;
+  --v\_rows\_fetched NUMBER;
+BEGIN
+  --r\_emp\_refcurs\_id := DBMS\_SQL.open\_cursor;
+  OPEN r\_emp\_refcurs FOR v\_dml\_sel USING 101; 
+  -- see (1)
+  LOOP 
+    FETCH r\_emp\_refcurs INTO 
+         r\_emp.first\_name, 
+         r\_emp.last\_name, 
+         r\_emp.email, 
+         r\_emp.phone\_number, 
+         r\_emp.hire\_date;
+    EXIT WHEN r\_emp\_refcurs%NOTFOUND; 
+    -- see (2)    
+  END LOOP; 
+    
+    --DBMS\_SQL.close\_cursor(r\_emp\_refcurs\_id);
+  CLOSE r\_emp\_refcurs;
+    
+    logit(r\_emp.last\_name||', email='||r\_emp.email, 'D');
+    
+END;
+
+  -- see (1)
+  /\*
+  DBMS\_SQL.parse(r\_emp\_refcurs\_id, v\_dml\_sel, DBMS\_SQL.native );
+  
+  DBMS\_SQL.define\_column( r\_emp\_refcurs\_id, 1, r\_emp.first\_name, 20);
+  DBMS\_SQL.define\_column( r\_emp\_refcurs\_id, 2, r\_emp.last\_name, 25);
+  DBMS\_SQL.define\_column( r\_emp\_refcurs\_id, 3, r\_emp.email, 20);
+  DBMS\_SQL.define\_column( r\_emp\_refcurs\_id, 4, r\_emp.phone\_number, 25);
+  DBMS\_SQL.define\_column( r\_emp\_refcurs\_id, 5, r\_emp.hire\_date);
+  
+  DBMS\_SQL.bind\_variable( r\_emp\_refcurs\_id, 'p\_employee\_id', 101);
+  
+  v\_rows\_fetched := DBMS\_SQL.execute(r\_emp\_refcurs\_id);
+  \*/
+  -- see (2)
+  /\*
+  IF DBMS\_SQL.FETCH\_ROWS(r\_emp\_refcurs\_id)> 0 THEN 
+    DBMS\_SQL.COLUMN\_VALUE( r\_emp\_refcurs\_id, 1, r\_emp.first\_name);
+    DBMS\_SQL.COLUMN\_VALUE( r\_emp\_refcurs\_id, 2, r\_emp.last\_name);
+    DBMS\_SQL.COLUMN\_VALUE( r\_emp\_refcurs\_id, 3, r\_emp.email);
+    DBMS\_SQL.COLUMN\_VALUE( r\_emp\_refcurs\_id, 4, r\_emp.phone\_number);
+    DBMS\_SQL.COLUMN\_VALUE( r\_emp\_refcurs\_id, 5, r\_emp.hire\_date);
+  ELSE 
+    EXIT; 
+  END IF;
+  \*/
+
+  
+  
+set serveroutput oFF
+
+ kod[ edit]($web_docroot_url/inc/utl/edservertxt.php)[ phpinfo]($web_docroot_url/phpinfo_inc.php) EOKOD; /\* call it so: kod\_edit\_run( $idx // script\_dir\_path , $idxscript // script\_name , MDURL); // web\_docroot\_url = (Apache) web server URL \*/ }

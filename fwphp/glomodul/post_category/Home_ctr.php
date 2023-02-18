@@ -89,7 +89,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   private function del_category(object $pp1)
   {
     // D e l  &  R e d i r e c t  to  r e f r e s h  t b l  v i e w :
-    $tbl = $pp1->uriq->t = 'category' ; 
+    $tbl = $pp1->urlqry_parts[3] = 'category' ; 
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
 
     Tbl_crud_category::dd($pp1, $other); //used for all  t a b l e s !! 

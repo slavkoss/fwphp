@@ -1,0 +1,68 @@
+# 1\. PHP menu & CRUD code skeleton (I named it B12phpfw)
+see https://github.com/slavkoss/fwphp/blob/master/readme.md ([web server root dir. path]/readme.md,  [web server root dir. path]=J:/awww/www).
+
+![mvc_M_C_V_data_flow_Laravel.jpg]( /vendor/b12phpfw/img/mvc_M_C_V_data_flow_Laravel.jpg "mvc_M_C_V_data_flow_Laravel.jpg" ) 
+
+Picture 01-1. **Laravel CODE STRUCTURE (code flow ee signals flow)** : 1, 2 and 3 are **routing code snippets** (odsječci) all 3 in same script, or separate scripts, or separate classes scripts. 
+
+In B12phpfw :
+1. ROUTING USING KEY-VALUES is **in shared (global) class** [web server root dir. path]/vendor/b12phpfw/Config\_allsites.php
+2. DISPATCHING USING Home\_ctr CLASS METHODS is in [module dir path]Home_ctr.php ee in [web server root dir. path]/fwphp\glomodul\blog\Home_ctr.php 
+   Dispatching is based on Mini3 PHP fw.
+
+<br />
+![mvc_M_C_V.jpg]( /vendor/b12phpfw/img/mvc_M_C_V.jpg "mvc_M_C_V.jpg" ) 
+
+Picture 01-2. **M-C-V data flow (Laravel)** : M-C-V data flow is usual in PHP world, not in JS, Blazor, Oracle Forms .fmb-s...
+
+Controller instantiates M and includes V (instantiates V if V is class) and **pushes M data to V**.
+
+I do not see advantages compared to M-V data flow. Disadvantages are :
+1. for pagination M-V data flow is only possible solution - If we have user's interactions (events) eg filter displayed rows (pagination is also filtering)
+2. C is fat in large modules (lot of code). (C in my msg - blog module - M-V data flow - has lot of code, but code is very simple, may be small but clear code is better than short unclear code.)
+
+
+
+
+<br /><br /><br />
+![mvc_M_V_data_flow.jpg]( /vendor/b12phpfw/img/mvc_M_V_data_flow.jpg "mvc_M_V_data_flow.jpg" )
+
+Picture 02-1. **M-V data flow (original MVC idea) ** : **V pulls data from M = cRud actions - only R** using DAO classes : module's  Tbl_crud.php and shared Db\_allsites.
+
+Model code is most complicated. C and V code can be standardized, M only partially : cc, rr, uu, dd methods for all tables but **business logic in M code can not be standardized**.
+
+User's events are handled in Controller class. Code (signal) flow :
+1. C assigns user's orders in URL query string to variables (in B12phpfw : var, varvalue pairs) telling V what user wants
+2. C then includes V (not showed in picture above) 
+3. **V pulls data from M** according C variables (user's orders in URL )
+4. V also may call C method for some **state changes in DB ordered by user in URL**, eg table row updates like **approve user comment**
+5. V script may contain class but I do not see need for view classes because view script is included in Home_ctr class and can use $this to access methods and attributes in whole class hierarchy : Home_ctr, Config_allsites, Db_allsites. If we do not need CRUD (user events) than we do not need this class hierarchy, meaning that simple coding like in mnu and mkd modules suffices - no need for CRUD code skeleton B12phpfw.
+
+
+
+<br />
+![mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg]( /vendor/b12phpfw/img/mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg "mvc_M_V_data_flow_MVC_3tier_DAO_abstract_interface.jpg" )
+
+Picture 02-2. **M-V data flow (original MVC idea) ** 
+
+Controller includes (instantiates) V which instantiates DAO class (in B12phpfw it is [web server root dir. path]/fwphp/glomodul\user/Tbl_crud.php - same named Tbl\_crud.php is in all modules dirs) :
+
+Data access object (**DAO**) pattern provides an abstract (**public**) interface (Config\_allsites.php) to some DB or other persistence mechanism (**implementation** of DAO Db\_allsites).
+
+By mapping app calls in Tbl\_crud.php to  persistence layer Db\_allsites, DAO is not  exposing DB details, it is **isolation** which supports single responsibility principle.
+
+
+<br /><br /><br />
+![mvc_M_V_and_M_C_V_data_flow.jpg]( /vendor/b12phpfw/img/mvc_M_V_and_M_C_V_data_flow.jpg "mvc_M_V_and_M_C_V_data_flow.jpg" )
+
+Picture 03. **M-V and M-C-V data flow compared** - both are ok. 
+1. M-V data flow : V instantiates M and pulls data from M 
+2. M-C-V data flow : C instantiates M and inc. or instatiates V , pulls data from M and pushes data object to V (or array, or best **cursor which V reads row by row**). 
+
+I prefer M-V which is also M-C  data flow (if **C manipulates persistence layer data** eg in DB, web service, csv file...  = **CRUD actions - all four: C,R,U and D**.
+
+
+<br /><br /><br />
+
+
+

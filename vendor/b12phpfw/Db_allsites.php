@@ -104,11 +104,11 @@ class Db_allsites implements Db_allsites_Intf
   static public function dd(object $pp1, array $other)             // DELETE TBL ROW
   {
                     if ('') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ;
-                    //echo '<pre>$pp1->uriq='; print_r($pp1->uriq) ; echo '</pre>';
-                    exit(0) ;
+                      echo '<pre>$pp1='; print_r($pp1) ; echo '</pre>';
+                      //exit(0) ;
                     }
-    $tbl = $pp1->uriq->t ;
-    $id  = $pp1->uriq->id ;
+    $tbl = $pp1->urlqry_parts['tbl'] ;
+    $id  = $pp1->urlqry_parts[3] ;
     if(NULL !== $id)
     {
       self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ ); //d d(...
@@ -120,11 +120,11 @@ class Db_allsites implements Db_allsites_Intf
       $Executed = $stmt->execute(); //self::e xecute();
                 if ('') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ; echo '$_SESSION["SuccessMessage"]='; echo '<pre>'; print_r($_SESSION["SuccessMessage"]); echo '</pre>'; } 
       if ($Executed) {$_SESSION["SuccessMessage"][] ="Row id $id Deleted Successfully ! ";
-      }else { $_SESSION["ErrorMessage"][] ="Deleting Went Wrong. Try Again !"; }
+      }else { $_SESSION["MsgErr"][] ="Deleting Went Wrong. Try Again !"; }
 
-      if (isset($pp1->uriq->r)) { 
-        self::Redirect_to(QS.'i/'. $pp1->uriq->r) ; 
-      }
+      //if (isset($pp1->uriq->r)) { 
+      //  self::Redirect_to(QS.'i/'. $pp1->uriq->r) ; 
+      //}
 
     }
   }
@@ -285,8 +285,9 @@ class Db_allsites implements Db_allsites_Intf
      *       PRE cc or uu (in Oracle Forms this code is hidden)
      *            DIFFERENCES c r e (cc)  -  u p d (uu)
      * 1. id is not here (cc does not need it)
-     * 2. for cc : $ccflds_ placeh, for uu : $uuflds_ placeh
+     * 2. for cc : $ccflds_placeh, for uu : $uuflds_placeh
      */
+  /*
   static public function pre_cc_uu(
        array $col_names, string &$col_nam_str
      , string &$ccflds_placeh, string &$uuflds_placeh
@@ -318,17 +319,23 @@ class Db_allsites implements Db_allsites_Intf
                  //echo '<pre>$row='; print_r($row) ; echo '</pre>';
     return((object)$row) ;
   } //e n d  f n  D O
-  
+  */
 
 
   //used for all  tabls !!
-  //static public function c c( //object $pp1
+  //static public f unction c c( //object $pp1
      //array $other=[]): object
   static public function cc(                                       // CREATE TBL ROW
-      array $cc_params //string $tbl, string $flds, string $valsins, array $binds=[]
+      array $cc_params // = [self::$tbl, $flds, $valsins, $binds]
     , array $other=[]): object
   {
-              //if ('1') { echo '<h4>'. __METHOD__ .', line '. __LINE__ .' said :11111'.'</h4>';}
+                        if ('') //isset($_POST["submit_add"])
+                        {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>'; 
+                        echo '<pre>';
+                        echo '<pre>$_POST='; print_r($_POST); echo '</pre>';
+                        echo '<br />$cc_params='; print_r($cc_params) ; 
+                        echo '</pre>';
+                        }
     self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ );
 
     list( $tbl, $flds, $valsins, $binds) = $cc_params ; //$pp1->cc_params
@@ -382,8 +389,10 @@ class Db_allsites implements Db_allsites_Intf
 
     if ($last_id2 > $last_id1) // if ($Executed) 
     { $_SESSION["SuccessMessage"][] ="Last row id $last_id2 Added Successfully ! ";
-    } else { $_SESSION["ErrorMessage"][] ="Adding Went Wrong. Try Again !"; }
+    } else { $_SESSION["MsgErr"][] ="Adding Went Wrong. Try Again !"; }
 
+
+    //exit(0) ;
     return $cursor ;
 
   } //e n d  c c (

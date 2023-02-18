@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <script src="json.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      function showJsonData() {
+        original = new Array('first', 'second', 'third');
+        json = original.toJSONString();
+        div = document.getElementById("jsonData");
+
+        //Decode JSON, and set div.innerHTML
+        //to the first element in the array
+        div.innerHTML = json.parseJSON()[0];
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#" onclick="showJsonData()">Show JSON Data</a>
+    <div id="jsonData"></div>
+  </body>
+</html>

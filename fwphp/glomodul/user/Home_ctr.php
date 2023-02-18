@@ -105,7 +105,7 @@ class Home_ctr extends utl
   {
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
     //parameter $pp1 is AUTOMATICALLY sent in all h o m e fns from call_module_method fn !!
-    $tbl = $pp1->uriq->t = 'admins' ;
+    $tbl = $pp1->urlqry_parts[3] = 'admins' ;
     $other=['caller'=>__FILE__.' '.', ln '.__LINE__, ', d e l  in tbl '.$tbl] ;
     //$other=[ 'caller'=>__METHOD__ .', ln '.__LINE__ ] ;
                               if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
@@ -215,7 +215,7 @@ class Home_ctr extends utl
                                 { echo '<pre>'; print_r($this->uriq) ; echo '</pre>'; }
                               else { echo ' not set' ; } }
     //$this->dd() ;
-    $this->dd($pp1->uriq->t, $pp1->uriq->id) ;
+    $this->dd($pp1->urlqry_parts[3], $pp1->urlqry_parts[5]) ;
     // R e d i r e c t = r e f r e s h  t b l  v i e w :
     $this->Redirect_to($pp1->home_url) ;
       /* switch ($this->uriq->t)

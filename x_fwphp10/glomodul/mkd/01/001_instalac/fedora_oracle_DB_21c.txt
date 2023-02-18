@@ -1,0 +1,117 @@
+
+https://docs.oracle.com/en/database/oracle/oracle-database/21/xeinl/installing-oracle-database-xe.html#GUID-46EA860A-AAC4-453F-8EEE-42CC55A4FAD5
+
+5.1 Installing Oracle Database XE Using RPM Packages
+====================================================
+Uninstall any existing Oracle Database XE or database with the SID XE from the target system.
+
+Nedded is 9 gigabytes of disk space under /opt. 
+If this disk partition does not have the required disk space available, you must add space or mount 
+an alternative partition as /opt/oracle. This disk partition is Oracle Base where SW and DB will reside.
+Note:Ora DB XE installation does not support usage of symbolic links (symlink) for that disk.
+
+Installing Oracle Database XE RPM
+---------------------------------
+Execute as user root using sudo.
+$ sudo -s
+For Oracle Linux, DB Preinstallation RPM is pulled automatically, proceed to the next step.
+For Red Hat compatible Linux distributions, download and install the Database Preinstallation RPM 
+using the following:
+
+For Red Hat Enterprise Linux 7, run the following commands:
+# curl -o oracle-database-preinstall-21c-1.0-1.el7.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-21c-1.0-1.el7.x86_64.rpm
+# yum -y localinstall oracle-database-preinstall-21c-1.0-1.el7.x86_64.rpm
+Note:Use the -y option if you want yum to skip the package confirmation prompt.
+
+For Red Hat Enterprise Linux 8, run the following commands:
+# curl -o oracle-database-preinstall-21c-1.0-1.el8.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL8/latest/x86_64/getPackage/oracle-database-preinstall-21c-1.0-1.el8.x86_64.rpm
+# dnf -y localinstall oracle-database-preinstall-21c-1.0-1.el8.x86_64.rpm
+The yum command that is provided with Oracle Linux 8 is a symbolic link to the dnf command. 
+The yum and dnf commands are completely interchangeable. However, the dnf command provides
+significant improvements in functionality and performance when compared to the yum command.
+
+See Also:
+About DNF for more information about the dnf command.
+https://docs.oracle.com/en/operating-systems/oracle-linux/8/software-management/about-dnf.html
+Access the software download page for Oracle Database RPM-based installation from Oracle Technology Network :
+https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html
+
+Download an appropriate rpm file required for performing an RPM-based installation to a directory of your choice:
+For Oracle Linux 7: oracle-database-xe-21c-1.0-1.ol7.x86_64.rpm
+For Oracle Linux 8: oracle-database-xe-21c-1.0-1.ol8.x86_64.rpm
+
+Install the database software using one of the following commands:
+For Oracle Linux 7, use the yum localinstall command:
+# yum -y localinstall oracle-database-xe-21c-1.0-1.ol7.x86_64.rpm
+
+For Oracle Linux 8, use the dnf localinstall command:
+# dnf -y localinstall oracle-database-xe-21c-1.0-1.ol8.x86_64.rpm
+The Database Preinstallation RPM automatically creates Oracle installation owner and groups 
+and sets up other kernel configuration settings as required for Oracle installations. 
+If you plan to use job-role separation, then create the extended set of database users and groups 
+depending on your requirements. Check the RPM log file to review the system configuration changes.
+
+For example, review this file for latest changes: /var/log/oracle-database-preinstall-21c/results/orakernel.log .
+
+The installation of Oracle Database software is now complete.
+
+Creating and Configuring an Oracle Database
+-------------------------------------------
+The configuration script creates a container database (XE) with one pluggable database (XEPDB1) 
+and configures the listener at the default port (1521) and Enterprise Manager Express on port 5500.
+
+You can modify the configuration parameters by editing the /etc/sysconfig/oracle—xe–21c.conf file.
+
+The parameters set in this file are explained in more details in the silent mode installation procedure: 
+Performing a Silent Installation.
+https://docs.oracle.com/en/database/oracle/oracle-database/21/xeinl/installing-oracle-database-xe.html#GUID-3F29EE7C-4546-49EE-B894-027EE3E371BF
+
+To create the Oracle XE database with the default settings, perform the following steps:
+Execute as user root using sudo.
+$ sudo -s
+Run the service configuration script:
+# /etc/init.d/oracle-xe-21c configure
+At the prompt, specify a password for the SYS, SYSTEM, and PDBADMIN administrative user accounts. 
+Oracle recommends that the password entered should be at least 8 characters in length, 
+contain at least 1 uppercase character, 1 lower case character and 1 digit [0-9].
+
+See Also:
+The same password will be used for these accounts. The password should conform to the Oracle recommended standards.
+See Oracle Database Security Guide for more information about guidelines for securing passwords
+https://docs.oracle.com/pls/topic/lookup?ctx=en/database/oracle/oracle-database/21/xeinl&id=DBSEG-GUID-451679EB-8676-47E6-82A6-DF025FD65156#GUID-451679EB-8676-47E6-82A6-DF025FD65156/DBSEG498
+After the configuration completes, the database and listener are started.
+
+Configuration, Database Files and Logs Location
+------------------------------------------------
+Table 5-1 Configuration, Database Files and Logs Location
+
+File Name and Location	Purpose
+/opt/oracle
+
+Oracle Base. This is the root of the Oracle Database XE directory tree.
+
+/opt/oracle/product/21c/dbhomeXE
+
+Oracle Home. This home is where the Oracle Database XE is installed. It contains the directories of the Oracle Database XE executables and network files.
+
+/opt/oracle/oradata/XE
+
+Database files.
+
+/opt/oracle/diag subdirectories
+
+Diagnostic logs. The database alert log is /opt/oracle/diag/rdbms/xe/XE/trace/alert_XE.log
+
+/opt/oracle/cfgtoollogs/dbca/XE
+
+Database creation logs. The XE.log file contains the results of the database creation script execution.
+
+/etc/sysconfig/oracle-xe-21c.conf
+
+Configuration default parameters.
+
+/etc/init.d/oracle-xe—21c
+
+Configuration and services script.
+
+Note:If a host does not have any IP address other than loopback address assigned (typically in a docker or in an another container environment), NetCA may fail during install with "No valid IP Address returned for the host <hostname>" in netca trace log. Please assign an IP address and retry the install.

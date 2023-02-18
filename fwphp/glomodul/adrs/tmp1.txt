@@ -1,0 +1,9 @@
+      , 'dir_apl'     => $dir_apl      // application (group of modules) folder name
+      , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
+      , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
+      , 'site_path'   => $site_path    // to fwphp (or any name)
+      //
+      , 'pp1_group02U' => '~~~~~ ADRESSES : URLs ~~~~~' 
+      , 'module_url'    => "/$dir_site/$dir_apl/$dir_module"
+      , 'glomodul_url'  => "/$dir_site/glomodul" // CONVENTION 
+      , 'shares_url'    => $shares_url

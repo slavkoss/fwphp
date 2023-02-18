@@ -3,32 +3,43 @@ namespace B12phpfw\glomodul\oraedoop ;
 
 use B12phpfw\core\b12phpfw\Autoload ;
 
-//1. settings - properties - assign global variables to use them in any code part
-$module_path = str_replace('\\','/', __DIR__) .'/' ;
-$site_path   = dirname($module_path) .'/' ; //to app dir eg "glomodul" dir and app
-//to web server doc root or our doc root by ISP  $module_towsroot = eg '../../../'
-$wsroot_path = dirname(dirname(dirname($module_path))) .'/' ;
-               //or $wsroot_path = str_replace('\\','/', realpath('../../')) .'/' ;
-$shares_path = $wsroot_path.'vendor/b12phpfw/' ; //includes, globals, commons, reusables
+///1. settings - properties - assign global variables to use them in any code part
+$module_path = str_replace('\\','/', __DIR__) ; // .'/'
+//$dbicls = 'Db_allsites' ; //$dbicls = 'Db_allsites_ORA' ;
 
-$pp1 = (object)[ 'dbg'=>'1', 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
-  , 'module_version'=>'8.0.0.0 OraEdOOP' //, 'vendor_namesp_prefix'=>'B12phpfw'
+$pp1 = (object) [
+    'pp1_group01' => '~~~~~ MODULE ELEMENTS IN PROPERTY PALLETE $pp1 : ~~~~~' 
+  , 'module_version'=>'ver. 11.0.0.0 oraed' 
+  , 'dbg'=>'1'
+  //, 'dbicls' => $dbicls // for MySql DB or ...
+  , 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
                              // $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
-  // 1p. (Upper) Dirs of clsScriptsToAutoload. With 2p(ath). makes clsScriptToAutoloadPath
-  // 2p. Dir name of clsScriptToAutoload is last in namespace and use (not full path !).
-  , 'wsroot_path' => $wsroot_path  // to awww/www (or any names)
-  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
-  , 'site_path'   => $site_path    // to fwphp (or any names)
-  , 'module_path' => $module_path  // to fwphp/www (or any names)
+  , 'pp1_group02P' => '~~~~~ ADRESSES : PATHS ~~~~~' 
+  , 'module_path' => $module_path 
 ] ;
 
-//2. global cls loads classes scripts automatically
-require($pp1->shares_path . 'Autoload.php');
-new Autoload($pp1);
 
-$module = new Home_ctr($pp1) ;
+  //2. global cls loads (includes, bootstrap) classes scripts automatically
+  //not  Composer's autoload cls-es :
+  require(dirname(dirname(dirname($module_path)))  .'/vendor/b12phpfw/bootstrap.php'); 
+  require($pp1->shares_path .'/Autoload.php');
+  $autoloader = new Autoload($pp1); //eliminates need to include class scripts
+
+
+  //3. SAME MODULE DB ADAPTER FOR ANY (NOT HARD CODED) SHARED DBADAPTER
+  //   no CRUD in this mnu module
+
+
+//4. process request from ibrowser & send response to ibrowser :
+//Home_ ctr "inherits" index.php ee inherits $p p 1
+$module = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
+        if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
+           .', line '. __LINE__ .' SAYS'=>'where am I'
+           ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and $conf = new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'
+        ] ) ; }
 
 exit(0);
+
 
 
 

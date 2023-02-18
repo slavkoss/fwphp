@@ -4,9 +4,10 @@
 //      L I S T  OF D I R S & T X T S  TO  M K D  E D I T
 
                         if(''){ echo '<h2>' .'lin='. __LINE__ .' *** '.__FILE__ .' SAYS *** šđčćž</h2>';
+                        echo '<pre>$pp1='; print_r($pp1); echo '</pre>';
                         //echo '<br />'.'$ctr_ ordno='.$ctr_ ordno .'=...' ;
-                        if (isset($_GET)) {print '<br />$_GET='; echo '<pre>'; print_r($_GET); echo '</pre>';
-                        } echo '<br />'; }
+                        //if (isset($_GET)) {print '<br />$_GET='; echo '<pre>'; print_r($_GET); echo '</pre>';
+                        } echo '<br />'; 
       /**
       *      1. H D R  -  D I S P L A Y  T O P  L I N K S  (none here)
       */
@@ -39,7 +40,7 @@
       *   D I S P L A Y  M O D E L  D A T A  - DIRS AND FILES
       *   (GUI BLOCK) - LIST OF FILES LIKE IN lsweb M O D U L E
       */
-      include_once $pp1->module_path . 'model.php';
+      include_once $pp1->module_path . '/model.php';
       if (isset($data)) {
         foreach($data as $htmlline) { echo $htmlline; } 
       } ?>

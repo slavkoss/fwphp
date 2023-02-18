@@ -42,7 +42,7 @@ Extract from fwphp-master.zip only  ~300 kB (B12phpfw core is less than 100 kB, 
     2. import in My SQL J:\\awww\\www\\z_DDL_and_other\\01_DDL_mysql_blog.sql      
          or in Oracle DB  J:\\awww\\www\\z_DDL_and_other\\01_DDL_oracle_blog.sql
 
-In J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - first learning step beside Mnu module in J:\\awww\\www\\fwphp\\www\\. Adrs is not to simple example but is not enough to learn B12phpfw menu & CRUD code skeleton ! Enough not to simple learning modules are Mnu, Mkd and Msg modules ! Seems complicated but is not.      
+In J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - first learning step beside Mnu module in J:\\awww\\www\\fwphp\\glomodul\\www\\. Adrs is not to simple example but is not enough to learn B12phpfw menu & CRUD code skeleton ! Enough not to simple learning modules are Mnu, Mkd and Msg modules ! Seems complicated but is not.      
 
 >Most (all ?) PHP learning sources on internet and books (Nixon, Powers, Yank, Ullman...) seem simple, but are in my opinion good only for basic sintax and lead to wrong coding of
 >menu & CRUD code skeleton, so are more complicated than B12phpfw ! It is one of life paradoxes : "illusion, semblance of appearance". 
@@ -175,7 +175,7 @@ j:\\awww\\www (master -> origin)
 ### git status
 ### git add .
 or git add fwphp\\ (or whatever git asks)  or git add -A  or git add index.html
-### git commit -am "ver 10.0.2.0 mnu, adrs, msg, mkd. Same module db adapter for any shared db adapter"
+### git commit -am "ver 11.0.0.0 mnu, adrs, msg, mkd. Same module db adapter for any shared db adapter"
 We stored our project files within our system hard drive.      
 If Cmder shows error  "fatal: unable to auto-detect email address" : see above git config...       
 git config --global user.email "you@example.com"      and         git config --global user.name "Your Name"       
@@ -1169,6 +1169,65 @@ version 8.0.0.0 means (https://semver.org/) :
 - 1st 0 is MAJOR incompatible API changes eg DB change
 - 2nd 0 is MINOR backwards compatible code change
 - 3rd 0 is PATCH  ee error correction change
+
+
+<ol>
+
+<li>Feb. 2023. B12phpfw ver. 11 : simplified routing, dispatching, Autoload, new global <b>bootstrap.php</b>
+<br> </li>
+
+<li>Jan. 2023. B12phpfw ver. 10 : same module DB adapter for any shared DB adapter which is <b>DI (Dependence Injected)</b> in view script - class Db_allsites (or Db_allsites_ora or... any DB) implements Db_allsites_Intf
+<br> </li>
+
+<li>April 2022. B12phpfw ver. 9 - Deprecated: Calling static <b>trait</b> method (from class Tbl_crud ) B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated, it should only be called on a class using the trait (but use is hard coding !?), so Db_allsites is abstract Class for now (2022-07-03). Later, in ver. 10, Db_allsites class I made not abstract because must be instantiated in index.php to be DI in view class.
+<br> </li>
+
+<li>Nov. 2021. B12phpfw ver. 8 : 
+
+   <ol>
+
+   <li>any atomic module (user, post_category, post, post_comment) may be <b>caled from compound (blog) module, but also independent of compound module</b>.
+   </li>
+
+   <li>Shares are not any more in /zinc folder but in in <b>/vendor folder</b>. Eg /vendor/b12phpfw/Autoload.php below web server doc root J:\xampp\htdocs or J:\awww\www (virtual host doc root). Site root(s) are on same place in folders hierarchy eg \fwphp (may be named site_x). Also group of modules are on same place in folders hierarchy eg \fwphp\glomodul. Also modules are on same place in folders hierarchy eg \fwphp\glomodul\blog – dir like oracle Forms form module.</li>
+
+   <li>Views are classes - clearer and cleaner code than include scripts and URL jumps ?</li>
+
+   <li>Improved CRUD sintax - Tbl_crud DB adapters in module dirs should contain most code which was in view scripts. Global code snippets are in global methods where possible.</li>
+
+  <li>Improve links aliases in Home_ctr and in view scripts</li>
+
+  <li>PHP 8 and Bootsrap 5</li>
+  </ol>
+
+<br> </li>
+
+<li>Oct. 2020. B12phpfw ver. 7 - PHP 7 and trait DBI </li>
+   <ol>
+   <li>
+    2021.08.28 ver 7.0.5 : I added folder (module) WEBSERVERROOT/fwphp/glomodul/img_gallery
+    J:\awww\www is my WEBSERVERROOT.
+    J:\awww\www\fwphp is MYDEVSITEROOT1. You may have more MYDEVSITEROOT2, 3... See how in WEBSERVERROOT/index_laragon.php script.
+    glomodul is group of folders - modules which are not 01mater or 02financ or 03... glomodul may be named othermodules.
+    img_gallery module is first lesson about (theory behind) code skeleton (application architecture) B12phpfw
+ </li>
+
+ <li>
+  2020.09.30 DONE version 7.0.0.0 1. declare(strict_types=1) ; - PHP 7 2. DBI improved : trait Db_allsites instead class Db_allsites. 3. Each DB table (persistent storage) has adapter class Tbl_crud : which uses B12phpfw\core\vendor/B12phpfw\Db_allsites and implements Interf_Tbl_crud This means that : 1. Module's views or ctrs, eg blog module (see blog folder) work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's. 2. class Home_ctr extends class Config_allsites. ( Logically all is in Home_ctr).
+  </li>
+
+  <li>
+ 2020.09.05 DONE On Linux demo sites : some PHP statement works different than on Windows (about dozen incompatibilities), eg links do not work in msg module, but work in mnu and mkd modules) : DONE in wsroot_path\vendor/b12phpfw\Config_allsites.php :
+ </li>
+ <li>
+ Error on Linux not on Windows : $REQUEST_URI = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
+ <br>No error on both OS : $REQUEST_URI = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ;
+  </li>
+  </ol>
+  
+
+</ol>
+
 
 November 2021. Current version code is 8.  Msg module version 8 is not finished, but is visible what should be done during next few months (Mkd ver. 8 was finished in half hour, Mnu simmilar, Msg needs much more time because of bootstrap 5, improve CRUD sintax...).     
 See http://phporacle.eu5.net/ (freehostingeu - fast, stable, has free MySQL) how it should work.    

@@ -3,20 +3,23 @@
 namespace B12phpfw ; //FUNCTIONAL, NOT POSITIONAL : 
 
 use B12phpfw\core\b12phpfw\Config_allsites as utl ;
-use B12phpfw\core\b12phpfw\Db_allsites as utldb ;
-use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud_post;
-use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_category;
+use B12phpfw\core\b12phpfw\Db_allsites as db_shared ;
+use B12phpfw\dbadapter\post\Tbl_crud as db_module;
+use B12phpfw\dbadapter\post_category\Tbl_crud as db_module_category;
+
+$pp1->stack_trace[]=str_replace('\\','/', __FILE__ ).', lin='.__LINE__ ;
+
 //    1. S U B M I T E D  A C T I O N S
-if(isset($_POST["Submit"]))
+if(isset($_POST["subm_ed"]))
 {
-  $cursor = Tbl_crud_post::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
+  $cursor = db_module::uu($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__]);
   utl::Redirect_to($pp1->posts);
-} //E n d  of Submit Button If-Condition
+} //E n d  of S ubmit Button If-Condition
 
 
 //               2. R E A D  D B T B L R O W S
 // returns object :
-$cursor_LOVcategory = Tbl_crud_category::rr_all( $pp1
+$cursor_LOVcategory = db_module_category::rr_all( $pp1
   , $dmlrr='*'
   , $qrywhere="'1'='1'"
   , $binds=[]
@@ -58,8 +61,8 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $pp1
        echo utl::msg_err_succ(__FILE__ .' '.', ln '. __LINE__);
 
        // returns object :
-       $rpost_toedit = Tbl_crud_post::rr_byid( $IdFromURL, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
-      switch (utldb::getdbi()) { case 'oracle' : $rpost_toedit = self::rlows($rpost_toedit) ; break; default: break; }
+       $rpost_toedit = db_module::rr_byid( $IdFromURL, $other=[ 'caller' => __FILE__ .' '.', ln '. __LINE__ ] );
+      switch (db_shared::getdbi()) { case 'oracle' : $rpost_toedit = self::rlows($rpost_toedit) ; break; default: break; }
 
          $TitleToBeUpdated    = $rpost_toedit->title;
          $CategoryToBeUpdated = $rpost_toedit->category;
@@ -89,7 +92,7 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $pp1
               <!-- LOV  C a t e g o r i e s  from  D B -->
               <select class="form-control" id="CategoryTitle"  name="Category">
                  <?php 
-              while ( $rx = utldb::rrnext( $cursor_LOVcategory
+              while ( $rx = db_shared::rrnext( $cursor_LOVcategory
                 , $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) and $rx->rexists ):
             {
               ?>
@@ -148,7 +151,7 @@ $cursor_LOVcategory = Tbl_crud_category::rr_all( $pp1
                 <a href="<?=$pp1->dashboard?>" class="btn btn-warning btn-block"><i class="fas fa-arrow-left"></i> Back To Dashboard</a>
               </div>
               <div class="col-lg-6 mb-2">
-                <button type="submit" name="Submit" class="btn btn-success btn-block">
+                <button type="submit" name="subm_ed" class="btn btn-success btn-block">
                   <i class="fas fa-check"></i> Publish
                 </button>
               </div>
