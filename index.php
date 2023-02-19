@@ -1,6 +1,8 @@
 <?php
+// http://dev1:8083/fwphp/glomodul/lsweb/Lsweb.php/?cmd=J:/awww/www/fwphp/glomodul/www/
 //__FILE__ .' SAYS :'
-$New_Location = '/fwphp/www' ;
+$New_Location = '/fwphp/glomodul/www/' ;
+//$New_Location = '/fwphp/glomodul/lsweb/Lsweb.php/?cmd=J:/awww/www/fwphp/glomodul/www/' ;
 header("Location:". $New_Location);
 ?>
 <!--

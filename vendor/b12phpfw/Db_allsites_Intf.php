@@ -19,7 +19,7 @@ interface Db_allsites_Intf  //like Oracle package = list of mandatory methods
 
 
 
-  // 11111 ******************************** R functions :
+  // 11111 ******************** R functions :
 
   static public function get_cursor( //object $pp1 //like Oracle cursor //instead rr
       string $dmlrr, array $binds=[], array $other=[]): object ;
@@ -33,16 +33,13 @@ interface Db_allsites_Intf  //like Oracle package = list of mandatory methods
 
 
 
-  // 22222 ******************************* CrUD functions :
+  // 22222 ******************** CrUD functions :
   
   // on-insert :
-  static public function cc(                                       // CREATE TBL ROW
-      //string $tbl, string $flds, string $valsins, array $binds=[]
-      array $cc_params //
-    , array $other=[]): object ;
-  //static public function cc(object $pp1, array $other=[]): object ; //was string
+  static public function cc( array $cc_params, array $other=[] ): object ; //CREATE TBL ROW    
+  //static public function c c(object $pp1, array $other=[]): object ; //was string
    /*
-   static public function pre_cc_uu(
+   //static public function pre_cc_uu(
         array $col_names
       , string &$col_nam_str
       , string &$ccflds_placeh
@@ -59,7 +56,7 @@ interface Db_allsites_Intf  //like Oracle package = list of mandatory methods
 
 
 
-// 33333 *************** enterprise bussiness functions (rules, utilities)
+// 33333 ******************** enterprise bussiness functions (rules, utilities)
 
    static public function debugPDO(string $dmlxx, array $binds, array $ph_val_arr): string ;
 

@@ -1,13 +1,14 @@
 <?php
-class tasksController extends Controller
+//class postsController extends Controller
+class ngrt_MVC_todoController extends Controller
 {
     function index()
     {
         require(MODULEDIR . 'Models/Task.php');
 
-        $tasks = new Task();
+        $posts = new Task();
 
-        $d['tasks'] = $tasks->showAllTasks();
+        $d['posts'] = $posts->showAllposts();
         $this->set($d);
         $this->render("index");
     }
@@ -22,8 +23,8 @@ class tasksController extends Controller
 
             if ($task->create($_POST["title"], $_POST["description"]))
             {
-                header("Location: " . MODULEDIR . "Views/Tasks/index.php");
-                //header("Location: " . WEBROOT . "tasks/index");
+                header("Location: " . MODULEDIR . "Views/posts/index.php");
+                //header("Location: " . WEBROOT . "posts/index");
             }
         }
 
@@ -41,7 +42,7 @@ class tasksController extends Controller
         {
             if ($task->edit($id, $_POST["title"], $_POST["description"]))
             {
-                header("Location: " . MODULEDIR . "Views/Tasks/index.php");
+                header("Location: " . MODULEDIR . "Views/posts/index.php");
             }
         }
         $this->set($d);
@@ -55,7 +56,7 @@ class tasksController extends Controller
         $task = new Task();
         if ($task->delete($id))
         {
-            header("Location: " . MODULEDIR . "Views/Tasks/index.php");
+            header("Location: " . MODULEDIR . "Views/posts/index.php");
         }
     }
 }

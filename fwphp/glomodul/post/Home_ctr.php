@@ -35,7 +35,8 @@ class Home_ctr extends utl //Config_ allsites
     // Ver. 7 : $pp1 is Injected Dependency 
     $title = 'MSG Dashboard';
     require $pp1->shares_path . '/hdr.php';
-    Home_view::navbar($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); //require("navbar.php"); 
+    Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+                                     //require("n avbar_ top.php"); 
       Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
    require $pp1->shares_path . '/ftr.php';
   }
@@ -44,7 +45,7 @@ class Home_ctr extends utl //Config_ allsites
   {
     $title = 'About';
     require $pp1->shares_path . '/hdr.php';
-    Home_view::navbar($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+    Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
       Home_view::about_module($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
    require $pp1->shares_path . '/ftr.php';
   }

@@ -37,7 +37,7 @@ $cursor_LOVcategory = db_module_category::rr_all( $pp1
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
     require_once $pp1->shares_path . '/hdr.php';
-    require_once("navbar.php");
+    //require_once("navbar.php");
 
 ?>
     <!-- HEADER -->

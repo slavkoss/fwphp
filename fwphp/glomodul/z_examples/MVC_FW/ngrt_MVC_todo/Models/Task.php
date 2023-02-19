@@ -3,7 +3,8 @@ class Task extends Model
 {
     public function create($title, $description)
     {
-        $sql = "INSERT INTO tasks (title, description, created_at, updated_at) VALUES (:title, :description, :created_at, :updated_at)";
+        $sql = "INSERT INTO posts (title, summary, datetime, datetime2) VALUES (:title, :description, :created_at, :updated_at)";
+        //$sql = "INSERT INTO tasks (title, description, created_at, updated_at) VALUES (:title, :description, :created_at, :updated_at)";
 
         $req = Database::getBdd()->prepare($sql);
 
@@ -20,15 +21,15 @@ class Task extends Model
 
     public function showTask($id)
     {
-        $sql = "SELECT * FROM tasks WHERE id =" . $id;
+        $sql = "SELECT * FROM posts WHERE id =" . $id;
         $req = Database::getBdd()->prepare($sql);
         $req->execute();
         return $req->fetch();
     }
 
-    public function showAllTasks()
+    public function showAllposts()
     {
-        $sql = "SELECT * FROM tasks";
+        $sql = "SELECT * FROM posts";
         $req = Database::getBdd()->prepare($sql);
         $req->execute();
         return $req->fetchAll();
@@ -38,7 +39,7 @@ class Task extends Model
 
     public function edit($id, $title, $description)
     {
-        $sql = "UPDATE tasks SET title = :title, description = :description , updated_at = :updated_at WHERE id = :id";
+        $sql = "UPDATE posts SET title = :title, description = :description , updated_at = :updated_at WHERE id = :id";
 
         $req = Database::getBdd()->prepare($sql);
 
@@ -55,7 +56,7 @@ class Task extends Model
 
     public function delete($id)
     {
-        $sql = 'DELETE FROM tasks WHERE id = ?';
+        $sql = 'DELETE FROM posts WHERE id = ?';
         $req = Database::getBdd()->prepare($sql);
         return $req->execute([$id]);
     }

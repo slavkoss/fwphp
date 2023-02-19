@@ -2,7 +2,7 @@
 //J:\awww\www\fwphp\glomodul\post\Posts.php
 declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
 
-//FUNCTIONAL, NOT POSITIONAL :
+//F UNCTIONA L, NOT P OSITIONA L :
 namespace B12phpfw\module\post ;
 
 use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utilities
@@ -303,8 +303,6 @@ or write code to do 1. and 2. (it is easy)"
 
     <?php
     $title = 'Full Post Page' ;
-    //require_once $pp1->shares_path . '/hdr.php';  //require
-    //require_once("navbar.php");
     ?>
     <!--         2. G U I  to get user action -->
     <!-- Page content CENTER-->
@@ -323,8 +321,6 @@ or write code to do 1. and 2. (it is easy)"
           <!-- 1. p a g e  t i t l e -->
 
           <?php
-          //echo $pgn_links['navbar'];
-
           $ordno = 0 ;
           // isset($rx->id)   db_module::...
           while ( $rx = db_module::rrnext( $cursor_posts
@@ -478,7 +474,6 @@ or write code to do 1. and 2. (it is easy)"
 
             <?php
           } endwhile;
-          //echo $pgn_links['navbar'] ;
           ?>
         
 
@@ -564,7 +559,7 @@ or write code to do 1. and 2. (it is easy)"
 
 
 
-  static public function navbar( object $pp1, array $other ): string 
+  static public function navbar_top( object $pp1, array $other ): string 
   { 
     $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
 
@@ -608,7 +603,7 @@ or write code to do 1. and 2. (it is easy)"
 
     </div><!-- ./ Hero -->
 
-    <!-- NAVBAR END -->
+    <!-- N AV B A R  END -->
 
     <?php
     return('1') ;
@@ -622,11 +617,14 @@ or write code to do 1. and 2. (it is easy)"
       <div class="grid">
         <section>
            <p>Dashboard uses Model (CRUD of rows) to output View of table posts.
-           aaaaaa bbbbbb ccccccc dddd.
            </p>
            
-           <p>Here is some nice blah, blah, blah, blah, blah, blah, blah, blah.
-           aaaaaah aaaaaah aaaaaah aaaaaah aaaaaah aaaaaah.
+           <h3>Middleware</h3>
+                      
+           <p>The middleware process incoming requests and execute the code BEFORE THE CONTROLLER'S ACTIONS.
+           </p>
+                                 
+           <p>Frequently the middleware layer has multiply middlewares in the <b>chain</b> and they run one after another (bootstrap.php, router() dispatcher()).
            </p>
            
         <section>

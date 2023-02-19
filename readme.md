@@ -28,12 +28,31 @@ See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul
    2.  WEBSERVERDOCROOT XAMPP root dir  OS adress J:\xampp\htdocs,  Web adress :  http://SSPC1:8083/       
     
 ## 1\.2 Download and unzip code from my Github repo
-
+Extract from fwphp-master.zip only  ~300 kB (B12phpfw core is less than 100 kB, with many added learning examples and images ~3 MB)   :
+```
+(Apache or nginx...) WEB SERVER DOCROOT J:\\xampp\\htdocs\\, my is  virtual host J:\\awww\\www\\      
+│      
+│            
+│─I.fwphp (app or SITE1 or APLications1) = Main site dir. fwphp is optional name.                      
+│    └── Contains MODULE GROUPS eg APLication1 or glomodul (under which is  www =main menu) :
+│               glomodul, finance, material, salary       
+│              └── They contain MODULES eg www or post under glomodul dir    
+│          
+│             
+│─II.index.php redirects to main menu url : /fwphp/glomodul/www/index.php              
+│           
+│                     
+│─III.vendor                  
+│     └── b12phpfw dir = internal resources, external sresources are in other vendor subdirs.             
+│         Here are class Autoload and other for all sites shared - common - global                        
+│         classes Db_allsites and Config_allsites....         
+│     └── erusev =  external resources
+│         └── parsedown = external resources      
+│     └── simplemde      
+```
 Download from **https://github.com/slavkoss/fwphp**
 
 First "/" in paths below is "J:\\awww\\www\\" = "http://dev1:8083/" = ownWebServer_or_hosting_DOCROOT_PATH, eg **first "/" in "/vendor/b12phpfw"**      
-
-Extract from fwphp-master.zip only  ~300 kB (B12phpfw core is less than 100 kB, with many added examples ~3 MB)   :
 
 1. Folders : vendor (was zinc, now zinc no more exists, shares are in **/vendor/b12phpfw**)   
 
@@ -45,10 +64,9 @@ Extract from fwphp-master.zip only  ~300 kB (B12phpfw core is less than 100 kB, 
 In J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - first learning step beside Mnu module in J:\\awww\\www\\fwphp\\glomodul\\www\\. Adrs is not to simple example but is not enough to learn B12phpfw menu & CRUD code skeleton ! Enough not to simple learning modules are Mnu, Mkd and Msg modules ! Seems complicated but is not.      
 
 >Most (all ?) PHP learning sources on internet and books (Nixon, Powers, Yank, Ullman...) seem simple, but are in my opinion good only for basic sintax and lead to wrong coding of
->menu & CRUD code skeleton, so are more complicated than B12phpfw ! It is one of life paradoxes : "illusion, semblance of appearance". 
->**Any systematic work is (at first) very difficult**. For example, high officials do not work systematically. The proof is incompatible SW tools, world crises (robbery of savings by inflation, printing money), crimes of inhuman predators like Hitler, Milošević, Putin, some religious high officials and their "brainwashed" believers (kill dissenters, mask women, ban their education and some other rights, for example abortion because of the imbecile idea that the fetus should be preserved at the cost of killing both the mother and the child through poverty - let them support the unwanted child and no one will ask for an abortion). In an orderly, non-anarchic society of educated people, such non-humans would not come to power. Voters do not recognize high officials who work unsystematic, i.e. they are not aware that **by not going to the polls or by electing always the same incompetent / liars / thieves** they are working against themselves, i.e. through ignorance / stupidity they fall prey to intense brainwashing by propagandists and commit a kind of suicide. Vote for someone else so that we don't always get squeezed by the same mafia octopuses of incompetent / lying / thieving high officials.
-   
-**We have to look at the whole - all the (main) functions of the code**, but PHP learning resources are more self-advertising to make money, not teaching all the (main) functions of the code. **I wish Microsoft Oracle, PHP "experts - ha,ha" and others would teach (eg Blazor) the way I teach PHP here**. Who can understand many megabytes of inexplicable inclusions? If something goes wrong look for an error in many megabytes of code? It's child's play for me, as complicated as Oracle Forms after the last client-server version of 6i. Installing, calling and maintaining servers is an (inexplicable) science. The post-6i call pattern is replaced by Oracle every few years with an incompatible one (problem: huge Java core library!). Microsoft's development tools, like Oracle's, are incompatible and some have been abandoned like Oracle Forms 6i.
+>menu & CRUD code skeleton, so are more complicated than B12phpfw ! Book CMS Duckett 2022 year is good for learning PHP, but CMS example is not so good.
+>It is one of life paradoxes : "illusion, semblance of appearance". 
+>
 
 **mnu** - menu module in  /fwphp/www  folder
 
@@ -130,14 +148,14 @@ url GET parameter p2=param2
 You are in View: J:\awww\www\fwphp\glomodul\adrs\example_two.php
 
 #### Link ADDRESSES opens page : "Links to youtube videos" or to... any page you wish
-Trait Db_allsites static public function rrcnt called from "class Tbl_crud implements Interf_Tbl_crud" has problem :
+Trait Db_allsites static public function rrcnt called from "class Tbl_crud" has problem :
 >Deprecated: Calling static trait method B12phpfw\core\b12phpfw\Db_allsites::rrcount is deprecated,
 >            it should only be called on a class using the trait -- **PHP authors did not explain this problem ?**
-**so it is (abstract ?) Class for now** (2022-07-03) - **works but should be updated till end in Adrs module and in Msg module...**.
+**so it is  Class for now** (2022-07-03) .
 (Old good rule: do not use advanced language features because language authors don't test the changes in enough detail !)
 
 There is lot to learn about Adrs module. If seems difficult try first [Mini3](https://github.com/panique/mini3) . 
-Msg module adds "more modules" functionality which is real life programming not easy but neccessary.
+Msg module adds "more modules" functionality which is real life programming, not easy but neccessary.
 
 ## Steps of CODE FLOW in adrs module or any other B12phpfw module
 Output from Autoload class after we change if ('') {... to if ('1') {...   displays code flow after Click on "ADDRESSES" button or any other link.                 
@@ -552,7 +570,7 @@ B12phpfw has 3 modules  and some utilities :
 ## <a name="dm"></a>1\.8 DM (Domain model)
 [Top](#top)......[Dirs](#directories).....[UML](#uml).....**DM**.....[IDE](#ide).....[CRUD](#crud).....[SW fw](#swfw)   
 
-
+See using mkd  fwphp/glomodul/mkd/02/01_fwphp/PHP_DIP_DI.txt
 
 
 
@@ -740,7 +758,7 @@ We need single entry point in module to avoid mess with links (https://... links
 
 
 <a name="scrudC"></a>
-### 3\.1\.4 cre_row_frm.php - code behind form and form
+### 3\.1\.4 cre_row_frm.php - form and code behind form
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....**create**.....[read (user profile - form)](#scrudR).....[update](#scrudU)....[adapter](#scrudadapter)    
 
 ```php
@@ -752,7 +770,7 @@ We need single entry point in module to avoid mess with links (https://... links
 
 
 <a name="scrudR"></a>
-### 3\.1\.5 read_tbl.php
+### 3\.1\.5 read_tbl.php is now in view class script Home.php
 [index.php](#SimplestCRUD).....[index.php](#scrudIndex).....[Home_ctr](#scrudHome_ctr).....[home (table page)](#scrudHomeV).....[create](#scrudC).....**read (user profile - form**.....[update](#scrudU)....[adapter](#scrudadapter)    
 
 ```php
@@ -813,25 +831,38 @@ We need single entry point in module to avoid mess with links (https://... links
 
 
 <br /><br />
-It is not easy to see need to eg for user module convert code from procedural MVC to OOP MVC with namespaces and autoloading  For navigation (url-s, links) code is same - OOP does not help. Procedural MVC user module code is more clear and readable. So why is OOP better ?
+It is not easy to see need to eg for user module convert code from procedural MVC to OOP MVC with namespaces and autoloading  For navigation (url-s, links) code is same - OOP does not help. Procedural MVC eg user module code can be more clear and readable. So why is OOP better ?
 
-Some say: "is OOP mistake ?" - eg **lack of reusability in OOP** - to get banana (some method or attribute) you get also gorilla holding banana and whole gorilla\`s jungle (all **higher classes with complicated dependencies**). It is why B12phpfw code skeleton is for CRUD modules, I do not use it in mnu and mkd modules.
+Some say: "is OOP mistake ?" - eg **lack of reusability in OOP** - to get banana (some method or attribute) you get also gorilla holding banana and whole gorilla\`s jungle (all **higher classes with complicated dependencies**). 
 
 Eg Interfaces help to get ONLY banana, but coding is complicated - I could find only strong-talk-weak-work code examples about this subject.  
-1. So my not complicated **interface Interf_Tbl_crud** I made **to standardize coding Tbl_crud classes**. Each simple ee **one table module** like "invoice items" module has own dir and own Tbl_crud class leading to more than 100 Tbl_crud.php model adapter scripts in big application (eg material and financial book keeping).
-```
-*  J:\awww\www\vendor/b12phpfw\Interf_Tbl_crud.php (4 hits)
-* 9:   static public f unction rr(
-* 12:  static public f unction rrnext(object $cursor): object ;  //returns $cursor
-* 16:  static public f unction rr_all(
-* 23:  static public f unction cc(object $pp1, array $other): string ;
-```
 
-2. With **DBI trait Db_allsites** I eliminated two higher DB classes. So if banana (some method or attribute) is **rr (read) from more tables** it is not in two higher DB classes which seems simplest solution but caused complicated coding in version 6.   Eg invoice module works with two (or three - bill) tables : invoice and invoice_items. Simmilar "simplest solution" three dirs M,V,C is bad,  I have -:) for 3dirs lovers who put coding technik (M,V,C code separation) in foreground instead pages (functionality, business logic), eg invoice page. How unimportant is coding technik (M,V,C code separation) in functionality, business logic story, but M,V,C code separation is most important in coding, in each script.
+1. So my not complicated **interface Db_allsites_Intf.php** I made **to standardize coding Db_allsites_mysql, Db_allsites_oracle... classes (alias db_shared)**. Each simple ee **one table module** like "post items" module has own dir (post) and own Tbl_crud (alias db_module) class leading to more than 100 Tbl_crud.php model adapter scripts in big application (eg material and financial book keeping).
+
+J:\\awww\\www\vendor\\b12phpfw\\**Db_allsites_Intf.php** (17 hits)
+	Line 15:    static public function **get_or_new_dball**(string $called_from ='**UNKNOWN CALLER**') ;
+	Line 16:    static public function closeDBConn() ;
+	Line 17:    static public function getdbi() ;
+	Line 18:    static public function setdo_pgntion($new_val) ;
+	Line 22:   // 11111 ******************** R functions :
+	Line 24:   static public function **get_cursor**( //object $pp1 //like Oracle cursor //instead rr
+	Line 27:   static public function **rrnext**(object $cursor, array $other = [] ): object ;
+	Line 29:   static public function rrcount(string $tbl, array $other=[]): int ;
+	Line 31:   static public function rr_last_id(string $tbl, array $other=[]): int ;
+	Line 32:   //static public function rrcnt( string $tbl, array $other=[] ): int ;
+	Line 36:   // 22222 ******************** CrUD functions :
+	Line 39:   static public function **cc**(  cc( array $cc_params, array $other=[] ): object ; //CREATE TBL ROW   
+		Line 45: //  static public function pre_cc_uu(
+	Line 56:    static public function **uu**( $tbl, $flds, $where, $binds = [] ) ;
+	Line 62: // 33333 ******************** enterprise bussiness functions (rules, utilities)
+	Line 64:    static public function debugPDO(string $dmlxx, array $binds, array $ph_val_arr): string ;
+
+
+2. Eg invoice module works with two tables : invoice and invoice_items  (or three tables: bill, invoice,  invoice_items) . Simmilar "simplest solution" three dirs M,V,C is bad -:) - 3dirs lovers put coding technik (M,V,C code separation) in foreground instead pages (functionality, business logic). 
 
    rr banana is not in jungle any more, gorilla and jungle is only one abstract class Config_allsites which is de facto $pp1 = properties.
 
-   **Banana $pp1 = properties palette** may cause difficulties in aggregate (compound, composed, multiplex) modules like Blog, Invoice... but $pp1 is inevitably (imminence, necessity) gorilla-jungle and can not be further simplified. I worked 20 years in $pp1 and globals jungle (Oracle Forms 6i) not so well grounded as here. 
+   **Banana $pp1 = properties palette** may cause difficulties in aggregate (compound, composed, multiplex) modules like Blog, Invoice... but $pp1 is inevitably (imminence, necessity) gorilla-jungle and can not be further simplified. I worked 20 years in $pp1 and globals jungle (Oracle Forms 6i) not so well grounded as here is. 
 
 
 See [https://phpthewrongway.com/](https://phpthewrongway.com/), or Joe Armstrong why OOP sucks [http://harmful.cat-v.org/software/OO\_programming/why\_oo\_sucks](http://harmful.cat-v.org/software/OO_programming/why_oo_sucks).
@@ -842,13 +873,13 @@ See [https://phpthewrongway.com/](https://phpthewrongway.com/), or Joe Armstrong
   
 <br /><br /><br />
 B12phpfw is based on ideas in many tutorials eg next few are among best (but also on some ideas in best PHP frameworks Laravel, Simfony, Yii, Phalcon...) .         
-I did much simpler B12phpfw code based on ideas in Jazeb Akram CMS blog and Mini3 PHP fw. Books about PHP are not so good.
+I did much simpler B12phpfw code based on ideas in Jazeb Akram CMS blog - **pages design** and Mini3 PHP fw - **code skeleton**, routing. Books about PHP code examples are not so good.
 
-1.  CMS blog Video (7.7 GB) Jazeb Akram : Udemy - The Complete PHP MYSQL Professional Course with 5 Projects - **rare not to simple tutorial**. Similar is video (12.3 GB) Edwin_Diaz_PHP for Beginners - Become a PHP Master - CMS Project. Also some other videos - so seems they are **best/simplest page designs** (not code skeletons) for CMS blog  ee posts, messages. Videos are huge for commercial reasons to reach higher num_of_GB ee $/GB but there is not best code - older programming style.
+1.  CMS blog Video (7.7 GB) Jazeb Akram : Udemy - The Complete PHP MYSQL Professional Course with 5 Projects - **rare not to simple tutorial**. Similar is video (12.3 GB) Edwin_Diaz_PHP for Beginners - Become a PHP Master - CMS Project. Also some other videos - so seems they are **best/simplest page designs** (not code skeletons) for CMS blog  ee posts, messages. Videos are huge for commercial reasons to reach higher num_of_GB ee $/GB but there is not best code - there is older programming style.
 
-2.  [**Mini3**](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/adrs) (Mini3 PHP fw [https://github.com/panique/mini3](https://github.com/panique/mini3) - rare not to simple module but could have more functionality.
+2.  [**Mini3**](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/adrs) (Mini3 PHP fw [https://github.com/panique/mini3](https://github.com/panique/mini3) - rare not to simple one table module but could have more functionality.
 
-3.  /glomodul/z_examples/MVC_FW/hcstudio_easy/public/  to simple fw example but good code for learning PHP (only Read of CRUD), explained Middleware. To complicated routing and Middleware.
+3.  /glomodul/z_examples/MVC_FW/hcstudio_easy/public/  to simple fw example but good code for learning PHP (only Read of CRUD), explained **Middleware**. To complicated routing and Middleware, so it is not easy !
 
 4.  https://github.com/ngrt/MVC_todo Code is explained in this article blog 2017.12.17: https://medium.com/@noufel.gouirhate/create-your-own-mvc-framework-in-php-af7bd1f0ca19
 5.  https://dev.to/jorgecc/a-minimalist-mvc-project-using-php-and-without-a-framework-4pd8
@@ -864,9 +895,7 @@ I did much simpler B12phpfw code based on ideas in Jazeb Akram CMS blog and Mini
       /fwphp/glomodul/z_examples/MVC_FW/01inanz/        
       /fwphp/glomodul/z_examples/MVC_FW/03xuding_users2017/       
 
-I made many changes (I hope improvements) which I did because I do not like proposed solutions in best php frameworks and in learning sources mentioned above  (especcialy coding eg Traversy tutorial). Shares (reusables, globals) are not well coded there. I think that eg invoice php code should be in **own folder - module - like Oracle forms invoice.fmb** (not all forms/reports in 3 folders: M,V,C). **Application** glomodul consists of group of modules subgroups - unlimited levels  eg subgroup [https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z\_examples](https://github.com/slavkoss/fwphp/tree/master/fwphp/glomodul/z_examples)
-
-**Modules subgroups - unlimited levels**. This is important difference ! Can Laravel, Yii, Phalcon work this way (important for large applications) ?
+I made many changes (I hope improvements) which I did because I do not like proposed solutions in best php frameworks and in learning sources mentioned above  (especcialy coding eg Traversy tutorial). Shares (reusables, globals, includes) are not well explained and coded there.
 
 I think that should be simple/fast/professional : **shares**, routing, dispaching, functional namespaces & classes loading , web rich text editing...  
 It is why I spent so many hours on this (huge time wasting which should do tools-software authors, not tools-software users like me).
@@ -932,25 +961,28 @@ TraversyMVC (has video) and Mini3 are simplified, with some (many?) differences 
 ## 3\.4 B12phpfw directories (modules) structure compared to (all ?) other PHP fw-s
 
 ##  B12phpfw directories (modules) 
-```
-One of (Apache) WEB SERVER DOCROOT-s, my is  J:\\awww\\www\\
-|       
-|       
-|-- **I. fwphp** (app)       # **or SITE1, or APLications1** = Main MVC site dirs structure,               
-|            # my J:\\awww\\www\\fwphp\\ = Apache_docroot\site_root         
-|            # Contains **MODULE GROUPS** eg APLication1 or **www** (main menu), **glomodul**,       
-|            # **finance**, **material**. fwphp is optional name. Namespace is only one: B12phpfw.            
-|      
-|       
-|-- **II. index.php**         # redirects to main menu url fwphp/www/index.php        
-|      
-|                
-|--**III. vendor **           
-|  └──--**B12phpfw**   # B12phpfw has own (internal) resources here, external in other vendor subdirs.       
-|                      # Here are **class Autoload and other for all sites shared - common - global**                  
-|                      # **classes** Db_allsites and Config_allsites....                   
-```
 
+```
+(Apache or nginx...) WEB SERVER DOCROOT J:\\xampp\\htdocs\\, my is  virtual host J:\\awww\\www\\      
+│      
+│            
+│─I.fwphp (app or SITE1 or APLications1) = Main site dir. fwphp is optional name.                      
+│    └── Contains MODULE GROUPS eg APLication1 or glomodul (under which is  www =main menu) :
+│               glomodul, finance, material, salary       
+│              └── They contain MODULES eg www or post under glomodul dir    
+│          
+│             
+│─II.index.php redirects to main menu url : /fwphp/glomodul/www/index.php              
+│           
+│                     
+│─III.vendor                  
+│     └── b12phpfw dir = internal resources, external sresources are in other vendor subdirs.             
+│         Here are class Autoload and other for all sites shared - common - global                        
+│         classes Db_allsites and Config_allsites....         
+│     └── erusev =  external resources
+│         └── parsedown = external resources      
+│     └── simplemde      
+```
 
 ###  other PHP fw-s
 ```
@@ -1021,7 +1053,9 @@ Common fw dir structure are **items in marked with NO - are not used in B12phpfw
 ## 3\.5 What is SW fw (Software framework)
 [Top](#top)......[Dirs](#directories).....[UML](#uml).....[DM](#dm).....[IDE](#ide).....[CRUD](#crud).....**SW fw**   
 
-See "What is SW fw (Software framework)" (using mkd in fwphp/glomodul/mkd/02/01\_fwphp/**PHP_DIP\_DI.txt/**)  which states :        
+For me SW fw is a few tens (hundreds) of code snippets for ctrl+c,v (global code snippets don't even need ctrl+c,v, so they are highly desirable).      
+
+See "What is SW fw (Software framework)" (using mkd in fwphp/glomodul/mkd/02/01\_fwphp/**PHP\_DIP\_DI.txt/**)  which states :        
 
 1. Provides a STANDARD WAY TO BUILD and deploy applications     
 2. Is abstraction in which SW providing GENERIC FUNCTIONALITY can be selectively applied / supplemented (NOT changed!!) by user-written code, providing appl-specific SW.       
@@ -1128,9 +1162,13 @@ It is a shame that Oracle does not support the latest client-server SW Forms6i (
 
 Mr. Ferrante says "strongly discourage" which means "with the lure of Power objects, F6i, R6i..." we have hooked you on expensive and for smaller businesses inappropriate SW.
 
-Is this the reason why few developers start new projects with Oracle Forms, the transition from Oracle to Java, APEX (declarative programming with attributes - can clicking be done seriously!?) . These are harmful wanderings similar to those of Microsoft, which is unable to explain the basics of, for example, Blazor without killing several months of hard work for a student?
+Is this the reason why very few developers start new projects with Oracle Forms, the transition from Oracle to Java, APEX (declarative programming with attributes - can clicking be done seriously!?) . These are harmful wanderings similar to those of Microsoft, which is unable to explain the basics of, for example, Blazor without killing several months of hard work for a student?
 
 Do Microsoft, Oracle and other manufacturers of SW tools have anyone from real life who can save us from their children's games?
+
+>**Any systematic work is (at first) very difficult**. For example, high officials do not work systematically. The proof is incompatible SW tools, world crises (robbery of savings by inflation, printing money), crimes of inhuman predators like Hitler, Milošević, Putin, some religious high officials and their "brainwashed" believers (kill dissenters, mask women, ban their education and some other rights, for example abortion because of the imbecile idea that the fetus should be preserved at the cost of killing both the mother and the child through poverty - let them support the unwanted child and no one will ask for an abortion). In an orderly, non-anarchic society of educated people, such non-humans would not come to power. Voters do not recognize high officials who work unsystematic, i.e. they are not aware that **by not going to the polls or by electing always the same incompetent / liars / thieves** they are working against themselves, i.e. through ignorance / stupidity they fall prey to intense brainwashing by propagandists and commit a kind of suicide. Vote for someone else so that we don't always get squeezed by the same mafia octopuses of incompetent / lying / thieving high officials.
+   
+**We have to look at the whole - all the (main) functions of the code**, but PHP learning resources are more self-advertising to make money, not teaching all the (main) functions of the code. **I wish Microsoft Oracle, PHP "experts - ha,ha" and others would teach (eg Blazor) the way I teach PHP here**. Who can understand many megabytes of inexplicable inclusions? If something goes wrong look for an error in many megabytes of code? It's child's play for me, as complicated as Oracle Forms after the last client-server version of 6i. Installing, calling and maintaining servers is an (inexplicable) science. The post-6i call pattern is replaced by Oracle every few years with an incompatible one (problem: huge Java core library!). Microsoft's development tools, like Oracle's, are incompatible and some have been abandoned like Oracle Forms 6i.
 
 
 
@@ -1213,7 +1251,7 @@ version 8.0.0.0 means (https://semver.org/) :
  </li>
 
  <li>
-  2020.09.30 DONE version 7.0.0.0 1. declare(strict_types=1) ; - PHP 7 2. DBI improved : trait Db_allsites instead class Db_allsites. 3. Each DB table (persistent storage) has adapter class Tbl_crud : which uses B12phpfw\core\vendor/B12phpfw\Db_allsites and implements Interf_Tbl_crud This means that : 1. Module's views or ctrs, eg blog module (see blog folder) work much easier with more Tbl_crud, ee with own Tbl_crud and with other tables Tbl_crud's. 2. class Home_ctr extends class Config_allsites. ( Logically all is in Home_ctr).
+  2020.09.30 DONE version 7.0.0.0 1. declare(strict_types=1) ; - PHP 7 2. DBI improved : trait Db_allsites instead class Db_allsites. 3. Each DB table (persistent storage) has adapter class Tbl_crud : which uses B12phpfw\core\vendor/B12phpfw\Db_allsites which implements Db_allsites_intf.  Class Home_ctr extends class Config_allsites (shared, global utilities, helper code).  Logically code of both is in Home_ctr.
   </li>
 
   <li>

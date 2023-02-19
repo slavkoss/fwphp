@@ -98,7 +98,8 @@ abstract class Config_allsites //extends Db_ allsites
 
 
       // 2. DEFINE  A D R E S S E S  (NO CONSTANTS). Adresses = paths & relative paths
-
+      //The middleware process incoming requests and execute the code BEFORE THE CONTROLLER'S ACTIONS...
+      //Frequently the middleware layer has multiply middlewares in the <b>chain</b> and they run one after another (bootstrap.php, router() dispatcher()).
       //           2.1 R O U T I N G
       $this->router($pp1); 
 
