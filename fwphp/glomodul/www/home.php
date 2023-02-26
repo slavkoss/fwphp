@@ -163,8 +163,8 @@
       <div class="row row-example">
 
         <!-- -->
-        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"><!--div class="col-lg-8 align-self-baseline"-->
-              <a target="_blank" title="Blog (Msg-s) MySQL PDO : Users (=master, same as msgtype), messages (=detail) , replies (=subdetail) or todo/done or...any master-detail. CRUD PDO of MySQL DB tbl rows."
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"><!--div class="col-lg-8 align-self-baseline"  target="_blank"      -->
+              <a title="Blog (Msg-s) MySQL PDO : Users (=master, same as msgtype), messages (=detail) , replies (=subdetail) or todo/done or...any master-detail. CRUD PDO of MySQL DB tbl rows."
                  href="?i/msg/" class="text-white font-weight-bold">1. Msg MySQL</a> 
         </div>
 

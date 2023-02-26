@@ -19,9 +19,9 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 
 
 //               3. G U I  (FRM) to get user action
-    $title = 'Comments';
-    require_once $pp1->shares_path . '/hdr.php';  //require
-    require_once("navbar.php");
+    //$title = 'Comments';
+    //require_once $pp1->shares_path . '/hdr.php';  //require
+    //require_once("navbar.php");
 ?>
     <!-- HEADER -->
     <!-- HEADER END -->
@@ -163,7 +163,7 @@ use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 </main><!-- Main Area End -->
 
 
-<?php require $pp1->shares_path . '/ftr.php'; ?>
+<?php //require $pp1->shares_path . '/ftr.php'; ?>
 
 
 <!--

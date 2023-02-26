@@ -27,7 +27,7 @@
       <p>
       Middleware in web applications is the mid-layer <b>between the HTTP request and the application logic</b>. 
       The middleware process incoming requests and execute the code BEFORE THE CONTROLLER'S ACTIONS...
-      Frequently the middleware layer has multiply middlewares in the chain and they run one after another.
+      Frequently the middleware layer has multiply middlewares in the <b>chain</b> and they run one after another (bootstrap.php, router() dispatcher()).
       </p>
       <p>
       Middleware is the term used for the components that are combined to form the request pipeline.

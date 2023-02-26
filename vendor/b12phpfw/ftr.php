@@ -69,22 +69,25 @@ switch (true) {
 
 
           <?php
-              if ($pp1->dbg == '1') {echo '<pre>'.__FILE__.' ln='.__LINE__.' said:';
-                //echo '<br />$pp1='; print_r($pp1) ; echo '</pre>';
-                if ( isset($pp1) and is_object($pp1) )
+            if ( isset($pp1) and is_object($pp1) )
+            {
+                if ($pp1->dbg == '1') 
                 {
+                  echo '<h3>'. __FILE__.' ln='.__LINE__.' said:' .'</h3>';
+                  echo '<pre>' ;
                   echo '<br />'.'OS doc root adress is $this->p p 1->wsroot_ path='. $pp1->wsroot_path  ;
                   echo '<br />'.'Same web server doc root adress is $this->p p 1->wsroot_ url='. $pp1->wsroot_url  ; 
                   echo '<br><br>'.'<b>Module property pallete like in Oracle Forms :<br />$this->p p 1</b>='; 
                   print_r($pp1);
-                  //echo '<b>URI`s query string $this->u r i q</b>='; print_r($pp1->urlqry_parts) //$pp1->uriq 
-                } //catch(Exception $e) { echo $e->getMessage(); }
-              }
+                  echo '</pre>' ;
+                }
+            } //catch(Exception $e) { echo $e->getMessage(); }
 
 
-        echo '<h4>'."~~~\$pp1->dbg=$pp1->dbg~~~".__FILE__ .'() '.', line '. __LINE__ .' SAYS: '
-        .'<br>'
-        .'</h4>' ; 
+        echo '<h3>'."~~~\$pp1->dbg=$pp1->dbg~~~".__FILE__ .'() '.', line '. __LINE__ .' SAYS: '
+        .'<br>'.'</h3>' ; 
+
+        echo '<pre>' ;
 
         echo 'PHP_OS='. PHP_OS .', php_uname()=' . php_uname() ;
         echo '<br />'.'$_SERVER[\'DOCUMENT_ROOT\']='.$_SERVER['DOCUMENT_ROOT']  ;
@@ -98,15 +101,11 @@ switch (true) {
 
 
           //     C O N F I G S :
-          echo '<b>$_ GET</b>='; print_r($_GET); 
-          echo '<b>$_POST</b>='; print_r($_POST); 
-          echo '<b>$_SESSION</b>='; print_r($_SESSION); 
+          echo '<br /><b>$_ GET</b>='; print_r($_GET); 
+          echo '<br /><b>$_POST</b>='; print_r($_POST); 
+          echo '<br /><b>$_SESSION</b>='; print_r($_SESSION); 
 
-                    echo '<b>$_SERVER[\'REQUEST_URI\']</b>    ='; print_r($_SERVER['REQUEST_URI']); 
-
-                    echo '<br /><br /><b>$p p1->url_parts arr is exploded string $_SERVER[\'REQUEST_URI\']'
-                    .' (part1 before QS=? and part2 after QS)</b>'
-
+          echo '</pre>' ;
           ?>
 
 

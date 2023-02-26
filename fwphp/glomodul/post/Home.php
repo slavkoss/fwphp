@@ -39,7 +39,60 @@ class Home extends utl
 
 
 
-  static public function show( object $pp1, array $other ): string 
+
+
+  static public function navbar_top( object $pp1, array $other ): string 
+  { 
+    $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
+
+                  if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<h3>'. __METHOD__ .'() '.', line '. __LINE__ .' said: '.'</h3>' ;
+                    echo '<pre style="font-family:\'Lucida Console\'; font-size:small">';
+                      echo '<b>$pp1</b>='; print_r($pp1);
+                      //echo '<br><b>$_POST</b>='; print_r($_POST);
+                    echo '</pre>'; }
+   ?>
+   <!--  -->
+    <div class="hero" data-theme="dark">
+
+      <nav class="container-fluid">
+        <ul>
+          <li><a href="<?=$pp1->sitehome?>"class="contrast"><strong>Sitehome</strong></a></li>
+        </ul>
+
+        <ul>
+          <?php if(!empty($_SESSION['username'])){ ?>
+             &nbsp; &nbsp; &nbsp; 
+             <li><a title="Posts" class="contrast" href="<?=$pp1->module_url?>">Dashboard</a></li>
+             <li><a title="" class="contrast" href="<?=$pp1->about_module?>">About</a></li>
+             <li><a class="contrast" href="<?=$pp1->logout?>">Logout</a></li>
+
+
+          <?php }else{  ?>
+             <li><a href="<?=$pp1->login?>" class="contrast">Login
+                    </a></li>
+          <?php  } ?>
+
+
+
+        </ul>
+    </nav>
+
+
+    </div><!-- ./ Hero -->
+
+    <!-- N AV B A R  END -->
+
+    <?php
+    return('1') ;
+  } //e n d  f n  n a v b a r
+
+
+
+
+
+
+  static public function displ_tbl( object $pp1, array $other ): string 
   {
     $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
                   if ('') {  //if ($module_ arr['dbg']) {
@@ -559,55 +612,7 @@ or write code to do 1. and 2. (it is easy)"
 
 
 
-  static public function navbar_top( object $pp1, array $other ): string 
-  { 
-    $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
 
-                  if ('1') {  //if ($module_ arr['dbg']) {
-                    echo '<h3>'. __METHOD__ .'() '.', line '. __LINE__ .' said: '.'</h3>' ;
-                    echo '<pre style="font-family:\'Lucida Console\'; font-size:small">';
-                      echo '<b>$pp1</b>='; print_r($pp1);
-                      //echo '<br><b>$_POST</b>='; print_r($_POST);
-                    echo '</pre>'; }
-   ?>
-   <!--  -->
-    <div class="hero" data-theme="dark">
-
-      <nav class="container-fluid">
-        <ul>
-          <li><a href="<?=$pp1->glomodul_url .'/'. $pp1->dir_menu .'/' ?>" 
-                 class="contrast"><strong>Sitehome</strong></a></li>
-        </ul>
-
-        <ul>
-          <?php if(empty($_SESSION['username'])){ ?>
-          <li><a title="Posts dashboard" class="contrast" href="<?=$pp1->module_url?>">Posts dashboard</a></li>
-          <!--li><a title="" class="contrast" href="< ?=$pp1->kalendar? >">Calendar</a></li-->
-          <li><a title="" class="contrast" href="<?=$pp1->module_url.QS?>/about_module">About</a></li>
-          <!--li><a title="" class="contrast" href="< ?=$pp1->features? >">Module</a></li-->
-          <!--li><a title="" class="contrast" href="< ?=$pp1->contact_us? >">Contact us</a></li-->
-          <?php  } ?>
-
-          <?php if(!empty($_SESSION['username'])){ ?>
-             &nbsp; &nbsp; &nbsp; 
-             <li><a title="Posts & other tables with CRUD functionality" class="contrast" 
-                    href="<?=$pp1->posts?>">Dashboard</a></li>
-             <li><a class="contrast" href="<?=$pp1->logout?>">Logout</a></li>
-          <?php }else{  ?>
-             <li><a class="contrast" href="<?=$pp1->loginfrm?>">Login</a></li>
-          <?php  } ?>
-
-        </ul>
-    </nav>
-
-
-    </div><!-- ./ Hero -->
-
-    <!-- N AV B A R  END -->
-
-    <?php
-    return('1') ;
-  } //e n d  f n  n a v b a r
 
   static public function about_module( object $pp1, array $other ): string 
   { 

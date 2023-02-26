@@ -1,8 +1,6 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\v_features.php
 
- $title = 'Blog module features' ;
- require_once("navbar.php");
 ?>
 <div class="container">
   <div class="row mt-4">

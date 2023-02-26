@@ -14,7 +14,7 @@ class Side_area extends utl
   {
   }
 
-  static public function show(
+  static public function displ_tbl(
       object $pp1
     //, string $fltr_sort
     , string $category_from_url, string $search_from_submit, int $pgordno_from_url

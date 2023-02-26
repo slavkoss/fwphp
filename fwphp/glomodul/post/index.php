@@ -29,23 +29,29 @@ use B12phpfw\dbadapter\post\Tbl_crud ;
   $module_path = str_replace('\\','/', __DIR__) ; // .'/' ..."adrs" dir
   $dbicls = 'Db_allsites' ; //$dbicls = 'Db_allsites_ORA' ; 
 
-    $pp1 = (object)[ 
-        'pp1_group01' => '~~~~~ MODULE ELEMENTS IN PROPERTY PALLETE $pp1 : ~~~~~' 
-      , 'module_version'=>'ver. 11.0.0.0 Posts '
-          . ($dbicls === 'Db_allsites' ? 'MariaDB' : 'Oracle')
-          .', Feb.2023'  
-      , 'dbg'=>'1'
-      , 'dbicls' => $dbicls // for MySql DB or ...
-      , 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
-       //
-      , 'pp1_group02P' => '~~~~~ ADRESSES : PATHS ~~~~~' 
-      , 'module_path' => $module_path 
-    ] ;
+  $pp1 = (object)[ 
+      'pp1_group01' => '~~~~~ MODULE ELEMENTS IN PROPERTY PALLETE $pp1 : ~~~~~' 
+    , 'module_version'=>'Posts ver. 11.0.1.0'
+        . ($dbicls === 'Db_allsites' ? 'MariaDB' : 'Oracle')
+        .', Feb.2023'  
+    , 'dbg'=>'1'
+    , 'dbicls' => $dbicls // for MySql DB or ...
+    , 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
+     //
+    , 'pp1_group02P' => '~~~~~ ADRESSES : PATHS ~~~~~' 
+    , 'module_path' => $module_path
+    //
+    , 'dir_user' => 'user'
+    , 'dir_categories' => 'post_category'
+    , 'dir_comments' => 'post_comment'
+  ] ;
+
+
+  require(dirname(dirname(dirname($module_path)))  .'/vendor/b12phpfw/bootstrap.php'); 
 
 
   //2. global cls loads (includes) classes scripts automatically
   //not  Composer's autoload cls-es :
-  require(dirname(dirname(dirname($module_path)))  .'/vendor/b12phpfw/bootstrap.php'); 
   require($pp1->shares_path .'/Autoload.php');
   $autoloader = new Autoload($pp1); //eliminates need to include class scripts
 

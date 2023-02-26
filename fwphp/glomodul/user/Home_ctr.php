@@ -9,7 +9,8 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\module\user\Cre               as cre ;
 use B12phpfw\module\user\Upd               as upd ;
 use B12phpfw\dbadapter\user\Tbl_crud       as utl_module;  //middleware to Login_ Confirm_ SesUsrId
-use B12phpfw\dbadapter\user\Home           as Home_view ;
+
+use B12phpfw\module\user\Home              as Home_view ;
 
 
 class Home_ctr extends utl
@@ -23,34 +24,17 @@ class Home_ctr extends utl
                            ] ) ; 
                         }
     if (!defined('QS')) define('QS', '?');
-    /**
-    * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key => keyvalue pairs :
-    *  ------------------------------------------------------------------------------
-     * LINKALIAS          URLurlqrystring                CALLED METHOD
-     * IN VIEW SCRIPT     IN H ome_ ctr                   IN H ome_ ctr
-     *  ,'cre_row_frm'     => QS.'i/method_cre_row_frm/'  method_cre_row_frm 
-    */
-    $pp1_module = [ // R O U T I N G  T A B L E
-        'ROUTING_TABLE'     => '<b style="color: blue">
-        $pp1_module IS MODULE PROPERTIES PART OF PROPERTY PALLETTE</b>'
-      //     In view script: $pp1->uu_ frm.$id calls uu_ frm method.
-      ,'home_url'         => QS.'i/home/' //or 'home_usr' or 'admins' 
-      , 'cc_frm'          => QS.'i/cc_frm/'  //or 'cre_usr'
-      , 'rr'              => QS.'i/read_row/id/' //or 'read_user' =  profile
-      , 'dd'              => QS.'i/dd/id/' //or 'ldd_admins' => QS.'i/del_admins/id/'
-      ,'upd_user_loggedin' => QS.'i/upd_user_loggedin/id/' //also profile
-      , 'uu_frm'          => QS.'i/uu_frm/id/' 
-      //
-      ,'sitehome'   => QS.'i/sitehome/' //$pp1->s itehome
-      //in home.php onclick does j s m s g y n dialog,  home_fn "d" calls dd() (no need include script)
-      // -------------------------
-      ,'loginfrm' => QS.'i/loginfrm/'
-      ,'login'    => QS.'i/login/' //read by id, then compare with entered id, then sess.var.
-      ,'logout'   => QS.'i/logout/r/i|loginfrm|' //logout & r=redirect
-    ] ;
 
-    //step 3 : fw core calls method in this cls : see home_fn above
-    parent::__construct($pp1, $pp1_module);
+    $pp1->pp1_group02r = '~~~~~ ADRESSES : ROUTING TBL ~~~~~' ;
+    $pp1->sitehome  = $pp1->glomodul_url .'/'. $pp1->dir_menu .'/' ;
+    $pp1->home      = $pp1->module_url .'/'. QS .'i/home' ;
+    $pp1->loginfrm  = $pp1->module_url .'/'. QS .'i/loginfrm' ;
+    $pp1->login     = $pp1->module_url .'/'. QS .'i/login' ;
+    $pp1->logout    = $pp1->module_url .'/'. QS .'i/logout' ;
+    //$pp1 ->dashboard = $pp1->glomodul_url .'/'. $pp1->dir_post .'/'. QS .'i/dashboard' ;
+
+
+    parent::__construct($pp1); //, $pp1_module -- no more ROUTING TBL
 
                 if ('') { self::jsmsg( [ //basename(__FILE__).' '.
                    __METHOD__ .', line '. __LINE__ .' SAYS'=>'s001. AFTER Config_allsites construct '
@@ -70,38 +54,74 @@ class Home_ctr extends utl
 
 
 
-          //******************************************
-          //       DISPATCH  M E T H O D S
-          // they call other methods or include script
-          // CALLED FROM Config_ allsites __c onstruct
-          //******************************************
-          //$accessor = "get" . ucfirst(strtolower($akc));
-  protected function call_module_method(string $akc, object $pp1)  //fnname, params
-  {
-    // This fn is called from router in Config_ allsites, see how below
-    // This fn calls fn $ a k c in H ome_ ctr which has parameters in  $ p p 1
-    if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
-      return $this->$akc($pp1) ;
-    } else {
-      echo '<h3>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h3>' ;
-      echo 'Home_ ctr  m e t h o d  "<b>'. $akc .'</b>" is not callable.' ;
-      echo '<br><br>See how is created  m e t h o d  name  $ a k c  
-         in abstract class Config_ allsites, m ethod __c onstruct :<br>
-         //protected fn (in child cls Home_ ctr) calls private fns (in child cls Home_ ctr) :
-         $this->call_module_method($akc, $pp1) ; 
-      ' ;
-      return '0' ;
-    }
-
-  }
-
   // *************************************************
   // Called own methods when user
   //   - clicks button 
   //   - or enters  U R L in ibrowser adress field
   // *************************************************
 
-  private function dd(object &$pp1) // *************** SHARED  d d (
+  public function home(object $pp1)
+  {
+      // t b l  r e a d, display
+
+    if(!empty($_SESSION['username'])){
+      //Home::displ($pp1) ;
+      Home_view::displ_tbl($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+    } else{
+      utl::Redirect_to($pp1->login) ;
+    }
+
+
+  }
+
+  public function sitehome(object $pp1)
+  {
+    $this->Redirect_to('/');
+  }
+
+
+
+
+  protected function logout(object &$pp1)
+  {
+    // [gourl] => /fwphp/glomodul/post
+     $_SESSION['gourl'] = $pp1->sitehome ;
+     utl::logout($pp1);
+     //utl_module::logout($pp1);
+     //$this = $dm = domain model = globals for all sites (eg for CRUD...) & for curr.module
+     //$dm = $this ;
+     //$Db_ user = new Db_user ;
+     //$Db_ user->l ogout($dm); 
+  }
+
+
+  protected function loginfrm(object $pp1)
+  {
+      $title = 'Log in' ;
+      require $pp1->shares_path . '/hdr.php';
+      Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+                                 //require("n avbar.php");
+      require $pp1->module_path . '/login_frm.php';  
+  }
+
+  protected function login(object $pp1)
+  {
+      utl_module::login($pp1);
+                //$dm = $this ;            //this globals for all sites are for CRUD... !!
+                //$Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
+                //$Db_user->login($dm, $pp1) ;
+  }
+
+
+  //static public function Login_ Confirm_ SesUsrId() { //object $dm
+  //  utl::Login_ Confirm_ SesUsrId();
+  //}
+
+
+
+
+
+  protected function dd(object &$pp1) // *************** SHARED  d d (
   {
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
     //parameter $pp1 is AUTOMATICALLY sent in all h o m e fns from call_module_method fn !!
@@ -131,18 +151,6 @@ class Home_ctr extends utl
   }
 
 
-  public function home(object $pp1)
-  {
-      // t b l  r e a d, display
-      Home::displ($pp1) ;
-  }
-
-  public function sitehome(object $pp1)
-  {
-    $this->Redirect_to('/');
-  }
-
-
 
   // U S E R  R E A D
 
@@ -156,36 +164,7 @@ class Home_ctr extends utl
       require $pp1->wsroot_path . '/vendor/b12phpfw/ftr.php';
   }
 
-
-  private function logout(object $pp1)
-  {
-     utl_module::logout($pp1);
-     //$this = $dm = domain model = globals for all sites (eg for CRUD...) & for curr.module
-     //$dm = $this ;
-     //$Db_ user = new Db_user ;
-     //$Db_ user->l ogout($dm); 
-  }
-
-
-  private function loginfrm(object $pp1) //private
-  {
-      require $pp1->module_path . '/login_frm.php';  
-  }
-
-  private function login(object $pp1) //private
-  {
-      utl_module::login($pp1);
-                //$dm = $this ;            //this globals for all sites are for CRUD... !!
-                //$Db_user = new Db_user ; //tbl mtds and attr use globals for all sites !!
-                //$Db_user->login($dm, $pp1) ;
-  }
-
-
-  //static public function Login_ Confirm_ SesUsrId() { //object $dm
-  //  utl::Login_ Confirm_ SesUsrId();
-  //}
-
-  private function upd_user_loggedin(object $pp1)
+  protected function upd_user_loggedin(object $pp1)
   {
     // U P D A T E  A D M I N  P R O F I L E  no need navbar admin -> My Profile
     // http://dev1:8083/fwphp/glomodul/user/?i/upd_user_loggedin/id/75

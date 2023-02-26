@@ -5,12 +5,13 @@ $shares_url = '/vendor/b12phpfw' ; //includes, globals, commons, reusables CONVE
 $shares_path = $wsroot_path . $shares_url ;
 $site_path   = dirname(dirname($module_path)) ; //to app dir ...fwphp" dir
 //
-$dir_site = basename(dirname(dirname($module_path))); 
+$dir_site = basename($site_path) ; 
+     //$dir_ site = basename(dirname(dirname($module_path))); 
   // = 'fwphp' is below '/' (web server doc root or virtual host or hosting root) 
-//$dir_glomodul = 'glomodul' ; // is below dir_site. Below are more dir_apl
+//$dir_glomodul = 'glomodul' ; // is below dir_ site. Below are more dir_apl
 
 $dir_apl = basename(dirname($module_path)); 
-  // ='glomodul' is below dir_site. Module group to which this module (dir_module) belongs 
+  // ='glomodul' is below dir_ site. Module group to which this module (dir_module) belongs 
   $dir_module = basename($module_path); // is below dir_apl
   $dir_menu = 'www'; // is below dir_apl
 

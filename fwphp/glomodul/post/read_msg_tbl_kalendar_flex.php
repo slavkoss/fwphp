@@ -138,10 +138,10 @@ $_m1week1d1=3; //or <article class="calendar tuesday days31"><h1><!-- eg October
         //      $rx = $this->f etchNext() ) : //, ++$iimonthday expr3 is evaluated at iteration end
         while ( substr($rx->datetime,8,2) == $dtbl ): //eg 2019-10-07 from 0
         {
-            $link="<a href=\"{$pp1->read_post}id/$rx->id\">{$rx->title}</a>"
-                      .' '. substr($rx->datetime,11,5)
-              //.', (int)substr($rx->datetime,8,2)='.(int)substr($rx->datetime,8,2)
-              //. ', today=$iitoday='.$iitoday
+            //$link="<a href=\"{$pp1->read_post}id/$rx->id\">{$rx->title}</a>"
+            $link="<a href=\"{$pp1->posts}\">{$rx->title}</a>" 
+               .' '. substr($rx->datetime,11,5)
+
             ;
             //strtotime($rx->datetime); // = string to date eg '2019-10-03 15:16:17'
             try { $post_date = new \DateTime($rx->datetime);

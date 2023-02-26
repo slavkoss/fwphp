@@ -11,32 +11,37 @@ use B12phpfw\core\b12phpfw\Autoload ;
 use B12phpfw\core\b12phpfw\Config_allsites ;
 use B12phpfw\module\post_category\Home_ctr ;
 
-use B12phpfw\dbadapter\post_category\Tbl_crud as Tbl_crud_category ;
+use B12phpfw\dbadapter\post_category\Tbl_crud ; //as Tbl_crud_category 
+
+                  if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<h3>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h3>' ;
+                    echo '<pre style="font-family:\'Lucida Console\'; font-size:small">';
+                      //echo '<b>$pp1</b>='; print_r($pp1);
+                      echo '<br><b>$_POST</b>='; print_r($_POST);
+                    echo '</pre>'; }
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_path = str_replace('\\','/', __DIR__) ; // .'/'
-$site_path   = dirname(dirname($module_path)) ; //to app dir eg "glomodul" dir and app
-//to web server doc root or our doc root by ISP :
-$wsroot_path = dirname(dirname(dirname($module_path))) ;
-               //or $wsroot_path = str_replace('\\','/', realpath('../../')) .'/' ;
-$shares_path = $wsroot_path.'/vendor/b12phpfw' ; //includes, globals, commons, reusables
+$dbicls = 'Db_allsites' ; //$dbicls = 'Db_allsites_ORA' ; 
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
-[ 
-   'module_version'=>'Post category MySQL 10.0.3.0 Feb. 2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
+[
+   'pp1_group01' => '~~~~~ MODULE ELEMENTS IN PROPERTY PALLETE $pp1 : ~~~~~' 
+  ,'module_version'=>'Post category MySQL 11.0.1.0 Mart 2023'
+  //, 'vendor_namesp_prefix'=>'B12phpfw'
   , 'dbg'=>'1'
-    , 'dbicls' => 'Db_allsites' // for MySql DB or ...
-    //, 'dbicls' => 'Db_allsites_ORA' //for Oracle DB or ...
+    , 'dbicls' => $dbicls // for MySql DB or ...
     , 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
-
-  , 'dir_apl'     => 'glomodul'  // application (group of modules) folder name
-  , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
-  , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
-  , 'site_path'   => $site_path    // to fwphp (or any name)
+  //
+  , 'pp1_group02P' => '~~~~~ ADRESSES : PATHS ~~~~~' 
   , 'module_path' => $module_path  // to fwphp/glomodul/blog (or any names)
+  , 'dir_apl'     => 'glomodul'  // application (group of modules) folder name
+  , 'dir_categories' => 'post_category'
 ] ;     
           //echo '<pre>$pp1->module_path_arr='; print_r($pp1->module_path_arr) ; echo '</pre>'; 
+
 //2. global cls loads (includes, bootstrap) classes scripts automatically
+require(dirname(dirname(dirname($module_path)))  .'/vendor/b12phpfw/bootstrap.php'); 
 require($pp1->shares_path .'/Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts
               //require('Autoload.php'); //module-local or Composer's autoload cls-es
@@ -47,7 +52,7 @@ $autoloader = new Autoload($pp1); //eliminates need to include class scripts
   $shared_dbadapter = 'B12phpfw\\core\\b12phpfw\\'. $pp1->dbicls ;
   $pp1->shared_dbadapter_obj = new $shared_dbadapter() ; 
   //module DB adapter IS SAME for Db_allsites_ORA and Db_allsites for MySql !!
-  $module_dbadapter_obj = new Tbl_crud_category($pp1) ; 
+  $module_dbadapter_obj = new Tbl_crud($pp1) ; 
 
 //4. process request from ibrowser & send response to ibrowser :
 //   Home_ ctr "inherits" index.php ee DI $p p 1

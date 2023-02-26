@@ -15,6 +15,7 @@ use B12phpfw\core\b12phpfw\Config_allsites    as utl ; // init, setings, utiliti
 use B12phpfw\dbadapter\post\Tbl_crud          as Tbl_crud_post ;
 use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_post_comment ;
 
+use B12phpfw\module\blog\Home                 as Home_view;
 use B12phpfw\module\blog\Side_area            as Side_view;
 
 class Home extends utl
@@ -22,13 +23,79 @@ class Home extends utl
   //Db_allsites_ORA or Db_allsites for MySql or ... :
   static protected $utldb ; // OBJECT VARIABLE OF (NOT HARD CODED) SHARED DBADAPTER
 
+
+
+
+
+
   //self is used to access static or class variables or methods
   //this is used to access non-static or object variables or methods
   public function __construct(object &$pp1) { //, Db_allsites_Intf $utldb
     $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
   }
 
-  static public function show( object &$pp1, array $other ): string 
+
+
+  static public function navbar_top( object $pp1, array $other ): string 
+  { 
+    $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
+
+                  if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<h3>'. __METHOD__ .'() '.', line '. __LINE__ .' said: '.'</h3>' ;
+                    echo '<pre style="font-family:\'Lucida Console\'; font-size:small">';
+                      echo '<b>$pp1</b>='; print_r($pp1);
+                      //echo '<br><b>$_POST</b>='; print_r($_POST);
+                    echo '</pre>'; }
+   ?>
+   <!--  -->
+  <div class="hero" data-theme="dark">
+
+    <nav class="container-fluid">
+        <ul>
+          <li><a href="<?=$pp1->sitehome?>" class="contrast"><strong>Sitehome</strong></a></li>
+        </ul>
+
+        <ul>
+          <?php //if(empty($_SESSION['username'])) { ?>
+          <li><a title="Paginated posts with summary" class="contrast" href="index.php">Home</a></li>
+          <li><a title="" class="contrast" href="<?=$pp1->kalendar?>">Calendar</a></li>
+          <li><a title="" class="contrast" href="<?=$pp1->about?>">About</a></li>
+          <li><a title="" class="contrast" href="<?=$pp1->features?>">Module</a></li>
+          <li><a title="" class="contrast" href="<?=$pp1->contact?>">Contact</a></li>
+          <?php  //} ?>
+
+
+
+          <?php if(!empty($_SESSION['username'])){ ?>
+             &nbsp; 
+             <li><a title="Posts" class="contrast" 
+                    href="<?=$pp1->posts?>">Dashboard</a></li>
+             <li><a class="contrast" href="<?=$pp1->logout?>">Logout</a></li>
+
+          <?php }else{  ?>
+             <li><a class="contrast" href="<?=$pp1->login?>">Login</a></li>
+          <?php  } ?>
+
+
+
+        </ul>
+    </nav>
+
+
+  </div><!-- ./ Hero -->
+
+<!-- N AVBAR END -->
+
+    <?php
+    return('1') ;
+  } //e n d  f n  n a v b a r
+
+
+
+
+
+
+  static public function displ_tbl( object &$pp1, array $other ): string 
   {
     $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
 
@@ -48,7 +115,7 @@ class Home extends utl
                     //echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">Loading script of cls $nsclsname='.$nsclsname.'</span>'
                     //exit(0) ;
                     echo '</pre>'; }
-    //P A G I N A T O R  step 2. is click page in navbar, read page  (step 1. Create navigation bar)
+    //P A G I N A T O R  step 2. is click page in n avbar, read page  (step 1. Create navigation bar)
     //if (isset($pp1->uriq->p) and null !== $pp1->uriq->p) {
     if (isset($pp1->urlqry_parts[3]) and null !== $pp1->urlqry_parts[3]) {
       $_SESSION['filter_posts']['pgordno_from_url']  = (int)$pp1->urlqry_parts[3] ;
@@ -123,7 +190,7 @@ class Home extends utl
 
 
 
-    //P A G I N A T O R  step 1. Create navigation bar (step 2. is click page in navbar, read page)
+    //P A G I N A T O R  step 1. Create navigation bar (step 2. is click page in n avbar, read page)
     $pgn_links = self::get_pgnnav($pp1->urlqry_parts, $rcnt_filtered_posts, 'i/home/', $pp1->rblk);
                     if ('') //if ($autoload_arr['dbg']) 
                     { echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
@@ -165,9 +232,14 @@ class Home extends utl
       , $binds //=[]
       , $other=['caller' => __METHOD__ .' '.', ln '. __LINE__ ] );
 
-    $title = 'MSG HOME';
-    require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . '/hdr.php';
-    require_once("navbar.php");
+
+
+
+
+    //$title = 'MSG HOME';
+    //require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . '/hdr.php';
+    //Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+                                       //require_once("n avbar.php");
     ?>
 
 
@@ -213,8 +285,12 @@ class Home extends utl
     <div style="border: 1px solid rgb(51, 51, 51); padding: 12px 12px 0px; margin: 40px 0px 20px;">
        <!-- ======================================
        1. P o s t  t i t l e 
+             h3 style="margin: 0px;  background: rgb(230, 243, 255) ; width: 100%; "
+              #93ACC8 #9394C8 #AFB7C8   lightblue lightgray, darkblue
        =========================================== -->
-       <h5 style="margin: 0px;  color: rgb(40, 109, 193);  background: lightgray; width: 100%; ">
+       <h5 style="margin: 0px;  color: rgb(40, 109, 193);  background: #93ACC8 ;
+       =========================================== -->; 
+                 width: 100%; ">
            <?=self::escp($rx->title)?></h5>
 
 
@@ -377,7 +453,7 @@ class Home extends utl
 
         <aside>
             <?php
-               Side_view::show(  $pp1  //, $fltr_sort
+               Side_view::displ_tbl(  $pp1  //, $fltr_sort
                   , $category_from_url, $search_from_submit, $pgordno_from_url
                   , $other=['caller' => __METHOD__ .' '.', ln '. __LINE__ ]);
             ?>
@@ -392,7 +468,7 @@ class Home extends utl
     </script-->
 
     <?php
-    require_once $pp1->shares_path . '/ftr.php';
+    //require_once $pp1->shares_path . '/ftr.php';
 
     return('1') ;
   } //e n d  f n  s h o w
@@ -409,12 +485,7 @@ class Home extends utl
   /** *****************************
   * V I E W  S N I P P E T S
   ******************************* */
-  /*static private function xxx(object $pp1, object $rx): string
-  { ?>
-    <?php
-    return('1') ;
-  } //e n d  f n  xxx
-  */
+
 
   static private function show_pge_hdr( object $pp1
          //, string $category_from_url, string $search_from_submit, int $pgordno_from_url

@@ -20,6 +20,23 @@ class Home_ctr extends utl //Config_ allsites
                            ] ) ; 
                         }
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
+    
+    $_SESSION['gourl'] = $pp1->module_url ;
+
+    // =============================================================
+    $pp1->pp1_group02r = '~~~~~ ADRESSES : ROUTING TBL ~~~~~' ;
+    // =============================================================
+    $pp1->sitehome = $pp1->glomodul_url .'/'. $pp1->dir_menu .'/' ;
+    $pp1->login     = $pp1->glomodul_url .'/'. $pp1->dir_user .'/'. QS .'i/login' ;
+    $pp1->logout    = $pp1->glomodul_url .'/'. $pp1->dir_user .'/'. QS .'i/logout' ;
+    //
+    $pp1->about_module = $pp1->module_url. QS .'/about_module' ;
+    //$pp1->features     = $pp1->module_url.QS .'/features' ;
+    //$pp1->contact_us   = $pp1->module_url.QS .'/contact_us' ;
+    //
+    $pp1->categories = $pp1->glomodul_url .'/'. $pp1->dir_categories ;
+    $pp1->comments   = $pp1->glomodul_url .'/'. $pp1->dir_comments ;
+    $pp1->admins     = $pp1->glomodul_url .'/'. $pp1->dir_user ;
 
     parent::__construct($pp1);
 
@@ -37,7 +54,13 @@ class Home_ctr extends utl //Config_ allsites
     require $pp1->shares_path . '/hdr.php';
     Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
                                      //require("n avbar_ top.php"); 
-      Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+
+    if(!empty($_SESSION['username'])){
+      Home_view::displ_tbl($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+    } else{
+      utl::Redirect_to($pp1->login) ;
+    }
+
    require $pp1->shares_path . '/ftr.php';
   }
 

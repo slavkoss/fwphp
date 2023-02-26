@@ -39,9 +39,12 @@ $cursor_category = Tbl_crud_category::rr_all( $pp1, $dmlrr='*', $qrywhere="'1'='
 
 
 //               3. G U I  (FRM) to get user action
-    $title = 'MSG Categories';
-    require $pp1->shares_path . '/hdr.php';  //require
-    require("navbar.php");
+    //$title = 'MSG Categories';
+    //require $pp1->shares_path . '/hdr.php';  //require
+
+                         //require("navbar.php");
+
+
 ?>
 
 
@@ -217,7 +220,7 @@ $cursor_category = Tbl_crud_category::rr_all( $pp1, $dmlrr='*', $qrywhere="'1'='
 </main><!-- Main Area End -->
 
 
-<?php require $pp1->shares_path . '/ftr.php'; ?>
+<?php //require $pp1->shares_path . '/ftr.php'; ?>
 
 <!-- End Main Area 
                           /*$sql = "INSERT INTO category(title,author,datetime)";

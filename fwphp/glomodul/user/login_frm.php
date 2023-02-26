@@ -22,7 +22,7 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ;
                        ,'aaaaaaa'=>'bbbbbbb'
                     ] ) ; }
 if(isset($_SESSION['userid']) and $_SESSION['userid']){ 
-   utl::Redirect_to($pp1->dashboard);
+   utl::Redirect_to($pp1->home); //dashboard
 } else {
                     if ('') {self::jsmsg( [ basename(__FILE__) //. __METHOD__ 
                     .', line '. __LINE__ .' SAYS'=>' '
@@ -49,10 +49,6 @@ else { $username = $_SESSION['username'] ; }
                       echo '</pre>'; }
 
 
-
-$title = 'Log in' ;
-require $pp1->shares_path . '/hdr.php';
-require("navbar.php");
 ?>
   <!-- NAVBAR end -->
 
@@ -63,13 +59,14 @@ require("navbar.php");
 
     <section>
           <?php
-           echo (isset($_SESSION["MsgErr"])?$_SESSION["MsgErr"]:'' );
-           echo (isset($_SESSION["MsgSuccess"])?$_SESSION["MsgSuccess"]:'' );
+           echo (isset($_SESSION["MsgErr"][0])?$_SESSION["MsgErr"][0]:'' );
+           echo (isset($_SESSION["MsgSuccess"][0])?$_SESSION["MsgSuccess"][0]:'' );
            ?>
       <div>
         <!--h4>Wellcome Back !</h4-->
 
-          <form class="" action="<?=$pp1->login?>" method="post">
+          <form action="<?=$pp1->glomodul_url .'/'. $pp1->dir_user.'/'. QS .'i/login'?>" 
+                method="post">
 
             <div class="form-group">
               <label for="username"><span class="FieldInfo">USERNAME eg a or w (first add user Tables->Admins page or in phpMyAdmin) :</span></label>

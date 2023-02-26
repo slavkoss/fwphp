@@ -44,10 +44,25 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
                         }
     if (!defined('QS')) define('QS', '?'); //to avoid web server url rewritting
 
+
+    $_SESSION['gourl'] = $pp1->module_url ;
+
+    $pp1->pp1_group02r = '~~~~~ ADRESSES : ROUTING TBL ~~~~~' ;
+    $pp1->sitehome = $pp1->glomodul_url .'/'. $pp1->dir_menu .'/' ;
+    $pp1->login     = $pp1->glomodul_url .'/'. $pp1->dir_user .'/'. QS .'i/login' ;
+    $pp1->logout    = $pp1->glomodul_url .'/'. $pp1->dir_user .'/'. QS .'i/logout' ;
+    
+    $pp1->posts     = $pp1->glomodul_url.'/'. $pp1->dir_post .'/' ;
+    
+    $pp1->kalendar     = $pp1->module_url. QS .'/kalendar' ;
+    $pp1->about        = $pp1->module_url. QS .'/about' ;
+    $pp1->features     = $pp1->module_url.QS .'/features' ;
+    $pp1->contact      = $pp1->module_url.QS .'/contact' ;
     /**
     * ROUTING TBL - module links, (IS OK FOR MODULES IN OWN DIR) key-keyvalue pairs :
     *  ------------------------------------------------------------------------------
     */
+    /*
     $pp1_module = [ 'LINK_ALIASES' => '<b style="color: blue">$ p p 1->LINK_ALIAS => HOME METHOD TO CALL
       ~~~~~ eg1: in view script href="&lt;?=$pp1->home_blog?&gt;" calls home method in Home_ctr so : 
       QS."i/home_blog/"~~~~~</b> where QS is question mark ("?") = urlQuerySeprator'
@@ -102,50 +117,28 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
     ,'features'        => QS.'i/features/'
     //e n d  R O U T I N G  T A B L E
         ] ;
-
+    */
     //instatiate Config_ allsites = parent of this Home_ctr cls
-    parent::__construct($pp1, $pp1_module); 
+    parent::__construct($pp1); //, $pp1_module -- no more ROUTING TBL
 
 
   } // e n d  f n  __ c o n s t r u c t
 
-    // Dispatching ;
-    protected function dispatcher(object &$pp1) { //static
-            // CALLED FROM Config_ allsites __c onstruct
-            // so: return static::$dispatcher($pp1); // Here comes Late Static Bindings
-      //this fn calls method in this Home_ ctr which has parameters in  $ p p 1
-      // here can be added in $pp1 module dependent parameters
-      //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
-      
-      // http://dev1:8083/fwphp/glomodul/adrs/?i/home
-
-     $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
-     $akc = $pp1->urlqry_parts[1]??'home' ; 
-                  if ('') {  //if ($module_ arr['dbg']) {
-                    echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' said: '.'</h2>' ;
-                  echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
-                  echo '<pre>'; echo '<b>$akc</b>=urlqry_parts[1] or home ='; print_r($akc);
-                  echo '</pre>'; }
-      if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
-        $this->$akc($pp1) ; //self::$akc($pp1) ;
-        //echo '<h2>'.__METHOD__ .'(object $pp1) '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
-      } else {
-        echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
-        echo 'Home_ ctr method $pp1->urlqry_parts[1]=<b>'. $akc .'</b> is not callable.' ;
-        echo '<pre>$pp1->urlqry_parts=' ; print_r($pp1->urlqry_parts);  echo '</pre>' ;
-        echo ' To see why replace if (\'\') with if (\'1\') in '. __METHOD__  ; //how is created method name in
-        return '0' ;
-      }
-    }
 
 
-  private function home(object $pp1) //DI prop.palette   
+  protected function home(object $pp1) //DI prop.palette   
   {
-      Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+    $title = 'MSG HOME';
+    require_once $pp1->shares_path . '/hdr.php';  //require $pp1->shares_path . '/hdr.php';
+    Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+                                       //require_once("n avbar.php");
+      Home_view::displ_tbl($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+
+    require_once $pp1->shares_path . '/ftr.php';
   }
 
 
-  private function del_category(object $pp1)
+  protected function del_category(object $pp1)
   {
     // D e l  &  R e d i r e c t  to  r e f r e s h  t b l  v i e w :
     $tbl = $pp1->urlqry_parts[3] = 'category' ; 
@@ -156,7 +149,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
   }
 
-  private function del_admins(object $pp1)
+  protected function del_admins(object $pp1)
   {
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
     $tbl = $pp1->urlqry_parts[3] = 'admins' ; 
@@ -167,7 +160,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
   }
 
-  private function del_posts(object $pp1)
+  protected function del_posts(object $pp1)
   {
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
     $tbl = $pp1->urlqry_parts[3] = 'posts' ; 
@@ -178,7 +171,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
   }
 
-  private function del_comments(object $pp1)
+  protected function del_comments(object $pp1)
   {
     // D e l  &  R e d i r e c t = r e f r e s h  t b l  v i e w :
     $tbl = $pp1->urlqry_parts[3] = 'comments' ; 
@@ -191,7 +184,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
 
 
-  private function errmsg(object $pp1, string $myerrmsg)
+  protected function errmsg(object $pp1, string $myerrmsg)
   {
       // h d r  is  in  p a g e  which  i n c l u d e s  t h i s  p a g e
       $title = 'MSG ERRPAGE';
@@ -205,10 +198,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   /**
   * *************** FUNCTION 3.  S E S S I O N  M E T H O D S ***************
   */
-  private function logout(object $pp1)
-  {
-    $Db_user = Tbl_crud_admin::logout($pp1) ;
-  }
+
 
   //e n d  1. S E S S  I O N  M E T H O D S
 
@@ -231,7 +221,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
 
 
-  private function kalendar(object $pp1) //private
+  protected function kalendar(object $pp1) //protected
   {
     require $pp1->shares_path . '/hdr.php';
     //require $pp1->module_path . '/../post/read_msg_tbl_kalendar_flex.php';
@@ -245,25 +235,37 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
   // *************** FUNCTION 5. I N C L U D E  P A G E S  WITHOUT  C R U D ***************
 
-  private function contact(object $pp1)
+  protected function contact(object $pp1)
   {
+     $title = 'Contact us' ;
       require $pp1->shares_path . '/hdr.php';
+      Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+
       require $pp1->module_path . '/v_contact_us.php';
+
       require $pp1->shares_path . '/ftr.php';
   }
 
-  private function about(object $pp1)
+  protected function about(object $pp1)
   {
-    //$param1 = ... ;
+    $title = 'About us' ;
     require $pp1->shares_path . '/hdr.php';
+    Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+                         //require_once("navbar.php");
+
     require $pp1->module_path . '/v_about_us.php';
+
     require $pp1->shares_path . '/ftr.php';
   }
 
-  private function features(object $pp1)
+  protected function features(object $pp1)
   {
+    $title = 'Blog module features' ;
     require $pp1->shares_path . '/hdr.php';
+    Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+
     require $pp1->module_path . '/v_features.php';
+
     require $pp1->shares_path . '/ftr.php';
   }
 
@@ -274,7 +276,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   // U S E R  R E A D
 
   //        u s e r s  r e a d
-  private function admins(object $pp1) //private
+  protected function admins(object $pp1) //protected
   {
     utl::Login_Confirm_SesUsrId(); 
     $title = 'Admin Page' ;
@@ -286,7 +288,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   }
 
   //  user profile
-  private function read_user(object $pp1) //private
+  protected function read_user(object $pp1) //protected
   {
     $uriq = $pp1->uriq ;
     $usrname_requested = 'xxxxxxxx' ; //$u riq->username ;
@@ -298,33 +300,21 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
     //$css1 = 'styles.css' ;
 
     //require $pp1->shares_path . '/hdr.php';
-    //require_once("navbar.php");
+    //require_once("n avbar.php");
     require dirname($pp1->module_path) . '/user/read.php'; //was read_user.php
     //require $pp1->shares_path . '/ftr.php';
   }
 
+ 
 
-  private function loginfrm(object $pp1) //private
-  {
-    //called from link, Config_ allsites based on url (calling link) calls  f n  l o g i n
-    //$p p1  = $t his->g etp('p p1') ;
-                if ('') {self::jsmsg( [ //b asename(__FILE__).
-                   __METHOD__ .', line '. __LINE__ .' SAYS'=>''
-                   ,'aaa'=>'bbb'
-                ] ) ; }
-      require $pp1->shares_path . '/hdr.php';
-      require $pp1->module_path . '/../user/login_frm.php';  
-      require $pp1->shares_path . '/ftr.php';
-  }
-
-  private function login(object $pp1) {
+  protected function login(object $pp1) {
     Tbl_crud_admin::login($pp1, $pp1->posts) ;
   }
 
 
-  private function upd_user_loggedin(object $pp1) //private
+  protected function upd_user_loggedin(object $pp1) //protected
   {
-    //     A D M I N  P R O F I L E  navbar admin -> My Profile
+    //     A D M I N  P R O F I L E  n avbar admin -> My Profile
     utl::Login_Confirm_SesUsrId();
 
       $title = 'MSG u s r u p d ';
@@ -338,7 +328,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
   // *************** FUNCTION SIMPLE MODULE TBL2  C A T E G O R Y ***************
   //        c a t e g o r i e s  t b l
-  private function categories(object $pp1) //private
+  protected function categories(object $pp1) //protected
   {
     utl::Login_Confirm_SesUsrId();
     require $pp1->module_path . '/../post_category/categories.php';  
@@ -348,7 +338,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
 
   // *************** FUNCTION SIMPLE MODULE TBL3  P O S T S ***************
-  private function addnewpost(object $pp1) //private
+  protected function addnewpost(object $pp1) //protected
   {
 
     // http://dev1:8083/fwphp/glomodul/blog/?i/addnewpost/  
@@ -359,17 +349,17 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
 
   //     Dashboard - p o s t s  v i e w  t b l
-  private function posts(object $pp1) //private
+  protected function posts(object $pp1) //protected
   {
     utl::Login_Confirm_SesUsrId();
-    Dashboard_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+    Dashboard_view::displ_tbl($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
                                     //require $pp1->module_path . 'd ashboard.php';  
                                     //require $pp1->module_path . '../post/posts.php';  // no more
   }
 
 
   //        p o s t s  f i l t e r e d  v i e w  t b l
-  private function filter_postcateg(object $pp1) //private
+  protected function filter_postcateg(object $pp1) //protected
   {
     //http://dev1:8083/fwphp/glomodul/blog/index.php?i/filter_postcateg/c/B12phpfw/p/1
     $pp1->category_from_url = (isset($uriq->c) and null !== $pp1->uriq->c) ? $pp1->uriq->c : '' ;
@@ -387,7 +377,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
     //p=posts or home
 
-        Home_view::show($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
+        Home_view::displ_tbl($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
                                         //require $pp1->module_path . 'home.php';
     //}
 
@@ -397,13 +387,14 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
 
   //        r e a d  p o s t
-  private function read_post(object $pp1)
+  protected function read_post(object $pp1)
   {
     /* not working here :
     //parsedown to color code (sintax highlighting https://highlightjs.org/download/) :
     $css2 = '<link rel="stylesheet" href="/vendor/erusev/parsedown/styles/default.css">' ;
     $css3 = '<script src="/vendor/erusev/parsedown/highlight.pack.js"></script>' ; //js :-) 
-    $css4 = '<script>hljs.initHighlightingOnLoad();</script>'; */
+    $css4 = '<script>hljs.initHighlightingOnLoad();</script>'; 
+    */
     /*
     $uriq = $pp1->uriq ;
     $IdFromURL = (int)$uriq->id ; 
@@ -423,7 +414,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
     //require_once $pp1->shares_path . '/hdr.php';
 
-    //  require_once("navbar.php");
+    //  require_once("n avbar.php");
     //  require $pp1->module_path . '/../post/read_post.php';  
     Dashboard_view::read_post($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
 
@@ -431,7 +422,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   }
 
   //        e d i t  p o s t 
-  private function editpost(object $pp1) //private
+  protected function editpost(object $pp1) //protected
   {
     /* $uriq = $pp1->uriq ;
     $IdFromURL = $uriq->id ;
@@ -441,14 +432,14 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
     $title = 'Edit Post' ;
     //if form and form processing are in same script, redirect has problem :
     //require $pp1->shares_path . '/hdr.php';
-    //require_once("navbar.php");
+    //require_once("n avbar.php");
     */
     require $pp1->module_path . '/../post/upd_post_frm.php';
     //require $pp1->shares_path . '/ftr.php';
   }
 
   //        e d i t  p o s t  m a r k d o w n
-  private function edmkdpost(object $pp1) //private
+  protected function edmkdpost(object $pp1) //protected
   {
     $uriq = $pp1->uriq ;
     //for now c r e / d e l  op.system file in op.system
@@ -474,7 +465,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   }
   //        d i s p l a y  p o s t  m a r k d o w n
 
-  public function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //private
+  public function readmkdpost(object $pp1, string $fle_to_displ_name, string $only_help='') //protected
   {
     $fle_to_displ_path = "{$pp1->module_path}/msgmkd/$fle_to_displ_name" ;
     $helptxt_path = "{$pp1->module_path}/msgmkd/000_markdown_posts_help.txt" ;
@@ -530,14 +521,14 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
   // *************** FUNCTION SIMPLE MODULE TBL4  C O M M E N T S ***************
   //          p o s t  c o m m e n t s
-  private function comments(object $pp1) //private
+  protected function comments(object $pp1) //protected
   {
     utl::Login_Confirm_SesUsrId();
     require $pp1->module_path . '/../post_comment/comments.php';  
   }
 
   //         u p d  c o m m e n t _ s t a t
-  private function upd_comment_stat(object $pp1) //private
+  protected function upd_comment_stat(object $pp1) //protected
   {
     //copy of an already created object can be made by cloning it. 
                               if ('') { echo '<br /><h3>'.__METHOD__ .', line '. __LINE__ .' SAYS:</h3>'
@@ -569,7 +560,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
 
   /*
   //used for all  t a b l e s !! 
-  private function del_row_do(object $pp1) // *************** SHARED  d d (
+  protected function del_row_do(object $pp1) // *************** SHARED  d d (
   {
                               if ('') { echo __METHOD__ .', line '. __LINE__ .' SAYS: ' ;
                               if (isset($pp1->uriq) and null !== $pp1->uriq)

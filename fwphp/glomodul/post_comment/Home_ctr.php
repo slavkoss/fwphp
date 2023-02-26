@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1); //declare(strict_types=1, encoding='UTF-8');
-//J:\awww\www\fwphp\glomodul\post_category\Home_ctr.php
-//J:/awww/www/fwphp/glomodul/post_category/Home_ctr.php
+//J:\awww\www\fwphp\glomodul\post_comment\Home_ctr.php
+//J:/awww/www/fwphp/glomodul/post_comment/Home_ctr.php
 // DEFAULT CTR ONLY ONE FOR MODULE-IN-OWN-DIR IS ENOUGH, but may be more.
 // c a l l e r IS ALLWAYS i n d e x . p h p
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)
 // *************** FUNCTION 1. N A M E S P A C E S  ***************
-namespace B12phpfw\module\post_category ;
+namespace B12phpfw\module\post_comment ;
 
 use B12phpfw\core\b12phpfw\Config_allsites     as utl ;
-use B12phpfw\dbadapter\post_category\Tbl_crud  as Tbl_crud_category ;
+use B12phpfw\dbadapter\post_comment\Tbl_crud  as Tbl_crud_category ;
 
 //"Home_ ctr is addition to Config_ allsites" - technicaly could be in Config_ allsites (is not for sake of code reusability and clear code)
 // May be named App, Router_dispatcher... :
@@ -96,13 +96,13 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
     // Ver. 7 : $pp1 is Injected Dependency 
     //utl::Login_Confirm_SesUsrId();
 
-    $title = 'MSG Categories';
+    $title = 'MSG Comments';
     require $pp1->shares_path . '/hdr.php';
     //Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
 
     //if(!empty($_SESSION['username'])){
     if(utl::Login_Confirm_SesUsrId()){
-      require $pp1->module_path . '/../post_category/categories.php';  
+      require $pp1->module_path . '/../post_comment/comments.php';  
       //Home_view::displ_tbl($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
     } else{
       utl::Redirect_to($pp1->login) ;
@@ -118,7 +118,7 @@ class Home_ctr extends utl //i mplements Db_allsites_Intf
   protected function categories(object $pp1) //protected
   {
      utl::Login_Confirm_SesUsrId();
-     require $pp1->module_path . '/../post_category/categories.php';  
+     require $pp1->module_path . '/../post_comment/categories.php';  
   }
 
 

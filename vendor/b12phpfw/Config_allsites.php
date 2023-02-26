@@ -20,41 +20,7 @@ abstract class Config_allsites //extends Db_ allsites
   private $pp1 ; //was public, protected
 
 
-    // Dispatching ;
-    protected function dispatcher(object &$pp1) { //static
-            // CALLED FROM Config_ allsites __c onstruct
-            // so: return static::$dispatcher($pp1); // Here comes Late Static Bindings
-      //this fn calls method in this Home_ ctr which has parameters in  $ p p 1
-      // here can be added in $pp1 module dependent parameters
-      //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
-      
-      // http://dev1:8083/fwphp/glomodul/adrs/?i/ex1
 
-      $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__  ;
-
-      $akc = $pp1->urlqry_parts[1]??'home' ; 
-      if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
-        $this->$akc($pp1) ; //self::$akc($pp1) ;
-      } else {
-        echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
-        echo '(Home_ ctr) Method "<b>'. $akc .'</b>" is not callable (should be protected or public, not private !).' ;
-        echo '<pre>'; echo '<b>$pp1->url_parts</b>='; print_r($pp1->url_parts);
-        return '0' ;
-      }
-    }
-
-    // Routing ;
-    protected function router(object &$pp1) { 
-      $req_uri  = mb_strtolower($_SERVER['REQUEST_URI']); 
-      $url_parts = explode('?', $req_uri);
-      $urlqry_parts = explode('/', $url_parts[1]??'no urlqry_parts');
-      //
-      $pp1->pp1_group03 = '~~~~~ ROUTING (URL QUERY) <span style="color: fuchsia; font-size: normal; font-weight: bold;">CONVENTION BEFORE (UNCLEAR, UNNECESSARY) CONFIGURATION</span> CODE!! : ~~~~~' ;
-      $pp1->req_uri = $req_uri ;
-      $pp1->pp1_help01 = '~~~ Element 1 of url_parts is URL query :' ;
-      $pp1->url_parts = $url_parts ;
-      $pp1->urlqry_parts = $urlqry_parts ;
-    }
 
 
   public function __construct(object &$pp1) //, array $pp1_module
@@ -124,6 +90,68 @@ abstract class Config_allsites //extends Db_ allsites
   } //e n d  __ c o n s t r u c t 
 
 
+
+  //  Access level p rotected
+  protected function logout(object &$pp1)
+  {
+    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
+
+    //our admins tbl - U serName may or not be  d b  s h e m a  name :
+    if (isset($_SESSION['userid']))    $_SESSION['userid']    = null ;
+    if (isset($_SESSION['username']))  $_SESSION['username']  = null ;
+    if (isset($_SESSION['adminname'])) $_SESSION['adminname'] = null ;
+    //d b  s h e m a  name :
+    if (isset($_SESSION['cncts']->username)) $_SESSION['cncts']->username = null ;
+    //
+    session_destroy() ;
+
+    self::Redirect_to($_SESSION['gourl']) ;
+    //self::Redirect_to($pp1->module_url) ;
+                           // '/' is  U R L query pieces delimiter, '|' is parts of pieces delimiter
+                           //utl::Redirect_to(QS.str_replace('|','/',$pp1->logout)) ;
+  }
+  //e n d  S E S S  I O N  M E T H O D S
+
+
+
+
+
+    // Dispatching ;
+    protected function dispatcher(object &$pp1) { //static
+            // CALLED FROM Config_ allsites __c onstruct
+            // so: return static::$dispatcher($pp1); // Here comes Late Static Bindings
+      //this fn calls method in this Home_ ctr which has parameters in  $ p p 1
+      // here can be added in $pp1 module dependent parameters
+      //$ a k c  is  m o d u l e  method (in Home_ ctr, not global method)
+      
+      // http://dev1:8083/fwphp/glomodul/adrs/?i/ex1
+
+      $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__  ;
+
+      $akc = $pp1->urlqry_parts[1]??'home' ; 
+      if ( is_callable(array($this, $akc)) ) { // and m ethod_exists($this, $akc)
+        $this->$akc($pp1) ; //self::$akc($pp1) ;
+      } else {
+        echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ;
+        echo '(Home_ ctr) Method "<b>'. $akc .'</b>" is not callable (should be protected or public, not private !).' ;
+        echo '<pre>'; echo '<b>$pp1->url_parts</b>='; print_r($pp1->url_parts);
+        return '0' ;
+      }
+    }
+
+    // Routing ;
+    protected function router(object &$pp1) { 
+      $req_uri  = mb_strtolower($_SERVER['REQUEST_URI']); 
+      $url_parts = explode('?', $req_uri);
+      $urlqry_parts = explode('/', $url_parts[1]??'no urlqry_parts');
+      //
+      $pp1->pp1_group03 = '~~~~~ ROUTING (URL QUERY) <span style="color: fuchsia; font-size: normal; font-weight: bold;">CONVENTION BEFORE (UNCLEAR, UNNECESSARY) CONFIGURATION</span> CODE!! : ~~~~~' ;
+      $pp1->req_uri = $req_uri ;
+      $pp1->pp1_help01 = '~~~ $p p1->url_parts arr is exploded string $_SERVER[\'REQUEST_URI\'] (part1 before QS=? and part2 after QS)' ;
+      $pp1->pp1_help02 = '~~~ Element 1 of url_parts is URL query ($_SERVER[\'QUERY_STRING\']) :' ;
+      $pp1->url_parts = $url_parts ;
+      $pp1->urlqry_parts = $urlqry_parts ;
+    }
 
 
 
@@ -205,7 +233,7 @@ abstract class Config_allsites //extends Db_ allsites
       return($r) ;
     }
 
-    //static protected function secure_form($form) {
+    //static protected f unction secure_form($form) {
     //    foreach ($form as $key => $value) {
     //        $form[$key] = self::escp($value);
     //    }

@@ -9,6 +9,7 @@ use B12phpfw\core\b12phpfw\Config_allsites as utl ;
 use B12phpfw\core\b12phpfw\Db_allsites     as utldb ;
 use B12phpfw\dbadapter\user\Tbl_crud       as utl_module ;
 
+use B12phpfw\module\user\Home              as Home_view;
 
 class Home extends utl
 {
@@ -17,9 +18,67 @@ class Home extends utl
     
   }
 
-  static public function displ( object $pp1): string 
+
+  static public function navbar_top( object $pp1, array $other ): string 
+  { 
+    $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
+
+                  if ('') {  //if ($module_ arr['dbg']) {
+                    echo '<h3>'. __METHOD__ .'() '.', line '. __LINE__ .' said: '.'</h3>' ;
+                    echo '<pre style="font-family:\'Lucida Console\'; font-size:small">';
+                      echo '<b>$pp1</b>='; print_r($pp1);
+                      //echo '<br><b>$_POST</b>='; print_r($_POST);
+                    echo '</pre>'; }
+   ?>
+   <!--  -->
+<!-- N A V B A R  A D M I N   J:\awww\www\fwphp\glomodul\user\n avbar.php  onclick="event.preventDefault()"-->
+  <!-- Hero -->
+  <div class="hero" data-theme="dark">
+
+    <nav class="container-fluid">
+        <ul>
+          <li><a href="<?=$pp1->sitehome?>" class="contrast"><strong>Sitehome</strong></a></li>
+        </ul>
+
+        <ul>
+          <!--li><a href="#" class="contrast" data-theme-switcher="auto">Auto</a></li-->
+          <li><a class="contrast" href="<?=$pp1->home?>" title="Refresh this page">Home</a></li>
+          <!--li><a href="#" class="contrast" data-theme-switcher="light">Light</a></li>
+          <li><a href="#" class="contrast" data-theme-switcher="dark">Dark</a></li-->
+          &nbsp; &nbsp; &nbsp; 
+          <!--li><a class="contrast" href="<?=$pp1->sitehome?>">Sitehome</a></li>
+          <li><a class="contrast" href="result.php">Dashboard</a></li-->
+
+
+
+          <?php if(!empty($_SESSION['username'])) { ?>
+             <li><a class="contrast" href="<?=$pp1->logout?>">Logout</a></li>
+
+          <?php }else{
+            //utl::Redirect_to($pp1->glomodul_url .'/'. $pp1->dir_user) ;
+            ?>
+             <li><a class="contrast" 
+                href="<?=$pp1->loginfrm?>">Login</a></li>
+          <?php  } ?>
+
+
+
+        </ul>
+    </nav>
+
+
+  </div><!-- Hero -->
+   <!-- N AV B A R  END -->
+
+    <?php
+    return('1') ;
+  } //e n d  f n  n a v b a r
+
+
+  static public function displ_tbl( object $pp1, array $other): string 
   {
-    //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+    $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
+                                 //$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
     // cursor a dmins :
     $c_admins = utl_module::get_cursor($sellst='*', $qrywhere= "'1'='1' ORDER BY aname"
       , $binds=[], $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ] ) ;
@@ -29,7 +88,8 @@ class Home extends utl
 
     $title = 'USER CRud';
     require $pp1->shares_path . '/hdr.php';
-    require_once("navbar.php");
+    Home_view::navbar_top($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]); 
+                             //require_once("n avbar.php");
     ?>
 
 

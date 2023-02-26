@@ -1,18 +1,17 @@
 <?php
-//J:\awww\www\fwphp\glomodul\blog\index.php, J:\awww\www=WEBSERVER_DOC_ROOT_DIR=../../../
+//J:\awww\www\fwphp\glomodul\post_comment\index.php, J:\awww\www=WEBSERVER_DOC_ROOT_DIR=../../../
 //http://dev1:8083/fwphp/glomodul/blog/  http://dev1:8083/fwphp/glomodul/blog/?i/home/p/1/ 
 //where : ?=QS, p=page=1, i=call Home_ctr method 'home()' to include (or call, or URL to).
 
 //string before blog, b12phpfw... is not required. See below **HELPNS
-namespace B12phpfw\module\blog ;
+namespace B12phpfw\module\post_comment ;
 
 use B12phpfw\core\b12phpfw\Autoload ;
-//use B12phpfw\core\b12phpfw\Db_allsites_Intf ;
-//use B12phpfw\core\b12phpfw\Db_allsites ; //DB MySQL
-use B12phpfw\core\b12phpfw\Config_allsites ;
-use B12phpfw\module\blog\Home_ctr ;
 
-use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud ;
+use B12phpfw\core\b12phpfw\Config_allsites ;
+use B12phpfw\module\post_comment\Home_ctr ;
+
+use B12phpfw\dbadapter\post_comment\Tbl_crud ; //as Tbl_crud_category 
 
                   if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h3>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h3>' ;
@@ -26,21 +25,22 @@ $module_path = str_replace('\\','/', __DIR__) ; // .'/'
 $dbicls = 'Db_allsites' ; //$dbicls = 'Db_allsites_ORA' ; 
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
-[ 
+[
    'pp1_group01' => '~~~~~ MODULE ELEMENTS IN PROPERTY PALLETE $pp1 : ~~~~~' 
-  , 'module_version'=>'Msg (Blog) 11.0.1.0 Mart 2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
+  ,'module_version'=>'Post category MySQL 11.0.1.0 Mart 2023'
+  //, 'vendor_namesp_prefix'=>'B12phpfw'
   , 'dbg'=>'1'
-  , 'dbicls' =>  $dbicls // for MySql DB or ...
-  , 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
+    , 'dbicls' => $dbicls // for MySql DB or ...
+    , 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
   //
   , 'pp1_group02P' => '~~~~~ ADRESSES : PATHS ~~~~~' 
-  , 'module_path' => $module_path 
-  , 'dir_user' => 'user' 
-  , 'dir_post' => 'post' 
+  , 'module_path' => $module_path  // to fwphp/glomodul/blog (or any names)
+  , 'dir_apl'     => 'glomodul'  // application (group of modules) folder name
+  , 'dir_categories' => 'post_category'
 ] ;     
           //echo '<pre>$pp1->module_path_arr='; print_r($pp1->module_path_arr) ; echo '</pre>'; 
+
 //2. global cls loads (includes, bootstrap) classes scripts automatically
-  //not  Composer's autoload cls-es :
 require(dirname(dirname(dirname($module_path)))  .'/vendor/b12phpfw/bootstrap.php'); 
 require($pp1->shares_path .'/Autoload.php'); //or Composer's autoload cls-es
 $autoloader = new Autoload($pp1); //eliminates need to include class scripts

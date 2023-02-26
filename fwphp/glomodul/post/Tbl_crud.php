@@ -9,7 +9,7 @@ declare(strict_types=1);
 * Other such scripts should be (may be not ?) for csv persistent storage, web services...
 *
 * DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
-* MVC is code separation not functionality !
+* MVC is code separation not f unctionality !
 */
 
 //vendor_namesp_prefix \ processing (behavior) \ cls dir (POSITIONAL part of ns, CAREFULLY !)

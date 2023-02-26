@@ -1,8 +1,6 @@
 <?php
 //J:\awww\www\fwphp\glomodul4\blog\v_about_us.php
 
- $title = 'About us' ;
- require_once("navbar.php");
 ?>
 
 <div class="container">

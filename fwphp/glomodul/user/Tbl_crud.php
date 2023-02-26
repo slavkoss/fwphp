@@ -7,8 +7,8 @@ declare(strict_types=1);
 *         (PRE) CRUD class - DAO (Data Ac cess Object) or data mapper
 * Other such scripts should be (may be not ?) for csv persistent storage, web services...
 *
-* DM=domain model aproach not M,V,C classes but functional classes (domains,pages,dirs)
-* MVC is code separation not functionality !
+* DM=domain model aproach not M,V,C classes but f unctional classes (domains,pages,dirs)
+* MVC is code separation not f unctionality !
 */
 /**
 *  J:\awww\www\fwphp\glomodul\user\Tbl_crud.php
@@ -41,7 +41,7 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
     if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
   }
 
-                         //static public function col_ names() : array { ... or :
+                         //static public f unction col_ names() : array { ... or :
 
   //static public    $row = []; //eg utl::escp($_POST["title"]) to $title, $author...
   static public $col_names = 
@@ -173,7 +173,7 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
   }
 
 
-  /* static public function Login_ Confirm_ SesUsrId(){
+  /* static public f unction Login_ Confirm_ SesUsrId(){
     if (isset($_SESSION["userid"])) { return true;
     }  else {
       $_ SESSION["ErrorMessage"] ="You are not logged in, log in is required  f o r  action you want !";
@@ -183,23 +183,7 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
 
 
 
-  static public function logout(object $pp1){
-    //our admins tbl - U serName may or not be  d b  s h e m a  name :
-    if (isset($_SESSION['userid']))    $_SESSION['userid']    = null ;
-    if (isset($_SESSION['username']))  $_SESSION['username']  = null ;
-    if (isset($_SESSION['adminname'])) $_SESSION['adminname'] = null ;
-    //d b  s h e m a  name :
-    if (isset($_SESSION['cncts']->username)) $_SESSION['cncts']->username = null ;
-    //
-    session_destroy() ;
-                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
-    // '/' is  U R L query pieces delimiter, '|' is parts of pieces delimiter
-    utl::Redirect_to(QS.str_replace('|','/',$pp1->logout)) ;
-  }
-  //e n d  S E S S  I O N  M E T H O D S
-
-
-  static public function login(object $pp1, string $goscript='') 
+  static public function login(object $pp1) 
   {
                             if (''): Home_ctr::jsmsg( [ //b asename(__FILE__).
                                __METHOD__ .', line '. __LINE__ .' SAYS'=>''
@@ -210,9 +194,10 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
     if (isset($pp1->shared_dbadapter_obj)) self::$utldb = $pp1->shared_dbadapter_obj ;
 
                     $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
+
+
     if (isset($_SESSION["userid"]) and $_SESSION["userid"]):
-                    $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ;
-      utl::Redirect_to($goscript) ; //eg $pp1-> dashboard
+      utl::Redirect_to($_SESSION['gourl']) ;
     endif ;
                   if ('') {  //if ($module_ arr->dbg) {
                     echo '<br /><span style="color: violet; font-size: large; font-weight: bold;">'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</span>' ;
@@ -298,9 +283,6 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
       $_SESSION["ErrorMessage"] = $errmsg_tmp ;
       switch (true)
       {
-        //case isset($_SESSION["userid"]) and $_SESSION["userid"] :
-        //  utl::R edirect_to($goscript) ; //$pp1-> dashboard
-        //  break ;
         case $rx :
           $_SESSION["userid"]     =$rx->id;
           $_SESSION["username"]   =$rx->username;
@@ -308,7 +290,7 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
           $_SESSION["SuccessMessage"][] = "Wellcome ".$_SESSION["adminname"]."!";
 
                     $pp1->stack_trace[] = [str_replace('\\','/', __FILE__ ).', lin='.__LINE__] ; 
-          utl::Redirect_to($goscript); //$pp1-> dashboard
+          utl::Redirect_to($_SESSION['gourl']);
           break;
         default:
           $_SESSION["username"]     = $username;
@@ -319,6 +301,9 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
 
 
   } //e nd  f n  l o g i n
+
+
+
   // *******************************************
   //                   E N D  R E A D
   // *******************************************
@@ -327,7 +312,7 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
   // *******************************************
   //                   C R E A T E,  U,  D
   // *******************************************
-  /*static public function get_submitted_cc(): array //return '1'
+  /*static public f unction get_submitted_cc(): array //return '1'
   {
     $submitted = [
       strftime("%Y-%m-%d %H:%M:%S",time()) //'2020-01-18 13:01:33'
@@ -514,7 +499,7 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
 
 
 
-  //public function dd($id) {  } //no need,
+  //public f unction dd($id) {  } //no need,
   //dd is  j s m s g y n  dialog in home.php + call dd() in Home_ctr d() method
   // *******************************************
   //             E N D  C R E A T E,  U,  D
@@ -522,23 +507,6 @@ class Tbl_crud //implements Interf_Tbl_crud //extends AbstractDataMapper impleme
 
 
 
-/*
-  J:\awww\www\fwphp\glomodul\user\Tbl_crud.php (14 hits)
-	Line 35:   static public function dd( object $pp1, array $other=[] ): string
-	Line 47:   static public function r r( // *************** r r (
-	Line 56:   static public function rr count( //string $sellst, 
-	Line 68:   static public function rr_ byid( int $id, array $other=[] ): object
-	Line 80:   static public function rr_ all( string $sellst, string $qrywhere="'1'='1'"
-	Line 106:   static public function C hkUsrNameExists(string $username)
-	Line 123:   static public function L ogin_ Confirm_SesUsrId(){
-	Line 133:   static public function l ogout(object $db){
-	Line 150:   static public function l ogin(object $db, $pp1, string $goscript='') // login
-	Line 267:   static public function get_ submitted_cc(): array //return '1'
-	Line 282:   static public function c c( // *************** c c (
-	Line 348:   static public function get_ submitted_uu(): array //return '1'
-	Line 361:   static public function u u( object $pp1, array $other=[]): string // *************** u u (
-	Line 417:   //public function dd ($id) {  } //no need,
-*/
 }
 
 
