@@ -59,7 +59,7 @@ First "/" in paths below is "J:\\awww\\www\\" = "http://dev1:8083/" = ownWebServ
 2. In phpmyadmin page :
     1. create database z_phpcms , utf8mb4
     2. # First learning step blog module 85 kB
-import in My SQL  **J:\\awww\\www\\fwphp\\glomodul\\blog_akram\01_phpcms.sql** : is  **first learning step "1a. Msg MySQL"** on main menu page - older procedural programming style but enough if we want only blog module (no need for OOP - classess - autoloaders,  B12phpfw, namespaces, globals which are useful for big sites - hundreds of modules).       
+import in My SQL  **J:\\awww\\www\\fwphp\\glomodul\\blog_akram\01_phpcms.sql** : is  **first learning step "1a. Msg MySQL"** on main menu page - older procedural programming style but enough if we want only blog module (no need for OOP - classess - autoloaders - routing - dispatching,  B12phpfw, namespaces, globals which are useful for big sites - hundreds of modules).       
 
         Later  to learn create big sites - hundreds of modules create database z_blogcms , utf8mb4 :       
         J:\\awww\\www\\z_DDL_and_other\\01_DDL_mysql_blog.sql      
