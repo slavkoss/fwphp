@@ -27,7 +27,7 @@ See [Code (signals) flow and data flow ](http://phporacle.eu5.net/fwphp/glomodul
         Framework core in folder WEBSERVERDOCROOT/vendor/b12phpfw/  is less than 100 kB
    2.  WEBSERVERDOCROOT XAMPP root dir  OS adress J:\xampp\htdocs,  Web adress :  http://SSPC1:8083/       
     
-## 1\.2 Download and unzip code from my Github repo
+## 1\.2 Download and unzip code from my Github repo https://github.com/slavkoss/fwphp
 Extract from fwphp-master.zip only  ~300 kB (B12phpfw core is less than 100 kB, with many added learning examples and images ~3 MB)   :
 ```
 (Apache or nginx...) WEB SERVER DOCROOT J:\\xampp\\htdocs\\, my is  virtual host J:\\awww\\www\\      
@@ -57,11 +57,15 @@ First "/" in paths below is "J:\\awww\\www\\" = "http://dev1:8083/" = ownWebServ
 1. Folders : vendor (was zinc, now zinc no more exists, shares are in **/vendor/b12phpfw**)   
 
 2. In phpmyadmin page :
-    1. create database z_blogcms , utf8mb4
-    2. import in My SQL J:\\awww\\www\\z_DDL_and_other\\01_DDL_mysql_blog.sql      
+    1. create database z_phpcms , utf8mb4
+    2. # First learning step blog module 85 kB
+import in My SQL  **J:\\awww\\www\\fwphp\\glomodul\\blog_akram\01_phpcms.sql** : is  **first learning step "1a. Msg MySQL"** on main menu page - older procedural programming style but enough if we want only blog module (no need for OOP - classess - autoloaders,  B12phpfw, namespaces, globals which are useful for big sites - hundreds of modules).       
+
+        Later  to learn create big sites - hundreds of modules create database z_blogcms , utf8mb4 :       
+        J:\\awww\\www\\z_DDL_and_other\\01_DDL_mysql_blog.sql      
          or in Oracle DB  J:\\awww\\www\\z_DDL_and_other\\01_DDL_oracle_blog.sql
 
-In J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - first learning step beside Mnu module in J:\\awww\\www\\fwphp\\glomodul\\www\\. Adrs is not to simple example but is not enough to learn B12phpfw menu & CRUD code skeleton ! Enough not to simple learning modules are Mnu, Mkd and Msg modules ! Seems complicated but is not.      
+J:\\awww\\www\\fwphp\\glomodul\\adrs\\ is **Adrs** module - second learning step beside Mnu module in J:\\awww\\www\\fwphp\\glomodul\\www\\. Adrs is not to simple example but is not enough to learn B12phpfw menu & CRUD code skeleton ! Enough not to simple learning modules are Mnu, Mkd and Msg modules ! Seems complicated but is not.      
 
 >Most (all ?) PHP learning sources on internet and books (Nixon, Powers, Yank, Ullman...) seem simple, but are in my opinion good only for basic sintax and lead to wrong coding of
 >menu & CRUD code skeleton, so are more complicated than B12phpfw ! Book CMS Duckett 2022 year is good for learning PHP, but CMS example is not so good.

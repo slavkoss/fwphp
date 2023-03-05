@@ -1,0 +1,64 @@
+.navbar-nav li{
+    font-weight: bold;
+   font-family: Bitter,Georgia,Times,"Times New Roman",serif;
+   font-size: 1.2em;
+}
+.Line{
+    margin-top: -20px;
+}
+#Footer{
+    
+    padding:10px;
+    border-top: 1px solid black;
+    color:#eeeeee;
+    background-color: #211f22;
+    text-align: center;   
+}
+.blogpost{
+	background-color:#f5f5f5;
+	padding-left: 10px;
+	padding-right: 10px;
+        padding-top: 10px;
+	overflow: hidden;
+}
+#heading{
+    font-family: Bitter,Georgia,"Times New Roman",Times,serif;
+    font-weight: bold;
+     color: #005E90;
+}
+#heading:hover{
+  color: #0090DB;
+}
+.description{
+    color: #868686;
+    font-weight:bold;
+    margin-top:-2px;
+}
+
+.post{
+     font-size: 1.1em;
+      font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+      text-align: justify;
+}
+.btn-info{
+    float: right;
+}
+.imageicon {
+  max-width: 150px;
+  margin: 0 auto;
+  display: block;
+}
+.background{
+    background-color:#F6F7F9;
+}
+
+
+
+
+
+
+
+
+
+
+

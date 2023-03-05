@@ -81,6 +81,12 @@ class Home_ctr extends Config_allsites
   }
 
 
+  public function msg_akram(object $pp1)
+  {
+    $this->Redirect_to( $pp1->glomodul_url .'/blog_akram/' ) ;
+  }
+
+
   public function msg(object $pp1)
   {
     // http://sspc2:8083/fwphp/www/
