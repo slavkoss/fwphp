@@ -113,7 +113,9 @@
   <body id="page-top">
 
 
-        <!-- pgpart01  Top Navigation: About, Services, Portfolio, Contact-->
+        <!-- pgpart01  Top Navigation: About, Services, Portfolio, Contact
+        dropdown mt-3
+        -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#page-top">Top</a>
@@ -126,6 +128,28 @@
                         <li class="nav-item"><a class="nav-link" href="#create2">2. Explain</a></li>
                         <li class="nav-item"><a class="nav-link" href="#share3">3. Share</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+
+
+                        <li class="nav-item dropdown">
+
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          
+                            <?php echo 'Other '; ?>
+                          </a>
+
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <li><a class="dropdown-item" 
+           href="<?=$moduleurl?>/users/profile.php?prof_id=<?=$_SESSION['user_id']??''?>">
+                                  aaaaaaaaaaaa</a></li>
+                                <li><a class="dropdown-item" 
+                                  href="<?=$moduleurl?>/auth/logout.php">bbbbbbbb</a></li>
+                          </ul>
+
+                        </li>
+
+
                     </ul>
                 </div>
             </div>
