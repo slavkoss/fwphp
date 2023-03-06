@@ -21,7 +21,7 @@ if(isset($_POST["Submit"]))
     $_SESSION["User_Id"]=$Found_Account["id"];
     $_SESSION["Username"]=$Found_Account["username"];
     if($Found_Account){
-    $_SESSION["SuccessMessage"]="Welcome  {$_SESSION["Username"]} ";
+    $_SESSION['SuccessMessage']="Welcome  {$_SESSION["Username"]} ";
     Redirect_to("Dashboard.php");
       
     }else{

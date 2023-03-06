@@ -25,7 +25,7 @@ if(isset($_POST["Submit"]))
     move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
 
     if($Query){
-    $_SESSION["SuccessMessage"]="Post Deleted Successfully";
+    $_SESSION['SuccessMessage']="Post Deleted Successfully";
     Redirect_to("Dashboard.php");
     }else{
     $_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";

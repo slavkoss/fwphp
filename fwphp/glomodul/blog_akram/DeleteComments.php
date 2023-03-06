@@ -9,7 +9,7 @@ if(isset($_GET["id"])){
     $ConnectingDB;
   $Query=get_cursor("DELETE FROM comments WHERE id='$IdFromURL'", 'dd');
   if($Query){
-    $_SESSION["SuccessMessage"]="Comment Deleted Successfully";
+    $_SESSION['SuccessMessage']="Comment Deleted Successfully";
     Redirect_to("Comments.php");
   }else{
     $_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";

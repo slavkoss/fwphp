@@ -27,7 +27,7 @@ if(isset($_POST["Submit"]))
     $Query=get_cursor("INSERT into comments (datetime,name,email,comment,approvedby,status,admin_panel_id)
     VALUES ('$DateTime','$Name','$Email','$Comment','Pending','OFF','$PostIDFromURL')", 'cc');
     if($Query){
-      $_SESSION["SuccessMessage"]="Comment Submitted Successfully";
+      $_SESSION['SuccessMessage']="Comment Submitted Successfully";
       Redirect_to("FullPost.php?id={$PostId}");
     }else{
       $_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";

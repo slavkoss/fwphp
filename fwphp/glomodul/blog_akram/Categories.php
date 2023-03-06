@@ -33,7 +33,7 @@ if(empty($Category)){
 	$Query=get_cursor("INSERT INTO category(datetime,name,creatorname)
 	VALUES('$DateTime','$Category','$Admin')", 'cc');
 	if($Query){
-	  $_SESSION["SuccessMessage"]="Category Added Successfully";
+	  $_SESSION['SuccessMessage']="Category Added Successfully";
 	  Redirect_to("Categories.php");
 	}else{
 	  $_SESSION["ErrorMessage"]="Category failed to Add";

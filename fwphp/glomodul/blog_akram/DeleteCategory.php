@@ -9,7 +9,7 @@ if(isset($_GET["id"])){
     $ConnectingDB;
   $Query=get_cursor("DELETE FROM category WHERE id='$IdFromURL'", 'dd');
   if($Query){
-    $_SESSION["SuccessMessage"]="Category Deleted Successfully";
+    $_SESSION['SuccessMessage']="Category Deleted Successfully";
     Redirect_to("Categories.php");
   }else{
     $_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";

@@ -32,7 +32,7 @@ if(isset($_POST["Submit"]))
     $Query=get_cursor("INSERT INTO registration(datetime,username,password,addedby)
     VALUES('$DateTime','$Username','$Password','$Admin')", 'cc');
     if($Query){
-      $_SESSION["SuccessMessage"]="Admin Added Successfully";
+      $_SESSION['SuccessMessage']="Admin Added Successfully";
       Redirect_to("Admins.php");
     }else{
       $_SESSION["ErrorMessage"]="Category failed to Add";

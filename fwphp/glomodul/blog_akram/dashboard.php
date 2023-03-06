@@ -21,8 +21,9 @@ require_once("aside_admin.php");
 	<div class="col-sm-10"> <!--Main Area-->
 	<h1>Admin Dashboard</h1>
 	
-	<div><?php echo Message();
-	      echo SuccessMessage();
+	<div><?php
+     echo Message();
+     echo SuccessMessage();
 	?></div>	
 	
 <div class="table-responsive">

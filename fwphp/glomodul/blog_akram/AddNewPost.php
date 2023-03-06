@@ -7,7 +7,7 @@ Confirm_Login();
 
 if(isset($_POST["Submit"]))
 {
-                               echo '<pre><b>$_POST</b>='; print_r($_POST); echo '</pre>';
+                               //echo '<pre><b>$_POST</b>='; print_r($_POST); echo '</pre>';
   unset($_POST["Submit"]) ;
 
    $Title=escp($_POST["Title"]);
@@ -41,7 +41,7 @@ if(isset($_POST["Submit"]))
     move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
 
     if($Query){
-    $_SESSION["SuccessMessage"]="Post Added Successfully";
+    $_SESSION['SuccessMessage']="Post Added Successfully";
     //Redirect_to("AddNewPost.php");
     }else{
     $_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";

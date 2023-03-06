@@ -9,7 +9,7 @@ if(isset($_GET["id"])){
   $Query=get_cursor("UPDATE comments SET status='OFF' WHERE id='$IdFromURL'", 'uu');
 
   if($Query){
-    $_SESSION["SuccessMessage"]="Comment Dis-Approved Successfully";
+    $_SESSION['SuccessMessage']="Comment Dis-Approved Successfully";
     Redirect_to("Comments.php");
   }else{
     $_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";

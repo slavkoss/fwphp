@@ -9,7 +9,7 @@ if(isset($_GET["id"])){
     $ConnectingDB;
   $Query=get_cursor("DELETE FROM registration WHERE id='$IdFromURL'", 'dd');
   if($Query){
-      $_SESSION["SuccessMessage"]="Admin Deleted Successfully";
+      $_SESSION['SuccessMessage']="Admin Deleted Successfully";
       Redirect_to("Admins.php");
   }else{
     $_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";
