@@ -1,152 +1,152 @@
 <?php
 $title='Blog' ;
 require_once("ahdr.php");
-?>
 
-<div class="container"> <!--Container-->
-	<div class="blog-header">
+require_once '../../../vendor/erusev/parsedown/Parsedown.php';
+$pdown = new \Parsedown; // Parsedown cls has no namespace
 
-	<h1>The Complete Responsive CMS Blog  </h1>
+$rblk = 5;
+          $c_cnt_admin_panel = get_cursor("SELECT COUNT(*) FROM admin_panel") ;
+          $row_cnt_admin_panel=$c_cnt_admin_panel->fetch(PDO::FETCH_ASSOC);
 
-	<p class="lead">The Complete blog using PHP by Jazeb Akram img-s width="640"; height="480"</p>
+          $rtbl=array_shift($row_cnt_admin_panel);
+         // echo $rtbl;
+          $total_pages=ceil($rtbl/$rblk); 
+          // echo $PostPerPage;
+$pgordno_from_url = $_GET['p']??1 ;
 
-	</div>
 
-	<div class="row"> <!--Row-->
-		<div class="col-sm-8"> <!--Main Blog Area-->
-		<?php
 
-		// Query when Search Button is Active
-		if(isset($_GET["SearchButton"]))
+    //P A G I N A T O R  step 1. Create navigation bar (step 2. is click page in n avbar, read page)
+    $pgn_links = get_pgnnav($pgordno_from_url, $rtbl, 'index.php', $rblk);
+    //$pgn_links = get_pgnnav($pgordno_from_url, $rcnt_filtered_posts, 'index.php', $rblk);
+                    if ('') //if ($autoload_arr['dbg']) 
+                    { echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                      echo '<pre>' ; 
+                        echo '$pgn_links ='; print_r($pgn_links) ;
+                      echo '</pre>';
+                      exit(0) ;
+                    }
+    //echo $pgn_links['navbar']; // see below
+
+
+
+    if(isset($_GET["SearchButton"]))
     {
-			$Search=$_GET["Search"];
-			
-		  $ViewQuery=get_cursor("SELECT * FROM admin_panel
-		  WHERE datetime LIKE '%$Search%' OR title LIKE '%$Search%'
-		  OR category LIKE '%$Search%' OR post LIKE '%$Search%' ORDER BY id desc");
+      // 1. Query when SEARCH Button is Active
+      $Search=$_GET["Search"];
+      
+      $ViewQuery=get_cursor("SELECT * FROM admin_panel
+      WHERE datetime LIKE '%$Search%' 
+            OR title LIKE '%$Search%'
+            OR category LIKE '%$Search%' 
+            OR post LIKE '%$Search%'
+            ORDER BY id desc");
 
-		} elseif(isset($_GET["Category"]))
-    {
-		  // QUery When Category is active URL Tab
-		  $Category=$_GET["Category"];
-	    $ViewQuery=get_cursor("SELECT * FROM admin_panel WHERE category='$Category' ORDER BY id desc");	
 
-		} elseif(isset($_GET["Page"]))
+    } elseif(isset($_GET["Category"]))
     {
-		// Query When Pagination is Active i.e index.php?Page=1
-      $Page=$_GET["Page"];
-      if($Page==0||$Page<1){
+      // 2. QUery When CATEGORY is active URL Tab
+      $Category=$_GET["Category"];
+      $ViewQuery=get_cursor("SELECT * FROM admin_panel WHERE category='$Category' ORDER BY id desc");  
+
+
+    } elseif(isset($_GET["p"]))
+    {
+    // 3. Query When PAGINATION is Active i.e index.php?p=1
+      $pgordno_from_url = $_GET["p"];
+      if($pgordno_from_url == 0 or $pgordno_from_url < 1){
         $ShowPostFrom=0;
       }else{
-        $ShowPostFrom=($Page*3)-3;}
-         //ViewQuery="SELECT * FROM admin_panel ORDER BY id desc LIMIT $ShowPostFrom,3";
-         $ViewQuery = get_cursor("SELECT  * FROM admin_panel ORDER BY id desc LIMIT $ShowPostFrom,3") ;
+        $ShowPostFrom = ($pgordno_from_url*$rblk) - $rblk;}
+        $ViewQuery = get_cursor("SELECT  * FROM admin_panel ORDER BY id desc LIMIT $ShowPostFrom,$rblk") ;
 
-		} else{
-		// The Default Query for B log.php Page
-      $ViewQuery = get_cursor("SELECT * FROM admin_panel ORDER BY id desc LIMIT 0,3") ;
+
+    } else{
+    // 4. DEFAULT Query for this Page
+      $ViewQuery = get_cursor("SELECT * FROM admin_panel ORDER BY id desc LIMIT 0,$rblk") ;
     }
 
+?>
 
 
+  <!--p class="lead">Img-s width="640"; height="480"</p-->
+    <?=$pgn_links['navbar']?>
 
-		while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC))
-    {
-			$PostId=$DataRows["id"];
-			$DateTime=$DataRows["datetime"];
-			$Title=$DataRows["title"];
-			$Category=$DataRows["category"];
-			$Admin=$DataRows["author"];
-			$Image=$DataRows["image"]??'NOT EXISTENT' ;
-			$Post=$DataRows["post"];
-		
-          ?>
-          <div class="blogpost thumbnail">
-            <?php if (file_exists("Upload/$Image")) { ?>
-            <img class="img-responsive img-rounded" alt="Upload/<?php echo $Image;  ?>"
-                 src="Upload/<?php echo $Image;?>" 
-                 width="640"; height="480"
-            > <?php } else echo 'Upload/'. $Image .' does not exist'; 
-            ?>
-          <div class="caption">
-            <h1 id="heading"> <?php echo htmlentities($Title); ?></h1>
-          <p class="description">Category:<?php echo htmlentities($Category); ?> Published on
-          <?php echo htmlentities($DateTime);?>
+  </div><!-- e n d  div class="blog-header" -->
+
+  <div class="row"> <!--Row-->
+    <div class="col-sm-8"> <!--Main Blog Area-->
+
       <?php
-      $QueryApproved = get_cursor("SELECT COUNT(*) FROM comments WHERE admin_panel_id='$PostId' AND status='ON'") ;
-      $RowsApproved=$QueryApproved->fetch(PDO::FETCH_ASSOC);
+      while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC))
+      {
+        $PostId=(int)$rowt["id"];
+        $DateTime=$rowt["datetime"];
+        $Title=$rowt["title"];
+        $Category=$rowt["category"];
+        $Admin=$rowt["author"];
+        $Image=$rowt["image"]??'NOT EXISTENT IMG' ;
+          if ($Image<'0') $Image='NOT EXISTENT IMG' ;
+        $Post=$rowt["post"];
+      
+            ?>
+        <div class="blogpost thumbnail">
+              <?php if (file_exists("Upload/$Image")) { ?>
+                <img class="img-responsive img-rounded" alt="file exists Upload/<?=$Image?>"
+                     src="Upload/<?=$Image?>" 
+                     width="640"; height="480"
+                > <?php 
+                echo 'Upload/'. $Image;
+              } else { echo 'Upload/'. $Image .' does not exist'; }
+              ?>
+            <div class="caption">
 
-      $TotalApproved=array_shift($RowsApproved);
-      if($TotalApproved>0){
-      ?>
-      <span class="badge pull-right">
-      Comments: <?php echo $TotalApproved;?>
-      </span>
-          
-      <?php } ?>
-          
-          </p>
-          <p class="post"><?php
-          if(strlen($Post)>150){$Post=substr($Post,0,150).'...';}
-          
-          echo $Post; ?></p>
-          </div>
-          <a href="FullPost.php?id=<?php echo $PostId; ?>"><span class="btn btn-info">
-            Read More &rsaquo;&rsaquo;
-          </span></a>
-            
-          </div>
-		<?php } ?>
+              <h1 id="heading"> <?php echo htmlentities($Title); ?></h1>
+
+              <p class="description">Category: <?=htmlentities($Category) .', id: '. $PostId?>
+                 , Published on <?=htmlentities($DateTime)?>
+                 , By <?=htmlentities($Admin)?>
+
+                <?php
+                $QueryApproved = get_cursor("SELECT COUNT(*) FROM comments WHERE admin_panel_id='$PostId' AND status='ON'") ;
+                $RowsApproved=$QueryApproved->fetch(PDO::FETCH_ASSOC);
+
+                $TotalApproved=array_shift($RowsApproved);
+                if($TotalApproved>0){
+                ?>
+                <span class="badge pull-right">
+                Comments: <?php echo $TotalApproved;?>
+                </span>
+                    
+                <?php } ?>
+              
+              </p>
+              <p class="post"><?php
+                if(strlen($Post)>150){$Post=substr($Post,0,300).'...';}
+
+
+                //echo $Post;
+                $htmltxt = $pdown->text($Post) ;
+                echo $pdown->text($htmltxt) ;
+
+                ?>
+              </p>
+            </div>
+            <a href="FullPost.php?id=<?php echo $PostId; ?>"><span class="btn btn-info">
+              Read More &rsaquo;&rsaquo;
+            </span></a>
+              
+        </div>
+        <?php 
+      } ?>
+
+
+      <?=$pgn_links['navbar']?>
 
 
 
-
-		<nav>
-			<ul class="pagination pull-left pagination-lg">
-	<!-- Creating backward Button -->
-	<?php
-	if(isset($Page))
-	{
-	       if($Page>1){
-		?>
-		<li><a href="index.php?Page=<?php echo $Page-1; ?>"> &laquo; </a></li>
-         <?php        }
-	} ?>			
-		<?php
-      $QueryPagination = get_cursor("SELECT COUNT(*) FROM admin_panel") ;
-      $RowPagination=$QueryPagination->fetch(PDO::FETCH_ASSOC);
-
-		  $TotalPosts=array_shift($RowPagination);
-		 // echo $TotalPosts;
-		  $PostPagination=$TotalPosts/3;
-		  $PostPagination=ceil($PostPagination);
-		 // echo $PostPerPage;
-		
-		for($i=1;$i<=$PostPagination;$i++){
-	if(isset($Page)){
-		if($i==$Page){
-		?>
-		<li class="active"><a href="index.php?Page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-		<?php
-		}else{ ?>
-		<li><a href="index.php?Page=<?php echo $i; ?>"><?php echo $i; ?></a></li>	
-		<?php
-		}
-	}
-		} ?>
-		<!-- Creating Forward Button -->
-		<?php
-	if(isset($Page))
-	{
-	       if($Page+1<=$PostPagination){
-		?>
-		<li><a href="index.php?Page=<?php echo $Page+1; ?>"> &raquo; </a></li>
-         <?php        }
-	} ?>	
-		</ul>
-		</nav>
-		
-		</div> <!--Main Blog Area Ending-->
+    </div> <!--Main Blog Area Ending-->
 
 
 
@@ -157,8 +157,8 @@ require_once("aside.php");
 
 
 </div> <!--Row Ending-->
-	
-	
+  
+  
 </div><!--Container Ending-->
 
 <?php

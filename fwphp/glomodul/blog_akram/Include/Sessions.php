@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+
 function Message(){
     if(isset($_SESSION["ErrorMessage"])){
       if (is_array($_SESSION['ErrorMessage'])) $_SESSION['ErrorMessage'] = '' ;
@@ -12,6 +14,8 @@ function Message(){
         
     }
 }
+
+
 function SuccessMessage(){
     if(isset($_SESSION['SuccessMessage'])){
        if (is_array($_SESSION['SuccessMessage'])) $_SESSION['SuccessMessage'] = '' ;
@@ -26,4 +30,3 @@ function SuccessMessage(){
     }
 }
 
-?>

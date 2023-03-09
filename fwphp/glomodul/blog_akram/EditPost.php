@@ -18,6 +18,8 @@ if(isset($_POST["Submit"]))
   $Admin=$_SESSION["Username"];
   $Image=$_FILES["Image"]["name"];
   $Target="Upload/".basename($_FILES["Image"]["name"]);
+
+
   if(empty($Title)){
     $_SESSION["ErrorMessage"]="Title can't be empty";
     Redirect_to("AddNewPost.php");
@@ -43,8 +45,8 @@ if(isset($_POST["Submit"]))
       Redirect_to("Dashboard.php");
     }
     
-  }	
-	
+  }  
+  
 }
 
 ?>
@@ -52,80 +54,84 @@ if(isset($_POST["Submit"]))
 
 <div class="container-fluid">
 <div class="row">
-	
+  
 
 <?php
+$active = strtolower(basename(__FILE__ , '.php')) ;
 require_once("aside_admin.php");
 ?>
 
 
-	<div class="col-sm-10">
-	<h1>Update Post</h1>
-	<?php echo Message();
-	      echo SuccessMessage();
-	?>
+  <div class="col-sm-10">
+  <h1>Update Post</h1>
+  <?php echo Message();
+        echo SuccessMessage();
+  ?>
 <div>
-	<?php
-	$SerachQueryParameter=$_GET['Edit'];
-	$Query=get_cursor("SELECT * FROM admin_panel WHERE id='$SerachQueryParameter'");
-	while($DataRows=$Query->fetch(PDO::FETCH_ASSOC)){
-		$TitleToBeUpdated=$DataRows['title'];
-		$CategoryToBeUpdated=$DataRows['category'];
-		$ImageToBeUpdated=$DataRows['image'];
-		$PostToBeUpdated=$DataRows['post'];
-		
-	}
-	
-	
-	?>
-<form action="EditPost.php?Edit=<?php echo $SerachQueryParameter; ?>" method="post" enctype="multipart/form-data">
-	<fieldset>
-	<div class="form-group">
-	<label for="title"><span class="FieldInfo">Title:</span></label>
-	<input value="<?php echo $TitleToBeUpdated; ?>" class="form-control" type="text" name="Title" id="title" placeholder="Title">
-	</div>
-	<div class="form-group">
-	<span class="FieldInfo"> Existing Category: </span>
-	<?php echo $CategoryToBeUpdated;?>
-	<br>
-	<label for="categoryselect"><span class="FieldInfo">Category:</span></label>
-	<select class="form-control" id="categoryselect" name="Category" >
-	<?php
+  <?php
+  $SerachQueryParameter=$_GET['Edit'];
+  $Query=get_cursor("SELECT * FROM admin_panel WHERE id='$SerachQueryParameter'");
+  while($DataRows=$Query->fetch(PDO::FETCH_ASSOC)){
+    $TitleToBeUpdated=$DataRows['title'];
+    $CategoryToBeUpdated=$DataRows['category'];
+    $ImageToBeUpdated=$DataRows['image'];
+    $PostToBeUpdated=$DataRows['post'];
+    
+  }
+  
+  
+  ?>
+<form action="EditPost.php?Edit=<?php echo $SerachQueryParameter; ?>" method="post" 
+      enctype="multipart/form-data">
+  <fieldset>
+  <div class="form-group">
+  <label for="title"><span class="FieldInfo">Title:</span></label>
+  <input value="<?php echo $TitleToBeUpdated; ?>" class="form-control" type="text" 
+         name="Title" id="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+  <span class="FieldInfo"> Existing Category: </span>
+  <?php echo $CategoryToBeUpdated;?>
+  <br>
+  <label for="categoryselect"><span class="FieldInfo">Category:</span></label>
+  <select class="form-control" id="categoryselect" name="Category" >
+  <?php
 $ViewQuery=get_cursor("SELECT * FROM category ORDER BY datetime desc");
 while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
-	$Id=$DataRows["id"];
-	$CategoryName=$DataRows["name"];
-?>	
-	<option><?php echo $CategoryName; ?></option>
-	<?php } ?>
-			
-	</select>
-	</div>
-	<div class="form-group">
-		<span class="FieldInfo"> Existing Image: </span>
-	<img src="Upload/<?php echo $ImageToBeUpdated;?>" width=170px; height=70px;>
-	<br>
-	<label for="imageselect"><span class="FieldInfo">Select Image:</span></label>
-	<input type="File" class="form-control" name="Image" id="imageselect">
-	</div>
-	<div class="form-group">
-	<label for="postarea"><span class="FieldInfo">Post:</span></label>
-	<textarea class="form-control" name="Post" id="postarea">
-		<?php echo $PostToBeUpdated; ?>
-	</textarea>
-	<br>
+  $Id=$DataRows["id"];
+  $CategoryName=$DataRows["name"];
+?>  
+  <option><?php echo $CategoryName; ?></option>
+  <?php } ?>
+      
+  </select>
+  </div>
+  <div class="form-group">
+    <span class="FieldInfo"> Existing Image: </span>
+  <img src="Upload/<?=$ImageToBeUpdated?>" width=170px; height=70px;>
+  <br>
+  <label for="imageselect"><span class="FieldInfo">
+     Select Image (eg J:\awww\www\vendor\b12phpfw\img\<?=$ImageToBeUpdated?>) :</span></label>
+  <input type="File" class="form-control" name="Image" id="imageselect">
+  </div>
+  <div class="form-group">
+  <label for="postarea"><span class="FieldInfo">Post:</span></label>
+  <textarea rows="40" cols="110" class="form-control" name="Post" id="postarea">
+    <?php echo $PostToBeUpdated; ?>
+  </textarea>
+  <br>
 <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Update Post">
-	</fieldset>
-	<br>
+  </fieldset>
+  <br>
 </form>
 </div>
 
 
 
-	</div> <!-- Ending of Main Area-->
-	
+  </div> <!-- Ending of Main Area-->
+  
 </div> <!-- Ending of Row-->
-	
+  
 </div> <!-- Ending of Container-->
 
 <div style="height: 10px; background: #27AAE1;"></div> 

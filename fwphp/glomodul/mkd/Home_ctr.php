@@ -102,7 +102,7 @@ class Home_ctr extends Config_allsites
     // php -a
     //echo rawurldecode(' %3Cbr%20/%3E%3Cb%3EWarning%3C/b%3E:%20%20Undefined%20property:%20stdClass::$showhtml%20in%20%3Cb%3EJ:/awww/www/fwphp/glomodul/mkd/home.php%3C/b%3E%20on%20line%20%3Cb%3E74%3C/b%3E%3Cbr%20/%3EJ:/awww/www/readme.md')
     // <br /><b>Warning</b>:  Undefined property: stdClass::$showhtml in <b>J:/awww/www/fwphp/glomodul/mkd/home.php</b> on line <b>74</b><br />J:/awww/www/readme.md
-    $title = 'MNU';
+    $title = 'MKD';
     $pp1->readme_path = str_replace('/','\\',$pp1->wsroot_path) . '\\readme.md';
     require $pp1->module_path . '/home.php';
   }

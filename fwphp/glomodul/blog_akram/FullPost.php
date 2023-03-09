@@ -2,6 +2,9 @@
 $title='Full Post' ;
 require_once("ahdr.php");
 
+require_once '../../../vendor/erusev/parsedown/Parsedown.php';
+$pdown = new \Parsedown; // Parsedown cls has no namespace
+
 if(isset($_POST["Submit"]))
 {
   $Name=escp($_POST["Name"]);
@@ -34,122 +37,142 @@ if(isset($_POST["Submit"]))
       Redirect_to("FullPost.php?id={$PostId}");
     }
     
-  }	
-	
+  }  
+  
 }
 
 ?>
 
-<div class="container"> <!--Container-->
-	<div class="blog-header">
 
-	<h1>The Complete Responsive CMS Blog  </h1>
+  </div><!-- e n d  div class="blog-header" -->
 
-	<p class="lead">Blog using PHP</p>
-	</div>
-	<div class="row"> <!--Row-->
-		<div class="col-sm-8"> <!--Main Blog Area-->
-		<?php echo Message();
-	      echo SuccessMessage();
-	?>
-		<?php
-		global $ConnectingDB;
-		if(isset($_GET["SearchButton"]))
+
+  <div class="row"> <!--Row-->
+    <div class="col-sm-8"> <!--Main Blog Area-->
+    <?php echo Message();
+        echo SuccessMessage();
+  ?>
+    <?php
+    global $ConnectingDB;
+    if(isset($_GET["SearchButton"]))
     {
-			$Search=$_GET["Search"];
-		  $ViewQuery=get_cursor("SELECT * FROM admin_panel
-		    WHERE datetime LIKE '%$Search%' OR title LIKE '%$Search%'
-		    OR category LIKE '%$Search%' OR post LIKE '%$Search%'");
-		}else
+      $Search=$_GET["Search"];
+      $ViewQuery=get_cursor("SELECT * FROM admin_panel
+        WHERE datetime LIKE '%$Search%' OR title LIKE '%$Search%'
+        OR category LIKE '%$Search%' OR post LIKE '%$Search%'");
+    }else
     {
-			$PostIDFromURL=$_GET["id"];
-		  $ViewQuery=get_cursor("SELECT * FROM admin_panel WHERE id='$PostIDFromURL'
-		    ORDER BY datetime desc");
+      $PostIDFromURL=$_GET["id"];
+      $ViewQuery=get_cursor("SELECT * FROM admin_panel WHERE id='$PostIDFromURL'
+        ORDER BY datetime desc");
     }
 
     while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC))
     {
-			$PostId=$DataRows["id"];
-			$DateTime=$DataRows["datetime"];
-			$Title=$DataRows["title"];
-			$Category=$DataRows["category"];
-			$Admin=$DataRows["author"];
-			$Image=$DataRows["image"];
-			$Post=$DataRows["post"];
-		
-		?>
-		<div class="blogpost thumbnail">
-			<img class="img-responsive img-rounded"src="Upload/<?php echo $Image;  ?>" >
-		<div class="caption">
-			<h1 id="heading"> <?php echo htmlentities($Title); ?></h1>
-		<p class="description">Category:<?php echo htmlentities($Category); ?> Published on
-		<?php echo htmlentities($DateTime);?></p>
-		<p class="post"><?php
-		echo nl2br($Post); ?></p>
-		</div>
-			
-		</div>
-		<?php } ?>
-		<br><br>
-		<br><br>
-		<span class="FieldInfo">Comments</span>
+      $PostId=$DataRows["id"];
+      $DateTime=$DataRows["datetime"];
+      $Title=$DataRows["title"];
+      $Category=$DataRows["category"];
+      $Admin=$DataRows["author"];
+      $Image=$DataRows["image"];
+      $Post=$DataRows["post"];
+    
+      ?>
+
+
+      <div class="blogpost thumbnail">
+
+              <?php if (file_exists("Upload/$Image")) { ?>
+                <img class="img-responsive img-rounded" alt="Upload/<?php echo $Image;  ?>"
+                     src="Upload/<?php echo $Image;?>" 
+                     width="640"; height="480"
+                > <?php 
+              } else echo 'Upload/'. $Image .' does not exist'; 
+              ?>
+
+
+        <div class="caption">
+          <h1 id="heading"> <?php echo htmlentities($Title); ?></h1>
+          <p class="description">Category:<?php echo htmlentities($Category); ?> Published on
+          <?=htmlentities($DateTime)?></p>
+
+
+        <?php
+        $htmltxt = $pdown->text($Post) ;
+        echo $pdown->text($htmltxt) ;
+        ?>
+
+
+
+       </div>
+        
+      </div>
+      <?php 
+    } ?>
+
+
+
+
+
+    <br><br><br><br>
+    <span class="FieldInfo">Comments</span>
 <?php
 
 $PostIdForComments=$_GET["id"];
 $ExtractingCommentsQuery=get_cursor("SELECT * FROM comments WHERE admin_panel_id='$PostIdForComments' AND status='ON' ");
 while($DataRows=$ExtractingCommentsQuery->fetch(PDO::FETCH_ASSOC)){
-	$CommentDate=$DataRows["datetime"];
-	$CommenterName=$DataRows["name"];
-	$Comments=$DataRows["comment"];
+  $CommentDate=$DataRows["datetime"];
+  $CommenterName=$DataRows["name"];
+  $Comments=$DataRows["comment"];
 
 
 ?>
 <div class="CommentBlock">
-	<img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="images/comment.png" width=70px; height=70px;>
-	<p style="margin-left: 90px;" class="Comment-info"><?php echo $CommenterName; ?></p>
-	<p style="margin-left: 90px;"class="description"><?php echo $CommentDate; ?></p>
-	<p style="margin-left: 90px;" class="Comment"><?php echo nl2br($Comments); ?></p>
-	
+  <img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="images/comment.png" width=70px; height=70px;>
+  <p style="margin-left: 90px;" class="Comment-info"><?php echo $CommenterName; ?></p>
+  <p style="margin-left: 90px;"class="description"><?php echo $CommentDate; ?></p>
+  <p style="margin-left: 90px;" class="Comment"><?php echo nl2br($Comments); ?></p>
+  
 </div>
 
-	<hr>
+  <hr>
 <?php } ?>
-		
-		
-		<br>
-		<span class="FieldInfo">Share your thoughts about this post</span>
-		
-		
+    
+    
+    <br>
+    <span class="FieldInfo">Share your thoughts about this post</span>
+    
+    
 <div>
 <form action="FullPost.php?id=<?php echo $PostId; ?>" method="post" enctype="multipart/form-data">
-	<fieldset>
-	<div class="form-group">
-	<label for="Name"><span class="FieldInfo">Name</span></label>
-	<input class="form-control" type="text" name="Name" id="Name" placeholder="Name">
-	</div>
-	<div class="form-group">
-	<label for="Email"><span class="FieldInfo">Email</span></label>
-	<input class="form-control" type="email" name="Email" id="Email" placeholder="email">
-	</div>
-	<div class="form-group">
-	<label for="commentarea"><span class="FieldInfo">Comment</span></label>
-	<textarea class="form-control" name="Comment" id="commentarea"></textarea>
-	<br>
+  <fieldset>
+  <div class="form-group">
+  <label for="Name"><span class="FieldInfo">Name</span></label>
+  <input class="form-control" type="text" name="Name" id="Name" placeholder="Name">
+  </div>
+  <div class="form-group">
+  <label for="Email"><span class="FieldInfo">Email</span></label>
+  <input class="form-control" type="email" name="Email" id="Email" placeholder="email">
+  </div>
+  <div class="form-group">
+  <label for="commentarea"><span class="FieldInfo">Comment</span></label>
+  <textarea class="form-control" name="Comment" id="commentarea"></textarea>
+  <br>
 <input class="btn btn-primary" type="Submit" name="Submit" value="Submit">
-	</fieldset>
-	<br>
+  </fieldset>
+  <br>
 </form>
 </div>
 
-		</div> <!--Main Blog Area Ending-->
+    </div> <!--Main Blog Area Ending-->
 
 <?php
 require_once("aside.php");
 ?>
 
-	</div> <!--Row Ending-->
-	
-	
+  </div> <!--Row Ending-->
+  
+  
 </div><!--Container Ending-->
 
 

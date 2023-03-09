@@ -199,6 +199,7 @@ class Home extends utl
                       echo '</pre>';
                       exit(0) ;
                     }
+    //echo $pgn_links['navbar'];
     $pgnnavbar        = $pgn_links['navbar'];
     $pgordno_from_url = (int)$pgn_links['pgordno_from_url'];
     $first_rinblock   = (int)$pgn_links['first_rinblock'];

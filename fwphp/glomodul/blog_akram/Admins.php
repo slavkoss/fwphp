@@ -39,92 +39,93 @@ if(isset($_POST["Submit"]))
       Redirect_to("Admins.php");
     }
     
-  }	
-	
+  }  
+  
 }
 
 ?>
 
 <div class="container-fluid">
 <div class="row">
-	
+  
 
 
 <?php
+$active = strtolower(basename(__FILE__ , '.php')) ;
 require_once("aside_admin.php");
 ?>
 
 
 
-	<div class="col-sm-10">
-	<h1>Add new Admin</h1>
-	<?php echo Message();
-	      echo SuccessMessage();
-	?>
+  <div class="col-sm-10">
+  <h1>Add new Admin</h1>
+  <?php echo Message();
+        echo SuccessMessage();
+  ?>
 <div>
 <form action="Admins.php" method="post">
-	<fieldset>
-	<div class="form-group">
-	<label for="Username"><span class="FieldInfo">UserName:</span></label>
-	<input class="form-control" type="text" name="Username" id="Username" placeholder="Username">
-	</div>
-	<div class="form-group">
-	<label for="Password"><span class="FieldInfo">Password:</span></label>
-	<input class="form-control" type="Password" name="Password" id="Password" placeholder="Password">
-	</div>
-	<div class="form-group">
-	<label for="ConfirmPassword"><span class="FieldInfo">Confirm Password:</span></label>
-	<input class="form-control" type="Password" name="ConfirmPassword" id="ConfirmPassword" placeholder=" Retype same Password">
-	</div>
-	<br>
+  <fieldset>
+  <div class="form-group">
+  <label for="Username"><span class="FieldInfo">UserName:</span></label>
+  <input class="form-control" type="text" name="Username" id="Username" placeholder="Username">
+  </div>
+  <div class="form-group">
+  <label for="Password"><span class="FieldInfo">Password:</span></label>
+  <input class="form-control" type="Password" name="Password" id="Password" placeholder="Password">
+  </div>
+  <div class="form-group">
+  <label for="ConfirmPassword"><span class="FieldInfo">Confirm Password:</span></label>
+  <input class="form-control" type="Password" name="ConfirmPassword" id="ConfirmPassword" placeholder=" Retype same Password">
+  </div>
+  <br>
 <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Add New Admin">
-	</fieldset>
-	<br>
+  </fieldset>
+  <br>
 </form>
 </div>
 <div class="table-responsive">
-	<table class="table table-striped table-hover">
-	<tr>
-		<th>Sr No.</th>
-		<th>Date & Time</th>
-		<th>Admin Name</th>
-		<th>Added By</th>
-		<th>Action</th>
-		
-	</tr>
+  <table class="table table-striped table-hover">
+  <tr>
+    <th>Sr No.</th>
+    <th>Date & Time</th>
+    <th>Admin Name</th>
+    <th>Added By</th>
+    <th>Action</th>
+    
+  </tr>
 <?php
 $ViewQuery=get_cursor("SELECT * FROM registration ORDER BY id desc");
 $SrNo=0;
 while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
-	$Id=$DataRows["id"];
-	$DateTime=$DataRows["datetime"];
-	$Username=$DataRows["username"];
-	$Admin=$DataRows["addedby"];
-	$SrNo++;
+  $Id=$DataRows["id"];
+  $DateTime=$DataRows["datetime"];
+  $Username=$DataRows["username"];
+  $Admin=$DataRows["addedby"];
+  $SrNo++;
 
 
-	
-	
+  
+  
 
 
 ?>
 <tr>
-	<td><?php echo $SrNo; ?></td>
-	<td><?php echo $DateTime; ?></td>
-	<td><?php echo $Username; ?></td>
-	<td><?php echo $Admin; ?></td>
-	<td><a href="DeleteAdmin.php?id=<?php echo $Id;?>">
-	<span class="btn btn-danger">Delete</span></a></td>
-	
+  <td><?php echo $SrNo; ?></td>
+  <td><?php echo $DateTime; ?></td>
+  <td><?php echo $Username; ?></td>
+  <td><?php echo $Admin; ?></td>
+  <td><a href="DeleteAdmin.php?id=<?php echo $Id;?>">
+  <span class="btn btn-danger">Delete</span></a></td>
+  
 </tr>
-		
-	<?php } ?>	
-	</table>
+    
+  <?php } ?>  
+  </table>
 </div>
-	</div> <!-- Ending of Main Area-->
-	
+  </div> <!-- Ending of Main Area-->
+  
 </div> <!-- Ending of Row-->
-	
+  
 </div> <!-- Ending of Container-->
 
 
@@ -132,4 +133,4 @@ while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
 <div style="height: 10px; background: #27AAE1;"></div> 
 
 require_once("aftr.php");
-	    
+      

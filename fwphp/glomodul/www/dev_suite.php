@@ -91,7 +91,7 @@
       <div class="title" title="Laragon">
 		  <h3>PHP version: <?php print phpversion(); ?>
 
-      <span><a title="phpinfo()" href="../glomodul/z_examples/00_index_of_important.php">info</a>&nbsp;&nbsp;
+      <span><a title="phpinfo()" href="../z_examples/00_index_of_important.php">info</a>&nbsp;&nbsp;
 		    <!-- a href="../glomodul/z_examples/book_video/" target="_blank">examples</a>&nbsp; -->
       </span> 
 		  </h3>

@@ -29,8 +29,8 @@ if(isset($_POST["Submit"]))
     Redirect_to("Login.php");
     }
     
-  }	
-}	
+  }  
+}  
 
 
 ?>
@@ -38,49 +38,50 @@ if(isset($_POST["Submit"]))
 
 <div class="container-fluid">
 <div class="row">
-	
-	<div class="col-sm-offset-4 col-sm-4">
-		<br><br><br><br>
-		<?php echo Message();
-	      echo SuccessMessage();
-	?>
-	<h2>Welcome back !</h2>
-	
+  
+  <div class="col-sm-offset-4 col-sm-4">
+    <br><br><br><br>
+    <?php echo Message();
+        echo SuccessMessage();
+  ?>
+  <h2>Welcome back !</h2>
+  
 <div>
 <form action="Login.php" method="post">
-	<fieldset>
-	<div class="form-group">
-	<label for="Username"><span class="FieldInfo">UserName:</span></label>
-	<div class="input-group input-group-lg">
-	<span class="input-group-addon">
-	<span class="glyphicon glyphicon-envelope text-primary"></span>
-	</span>
-	<input class="form-control" type="text" name="Username" id="Username" placeholder="Username eg a">
-	</div>	
-	</div>
-	
-	<div class="form-group">
-	<label for="Password"><span class="FieldInfo">Password:</span></label>
-	<div class="input-group input-group-lg">
-	<span class="input-group-addon">
-	<span class="glyphicon glyphicon-lock text-primary"></span>
-	</span>
-	<input class="form-control" type="Password" name="Password" id="Password" placeholder="Password eg aaaa">
-	</div>
-	</div>
-	
-	<br>
+  <fieldset>
+  <div class="form-group">
+  <label for="Username"><span class="FieldInfo">UserName:</span></label>
+  <div class="input-group input-group-lg">
+  <span class="input-group-addon">
+  <span class="glyphicon glyphicon-envelope text-primary"></span>
+  </span>
+  <input class="form-control" type="text" name="Username" id="Username" 
+     placeholder="Username eg a" value="a">
+  </div>  
+  </div>
+  
+  <div class="form-group">
+  <label for="Password"><span class="FieldInfo">Password:</span></label>
+  <div class="input-group input-group-lg">
+  <span class="input-group-addon">
+  <span class="glyphicon glyphicon-lock text-primary"></span>
+  </span>
+  <input class="form-control" type="Password" name="Password" id="Password" placeholder="Password eg aaaa" value="aaaa">
+  </div>
+  </div>
+  
+  <br>
 <input class="btn btn-info btn-block" type="Submit" name="Submit" value="Login">
-	</fieldset>
-	<br>
+  </fieldset>
+  <br>
 </form>
 
-	</div> <!-- Ending of Main Area-->
-	
+  </div> <!-- Ending of Main Area-->
+  
 </div> <!-- Ending of Row-->
-	
+  
 </div> <!-- Ending of Container-->
 
-	    
-	</body>
+      
+  </body>
 </html>

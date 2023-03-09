@@ -49,32 +49,32 @@
              </a>
              <p class="description" style="margin-left: 130px;"><?php echo htmlentities($DateTime);?></p>
           <hr>
-        </div>	
+        </div>  
       
     
     
-       <?php } ?>		
-		
-	  </div>
-	  <div class="panel-footer">
-		
-		
-	  </div>
+       <?php } ?>    
+    
+    </div>
+    <div class="panel-footer">
+    
+    
+    </div>
   </div>
-		
-		
     
-			<h2>About me </h2>
-	<img class=" img-responsive img-circle imageicon" src="images/comment.jpg">		
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit
-		, sed do eiusmod tempor incididunt ut labore et dolore magna
-		aliqua. Ut enim ad minim veniam, quis nostrud exercitation ul
-		lamco laboris nisi ut aliquip ex ea commodo consequat. Duis a
-		ute irure dolor in reprehenderit in voluptate velit esse cill
-		um dolore eu fugiat nulla pariatur. Excepteur sint occaecat c
-		upidatat non proi
-		dent, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     
-		
-		
+    
+  <h2>About me </h2>
+  <img class=" img-responsive img-circle imageicon" src="images/comment.jpg">    
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    , sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ul
+    lamco laboris nisi ut aliquip ex ea commodo consequat. Duis a
+    ute irure dolor in reprehenderit in voluptate velit esse cill
+    um dolore eu fugiat nulla pariatur. Excepteur sint occaecat c
+    upidatat non proi
+    dent, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    
+    
+    
 </div> <!--Side Area Ending-->

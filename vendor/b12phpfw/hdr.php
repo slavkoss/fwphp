@@ -12,7 +12,7 @@ $shares_url = $pp1->shares_url ;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1 shrink-to-fit=no">
 
-  <title><?=isset($title)?$title:'MSG'?></title>
+  <title><?=isset($title)?$title:'MKD'?></title>
 
   <!-- 4.3.1 -->
   <!--link rel="stylesheet" href="<=$wsroot_ url>zinc/themes/bootstrap/css/bootstrap.min.css"-->
