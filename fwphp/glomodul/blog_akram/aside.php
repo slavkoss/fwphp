@@ -25,7 +25,7 @@
           end, name"
         ) ;
           //if(name='PHP','0000', '1111'), name"
-          //decode(name, 'PHP','0000', '1111'), name
+          //decode(name, 'PHP','0000', '1111'), name // MariaDB has DECODE_ORACLE()
  
         while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC))
         {
