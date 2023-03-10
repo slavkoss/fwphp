@@ -79,6 +79,7 @@ $pgordno_from_url = $_GET['p']??1 ;
     <div class="col-sm-8"> <!--Main Blog Area-->
 
       <?php
+      $ii = 0 ;
       while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC))
       {
         $PostId=(int)$rowt["id"];
@@ -104,7 +105,7 @@ $pgordno_from_url = $_GET['p']??1 ;
 
               <h1 id="heading"> <?php echo htmlentities($Title); ?></h1>
 
-              <p class="description">Category: <?=htmlentities($Category) .', id: '. $PostId?>
+              <p class="description"><?=++$ii?>. Category: <?=htmlentities($Category) .', id: '. $PostId?>
                  , Published on <?=htmlentities($DateTime)?>
                  , By <?=htmlentities($Admin)?>
 
