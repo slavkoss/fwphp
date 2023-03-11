@@ -17,7 +17,7 @@ function get_cursor($dml, $crud='rr') {
   if ($crud=='rr') $cursor->execute();
                       //$RowsApproved=mysql_fetch_array($ExecuteApproved);
                       //$RowsApproved=$QueryApproved->fetch(PDO::FETCH_ASSOC);
-      return($cursor) ;
+  return($cursor) ;
 }
 
 
@@ -49,17 +49,98 @@ function Login_Attempt($Username,$Password){
 
 
 function Login(){
-    if(isset($_SESSION["User_Id"])){
-  return true;
-    }
+  if(isset($_SESSION["User_Id"])){
+    return true;
+  }
 }
- function Confirm_Login(){
-    if(!Login()){
-  $_SESSION["ErrorMessage"]="Login Required ! ";
-  Redirect_to("Login.php");
+function Confirm_Login(){
+  if(!Login()){
+    $_SESSION["ErrorMessage"]="Login Required ! ";
+    Redirect_to("Login.php");
+  }  
+}
+
+
+
+
+      /**
+      *  RENAME  R O W  C O L U M N S  TO LOWERCASE FOR ORACLE
+      */
+    function rlows(array $r) //all row fld names lowercase
+    {
+                          if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                          echo '<pre>';
+                          echo '<br />$r='; print_r($r) ; 
+                          //echo '<br />$key='; print_r($key) ; 
+                          //echo '<br />$val='; print_r($val) ; 
+                          echo '<br />'.'DBI=' . DBI ;
+                          echo '</pre>';
+                          }
+      $rlows = $r ; 
+      if (DBI==='oracle') {
+        
+        foreach ($r as $key => $val) {
+          switch (true) {
+                                  //case $key == 'DATETIM' : //datetime is reserved word in Oracle DB
+                                  //  $rlows['datetim'] = $val ;
+                                  //  break;
+                                  //case is_numeric($val) :
+                                  //  $rlows[$key] = $val ;
+                                  //  break;
+            default:
+              $rlows[strtolower($key)] = $val;
+              break;
+          }
+        }
+                              if ('') {echo '<h3>'.__METHOD__.' ln='.__LINE__.' said:</h3>';
+                              echo '<pre>';
+                              echo '<br />(object)$rlows='; print_r((object)$rlows) ; 
+                              echo '</pre>';
+                              }
+      }
+      return $rlows;
     }
-    
- }
+
+
+  function jsmsg($msg) 
+  {
+      ?><SCRIPT LANGUAGE="JavaScript">
+          alert( "<?php
+
+            foreach($msg as $k=>$v): {
+              echo "\\n $k=" . 
+              str_replace("{","\\n{", str_replace("}","\\n}"
+                      , str_replace(",","\\n   ,",
+              str_replace('\\','/',   str_replace('&quot;',' '
+                ,htmlspecialchars(json_encode((array)$v), ENT_QUOTES,'UTF-8')
+              )) ."\\n"
+                            )
+                       ))
+
+              ;
+
+            } endforeach ;
+
+              ?>" ) ;
+      </SCRIPT><?php
+  }
+
+
+  function jsmsgyn($p_todo, $p_url) 
+  {
+    ?><SCRIPT LANGUAGE="JavaScript">
+    var ret;
+    var yes = confirm(<?=$p_todo?>);
+    if (yes == true) { 
+       ret = '1';
+       if (p_url) { location.href=<?=$p_url?>; }
+    } else { ret = '0'; }
+    //The button you pressed is displayed in the result window.
+    //document.getElementById(demo).innerHTML = ret;
+    //return ret ;
+    </SCRIPT><?php
+  }
+
 
 
 /**
@@ -175,13 +256,3 @@ function get_pgnnav($pgordno_from_url, $rtbl = 0, $mtd_to_inc_view='index.php', 
       return $ret_arr ; 
 
 } // e n d  f n  g e t _ p g n n a v b a r
-
-
-
-
-      /* //$ConnectingDB;
-      //$QueryApproved="SELECT COUNT(*) FROM comments WHERE admin_panel_id='$PostId' AND status='ON'";
-      $QueryApproved=$conn->query("SELECT COUNT(*) FROM comments WHERE admin_panel_id='$PostId' AND status='ON'") ;
-      //$ExecuteApproved=mysql_ query($QueryApproved);
-      $QueryApproved->execute();
-      //$RowsApproved=mysql_ fetch_array($ExecuteApproved);  */

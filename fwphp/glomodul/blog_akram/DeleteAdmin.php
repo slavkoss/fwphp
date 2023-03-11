@@ -6,7 +6,7 @@ Confirm_Login();
 
 if(isset($_GET["id"])){
     $IdFromURL=$_GET["id"];
-    $ConnectingDB;
+
   $Query=get_cursor("DELETE FROM registration WHERE id='$IdFromURL'", 'dd');
   if($Query){
       $_SESSION['SuccessMessage']="Admin Deleted Successfully";

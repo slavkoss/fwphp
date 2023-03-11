@@ -10,11 +10,7 @@ if(isset($_POST["Submit"])){
 $Category=escp($_POST["Category"]);
 
 
-//date_default_timezone_set("Asia/Karachi");
-$CurrentTime=time();
-//$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-$DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
-$DateTime;
+   $Date_Time = date('Y-m-d H:i:s', time());
 $Admin=$_SESSION["Username"];
 
 
@@ -30,8 +26,8 @@ if(empty($Category)){
   
   
 }else{
-  $Query=get_cursor("INSERT INTO category(datetime,name,creatorname)
-  VALUES('$DateTime','$Category','$Admin')", 'cc');
+  $Query=get_cursor("INSERT INTO category(datetim,name,creatorname)
+  VALUES('$Date_Time','$Category','$Admin')", 'cc');
   if($Query){
     $_SESSION['SuccessMessage']="Category Added Successfully";
     Redirect_to("Categories.php");
@@ -91,11 +87,14 @@ require_once("aside_admin.php");
 global $ConnectingDB;
 $ViewQuery=get_cursor("SELECT * FROM category ORDER BY id desc");
 $SrNo=0;
-while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
-  $Id=$DataRows["id"];
-  $DateTime=$DataRows["datetime"];
-  $CategoryName=$DataRows["name"];
-  $CreatorName=$DataRows["creatorname"];
+while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
+
+  $rowt = rlows($rowt) ;
+
+  $Id=$rowt["id"];
+  $Date_Time=$rowt["datetim"];
+  $CategoryName=$rowt["name"];
+  $CreatorName=$rowt["creatorname"];
   $SrNo++;
 
 
@@ -106,7 +105,7 @@ while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
 ?>
 <tr>
   <td><?php echo $SrNo; ?></td>
-  <td><?php echo $DateTime; ?></td>
+  <td><?php echo $Date_Time; ?></td>
   <td><?php echo $CategoryName; ?></td>
   <td><?php echo $CreatorName; ?></td>
   <td><a href="DeleteCategory.php?id=<?php echo $Id;?>">

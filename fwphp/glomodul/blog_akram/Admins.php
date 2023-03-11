@@ -9,13 +9,8 @@ if(isset($_POST["Submit"]))
    $Username=escp($_POST["Username"]);
    $Password=escp($_POST["Password"]);
    $ConfirmPassword=escp($_POST["ConfirmPassword"]);
-
-  //date_default_timezone_set("Asia/Karachi");
-  $CurrentTime=time();
-  //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-  $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
-  $DateTime;
-  $Admin=$_SESSION["Username"];
+   $Date_Time = date('Y-m-d H:i:s', time());
+   $Admin=$_SESSION["Username"];
   if(empty($Username)||empty($Password)||empty($ConfirmPassword)){
     $_SESSION["ErrorMessage"]="All Fields must be filled out";
     Redirect_to("Admins.php");
@@ -29,8 +24,8 @@ if(isset($_POST["Submit"]))
     Redirect_to("Admins.php");
   }
   else{
-    $Query=get_cursor("INSERT INTO registration(datetime,username,password,addedby)
-    VALUES('$DateTime','$Username','$Password','$Admin')", 'cc');
+    $Query=get_cursor("INSERT INTO registration(datetim,username,password,addedby)
+    VALUES('$Date_Time','$Username','$Password','$Admin')", 'cc');
     if($Query){
       $_SESSION['SuccessMessage']="Admin Added Successfully";
       Redirect_to("Admins.php");
@@ -96,11 +91,14 @@ require_once("aside_admin.php");
 <?php
 $ViewQuery=get_cursor("SELECT * FROM registration ORDER BY id desc");
 $SrNo=0;
-while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
-  $Id=$DataRows["id"];
-  $DateTime=$DataRows["datetime"];
-  $Username=$DataRows["username"];
-  $Admin=$DataRows["addedby"];
+while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
+
+  $rowt = rlows($rowt) ;
+
+  $Id=$rowt["id"];
+  $Date_Time=$rowt["datetim"];
+  $Username=$rowt["username"];
+  $Admin=$rowt["addedby"];
   $SrNo++;
 
 
@@ -111,7 +109,7 @@ while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
 ?>
 <tr>
   <td><?php echo $SrNo; ?></td>
-  <td><?php echo $DateTime; ?></td>
+  <td><?php echo $Date_Time; ?></td>
   <td><?php echo $Username; ?></td>
   <td><?php echo $Admin; ?></td>
   <td><a href="DeleteAdmin.php?id=<?php echo $Id;?>">

@@ -105,7 +105,7 @@ class Tbl_crud
   { 
     // Like Oracle forms triggers - P R E / O N  D E L E T E"
     $pp1->urlqry_parts['tbl'] = self::$tbl ;
-
+               //exit(0) ;
     $cursor =  self::$utldb::dd( $pp1, $other ) ;
     return '' ;
   }

@@ -1,5 +1,9 @@
 <?php
-date_default_timezone_set("Europe/Zagreb"); // "Asia/Karachi"
+date_default_timezone_set("Europe/Zagreb"); // Jazeb Akram : Asia/Karachi
+
+if (!defined('DBI')) define('DBI', 'mysql');
+//if (!defined('DBI')) define('DBI', 'oracle');
+
 require_once("Include/Functions.php");
 
 //if ($title == 'Dashboard' or $title == 'Admins' or $title == 'Comments' or $title == 'Add Post'
@@ -10,16 +14,17 @@ require_once("Include/Functions.php");
 //else $css = 'css/adminstyles.css'; 
 
 ?>
-<!DOCTYPE>
+<!DOCTYPE html>
 
-<html>
+<html lang="hr">
 <head>
+    <meta charset="UTF-8" />
     <title><?=$title??'no title !!!!!!!'?></title>
                 <!--link rel="stylesheet" href="css/bootstrap.min_3.3.7.css"-->
 <link rel="stylesheet" href="https://cdn.usebootstrap.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
                 <!--script src="js/jquery-3.2.1.min.js"></script-->
-<!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
                 <!--script src="js/bootstrap.min.js"></script-->
 <script src="https://cdn.usebootstrap.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -53,8 +58,8 @@ nav ul li{
     <span class="icon-bar"></span>
   </button>
   <a class="navbar-brand" href="index.php">
-     <!--img style="margin-top: -12px;" src="images/jazebakramcom.png" 
-          alt="images/jazebakramcom.png"
+     <!--img style="margin-top: -12px;" src="imags/jazebakramcom.png" 
+          alt="imags/jazebakramcom.png"
           width=200;height=30;-->
   </a>
     </div>

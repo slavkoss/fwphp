@@ -10,11 +10,7 @@ if(isset($_POST["Submit"]))
   $Name=escp($_POST["Name"]);
   $Email=escp($_POST["Email"]);
   $Comment=escp($_POST["Comment"]);
-  date_default_timezone_set("Asia/Karachi");
-  $CurrentTime=time();
-  //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-  $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
-  $DateTime;
+  $Date_Time = date('Y-m-d H:i:s', time());
   $PostId=$_GET["id"];
 
 
@@ -25,10 +21,10 @@ if(isset($_POST["Submit"]))
     $_SESSION["ErrorMessage"]="only 500  Characters are Allowed in Comment";
     
   }else{
-    global $ConnectingDB;
+
     $PostIDFromURL=$_GET['id'];
-    $Query=get_cursor("INSERT into comments (datetime,name,email,comment,approvedby,status,admin_panel_id)
-    VALUES ('$DateTime','$Name','$Email','$Comment','Pending','OFF','$PostIDFromURL')", 'cc');
+    $Query=get_cursor("INSERT into comments (datetim,name,email,komentar,approvedby,status,admin_panel_id)
+    VALUES ('$Date_Time','$Name','$Email','$Comment','Pending','OFF','$PostIDFromURL')", 'cc');
     if($Query){
       $_SESSION['SuccessMessage']="Comment Submitted Successfully";
       Redirect_to("FullPost.php?id={$PostId}");
@@ -58,43 +54,50 @@ if(isset($_POST["Submit"]))
     {
       $Search=$_GET["Search"];
       $ViewQuery=get_cursor("SELECT * FROM admin_panel
-        WHERE datetime LIKE '%$Search%' OR title LIKE '%$Search%'
+        WHERE datetim LIKE '%$Search%' OR title LIKE '%$Search%'
         OR category LIKE '%$Search%' OR post LIKE '%$Search%'");
     }else
     {
       $PostIDFromURL=$_GET["id"];
       $ViewQuery=get_cursor("SELECT * FROM admin_panel WHERE id='$PostIDFromURL'
-        ORDER BY datetime desc");
+        ORDER BY datetim desc");
     }
 
-    while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC))
+    while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC))
     {
-      $PostId=$DataRows["id"];
-      $DateTime=$DataRows["datetime"];
-      $Title=$DataRows["title"];
-      $Category=$DataRows["category"];
-      $Admin=$DataRows["author"];
-      $Image=$DataRows["image"];
-      $Post=$DataRows["post"];
+
+      $rowt = rlows($rowt) ;
+
+      $PostId=$rowt["id"];
+      $Date_Time=$rowt["datetim"];
+      $Title=$rowt["title"];
+      $Category=$rowt["category"];
+      $Admin=$rowt["author"];
+        $Im_age=$rowt["imag"]??'NOT EXISTENT IMG' ;
+          if ($Im_age<'0') $Im_age='NOT EXISTENT IMG' ;
+      $Post=$rowt["post"];
     
       ?>
 
 
       <div class="blogpost thumbnail">
 
-              <?php if (file_exists("Upload/$Image")) { ?>
-                <img class="img-responsive img-rounded" alt="Upload/<?php echo $Image;  ?>"
-                     src="Upload/<?php echo $Image;?>" 
+
+              <?php if (file_exists("Upload/$Im_age")) { ?>
+                <img class="img-responsive img-rounded" alt="file exists Upload/<?=$Im_age?>"
+                     src="Upload/<?=$Im_age?>" 
                      width="640"; height="480"
                 > <?php 
-              } else echo 'Upload/'. $Image .' does not exist'; 
+                echo 'Upload/'. $Im_age;
+              } else { echo 'Upload/'. $Im_age .' does not exist'; }
               ?>
 
 
+
         <div class="caption">
-          <h1 id="heading"> <?php echo htmlentities($Title); ?></h1>
-          <p class="description">Category:<?php echo htmlentities($Category); ?> Published on
-          <?=htmlentities($DateTime)?></p>
+          <h1 id="heading"> <?php echo escp($Title); ?></h1>
+          <p class="description">Category:<?php echo escp($Category); ?> Published on
+          <?=escp($Date_Time)?></p>
 
 
         <?php
@@ -120,15 +123,18 @@ if(isset($_POST["Submit"]))
 
 $PostIdForComments=$_GET["id"];
 $ExtractingCommentsQuery=get_cursor("SELECT * FROM comments WHERE admin_panel_id='$PostIdForComments' AND status='ON' ");
-while($DataRows=$ExtractingCommentsQuery->fetch(PDO::FETCH_ASSOC)){
-  $CommentDate=$DataRows["datetime"];
-  $CommenterName=$DataRows["name"];
-  $Comments=$DataRows["comment"];
+while($rowt=$ExtractingCommentsQuery->fetch(PDO::FETCH_ASSOC)){
+
+  $rowt = rlows($rowt) ;
+
+  $CommentDate=$rowt["datetim"];
+  $CommenterName=$rowt["name"];
+  $Comments=$rowt["komentar"];
 
 
 ?>
 <div class="CommentBlock">
-  <img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="images/comment.png" width=70px; height=70px;>
+  <img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="imags/comment.png" width=70px; height=70px;>
   <p style="margin-left: 90px;" class="Comment-info"><?php echo $CommenterName; ?></p>
   <p style="margin-left: 90px;"class="description"><?php echo $CommentDate; ?></p>
   <p style="margin-left: 90px;" class="Comment"><?php echo nl2br($Comments); ?></p>

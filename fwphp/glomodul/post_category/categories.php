@@ -223,12 +223,5 @@ $cursor_category = Tbl_crud_category::rr_all( $pp1, $dmlrr='*', $qrywhere="'1'='
 <?php //require $pp1->shares_path . '/ftr.php'; ?>
 
 <!-- End Main Area 
-                          /*$sql = "INSERT INTO category(title,author,datetime)";
-                          $sql .= "VALUES(:categoryName,:adminname,:dateTime)";
-                          $dm->p repareSQL($sql); 
-                          $dm->b indvalue(':categoryName', $Category, \PDO::PARAM_STR);
-                          $dm->b indvalue(':adminname', $Admin, \PDO::PARAM_STR);
-                          $CurrentTime = time(); $DateTime = strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-                          $dm->b indvalue(':dateTime', $DateTime, \PDO::PARAM_STR);
-                          $cursor = $dm->e xecute();*/
+
 -->

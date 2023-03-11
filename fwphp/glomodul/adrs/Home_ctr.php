@@ -32,6 +32,7 @@ class Home_ctr extends utl //Config_ allsites
   protected function home(object $pp1)
   {
     // Ver. 7 : Dependency Injection $pp1
+    $pp1->title = 'HOME ADRS';
     Home_view::hdr($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
     Home_view::navbar($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);      
       // Big page is included :
@@ -45,6 +46,7 @@ class Home_ctr extends utl //Config_ allsites
   protected function ex1(object $pp1)
   {
     //   Example 1
+    $pp1->title = 'EX1 ADRS';
     Home_view::hdr($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
     Home_view::navbar($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);      
     Home_view::ex1($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
@@ -59,6 +61,7 @@ class Home_ctr extends utl //Config_ allsites
   protected function ex2(object $pp1)
   {
     //   Example 2
+    $pp1->title = 'EX2 ADRS';
     Home_view::hdr($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
     Home_view::navbar($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);      
     Home_view::ex2($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);
@@ -78,7 +81,7 @@ class Home_ctr extends utl //Config_ allsites
     // D I S P L A Y  T A B L E (was AND R O W C R E FRM)
     $pp1->stack_trace[]=str_replace('\\','/', __METHOD__ ).', lin='.__LINE__ ;
 
-    $title = 'ADRS TBL';
+    $pp1->title = 'TBL ADRS';
     $Home_view = new Home_view($pp1) ;
 
       Home_view::hdr($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);  
@@ -108,7 +111,7 @@ class Home_ctr extends utl //Config_ allsites
                     //exit(0);
                   }
  
-    $title = 'ADRS UPD FRM';
+    $pp1->title = 'CRE ADRS';
     Home_view::hdr($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);  
     Home_view::navbar($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);  
         require $pp1->module_path . '/cre_row_frm.php';
@@ -125,7 +128,7 @@ class Home_ctr extends utl //Config_ allsites
                   echo '<pre>'; echo '<b>$pp1</b>='; print_r($pp1);
                   echo '</pre>'; }
 
-    $title = 'ADRS UPD FRM';
+    $pp1->title = 'UPD ADRS';
 
     Home_view::hdr($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);  
     Home_view::navbar($pp1, $other=['caller' => __FILE__ .' '.', ln '. __LINE__ ]);  

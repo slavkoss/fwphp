@@ -1,5 +1,6 @@
 <?php
 $title='Blog' ;
+
 require_once("ahdr.php");
 
 require_once '../../../vendor/erusev/parsedown/Parsedown.php';
@@ -19,15 +20,9 @@ $pgordno_from_url = $_GET['p']??1 ;
 
     //P A G I N A T O R  step 1. Create navigation bar (step 2. is click page in n avbar, read page)
     $pgn_links = get_pgnnav($pgordno_from_url, $rtbl, 'index.php', $rblk);
-    //$pgn_links = get_pgnnav($pgordno_from_url, $rcnt_filtered_posts, 'index.php', $rblk);
-                    if ('') //if ($autoload_arr['dbg']) 
-                    { echo '<h2>'.__METHOD__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
-                      echo '<pre>' ; 
-                        echo '$pgn_links ='; print_r($pgn_links) ;
-                      echo '</pre>';
-                      exit(0) ;
-                    }
     //echo $pgn_links['navbar']; // see below
+    $first_rinblock = $pgn_links['first_rinblock'] ;
+    $last_rinblock  = $pgn_links['last_rinblock'] ;
 
 
 
@@ -37,7 +32,7 @@ $pgordno_from_url = $_GET['p']??1 ;
       $Search=$_GET["Search"];
       
       $ViewQuery=get_cursor("SELECT * FROM admin_panel
-      WHERE datetime LIKE '%$Search%' 
+      WHERE datetim LIKE '%$Search%' 
             OR title LIKE '%$Search%'
             OR category LIKE '%$Search%' 
             OR post LIKE '%$Search%'
@@ -54,17 +49,48 @@ $pgordno_from_url = $_GET['p']??1 ;
     } elseif(isset($_GET["p"]))
     {
     // 3. Query When PAGINATION is Active i.e index.php?p=1
-      $pgordno_from_url = $_GET["p"];
-      if($pgordno_from_url == 0 or $pgordno_from_url < 1){
-        $ShowPostFrom=0;
-      }else{
-        $ShowPostFrom = ($pgordno_from_url*$rblk) - $rblk;}
-        $ViewQuery = get_cursor("SELECT  * FROM admin_panel ORDER BY id desc LIMIT $ShowPostFrom,$rblk") ;
+                  /* $pgordno_from_url = $_GET["p"];
+                  if($pgordno_from_url == 0 or $pgordno_from_url < 1){
+                    $ShowPostFrom = 0 ;
+                  }else{
+                    $ShowPostFrom = ($pgordno_from_url*$rblk) - $rblk;
+                  } */
+                    if ('') //if ($autoload_arr['dbg']) 
+                    { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                      echo '<pre>' ; 
+                        echo '$pgn_links ='; print_r($pgn_links) ;
+                        //echo '$cdml ='; print_r($cdml) ;
+                      echo '</pre>';
+                      //exit(0) ;
+                    }
+      switch (true) { 
+        case DBI==='mysql':
+        $rrfrom = $first_rinblock - 1 ;
+          $cdml="SELECT posts.*, null rnum FROM admin_panel posts ORDER BY id desc LIMIT $rrfrom, $rblk" ;
+          //$cdml = "SELECT posts.*, null rnum FROM admin_panel posts ORDER BY id desc LIMIT $ShowPostFrom, $rblk" ;
+          break;
+        default: // oracle rnum is 1...n
+          $cdml = "SELECT a.*, rnum from (
+              SELECT a.*, ROWNUM rnum FROM (SELECT * FROM admin_panel ORDER BY id desc) a 
+          ) a where a.rnum between $first_rinblock and $last_rinblock";
+          break;
+      }
+                    if ('') //if ($autoload_arr['dbg']) 
+                    { echo '<h2>'.__FILE__ .'() '.', line '. __LINE__ .' SAYS: '.'</h2>' ; 
+                      echo '<pre>' ; 
+                        //echo '$pgn_links ='; print_r($pgn_links) ;
+                        echo '$cdml ='; print_r($cdml) ;
+                      echo '</pre>';
+                      //exit(0) ;
+                    }
+      $ViewQuery = get_cursor($cdml) ;
+
 
 
     } else{
     // 4. DEFAULT Query for this Page
-      $ViewQuery = get_cursor("SELECT * FROM admin_panel ORDER BY id desc LIMIT 0,$rblk") ;
+      $ViewQuery = get_cursor("SELECT * FROM admin_panel ORDER BY id desc") ;
+      //$ViewQuery = get_cursor("SELECT * FROM admin_panel ORDER BY id desc LIMIT 0,$rblk") ;
     }
 
 ?>
@@ -82,32 +108,40 @@ $pgordno_from_url = $_GET['p']??1 ;
       $ii = 0 ;
       while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC))
       {
+        
+        $rowt = rlows($rowt) ;
+
+        ++$ii ;
+        $rnum=$rowt["rnum"]??$ii;
         $PostId=(int)$rowt["id"];
-        $DateTime=$rowt["datetime"];
+        $Date_Time=$rowt["datetim"];
         $Title=$rowt["title"];
         $Category=$rowt["category"];
         $Admin=$rowt["author"];
-        $Image=$rowt["image"]??'NOT EXISTENT IMG' ;
-          if ($Image<'0') $Image='NOT EXISTENT IMG' ;
+        $Im_age=$rowt["imag"]??'NOT EXISTENT IMG' ;
+          if ($Im_age<'0') $Im_age='NOT EXISTENT IMG' ;
         $Post=$rowt["post"];
       
             ?>
         <div class="blogpost thumbnail">
-              <?php if (file_exists("Upload/$Image")) { ?>
-                <img class="img-responsive img-rounded" alt="file exists Upload/<?=$Image?>"
-                     src="Upload/<?=$Image?>" 
+
+              <?php if (file_exists("Upload/$Im_age")) { ?>
+                <img class="img-responsive img-rounded" alt="file exists Upload/<?=$Im_age?>"
+                     src="Upload/<?=$Im_age?>" 
                      width="640"; height="480"
                 > <?php 
-                echo 'Upload/'. $Image;
-              } else { echo 'Upload/'. $Image .' does not exist'; }
+                echo 'Upload/'. $Im_age;
+              } else { echo 'Upload/'. $Im_age .' does not exist'; }
               ?>
+
             <div class="caption">
 
-              <h1 id="heading"> <?php echo htmlentities($Title); ?></h1>
+              <h1 id="heading"> <?php echo escp($Title); ?></h1>
 
-              <p class="description"><?=++$ii?>. Category: <?=htmlentities($Category) .', id: '. $PostId?>
-                 , Published on <?=htmlentities($DateTime)?>
-                 , By <?=htmlentities($Admin)?>
+              <p class="description"><?=$rnum?>. Category: <?=escp($Category) 
+                     .', id: '. $PostId?>
+                 , Published on <?=escp($Date_Time)?>
+                 , By <?=escp($Admin)?>
 
                 <?php
                 $QueryApproved = get_cursor("SELECT COUNT(*) FROM comments WHERE admin_panel_id='$PostId' AND status='ON'") ;

@@ -18,6 +18,8 @@ use B12phpfw\dbadapter\adrs\Tbl_crud ;
 //Self-called anonymous function that creates its own scope and keep the global namespace clean.
 (function () {
 
+  require('dbicls.php') ;
+          //$dbicls = $_GET['db']??'Db_allsites' ;//$dbicls = 'Db_allsites' ; //$dbicls = 'Db_allsites_ORA' ; 
                   if ('') {  //if ($module_ arr['dbg']) {
                     echo '<h3>'.__FILE__ .'() '.', line '. __LINE__ .' said: '.'</h3>' ;
                     echo '<pre style="font-family:\'Lucida Console\'; font-size:small">';
@@ -27,7 +29,6 @@ use B12phpfw\dbadapter\adrs\Tbl_crud ;
 
   //1. settings - properties - assign global variables to use them in any code part
   $module_path = str_replace('\\','/', __DIR__) ; // .'/' ..."adrs" dir
-  $dbicls = 'Db_allsites' ; //$dbicls = 'Db_allsites_ORA' ; 
 
     $pp1 = (object)[ 
         'pp1_group01' => '~~~~~ MODULE ELEMENTS IN PROPERTY PALLETE $pp1 : ~~~~~' 

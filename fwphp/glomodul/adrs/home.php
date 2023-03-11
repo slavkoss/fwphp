@@ -279,7 +279,7 @@ class Home extends utl
     <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>$title</title>
+        <title><?=$pp1->title??'Adrs'?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -320,6 +320,7 @@ class Home extends utl
         <a href="<?=$pp1->module_url.QS?>i/ex1/">example1</a>
         <a href="<?=$pp1->module_url.QS?>i/ex2/p1/param1/p2/param2/">example2</a>
         <a href="<?=$pp1->module_url.QS?>i/rrt/">Addresses</a>
+    <?=$pp1->dbicls?>
     </div>
 
     <!-- NAVBAR END -->

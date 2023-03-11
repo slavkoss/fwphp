@@ -183,8 +183,8 @@ class Tbl_crud //implements Db_allsites_Intf //Db_post //extends Db_ allsites //
     // 1. S U B M I T E D  F L D V A L S - P R E  and  O N  I N S E R T
       $sdata = self::get_sub_mitted_cc() ;
       //$_SESSION["sdata"] = $sdata ;
-      list( $PostTitle, $Category, $Target, $Admin, $imageName, $img_desc, $SummaryText, $datetime
-      ) = $sdata ;
+     list( $PostTitle, $Category, $Target, $Admin, $imageName, $img_desc, $SummaryText, $datetime)
+     = $sdata ;
 
 
     // 2. C C  V A L I D A T I O N

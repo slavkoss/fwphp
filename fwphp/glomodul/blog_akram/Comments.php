@@ -21,7 +21,9 @@ require_once("aside_admin.php");
   <div><?php echo Message();
         echo SuccessMessage();
   ?></div>  
-  <h1>Un-Approved Comments</h1>
+
+  <h3>Un-Approved Comments (archived, not visible)</h3>
+
   <div class="table-responsive">
     <table class="table table-striped table-hover">
   <tr>
@@ -30,19 +32,22 @@ require_once("aside_admin.php");
   <th> Date</th>
   <th>Comment</th>
   <th>Approve</th>
-  <th>Delete Comment</th>
+  <th>Del. Comm.</th>
   <th>Details</th>
   </tr>
 <?php
 $ConnectingDB;
 $Query=get_cursor("SELECT * FROM comments WHERE status='OFF' ORDER BY id desc");
 $SrNo=0;
-while($DataRows=$Query->fetch(PDO::FETCH_ASSOC)){
-  $CommentId=$DataRows['id'];
-  $DateTimeofComment=$DataRows['datetime'];
-  $PersonName=$DataRows['name'];
-  $PersonComment=$DataRows['comment'];
-  $CommentedPostId=$DataRows['admin_panel_id'];
+while($rowt=$Query->fetch(PDO::FETCH_ASSOC)){
+
+  $rowt = rlows($rowt) ;
+  
+  $CommentId=$rowt['id'];
+  $Date_TimeofComment=$rowt['datetim'];
+  $PersonName=$rowt['name'];
+  $PersonComment=$rowt['komentar'];
+  $CommentedPostId=$rowt['admin_panel_id'];
   $SrNo++;
 
 if(strlen($PersonName) >10) { $PersonName = substr($PersonName, 0, 10).'..';}
@@ -51,23 +56,23 @@ if(strlen($PersonName) >10) { $PersonName = substr($PersonName, 0, 10).'..';}
 
 ?>
 <tr>
-  <td><?php echo htmlentities($SrNo); ?></td>
-  <td style="color: #5e5eff;"><?php echo htmlentities($PersonName); ?></td>
-  <td><?php echo htmlentities($DateTimeofComment); ?></td>
-  <td><?php echo htmlentities($PersonComment); ?></td>
+  <td><?php echo escp($SrNo); ?></td>
+  <td style="color: #5e5eff;"><?php echo escp($PersonName); ?></td>
+  <td><?php echo escp($Date_TimeofComment); ?></td>
+  <td><?php echo escp($PersonComment); ?></td>
   <td><a href="ApproveComments.php?id=<?php echo $CommentId; ?>">
   <span class="btn btn-success">Approve</span></a></td>
   <td><a href="DeleteComments.php?id=<?php echo $CommentId;?>">
   <span class="btn btn-danger">Delete</span></a></td>
   <td><a href="FullPost.php?id=<?php echo $CommentedPostId; ?>" target="_blank">
-  <span class="btn btn-primary">Live Preview</span></a></td>
+  <span class="btn btn-primary">View</span></a></td>
 </tr>
 <?php } ?>      
       
       
     </table>
   </div>
-      <h1>Approved Comments</h1>
+      <h3>Approved Comments (visible)</h3>
   <div class="table-responsive">
     <table class="table table-striped table-hover">
   <tr>
@@ -77,38 +82,41 @@ if(strlen($PersonName) >10) { $PersonName = substr($PersonName, 0, 10).'..';}
   <th>Comment</th>
   <th>Approved By</th>
   <th>Revert Approval </th>
-  <th>Delete Comment</th>
+  <th>Del. Comm.</th>
   <th>Details</th>
   </tr>
 <?php
 $ConnectingDB;
 $Query=get_cursor("SELECT * FROM comments WHERE status='ON' ORDER BY id desc");
 $SrNo=0;
-while($DataRows=$Query->fetch(PDO::FETCH_ASSOC)){
-  $CommentId=$DataRows['id'];
-  $DateTimeofComment=$DataRows['datetime'];
-  $PersonName=$DataRows['name'];
-  $PersonComment=$DataRows['comment'];
-  $ApprovedBy=$DataRows['approvedby'];
-  $CommentedPostId=$DataRows['admin_panel_id'];
+while($rowt=$Query->fetch(PDO::FETCH_ASSOC)){
+
+  $rowt = rlows($rowt) ;
+
+  $CommentId=$rowt['id'];
+  $Date_TimeofComment=$rowt['datetim'];
+  $PersonName=$rowt['name'];
+  $PersonComment=$rowt['komentar']??'';
+  $ApprovedBy=$rowt['approvedby'];
+  $CommentedPostId=$rowt['admin_panel_id'];
   $SrNo++;
 if(strlen($PersonName) >10) { $PersonName = substr($PersonName, 0, 10).'..';}
-if(strlen($DateTimeofComment)>18){$DateTimeofComment=substr($DateTimeofComment,0,18);}
+if(strlen($Date_TimeofComment)>18){$Date_TimeofComment=substr($Date_TimeofComment,0,18);}
 
 
 ?>
 <tr>
-  <td><?php echo htmlentities($SrNo); ?></td>
-  <td style="color: #5e5eff;"><?php echo htmlentities($PersonName); ?></td>
-  <td><?php echo htmlentities($DateTimeofComment); ?></td>
-  <td><?php echo htmlentities($PersonComment); ?></td>
-  <td><?php echo htmlentities($ApprovedBy); ?></td>
+  <td><?php echo escp($SrNo); ?></td>
+  <td style="color: #5e5eff;"><?=escp($PersonName)?></td>
+  <td><?php echo escp($Date_TimeofComment); ?></td>
+  <td><?php echo escp($PersonComment); ?></td>
+  <td><?php echo escp($ApprovedBy); ?></td>
   <td><a href="DisApproveComments.php?id=<?php echo $CommentId;?>">
   <span class="btn btn-warning">Dis-Approve</span></a></td>
-  <td><a href="DeleteComments.php?id=<?php echo $CommentId;?>">
+  <td><a href="DeleteComments.php?id=<?=$CommentId?>">
   <span class="btn btn-danger">Delete</span></a></td>
-  <td><a href="FullPost.php?id=<?php echo $CommentedPostId; ?>"target="_blank">
-  <span class="btn btn-primary">Live Preview</span></a></td>
+  <td><a href="FullPost.php?id=<?=$CommentedPostId?>"target="_blank">
+  <span class="btn btn-primary">View</span></a></td>
 </tr>
 <?php } ?>      
       

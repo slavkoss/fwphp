@@ -1,59 +1,145 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 07:07 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `z_phpcms`
+-- user: conn hr/hr@ora7
 --
 
--- --------------------------------------------------------
+--DROP TABLE ADMIN_PANEL CASCADE CONSTRAINTS;
+--DROP TABLE CATEGORY CASCADE CONSTRAINTS;
+--DROP TABLE COMMENTS CASCADE CONSTRAINTS;
+--DROP TABLE REGISTRATION CASCADE CONSTRAINTS;
+
+
+CREATE SEQUENCE POSTS_SEQ INCREMENT BY 1 MAXVALUE 9999999999 MINVALUE 1 CACHE 20;
+CREATE SEQUENCE COMMENTS_SEQ INCREMENT BY 1 MAXVALUE 9999999999 MINVALUE 1 CACHE 20;
+
+
+CREATE TABLE admin_panel (
+    id number(10) NOT NULL
+  , datetim varchar2(50) 
+  , title varchar2(200) 
+  , category varchar2(100) 
+  , author varchar2(100) 
+  , imag varchar2(200) 
+  , post varchar2(4000)
+  , img_desc varchar2(4000)
+  , summary varchar2(4000)
+) ;
+
+
+
+CREATE TABLE category (
+  id number(10) NOT NULL,
+  datetim varchar2(50) ,
+  name varchar2(100) ,
+  creatorname varchar2(200) 
+) ;
+
+
+
+
+CREATE TABLE comments (
+  id             number(10) NOT NULL,
+  datetim        varchar2(50) ,
+  name           varchar2(200) ,
+  email          varchar2(200) ,
+  komentar       varchar2(4000) ,
+  approvedby     varchar2(200) ,
+  status         varchar2(5) ,
+  admin_panel_id number(10) 
+) ;
+
+
+CREATE TABLE registration (
+  id number(10) NOT NULL,
+  datetim varchar2(50) ,
+  username varchar2(200) ,
+  password varchar2(200) ,
+  addedby varchar2(200) 
+) ;
+
 
 --
--- Table structure for table `admin_panel`
+-- PK, FK, ndexes 
 --
--- Error reading structure for table z_phpcms.admin_panel: #1932 - Table &#039;z_phpcms.admin_panel&#039; doesn&#039;t exist in engine
--- Error reading data for table z_phpcms.admin_panel: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `z_phpcms`.`admin_panel`&#039; at line 1
+ALTER TABLE admin_panel ADD PRIMARY KEY (id);
+ALTER TABLE category ADD PRIMARY KEY (id);
+ALTER TABLE comments ADD PRIMARY KEY (id);
+ALTER TABLE registration ADD PRIMARY KEY (id);
 
--- --------------------------------------------------------
+CREATE INDEX coment_post__idx ON
+    comments (
+        admin_panel_id
+    ASC );
 
---
--- Table structure for table `category`
---
--- Error reading structure for table z_phpcms.category: #1932 - Table &#039;z_phpcms.category&#039; doesn&#039;t exist in engine
--- Error reading data for table z_phpcms.category: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `z_phpcms`.`category`&#039; at line 1
-
--- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Constraints 
 --
--- Error reading structure for table z_phpcms.comments: #1932 - Table &#039;z_phpcms.comments&#039; doesn&#039;t exist in engine
--- Error reading data for table z_phpcms.comments: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `z_phpcms`.`comments`&#039; at line 1
+ALTER TABLE comments
+    ADD CONSTRAINT coment_post_fk FOREIGN KEY ( admin_panel_id )
+        REFERENCES admin_panel ( id )
+        ON DELETE CASCADE;
 
--- --------------------------------------------------------
+
 
 --
--- Table structure for table `registration`
+-- AUTO_INCREMENT 
 --
--- Error reading structure for table z_phpcms.registration: #1932 - Table &#039;z_phpcms.registration&#039; doesn&#039;t exist in engine
--- Error reading data for table z_phpcms.registration: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `z_phpcms`.`registration`&#039; at line 1
-COMMIT;
+drop TRIGGER TG_BIU_ADMIN_PANEL ;
+CREATE OR REPLACE TRIGGER TG_BIU_ADMIN_PANEL
+BEFORE INSERT OR UPDATE ON ADMIN_PANEL
+  FOR EACH ROW BEGIN
+    --if :NEW.SIFRA_TEKKAR is null then :NEW.SIFRA_TEKKAR := TEKKAR_SEQ.NEXTVAL; end if;
+    -- PRIOR TO 11G :
+    if :NEW.ID is null then
+       SELECT POSTS_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
+    end if;
+  END;
+/
+sho error
+ALTER TRIGGER TG_BIU_ADMIN_PANEL ENABLE;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+drop TRIGGER TG_BIU_CATEGORY ;
+CREATE OR REPLACE TRIGGER TG_BIU_CATEGORY
+BEFORE INSERT OR UPDATE ON CATEGORY
+  FOR EACH ROW BEGIN
+    --if :NEW.SIFRA_TEKKAR is null then :NEW.SIFRA_TEKKAR := TEKKAR_SEQ.NEXTVAL; end if;
+    -- PRIOR TO 11G :
+    if :NEW.ID is null then
+       SELECT POSTS_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
+    end if;
+  END;
+/
+sho error
+ALTER TRIGGER TG_BIU_CATEGORY ENABLE;
+
+
+drop TRIGGER TG_BIU_COMMENTS ;
+CREATE OR REPLACE TRIGGER TG_BIU_COMMENTS
+BEFORE INSERT OR UPDATE ON COMMENTS
+  FOR EACH ROW BEGIN
+    --if :NEW.SIFRA_TEKKAR is null then :NEW.SIFRA_TEKKAR := TEKKAR_SEQ.NEXTVAL; end if;
+    -- PRIOR TO 11G :
+    if :NEW.ID is null then
+       SELECT COMMENTS_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
+    end if;
+  END;
+/
+sho error
+ALTER TRIGGER TG_BIU_COMMENTS ENABLE;
+
+
+drop TRIGGER TG_BIU_REGISTRATION ;
+CREATE OR REPLACE TRIGGER TG_BIU_REGISTRATION
+BEFORE INSERT OR UPDATE ON REGISTRATION
+  FOR EACH ROW BEGIN
+    --if :NEW.SIFRA_TEKKAR is null then :NEW.SIFRA_TEKKAR := TEKKAR_SEQ.NEXTVAL; end if;
+    -- PRIOR TO 11G :
+    if :NEW.ID is null then
+       SELECT POSTS_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
+    end if;
+  END;
+/
+sho error
+ALTER TRIGGER TG_BIU_REGISTRATION ENABLE;

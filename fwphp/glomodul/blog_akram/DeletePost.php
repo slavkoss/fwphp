@@ -10,19 +10,17 @@ if(isset($_POST["Submit"]))
   //$Title=escp($_POST["Title"]);
   //$Category=escp($_POST["Category"]);
   //$Post=escp($_POST["Post"]);
-  //date_default_timezone_set("Asia/Karachi");
-  $CurrentTime=time();
-  //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-  $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
-  $DateTime;
-  $Admin="Jazeb Akram";
-  $Image=$_FILES["Image"]["name"];
-  $Target="Upload/".basename($_FILES["Image"]["name"]);
+  //date_default_timezone_set();
+  //$Date_Time = date('Y-m-d H:i:s', time());
+  //$Admin="Jazeb Akram";
+  //$Im_age=$_FILES["imag"]["name"];
+  //$Target="Upload/".basename($_FILES["imag"]["name"]);
 
     $DeleteFromURL=$_GET['Delete'];
+    
     $Query=get_cursor("DELETE FROM admin_panel WHERE id='$DeleteFromURL'", 'dd');
 
-    move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
+    move_uploaded_file($_FILES["imag"]["tmp_name"],$Target);
 
     if($Query){
     $_SESSION['SuccessMessage']="Post Deleted Successfully";
@@ -59,17 +57,21 @@ require_once("aside_admin.php");
   <?php
   $SerachQueryParameter=$_GET['Delete'];
   $Query=get_cursor("SELECT * FROM admin_panel WHERE id='$SerachQueryParameter'");
-  while($DataRows=$Query->fetch(PDO::FETCH_ASSOC)){
-    $TitleToBeUpdated=$DataRows['title'];
-    $CategoryToBeUpdated=$DataRows['category'];
-    $ImageToBeUpdated=$DataRows['image'];
-    $PostToBeUpdated=$DataRows['post'];
+  while($rowt=$Query->fetch(PDO::FETCH_ASSOC)){
+    
+    $rowt = rlows($rowt) ;
+    
+    $TitleToBeUpdated=$rowt['title'];
+    $CategoryToBeUpdated=$rowt['category'];
+    $Im_ageToBeUpdated=$rowt['imag'];
+    $PostToBeUpdated=$rowt['post'];
     
   }
   
   
   ?>
-<form action="DeletePost.php?Delete=<?php echo $SerachQueryParameter; ?>" method="post" enctype="multipart/form-data">
+<form action="DeletePost.php?Delete=<?=$SerachQueryParameter?>" method="post" 
+      enctype="multipart/form-data">
   <fieldset>
   <div class="form-group">
   <label for="title"><span class="FieldInfo">Title:</span></label>
@@ -82,10 +84,10 @@ require_once("aside_admin.php");
   <label for="categoryselect"><span class="FieldInfo">Category:</span></label>
   <select disabled class="form-control" id="categoryselect" name="Category" >
   <?php
-$ViewQuery=get_cursor("SELECT * FROM category ORDER BY datetime desc");
-while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
-  $Id=$DataRows["id"];
-  $CategoryName=$DataRows["name"];
+$ViewQuery=get_cursor("SELECT * FROM category ORDER BY datetim desc");
+while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
+  $Id=$rowt["id"];
+  $CategoryName=$rowt["name"];
 ?>  
   <option><?php echo $CategoryName; ?></option>
   <?php } ?>
@@ -93,11 +95,11 @@ while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
   </select>
   </div>
   <div class="form-group">
-    <span class="FieldInfo"> Existing Image: </span>
-  <img src="Upload/<?php echo $ImageToBeUpdated;?>" width=170px; height=70px;>
+    <span class="FieldInfo"> Existing imag: </span>
+  <img src="Upload/<?php echo $Im_ageToBeUpdated;?>" width=170px; height=70px;>
   <br>
-  <label for="imageselect"><span class="FieldInfo">Select Image:</span></label>
-  <input disabled type="File" class="form-control" name="Image" id="imageselect">
+  <label for="imagselect"><span class="FieldInfo">Select imag:</span></label>
+  <input disabled type="File" class="form-control" name="imag" id="imagselect">
   </div>
   <div class="form-group">
   <label for="postarea"><span class="FieldInfo">Post:</span></label>

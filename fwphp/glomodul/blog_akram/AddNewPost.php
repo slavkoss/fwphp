@@ -13,15 +13,14 @@ if(isset($_POST["Submit"]))
    $Title=escp($_POST["Title"]);
    $Category=escp($_POST["Category"]);
    $Post=escp($_POST["Post"]);
-
-  //date_default_timezone_set("Asia/Karachi");
-  $CurrentTime=time();
-  //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
-  $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
-  //$DateTime;
+   $Date_Time = date('Y-m-d H:i:s', time());
+                    //date_default_timezone_set();
+                    //$CurrentTime=time();
+                    //"%Y-%m-%d %H:%M:%S"
+                    //$Date_Time=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
   $Admin=$_SESSION["Username"];
-  $Image=$_FILES["Image"]["name"];
-  $Target="Upload/".basename($_FILES["Image"]["name"]);
+  $Im_age=$_FILES["imag"]["name"];
+  $Target="Upload/".basename($_FILES["imag"]["name"]);
 
 
 
@@ -35,10 +34,10 @@ if(isset($_POST["Submit"]))
 
 
   }else{
-    $Query=get_cursor("INSERT INTO admin_panel(datetime,title,category,author,image,post)
-    VALUES('$DateTime','$Title','$Category','$Admin','$Image','$Post')", 'cc');
+    $Query=get_cursor("INSERT INTO admin_panel(datetim,title,category,author,imag,post)
+    VALUES('$Date_Time','$Title','$Category','$Admin','$Im_age','$Post')", 'cc');
 
-    move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
+    move_uploaded_file($_FILES["imag"]["tmp_name"],$Target);
 
     if($Query){
     $_SESSION['SuccessMessage']="Post Added Successfully";
@@ -84,9 +83,12 @@ require_once("aside_admin.php");
   <?php
 global $ConnectingDB;
 $ViewQuery=get_cursor("SELECT * FROM category ORDER BY id desc");
-while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
-  $Id=$DataRows["id"];
-  $CategoryName=$DataRows["name"];
+while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
+  
+  $rowt = rlows($rowt) ;
+  
+  $Id=$rowt["id"];
+  $CategoryName=$rowt["name"];
 ?>  
   <option><?php echo $CategoryName; ?></option>
   <?php } ?>
@@ -94,8 +96,8 @@ while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
   </select>
   </div>
   <div class="form-group">
-  <label for="imageselect"><span class="FieldInfo">Select Image:</span></label>
-  <input type="File" class="form-control" name="Image" id="imageselect">
+  <label for="imagselect"><span class="FieldInfo">Select imag:</span></label>
+  <input type="File" class="form-control" name="imag" id="imagselect">
   </div>
   <div class="form-group">
   <label for="postarea"><span class="FieldInfo">Post:</span></label>

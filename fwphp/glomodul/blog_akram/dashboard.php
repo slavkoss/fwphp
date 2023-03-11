@@ -44,37 +44,46 @@ require_once("aside_admin.php");
     </tr>
 <?php
 $ConnectingDB;
-$ViewQuery=get_cursor("SELECT * FROM admin_panel ORDER BY id desc;");
+//SELECT id, title, post FROM admin_panel ORDER BY id ; //where id=1
+$ViewQuery=get_cursor("SELECT * FROM admin_panel ORDER BY id desc");
 $SrNo=0;
-while($DataRows=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
-  $Id=$DataRows["id"];
-  $DateTime=$DataRows["datetime"];
-  $Title=$DataRows["title"];
-  $Category=$DataRows["category"];
-  $Admin=$DataRows["author"];
-  $Image=$DataRows["image"];
-  $Post=$DataRows["post"];
+while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC)){
+
+  $rowt = rlows($rowt) ;
+
+  $Id=$rowt["id"];
+  $Date_Time=$rowt["datetim"];
+  $Title=$rowt["title"];
+  $Category=$rowt["category"];
+  $Admin=$rowt["author"];
+  $Im_age=$rowt["imag"];
+  $Post=$rowt["post"];
   $SrNo++;
   ?>
   <tr>
     
   <td><?php echo $SrNo; ?></td>
+
   <td style="color: #5e5eff;"><?php
-  if(strlen($Title)>19){$Title=substr($Title,0,19).'..';}
+  if(strlen($Title)>20){$Title=substr($Title,0,20).'...';}
   echo $Title;
   ?></td>
+
   <td><?php
-  if(strlen($DateTime)>12){$DateTime=substr($DateTime,0,12);}
-  echo $DateTime;
+  //if(strlen($Date_Time)>12){$Date_Time=substr($Date_Time,0,12);}
+  echo $Date_Time;
   ?></td>
+
   <td><?php
   if(strlen($Admin)>9){$Admin=substr($Admin,0,9);}
   echo $Admin; ?></td>
+
   <td><?php
   if(strlen($Category)>10){$Category=substr($Category,0,10);}
   echo $Category;
   ?></td>
-  <td><img src="Upload/<?php echo $Image; ?>" width="90px"; height="50px"></td>
+
+  <td><img src="Upload/<?php echo $Im_age; ?>" width="70px"; height="50px"></td>
   <td>
 <?php
 $ConnectingDB;
@@ -95,34 +104,48 @@ $QueryUnApproved=get_cursor("SELECT COUNT(*) FROM comments WHERE admin_panel_id=
 $RowsUnApproved=$QueryUnApproved->fetch(PDO::FETCH_ASSOC);
 $TotalUnApproved=array_shift($RowsUnApproved);
 if($TotalUnApproved>0){
+  ?>
+  <span class="label  label-danger" title="TotalUnApproved">
+  <?php echo $TotalUnApproved;?>
+  </span>
+      
+  <?php 
+} 
+  //jsmsg(['keymsg1'=>"row id=$Id", 'keymsg2'=>'valmsg2']) ;
 ?>
-<span class="label  label-danger" title="TotalUnApproved">
-<?php echo $TotalUnApproved;?>
-</span>
-    
-<?php } ?>
     
     
   </td>
   <td>
-    <a href="EditPost.php?Edit=<?php echo $Id; ?>">
+    <a href="EditPost.php?Edit=<?=$Id?>">
     <span class="btn btn-warning">Edit</span>
     </a>
   </td>
   <td>
-    <a href="DeletePost.php?Delete=<?php echo $Id; ?>">
-    <span class="btn btn-danger">Delete</span>
-    </a>
+    
+    <a id="erase_row" class="btn btn-danger"
+       onclick="var yes ; yes = jsmsgyn('Erase row <?=$Id?>?','') ; if (yes == '1') { location.href= 'DelPost.php?Delete=<?=$Id?>' }"
+       title="Delete tbl row ID=<?=$Id?>"
+    ><b style="color: white">Del <?=$Id?></b></a>
+    
+    <!--a href="DeletePost.php?Delete=<?=$Id?>">
+    <span class="btn btn-danger">Del <?=$Id?></span>
+    </a-->
+
   </td>
+
+
     <td>
     <a href="FullPost.php?id=<?php echo $Id; ?>" target="_blank">
-    <span class="btn btn-primary"> Live Preview</span>
+    <span class="btn btn-primary">Show</span>
   </a>
   </td>
   </tr>
   
   
-<?php } ?>
+   <?php 
+   // $pp1->module_url.QS.'i/dd/id/'.$id
+} ?>
 
 
 
@@ -143,6 +166,6 @@ if($TotalUnApproved>0){
 
 <div style="height: 10px; background: #27AAE1;"></div> 
 
-
+<?php
 require_once("aftr.php");
 

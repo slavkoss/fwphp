@@ -21,34 +21,29 @@ use B12phpfw\module\adrs\Home_ctr ;
 //Self-called anonymous function that creates its own scope and keep the global namespace clean.
 (function () {
   //1. settings - properties - assign global variables to use them in any code part
-  $module_path = str_replace('\\','/', __DIR__) ; // .'/' 
-  $site_path = dirname(dirname($module_path)) ; //to app dir eg "glomodul" dir and app
-  $wsroot_path = str_replace('\\','/', realpath('../../../'))  ;
-  $shares_path = $wsroot_path.'/vendor/b12phpfw' ; //includes, globals, commons, reusables
-
-  //$Dbconn = [ null, 'mysql', 'localhost', 'z_adrs', 'root', ''] ;
+  $module_path = str_replace('\\','/', __DIR__) ; // .'/' ..."adrs" dir
+  //$dbicls = 'Db_allsites' ; 
+  $dbicls = 'Db_allsites_ORA' ; 
 
   $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
   [  
-      'module_version'=>'Adrs (Mini3) Oracle ver. 10.0.2.0 Jan.2023' //, 'vendor_namesp_prefix'=>'B12phpfw'
-    , 'dbg'=>'1'
-    //, 'dbicls' => 'Db_allsites' //Db_allsites_ORA or Db_allsites for MySql or ...
-    , 'dbicls' => 'Db_allsites_ORA' //Db_allsites_ORA or Db_allsites for MySql or ...
-    , 'stack_trace'=>[[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]]
-
-    , 'dir_apl'     => 'glomodul'  // application (group of modules) folder name
-    , 'wsroot_path' =>$wsroot_path
-    , 'shares_path' =>$shares_path
-    , 'wsroot_path' => $wsroot_path  // to awww/www (or any name)
-    , 'shares_path' => $shares_path  // to b12phpfw, b12phpfw is required dir name
-    , 'site_path'   => $site_path    // to fwphp (or any name)
-    , 'module_path' => $module_path  // to fwphp/glomodul/blog (or any names)
+        'pp1_group01' => '~~~~~ MODULE ELEMENTS IN PROPERTY PALLETE $pp1 : ~~~~~' 
+      , 'module_version'=>'ver. 11.0.0.0 Adrs (Mini3) on B12phpfw and DB '
+          . ($dbicls === 'Db_allsites' ? 'MariaDB' : 'Oracle')
+          .', Feb.2023'  
+      , 'dbg'=>'1'
+      , 'dbicls' => $dbicls // for MySql DB or ...
+      , 'stack_trace'=>[str_replace('\\','/', __FILE__ ).', lin='.__LINE__]
+       //
+      , 'pp1_group02P' => '~~~~~ ADRESSES : PATHS ~~~~~' 
+      , 'module_path' => $module_path 
   ] ;
 
-  //2. global cls loads (includes, bootstrap) classes scripts automatically
-  require($pp1->shares_path .'/Autoload.php'); //or Composer's autoload cls-es
+  //2. global cls loads (includes) classes scripts automatically
+  //not  Composer's autoload cls-es :
+  require(dirname(dirname(dirname($module_path)))  .'/vendor/b12phpfw/bootstrap.php'); 
+  require($pp1->shares_path .'/Autoload.php');
   $autoloader = new Autoload($pp1); //eliminates need to include class scripts
-
 
   //3. SAME MODULE DB ADAPTER FOR ANY (NOT HARD CODED) SHARED DBADAPTER
   //$pp1->dbicls = Db_allsites_ORA or Db_allsites for MySql :
@@ -57,10 +52,10 @@ use B12phpfw\module\adrs\Home_ctr ;
   //module DB adapter IS SAME for Db_allsites_ORA and Db_allsites for MySql !!
   $module_dbadapter_obj = new Tbl_crud($pp1) ; 
 
+  //4. process request from ibrowser (routing) & send response to ibrowser (dispatching)
+  //Home_ ctr "inherits" index.php ee "inherits" Dependency Injected array $p p 1
+  $module_ctr_obj = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites (utils)
 
-  //4. process request from ibrowser & send response to ibrowser
-  //Home_ ctr "inherits" index.php ee DI $p p 1
-  $module_obj = new Home_ctr($pp1) ; //also instatiates higher cls : Config_ allsites
           if ('') {$module::jsmsg( [ str_replace('\\','/',__FILE__ ) //. __METHOD__ 
              .', line '. __LINE__ .' said'=>'where am I'
              ,'After Codeflow Step cs05 '=>'AFTER A u t o l o a d and new Home_ctr($pp1), cs01=bootstraping, cs02=INIT; config; routing, cs03=dispaching, cs04. PROCESSING (model or business logic - preCRUD onCRUD), cs05. OUTPUT (view)'

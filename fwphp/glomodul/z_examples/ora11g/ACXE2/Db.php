@@ -128,7 +128,7 @@ class Db {
 
 
 /*  
-Ora DB doesnt have a LIMIT clause to return a subset of rows so nesting the 
+Ora DB doesnt have a L IMIT clause to return a subset of rows so nesting the 
 callers query is needed. PHPs array_push() function appends the extra bind 
 variables used for the start and end row numbers in the outer query to any bind 
 variables for the callers query.
@@ -160,7 +160,7 @@ user input into this function.
      * Call like Db::refcur execfetchall("begin myproc(:rc, :p); end",
      *                            "Fetch data", ":rc", array(array(":p", $p, -1)))
      * The assumption that there is only one refcursor is an artificial
-     * limitation of refcur execfetchall()
+     * l imitation of refcur execfetchall()
      *
      * @param string $sql A SQL string calling a PL/SQL stored procedure
      * @param string $action Action text for End-to-End Application Tracing

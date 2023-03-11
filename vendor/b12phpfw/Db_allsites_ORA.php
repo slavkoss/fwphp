@@ -117,11 +117,11 @@ class Db_allsites_ORA implements Db_allsites_Intf
   static public function dd(object $pp1, array $other)             // DELETE TBL ROW
   {
                     if ('') { echo '<h3>'. __METHOD__ .', line '. __LINE__ .' said:</h3>' ;
-                    //echo '<pre>$pp1->uriq='; print_r($pp1->uriq) ; echo '</pre>';
+                    echo '<pre>$pp1='; print_r($pp1) ; echo '</pre>';
                     exit(0) ;
                     }
-    $tbl = $pp1->uriq->t ;
-    $id  = $pp1->uriq->id ;
+    $tbl = $pp1->urlqry_parts['tbl'] ;
+    $id  = $pp1->urlqry_parts[3] ;
     if(NULL !== $id)
     {
       self::$dbobj=self::get_or_new_dball( __METHOD__ .', line '. __LINE__ ); //d d(...

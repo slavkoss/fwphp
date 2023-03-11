@@ -227,9 +227,9 @@
       <div class="row row-example">
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-            <a target="_blank" title="Songs Mini3 MySQL PDO" href="/fwphp/glomodul/adrs/" class="text-white font-weight-bold">7a. Adrs MySQL</a>
+            <a target="_blank" title="Songs Mini3 PDO. See dbicls.php for MySQL or Oracle" href="/fwphp/glomodul/adrs/" class="text-white font-weight-bold">7a. Adrs</a>
             <br>
-            <a target="_blank" title="Songs Mini3 Oracle PDO" href="/fwphp/glomodul/adrs/index_oracle.php" class="text-white font-weight-bold">7b. Adrs Oracle</a>
+            <!--a target="_blank" title="Songs Mini3 Oracle PDO" href="/fwphp/glomodul/adrs/index_oracle.php" class="text-white font-weight-bold">7b. Adrs Oracle</a-->
         </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
