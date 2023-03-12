@@ -23,7 +23,8 @@ use B12phpfw\dbadapter\post\Tbl_crud as Tbl_crud ;
 
 //1. settings - properties - assign global variables to use them in any code part
 $module_path = str_replace('\\','/', __DIR__) ; // .'/'
-$dbicls = 'Db_allsites' ; //$dbicls = 'Db_allsites_ORA' ; 
+$dbicls = 'Db_allsites' ; 
+//$dbicls = 'Db_allsites_ORA' ; 
 
 $pp1 = (object) //=like Oracle Forms property palette (module level) but all sites level
 [ 

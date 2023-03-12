@@ -83,7 +83,8 @@ class Home_ctr extends Config_allsites
 
   public function msg_akram(object $pp1)
   {
-    $this->Redirect_to( $pp1->glomodul_url .'/blog_akram/' ) ;
+    // http://dev1:8083/fwphp/glomodul/blog_akram/index.php?p=1
+    $this->Redirect_to( $pp1->glomodul_url .'/blog_akram/?p=1' ) ;
   }
 
 

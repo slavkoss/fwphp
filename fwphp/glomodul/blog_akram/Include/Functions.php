@@ -1,4 +1,9 @@
 <?php
+date_default_timezone_set("Europe/Zagreb"); // Jazeb Akram : Asia/Karachi
+
+if (!defined('DBI')) define('DBI', 'mysql');
+//if (!defined('DBI')) define('DBI', 'oracle');
+
 require_once("Include/DB.php");
 require_once("Include/Sessions.php"); 
 

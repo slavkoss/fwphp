@@ -1,11 +1,5 @@
 <?php
-date_default_timezone_set("Europe/Zagreb"); // Jazeb Akram : Asia/Karachi
-
-if (!defined('DBI')) define('DBI', 'mysql');
-//if (!defined('DBI')) define('DBI', 'oracle');
-
 require_once("Include/Functions.php");
-
 //if ($title == 'Dashboard' or $title == 'Admins' or $title == 'Comments' or $title == 'Add Post'
 //      or $title == 'Add Categorie' or $title == 'Delete Post'
 

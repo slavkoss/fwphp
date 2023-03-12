@@ -112,10 +112,10 @@
 
   <body id="page-top">
 
-
-        <!-- pgpart01  Top Navigation: About, Services, Portfolio, Contact
-        dropdown mt-3
-        -->
+          <!-- *********************************************
+          pgpart01  Top Navigation: About, Services, Portfolio, Contact
+                 dropdown mt-3
+          ********************************************* -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#page-top">Top</a>
@@ -159,20 +159,25 @@
 
         <!-- Masthead - Links -->
 <header class="masthead">
-<section class="page-section bg-primary" id="links" style='background-image: url("<?=$pp1->shares_url?>/img/header_night.jpg"); background-repeat: no-repeat; background-size: cover;'>
+<section class="page-section bg-primary" id="links" 
+  style='background-image: url("<?=$pp1->shares_url?>/img/header_night.jpg"); background-repeat: no-repeat; background-size: cover;'>
+
+
   <div class="container px-4 px-lg-5 h-100">
     <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-                    <div class="col-lg-8 align-self-end">
 
-                        <h1 class="text-white font-weight-bold">Links to modules</h1>
 
-                        <hr class="divider" />
-                    </div>
 
 
           <!-- *********************************************
           pgpart02  Masthead - Links  1. U t i l s
           ********************************************* -->
+                    <div class="col-lg-8 align-self-end">
+
+                        <h2 class="text-white font-weight-bold">Links to modules</h2>
+
+                        <hr class="divider" />
+                    </div>
       <!-- // no more routing table :
          LINK ALIAS               LINK RELATIVE TO SITE ROOT
          href="?i/msg/"           "/fwphp/glomodul/blog/"
@@ -188,15 +193,16 @@
 
         <!-- -->
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"><!--div class="col-lg-8 align-self-baseline"  target="_blank"      -->
-           <a title="Blog (Msg-s) MySQL PDO : Users (=master, same as msgtype), messages (=detail) , replies (=subdetail) or todo/done or...any master-detail. CRUD PDO of MySQL DB tbl rows."
-                 href="?i/msg_akram/" class="text-white font-weight-bold">1a. Msg MySQL</a>
+           <a title="Blog (Msg-s) CRUD PDO of DB tbl rows. For MySQL or Oracle or... uncomment eg oracle in Include\Functions.php. Tables : 
+           USERS (=master, same as MSGTYPE), MESSAGES (=detail), REPLIES (=subdetail)."
+                 href="?i/msg_akram/" class="text-white font-weight-bold">1a. Msg 1st step</a>
 
-           <br><a title="Blog (Msg-s) MySQL PDO : Users (=master, same as msgtype), messages (=detail) , replies (=subdetail) or todo/done or...any master-detail. CRUD PDO of MySQL DB tbl rows."
+           <br><a title="Blog (Msg-s) PDO, B12phpfw menu and CRUD code skeleton for hunderts tables is like any framework much more complicated than 1a. For MySQL or Oracle or... see $dbicls in fwphp\glomodul\blog\index.php. Tables same as 1a. "
                  href="?i/msg/" class="text-white font-weight-bold">1b. Msg B12phpfw</a> 
         </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> 
-              <a target="_blank" title="Redirect_to( '/fwphp/glomodul/mkd/' ). Mkd module. Rich text edit on web. SimpleMDE & Parsedown. CRUD of .txt or .md or .mkd oper.sys texsts. Summernote add is easy."
+              <a target="_blank" title="Redirect_to( '/fwphp/glomodul/mkd/' ). Mkd To add Summernote is easy."
                  href="?i/mkd/" class="text-white font-weight-bold">2. Mkd (ed txt files)</a> </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> 
@@ -208,7 +214,7 @@
               href="?i/examples/" class="text-white font-weight-bold">4. Examples</a> </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"> 
-              <a target="_blank" title="Read files & folders from web server docroot disk, call php scripts."
+              <a target="_blank" title="phpinfo, pdoinfo..."
                  href="dev_suite.php" class="text-white font-weight-bold">5. INFO</a> </div> 
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
@@ -227,7 +233,7 @@
       <div class="row row-example">
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-            <a target="_blank" title="Songs Mini3 PDO. See dbicls.php for MySQL or Oracle" href="/fwphp/glomodul/adrs/" class="text-white font-weight-bold">7a. Adrs</a>
+            <a target="_blank" title="Songs Mini3 PDO one (master) table (#id, few_columns). See adrs\dbicls.php for MySQL or Oracle or..." href="/fwphp/glomodul/adrs/" class="text-white font-weight-bold">7a. Adrs</a>
             <br>
             <!--a target="_blank" title="Songs Mini3 Oracle PDO" href="/fwphp/glomodul/adrs/index_oracle.php" class="text-white font-weight-bold">7b. Adrs Oracle</a-->
         </div>
@@ -245,6 +251,11 @@
               href="/fwphp/glomodul/z_examples/ora11g/wishlist/public/" class="text-white font-weight-bold">10. Wish Oracle PDO</a>
               </div>
 
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+              <a target="_blank" title="Like Clipper's DBedit"
+              href="/fwphp/glomodul/oraedoop/" class="text-white font-weight-bold">11. Oraed Oracle PDO</a>
+              </div>
+
       </div><!--e n d  Masthead - Links  2. C R U D  -->
 
 
@@ -260,25 +271,18 @@
           <a target="_blank" title="Free Bootstrap templates (PHP)" 
              href="https://startbootstrap.com/?showAngular=false&showVue=false&showPro=false"
              class="text-white font-weight-bold">
-              11. Free Bootstrap 5
-          </a>
-          <br>I use also 
-          <a target="_blank" title="Free Pico css" 
-             href="https://picocss.com/#examples" class="text-white font-weight-bold">
-          Pico css v1.4.4 
+              12. Free Bootstrap 5
           </a>
         </div>
 
-
-
-        <!--div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-          <a target="_blank" title="Pico css help" 
-             href="/fwphp/glomodul/z_examples/cssfw/picocss/" class="text-white font-weight-bold">11. Pico css v1.4.4</a>
-        </div-->
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <a target="_blank" title="Free Pico css help on Web" 
+             href="https://picocss.com/#examples" class="text-white font-weight-bold">13. Pico css v1.4.4</a>
+        </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
           <a target="_blank" title="Skeleton help" 
-             href="/fwphp/glomodul/z_examples/cssfw/skeleton/" class="text-white font-weight-bold">12. Skeleton V2.0.4 (2014)</a></div>
+             href="/fwphp/glomodul/z_examples/cssfw/skeleton/" class="text-white font-weight-bold">14. Skeleton V2.0.4 (2014)</a></div>
 
         <!--div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
           <a target="_blank" title="Bootstrap templates (PHP)" 
@@ -297,7 +301,8 @@
                     <div class="col-lg-8 align-self-baseline">
                       <p class="text-white-75 mb-5">
                         Modules are folders with functionality like Oracle fmb-s.
-                        This page is Mnu module home
+                        This page is Mnu module home http://localhost/fwphp/glomodul/www/ if fwphp is under J:\xampp\htdocs 
+                        (my Apache virtual host at home is http://dev1:8083/fwphp/glomodul/www/, fwphp is under J:\awww\www)
                       </p>
                         <a class="btn btn-primary btn-xl" href="#explore1">Find Out More</a>
                     </div>
@@ -324,7 +329,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
      
           <div id="about">
-            <h1><strong>LCS</strong> - Build social profiles</h1>
+            <h2><strong>LCS</strong> - Build social profiles</h2>
                             <hr class="divider divider-light" />
 
             <img src="<?=$pp1->shares_url?>/img/ic_done_white_32dp.png" 

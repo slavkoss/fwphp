@@ -17,15 +17,18 @@ $rblk = 5;
 $pgordno_from_url = $_GET['p']??1 ;
 
 
-
-    //P A G I N A T O R  step 1. Create navigation bar (step 2. is click page in n avbar, read page)
+    // ***************************************************
+    // I. P A G I N A T O R  step 1. Create navigation bar (step 2. if click page in n avbar, read page)
+    // ***************************************************
     $pgn_links = get_pgnnav($pgordno_from_url, $rtbl, 'index.php', $rblk);
     //echo $pgn_links['navbar']; // see below
     $first_rinblock = $pgn_links['first_rinblock'] ;
     $last_rinblock  = $pgn_links['last_rinblock'] ;
 
 
-
+    // ***************************************************
+    // II. P O S T S  FILTERS - SEARCH, CATEGORY, PAGINATION, ALL
+    // ***************************************************
     if(isset($_GET["SearchButton"]))
     {
       // 1. Query when SEARCH Button is Active
@@ -48,7 +51,7 @@ $pgordno_from_url = $_GET['p']??1 ;
 
     } elseif(isset($_GET["p"]))
     {
-    // 3. Query When PAGINATION is Active i.e index.php?p=1
+      // 3. Query When PAGINATION is Active i.e index.php?p=1
                   /* $pgordno_from_url = $_GET["p"];
                   if($pgordno_from_url == 0 or $pgordno_from_url < 1){
                     $ShowPostFrom = 0 ;
@@ -87,7 +90,7 @@ $pgordno_from_url = $_GET['p']??1 ;
 
 
 
-    } else{
+    } else {
     // 4. DEFAULT Query for this Page
       $ViewQuery = get_cursor("SELECT * FROM admin_panel ORDER BY id desc") ;
       //$ViewQuery = get_cursor("SELECT * FROM admin_panel ORDER BY id desc LIMIT 0,$rblk") ;
@@ -101,18 +104,23 @@ $pgordno_from_url = $_GET['p']??1 ;
 
   </div><!-- e n d  div class="blog-header" -->
 
+
+
+    <!--// ***************************************************
+    // III. P O S T S  T A B L E
+    // *************************************************** -->
   <div class="row"> <!--Row-->
     <div class="col-sm-8"> <!--Main Blog Area-->
 
       <?php
-      $ii = 0 ;
+      $ii = $first_rinblock - 1 ;
       while($rowt=$ViewQuery->fetch(PDO::FETCH_ASSOC))
       {
         
         $rowt = rlows($rowt) ;
 
         ++$ii ;
-        $rnum=$rowt["rnum"]??$ii;
+        $rnum=$ii; // $rnum=$rowt["rnum"]??$ii;
         $PostId=(int)$rowt["id"];
         $Date_Time=$rowt["datetim"];
         $Title=$rowt["title"];
